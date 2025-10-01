@@ -29,3 +29,15 @@ The function follows the standard C library comparator convention, returning a n
 
 ## Notes and Other Information
 This is a minimal comparator that only considers the `first` field of `ScalarMCVItem` structures. The function is designed for use with `qsort()` or `qsort_r()` and provides deterministic sorting based on position values. The `arg` parameter is included to match the standard comparator interface but is not used in this implementation.
+
+## Simplified Source
+```c
+static int compare_mcvs(const void *a, const void *b, void *arg) {
+    // Extract position values from ScalarMCVItem structures
+    int pos_a = ((const ScalarMCVItem *) a)->first;
+    int pos_b = ((const ScalarMCVItem *) b)->first;
+
+    // Return comparison result for sorting by position
+    return pos_a - pos_b;
+}
+```

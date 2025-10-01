@@ -34,3 +34,14 @@ This function performs a comparison between a date and timestamp value by delega
 - Returns an integer comparison result (negative, zero, or positive)
 - The useTz parameter is present for interface consistency but not utilized in the comparison logic
 - Uses PostgreSQL's internal date comparison infrastructure for reliability and consistency
+
+## Simplified Source
+
+```c
+static int
+cmpDateToTimestamp(DateADT date1, Timestamp ts2, bool useTz)
+{
+    // Direct comparison of date to timestamp without timezone considerations
+    return date_cmp_timestamp_internal(date1, ts2);
+}
+```

@@ -42,3 +42,55 @@ This function calculates the number of partitions needed when hash aggregation m
 - Partition count is constrained by remaining hash bits (total 32 bits minus used_bits)
 - Returns a power-of-two value to enable efficient bit-based hash partitioning
 - The algorithm prioritizes fitting partitions in memory over minimizing partition count
+
+## Simplified Source
+
+```c
+static int hash_choose_num_partitions(double input_groups, double hashentrysize,
+                                      int used_bits, int *log2_npartitions)
+{
+    Size hash_mem_limit = get_hash_memory_limit();
+    double partition_limit;
+    double mem_wanted;
+    double dpartitions;
+    int npartitions;
+    int partition_bits;
+
+    // Limit partitions to avoid excessive file buffer memory overhead
+    // Keep partition file buffers under 25% of hash memory
+    partition_limit = (hash_mem_limit * 0.25 - HASHAGG_READ_BUFFER_SIZE) /
+                      HASHAGG_WRITE_BUFFER_SIZE;
+
+    // Calculate memory needed for all input groups with safety factor
+    mem_wanted = HASHAGG_PARTITION_FACTOR * input_groups * hashentrysize;
+
+    // Choose enough partitions so each one fits in memory
+    dpartitions = 1 + (mem_wanted / hash_mem_limit);
+
+    // Apply various limits
+    if (dpartitions > partition_limit)
+        dpartitions = partition_limit;
+    if (dpartitions < HASHAGG_MIN_PARTITIONS)
+        dpartitions = HASHAGG_MIN_PARTITIONS;
+    if (dpartitions > HASHAGG_MAX_PARTITIONS)
+        dpartitions = HASHAGG_MAX_PARTITIONS;
+
+    npartitions = (int) dpartitions;
+
+    // Calculate how many bits needed (ceiling of log2)
+    partition_bits = my_log2(npartitions);
+
+    // Ensure we don't exhaust available hash bits
+    if (partition_bits + used_bits >= 32)
+        partition_bits = 32 - used_bits;
+
+    // Return log2 if requested
+    if (log2_npartitions != NULL)
+        *log2_npartitions = partition_bits;
+
+    // Final partition count is a power of two
+    npartitions = 1 << partition_bits;
+
+    return npartitions;
+}
+```

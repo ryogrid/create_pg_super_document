@@ -50,3 +50,37 @@ The cost model is simpler than physical table scans since there's no I/O involve
 - No I/O costs are involved since result relations don't correspond to physical storage
 - The cost calculation reflects that result relations typically involve computational work rather than data retrieval
 - Designed for relations that generate results through computation rather than storage access
+
+## Simplified Source
+
+```c
+void
+cost_resultscan(Path *path, PlannerInfo *root, RelOptInfo *baserel, ParamPathInfo *param_info)
+{
+    Cost startup_cost = 0;
+    Cost run_cost = 0;
+    QualCost qpqual_cost;
+    Cost cpu_per_tuple;
+
+    // Validate this is a result relation
+    Assert(baserel->relid > 0);
+    Assert(baserel->rtekind == RTE_RESULT);
+
+    // Set row estimate
+    if (param_info)
+        path->rows = param_info->ppi_rows;
+    else
+        path->rows = baserel->rows;
+
+    // Calculate qualification costs
+    get_restriction_qual_cost(root, baserel, param_info, &qpqual_cost);
+
+    // Total CPU cost: tuple processing + qualification evaluation
+    startup_cost += qpqual_cost.startup;
+    cpu_per_tuple = cpu_tuple_cost + qpqual_cost.per_tuple;
+    run_cost += cpu_per_tuple * baserel->tuples;
+
+    path->startup_cost = startup_cost;
+    path->total_cost = startup_cost + run_cost;
+}
+```

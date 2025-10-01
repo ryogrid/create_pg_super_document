@@ -47,3 +47,104 @@ The `executeKeyValueMethod` function implements the .keyvalue() method for JSON 
 - Supports empty objects by returning jperNotFound when no key-value pairs exist
 - Part of PostgreSQL's JSON path expression evaluation system for object introspection
 - Uses JsonbIterator for efficient traversal of binary JSON data structures
+
+## Simplified Source
+
+```c
+static JsonPathExecResult
+executeKeyValueMethod(JsonPathExecContext *cxt, JsonPathItem *jsp,
+                      JsonbValue *jb, JsonValueList *found)
+{
+    JsonPathExecResult res = jperNotFound;
+    JsonPathItem next;
+    JsonbContainer *jbc;
+    JsonbValue key, val, idval;
+    JsonbValue keystr, valstr, idstr;
+    JsonbIterator *it;
+    JsonbIteratorToken tok;
+    int64 id;
+    bool hasNext;
+
+    // Validate input is object
+    if (JsonbType(jb) != jbvObject || jb->type != jbvBinary)
+        RETURN_ERROR(ereport(ERROR,
+                    (errcode(ERRCODE_SQL_JSON_OBJECT_NOT_FOUND),
+                     errmsg("jsonpath item method .%s() can only be applied to an object",
+                            jspOperationName(jsp->type)))));
+
+    jbc = jb->val.binary.data;
+
+    if (!JsonContainerSize(jbc))
+        return jperNotFound;  // Empty object
+
+    hasNext = jspGetNext(jsp, &next);
+
+    // Initialize key-value pair field names
+    keystr.type = jbvString;
+    keystr.val.string.val = "key";
+    keystr.val.string.len = 3;
+
+    valstr.type = jbvString;
+    valstr.val.string.val = "value";
+    valstr.val.string.len = 5;
+
+    idstr.type = jbvString;
+    idstr.val.string.val = "id";
+    idstr.val.string.len = 2;
+
+    // Calculate unique object ID
+    id = jb->type != jbvBinary ? 0 :
+         (int64) ((char *) jbc - (char *) cxt->baseObject.jbc);
+    id += (int64) cxt->baseObject.id * INT64CONST(10000000000);
+
+    idval.type = jbvNumeric;
+    idval.val.numeric = int64_to_numeric(id);
+
+    it = JsonbIteratorInit(jbc);
+
+    // Iterate through object key-value pairs
+    while ((tok = JsonbIteratorNext(&it, &key, true)) != WJB_DONE)
+    {
+        if (tok != WJB_KEY)
+            continue;
+
+        res = jperOk;
+
+        if (!hasNext && !found)
+            break;
+
+        // Get the corresponding value
+        tok = JsonbIteratorNext(&it, &val, true);
+        Assert(tok == WJB_VALUE);
+
+        // Build {"key": key, "value": value, "id": id} object
+        JsonbParseState *ps = NULL;
+        pushJsonbValue(&ps, WJB_BEGIN_OBJECT, NULL);
+
+        pushJsonbValue(&ps, WJB_KEY, &keystr);
+        pushJsonbValue(&ps, WJB_VALUE, &key);
+
+        pushJsonbValue(&ps, WJB_KEY, &valstr);
+        pushJsonbValue(&ps, WJB_VALUE, &val);
+
+        pushJsonbValue(&ps, WJB_KEY, &idstr);
+        pushJsonbValue(&ps, WJB_VALUE, &idval);
+
+        JsonbValue *keyval = pushJsonbValue(&ps, WJB_END_OBJECT, NULL);
+
+        Jsonb *jsonb = JsonbValueToJsonb(keyval);
+        JsonbValue obj;
+        JsonbInitBinary(&obj, jsonb);
+
+        // Set up base object context and continue execution
+        JsonBaseObjectInfo baseObject = setBaseObject(cxt, &obj, cxt->lastGeneratedObjectId++);
+        res = executeNextItem(cxt, jsp, &next, &obj, found, true);
+        cxt->baseObject = baseObject;
+
+        if (jperIsError(res) || (res == jperOk && !found))
+            break;
+    }
+
+    return res;
+}
+```

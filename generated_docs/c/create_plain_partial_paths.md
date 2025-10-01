@@ -39,3 +39,24 @@ The generated partial path represents an unordered parallel sequential scan that
 - The partial paths created by this function are later used by gather operations to coordinate parallel execution
 - Only sequential scan paths are considered for parallel execution in plain relations - parallel index scans are handled elsewhere
 - The function uses -1 as the index pages parameter to compute_parallel_worker, indicating this is for heap scanning rather than index scanning
+
+## Simplified Source
+
+```c
+static void
+create_plain_partial_paths(PlannerInfo *root, RelOptInfo *rel)
+{
+    int parallel_workers;
+
+    // Calculate optimal number of parallel workers
+    parallel_workers = compute_parallel_worker(rel, rel->pages, -1,
+                                              max_parallel_workers_per_gather);
+
+    // Skip if parallel execution not wanted
+    if (parallel_workers <= 0)
+        return;
+
+    // Add parallel sequential scan path
+    add_partial_path(rel, create_seqscan_path(root, rel, NULL, parallel_workers));
+}
+```

@@ -44,3 +44,47 @@ The function checks several conditions:
 - Child relations are handled by examining their topmost parent relations
 - Returns false for constant or single-member equivalence classes as they won't generate useful join clauses
 - The function ignores cross-type operator availability details for performance reasons
+
+## Simplified Source
+
+```c
+bool
+eclass_useful_for_merging(PlannerInfo *root,
+                         EquivalenceClass *eclass,
+                         RelOptInfo *rel)
+{
+    Relids relids;
+    ListCell *lc;
+
+    Assert(!eclass->ec_merged);
+
+    // Skip equivalence classes that won't generate useful join clauses
+    if (eclass->ec_has_const || list_length(eclass->ec_members) <= 1)
+        return false;
+
+    // Handle child relations by using their topmost parent
+    if (IS_OTHER_REL(rel)) {
+        Assert(!bms_is_empty(rel->top_parent_relids));
+        relids = rel->top_parent_relids;
+    } else {
+        relids = rel->relids;
+    }
+
+    // If relation already contains all EC members, no join potential
+    if (bms_is_subset(eclass->ec_relids, relids))
+        return false;
+
+    // Look for any EC member not overlapping with the target relation
+    foreach(lc, eclass->ec_members) {
+        EquivalenceMember *cur_em = (EquivalenceMember *) lfirst(lc);
+
+        if (cur_em->em_is_child)
+            continue;  // Skip child members
+
+        if (!bms_overlap(cur_em->em_relids, relids))
+            return true;  // Found a non-overlapping member
+    }
+
+    return false;
+}
+```

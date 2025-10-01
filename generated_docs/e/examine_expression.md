@@ -52,3 +52,55 @@ The function is specifically designed for extended statistics where expressions 
 - Collation handling relies entirely on the expression tree since CREATE STATISTICS doesn't support explicit collation specification
 - Memory management includes proper cleanup of type tuples and allocated structures on failure
 - The function is part of PostgreSQL's extended statistics infrastructure introduced to improve planning for multi-column and expression-based predicates
+
+## Simplified Source
+
+```c
+static VacAttrStats *examine_expression(Node *expr, int stattarget) {
+    VacAttrStats *stats;
+    HeapTuple typtuple;
+    bool ok;
+
+    // Create and initialize statistics structure
+    stats = (VacAttrStats *) palloc0(sizeof(VacAttrStats));
+    stats->attstattarget = stattarget;
+
+    // Extract type information from expression
+    stats->attrtypid = exprType(expr);
+    stats->attrtypmod = exprTypmod(expr);
+    stats->attrcollid = exprCollation(expr);
+
+    // Look up type information in system catalog
+    typtuple = SearchSysCacheCopy1(TYPEOID, ObjectIdGetDatum(stats->attrtypid));
+    if (!HeapTupleIsValid(typtuple))
+        elog(ERROR, "cache lookup failed for type %u", stats->attrtypid);
+
+    stats->attrtype = (Form_pg_type) GETSTRUCT(typtuple);
+    stats->anl_context = CurrentMemoryContext;
+    stats->tupattnum = InvalidAttrNumber;
+
+    // Initialize statistics slots with type information
+    for (int i = 0; i < STATISTIC_NUM_SLOTS; i++) {
+        stats->statypid[i] = stats->attrtypid;
+        stats->statyplen[i] = stats->attrtype->typlen;
+        stats->statypbyval[i] = stats->attrtype->typbyval;
+        stats->statypalign[i] = stats->attrtype->typalign;
+    }
+
+    // Call type-specific analysis function
+    if (OidIsValid(stats->attrtype->typanalyze))
+        ok = DatumGetBool(OidFunctionCall1(stats->attrtype->typanalyze,
+                                          PointerGetDatum(stats)));
+    else
+        ok = std_typanalyze(stats);
+
+    // Clean up and return result
+    if (!ok || stats->compute_stats == NULL || stats->minrows <= 0) {
+        heap_freetuple(typtuple);
+        pfree(stats);
+        return NULL;
+    }
+
+    return stats;
+}
+```

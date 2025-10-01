@@ -46,3 +46,66 @@ The function also sets up null tuple slots for outer joins (LEFT and ANTI joins)
 - Handles different join types with appropriate null tuple slot setup
 - Uses TTSOpsVirtual for virtual tuple slot operations
 - Supports both parameterized and non-parameterized nested loop execution
+
+## Simplified Source
+
+```c
+NestLoopState *
+ExecInitNestLoop(NestLoop *node, EState *estate, int eflags)
+{
+    NestLoopState *nlstate;
+
+    // Validate execution flags
+    Assert(!(eflags & (EXEC_FLAG_BACKWARD | EXEC_FLAG_MARK)));
+
+    // Create and initialize the nested loop state
+    nlstate = makeNode(NestLoopState);
+    nlstate->js.ps.plan = (Plan *) node;
+    nlstate->js.ps.state = estate;
+    nlstate->js.ps.ExecProcNode = ExecNestLoop;
+
+    // Create expression context
+    ExecAssignExprContext(estate, &nlstate->js.ps);
+
+    // Initialize child nodes with appropriate rewind flags
+    outerPlanState(nlstate) = ExecInitNode(outerPlan(node), estate, eflags);
+    if (node->nestParams == NIL)
+        eflags |= EXEC_FLAG_REWIND;  // Enable rewind for non-parameterized scans
+    else
+        eflags &= ~EXEC_FLAG_REWIND; // Disable rewind for parameterized scans
+    innerPlanState(nlstate) = ExecInitNode(innerPlan(node), estate, eflags);
+
+    // Initialize result handling
+    ExecInitResultTupleSlotTL(&nlstate->js.ps, &TTSOpsVirtual);
+    ExecAssignProjectionInfo(&nlstate->js.ps, NULL);
+
+    // Initialize join expressions
+    nlstate->js.ps.qual = ExecInitQual(node->join.plan.qual, (PlanState *) nlstate);
+    nlstate->js.jointype = node->join.jointype;
+    nlstate->js.joinqual = ExecInitQual(node->join.joinqual, (PlanState *) nlstate);
+
+    // Determine if only first match is needed
+    nlstate->js.single_match = (node->join.inner_unique || node->join.jointype == JOIN_SEMI);
+
+    // Set up null tuples for outer joins
+    switch (node->join.jointype)
+    {
+        case JOIN_INNER:
+        case JOIN_SEMI:
+            break;
+        case JOIN_LEFT:
+        case JOIN_ANTI:
+            nlstate->nl_NullInnerTupleSlot =
+                ExecInitNullTupleSlot(estate, ExecGetResultType(innerPlanState(nlstate)), &TTSOpsVirtual);
+            break;
+        default:
+            elog(ERROR, "unrecognized join type: %d", (int) node->join.jointype);
+    }
+
+    // Initialize join state
+    nlstate->nl_NeedNewOuter = true;
+    nlstate->nl_MatchedOuter = false;
+
+    return nlstate;
+}
+```

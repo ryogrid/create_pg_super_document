@@ -39,3 +39,34 @@ The comparison is performed using the PostgreSQL function call interface with co
 - Returns boolean result indicating whether the values are considered equal
 - Part of the referential integrity system's optimization for determining when constraint checks are necessary
 - Could produce false negatives in scenarios involving different collations between related tables
+
+## Simplified Source
+
+```c
+static bool
+ri_AttributesEqual(Oid eq_opr, Oid typeid,
+                  Datum oldvalue, Datum newvalue)
+{
+    RI_CompareHashEntry *entry = ri_HashCompareOp(eq_opr, typeid);
+
+    // Apply type casting if needed
+    if (OidIsValid(entry->cast_func_finfo.fn_oid))
+    {
+        oldvalue = FunctionCall3(&entry->cast_func_finfo,
+                                oldvalue,
+                                Int32GetDatum(-1),     /* typmod */
+                                BoolGetDatum(false));  /* implicit coercion */
+        newvalue = FunctionCall3(&entry->cast_func_finfo,
+                                newvalue,
+                                Int32GetDatum(-1),     /* typmod */
+                                BoolGetDatum(false));  /* implicit coercion */
+    }
+
+    // Apply the comparison operator with default collation
+    // Note: Uses default collation which may not be ideal for cross-table
+    // foreign key comparisons, but provides reasonable performance
+    return DatumGetBool(FunctionCall2Coll(&entry->eq_opr_finfo,
+                                         DEFAULT_COLLATION_OID,
+                                         oldvalue, newvalue));
+}
+```

@@ -32,3 +32,14 @@ This function shows the nominal target relation for ModifyTable operations (INSE
 - The function focuses on the 'nominal' relation, which represents the relation as it appeared in the original query
 - For complex scenarios like partitioned tables where actual targets may differ, additional information is provided by show_modifytable_info()
 - Part of PostgreSQL's query execution plan explanation system
+
+## Simplified Source
+
+```c
+static void
+ExplainModifyTarget(ModifyTable *plan, ExplainState *es)
+{
+    // Show the nominal target relation from the original query
+    ExplainTargetRel((Plan *) plan, plan->nominalRelation, es);
+}
+```

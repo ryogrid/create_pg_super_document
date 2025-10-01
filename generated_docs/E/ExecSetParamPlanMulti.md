@@ -37,3 +37,25 @@ The function checks each parameter in the provided bitmapset and evaluates only 
 - Parameters that are not initplan outputs are ignored without error
 - The function ensures that after ExecSetParamPlan processes a parameter, the execPlan field is set to NULL
 - This is particularly useful in parallel query execution scenarios where multiple parameters need to be evaluated efficiently
+
+## Simplified Source
+
+```c
+void ExecSetParamPlanMulti(const Bitmapset *params, ExprContext *econtext)
+{
+    int paramid = -1;
+
+    // Iterate through all parameter IDs in the bitmapset
+    while ((paramid = bms_next_member(params, paramid)) >= 0)
+    {
+        ParamExecData *param = &(econtext->ecxt_param_exec_vals[paramid]);
+
+        // If parameter hasn't been evaluated yet, evaluate it now
+        if (param->execPlan != NULL)
+        {
+            ExecSetParamPlan(param->execPlan, econtext);
+            // Parameter is now evaluated (execPlan set to NULL by ExecSetParamPlan)
+        }
+    }
+}
+```

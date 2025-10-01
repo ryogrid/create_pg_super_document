@@ -37,3 +37,77 @@ composite_to_json transforms PostgreSQL composite types (such as table rows or c
 
 ## Notes and Other Information
 The function skips dropped attributes (attisdropped) to avoid including deleted columns in the JSON output. It optimizes separator handling by pre-calculating separator lengths to avoid repeated strlen() calls. NULL values are handled specially with JSONTYPE_NULL category and InvalidOid output function. The function properly manages the tuple descriptor lifecycle by calling ReleaseTupleDesc for cleanup. The needsep flag ensures proper comma placement between object members.
+
+## Simplified Source
+
+```c
+static void composite_to_json(Datum composite, StringInfo result, bool use_line_feeds) {
+    HeapTupleHeader td;
+    Oid tupType;
+    int32 tupTypmod;
+    TupleDesc tupdesc;
+    HeapTupleData tmptup, *tuple;
+    int i;
+    bool needsep = false;
+    const char *sep;
+    int seplen;
+
+    // Set up separator for formatting
+    sep = use_line_feeds ? ",\n " : ",";
+    seplen = use_line_feeds ? strlen(",\n ") : strlen(",");
+
+    // Extract tuple metadata
+    td = DatumGetHeapTupleHeader(composite);
+    tupType = HeapTupleHeaderGetTypeId(td);
+    tupTypmod = HeapTupleHeaderGetTypMod(td);
+    tupdesc = lookup_rowtype_tupdesc(tupType, tupTypmod);
+
+    // Build temporary HeapTuple structure
+    tmptup.t_len = HeapTupleHeaderGetDatumLength(td);
+    tmptup.t_data = td;
+    tuple = &tmptup;
+
+    appendStringInfoChar(result, '{');
+
+    // Process each attribute
+    for (i = 0; i < tupdesc->natts; i++) {
+        Datum val;
+        bool isnull;
+        char *attname;
+        JsonTypeCategory tcategory;
+        Oid outfuncoid;
+        Form_pg_attribute att = TupleDescAttr(tupdesc, i);
+
+        // Skip dropped attributes
+        if (att->attisdropped)
+            continue;
+
+        // Add separator if needed
+        if (needsep)
+            appendBinaryStringInfo(result, sep, seplen);
+        needsep = true;
+
+        // Add attribute name as JSON key
+        attname = NameStr(att->attname);
+        escape_json(result, attname);
+        appendStringInfoChar(result, ':');
+
+        // Get attribute value
+        val = heap_getattr(tuple, i + 1, tupdesc, &isnull);
+
+        // Determine JSON conversion approach
+        if (isnull) {
+            tcategory = JSONTYPE_NULL;
+            outfuncoid = InvalidOid;
+        } else {
+            json_categorize_type(att->atttypid, false, &tcategory, &outfuncoid);
+        }
+
+        // Convert value to JSON
+        datum_to_json_internal(val, isnull, result, tcategory, outfuncoid, false);
+    }
+
+    appendStringInfoChar(result, '}');
+    ReleaseTupleDesc(tupdesc);
+}
+```

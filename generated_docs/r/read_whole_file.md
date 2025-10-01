@@ -50,3 +50,43 @@ The implementation follows these steps:
 - Uses PostgreSQL's file handling wrappers (AllocateFile/FreeFile) for proper resource management
 - File is opened in binary mode (PG_BINARY_R) to preserve exact content regardless of platform
 - Comprehensive error handling covers file access, memory allocation, and I/O operations
+
+## Simplified Source
+
+```c
+static char *
+read_whole_file(const char *filename, int *length)
+{
+    char *buf;
+    FILE *file;
+    struct stat fst;
+
+    // Get file size and validate it exists
+    if (stat(filename, &fst) < 0)
+        ereport(ERROR, "could not stat file");
+
+    // Check file size doesn't exceed PostgreSQL memory limits
+    if (fst.st_size > (MaxAllocSize - 1))
+        ereport(ERROR, "file is too large");
+
+    // Open file for binary reading
+    if ((file = AllocateFile(filename, PG_BINARY_R)) == NULL)
+        ereport(ERROR, "could not open file for reading");
+
+    // Allocate buffer with extra byte for null terminator
+    buf = (char *) palloc(fst.st_size + 1);
+
+    // Read entire file content
+    *length = fread(buf, 1, fst.st_size, file);
+
+    // Check for read errors
+    if (ferror(file))
+        ereport(ERROR, "could not read file");
+
+    FreeFile(file);
+
+    // Null-terminate the buffer
+    buf[*length] = '\0';
+    return buf;
+}
+```

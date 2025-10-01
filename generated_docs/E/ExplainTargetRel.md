@@ -44,3 +44,83 @@ This function is responsible for showing the target relation of scan or modify n
 - For function scans, attempts to extract the actual function name when possible
 - Handles special cases like CTE self-references (WorkTableScan vs CteScan)
 - Part of PostgreSQL's comprehensive query execution plan explanation system
+
+## Simplified Source
+
+```c
+static void
+ExplainTargetRel(Plan *plan, Index rti, ExplainState *es)
+{
+    char *objectname = NULL;
+    char *namespace = NULL;
+    const char *objecttag = NULL;
+    RangeTblEntry *rte;
+    char *refname;
+
+    // Get the range table entry and reference name
+    rte = rt_fetch(rti, es->rtable);
+    refname = (char *) list_nth(es->rtable_names, rti - 1);
+    if (refname == NULL)
+        refname = rte->eref->aliasname;
+
+    // Extract object information based on plan node type
+    switch (nodeTag(plan))
+    {
+        case T_SeqScan:
+        case T_IndexScan:
+        case T_BitmapHeapScan:
+        case T_ModifyTable:
+            // Regular table scans
+            objectname = get_rel_name(rte->relid);
+            if (es->verbose)
+                namespace = get_namespace_name_or_temp(get_rel_namespace(rte->relid));
+            objecttag = "Relation Name";
+            break;
+
+        case T_FunctionScan:
+            // Function scans - try to get function name
+            if (list_length(((FunctionScan *) plan)->functions) == 1) {
+                RangeTblFunction *rtfunc = linitial(((FunctionScan *) plan)->functions);
+                if (IsA(rtfunc->funcexpr, FuncExpr)) {
+                    FuncExpr *funcexpr = (FuncExpr *) rtfunc->funcexpr;
+                    objectname = get_func_name(funcexpr->funcid);
+                    if (es->verbose)
+                        namespace = get_namespace_name_or_temp(get_func_namespace(funcexpr->funcid));
+                }
+            }
+            objecttag = "Function Name";
+            break;
+
+        case T_CteScan:
+        case T_WorkTableScan:
+            // CTE scans
+            objectname = rte->ctename;
+            objecttag = "CTE Name";
+            break;
+
+        case T_NamedTuplestoreScan:
+            // Named tuplestore scans
+            objectname = rte->enrname;
+            objecttag = "Tuplestore Name";
+            break;
+    }
+
+    // Format output based on explain format
+    if (es->format == EXPLAIN_FORMAT_TEXT) {
+        appendStringInfoString(es->str, " on");
+        if (namespace != NULL)
+            appendStringInfo(es->str, " %s.%s", quote_identifier(namespace), quote_identifier(objectname));
+        else if (objectname != NULL)
+            appendStringInfo(es->str, " %s", quote_identifier(objectname));
+        if (objectname == NULL || strcmp(refname, objectname) != 0)
+            appendStringInfo(es->str, " %s", quote_identifier(refname));
+    } else {
+        // Structured format output
+        if (objecttag != NULL && objectname != NULL)
+            ExplainPropertyText(objecttag, objectname, es);
+        if (namespace != NULL)
+            ExplainPropertyText("Schema", namespace, es);
+        ExplainPropertyText("Alias", refname, es);
+    }
+}
+```

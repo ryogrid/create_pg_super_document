@@ -47,3 +47,53 @@ The storage strategy determines how PostgreSQL stores variable-length data types
 - Automatically propagates storage changes to simple index columns
 - Uses RowExclusiveLock on the pg_attribute catalog during the update
 - The function is static, indicating it's only used within the tablecmds.c module
+
+## Simplified Source
+
+```c
+static ObjectAddress
+ATExecSetStorage(Relation rel, const char *colName, Node *newValue, LOCKMODE lockmode)
+{
+    Relation attrelation;
+    HeapTuple tuple;
+    Form_pg_attribute attrtuple;
+    AttrNumber attnum;
+    ObjectAddress address;
+
+    // Open the pg_attribute system catalog
+    attrelation = table_open(AttributeRelationId, RowExclusiveLock);
+
+    // Find the column by name
+    tuple = SearchSysCacheCopyAttName(RelationGetRelid(rel), colName);
+    if (!HeapTupleIsValid(tuple))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_COLUMN),
+                errmsg("column \"%s\" of relation \"%s\" does not exist",
+                       colName, RelationGetRelationName(rel))));
+
+    attrtuple = (Form_pg_attribute) GETSTRUCT(tuple);
+    attnum = attrtuple->attnum;
+
+    // Validate it's not a system column
+    if (attnum <= 0)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                errmsg("cannot alter system column \"%s\"", colName)));
+
+    // Update the storage strategy in the catalog
+    attrtuple->attstorage = GetAttributeStorage(attrtuple->atttypid, strVal(newValue));
+    CatalogTupleUpdate(attrelation, &tuple->t_self, tuple);
+
+    // Trigger post-alter hooks
+    InvokeObjectPostAlterHook(RelationRelationId, RelationGetRelid(rel), attrtuple->attnum);
+
+    // Apply storage change to associated indexes
+    SetIndexStorageProperties(rel, attrelation, attnum, true, attrtuple->attstorage,
+                             false, 0, lockmode);
+
+    // Cleanup and return column address
+    heap_freetuple(tuple);
+    table_close(attrelation, RowExclusiveLock);
+
+    ObjectAddressSubSet(address, RelationRelationId, RelationGetRelid(rel), attnum);
+    return address;
+}
+```

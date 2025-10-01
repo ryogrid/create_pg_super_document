@@ -51,3 +51,45 @@ This function computes the bounds of a merged partition that results from joinin
 - Different join types require different merging strategies to preserve join semantics
 - Critical for PostgreSQL's partition-wise join feature which can significantly improve query performance
 - Located in src/backend/partitioning/partbounds.c:2711-2774
+
+## Simplified Source
+
+```c
+static void
+get_merged_range_bounds(int partnatts, FmgrInfo *partsupfuncs,
+                       Oid *partcollations, JoinType jointype,
+                       PartitionRangeBound *outer_lb,
+                       PartitionRangeBound *outer_ub,
+                       PartitionRangeBound *inner_lb,
+                       PartitionRangeBound *inner_ub,
+                       int lb_cmpval, int ub_cmpval,
+                       PartitionRangeBound *merged_lb,
+                       PartitionRangeBound *merged_ub)
+{
+    switch (jointype)
+    {
+        case JOIN_INNER:
+        case JOIN_SEMI:
+            // INNER/SEMI: intersection (higher lower, lower upper)
+            *merged_lb = (lb_cmpval > 0) ? *outer_lb : *inner_lb;
+            *merged_ub = (ub_cmpval < 0) ? *outer_ub : *inner_ub;
+            break;
+
+        case JOIN_LEFT:
+        case JOIN_ANTI:
+            // LEFT/ANTI: preserve outer bounds
+            *merged_lb = *outer_lb;
+            *merged_ub = *outer_ub;
+            break;
+
+        case JOIN_FULL:
+            // FULL: union (lower lower, higher upper)
+            *merged_lb = (lb_cmpval < 0) ? *outer_lb : *inner_lb;
+            *merged_ub = (ub_cmpval > 0) ? *outer_ub : *inner_ub;
+            break;
+
+        default:
+            elog(ERROR, "unrecognized join type: %d", (int) jointype);
+    }
+}
+```

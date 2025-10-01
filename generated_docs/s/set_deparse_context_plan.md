@@ -33,3 +33,23 @@ This function specializes a deparse context created by deparse_context_for_plan_
 
 ## Notes and Other Information
 This function must be called each time you want to deparse expressions from a different Plan node within the same Plan tree. It assumes all Plan nodes in the tree share the same range table, which is set up once by deparse_context_for_plan_tree(). The function does not currently support deparsing indexquals in regular IndexScan or BitmapIndexScan nodes - only the indexqualorig fields can be deparsed for those node types since they don't contain INDEX_VAR references. The function returns the same List that was passed in as a notational convenience.
+
+## Simplified Source
+
+```c
+List *
+set_deparse_context_plan(List *dpcontext, Plan *plan, List *ancestors)
+{
+    deparse_namespace *dpns;
+
+    // Ensure we have exactly one namespace entry for Plan deparsing
+    Assert(list_length(dpcontext) == 1);
+    dpns = (deparse_namespace *) linitial(dpcontext);
+
+    // Configure the namespace for the specific plan node
+    dpns->ancestors = ancestors;
+    set_deparse_plan(dpns, plan);
+
+    return dpcontext;
+}
+```

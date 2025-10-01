@@ -43,3 +43,75 @@ Key initialization steps include creating a per-table memory context, setting up
 - Does not support the EXEC_FLAG_MARK execution flag
 - Initializes type input functions for all output columns to enable text-to-type conversion
 - Sets up separate expression lists for different components (columns, defaults, values, passing parameters)
+
+## Simplified Source
+
+```c
+TableFuncScanState *
+ExecInitTableFuncScan(TableFuncScan *node, EState *estate, int eflags)
+{
+    TableFuncScanState *scanstate;
+    TableFunc *tf = node->tablefunc;
+    TupleDesc tupdesc;
+    int i;
+
+    // Basic validation - no mark support, no child plans
+    Assert(!(eflags & EXEC_FLAG_MARK));
+    Assert(outerPlan(node) == NULL && innerPlan(node) == NULL);
+
+    // Create and initialize scan state
+    scanstate = makeNode(TableFuncScanState);
+    scanstate->ss.ps.plan = (Plan *) node;
+    scanstate->ss.ps.state = estate;
+    scanstate->ss.ps.ExecProcNode = ExecTableFuncScan;
+
+    // Set up execution context
+    ExecAssignExprContext(estate, &scanstate->ss.ps);
+
+    // Build tuple descriptor from column specifications
+    tupdesc = BuildDescFromLists(tf->colnames, tf->coltypes,
+                                tf->coltypmods, tf->colcollations);
+    ExecInitScanTupleSlot(estate, &scanstate->ss, tupdesc, &TTSOpsMinimalTuple);
+
+    // Initialize result projection
+    ExecInitResultTypeTL(&scanstate->ss.ps);
+    ExecAssignScanProjectionInfo(&scanstate->ss);
+
+    // Initialize quals and expressions
+    scanstate->ss.ps.qual = ExecInitQual(node->scan.plan.qual, &scanstate->ss.ps);
+
+    // Select routine based on function type (XMLTABLE vs JSON_TABLE)
+    scanstate->routine = (tf->functype == TFT_XMLTABLE) ?
+                        &XmlTableRoutine : &JsonbTableRoutine;
+
+    // Create per-table memory context
+    scanstate->perTableCxt = AllocSetContextCreate(CurrentMemoryContext,
+                                                  "TableFunc per value context",
+                                                  ALLOCSET_DEFAULT_SIZES);
+
+    // Initialize expressions for various components
+    scanstate->ns_names = tf->ns_names;
+    scanstate->ns_uris = ExecInitExprList(tf->ns_uris, (PlanState *) scanstate);
+    scanstate->docexpr = ExecInitExpr((Expr *) tf->docexpr, (PlanState *) scanstate);
+    scanstate->rowexpr = ExecInitExpr((Expr *) tf->rowexpr, (PlanState *) scanstate);
+    scanstate->colexprs = ExecInitExprList(tf->colexprs, (PlanState *) scanstate);
+    scanstate->coldefexprs = ExecInitExprList(tf->coldefexprs, (PlanState *) scanstate);
+    scanstate->colvalexprs = ExecInitExprList(tf->colvalexprs, (PlanState *) scanstate);
+    scanstate->passingvalexprs = ExecInitExprList(tf->passingvalexprs, (PlanState *) scanstate);
+
+    scanstate->notnulls = tf->notnulls;
+
+    // Set up type input functions for column conversions
+    scanstate->in_functions = palloc(sizeof(FmgrInfo) * tupdesc->natts);
+    scanstate->typioparams = palloc(sizeof(Oid) * tupdesc->natts);
+
+    for (i = 0; i < tupdesc->natts; i++) {
+        Oid in_funcid;
+        getTypeInputInfo(TupleDescAttr(tupdesc, i)->atttypid,
+                        &in_funcid, &scanstate->typioparams[i]);
+        fmgr_info(in_funcid, &scanstate->in_functions[i]);
+    }
+
+    return scanstate;
+}
+```

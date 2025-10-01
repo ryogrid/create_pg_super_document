@@ -35,3 +35,22 @@ The function works by calling  twice - once for each input relation's joininfo l
 - The function is part of the join relation building process in PostgreSQL's query optimizer
 - Duplicate elimination is important because the same join clauses may be present in both input relations' joininfo lists
 - The function operates at lines 1334-1351 in src/backend/optimizer/util/relnode.c
+
+## Simplified Source
+
+```c
+static void build_joinrel_joinlist(RelOptInfo *joinrel,
+                                  RelOptInfo *outer_rel,
+                                  RelOptInfo *inner_rel) {
+    List *result;
+
+    // Collect join clauses from outer relation (starting with empty list)
+    result = subbuild_joinrel_joinlist(joinrel, outer_rel->joininfo, NIL);
+
+    // Collect join clauses from inner relation (eliminating duplicates)
+    result = subbuild_joinrel_joinlist(joinrel, inner_rel->joininfo, result);
+
+    // Store the combined joininfo list in the join relation
+    joinrel->joininfo = result;
+}
+```

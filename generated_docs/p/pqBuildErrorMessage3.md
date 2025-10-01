@@ -46,3 +46,144 @@ The function processes error fields in a specific order: severity, SQLSTATE (if 
 - VERBOSE mode includes schema, table, column, datatype, and constraint names when available
 - Source location information (file:line, function) is included only in VERBOSE mode
 - Context information display is controlled by show_context parameter and result status
+
+## Simplified Source
+
+```c
+void
+pqBuildErrorMessage3(PQExpBuffer msg, const PGresult *res,
+                    PGVerbosity verbosity, PGContextVisibility show_context)
+{
+    const char *val;
+    const char *querytext = NULL;
+    int querypos = 0;
+
+    // Handle NULL result
+    if (res == NULL) {
+        appendPQExpBufferStr(msg, libpq_gettext("out of memory\n"));
+        return;
+    }
+
+    // If no broken-down fields, return base message
+    if (res->errFields == NULL) {
+        if (res->errMsg && res->errMsg[0])
+            appendPQExpBufferStr(msg, res->errMsg);
+        else
+            appendPQExpBufferStr(msg, libpq_gettext("no error message available\n"));
+        return;
+    }
+
+    // Add severity
+    val = PQresultErrorField(res, PG_DIAG_SEVERITY);
+    if (val)
+        appendPQExpBuffer(msg, "%s:  ", val);
+
+    // Handle SQLSTATE-only mode
+    if (verbosity == PQERRORS_SQLSTATE) {
+        val = PQresultErrorField(res, PG_DIAG_SQLSTATE);
+        if (val) {
+            appendPQExpBuffer(msg, "%s\n", val);
+            return;
+        }
+        verbosity = PQERRORS_TERSE;  // fallback
+    }
+
+    // Add SQLSTATE for verbose mode
+    if (verbosity == PQERRORS_VERBOSE) {
+        val = PQresultErrorField(res, PG_DIAG_SQLSTATE);
+        if (val)
+            appendPQExpBuffer(msg, "%s: ", val);
+    }
+
+    // Add primary message
+    val = PQresultErrorField(res, PG_DIAG_MESSAGE_PRIMARY);
+    if (val)
+        appendPQExpBufferStr(msg, val);
+
+    // Handle position information
+    val = PQresultErrorField(res, PG_DIAG_STATEMENT_POSITION);
+    if (val) {
+        if (verbosity != PQERRORS_TERSE && res->errQuery != NULL) {
+            querytext = res->errQuery;
+            querypos = atoi(val);
+        } else {
+            appendPQExpBuffer(msg, libpq_gettext(" at character %s"), val);
+        }
+    } else {
+        val = PQresultErrorField(res, PG_DIAG_INTERNAL_POSITION);
+        if (val) {
+            querytext = PQresultErrorField(res, PG_DIAG_INTERNAL_QUERY);
+            if (verbosity != PQERRORS_TERSE && querytext != NULL) {
+                querypos = atoi(val);
+            } else {
+                appendPQExpBuffer(msg, libpq_gettext(" at character %s"), val);
+            }
+        }
+    }
+
+    appendPQExpBufferChar(msg, '\n');
+
+    // Add detailed information for non-terse modes
+    if (verbosity != PQERRORS_TERSE) {
+        if (querytext && querypos > 0)
+            reportErrorPosition(msg, querytext, querypos, res->client_encoding);
+
+        // Add DETAIL, HINT, QUERY if available
+        val = PQresultErrorField(res, PG_DIAG_MESSAGE_DETAIL);
+        if (val)
+            appendPQExpBuffer(msg, libpq_gettext("DETAIL:  %s\n"), val);
+
+        val = PQresultErrorField(res, PG_DIAG_MESSAGE_HINT);
+        if (val)
+            appendPQExpBuffer(msg, libpq_gettext("HINT:  %s\n"), val);
+
+        val = PQresultErrorField(res, PG_DIAG_INTERNAL_QUERY);
+        if (val)
+            appendPQExpBuffer(msg, libpq_gettext("QUERY:  %s\n"), val);
+
+        // Add context if requested
+        if (show_context == PQSHOW_CONTEXT_ALWAYS ||
+            (show_context == PQSHOW_CONTEXT_ERRORS && res->resultStatus == PGRES_FATAL_ERROR)) {
+            val = PQresultErrorField(res, PG_DIAG_CONTEXT);
+            if (val)
+                appendPQExpBuffer(msg, libpq_gettext("CONTEXT:  %s\n"), val);
+        }
+    }
+
+    // Add verbose schema/table/column information
+    if (verbosity == PQERRORS_VERBOSE) {
+        val = PQresultErrorField(res, PG_DIAG_SCHEMA_NAME);
+        if (val)
+            appendPQExpBuffer(msg, libpq_gettext("SCHEMA NAME:  %s\n"), val);
+
+        val = PQresultErrorField(res, PG_DIAG_TABLE_NAME);
+        if (val)
+            appendPQExpBuffer(msg, libpq_gettext("TABLE NAME:  %s\n"), val);
+
+        val = PQresultErrorField(res, PG_DIAG_COLUMN_NAME);
+        if (val)
+            appendPQExpBuffer(msg, libpq_gettext("COLUMN NAME:  %s\n"), val);
+
+        val = PQresultErrorField(res, PG_DIAG_DATATYPE_NAME);
+        if (val)
+            appendPQExpBuffer(msg, libpq_gettext("DATATYPE NAME:  %s\n"), val);
+
+        val = PQresultErrorField(res, PG_DIAG_CONSTRAINT_NAME);
+        if (val)
+            appendPQExpBuffer(msg, libpq_gettext("CONSTRAINT NAME:  %s\n"), val);
+
+        // Add source location information
+        const char *valf = PQresultErrorField(res, PG_DIAG_SOURCE_FILE);
+        const char *vall = PQresultErrorField(res, PG_DIAG_SOURCE_LINE);
+        val = PQresultErrorField(res, PG_DIAG_SOURCE_FUNCTION);
+        if (val || valf || vall) {
+            appendPQExpBufferStr(msg, libpq_gettext("LOCATION:  "));
+            if (val)
+                appendPQExpBuffer(msg, libpq_gettext("%s, "), val);
+            if (valf && vall)
+                appendPQExpBuffer(msg, libpq_gettext("%s:%s"), valf, vall);
+            appendPQExpBufferChar(msg, '\n');
+        }
+    }
+}
+```

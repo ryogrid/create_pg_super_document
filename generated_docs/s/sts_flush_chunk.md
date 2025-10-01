@@ -37,3 +37,24 @@ This function is called internally when the current write chunk becomes full and
 - The write pointer is reset to point to the beginning of the data area in the chunk
 - The participant's page count is incremented by  to track total data written
 - This function is part of the buffered writing mechanism that allows efficient tuple storage in chunks
+
+## Simplified Source
+
+```c
+static void sts_flush_chunk(SharedTuplestoreAccessor *accessor) {
+    // Calculate chunk size in bytes
+    size_t size = STS_CHUNK_PAGES * BLCKSZ;
+
+    // Write the entire chunk buffer to file
+    BufFileWrite(accessor->write_file, accessor->write_chunk, size);
+
+    // Clear the buffer for reuse
+    memset(accessor->write_chunk, 0, size);
+
+    // Reset write pointer to start of data area
+    accessor->write_pointer = &accessor->write_chunk->data[0];
+
+    // Update page count for this participant
+    accessor->sts->participants[accessor->participant].npages += STS_CHUNK_PAGES;
+}
+```

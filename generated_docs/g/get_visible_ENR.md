@@ -28,3 +28,13 @@ This function returns the metadata structure for a specified ENR if it exists an
 - Used when the parser needs to access detailed information about an ENR beyond just checking its existence
 - Located in src/backend/parser/parse_enr.c:26-29
 - Commonly used in conjunction with name_matches_visible_ENR for ENR processing
+
+## Simplified Source
+
+```c
+EphemeralNamedRelationMetadata
+get_visible_ENR(ParseState *pstate, const char *refname)
+{
+    return get_visible_ENR_metadata(pstate->p_queryEnv, refname);
+}
+```

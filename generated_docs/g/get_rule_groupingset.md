@@ -44,3 +44,65 @@ The function recursively processes nested grouping sets and formats column refer
 - Uses recursive descent to handle nested GROUPING SETS structures
 - Located at src/backend/utils/adt/ruleutils.c:6388-6447
 - Part of PostgreSQL's query deparsing infrastructure for rule and view definitions
+
+## Simplified Source
+
+```c
+static void
+get_rule_groupingset(GroupingSet *gset, List *targetlist,
+                     bool omit_parens, deparse_context *context)
+{
+    ListCell *l;
+    StringInfo buf = context->buf;
+    bool omit_child_parens = true;
+    char *sep = "";
+
+    switch (gset->kind)
+    {
+        case GROUPING_SET_EMPTY:
+            // Empty grouping set: ()
+            appendStringInfoString(buf, "()");
+            return;
+
+        case GROUPING_SET_SIMPLE:
+            // Simple grouping: (col1, col2, ...)
+            if (!omit_parens || list_length(gset->content) != 1)
+                appendStringInfoChar(buf, '(');
+
+            foreach(l, gset->content)
+            {
+                Index ref = lfirst_int(l);
+                appendStringInfoString(buf, sep);
+                get_rule_sortgroupclause(ref, targetlist, false, context);
+                sep = ", ";
+            }
+
+            if (!omit_parens || list_length(gset->content) != 1)
+                appendStringInfoChar(buf, ')');
+            return;
+
+        case GROUPING_SET_ROLLUP:
+            appendStringInfoString(buf, "ROLLUP(");
+            break;
+
+        case GROUPING_SET_CUBE:
+            appendStringInfoString(buf, "CUBE(");
+            break;
+
+        case GROUPING_SET_SETS:
+            appendStringInfoString(buf, "GROUPING SETS (");
+            omit_child_parens = false;
+            break;
+    }
+
+    // Process nested grouping sets recursively
+    foreach(l, gset->content)
+    {
+        appendStringInfoString(buf, sep);
+        get_rule_groupingset(lfirst(l), targetlist, omit_child_parens, context);
+        sep = ", ";
+    }
+
+    appendStringInfoChar(buf, ')');
+}
+```

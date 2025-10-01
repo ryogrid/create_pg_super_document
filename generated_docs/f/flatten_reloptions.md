@@ -39,3 +39,36 @@ This function looks up a relation in the system cache by its OID and extracts th
 - Uses error logging (elog) for invalid relation OIDs, which would indicate a serious system inconsistency
 - The returned string is allocated in the current memory context and should be managed by the caller
 - Accesses the Anum_pg_class_reloptions attribute from the pg_class system catalog
+
+## Simplified Source
+
+```c
+static char *
+flatten_reloptions(Oid relid)
+{
+    char *result = NULL;
+    HeapTuple tuple;
+    Datum reloptions;
+    bool isnull;
+
+    // Look up relation in system cache
+    tuple = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for relation %u", relid);
+
+    // Get reloptions attribute from pg_class
+    reloptions = SysCacheGetAttr(RELOID, tuple,
+                                Anum_pg_class_reloptions, &isnull);
+
+    // If reloptions exist, format them into a string
+    if (!isnull) {
+        StringInfoData buf;
+        initStringInfo(&buf);
+        get_reloptions(&buf, reloptions);
+        result = buf.data;
+    }
+
+    ReleaseSysCache(tuple);
+    return result;
+}
+```

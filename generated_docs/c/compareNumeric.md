@@ -29,3 +29,16 @@ The compareNumeric function provides a simple wrapper around PostgreSQL's built-
 
 ## Notes and Other Information
 This function leverages PostgreSQL's robust numeric type infrastructure to handle all numeric comparison edge cases correctly, including infinite values, NaN handling, and arbitrary precision arithmetic. The use of DirectFunctionCall2 ensures that the comparison follows the same code path as regular SQL numeric comparisons, maintaining consistency across the system. The function returns standard comparison semantics: negative for a < b, zero for a = b, and positive for a > b.
+
+## Simplified Source
+
+```c
+static int
+compareNumeric(Numeric a, Numeric b)
+{
+    // Use PostgreSQL's built-in numeric comparison function
+    return DatumGetInt32(DirectFunctionCall2(numeric_cmp,
+                                           NumericGetDatum(a),
+                                           NumericGetDatum(b)));
+}
+```

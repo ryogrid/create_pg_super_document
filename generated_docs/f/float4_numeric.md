@@ -52,3 +52,32 @@ The `float4_numeric` function converts a PostgreSQL `float4` (single precision f
 - Part of PostgreSQL's numeric type conversion system in `src/backend/utils/adt/numeric.c`
 - The string-based conversion approach avoids precision issues that could occur with direct binary conversion
 - Precision is limited by the single precision format (typically 6-7 significant decimal digits)
+
+## Simplified Source
+
+```c
+Datum float4_numeric(PG_FUNCTION_ARGS) {
+    float4 val = PG_GETARG_FLOAT4(0);
+    NumericVar result;
+    char buf[FLT_DIG + 100];
+
+    // Handle special values
+    if (isnan(val))
+        PG_RETURN_NUMERIC(make_result(&const_nan));
+    if (isinf(val)) {
+        if (val < 0)
+            PG_RETURN_NUMERIC(make_result(&const_ninf));
+        else
+            PG_RETURN_NUMERIC(make_result(&const_pinf));
+    }
+
+    // Convert to string, then parse as numeric
+    snprintf(buf, sizeof(buf), "%.*g", FLT_DIG, val);
+    init_var(&result);
+    set_var_from_str(buf, buf, &result, NULL, NULL);
+
+    Numeric res = make_result(&result);
+    free_var(&result);
+    PG_RETURN_NUMERIC(res);
+}
+```

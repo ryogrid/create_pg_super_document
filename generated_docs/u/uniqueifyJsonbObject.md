@@ -45,3 +45,57 @@ The function modifies the object in-place, potentially reducing the nPairs count
 - The deduplication algorithm preserves the first occurrence of duplicate keys, which aligns with JSON semantics where later keys should overwrite earlier ones with the same name
 - Memory management is handled efficiently by shifting array elements in-place rather than allocating new memory
 - The function can handle edge cases like objects with only null values when skip_nulls is enabled
+
+## Simplified Source
+
+```c
+static void
+uniqueifyJsonbObject(JsonbValue *object, bool unique_keys, bool skip_nulls)
+{
+    bool hasNonUniq = false;
+
+    Assert(object->type == jbvObject);
+
+    // Sort pairs if more than one exists
+    if (object->val.object.nPairs > 1)
+        qsort_arg(object->val.object.pairs, object->val.object.nPairs, sizeof(JsonbPair),
+                  lengthCompareJsonbPair, &hasNonUniq);
+
+    // Error if duplicates found and unique keys required
+    if (hasNonUniq && unique_keys)
+        ereport(ERROR,
+                errcode(ERRCODE_DUPLICATE_JSON_OBJECT_KEY_VALUE),
+                errmsg("duplicate JSON object key value"));
+
+    // Remove duplicates and/or nulls if needed
+    if (hasNonUniq || skip_nulls) {
+        JsonbPair *ptr, *res;
+
+        // Remove leading nulls if skip_nulls enabled
+        while (skip_nulls && object->val.object.nPairs > 0 &&
+               object->val.object.pairs->value.type == jbvNull) {
+            object->val.object.pairs++;
+            object->val.object.nPairs--;
+        }
+
+        // Compact array by removing duplicates/nulls
+        if (object->val.object.nPairs > 0) {
+            ptr = object->val.object.pairs + 1;
+            res = object->val.object.pairs;
+
+            while (ptr - object->val.object.pairs < object->val.object.nPairs) {
+                // Keep if not duplicate and not null (when skip_nulls set)
+                if (lengthCompareJsonbStringValue(ptr, res) != 0 &&
+                    (!skip_nulls || ptr->value.type != jbvNull)) {
+                    res++;
+                    if (ptr != res)
+                        memcpy(res, ptr, sizeof(JsonbPair));
+                }
+                ptr++;
+            }
+
+            object->val.object.nPairs = res + 1 - object->val.object.pairs;
+        }
+    }
+}
+```

@@ -36,3 +36,28 @@ This function implements a priority-based algorithm to determine the best column
 - Only applies to scalar-returning functions; composite and RECORD types are handled elsewhere
 - Part of the query parsing phase where function RTEs are being constructed
 - Helps maintain consistency in column naming across different function invocation patterns
+
+## Simplified Source
+
+```c
+static char *
+chooseScalarFunctionAlias(Node *funcexpr, char *funcname, Alias *alias, int nfuncs)
+{
+    char *pname;
+
+    // Priority 1: Use function's named OUT parameter if available
+    if (funcexpr && IsA(funcexpr, FuncExpr))
+    {
+        pname = get_func_result_name(((FuncExpr *) funcexpr)->funcid);
+        if (pname)
+            return pname;
+    }
+
+    // Priority 2: Use RTE alias name for single function
+    if (nfuncs == 1 && alias)
+        return alias->aliasname;
+
+    // Priority 3: Default to function name
+    return funcname;
+}
+```

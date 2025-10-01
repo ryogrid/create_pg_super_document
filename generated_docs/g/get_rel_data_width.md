@@ -40,3 +40,43 @@ The function explicitly ignores dropped columns since information about them is 
 - The final result is clamped to prevent integer overflow using 
 - Uses 1-based indexing for attributes following PostgreSQL conventions
 - Returns int32 but uses int64 internally to prevent overflow during calculation
+
+## Simplified Source
+
+```c
+int32 get_rel_data_width(Relation rel, int32 *attr_widths) {
+    int64 tuple_width = 0;
+
+    // Iterate through all attributes in the relation
+    for (int i = 1; i <= RelationGetNumberOfAttributes(rel); i++) {
+        Form_pg_attribute att = TupleDescAttr(rel->rd_att, i - 1);
+        int32 item_width;
+
+        // Skip dropped columns
+        if (att->attisdropped)
+            continue;
+
+        // Use cached width if available
+        if (attr_widths != NULL && attr_widths[i] > 0) {
+            tuple_width += attr_widths[i];
+            continue;
+        }
+
+        // Get width from statistics or type defaults
+        item_width = get_attavgwidth(RelationGetRelid(rel), i);
+        if (item_width <= 0) {
+            item_width = get_typavgwidth(att->atttypid, att->atttypmod);
+            Assert(item_width > 0);
+        }
+
+        // Cache the computed width
+        if (attr_widths != NULL)
+            attr_widths[i] = item_width;
+
+        tuple_width += item_width;
+    }
+
+    // Clamp result to prevent overflow
+    return clamp_width_est(tuple_width);
+}
+```

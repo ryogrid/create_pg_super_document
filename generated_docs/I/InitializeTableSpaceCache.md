@@ -45,3 +45,30 @@ This function takes no parameters.
 - Uses the standard PostgreSQL cache invalidation framework for consistency
 - The memory context check ensures proper allocation context for cache data
 - Part of PostgreSQL's systematic approach to caching frequently accessed catalog information
+
+## Simplified Source
+
+```c
+static void
+InitializeTableSpaceCache(void)
+{
+    HASHCTL ctl;
+
+    // Configure hash table parameters
+    ctl.keysize = sizeof(Oid);
+    ctl.entrysize = sizeof(TableSpaceCacheEntry);
+
+    // Create the hash table
+    TableSpaceCacheHash = hash_create("TableSpace cache", 16, &ctl,
+                                     HASH_ELEM | HASH_BLOBS);
+
+    // Ensure cache memory context exists
+    if (!CacheMemoryContext)
+        CreateCacheMemoryContext();
+
+    // Register invalidation callback for tablespace changes
+    CacheRegisterSyscacheCallback(TABLESPACEOID,
+                                 InvalidateTableSpaceCacheCallback,
+                                 (Datum) 0);
+}
+```

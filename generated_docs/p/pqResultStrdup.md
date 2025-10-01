@@ -35,3 +35,19 @@ pqResultStrdup provides string duplication functionality that allocates the new 
 - Automatically includes space for null terminator in allocation
 - Commonly used for storing field names, error messages, and other string data in results
 - Located at src/interfaces/libpq/fe-exec.c:675-691
+
+## Simplified Source
+
+```c
+char *pqResultStrdup(PGresult *res, const char *str)
+{
+    // Allocate space within PGresult memory (string length + null terminator)
+    char *space = (char *) pqResultAlloc(res, strlen(str) + 1, false);
+
+    // Copy string if allocation succeeded
+    if (space)
+        strcpy(space, str);
+
+    return space;  // Returns NULL if allocation failed
+}
+```

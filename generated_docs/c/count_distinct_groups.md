@@ -42,3 +42,22 @@ The function includes assertion checks to verify that the input array is properl
 - Efficient O(n) algorithm that takes advantage of sorted input
 - Essential for determining how many unique combinations exist before building MCV lists
 - The comparison function returns 0 for equal items, enabling detection of group boundaries
+
+## Simplified Source
+```c
+static int count_distinct_groups(int numrows, SortItem *items, MultiSortSupport mss) {
+    int distinct_count = 1;  // Start with 1 (first row is always distinct)
+
+    // Compare each item with the previous one
+    for (int i = 1; i < numrows; i++) {
+        // Verify array is sorted (debug check)
+        Assert(multi_sort_compare(&items[i], &items[i - 1], mss) >= 0);
+
+        // If different from previous item, increment distinct count
+        if (multi_sort_compare(&items[i], &items[i - 1], mss) != 0)
+            distinct_count++;
+    }
+
+    return distinct_count;
+}
+```

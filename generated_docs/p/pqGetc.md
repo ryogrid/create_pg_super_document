@@ -43,3 +43,19 @@ This function is part of the internal protocol parsing infrastructure and is use
 - Part of the low-level protocol parsing infrastructure
 - Does not perform any network I/O operations
 - Thread-safety depends on the connection's locking mechanisms
+
+## Simplified Source
+
+```c
+int pqGetc(char *result, PGconn *conn)
+{
+    // Check if data is available in the buffer
+    if (conn->inCursor >= conn->inEnd)
+        return EOF;
+
+    // Read one character and advance cursor
+    *result = conn->inBuffer[conn->inCursor++];
+
+    return 0;  // Success
+}
+```

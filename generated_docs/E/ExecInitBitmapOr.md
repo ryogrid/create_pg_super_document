@@ -40,3 +40,37 @@ The function validates that certain execution flags (EXEC_FLAG_BACKWARD and EXEC
 - The function performs validation to ensure backward scanning and mark/restore are not requested
 - Child plans are initialized with the same execution flags as the parent
 - Memory allocation uses palloc0 to ensure the array is zero-initialized
+
+## Simplified Source
+
+```c
+BitmapOrState *
+ExecInitBitmapOr(BitmapOr *node, EState *estate, int eflags)
+{
+    // Create and initialize the BitmapOr state structure
+    BitmapOrState *bitmaporstate = makeNode(BitmapOrState);
+    int nplans = list_length(node->bitmapplans);
+
+    // Allocate array for child plan states
+    PlanState **bitmapplanstates = (PlanState **) palloc0(nplans * sizeof(PlanState *));
+
+    // Set up the state structure
+    bitmaporstate->ps.plan = (Plan *) node;
+    bitmaporstate->ps.state = estate;
+    bitmaporstate->ps.ExecProcNode = ExecBitmapOr;
+    bitmaporstate->bitmapplans = bitmapplanstates;
+    bitmaporstate->nplans = nplans;
+
+    // Initialize all child subplans
+    int i = 0;
+    ListCell *l;
+    foreach(l, node->bitmapplans)
+    {
+        Plan *initNode = (Plan *) lfirst(l);
+        bitmapplanstates[i] = ExecInitNode(initNode, estate, eflags);
+        i++;
+    }
+
+    return bitmaporstate;
+}
+```

@@ -59,3 +59,51 @@ The function is designed to handle wide tables efficiently by using bitmapset op
 - The caller is responsible for allocating sufficient space in res_nscolumns array
 - Essential for JOIN USING clause processing where some columns are merged and others need to be preserved individually
 - Returns the count of columns added to the result structures
+
+## Simplified Source
+
+```c
+static int
+extractRemainingColumns(ParseState *pstate,
+                        ParseNamespaceColumn *src_nscolumns,
+                        List *src_colnames,
+                        List **src_colnos,
+                        List **res_colnames, List **res_colvars,
+                        ParseNamespaceColumn *res_nscolumns)
+{
+    int colcount = 0;
+    int attnum = 0;
+
+    // Build bitmapset of already-merged columns for O(1) lookup
+    Bitmapset *prevcols = NULL;
+    ListCell *lc;
+    foreach(lc, *src_colnos)
+    {
+        prevcols = bms_add_member(prevcols, lfirst_int(lc));
+    }
+
+    // Iterate through all source columns
+    foreach(lc, src_colnames)
+    {
+        char *colname = strVal(lfirst(lc));
+        attnum++;
+
+        // Check if column is not dropped and not already merged
+        if (colname[0] != '\0' && !bms_is_member(attnum, prevcols))
+        {
+            // Add column to result structures
+            *src_colnos = lappend_int(*src_colnos, attnum);
+            *res_colnames = lappend(*res_colnames, lfirst(lc));
+            *res_colvars = lappend(*res_colvars,
+                                   buildVarFromNSColumn(pstate,
+                                                        src_nscolumns + attnum - 1));
+
+            // Copy namespace column metadata
+            res_nscolumns[colcount] = src_nscolumns[attnum - 1];
+            colcount++;
+        }
+    }
+
+    return colcount;
+}
+```

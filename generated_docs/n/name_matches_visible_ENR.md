@@ -30,3 +30,14 @@ This function serves as a boolean test to determine if a specified relation name
 - Returns true if the ENR exists and is visible, false if not found or not visible
 - Part of PostgreSQL's parser infrastructure for handling temporary named relations
 - Located in src/backend/parser/parse_enr.c:20-25
+
+## Simplified Source
+
+```c
+bool
+name_matches_visible_ENR(ParseState *pstate, const char *refname)
+{
+    // Check if ENR metadata exists for the given name
+    return (get_visible_ENR_metadata(pstate->p_queryEnv, refname) != NULL);
+}
+```

@@ -38,3 +38,43 @@ ExecInitUnique performs comprehensive initialization of a UNIQUE plan node. It c
 - Uses TTSOpsMinimalTuple for efficient tuple slot operations
 - Precomputes equality functions for performance optimization during execution
 - The eqfunction field stores prepared comparison routines used by ExecUnique for duplicate detection
+
+## Simplified Source
+
+```c
+UniqueState *
+ExecInitUnique(Unique *node, EState *estate, int eflags)
+{
+    UniqueState *uniquestate;
+
+    // Check for unsupported execution flags
+    Assert(!(eflags & (EXEC_FLAG_BACKWARD | EXEC_FLAG_MARK)));
+
+    // Create and initialize state structure
+    uniquestate = makeNode(UniqueState);
+    uniquestate->ps.plan = (Plan *) node;
+    uniquestate->ps.state = estate;
+    uniquestate->ps.ExecProcNode = ExecUnique;
+
+    // Set up expression context
+    ExecAssignExprContext(estate, &uniquestate->ps);
+
+    // Initialize outer subplan recursively
+    outerPlanState(uniquestate) = ExecInitNode(outerPlan(node), estate, eflags);
+
+    // Initialize result slot - no projections needed for UNIQUE
+    ExecInitResultTupleSlotTL(&uniquestate->ps, &TTSOpsMinimalTuple);
+    uniquestate->ps.ps_ProjInfo = NULL;
+
+    // Precompute equality comparison functions for duplicate detection
+    uniquestate->eqfunction =
+        execTuplesMatchPrepare(ExecGetResultType(outerPlanState(uniquestate)),
+                              node->numCols,
+                              node->uniqColIdx,
+                              node->uniqOperators,
+                              node->uniqCollations,
+                              &uniquestate->ps);
+
+    return uniquestate;
+}
+```

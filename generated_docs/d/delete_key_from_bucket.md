@@ -42,3 +42,35 @@ This function traverses a hash bucket's linked list to find an entry with a key 
 - Uses pointer-to-pointer technique for efficient linked list manipulation
 - The function handles deletion from any position in the linked list (head, middle, or tail)
 - Only deletes the first matching entry if duplicates exist
+
+## Simplified Source
+
+```c
+static bool
+delete_key_from_bucket(dshash_table *hash_table, const void *key, dsa_pointer *bucket_head)
+{
+    // Traverse the bucket's linked list
+    while (DsaPointerIsValid(*bucket_head)) {
+        dshash_table_item *item;
+
+        item = dsa_get_address(hash_table->area, *bucket_head);
+
+        // Check if this item matches the key
+        if (equal_keys(hash_table, key, ENTRY_FROM_ITEM(item))) {
+            dsa_pointer next;
+
+            // Remove item from list and free memory
+            next = item->next;
+            dsa_free(hash_table->area, *bucket_head);
+            *bucket_head = next;
+
+            return true;
+        }
+
+        // Move to next item in chain
+        bucket_head = &item->next;
+    }
+
+    return false; // Key not found
+}
+```

@@ -43,3 +43,15 @@ This approach provides a well-defined, consistent ordering that is optimized for
 - Essential building block for JSONB container search and comparison operations
 - The function is static and only used internally within the JSONB system
 - Optimized for the common case where strings have different lengths
+
+## Simplified Source
+
+```c
+static int
+lengthCompareJsonbString(const char *val1, int len1, const char *val2, int len2) {
+    if (len1 == len2)
+        return memcmp(val1, val2, len1);  // Same length: compare content
+    else
+        return len1 > len2 ? 1 : -1;      // Different lengths: shorter < longer
+}
+```

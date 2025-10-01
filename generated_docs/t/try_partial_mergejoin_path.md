@@ -56,3 +56,54 @@ Like other partial path functions, it uses simplified validation logic due to th
 - Creates paths with NULL required_outer since partial paths cannot be parameterized
 - Simpler validation logic compared to regular merge join paths due to parallel execution constraints
 - Essential component of PostgreSQL's parallel merge join capability in the query optimizer
+
+## Simplified Source
+
+```c
+static void try_partial_mergejoin_path(PlannerInfo *root,
+                                      RelOptInfo *joinrel,
+                                      Path *outer_path,
+                                      Path *inner_path,
+                                      List *pathkeys,
+                                      List *mergeclauses,
+                                      List *outersortkeys,
+                                      List *innersortkeys,
+                                      JoinType jointype,
+                                      JoinPathExtraData *extra)
+{
+    // Validate parallel execution constraints
+    Assert(bms_is_empty(joinrel->lateral_relids));
+
+    // Reject parameterized inner paths (not supported in partial joins)
+    if (inner_path->param_info != NULL)
+    {
+        Relids inner_paramrels = inner_path->param_info->ppi_req_outer;
+        if (!bms_is_empty(inner_paramrels))
+            return;
+    }
+
+    // Optimize sorting - skip if paths are already ordered
+    if (outersortkeys &&
+        pathkeys_contained_in(outersortkeys, outer_path->pathkeys))
+        outersortkeys = NIL;
+    if (innersortkeys &&
+        pathkeys_contained_in(innersortkeys, inner_path->pathkeys))
+        innersortkeys = NIL;
+
+    // Get initial cost estimate
+    JoinCostWorkspace workspace;
+    initial_cost_mergejoin(root, &workspace, jointype, mergeclauses,
+                          outer_path, inner_path, outersortkeys, innersortkeys, extra);
+
+    // Early cost-based elimination
+    if (!add_partial_path_precheck(joinrel, workspace.total_cost, pathkeys))
+        return;
+
+    // Create and add the partial merge join path
+    add_partial_path(joinrel, (Path *)
+                    create_mergejoin_path(root, joinrel, jointype, &workspace, extra,
+                                         outer_path, inner_path, extra->restrictlist,
+                                         pathkeys, NULL, mergeclauses,
+                                         outersortkeys, innersortkeys));
+}
+```

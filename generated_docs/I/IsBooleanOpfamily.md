@@ -41,3 +41,18 @@ This distinction is critical for performance optimization in query planning, as 
 - Part of the index path selection optimization in PostgreSQL's query planner
 - Located in `src/backend/optimizer/path/indxpath.c:2280-2304`
 - Returns boolean result indicating whether the opfamily supports boolean equality operations
+
+## Simplified Source
+
+```c
+static bool
+IsBooleanOpfamily(Oid opfamily)
+{
+    // For built-in opfamilies, use fast hardwired knowledge
+    if (opfamily < FirstNormalObjectId)
+        return IsBuiltinBooleanOpfamily(opfamily);
+
+    // For extension opfamilies, check catalog for boolean equality support
+    return op_in_opfamily(BooleanEqualOperator, opfamily);
+}
+```

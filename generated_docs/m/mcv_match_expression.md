@@ -36,3 +36,37 @@ This function determines which dimension of a multi-dimensional MCV statistic co
 - Returns -1 or throws an error if the expression is not found in the statistics object
 - The collation information is crucial for proper string comparison operations
 - Located in src/backend/statistics/mcv.c:1535-1598
+
+## Simplified Source
+
+```c
+static int mcv_match_expression(Node *expr, Bitmapset *keys, List *exprs, Oid *collid) {
+    if (IsA(expr, Var)) {
+        // Handle simple column reference
+        Var *var = (Var *) expr;
+
+        if (collid) *collid = var->varcollid;
+
+        int idx = bms_member_index(keys, var->varattno);
+        if (idx < 0)
+            elog(ERROR, "variable not found in statistics object");
+
+        return idx;
+    } else {
+        // Handle complex expression
+        if (collid) *collid = exprCollation(expr);
+
+        // Expressions stored after simple columns
+        int idx = bms_num_members(keys);
+
+        ListCell *lc;
+        foreach(lc, exprs) {
+            if (equal(expr, (Node *) lfirst(lc)))
+                return idx;
+            idx++;
+        }
+
+        elog(ERROR, "expression not found in statistics object");
+    }
+}
+```

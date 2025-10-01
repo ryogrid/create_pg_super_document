@@ -52,3 +52,97 @@ Width estimates are clamped using `clamp_width_est` to prevent integer overflow 
 - Uses statistical information when available, falling back to datatype-based estimates
 - All width calculations are clamped to prevent integer overflow using `clamp_width_est`
 - Assumes Vars have zero cost while other expressions are properly costed
+
+## Simplified Source
+
+```c
+static void
+set_rel_width(PlannerInfo *root, RelOptInfo *rel)
+{
+    Oid reloid = planner_rt_fetch(rel->relid, root)->relid;
+    int64 tuple_width = 0;
+    bool have_wholerow_var = false;
+    ListCell *lc;
+
+    // Initialize evaluation costs
+    rel->reltarget->cost.startup = 0;
+    rel->reltarget->cost.per_tuple = 0;
+
+    // Process each expression in the target list
+    foreach(lc, rel->reltarget->exprs) {
+        Node *node = (Node *) lfirst(lc);
+
+        if (IsA(node, Var) && ((Var *) node)->varno == rel->relid) {
+            // Handle regular table columns
+            Var *var = (Var *) node;
+            int ndx = var->varattno - rel->min_attr;
+            int32 item_width;
+
+            if (var->varattno == 0) {
+                // Defer whole-row vars until after individual columns
+                have_wholerow_var = true;
+                continue;
+            }
+
+            // Use cached width if available
+            if (rel->attr_widths[ndx] > 0) {
+                tuple_width += rel->attr_widths[ndx];
+                continue;
+            }
+
+            // Try to get width from statistics, fall back to type info
+            if (reloid != InvalidOid && var->varattno > 0) {
+                item_width = get_attavgwidth(reloid, var->varattno);
+            }
+            if (item_width <= 0) {
+                item_width = get_typavgwidth(var->vartype, var->vartypmod);
+            }
+
+            // Cache and accumulate width
+            rel->attr_widths[ndx] = item_width;
+            tuple_width += item_width;
+
+        } else if (IsA(node, PlaceHolderVar)) {
+            // Handle placeholder variables
+            PlaceHolderVar *phv = (PlaceHolderVar *) node;
+            PlaceHolderInfo *phinfo = find_placeholder_info(root, phv);
+            QualCost cost;
+
+            tuple_width += phinfo->ph_width;
+            cost_qual_eval_node(&cost, (Node *) phv->phexpr, root);
+            rel->reltarget->cost.startup += cost.startup;
+            rel->reltarget->cost.per_tuple += cost.per_tuple;
+
+        } else {
+            // Handle other expressions
+            int32 item_width = get_typavgwidth(exprType(node), exprTypmod(node));
+            QualCost cost;
+
+            tuple_width += item_width;
+            cost_qual_eval_node(&cost, node, root);
+            rel->reltarget->cost.startup += cost.startup;
+            rel->reltarget->cost.per_tuple += cost.per_tuple;
+        }
+    }
+
+    // Handle whole-row variables
+    if (have_wholerow_var) {
+        int64 wholerow_width = MAXALIGN(SizeofHeapTupleHeader);
+
+        if (reloid != InvalidOid) {
+            wholerow_width += get_relation_data_width(reloid,
+                                                     rel->attr_widths - rel->min_attr);
+        } else {
+            // Sum individual column widths for non-real relations
+            for (AttrNumber i = 1; i <= rel->max_attr; i++) {
+                wholerow_width += rel->attr_widths[i - rel->min_attr];
+            }
+        }
+
+        rel->attr_widths[0 - rel->min_attr] = clamp_width_est(wholerow_width);
+        tuple_width += wholerow_width;
+    }
+
+    rel->reltarget->width = clamp_width_est(tuple_width);
+}
+```

@@ -39,3 +39,49 @@ The `pg_strncoll_icu_no_utf8` function handles ICU-based string collation for ca
 - Uses efficient memory management with stack allocation for small strings
 - Part of PostgreSQL's ICU integration for international collation support
 - Asserts that the locale provider is COLLPROVIDER_ICU to ensure correct usage
+
+## Simplified Source
+
+```c
+static int pg_strncoll_icu_no_utf8(const char *arg1, int32_t len1,
+                                  const char *arg2, int32_t len2, pg_locale_t locale) {
+    char sbuf[TEXTBUFLEN];
+    char *buf = sbuf;
+    int32_t ulen1, ulen2;
+    UChar *uchar1, *uchar2;
+    int result;
+
+    Assert(locale->provider == COLLPROVIDER_ICU);
+
+    // Initialize ICU converter
+    init_icu_converter();
+
+    // Calculate required buffer sizes for UChar conversion
+    ulen1 = uchar_length(icu_converter, arg1, len1);
+    ulen2 = uchar_length(icu_converter, arg2, len2);
+
+    size_t bufsize1 = (ulen1 + 1) * sizeof(UChar);
+    size_t bufsize2 = (ulen2 + 1) * sizeof(UChar);
+
+    // Allocate larger buffer if needed
+    if (bufsize1 + bufsize2 > TEXTBUFLEN)
+        buf = palloc(bufsize1 + bufsize2);
+
+    // Set up UChar pointers
+    uchar1 = (UChar *) buf;
+    uchar2 = (UChar *) (buf + bufsize1);
+
+    // Convert strings from database encoding to UChar (UTF-16)
+    ulen1 = uchar_convert(icu_converter, uchar1, ulen1 + 1, arg1, len1);
+    ulen2 = uchar_convert(icu_converter, uchar2, ulen2 + 1, arg2, len2);
+
+    // Perform ICU collation comparison
+    result = ucol_strcoll(locale->info.icu.ucol, uchar1, ulen1, uchar2, ulen2);
+
+    // Clean up if we allocated memory
+    if (buf != sbuf)
+        pfree(buf);
+
+    return result;
+}
+```

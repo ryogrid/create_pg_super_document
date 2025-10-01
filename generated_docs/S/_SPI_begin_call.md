@@ -40,3 +40,27 @@ The function is designed to work in conjunction with _SPI_end_call to provide pr
 - Always paired with _SPI_end_call to ensure proper cleanup
 - The subtransaction ID tracking enables proper cleanup if the operation is aborted
 - Memory context switching ensures SPI operations use appropriate memory management
+
+## Simplified Source
+
+```c
+static int
+_SPI_begin_call(bool use_exec)
+{
+    // Check that SPI connection exists
+    if (_SPI_current == NULL)
+        return SPI_ERROR_UNCONNECTED;
+
+    // If using execution context, set up tracking and switch contexts
+    if (use_exec)
+    {
+        // Record subtransaction ID for cleanup
+        _SPI_current->execSubid = GetCurrentSubTransactionId();
+
+        // Switch to executor memory context
+        _SPI_execmem();
+    }
+
+    return 0;
+}
+```

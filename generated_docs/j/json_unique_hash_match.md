@@ -39,3 +39,25 @@ The hierarchical comparison approach ensures proper segregation of keys across d
 - The function signature follows PostgreSQL's hash table callback function interface for match functions
 - Essential for proper hash table collision resolution and key lookup operations
 - Part of the fast key uniqueness checking system that prevents duplicate keys in JSON objects during aggregation
+
+## Simplified Source
+
+```c
+static int
+json_unique_hash_match(const void *key1, const void *key2, Size keysize)
+{
+    const JsonUniqueHashEntry *entry1 = (const JsonUniqueHashEntry *) key1;
+    const JsonUniqueHashEntry *entry2 = (const JsonUniqueHashEntry *) key2;
+
+    // First compare object IDs
+    if (entry1->object_id != entry2->object_id)
+        return entry1->object_id > entry2->object_id ? 1 : -1;
+
+    // Then compare key lengths for efficiency
+    if (entry1->key_len != entry2->key_len)
+        return entry1->key_len > entry2->key_len ? 1 : -1;
+
+    // Finally compare the actual key strings
+    return strncmp(entry1->key, entry2->key, entry1->key_len);
+}
+```

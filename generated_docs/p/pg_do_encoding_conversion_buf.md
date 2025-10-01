@@ -49,3 +49,34 @@ Key characteristics:
 - Returns actual bytes written, avoiding need for strlen() on result
 - Used primarily in performance-critical paths like COPY operations
 - Caller must ensure destination buffer is null-terminated appropriately
+
+## Simplified Source
+
+```c
+int
+pg_do_encoding_conversion_buf(Oid proc,
+                              int src_encoding,
+                              int dest_encoding,
+                              unsigned char *src, int srclen,
+                              unsigned char *dest, int destlen,
+                              bool noError)
+{
+    Datum result;
+
+    // Limit input size to prevent destination buffer overflow
+    // Account for worst-case conversion expansion
+    if ((Size) srclen >= ((destlen - 1) / (Size) MAX_CONVERSION_GROWTH))
+        srclen = ((destlen - 1) / (Size) MAX_CONVERSION_GROWTH);
+
+    // Call the conversion function with prepared arguments
+    result = OidFunctionCall6(proc,
+                              Int32GetDatum(src_encoding),
+                              Int32GetDatum(dest_encoding),
+                              CStringGetDatum((char *) src),
+                              CStringGetDatum((char *) dest),
+                              Int32GetDatum(srclen),
+                              BoolGetDatum(noError));
+
+    return DatumGetInt32(result);
+}
+```

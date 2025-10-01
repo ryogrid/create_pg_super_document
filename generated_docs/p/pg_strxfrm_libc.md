@@ -58,3 +58,25 @@ LC_ALL=: Locale specification for transformation rules
 - Returns the number of bytes written to dest, or the required buffer size if dest is too small
 - The source string must be null-terminated as required by libc strxfrm functions
 - Located in src/backend/utils/adt/pg_locale.c:2176-2193
+
+## Simplified Source
+
+```c
+static size_t
+pg_strxfrm_libc(char *dest, const char *src, size_t destsize, pg_locale_t locale)
+{
+    Assert(!locale || locale->provider == COLLPROVIDER_LIBC);
+
+#ifdef TRUST_STRXFRM
+    // Use locale-specific or default strxfrm function
+    if (locale)
+        return strxfrm_l(dest, src, destsize, locale->info.lt);
+    else
+        return strxfrm(dest, src, destsize);
+#else
+    // strxfrm is not trusted on this platform
+    PGLOCALE_SUPPORT_ERROR(locale->provider);
+    return 0;
+#endif
+}
+```

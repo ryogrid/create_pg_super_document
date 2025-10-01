@@ -38,3 +38,27 @@ The function extracts the partition expression from the specified column and com
 - The function performs structural equality checks rather than semantic equivalence
 - Designed specifically for boolean partition key columns where the partition key itself acts as a boolean expression
 - Part of PostgreSQL's partition pruning optimization system
+
+## Simplified Source
+
+```c
+static bool
+matches_boolean_partition_clause(RestrictInfo *rinfo, RelOptInfo *partrel, int partkeycol)
+{
+    Node *clause = (Node *) rinfo->clause;
+    Node *partexpr = (Node *) linitial(partrel->partexprs[partkeycol]);
+
+    // Check for direct match (partkey = true)
+    if (equal(partexpr, clause))
+        return true;
+
+    // Check for NOT clause (partkey = false)
+    if (is_notclause(clause)) {
+        Node *arg = (Node *) get_notclausearg((Expr *) clause);
+        if (equal(partexpr, arg))
+            return true;
+    }
+
+    return false;
+}
+```

@@ -27,3 +27,25 @@ The binaryCompareStrings function performs a straightforward per-byte comparison
 
 ## Notes and Other Information
 This function is optimized for UTF-8 and ASCII encodings where byte-order comparison yields correct Unicode codepoint ordering. It's used both directly for UTF-8/ASCII strings and as a fallback for binary comparison when Unicode codepoint comparison results are equal but the original byte representations differ. The function handles strings that may not be null-terminated by relying on explicit length parameters.
+
+## Simplified Source
+
+```c
+static int
+binaryCompareStrings(const char *s1, int len1, const char *s2, int len2)
+{
+    // Compare byte content of the shorter length
+    int cmp = memcmp(s1, s2, Min(len1, len2));
+
+    // If byte content differs, return that result
+    if (cmp != 0)
+        return cmp;
+
+    // If byte content is identical, compare lengths
+    if (len1 == len2)
+        return 0;
+
+    // Shorter string is considered "less than" longer string
+    return len1 < len2 ? -1 : 1;
+}
+```

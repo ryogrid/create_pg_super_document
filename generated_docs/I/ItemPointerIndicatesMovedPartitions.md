@@ -37,3 +37,13 @@ This function checks if an ItemPointer contains special marker values that indic
 - This is used in partition-wise operations to detect when tuples have been moved between partitions
 - The function is implemented as a static inline for performance efficiency
 - Part of the ItemPointer API for handling tuple location references in PostgreSQL's storage system
+
+## Simplified Source
+
+```c
+static inline bool ItemPointerIndicatesMovedPartitions(const ItemPointerData *pointer) {
+    // Check if both offset and block numbers match the special "moved partitions" markers
+    return (ItemPointerGetOffsetNumber(pointer) == MovedPartitionsOffsetNumber &&
+            ItemPointerGetBlockNumberNoCheck(pointer) == MovedPartitionsBlockNumber);
+}
+```

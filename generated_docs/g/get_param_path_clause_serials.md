@@ -43,3 +43,55 @@ The function is essential for determining clause redundancy and ensuring proper 
 - Serial numbers provide a way to uniquely identify and track clause enforcement
 - For join paths, may include some non-pushed-down clauses in the result for efficiency
 - The function is located in src/backend/optimizer/util/relnode.c:1922-2016
+
+## Simplified Source
+
+```c
+Bitmapset *get_param_path_clause_serials(Path *path) {
+    // Return NULL for unparameterized paths
+    if (path->param_info == NULL)
+        return NULL;
+
+    // Handle join paths (NestPath, MergePath, HashPath)
+    if (IsA(path, NestPath) || IsA(path, MergePath) || IsA(path, HashPath)) {
+        JoinPath *jpath = (JoinPath *) path;
+        Bitmapset *pserials = NULL;
+        ListCell *lc;
+
+        // Combine clauses from both input paths
+        pserials = bms_add_members(pserials, get_param_path_clause_serials(jpath->outerjoinpath));
+        pserials = bms_add_members(pserials, get_param_path_clause_serials(jpath->innerjoinpath));
+
+        // Add join restriction clauses
+        foreach(lc, jpath->joinrestrictinfo) {
+            RestrictInfo *rinfo = (RestrictInfo *) lfirst(lc);
+            pserials = bms_add_member(pserials, rinfo->rinfo_serial);
+        }
+        return pserials;
+    }
+    // Handle append paths (AppendPath, MergeAppendPath)
+    else if (IsA(path, AppendPath) || IsA(path, MergeAppendPath)) {
+        List *subpaths = IsA(path, AppendPath) ?
+                        ((AppendPath *) path)->subpaths :
+                        ((MergeAppendPath *) path)->subpaths;
+        Bitmapset *pserials = NULL;
+        ListCell *lc;
+
+        // Take intersection of clauses enforced in all subpaths
+        foreach(lc, subpaths) {
+            Path *subpath = (Path *) lfirst(lc);
+            Bitmapset *subserials = get_param_path_clause_serials(subpath);
+
+            if (lc == list_head(subpaths))
+                pserials = bms_copy(subserials);
+            else
+                pserials = bms_int_members(pserials, subserials);
+        }
+        return pserials;
+    }
+    // Base relation path: use precomputed serials
+    else {
+        return path->param_info->ppi_serials;
+    }
+}
+```

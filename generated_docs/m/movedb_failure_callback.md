@@ -32,3 +32,20 @@ movedb_failure_callback serves as an error recovery mechanism for the movedb ope
 - Only removes files from the destination directory, leaving source files untouched
 - Critical for maintaining file system consistency when database moves fail partway through
 - The callback parameter structure (movedb_failure_params) contains dest_dboid and dest_tsoid fields needed to reconstruct the target path
+
+## Simplified Source
+
+```c
+static void movedb_failure_callback(int code, Datum arg) {
+    // Extract parameters containing destination database info
+    movedb_failure_params *fparms = (movedb_failure_params *) DatumGetPointer(arg);
+
+    // Get path to destination directory
+    char *dstpath = GetDatabasePath(fparms->dest_dboid, fparms->dest_tsoid);
+
+    // Clean up any partially copied files
+    rmtree(dstpath, true);
+
+    pfree(dstpath);
+}
+```

@@ -48,3 +48,100 @@ ExecInitMemoize performs comprehensive initialization of a Memoize node's runtim
 - Optimizes for single-row scenarios where cache entries can be marked complete after the first tuple
 - Uses TTSOpsMinimalTuple for efficient storage and TTSOpsVirtual for temporary key operations
 - Initializes comprehensive instrumentation counters for monitoring cache performance
+
+## Simplified Source
+
+```c
+MemoizeState *
+ExecInitMemoize(Memoize *node, EState *estate, int eflags)
+{
+    MemoizeState *mstate = makeNode(MemoizeState);
+    Plan *outerNode;
+    int i, nkeys;
+    Oid *eqfuncoids;
+
+    // Validate execution flags - backward scan and mark/restore not supported
+    Assert(!(eflags & (EXEC_FLAG_BACKWARD | EXEC_FLAG_MARK)));
+
+    // Initialize state structure
+    mstate->ss.ps.plan = (Plan *) node;
+    mstate->ss.ps.state = estate;
+    mstate->ss.ps.ExecProcNode = ExecMemoize;
+
+    // Set up expression context
+    ExecAssignExprContext(estate, &mstate->ss.ps);
+
+    // Initialize child node
+    outerNode = outerPlan(node);
+    outerPlanState(mstate) = ExecInitNode(outerNode, estate, eflags);
+
+    // Initialize result and scan slots
+    ExecInitResultTupleSlotTL(&mstate->ss.ps, &TTSOpsMinimalTuple);
+    mstate->ss.ps.ps_ProjInfo = NULL; // No projection needed
+    ExecCreateScanSlotFromOuterPlan(estate, &mstate->ss, &TTSOpsMinimalTuple);
+
+    // Set initial cache state
+    mstate->mstatus = MEMO_CACHE_LOOKUP;
+
+    // Set up hash key infrastructure
+    mstate->nkeys = nkeys = node->numKeys;
+    mstate->hashkeydesc = ExecTypeFromExprList(node->param_exprs);
+    mstate->tableslot = MakeSingleTupleTableSlot(mstate->hashkeydesc, &TTSOpsMinimalTuple);
+    mstate->probeslot = MakeSingleTupleTableSlot(mstate->hashkeydesc, &TTSOpsVirtual);
+
+    // Initialize parameter expressions and hash functions
+    mstate->param_exprs = (ExprState **) palloc(nkeys * sizeof(ExprState *));
+    mstate->collations = node->collations;
+    mstate->hashfunctions = (FmgrInfo *) palloc(nkeys * sizeof(FmgrInfo));
+    eqfuncoids = palloc(nkeys * sizeof(Oid));
+
+    // Set up hash and equality functions for each key
+    for (i = 0; i < nkeys; i++)
+    {
+        Oid hashop = node->hashOperators[i];
+        Oid left_hashfn, right_hashfn;
+        Expr *param_expr = (Expr *) list_nth(node->param_exprs, i);
+
+        if (!get_op_hash_functions(hashop, &left_hashfn, &right_hashfn))
+            elog(ERROR, "could not find hash function for hash operator %u", hashop);
+
+        fmgr_info(left_hashfn, &mstate->hashfunctions[i]);
+        mstate->param_exprs[i] = ExecInitExpr(param_expr, (PlanState *) mstate);
+        eqfuncoids[i] = get_opcode(hashop);
+    }
+
+    // Build cache equality expression
+    mstate->cache_eq_expr = ExecBuildParamSetEqual(mstate->hashkeydesc,
+                                                  &TTSOpsMinimalTuple,
+                                                  &TTSOpsVirtual,
+                                                  eqfuncoids,
+                                                  node->collations,
+                                                  node->param_exprs,
+                                                  (PlanState *) mstate);
+
+    pfree(eqfuncoids);
+
+    // Initialize memory management
+    mstate->mem_used = 0;
+    mstate->mem_limit = get_hash_memory_limit();
+    mstate->tableContext = AllocSetContextCreate(CurrentMemoryContext,
+                                                "MemoizeHashTable",
+                                                ALLOCSET_DEFAULT_SIZES);
+
+    // Initialize LRU list and state variables
+    dlist_init(&mstate->lru_list);
+    mstate->last_tuple = NULL;
+    mstate->entry = NULL;
+
+    // Set optimization flags
+    mstate->singlerow = node->singlerow;
+    mstate->keyparamids = node->keyparamids;
+    mstate->binary_mode = node->binary_mode;
+
+    // Initialize statistics and defer hash table creation
+    memset(&mstate->stats, 0, sizeof(MemoizeInstrumentation));
+    mstate->hashtable = NULL;
+
+    return mstate;
+}
+```

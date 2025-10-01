@@ -36,3 +36,48 @@ This function provides a safe conversion from PostgreSQL's numeric data type to 
 - Returns 0 on error when using flag-based error handling
 - Part of PostgreSQL's type conversion system and used extensively in JSON path operations
 - Error codes used: ERRCODE_FEATURE_NOT_SUPPORTED (for special values), ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE (for overflow)
+
+## Simplified Source
+
+```c
+int64
+numeric_int8_opt_error(Numeric num, bool *have_error)
+{
+    NumericVar x;
+    int64 result;
+
+    if (have_error)
+        *have_error = false;
+
+    // Handle special values (NaN, infinity)
+    if (NUMERIC_IS_SPECIAL(num)) {
+        if (have_error) {
+            *have_error = true;
+            return 0;
+        }
+        else {
+            // Throw appropriate error for NaN or infinity
+            if (NUMERIC_IS_NAN(num))
+                ereport(ERROR, "cannot convert NaN to bigint");
+            else
+                ereport(ERROR, "cannot convert infinity to bigint");
+        }
+    }
+
+    // Convert to internal format and then to int64
+    init_var_from_num(num, &x);
+
+    if (!numericvar_to_int64(&x, &result)) {
+        // Range overflow - value too large for int64
+        if (have_error) {
+            *have_error = true;
+            return 0;
+        }
+        else {
+            ereport(ERROR, "bigint out of range");
+        }
+    }
+
+    return result;
+}
+```

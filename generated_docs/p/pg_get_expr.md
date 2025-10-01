@@ -44,3 +44,33 @@ The function provides a safe interface that gracefully handles cases where the r
 - Part of PostgreSQL's expression decompilation system used throughout the database
 - Located in src/backend/utils/adt/ruleutils.c:2629-2645
 - The actual decompilation work is delegated to pg_get_expr_worker function
+
+## Simplified Source
+
+```c
+// Simplified version of pg_get_expr
+Datum pg_get_expr(PG_FUNCTION_ARGS) {
+    // Extract input parameters: expression text and relation OID
+    text *expr = PG_GETARG_TEXT_PP(0);
+    Oid relid = PG_GETARG_OID(1);
+    text *result;
+
+    // Set formatting flags for indented output
+    int prettyFlags = PRETTYFLAG_INDENT;
+
+    // Delegate actual decompilation to worker function
+    result = pg_get_expr_worker(expr, relid, prettyFlags);
+
+    // Return result or NULL if decompilation failed
+    if (result)
+        PG_RETURN_TEXT_P(result);
+    else
+        PG_RETURN_NULL();
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential functionality understanding
+- Simplified variable declarations and initialization
+- Added high-level comments explaining the core logic flow
+- Focused on the main execution path: extract parameters → set flags → call worker → return result

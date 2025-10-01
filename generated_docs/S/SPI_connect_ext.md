@@ -55,3 +55,80 @@ The atomic/non-atomic behavior is controlled by the SPI_OPT_NONATOMIC flag:
 - Stack corruption detection is performed with assertions and error checks
 - Returns SPI_OK_CONNECT (1) on successful connection establishment
 - Located in src/backend/executor/spi.c:100-181
+
+## Simplified Source
+
+```c
+int
+SPI_connect_ext(int options)
+{
+    int newdepth;
+
+    // Initialize or enlarge the SPI stack if needed
+    if (_SPI_stack == NULL)
+    {
+        // First time initialization
+        if (_SPI_connected != -1 || _SPI_stack_depth != 0)
+            elog(ERROR, "SPI stack corrupted");
+
+        newdepth = 16;
+        _SPI_stack = (SPI_connection *)
+            MemoryContextAlloc(TopMemoryContext,
+                               newdepth * sizeof(SPI_connection));
+        _SPI_stack_depth = newdepth;
+    }
+    else
+    {
+        // Check for stack corruption
+        if (_SPI_stack_depth <= 0 || _SPI_stack_depth <= _SPI_connected)
+            elog(ERROR, "SPI stack corrupted");
+
+        // Double stack size if full
+        if (_SPI_stack_depth == _SPI_connected + 1)
+        {
+            newdepth = _SPI_stack_depth * 2;
+            _SPI_stack = (SPI_connection *)
+                repalloc(_SPI_stack, newdepth * sizeof(SPI_connection));
+            _SPI_stack_depth = newdepth;
+        }
+    }
+
+    // Enter new stack level and initialize connection state
+    _SPI_connected++;
+    _SPI_current = &(_SPI_stack[_SPI_connected]);
+
+    // Initialize connection structure
+    _SPI_current->processed = 0;
+    _SPI_current->tuptable = NULL;
+    _SPI_current->execSubid = InvalidSubTransactionId;
+    slist_init(&_SPI_current->tuptables);
+    _SPI_current->connectSubid = GetCurrentSubTransactionId();
+    _SPI_current->queryEnv = NULL;
+    _SPI_current->atomic = (options & SPI_OPT_NONATOMIC ? false : true);
+    _SPI_current->internal_xact = false;
+
+    // Save outer state for nested SPI calls
+    _SPI_current->outer_processed = SPI_processed;
+    _SPI_current->outer_tuptable = SPI_tuptable;
+    _SPI_current->outer_result = SPI_result;
+
+    // Create memory contexts (atomic vs non-atomic)
+    _SPI_current->procCxt = AllocSetContextCreate(
+        _SPI_current->atomic ? TopTransactionContext : PortalContext,
+        "SPI Proc", ALLOCSET_DEFAULT_SIZES);
+
+    _SPI_current->execCxt = AllocSetContextCreate(
+        _SPI_current->atomic ? TopTransactionContext : _SPI_current->procCxt,
+        "SPI Exec", ALLOCSET_DEFAULT_SIZES);
+
+    // Switch to procedure context
+    _SPI_current->savedcxt = MemoryContextSwitchTo(_SPI_current->procCxt);
+
+    // Reset global SPI variables for new connection
+    SPI_processed = 0;
+    SPI_tuptable = NULL;
+    SPI_result = 0;
+
+    return SPI_OK_CONNECT;
+}
+```

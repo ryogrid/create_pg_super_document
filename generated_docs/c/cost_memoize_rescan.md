@@ -47,3 +47,57 @@ The costing model considers the worst-case scenario where no parameter value is 
 - Cache storage overhead applies to all tuples regardless of hit ratio
 - Hit ratio calculation considers both the number of distinct values and cache capacity constraints
 - Function is static, indicating it's only used within the costsize.c compilation unit
+
+## Simplified Source
+
+```c
+static void cost_memoize_rescan(PlannerInfo *root, MemoizePath *mpath,
+                                Cost *rescan_startup_cost, Cost *rescan_total_cost) {
+    Cost input_startup_cost = mpath->subpath->startup_cost;
+    Cost input_total_cost = mpath->subpath->total_cost;
+    double tuples = mpath->subpath->rows;
+    double calls = mpath->calls;
+    int width = mpath->subpath->pathtarget->width;
+
+    // Calculate available cache memory and entry size
+    double hash_mem_bytes = get_hash_memory_limit();
+    double est_entry_bytes = relation_byte_size(tuples, width) +
+                             ExecEstimateCacheEntryOverheadBytes(tuples);
+
+    // Add parameter expression widths to entry size
+    foreach(lc, mpath->param_exprs)
+        est_entry_bytes += get_expr_width(root, (Node *) lfirst(lc));
+
+    // Estimate cache capacity and distinct parameter values
+    double est_cache_entries = floor(hash_mem_bytes / est_entry_bytes);
+    double ndistinct = estimate_num_groups(root, mpath->param_exprs, calls, NULL, &estinfo);
+
+    // Conservative fallback: assume unique parameters if estimation used defaults
+    if ((estinfo.flags & SELFLAG_USED_DEFAULT) != 0)
+        ndistinct = calls;
+
+    // Set estimated entries for executor hash table sizing
+    mpath->est_entries = Min(Min(ndistinct, est_cache_entries), PG_UINT32_MAX);
+
+    // Calculate cache hit ratio and eviction costs
+    double evict_ratio = 1.0 - Min(est_cache_entries, ndistinct) / ndistinct;
+    double hit_ratio = ((calls - ndistinct) / calls) *
+                       (est_cache_entries / Max(ndistinct, est_cache_entries));
+
+    // Calculate costs accounting for cache hit ratio
+    Cost total_cost = input_total_cost * (1.0 - hit_ratio) + cpu_operator_cost;
+
+    // Add eviction costs
+    total_cost += cpu_tuple_cost * evict_ratio;
+    total_cost += cpu_operator_cost / 10.0 * evict_ratio * tuples;
+
+    // Add caching storage costs
+    total_cost += cpu_tuple_cost + cpu_operator_cost * tuples;
+
+    // Calculate startup cost with cache hit consideration
+    Cost startup_cost = input_startup_cost * (1.0 - hit_ratio) + cpu_tuple_cost;
+
+    *rescan_startup_cost = startup_cost;
+    *rescan_total_cost = total_cost;
+}
+```

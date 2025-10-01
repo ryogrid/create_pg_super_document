@@ -42,3 +42,65 @@ This function performs the actual disk I/O for bulk write operations by processi
 - Sets page checksums just before writing to ensure data integrity
 - Resets the npending counter to 0 after flushing all writes
 - The skipFsync parameter is set to true for all writes, deferring fsync responsibility to the finish function
+
+## Simplified Source
+
+```c
+static void smgr_bulk_flush(BulkWriteState *bulkstate) {
+    int npending = bulkstate->npending;
+    PendingWrite *pending_writes = bulkstate->pending_writes;
+
+    if (npending == 0)
+        return;
+
+    // Sort writes by block number for optimal I/O performance
+    if (npending > 1)
+        qsort(pending_writes, npending, sizeof(PendingWrite), buffer_cmp);
+
+    // WAL log all pages if WAL is enabled
+    if (bulkstate->use_wal) {
+        BlockNumber blknos[MAX_PENDING_WRITES];
+        Page pages[MAX_PENDING_WRITES];
+        bool page_std = true;
+
+        // Collect block numbers and pages for batch logging
+        for (int i = 0; i < npending; i++) {
+            blknos[i] = pending_writes[i].blkno;
+            pages[i] = pending_writes[i].buf->data;
+            if (!pending_writes[i].page_std)
+                page_std = false;
+        }
+
+        log_newpages(&bulkstate->smgr->smgr_rlocator.locator,
+                     bulkstate->forknum, npending, blknos, pages, page_std);
+    }
+
+    // Write each page to disk
+    for (int i = 0; i < npending; i++) {
+        BlockNumber blkno = pending_writes[i].blkno;
+        Page page = pending_writes[i].buf->data;
+
+        // Set page checksum before writing
+        PageSetChecksumInplace(page, blkno);
+
+        if (blkno >= bulkstate->relsize) {
+            // Fill gaps with zero pages to prevent fragmentation
+            while (blkno > bulkstate->relsize) {
+                smgrextend(bulkstate->smgr, bulkstate->forknum,
+                          bulkstate->relsize, &zero_buffer, true);
+                bulkstate->relsize++;
+            }
+            // Extend relation with new page
+            smgrextend(bulkstate->smgr, bulkstate->forknum, blkno, page, true);
+            bulkstate->relsize++;
+        } else {
+            // Overwrite existing page
+            smgrwrite(bulkstate->smgr, bulkstate->forknum, blkno, page, true);
+        }
+
+        pfree(page);
+    }
+
+    bulkstate->npending = 0;
+}
+```

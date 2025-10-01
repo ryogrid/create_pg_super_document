@@ -48,3 +48,53 @@ This function serves as the entry point for window function run condition optimi
 - The run condition optimization sets window function results to NULL when termination occurs, relying on strict operators to filter these appropriately
 - Located in src/backend/optimizer/path/allpaths.c at lines 2407-2481
 - Part of the broader window function optimization framework in PostgreSQL
+
+## Simplified Source
+
+```c
+static bool
+check_and_push_window_quals(Query *subquery, RangeTblEntry *rte, Index rti,
+                           Node *clause, Bitmapset **run_cond_attrs)
+{
+    OpExpr *opexpr = (OpExpr *) clause;
+    bool keep_original = true;
+    Var *var1, *var2;
+
+    // Only process OpExprs with exactly 2 operands
+    if (!IsA(opexpr, OpExpr) || list_length(opexpr->args) != 2)
+        return true;
+
+    // Require strict operators for proper NULL handling
+    set_opfuncid(opexpr);
+    if (!func_strict(opexpr->opfuncid))
+        return true;
+
+    // Check left operand for window function reference
+    var1 = linitial(opexpr->args);
+    if (IsA(var1, Var) && var1->varattno > 0)
+    {
+        TargetEntry *tle = list_nth(subquery->targetList, var1->varattno - 1);
+        WindowFunc *wfunc = (WindowFunc *) tle->expr;
+
+        if (find_window_run_conditions(subquery, rte, rti, tle->resno, wfunc,
+                                     opexpr, true, &keep_original,
+                                     run_cond_attrs))
+            return keep_original;
+    }
+
+    // Check right operand for window function reference
+    var2 = lsecond(opexpr->args);
+    if (IsA(var2, Var) && var2->varattno > 0)
+    {
+        TargetEntry *tle = list_nth(subquery->targetList, var2->varattno - 1);
+        WindowFunc *wfunc = (WindowFunc *) tle->expr;
+
+        if (find_window_run_conditions(subquery, rte, rti, tle->resno, wfunc,
+                                     opexpr, false, &keep_original,
+                                     run_cond_attrs))
+            return keep_original;
+    }
+
+    return true;
+}
+```

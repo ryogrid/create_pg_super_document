@@ -41,3 +41,52 @@ This function processes a PostgreSQL text array datum containing relation option
 - The function avoids unnecessary quoting for simple identifier-like values to reduce clutter in generated SQL
 - Memory management: properly frees temporary strings allocated during processing
 - Used in contexts where PostgreSQL needs to display or reconstruct storage options for relations
+
+## Simplified Source
+
+```c
+static void
+get_reloptions(StringInfo buf, Datum reloptions)
+{
+    Datum *options;
+    int noptions;
+    int i;
+
+    // Extract text array elements
+    deconstruct_array_builtin(DatumGetArrayTypeP(reloptions), TEXTOID,
+                             &options, NULL, &noptions);
+
+    // Process each option
+    for (i = 0; i < noptions; i++) {
+        char *option = TextDatumGetCString(options[i]);
+        char *name;
+        char *separator;
+        char *value;
+
+        // Parse "name=value" format (default to empty value if no '=')
+        name = option;
+        separator = strchr(option, '=');
+        if (separator) {
+            *separator = '\0';
+            value = separator + 1;
+        } else {
+            value = "";
+        }
+
+        // Add comma separator between options
+        if (i > 0)
+            appendStringInfoString(buf, ", ");
+
+        // Add quoted name and equals sign
+        appendStringInfo(buf, "%s=", quote_identifier(name));
+
+        // Quote value only if necessary (avoid clutter for simple identifiers)
+        if (quote_identifier(value) == value)
+            appendStringInfoString(buf, value);
+        else
+            simple_quote_literal(buf, value);
+
+        pfree(option);
+    }
+}
+```

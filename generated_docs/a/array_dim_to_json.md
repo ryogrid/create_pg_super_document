@@ -40,3 +40,46 @@ array_dim_to_json is a recursive function that handles the conversion of Postgre
 
 ## Notes and Other Information
 The function uses a recursive approach where each call handles one dimension level. Line feeds are only used for the outermost dimension when use_line_feeds is true - inner dimensions always use compact formatting without line feeds. The valcount parameter is incremented only when processing the innermost dimension elements, ensuring proper traversal through the flattened array values.
+
+## Simplified Source
+
+```c
+static void array_dim_to_json(StringInfo result, int dim, int ndims, int *dims, Datum *vals,
+                              bool *nulls, int *valcount, JsonTypeCategory tcategory,
+                              Oid outfuncoid, bool use_line_feeds)
+{
+    int i;
+    const char *sep;
+
+    Assert(dim < ndims);
+
+    // Choose separator format (with or without line feeds)
+    sep = use_line_feeds ? ",\n " : ",";
+
+    appendStringInfoChar(result, '[');
+
+    // Process all elements in this dimension
+    for (i = 1; i <= dims[dim]; i++)
+    {
+        if (i > 1)
+            appendStringInfoString(result, sep);
+
+        if (dim + 1 == ndims)
+        {
+            // Innermost dimension: convert element to JSON
+            datum_to_json_internal(vals[*valcount], nulls[*valcount],
+                                  result, tcategory, outfuncoid, false);
+            (*valcount)++;
+        }
+        else
+        {
+            // Outer dimension: recursively process next dimension
+            // (Inner dimensions don't use line feeds)
+            array_dim_to_json(result, dim + 1, ndims, dims, vals, nulls,
+                             valcount, tcategory, outfuncoid, false);
+        }
+    }
+
+    appendStringInfoChar(result, ']');
+}
+```

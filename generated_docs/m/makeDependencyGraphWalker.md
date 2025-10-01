@@ -39,9 +39,121 @@ The walker uses PostgreSQL's raw_expression_tree_walker infrastructure to traver
 
 ## Notes and Other Information
 - Returns false in most cases to continue tree walking, true would stop traversal
-- The function is static and only used within parse_cte.c  
+- The function is static and only used within parse_cte.c
 - Handles scoping correctly by checking inner WITH clauses before outer ones
 - Marks CTEs as recursive when they reference themselves
 - Uses PostgreSQL's bitmapset data structure for efficient dependency tracking
 - Prevents raw_expression_tree_walker from recursing into WITH clauses automatically
 - Essential for building the dependency graph needed for topological sorting of recursive CTEs
+
+## Simplified Source
+
+```c
+static bool
+makeDependencyGraphWalker(Node *node, CteState *cstate)
+{
+    if (node == NULL)
+        return false;
+
+    // Check for CTE references in table names
+    if (IsA(node, RangeVar))
+    {
+        RangeVar *rv = (RangeVar *) node;
+
+        // Only unqualified names can be CTEs
+        if (!rv->schemaname)
+        {
+            // Check if reference is captured by inner WITH clause
+            foreach(lc, cstate->innerwiths)
+            {
+                List *withlist = (List *) lfirst(lc);
+                foreach(lc2, withlist)
+                {
+                    CommonTableExpr *cte = (CommonTableExpr *) lfirst(lc2);
+                    if (strcmp(rv->relname, cte->ctename) == 0)
+                        return false;  // Captured by inner WITH
+                }
+            }
+
+            // Check for reference to CTEs in current WITH clause
+            for (int i = 0; i < cstate->numitems; i++)
+            {
+                CommonTableExpr *cte = cstate->items[i].cte;
+                if (strcmp(rv->relname, cte->ctename) == 0)
+                {
+                    int myindex = cstate->curitem;
+                    if (i != myindex)
+                    {
+                        // Record cross-CTE dependency
+                        cstate->items[myindex].depends_on =
+                            bms_add_member(cstate->items[myindex].depends_on,
+                                           cstate->items[i].id);
+                    }
+                    else
+                    {
+                        // Mark self-referential CTE as recursive
+                        cte->cterecursive = true;
+                    }
+                    break;
+                }
+            }
+        }
+        return false;
+    }
+
+    // Handle statements with WITH clauses using special processing
+    if (IsA(node, SelectStmt))
+    {
+        SelectStmt *stmt = (SelectStmt *) node;
+        if (stmt->withClause)
+        {
+            WalkInnerWith(node, stmt->withClause, cstate);
+            return false;
+        }
+    }
+    else if (IsA(node, InsertStmt))
+    {
+        InsertStmt *stmt = (InsertStmt *) node;
+        if (stmt->withClause)
+        {
+            WalkInnerWith(node, stmt->withClause, cstate);
+            return false;
+        }
+    }
+    else if (IsA(node, DeleteStmt))
+    {
+        DeleteStmt *stmt = (DeleteStmt *) node;
+        if (stmt->withClause)
+        {
+            WalkInnerWith(node, stmt->withClause, cstate);
+            return false;
+        }
+    }
+    else if (IsA(node, UpdateStmt))
+    {
+        UpdateStmt *stmt = (UpdateStmt *) node;
+        if (stmt->withClause)
+        {
+            WalkInnerWith(node, stmt->withClause, cstate);
+            return false;
+        }
+    }
+    else if (IsA(node, MergeStmt))
+    {
+        MergeStmt *stmt = (MergeStmt *) node;
+        if (stmt->withClause)
+        {
+            WalkInnerWith(node, stmt->withClause, cstate);
+            return false;
+        }
+    }
+    else if (IsA(node, WithClause))
+    {
+        // Prevent direct WITH clause recursion
+        return false;
+    }
+
+    // Continue tree walking for other node types
+    return raw_expression_tree_walker(node, makeDependencyGraphWalker, (void *) cstate);
+}
+```

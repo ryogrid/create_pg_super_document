@@ -46,3 +46,62 @@ The division of labor with final_cost_hashjoin represents a speed vs. accuracy t
 - Saves intermediate results (numbuckets, numbatches, run_cost) in workspace for final_cost_hashjoin
 - Does not examine join qualification clauses in detail, deferring CPU qualification costs to final costing
 - For parallel hash, undoes the parallel divisor when estimating total hash table size
+
+## Simplified Source
+
+```c
+void initial_cost_hashjoin(PlannerInfo *root, JoinCostWorkspace *workspace,
+                          JoinType jointype, List *hashclauses,
+                          Path *outer_path, Path *inner_path,
+                          JoinPathExtraData *extra, bool parallel_hash) {
+    Cost startup_cost = 0;
+    Cost run_cost = 0;
+    double outer_path_rows = outer_path->rows;
+    double inner_path_rows = inner_path->rows;
+    double inner_path_rows_total = inner_path_rows;
+    int num_hashclauses = list_length(hashclauses);
+
+    // Source data costs
+    startup_cost += outer_path->startup_cost + inner_path->total_cost;
+    run_cost += outer_path->total_cost - outer_path->startup_cost;
+
+    // Hash computation costs
+    // - Inner side: hash function + insertion into hash table
+    startup_cost += (cpu_operator_cost * num_hashclauses + cpu_tuple_cost) * inner_path_rows;
+    // - Outer side: hash function for probing
+    run_cost += cpu_operator_cost * num_hashclauses * outer_path_rows;
+
+    // Adjust for parallel hash (need total rows for hash table sizing)
+    if (parallel_hash)
+        inner_path_rows_total *= get_parallel_divisor(inner_path);
+
+    // Determine hash table configuration
+    int numbuckets, numbatches, num_skew_mcvs;
+    size_t space_allowed;
+    ExecChooseHashTableSize(inner_path_rows_total,
+                           inner_path->pathtarget->width,
+                           true,  // use skew optimization
+                           parallel_hash,
+                           outer_path->parallel_workers,
+                           &space_allowed, &numbuckets, &numbatches, &num_skew_mcvs);
+
+    // Account for batching I/O costs (if data doesn't fit in memory)
+    if (numbatches > 1) {
+        double outer_pages = page_size(outer_path_rows, outer_path->pathtarget->width);
+        double inner_pages = page_size(inner_path_rows, inner_path->pathtarget->width);
+
+        // Write inner relation to disk during startup
+        startup_cost += seq_page_cost * inner_pages;
+        // Read/write both relations during execution
+        run_cost += seq_page_cost * (inner_pages + 2 * outer_pages);
+    }
+
+    // Store results for final_cost_hashjoin
+    workspace->startup_cost = startup_cost;
+    workspace->total_cost = startup_cost + run_cost;
+    workspace->run_cost = run_cost;
+    workspace->numbuckets = numbuckets;
+    workspace->numbatches = numbatches;
+    workspace->inner_rows_total = inner_path_rows_total;
+}
+```

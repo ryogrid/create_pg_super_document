@@ -42,3 +42,26 @@ The function serves as a critical safety mechanism in the PostgreSQL protocol im
 - Critical for maintaining protocol integrity and preventing potential security vulnerabilities from malformed messages
 - The error message includes both the problematic message type and length for debugging purposes
 - Forces the connection into READY state specifically to break out of any pending PQgetResult wait loops
+
+## Simplified Source
+
+```c
+static void
+handleSyncLoss(PGconn *conn, char message_id, int message_length)
+{
+    // Log the synchronization error with problematic message details
+    libpq_append_conn_error(conn,
+        "lost synchronization with server: got message type \"%c\", length %d",
+        message_id, message_length);
+
+    // Create and save an error result
+    pqSaveErrorResult(conn);
+
+    // Exit any PQgetResult wait loops
+    conn->asyncStatus = PGASYNC_READY;
+
+    // Close the network connection and mark it as unusable
+    pqDropConnection(conn, true);
+    conn->status = CONNECTION_BAD;
+}
+```

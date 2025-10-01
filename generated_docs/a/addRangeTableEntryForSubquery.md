@@ -61,3 +61,80 @@ Key behavior:
 - The function carefully extracts type information from the subquery's target list to ensure proper column metadata
 - LATERAL subqueries have special scoping rules allowing them to reference columns from preceding FROM items
 - Error handling includes detailed messages when alias count mismatches occur
+
+## Simplified Source
+
+```c
+ParseNamespaceItem *
+addRangeTableEntryForSubquery(ParseState *pstate, Query *subquery,
+                              Alias *alias, bool lateral, bool inFromCl)
+{
+    RangeTblEntry *rte = makeNode(RangeTblEntry);
+    Alias *eref;
+    int numaliases;
+    List *coltypes, *coltypmods, *colcollations;
+    int varattno;
+    ListCell *tlistitem;
+
+    // Initialize the range table entry for subquery
+    rte->rtekind = RTE_SUBQUERY;
+    rte->subquery = subquery;
+    rte->alias = alias;
+
+    // Create effective reference name - use provided alias or auto-generate
+    eref = alias ? copyObject(alias) : makeAlias("unnamed_subquery", NIL);
+    numaliases = list_length(eref->colnames);
+
+    // Extract column information from subquery target list
+    coltypes = coltypmods = colcollations = NIL;
+    varattno = 0;
+
+    foreach(tlistitem, subquery->targetList)
+    {
+        TargetEntry *te = (TargetEntry *) lfirst(tlistitem);
+
+        // Skip junk columns (not part of final result)
+        if (te->resjunk)
+            continue;
+
+        varattno++;
+        Assert(varattno == te->resno);
+
+        // Auto-generate column names if not enough aliases provided
+        if (varattno > numaliases)
+        {
+            char *attrname = pstrdup(te->resname);
+            eref->colnames = lappend(eref->colnames, makeString(attrname));
+        }
+
+        // Extract type information for each column
+        coltypes = lappend_oid(coltypes, exprType((Node *) te->expr));
+        coltypmods = lappend_int(coltypmods, exprTypmod((Node *) te->expr));
+        colcollations = lappend_oid(colcollations, exprCollation((Node *) te->expr));
+    }
+
+    // Validate alias count matches available columns
+    if (varattno < numaliases)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_COLUMN_REFERENCE),
+                 errmsg("table \"%s\" has %d columns available but %d columns specified",
+                        eref->aliasname, varattno, numaliases)));
+
+    // Complete RTE setup
+    rte->eref = eref;
+    rte->lateral = lateral;
+    rte->inFromCl = inFromCl;
+
+    // Add RTE to parser state's range table
+    pstate->p_rtable = lappend(pstate->p_rtable, rte);
+
+    // Build namespace item with column metadata
+    ParseNamespaceItem *nsitem = buildNSItemFromLists(rte, list_length(pstate->p_rtable),
+                                                       coltypes, coltypmods, colcollations);
+
+    // Set visibility - only visible as relation name if user provided alias
+    nsitem->p_rel_visible = (alias != NULL);
+
+    return nsitem;
+}
+```

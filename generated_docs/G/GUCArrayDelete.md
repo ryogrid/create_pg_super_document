@@ -42,3 +42,49 @@ The function normalizes obsolete GUC parameter names to their modern spellings u
 - Uses 1-based array indexing consistent with PostgreSQL array conventions
 - The function creates a completely new array rather than modifying the input array in-place
 - Used primarily in database role settings and function configuration management
+
+## Simplified Source
+
+```c
+ArrayType *GUCArrayDelete(ArrayType *array, const char *name) {
+    struct config_generic *record;
+    ArrayType *newarray = NULL;
+    int index = 1;
+
+    // Validate parameter name
+    validate_option_array_item(name, NULL, false);
+
+    // Normalize name (convert obsolete names to modern spellings)
+    record = find_option(name, false, true, WARNING);
+    if (record)
+        name = record->name;
+
+    // Return NULL if input array is NULL
+    if (!array)
+        return NULL;
+
+    // Iterate through array elements
+    for (int i = 1; i <= ARR_DIMS(array)[0]; i++) {
+        bool isnull;
+        Datum d = array_ref(array, 1, &i, -1, -1, false, TYPALIGN_INT, &isnull);
+
+        if (!isnull) {
+            char *val = TextDatumGetCString(d);
+
+            // Skip entry if it matches the name to delete
+            if (strncmp(val, name, strlen(name)) == 0 && val[strlen(name)] == '=')
+                continue;
+
+            // Add to new array (create or expand)
+            if (newarray)
+                newarray = array_set(newarray, 1, &index, d, false, -1, -1, false, TYPALIGN_INT);
+            else
+                newarray = construct_array_builtin(&d, 1, TEXTOID);
+
+            index++;
+        }
+    }
+
+    return newarray;
+}
+```

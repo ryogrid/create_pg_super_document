@@ -41,3 +41,32 @@ This function displays the grouping keys used by an Agg plan node during EXPLAIN
 - For standard grouping, it passes NULL for sort operators, collations, and null handling since these don't apply to grouping keys
 - The ancestors list manipulation ensures proper column name resolution by referencing the child plan's target list
 - This is a static function, only accessible within the explain.c compilation unit
+
+## Simplified Source
+
+```c
+static void
+show_agg_keys(AggState *astate, List *ancestors, ExplainState *es)
+{
+    Agg *plan = (Agg *) astate->ss.ps.plan;
+
+    // Only show grouping keys if there are any columns or grouping sets
+    if (plan->numCols > 0 || plan->groupingSets)
+    {
+        // Add current plan to ancestors for proper column reference resolution
+        ancestors = lcons(plan, ancestors);
+
+        if (plan->groupingSets)
+            // Show advanced grouping sets (ROLLUP, CUBE, etc.)
+            show_grouping_sets(outerPlanState(astate), plan, ancestors, es);
+        else
+            // Show standard GROUP BY keys
+            show_sort_group_keys(outerPlanState(astate), "Group Key",
+                                plan->numCols, 0, plan->grpColIdx,
+                                NULL, NULL, NULL, ancestors, es);
+
+        // Remove plan from ancestors list
+        ancestors = list_delete_first(ancestors);
+    }
+}
+```

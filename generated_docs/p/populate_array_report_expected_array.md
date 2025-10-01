@@ -52,3 +52,52 @@ The function constructs detailed error hints that include:
 - The function constructs array index paths like "[0][1][2]" to show users exactly where in nested arrays the error occurred
 - The function always returns void and never returns normally - it always raises an error
 - Supports both named columns (when  is set) and anonymous array contexts
+
+## Simplified Source
+
+```c
+static void
+populate_array_report_expected_array(PopulateArrayContext *ctx, int ndim)
+{
+    // Simple case: basic error for invalid dimension count
+    if (ndim <= 0)
+    {
+        if (ctx->colname)
+            errsave(ctx->escontext,
+                    (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                     errmsg("expected JSON array"),
+                     errhint("See the value of key \"%s\".", ctx->colname)));
+        else
+            errsave(ctx->escontext,
+                    (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                     errmsg("expected JSON array")));
+        return;
+    }
+    else
+    {
+        // Complex case: build array index path for detailed error
+        StringInfoData indices;
+        int i;
+
+        initStringInfo(&indices);
+        Assert(ctx->ndims > 0 && ndim < ctx->ndims);
+
+        // Build index path like "[0][1][2]"
+        for (i = 0; i < ndim; i++)
+            appendStringInfo(&indices, "[%d]", ctx->sizes[i]);
+
+        if (ctx->colname)
+            errsave(ctx->escontext,
+                    (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                     errmsg("expected JSON array"),
+                     errhint("See the array element %s of key \"%s\".",
+                            indices.data, ctx->colname)));
+        else
+            errsave(ctx->escontext,
+                    (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                     errmsg("expected JSON array"),
+                     errhint("See the array element %s.", indices.data)));
+        return;
+    }
+}
+```

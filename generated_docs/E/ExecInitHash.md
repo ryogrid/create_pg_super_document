@@ -50,3 +50,34 @@ The function enforces execution flag restrictions, rejecting backward scan and m
 - Does not set up projection info since Hash nodes don't perform tuple projection
 - Expects parent HashJoin to coordinate the actual hash table construction process
 - Located in src/backend/executor/nodeHash.c:360-412
+
+## Simplified Source
+
+```c
+HashState *
+ExecInitHash(Hash *node, EState *estate, int eflags)
+{
+    // Create and initialize the Hash state structure
+    HashState *hashstate = makeNode(HashState);
+    hashstate->ps.plan = (Plan *) node;
+    hashstate->ps.state = estate;
+    hashstate->ps.ExecProcNode = ExecHash;
+    hashstate->hashtable = NULL;
+    hashstate->hashkeys = NIL;  // Will be set by parent HashJoin
+
+    // Create expression context
+    ExecAssignExprContext(estate, &hashstate->ps);
+
+    // Initialize the outer child plan
+    outerPlanState(hashstate) = ExecInitNode(outerPlan(node), estate, eflags);
+
+    // Initialize result slot (no projection needed)
+    ExecInitResultTupleSlotTL(&hashstate->ps, &TTSOpsMinimalTuple);
+    hashstate->ps.ps_ProjInfo = NULL;
+
+    // Initialize hash key expressions
+    hashstate->hashkeys = ExecInitExprList(node->hashkeys, (PlanState *) hashstate);
+
+    return hashstate;
+}
+```

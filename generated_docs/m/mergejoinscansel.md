@@ -57,3 +57,105 @@ The estimates help determine both the total cost (how much data to scan) and sta
 - Accounts for cross-type comparisons where left and right operand types differ
 - Adjusts estimates when nulls-first ordering is used by adding null fraction to start/end selectivities
 - Falls back gracefully when operator family information is incomplete or statistics are unavailable
+
+## Simplified Source
+
+```c
+void mergejoinscansel(PlannerInfo *root, Node *clause,
+                      Oid opfamily, int strategy, bool nulls_first,
+                      Selectivity *leftstart, Selectivity *leftend,
+                      Selectivity *rightstart, Selectivity *rightend) {
+    Node *left, *right;
+    VariableStatData leftvar, rightvar;
+    Oid opno, collation;
+    Oid ltop, leop, revltop, revleop; // Comparison operators
+    bool isgt;
+    Datum leftmin, leftmax, rightmin, rightmax;
+    double selec;
+
+    // Set conservative defaults
+    *leftstart = *rightstart = 0.0;
+    *leftend = *rightend = 1.0;
+
+    // Extract clause components
+    if (!is_opclause(clause))
+        return;
+    opno = ((OpExpr *) clause)->opno;
+    collation = ((OpExpr *) clause)->inputcollid;
+    left = get_leftop((Expr *) clause);
+    right = get_rightop((Expr *) clause);
+    if (!right)
+        return;
+
+    // Gather variable statistics
+    examine_variable(root, left, 0, &leftvar);
+    examine_variable(root, right, 0, &rightvar);
+
+    // Look up appropriate comparison operators based on sort strategy
+    isgt = (strategy == BTGreaterStrategyNumber);
+    // ... operator lookup logic based on ascending/descending and data types ...
+
+    // Get variable ranges from statistics
+    if (!get_variable_range(root, &leftvar, lstatop, collation, &leftmin, &leftmax) ||
+        !get_variable_range(root, &rightvar, rstatop, collation, &rightmin, &rightmax))
+        goto fail;
+
+    // Calculate end fractions: how much to scan before join terminates
+    selec = scalarineqsel(root, leop, isgt, true, collation, &leftvar,
+                          rightmax, op_righttype);
+    if (selec != DEFAULT_INEQ_SEL)
+        *leftend = selec;
+
+    selec = scalarineqsel(root, revleop, isgt, true, collation, &rightvar,
+                          leftmax, op_lefttype);
+    if (selec != DEFAULT_INEQ_SEL)
+        *rightend = selec;
+
+    // Only one end fraction can be < 1.0 - choose the smaller
+    if (*leftend > *rightend)
+        *leftend = 1.0;
+    else if (*leftend < *rightend)
+        *rightend = 1.0;
+    else
+        *leftend = *rightend = 1.0;
+
+    // Calculate start fractions: how much to scan before first match
+    selec = scalarineqsel(root, ltop, isgt, false, collation, &leftvar,
+                          rightmin, op_righttype);
+    if (selec != DEFAULT_INEQ_SEL)
+        *leftstart = selec;
+
+    selec = scalarineqsel(root, revltop, isgt, false, collation, &rightvar,
+                          leftmin, op_lefttype);
+    if (selec != DEFAULT_INEQ_SEL)
+        *rightstart = selec;
+
+    // Only one start fraction can be > 0.0 - choose the larger
+    if (*leftstart < *rightstart)
+        *leftstart = 0.0;
+    else if (*leftstart > *rightstart)
+        *rightstart = 0.0;
+    else
+        *leftstart = *rightstart = 0.0;
+
+    // Adjust for nulls-first ordering if needed
+    if (nulls_first) {
+        // Add null fractions to start/end estimates and clamp to [0,1]
+        // ... null fraction adjustment logic ...
+    }
+
+    // Sanity check: start must be < end
+    if (*leftstart >= *leftend) {
+        *leftstart = 0.0;
+        *leftend = 1.0;
+    }
+    if (*rightstart >= *rightend) {
+        *rightstart = 0.0;
+        *rightend = 1.0;
+    }
+
+fail:
+    ReleaseVariableStats(leftvar);
+    ReleaseVariableStats(rightvar);
+}
+```

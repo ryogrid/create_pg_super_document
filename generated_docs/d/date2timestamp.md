@@ -35,3 +35,15 @@ The  function provides a simplified interface for date-to-timestamp conversion b
 - Return type is declared as TimestampTz but actually returns Timestamp (likely a documentation inconsistency)
 - Serves as the standard interface for date-to-timestamp conversion when overflow should be treated as an error condition
 - Essential for interval arithmetic operations that require timestamp precision
+
+## Simplified Source
+
+```c
+static TimestampTz
+date2timestamp(DateADT dateVal)
+{
+    // Delegate to overflow-handling version with NULL overflow parameter
+    // This forces error throwing on overflow rather than graceful handling
+    return date2timestamp_opt_overflow(dateVal, NULL);
+}
+```

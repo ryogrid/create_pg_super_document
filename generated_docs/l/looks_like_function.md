@@ -44,3 +44,36 @@ The function adopts a conservative approach - when in doubt, it returns false, w
 - Part of PostgreSQL's sophisticated rule system for accurate SQL reconstruction
 - Helps distinguish between expressions that naturally look like functions vs. those that need wrapping
 - Essential for contexts like index definitions and partition key definitions where function-like syntax is required
+
+## Simplified Source
+
+```c
+static bool
+looks_like_function(Node *node)
+{
+    if (node == NULL)
+        return false;  // Shouldn't happen but safe to handle
+
+    switch (nodeTag(node))
+    {
+        case T_FuncExpr:
+            // OK unless it will deparse as a cast
+            return (((FuncExpr *) node)->funcformat == COERCE_EXPLICIT_CALL ||
+                    ((FuncExpr *) node)->funcformat == COERCE_SQL_SYNTAX);
+
+        case T_NullIfExpr:
+        case T_CoalesceExpr:
+        case T_MinMaxExpr:
+        case T_SQLValueFunction:
+        case T_XmlExpr:
+        case T_JsonExpr:
+            // These are all accepted by func_expr_common_subexpr
+            return true;
+
+        default:
+            break;
+    }
+
+    return false;  // Conservative: when in doubt, return false
+}
+```

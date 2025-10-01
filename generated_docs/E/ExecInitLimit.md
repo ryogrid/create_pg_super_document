@@ -52,3 +52,75 @@ The function ensures compatibility with the execution framework by properly init
 - The limit/offset expressions are not evaluated during initialization since parameters may not be available yet
 - [Result](../R/Result.md) slot operations are inherited from the child plan for efficiency
 - Expression context is required even though Limit nodes don't use ExecQual or ExecProject
+
+## Simplified Source
+
+```c
+LimitState *
+ExecInitLimit(Limit *node, EState *estate, int eflags)
+{
+    LimitState *limitstate;
+    Plan *outerPlan;
+
+    // Validate execution flags - mark/restore not supported
+    Assert(!(eflags & EXEC_FLAG_MARK));
+
+    // Create and initialize state structure
+    limitstate = makeNode(LimitState);
+    limitstate->ps.plan = (Plan *) node;
+    limitstate->ps.state = estate;
+    limitstate->ps.ExecProcNode = ExecLimit;
+
+    // Set initial execution state
+    limitstate->lstate = LIMIT_INITIAL;
+
+    // Set up expression context for limit/offset parameter evaluation
+    ExecAssignExprContext(estate, &limitstate->ps);
+
+    // Initialize child plan (outer plan)
+    outerPlan = outerPlan(node);
+    outerPlanState(limitstate) = ExecInitNode(outerPlan, estate, eflags);
+
+    // Initialize LIMIT and OFFSET expressions
+    limitstate->limitOffset = ExecInitExpr((Expr *) node->limitOffset,
+                                          (PlanState *) limitstate);
+    limitstate->limitCount = ExecInitExpr((Expr *) node->limitCount,
+                                         (PlanState *) limitstate);
+    limitstate->limitOption = node->limitOption;
+
+    // Initialize result type (inherits from child plan)
+    ExecInitResultTypeTL(&limitstate->ps);
+
+    // Set up result slot operations to match child plan
+    limitstate->ps.resultopsset = true;
+    limitstate->ps.resultops = ExecGetResultSlotOps(outerPlanState(limitstate),
+                                                   &limitstate->ps.resultopsfixed);
+
+    // No projection needed for limit nodes
+    limitstate->ps.ps_ProjInfo = NULL;
+
+    // Initialize WITH TIES functionality if needed
+    if (node->limitOption == LIMIT_OPTION_WITH_TIES)
+    {
+        TupleDesc desc;
+        const TupleTableSlotOps *ops;
+
+        // Get child plan's result type information
+        desc = ExecGetResultType(outerPlanState(limitstate));
+        ops = ExecGetResultSlotOps(outerPlanState(limitstate), NULL);
+
+        // Create slot for storing boundary tuple
+        limitstate->last_slot = ExecInitExtraTupleSlot(estate, desc, ops);
+
+        // Set up tuple comparison function for tie detection
+        limitstate->eqfunction = execTuplesMatchPrepare(desc,
+                                                       node->uniqNumCols,
+                                                       node->uniqColIdx,
+                                                       node->uniqOperators,
+                                                       node->uniqCollations,
+                                                       &limitstate->ps);
+    }
+
+    return limitstate;
+}
+```

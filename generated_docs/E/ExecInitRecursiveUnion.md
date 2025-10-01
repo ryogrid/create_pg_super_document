@@ -9,9 +9,7 @@ Initializes the execution state for a RecursiveUnion plan node, setting up all n
 ## Definition
 
 ```c
-structure
-	 */
-	rustate = makeNode(RecursiveUnionState);
+RecursiveUnionState *ExecInitRecursiveUnion(RecursiveUnion *node, EState *estate, int eflags)
 ```
 ## Detailed Description
 The `ExecInitRecursiveUnion` function performs comprehensive initialization of a RecursiveUnion plan node, preparing it for recursive query execution. The function creates and configures the RecursiveUnionState structure, which maintains the execution context throughout the recursive process.
@@ -55,3 +53,74 @@ The function ensures proper memory management by creating separate contexts for 
 - Sets up result slot types before initializing children, as WorkTableScan nodes depend on this
 - Supports both hashed (with duplicate elimination) and non-hashed recursive execution modes
 - Critical for PostgreSQL's WITH RECURSIVE implementation infrastructure
+
+## Simplified Source
+
+```c
+RecursiveUnionState *
+ExecInitRecursiveUnion(RecursiveUnion *node, EState *estate, int eflags)
+{
+    RecursiveUnionState *rustate;
+    ParamExecData *prmdata;
+
+    // Validate execution flags
+    Assert(!(eflags & (EXEC_FLAG_BACKWARD | EXEC_FLAG_MARK)));
+
+    // Create and initialize state structure
+    rustate = makeNode(RecursiveUnionState);
+    rustate->ps.plan = (Plan *) node;
+    rustate->ps.state = estate;
+    rustate->ps.ExecProcNode = ExecRecursiveUnion;
+
+    // Initialize hash-related fields
+    rustate->eqfuncoids = NULL;
+    rustate->hashfunctions = NULL;
+    rustate->hashtable = NULL;
+    rustate->tempContext = NULL;
+    rustate->tableContext = NULL;
+
+    // Initialize processing state and tuple stores
+    rustate->recursing = false;
+    rustate->intermediate_empty = true;
+    rustate->working_table = tuplestore_begin_heap(false, false, work_mem);
+    rustate->intermediate_table = tuplestore_begin_heap(false, false, work_mem);
+
+    // Create memory contexts for hashing if needed
+    if (node->numCols > 0)
+    {
+        rustate->tempContext = AllocSetContextCreate(CurrentMemoryContext,
+                                                    "RecursiveUnion",
+                                                    ALLOCSET_DEFAULT_SIZES);
+        rustate->tableContext = AllocSetContextCreate(CurrentMemoryContext,
+                                                     "RecursiveUnion hash table",
+                                                     ALLOCSET_DEFAULT_SIZES);
+    }
+
+    // Make state available to WorkTableScan nodes via parameter slot
+    prmdata = &(estate->es_param_exec_vals[node->wtParam]);
+    Assert(prmdata->execPlan == NULL);
+    prmdata->value = PointerGetDatum(rustate);
+    prmdata->isnull = false;
+
+    // Validate no qualification expressions
+    Assert(node->plan.qual == NIL);
+
+    // Initialize result type and slots
+    ExecInitResultTypeTL(&rustate->ps);
+    rustate->ps.ps_ProjInfo = NULL;
+
+    // Initialize child nodes
+    outerPlanState(rustate) = ExecInitNode(outerPlan(node), estate, eflags);
+    innerPlanState(rustate) = ExecInitNode(innerPlan(node), estate, eflags);
+
+    // Set up hashing infrastructure if duplicate elimination is needed
+    if (node->numCols > 0)
+    {
+        execTuplesHashPrepare(node->numCols, node->dupOperators,
+                            &rustate->eqfuncoids, &rustate->hashfunctions);
+        build_hash_table(rustate);
+    }
+
+    return rustate;
+}
+```

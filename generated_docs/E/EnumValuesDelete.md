@@ -40,3 +40,35 @@ The deletion process maintains catalog consistency by properly removing both the
 - Each enum value tuple is deleted individually using CatalogTupleDelete to maintain index consistency
 - This function is part of the enum type cleanup process and should only be called when the enum type itself is being dropped
 - The function does not perform any validation - it assumes the caller has verified that the enum type deletion is appropriate
+
+## Simplified Source
+
+```c
+void EnumValuesDelete(Oid enumTypeOid) {
+    Relation pg_enum;
+    ScanKeyData key[1];
+    SysScanDesc scan;
+    HeapTuple tup;
+
+    // Open pg_enum catalog for modification
+    pg_enum = table_open(EnumRelationId, RowExclusiveLock);
+
+    // Set up scan key to find all enum values for this type
+    ScanKeyInit(&key[0], Anum_pg_enum_enumtypid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(enumTypeOid));
+
+    // Begin indexed scan using EnumTypIdLabelIndexId
+    scan = systable_beginscan(pg_enum, EnumTypIdLabelIndexId, true,
+                             NULL, 1, key);
+
+    // Delete all enum values for this type
+    while (HeapTupleIsValid(tup = systable_getnext(scan))) {
+        CatalogTupleDelete(pg_enum, &tup->t_self);
+    }
+
+    // Clean up scan and close catalog
+    systable_endscan(scan);
+    table_close(pg_enum, RowExclusiveLock);
+}
+```

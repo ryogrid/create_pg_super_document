@@ -34,3 +34,20 @@ The function returns true if a valid, non-dropped attribute with the specified n
 - The function properly releases the system cache tuple if found, preventing memory leaks
 - Part of the PostgreSQL system cache infrastructure for efficient catalog lookups
 - Returns a simple boolean result, making it convenient for existence checks without needing to handle HeapTuple objects
+
+## Simplified Source
+
+```c
+bool SearchSysCacheExistsAttName(Oid relid, const char *attname) {
+    // Search for the attribute in the system cache (ignores dropped attributes)
+    HeapTuple tuple = SearchSysCacheAttName(relid, attname);
+
+    // Check if attribute exists
+    if (!HeapTupleIsValid(tuple))
+        return false;
+
+    // Clean up and return success
+    ReleaseSysCache(tuple);
+    return true;
+}
+```

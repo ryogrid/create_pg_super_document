@@ -36,3 +36,15 @@ The function is a simple pass-through that directly calls SetHintBits with ident
 - The separation allows for both performance optimization (inline) and external accessibility (exported function)
 - All actual functionality is implemented in SetHintBits - this is just a thin wrapper
 - Used primarily by external access method code that needs to set hint bits on tuples
+
+## Simplified Source
+
+```c
+void
+HeapTupleSetHintBits(HeapTupleHeader tuple, Buffer buffer,
+                     uint16 infomask, TransactionId xid)
+{
+    // Simply delegate to the inline SetHintBits function
+    SetHintBits(tuple, buffer, infomask, xid);
+}
+```

@@ -37,3 +37,24 @@ This function is used internally within PostgreSQL's XML processing code to crea
 - The length parameter is measured in xmlChar units, not bytes
 - The function always null-terminates the result, making it safe for use with string functions expecting null-terminated strings
 - Used primarily for parsing XML declaration components where specific string lengths need to be extracted
+
+## Simplified Source
+
+```c
+static xmlChar *
+xml_pnstrdup(const xmlChar *str, size_t len)
+{
+    xmlChar *result;
+
+    // Allocate memory for len characters plus null terminator
+    result = (xmlChar *) palloc((len + 1) * sizeof(xmlChar));
+
+    // Copy the specified number of characters
+    memcpy(result, str, len * sizeof(xmlChar));
+
+    // Null-terminate the string
+    result[len] = 0;
+
+    return result;
+}
+```

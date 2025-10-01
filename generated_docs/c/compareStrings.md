@@ -31,3 +31,45 @@ The compareStrings function performs string comparison using Unicode codepoint o
 
 ## Notes and Other Information
 The function includes special handling for encoding edge cases where the same Unicode characters may have different byte representations. The fallback to binary comparison when Unicode codepoints are equal ensures that the equality operator (`==`) can use simple binary comparison for performance. Future enhancements could include input string normalization for strict standard conformance. Memory management is carefully handled for dynamically allocated UTF-8 conversions.
+
+## Simplified Source
+
+```c
+static int
+compareStrings(const char *mbstr1, int mblen1,
+               const char *mbstr2, int mblen2)
+{
+    // Fast path for UTF-8 and ASCII - byte comparison equals codepoint comparison
+    if (GetDatabaseEncoding() == PG_SQL_ASCII || GetDatabaseEncoding() == PG_UTF8) {
+        return binaryCompareStrings(mbstr1, mblen1, mbstr2, mblen2);
+    }
+
+    // For other encodings, convert to UTF-8 first
+    char *utf8str1 = pg_server_to_any(mbstr1, mblen1, PG_UTF8);
+    char *utf8str2 = pg_server_to_any(mbstr2, mblen2, PG_UTF8);
+
+    // Determine lengths (conversion may or may not have occurred)
+    int utf8len1 = (mbstr1 == utf8str1) ? mblen1 : strlen(utf8str1);
+    int utf8len2 = (mbstr2 == utf8str2) ? mblen2 : strlen(utf8str2);
+
+    // Compare the UTF-8 strings
+    int cmp = binaryCompareStrings(utf8str1, utf8len1, utf8str2, utf8len2);
+
+    // If no conversion happened, we're done
+    if (mbstr1 == utf8str1 && mbstr2 == utf8str2)
+        return cmp;
+
+    // Clean up allocated memory
+    if (mbstr1 != utf8str1)
+        pfree(utf8str1);
+    if (mbstr2 != utf8str2)
+        pfree(utf8str2);
+
+    // If Unicode codepoints are equal, fall back to binary comparison
+    // of original strings (handles encoding edge cases)
+    if (cmp == 0)
+        return binaryCompareStrings(mbstr1, mblen1, mbstr2, mblen2);
+
+    return cmp;
+}
+```

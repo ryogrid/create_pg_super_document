@@ -52,3 +52,103 @@ The function supports generating either just the constraint clause (e.g., 'CHECK
 - Returns dynamically allocated strings that must be freed by the caller
 - Located in src/backend/utils/adt/ruleutils.c:2173-2576
 - This is a static (internal) function not directly exposed to SQL users
+
+## Simplified Source
+
+```c
+static char *
+pg_get_constraintdef_worker(Oid constraintId, bool fullCommand,
+                           int prettyFlags, bool missing_ok)
+{
+    HeapTuple         tup;
+    Form_pg_constraint conForm;
+    StringInfoData    buf;
+    Snapshot          snapshot = RegisterSnapshot(GetTransactionSnapshot());
+    Relation          relation = table_open(ConstraintRelationId, AccessShareLock);
+
+    // Scan for the constraint by OID
+    tup = /* system catalog scan for constraintId */;
+    UnregisterSnapshot(snapshot);
+
+    if (!HeapTupleIsValid(tup)) {
+        if (missing_ok) {
+            /* cleanup and return NULL */
+            return NULL;
+        }
+        elog(ERROR, "could not find tuple for constraint %u", constraintId);
+    }
+
+    conForm = (Form_pg_constraint) GETSTRUCT(tup);
+    initStringInfo(&buf);
+
+    // Add ALTER TABLE/DOMAIN prefix if fullCommand requested
+    if (fullCommand) {
+        if (OidIsValid(conForm->conrelid))
+            appendStringInfo(&buf, "ALTER TABLE %s ADD CONSTRAINT %s ",
+                           generate_qualified_relation_name(conForm->conrelid),
+                           quote_identifier(NameStr(conForm->conname)));
+        else
+            appendStringInfo(&buf, "ALTER DOMAIN %s ADD CONSTRAINT %s ",
+                           generate_qualified_type_name(conForm->contypid),
+                           quote_identifier(NameStr(conForm->conname)));
+    }
+
+    // Generate constraint definition based on type
+    switch (conForm->contype) {
+        case CONSTRAINT_FOREIGN:
+            appendStringInfoString(&buf, "FOREIGN KEY (");
+            /* build referencing column list */
+            decompile_column_index_array(/* conkey */, conForm->conrelid, &buf);
+            appendStringInfo(&buf, ") REFERENCES %s(",
+                           generate_relation_name(conForm->confrelid, NIL));
+            /* build referenced column list */
+            decompile_column_index_array(/* confkey */, conForm->confrelid, &buf);
+            appendStringInfoChar(&buf, ')');
+
+            // Add match type and referential actions
+            /* append match type, ON UPDATE/DELETE actions */
+            break;
+
+        case CONSTRAINT_PRIMARY:
+        case CONSTRAINT_UNIQUE:
+            appendStringInfoString(&buf,
+                conForm->contype == CONSTRAINT_PRIMARY ? "PRIMARY KEY " : "UNIQUE ");
+            appendStringInfoChar(&buf, '(');
+            decompile_column_index_array(/* conkey */, conForm->conrelid, &buf);
+            appendStringInfoChar(&buf, ')');
+            /* handle INCLUDE columns and index options if fullCommand */
+            break;
+
+        case CONSTRAINT_CHECK:
+            /* parse and deparse check expression */
+            expr = stringToNode(/* conbin */);
+            consrc = deparse_expression_pretty(expr, /* context */, false, false,
+                                             prettyFlags, 0);
+            appendStringInfo(&buf, "CHECK (%s)%s", consrc,
+                           conForm->connoinherit ? " NO INHERIT" : "");
+            break;
+
+        case CONSTRAINT_NOTNULL:
+            appendStringInfoString(&buf, "NOT NULL");
+            break;
+
+        case CONSTRAINT_EXCLUSION:
+            /* delegate to pg_get_indexdef_worker for complex exclusion syntax */
+            appendStringInfoString(&buf, pg_get_indexdef_worker(/* params */));
+            break;
+    }
+
+    // Add constraint attributes
+    if (conForm->condeferrable)
+        appendStringInfoString(&buf, " DEFERRABLE");
+    if (conForm->condeferred)
+        appendStringInfoString(&buf, " INITIALLY DEFERRED");
+    if (!conForm->convalidated)
+        appendStringInfoString(&buf, " NOT VALID");
+
+    // Cleanup and return
+    systable_endscan(scandesc);
+    table_close(relation, AccessShareLock);
+    return buf.data;
+}
+```

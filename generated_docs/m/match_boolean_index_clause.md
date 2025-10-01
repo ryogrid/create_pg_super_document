@@ -58,3 +58,77 @@ All transformations create explicit equality operations that can be processed by
 - All generated IndexClause nodes are marked as non-lossy since transformations are exact
 - Essential for boolean index utilization in modern PostgreSQL versions
 - Located in `src/backend/optimizer/path/indxpath.c:2305-2391`
+
+## Simplified Source
+
+```c
+static IndexClause *
+match_boolean_index_clause(PlannerInfo *root,
+                           RestrictInfo *rinfo,
+                           int indexcol,
+                           IndexOptInfo *index)
+{
+    Node *clause = (Node *) rinfo->clause;
+    Expr *op = NULL;
+
+    // Case 1: Direct match (indexkey) -> indexkey = TRUE
+    if (match_index_to_operand(clause, indexcol, index))
+    {
+        op = make_opclause(BooleanEqualOperator, BOOLOID, false,
+                          (Expr *) clause,
+                          (Expr *) makeBoolConst(true, false),
+                          InvalidOid, InvalidOid);
+    }
+    // Case 2: NOT clause (NOT indexkey) -> indexkey = FALSE
+    else if (is_notclause(clause))
+    {
+        Node *arg = (Node *) get_notclausearg((Expr *) clause);
+
+        if (match_index_to_operand(arg, indexcol, index))
+        {
+            op = make_opclause(BooleanEqualOperator, BOOLOID, false,
+                              (Expr *) arg,
+                              (Expr *) makeBoolConst(false, false),
+                              InvalidOid, InvalidOid);
+        }
+    }
+    // Case 3: Boolean tests (indexkey IS TRUE/FALSE)
+    else if (clause && IsA(clause, BooleanTest))
+    {
+        BooleanTest *btest = (BooleanTest *) clause;
+        Node *arg = (Node *) btest->arg;
+
+        if (btest->booltesttype == IS_TRUE &&
+            match_index_to_operand(arg, indexcol, index))
+        {
+            op = make_opclause(BooleanEqualOperator, BOOLOID, false,
+                              (Expr *) arg,
+                              (Expr *) makeBoolConst(true, false),
+                              InvalidOid, InvalidOid);
+        }
+        else if (btest->booltesttype == IS_FALSE &&
+                 match_index_to_operand(arg, indexcol, index))
+        {
+            op = make_opclause(BooleanEqualOperator, BOOLOID, false,
+                              (Expr *) arg,
+                              (Expr *) makeBoolConst(false, false),
+                              InvalidOid, InvalidOid);
+        }
+    }
+
+    // Wrap successful transformation in IndexClause
+    if (op)
+    {
+        IndexClause *iclause = makeNode(IndexClause);
+
+        iclause->rinfo = rinfo;
+        iclause->indexquals = list_make1(make_simple_restrictinfo(root, op));
+        iclause->lossy = false;
+        iclause->indexcol = indexcol;
+        iclause->indexcols = NIL;
+        return iclause;
+    }
+
+    return NULL;
+}
+```

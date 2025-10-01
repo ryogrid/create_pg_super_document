@@ -42,3 +42,19 @@ For nested arrays (lex_level > 0), the function allows processing to continue, a
 - Nested arrays within objects are permitted and handled by other parts of the parsing framework
 - The lex_level check specifically targets the root level (level 0) to catch top-level arrays
 - This validation prevents runtime errors that would occur later when trying to use array elements as hash keys
+
+## Simplified Source
+
+```c
+static JsonParseErrorType hash_array_start(void *state) {
+    JHashState *_state = (JHashState *) state;
+
+    // Error if top-level JSON is an array (arrays can't be hash tables)
+    if (_state->lex->lex_level == 0)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("cannot call %s on an array", _state->function_name)));
+
+    return JSON_SUCCESS;
+}
+```

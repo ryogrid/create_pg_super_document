@@ -42,3 +42,46 @@ The function includes comprehensive error handling for invalid input types, spec
 - Uses assertion checking to ensure hash table creation succeeds in non-error cases
 - The function name "populate_composite" is hardcoded in error messages, suggesting this function is primarily used in composite type population contexts
 - Handles both positive and negative length specifications for JSON strings, with negative values triggering strlen() calculation
+
+## Simplified Source
+
+```c
+static bool JsValueToJsObject(JsValue *jsv, JsObject *jso, Node *escontext)
+{
+    jso->is_json = jsv->is_json;
+
+    if (jsv->is_json)
+    {
+        // Convert plain-text JSON into hash table
+        jso->val.json_hash = get_json_object_as_hash(jsv->val.json.str,
+                                                    jsv->val.json.len >= 0
+                                                    ? jsv->val.json.len
+                                                    : strlen(jsv->val.json.str),
+                                                    "populate_composite", escontext);
+        Assert(jso->val.json_hash != NULL || SOFT_ERROR_OCCURRED(escontext));
+    }
+    else
+    {
+        JsonbValue *jbv = jsv->val.jsonb;
+
+        // Validate that JsonB value is an object container
+        if (jbv->type == jbvBinary && JsonContainerIsObject(jbv->val.binary.data))
+        {
+            jso->val.jsonb_cont = jbv->val.binary.data;
+        }
+        else
+        {
+            // Report error for invalid types (scalars or arrays)
+            bool is_scalar = IsAJsonbScalar(jbv) ||
+                            (jbv->type == jbvBinary && JsonContainerIsScalar(jbv->val.binary.data));
+
+            errsave(escontext,
+                   (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                    is_scalar ? errmsg("cannot call %s on a scalar", "populate_composite")
+                             : errmsg("cannot call %s on an array", "populate_composite")));
+        }
+    }
+
+    return !SOFT_ERROR_OCCURRED(escontext);
+}
+```

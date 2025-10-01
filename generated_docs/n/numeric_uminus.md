@@ -46,3 +46,36 @@ This function performs sign negation on PostgreSQL NUMERIC values by directly ma
 - Does not require unpacking to NumericVar format, providing better performance
 - Part of the sign manipulation functions in numeric.c
 - Located in src/backend/utils/adt/numeric.c:1418-1459
+
+## Simplified Source
+
+```c
+Datum
+numeric_uminus(PG_FUNCTION_ARGS)
+{
+    Numeric num = PG_GETARG_NUMERIC(0);
+    Numeric result = duplicate_numeric(num);
+
+    // Handle special values (NaN, infinity)
+    if (NUMERIC_IS_SPECIAL(num)) {
+        // Flip infinity sign, leave NaN unchanged
+        if (!NUMERIC_IS_NAN(num))
+            result->choice.n_short.n_header = num->choice.n_short.n_header ^ NUMERIC_INF_SIGN_MASK;
+    }
+    // Handle zero (no digits = zero)
+    else if (NUMERIC_NDIGITS(num) != 0) {
+        // Flip the sign bit based on numeric format
+        if (NUMERIC_IS_SHORT(num)) {
+            result->choice.n_short.n_header = num->choice.n_short.n_header ^ NUMERIC_SHORT_SIGN_MASK;
+        } else {
+            // Toggle between NUMERIC_POS and NUMERIC_NEG for long format
+            result->choice.n_long.n_sign_dscale =
+                (NUMERIC_SIGN(num) == NUMERIC_POS) ? (NUMERIC_NEG | NUMERIC_DSCALE(num)) :
+                                                     (NUMERIC_POS | NUMERIC_DSCALE(num));
+        }
+    }
+    // Zero values remain unchanged (unary minus of zero is zero)
+
+    PG_RETURN_NUMERIC(result);
+}
+```

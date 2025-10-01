@@ -62,3 +62,49 @@ Key implementation details:
 - Bitmap-based clause tracking ensures each clause is estimated exactly once
 - The algorithm gracefully handles mixed scenarios where some clauses benefit from extended statistics while others fall back to independence assumptions
 - Critical for accurate cost estimation in queries with complex OR predicates, particularly those involving multiple columns from the same relation
+
+## Simplified Source
+
+```c
+static Selectivity
+clauselist_selectivity_or(PlannerInfo *root, List *clauses, int varRelid,
+                         JoinType jointype, SpecialJoinInfo *sjinfo,
+                         bool use_extended_stats)
+{
+    Selectivity s1 = 0.0;
+    RelOptInfo *rel;
+    Bitmapset *estimatedclauses = NULL;
+    ListCell *lc;
+    int listidx;
+
+    // Try extended statistics first if available
+    rel = find_single_rel_for_clauses(root, clauses);
+    if (use_extended_stats && rel && rel->rtekind == RTE_RELATION && rel->statlist != NIL) {
+        // Apply extended statistics for correlated columns
+        s1 = statext_clauselist_selectivity(root, clauses, varRelid,
+                                           jointype, sjinfo, rel,
+                                           &estimatedclauses, true);
+    }
+
+    // Process remaining clauses independently using OR probability formula
+    listidx = -1;
+    foreach(lc, clauses) {
+        Selectivity s2;
+
+        listidx++;
+
+        // Skip clauses already estimated by extended statistics
+        if (bms_is_member(listidx, estimatedclauses)) {
+            continue;
+        }
+
+        s2 = clause_selectivity_ext(root, (Node *) lfirst(lc), varRelid,
+                                   jointype, sjinfo, use_extended_stats);
+
+        // OR combination: s1 + s2 - s1*s2 (accounts for overlap)
+        s1 = s1 + s2 - s1 * s2;
+    }
+
+    return s1;
+}
+```

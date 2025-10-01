@@ -51,3 +51,71 @@ The algorithm maintains the same structure as div_var_int() but scales up the ar
 - Properly manages memory allocation and deallocation for result storage
 - Handles edge cases like zero dividend and ensures at least one result digit
 - Maintains code synchronization with div_var_int() - changes to one should be reflected in the other
+
+## Simplified Source
+
+```c
+static void div_var_int64(const NumericVar *var, int64 ival, int ival_weight,
+                          NumericVar *result, int rscale, bool round) {
+    // Guard against division by zero
+    if (ival == 0) {
+        ereport(ERROR, (errcode(ERRCODE_DIVISION_BY_ZERO),
+                       errmsg("division by zero")));
+    }
+
+    // Handle zero dividend
+    if (var->ndigits == 0) {
+        zero_var(result);
+        result->dscale = rscale;
+        return;
+    }
+
+    // Determine result properties
+    int res_sign = (var->sign == NUMERIC_POS) == (ival > 0) ? NUMERIC_POS : NUMERIC_NEG;
+    int res_weight = var->weight - ival_weight;
+    int res_ndigits = Max(res_weight + 1 + (rscale + DEC_DIGITS - 1) / DEC_DIGITS, 1);
+    if (round) res_ndigits++;  // Extra digit for rounding
+
+    // Allocate result buffer
+    NumericDigit *res_buf = digitbuf_alloc(res_ndigits + 1);
+    res_buf[0] = 0;  // Spare digit for rounding
+    NumericDigit *res_digits = res_buf + 1;
+
+    // Perform short division using appropriate arithmetic precision
+    uint64 divisor = i64abs(ival);
+
+    if (divisor <= PG_UINT64_MAX / NBASE) {
+        // Use 64-bit arithmetic - carry won't overflow
+        uint64 carry = 0;
+        for (int i = 0; i < res_ndigits; i++) {
+            carry = carry * NBASE + (i < var->ndigits ? var->digits[i] : 0);
+            res_digits[i] = carry / divisor;
+            carry = carry % divisor;
+        }
+    } else {
+        // Use 128-bit arithmetic - carry may exceed 64 bits
+        uint128 carry = 0;
+        for (int i = 0; i < res_ndigits; i++) {
+            carry = carry * NBASE + (i < var->ndigits ? var->digits[i] : 0);
+            res_digits[i] = carry / divisor;
+            carry = carry % divisor;
+        }
+    }
+
+    // Store result
+    digitbuf_free(result->buf);
+    result->ndigits = res_ndigits;
+    result->buf = res_buf;
+    result->digits = res_digits;
+    result->weight = res_weight;
+    result->sign = res_sign;
+
+    // Apply rounding or truncation and cleanup
+    if (round)
+        round_var(result, rscale);
+    else
+        trunc_var(result, rscale);
+
+    strip_var(result);  // Remove leading/trailing zeros
+}
+```

@@ -34,3 +34,29 @@ This function analyzes a JSONB container and returns its type name as a human-re
 - The function handles error cases by logging an ERROR level message for invalid container types
 - Used internally by PostgreSQL's JSONB type system for type introspection and debugging
 - The function prioritizes scalar extraction first, then checks for array and object types
+
+## Simplified Source
+
+```c
+static const char *JsonbContainerTypeName(JsonbContainer *jbc) {
+    JsonbValue scalar;
+
+    // Check if container holds a scalar value
+    if (JsonbExtractScalar(jbc, &scalar))
+        return JsonbTypeName(&scalar);
+
+    // Check for array type
+    else if (JsonContainerIsArray(jbc))
+        return "array";
+
+    // Check for object type
+    else if (JsonContainerIsObject(jbc))
+        return "object";
+
+    // Invalid container type
+    else {
+        elog(ERROR, "invalid jsonb container type: 0x%08x", jbc->header);
+        return "unknown";
+    }
+}
+```

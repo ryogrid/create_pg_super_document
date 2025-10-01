@@ -58,3 +58,48 @@ For FULL joins involving default partitions, the function ensures proper handlin
 - Partitionwise join optimization is disabled when both outer and inner sides have default partitions due to the complexity of handling multiple matching scenarios
 - For FULL joins, special handling ensures that the default partition from the inner side becomes the default partition of the join result
 - The function is static, indicating it's only used within the partbounds.c file as part of the internal partitioning logic
+
+## Simplified Source
+
+```c
+static int
+process_outer_partition(PartitionMap *outer_map, PartitionMap *inner_map,
+                       bool outer_has_default, bool inner_has_default,
+                       int outer_index, int inner_default, JoinType jointype,
+                       int *next_index, int *default_index)
+{
+    int merged_index = -1;
+
+    if (inner_has_default)
+    {
+        // Outer partition can join with inner default partition
+        // But not if outer also has default (too complex for partitionwise join)
+        if (outer_has_default)
+            return -1;
+
+        // Try to merge outer partition with inner default partition
+        merged_index = merge_matching_partitions(outer_map, inner_map,
+                                               outer_index, inner_default,
+                                               next_index);
+        if (merged_index == -1)
+            return -1;
+
+        // For FULL joins, the merged partition becomes the default partition
+        if (jointype == JOIN_FULL)
+        {
+            if (*default_index == -1)
+                *default_index = merged_index;
+        }
+    }
+    else
+    {
+        // No inner default - must be outer join
+        // Outer partition gets merged with dummy
+        merged_index = outer_map->merged_indexes[outer_index];
+        if (merged_index == -1)
+            merged_index = merge_partition_with_dummy(outer_map, outer_index, next_index);
+    }
+
+    return merged_index;
+}
+```

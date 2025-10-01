@@ -42,3 +42,14 @@ This function serves as a conversion utility in PostgreSQL's function manager (f
 - Handles both regular and TOAST-compressed numeric values transparently
 - Essential for any function that needs to work with Numeric data passed as Datum values
 - The detoasting ensures that large numeric values stored externally are properly accessible
+
+## Simplified Source
+
+```c
+static inline Numeric
+DatumGetNumeric(Datum X)
+{
+    // Convert Datum to Numeric, handling TOAST decompression
+    return (Numeric) PG_DETOAST_DATUM(X);
+}
+```

@@ -59,3 +59,29 @@ cursor-agent not found, installing via https://cursor.com/install ...
 - During regression testing (regress=true), fields 'L' (line number), 'F' (file name), and 'R' (routine name) are suppressed to ensure consistent test output
 - The function implements the shared logic for both ErrorResponse and NoticeResponse message types, reducing code duplication
 - Field processing continues until a null byte ('\0') is encountered, which marks the end of the field list
+
+## Simplified Source
+
+```c
+static void pqTraceOutputNR(FILE *f, const char *type, const char *message, int *cursor, bool regress)
+{
+    fprintf(f, "%s\t", type);
+
+    for (;;) {
+        char field;
+        bool suppress;
+
+        // Output field identifier byte
+        pqTraceOutputByte1(f, message, cursor);
+        field = message[*cursor - 1];
+
+        // Stop at null terminator
+        if (field == '\0')
+            break;
+
+        // Suppress variable fields during regression testing
+        suppress = regress && (field == 'L' || field == 'F' || field == 'R');
+        pqTraceOutputString(f, message, cursor, suppress);
+    }
+}
+```

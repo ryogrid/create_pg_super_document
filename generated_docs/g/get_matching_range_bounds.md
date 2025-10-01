@@ -46,3 +46,103 @@ The function performs sophisticated logic to handle partial key matches when few
 - The scan_default flag in the result indicates whether the default partition needs to be scanned
 - The function is optimized for performance using binary search algorithms for bound lookup
 - Handles special PostgreSQL partition bound types like MINVALUE and MAXVALUE for representing infinite ranges
+
+## Simplified Source
+
+```c
+static PruneStepResult *
+get_matching_range_bounds(PartitionPruneContext *context,
+                          StrategyNumber opstrategy, Datum *values, int nvalues,
+                          FmgrInfo *partsupfunc, Bitmapset *nullkeys)
+{
+    PruneStepResult *result = (PruneStepResult *) palloc0(sizeof(PruneStepResult));
+    PartitionBoundInfo boundinfo = context->boundinfo;
+
+    result->scan_null = result->scan_default = false;
+
+    // Handle empty bounds or NULL keys - use default partition
+    if (boundinfo->ndatums == 0 || !bms_is_empty(nullkeys)) {
+        result->scan_default = partition_bound_has_default(boundinfo);
+        return result;
+    }
+
+    // Handle incomplete key specification
+    if (nvalues < context->partnatts)
+        result->scan_default = partition_bound_has_default(boundinfo);
+
+    // Handle request for all non-null values
+    if (nvalues == 0) {
+        int minoff = 0, maxoff = boundinfo->ndatums;
+        // Skip invalid partitions at boundaries
+        if (boundinfo->indexes[minoff] < 0) minoff++;
+        if (boundinfo->indexes[maxoff] < 0) maxoff--;
+
+        result->bound_offsets = bms_add_range(NULL, minoff, maxoff);
+        result->scan_default = partition_bound_has_default(boundinfo);
+        return result;
+    }
+
+    // Handle different operator strategies
+    switch (opstrategy) {
+        case BTEqualStrategyNumber: {
+            // Find exact match using binary search
+            bool is_equal;
+            int off = partition_range_datum_bsearch(partsupfunc, context->partcollation,
+                                                   boundinfo, nvalues, values, &is_equal);
+
+            if (off >= 0 && is_equal) {
+                if (nvalues == context->partnatts) {
+                    // Complete key - single partition
+                    result->bound_offsets = bms_make_singleton(off + 1);
+                } else {
+                    // Partial key - find range of matching bounds
+                    int minoff = off, maxoff = off + 1;
+                    // Expand range to include all matching prefix bounds
+                    result->bound_offsets = bms_add_range(NULL, minoff, maxoff);
+                }
+            } else {
+                // Value falls between bounds
+                result->bound_offsets = bms_make_singleton(off + 1);
+            }
+            break;
+        }
+
+        case BTGreaterStrategyNumber:
+        case BTGreaterEqualStrategyNumber: {
+            // Find minimum bound for greater-than queries
+            bool is_equal;
+            int off = partition_range_datum_bsearch(partsupfunc, context->partcollation,
+                                                   boundinfo, nvalues, values, &is_equal);
+
+            int minoff = (off < 0) ? 0 : off + 1;
+            // Handle inclusive/exclusive and partial keys
+            if (is_equal && opstrategy == BTGreaterEqualStrategyNumber)
+                minoff = off;
+
+            result->bound_offsets = bms_add_range(NULL, minoff, boundinfo->ndatums);
+            break;
+        }
+
+        case BTLessStrategyNumber:
+        case BTLessEqualStrategyNumber: {
+            // Find maximum bound for less-than queries
+            bool is_equal;
+            int off = partition_range_datum_bsearch(partsupfunc, context->partcollation,
+                                                   boundinfo, nvalues, values, &is_equal);
+
+            int maxoff = (off < 0) ? 0 : off + 1;
+            // Handle inclusive/exclusive
+            if (is_equal && opstrategy == BTLessStrategyNumber)
+                maxoff = off;
+
+            result->bound_offsets = bms_add_range(NULL, 0, maxoff);
+            break;
+        }
+    }
+
+    // Exclude invalid partitions (MINVALUE/MAXVALUE edge cases)
+    // ... boundary adjustment logic ...
+
+    return result;
+}
+```

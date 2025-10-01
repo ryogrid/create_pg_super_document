@@ -41,3 +41,20 @@ The function uses PostgreSQL's system cache mechanism for efficient lookups of f
 - Used extensively throughout the optimizer for determining when functions can be safely optimized
 - The strictness property allows the optimizer to avoid function calls when NULL arguments are detected
 - Located in src/backend/utils/cache/lsyscache.c:1761-1779
+
+## Simplified Source
+
+```c
+bool func_strict(Oid funcid) {
+    // Look up function in system cache
+    HeapTuple tp = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcid));
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for function %u", funcid);
+
+    // Extract strictness flag from pg_proc tuple
+    bool result = ((Form_pg_proc) GETSTRUCT(tp))->proisstrict;
+
+    ReleaseSysCache(tp);
+    return result;
+}
+```

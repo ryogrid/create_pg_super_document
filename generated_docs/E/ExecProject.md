@@ -40,3 +40,28 @@ The projection process is highly optimized through PostgreSQL's expression compi
 - The result slot's Datum/isnull arrays are used as workspace during expression evaluation, which is safe after clearing the slot
 - The function handles complex projections including function calls, expressions, and simple column references uniformly through the compiled expression system
 - Memory context switching ensures that any temporary allocations during projection are properly managed and cleaned up per tuple
+
+## Simplified Source
+
+```c
+static inline TupleTableSlot *
+ExecProject(ProjectionInfo *projInfo)
+{
+    ExprContext *econtext = projInfo->pi_exprContext;
+    ExprState *state = &projInfo->pi_state;
+    TupleTableSlot *slot = state->resultslot;
+    bool isnull;
+
+    // Clear result slot to prepare for new data
+    ExecClearTuple(slot);
+
+    // Evaluate projection expressions with proper memory context
+    (void) ExecEvalExprSwitchContext(state, econtext, &isnull);
+
+    // Mark slot as containing valid virtual tuple
+    slot->tts_flags &= ~TTS_FLAG_EMPTY;
+    slot->tts_nvalid = slot->tts_tupleDescriptor->natts;
+
+    return slot;
+}
+```

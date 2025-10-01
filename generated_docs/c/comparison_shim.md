@@ -40,3 +40,30 @@ This shim is essentially an inlined, optimized version of FunctionCall2Coll(), w
 - The function includes paranoia checks to reset isnull flag and validate non-null results
 - Designed for performance - avoids repeated setup overhead by reusing pre-configured function call structures
 - Part of PostgreSQL's sort support optimization framework that allows data types to provide specialized, efficient comparison functions
+
+## Simplified Source
+
+```c
+static int
+comparison_shim(Datum x, Datum y, SortSupport ssup)
+{
+    SortShimExtra *extra = (SortShimExtra *) ssup->ssup_extra;
+    Datum result;
+
+    // Set up function arguments
+    extra->fcinfo.args[0].value = x;
+    extra->fcinfo.args[1].value = y;
+
+    // Reset null flag for safety
+    extra->fcinfo.isnull = false;
+
+    // Call the comparison function
+    result = FunctionCallInvoke(&extra->fcinfo);
+
+    // Ensure result is not NULL
+    if (extra->fcinfo.isnull)
+        elog(ERROR, "function %u returned NULL", extra->flinfo.fn_oid);
+
+    return result;
+}
+```

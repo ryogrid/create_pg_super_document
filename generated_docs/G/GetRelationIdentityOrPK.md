@@ -38,3 +38,19 @@ The function is essential for logical replication as it determines which index s
 - Returns InvalidOid when neither replica identity nor primary key index is available
 - The function prioritizes replica identity over primary key, which is important for logical replication scenarios where a custom replica identity may have been explicitly set
 - Used extensively in logical replication worker processes and replication tuple handling
+
+## Simplified Source
+
+```c
+Oid GetRelationIdentityOrPK(Relation rel) {
+    // Try to get replica identity index first
+    Oid index_oid = RelationGetReplicaIndex(rel);
+
+    // Fall back to primary key if no replica identity
+    if (!OidIsValid(index_oid)) {
+        index_oid = RelationGetPrimaryKeyIndex(rel);
+    }
+
+    return index_oid;  // Returns InvalidOid if neither exists
+}
+```

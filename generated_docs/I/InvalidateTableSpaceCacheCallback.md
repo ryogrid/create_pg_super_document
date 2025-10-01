@@ -42,3 +42,30 @@ The function iterates through all entries in the TableSpaceCacheHash hash table,
 - Properly handles memory management by freeing options data before removing entries
 - Includes error checking to detect hash table corruption
 - Part of PostgreSQL's systematic cache invalidation mechanism that ensures cache consistency across system catalog updates
+
+## Simplified Source
+
+```c
+static void
+InvalidateTableSpaceCacheCallback(Datum arg, int cacheid, uint32 hashvalue)
+{
+    HASH_SEQ_STATUS status;
+    TableSpaceCacheEntry *spc;
+
+    // Flush all tablespace cache entries when pg_tablespace is updated
+    hash_seq_init(&status, TableSpaceCacheHash);
+
+    while ((spc = (TableSpaceCacheEntry *) hash_seq_search(&status)) != NULL) {
+        // Free allocated options memory
+        if (spc->opts)
+            pfree(spc->opts);
+
+        // Remove entry from hash table
+        if (hash_search(TableSpaceCacheHash,
+                       &spc->oid,
+                       HASH_REMOVE,
+                       NULL) == NULL)
+            elog(ERROR, "hash table corrupted");
+    }
+}
+```

@@ -39,3 +39,32 @@ The `float8_numeric` function converts a PostgreSQL `float8` (double precision f
 - Buffer size is `DBL_DIG + 100` to accommodate the formatted floating-point string
 - Part of PostgreSQL's numeric type conversion system in `src/backend/utils/adt/numeric.c`
 - The string-based conversion approach avoids precision issues that could occur with direct binary conversion
+
+## Simplified Source
+
+```c
+Datum float8_numeric(PG_FUNCTION_ARGS) {
+    float8 val = PG_GETARG_FLOAT8(0);
+    NumericVar result;
+    char buf[DBL_DIG + 100];
+
+    // Handle special values
+    if (isnan(val))
+        PG_RETURN_NUMERIC(make_result(&const_nan));
+    if (isinf(val)) {
+        if (val < 0)
+            PG_RETURN_NUMERIC(make_result(&const_ninf));
+        else
+            PG_RETURN_NUMERIC(make_result(&const_pinf));
+    }
+
+    // Convert to string, then parse as numeric
+    snprintf(buf, sizeof(buf), "%.*g", DBL_DIG, val);
+    init_var(&result);
+    set_var_from_str(buf, buf, &result, NULL, NULL);
+
+    Numeric res = make_result(&result);
+    free_var(&result);
+    PG_RETURN_NUMERIC(res);
+}
+```

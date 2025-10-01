@@ -51,3 +51,50 @@ The function initializes flags to sensible defaults (REG_ADVANCED flavor with gl
 - Provides comprehensive error handling with detailed error messages for invalid flags
 - The glob flag is handled separately from regex compilation flags
 - Default behavior uses REG_ADVANCED (PostgreSQL's enhanced regex flavor)
+
+## Simplified Source
+
+```c
+static void
+parse_re_flags(pg_re_flags *flags, text *opts)
+{
+    // Initialize with advanced regex flavor
+    flags->cflags = REG_ADVANCED;
+    flags->glob = false;
+
+    if (opts)
+    {
+        char *opt_p = VARDATA_ANY(opts);
+        int opt_len = VARSIZE_ANY_EXHDR(opts);
+
+        // Process each flag character
+        for (int i = 0; i < opt_len; i++)
+        {
+            switch (opt_p[i])
+            {
+                case 'g': flags->glob = true; break;                    // Global matching
+                case 'b': flags->cflags &= ~(REG_ADVANCED | REG_EXTENDED | REG_QUOTE); break;  // BRE
+                case 'c': flags->cflags &= ~REG_ICASE; break;          // Case sensitive
+                case 'e': flags->cflags |= REG_EXTENDED;               // ERE
+                         flags->cflags &= ~(REG_ADVANCED | REG_QUOTE); break;
+                case 'i': flags->cflags |= REG_ICASE; break;           // Case insensitive
+                case 'm':
+                case 'n': flags->cflags |= REG_NEWLINE; break;         // Newline affects anchors
+                case 'p': flags->cflags |= REG_NLSTOP;                 // Perl-like newlines
+                         flags->cflags &= ~REG_NLANCH; break;
+                case 'q': flags->cflags |= REG_QUOTE;                  // Literal string
+                         flags->cflags &= ~(REG_ADVANCED | REG_EXTENDED); break;
+                case 's': flags->cflags &= ~REG_NEWLINE; break;        // Single line
+                case 't': flags->cflags &= ~REG_EXPANDED; break;       // Tight syntax
+                case 'w': flags->cflags &= ~REG_NLSTOP;                // Weird newlines
+                         flags->cflags |= REG_NLANCH; break;
+                case 'x': flags->cflags |= REG_EXPANDED; break;        // Expanded syntax
+                default:
+                    ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                            errmsg("invalid regular expression option: \"%.*s\"",
+                                   pg_mblen(opt_p + i), opt_p + i)));
+            }
+        }
+    }
+}
+```

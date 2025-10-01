@@ -45,3 +45,42 @@ This function performs overlap detection between two range partitions by compari
 - Comparison values follow standard convention: -1 (less than), 0 (equal), 1 (greater than)
 - Essential for PostgreSQL's range partitioning logic and partition pruning optimizations
 - Located in src/backend/partitioning/partbounds.c:2662-2710
+
+## Simplified Source
+
+```c
+static bool
+compare_range_partitions(int partnatts, FmgrInfo *partsupfuncs,
+                        Oid *partcollations,
+                        PartitionRangeBound *outer_lb,
+                        PartitionRangeBound *outer_ub,
+                        PartitionRangeBound *inner_lb,
+                        PartitionRangeBound *inner_ub,
+                        int *lb_cmpval, int *ub_cmpval)
+{
+    // Quick non-overlap check 1: outer upper < inner lower
+    if (compare_range_bounds(partnatts, partsupfuncs, partcollations,
+                            outer_ub, inner_lb) < 0)
+    {
+        *lb_cmpval = -1;
+        *ub_cmpval = -1;
+        return false;  // No overlap
+    }
+
+    // Quick non-overlap check 2: outer lower > inner upper
+    if (compare_range_bounds(partnatts, partsupfuncs, partcollations,
+                            outer_lb, inner_ub) > 0)
+    {
+        *lb_cmpval = 1;
+        *ub_cmpval = 1;
+        return false;  // No overlap
+    }
+
+    // Partitions overlap - compute detailed comparison values
+    *lb_cmpval = compare_range_bounds(partnatts, partsupfuncs, partcollations,
+                                     outer_lb, inner_lb);
+    *ub_cmpval = compare_range_bounds(partnatts, partsupfuncs, partcollations,
+                                     outer_ub, inner_ub);
+    return true;  // Overlap detected
+}
+```

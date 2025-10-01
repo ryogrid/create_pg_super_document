@@ -60,3 +60,47 @@ The function leverages the fact that pathlist is sorted by total_cost to exit ea
 
 ## Notes and Other Information
 This function is an important performance optimization that avoids creating Path structures that would be immediately discarded. It follows the same policy as add_path regarding parameterized paths having no pathkeys. The early exit capability based on sorted pathlist can significantly reduce planning time for relations with many potential paths.
+
+## Simplified Source
+
+```c
+bool add_path_precheck(RelOptInfo *parent_rel,
+                      Cost startup_cost, Cost total_cost,
+                      List *pathkeys, Relids required_outer) {
+    // Parameterized paths are treated as having no pathkeys
+    List *new_path_pathkeys = required_outer ? NIL : pathkeys;
+
+    // Determine if startup cost matters for this path type
+    bool consider_startup = required_outer ?
+        parent_rel->consider_param_startup : parent_rel->consider_startup;
+
+    // Check against existing paths for domination
+    ListCell *lc;
+    foreach(lc, parent_rel->pathlist) {
+        Path *old_path = (Path *) lfirst(lc);
+
+        // Early exit: pathlist is sorted by total cost
+        if (total_cost <= old_path->total_cost * STD_FUZZ_FACTOR)
+            break;
+
+        // Check if old path dominates new path on costs
+        bool old_wins_total = (total_cost > old_path->total_cost * STD_FUZZ_FACTOR);
+        bool old_wins_startup = !consider_startup ||
+            (startup_cost > old_path->startup_cost * STD_FUZZ_FACTOR);
+
+        if (old_wins_total && old_wins_startup) {
+            // Old path wins on costs, check pathkeys
+            List *old_path_pathkeys = old_path->param_info ? NIL : old_path->pathkeys;
+            PathKeysComparison keyscmp = compare_pathkeys(new_path_pathkeys, old_path_pathkeys);
+
+            // Old path dominates if pathkeys are equal or better
+            if ((keyscmp == PATHKEYS_EQUAL || keyscmp == PATHKEYS_BETTER2) &&
+                bms_equal(required_outer, PATH_REQ_OUTER(old_path))) {
+                return false;  // New path is dominated, reject it
+            }
+        }
+    }
+
+    return true;  // New path might be worth adding
+}
+```

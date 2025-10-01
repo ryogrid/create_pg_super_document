@@ -37,3 +37,13 @@ The function ensures the result doesn't overflow to a negative int32, as negativ
 - The encoding uses bitwise operations for efficiency: left shift for precision, bitwise AND with 0x7ff mask for scale
 - The 0x7ff mask (2047 in decimal) allows for the scale range of [-1000, 1000] in the lower 11 bits
 - VARHDRSZ addition is for historical compatibility reasons and affects the available space in upper bits
+
+## Simplified Source
+
+```c
+static inline int32 make_numeric_typmod(int precision, int scale) {
+    // Pack precision in upper 16 bits, scale in lower 11 bits
+    // Add VARHDRSZ for historical compatibility
+    return ((precision << 16) | (scale & 0x7ff)) + VARHDRSZ;
+}
+```

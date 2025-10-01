@@ -36,3 +36,33 @@ This function initializes the libxml2 library for use within PostgreSQL and perf
 - Should be called by functions that need libxml2 but don't require error handling setup
 - For functions requiring error handling, use pg_xml_init() instead which calls this function internally
 - The LIBXML_TEST_VERSION macro performs runtime compatibility verification with the libxml2 library
+
+## Simplified Source
+
+```c
+void
+pg_xml_init_library(void)
+{
+    static bool first_time = true;
+
+    if (first_time)
+    {
+        // Check char/xmlChar type compatibility
+        if (sizeof(char) != sizeof(xmlChar))
+            ereport(ERROR,
+                    (errmsg("could not initialize XML library"),
+                     errdetail("libxml2 has incompatible char type: sizeof(char)=%zu, sizeof(xmlChar)=%zu.",
+                               sizeof(char), sizeof(xmlChar))));
+
+#ifdef USE_LIBXMLCONTEXT
+        // Set up custom memory allocation
+        xml_memory_init();
+#endif
+
+        // Verify library compatibility
+        LIBXML_TEST_VERSION;
+
+        first_time = false;
+    }
+}
+```

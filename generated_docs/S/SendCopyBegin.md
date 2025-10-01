@@ -37,3 +37,27 @@ This function is responsible for starting the frontend copy-out operation by sen
 - The same format is applied to all columns in the current implementation
 - This is part of the PostgreSQL frontend/backend protocol for COPY operations
 - The function is static, meaning it's only accessible within the copyto.c file
+
+## Simplified Source
+
+```c
+static void
+SendCopyBegin(CopyToState cstate)
+{
+    StringInfoData buf;
+    int natts = list_length(cstate->attnumlist);
+    int16 format = (cstate->opts.binary ? 1 : 0);
+
+    // Send CopyOutResponse message to client
+    pq_beginmessage(&buf, PqMsg_CopyOutResponse);
+    pq_sendbyte(&buf, format);        // Overall format (0=text, 1=binary)
+    pq_sendint16(&buf, natts);        // Number of columns
+
+    // Send format for each column (same as overall format)
+    for (int i = 0; i < natts; i++)
+        pq_sendint16(&buf, format);
+
+    pq_endmessage(&buf);
+    cstate->copy_dest = COPY_FRONTEND;
+}
+```

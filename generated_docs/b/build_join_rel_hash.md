@@ -38,3 +38,45 @@ The function first creates a hash table with specific configuration: it uses bit
 - The hash table enables O(1) lookup time for finding join relations by their Relids
 - [Hash](../H/Hash.md) table is stored in CurrentMemoryContext
 - Located in src/backend/optimizer/util/relnode.c:486-526
+
+## Simplified Source
+
+```c
+static void build_join_rel_hash(PlannerInfo *root)
+{
+    HTAB *hashtab;
+    HASHCTL hash_ctl;
+    ListCell *l;
+
+    // Configure hash table parameters
+    hash_ctl.keysize = sizeof(Relids);
+    hash_ctl.entrysize = sizeof(JoinHashEntry);
+    hash_ctl.hash = bitmap_hash;
+    hash_ctl.match = bitmap_match;
+    hash_ctl.hcxt = CurrentMemoryContext;
+
+    // Create the hash table with 256 initial entries
+    hashtab = hash_create("JoinRelHashTable",
+                          256L,
+                          &hash_ctl,
+                          HASH_ELEM | HASH_FUNCTION | HASH_COMPARE | HASH_CONTEXT);
+
+    // Populate hash table with existing join relations
+    foreach(l, root->join_rel_list) {
+        RelOptInfo *rel = (RelOptInfo *) lfirst(l);
+        JoinHashEntry *hentry;
+        bool found;
+
+        // Insert relation into hash table using its relids as key
+        hentry = (JoinHashEntry *) hash_search(hashtab,
+                                               &(rel->relids),
+                                               HASH_ENTER,
+                                               &found);
+        Assert(!found);  // Should be no duplicates
+        hentry->join_rel = rel;
+    }
+
+    // Store hash table in planner context
+    root->join_rel_hash = hashtab;
+}
+```

@@ -35,3 +35,28 @@ The function also provides an optional binary equality check through the binequa
 - The function guarantees stable sorting by using the order field as a tie-breaker when keys are equal
 - Used specifically in the JSONB object uniqueification process to sort pairs before removing duplicates
 - The binequal parameter is optional and may be NULL if the caller doesn't need binary equality information
+
+## Simplified Source
+
+```c
+static int
+lengthCompareJsonbPair(const void *a, const void *b, void *binequal)
+{
+    const JsonbPair *pa = (const JsonbPair *) a;
+    const JsonbPair *pb = (const JsonbPair *) b;
+    int res;
+
+    // Compare keys using length-wise comparison
+    res = lengthCompareJsonbStringValue(&pa->key, &pb->key);
+
+    // Set binary equality flag if requested
+    if (res == 0 && binequal)
+        *((bool *) binequal) = true;
+
+    // Maintain stable sort order for equal keys
+    if (res == 0)
+        res = (pa->order > pb->order) ? -1 : 1;
+
+    return res;
+}
+```

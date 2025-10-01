@@ -68,3 +68,137 @@ The function handles different scan types (ST_INDEXSCAN, ST_BITMAPSCAN, ST_ANYSC
 - Enforces amoptionalkey restrictions for indexes that require at least one matching clause
 - The function can return an empty list if no viable paths can be constructed
 - Parallel index scans are not supported for bitmap scans
+
+## Simplified Source
+
+```c
+static List *
+build_index_paths(PlannerInfo *root, RelOptInfo *rel,
+                  IndexOptInfo *index, IndexClauseSet *clauses,
+                  bool useful_predicate, ScanTypeControl scantype,
+                  bool *skip_nonnative_saop)
+{
+    List *result = NIL;
+    List *index_clauses = NIL;
+    Relids outer_relids;
+    double loop_count;
+    List *useful_pathkeys = NIL;
+    bool index_only_scan;
+
+    // Check that index supports the desired scan type
+    switch (scantype) {
+        case ST_INDEXSCAN:
+            if (!index->amhasgettuple) return NIL;
+            break;
+        case ST_BITMAPSCAN:
+            if (!index->amhasgetbitmap) return NIL;
+            break;
+        case ST_ANYSCAN:
+            break; // either scan type OK
+    }
+
+    // Step 1: Combine per-column clauses into overall clause list
+    outer_relids = bms_copy(rel->lateral_relids);
+    for (int indexcol = 0; indexcol < index->nkeycolumns; indexcol++) {
+        ListCell *lc;
+        foreach(lc, clauses->indexclauses[indexcol]) {
+            IndexClause *iclause = (IndexClause *) lfirst(lc);
+            RestrictInfo *rinfo = iclause->rinfo;
+
+            // Skip unsupported ScalarArrayOpExpr if requested
+            if (skip_nonnative_saop && !index->amsearcharray &&
+                IsA(rinfo->clause, ScalarArrayOpExpr)) {
+                *skip_nonnative_saop = true;
+                continue;
+            }
+
+            index_clauses = lappend(index_clauses, iclause);
+            outer_relids = bms_add_members(outer_relids, rinfo->clause_relids);
+        }
+
+        // Check amoptionalkey restriction for first column
+        if (index_clauses == NIL && !index->amoptionalkey)
+            return NIL;
+    }
+
+    outer_relids = bms_del_member(outer_relids, rel->relid);
+    loop_count = get_loop_count(root, rel->relid, outer_relids);
+
+    // Step 2: Compute useful pathkeys for ordering
+    bool pathkeys_useful = (scantype != ST_BITMAPSCAN && has_useful_pathkeys(root, rel));
+    bool index_ordered = (index->sortopfamily != NULL);
+
+    if (index_ordered && pathkeys_useful) {
+        List *index_pathkeys = build_index_pathkeys(root, index, ForwardScanDirection);
+        useful_pathkeys = truncate_useless_pathkeys(root, rel, index_pathkeys);
+    } else if (index->amcanorderbyop && pathkeys_useful) {
+        // Handle distance ordering for queries like nearest neighbor
+        List *orderbyclauses, *orderbyclausecols;
+        match_pathkeys_to_index(index, root->query_pathkeys,
+                               &orderbyclauses, &orderbyclausecols);
+        if (list_length(root->query_pathkeys) == list_length(orderbyclauses))
+            useful_pathkeys = root->query_pathkeys;
+        else
+            useful_pathkeys = list_copy_head(root->query_pathkeys,
+                                           list_length(orderbyclauses));
+    }
+
+    // Step 3: Check if index-only scan is possible
+    index_only_scan = (scantype != ST_BITMAPSCAN && check_index_only(rel, index));
+
+    // Step 4: Generate forward scan path if worthwhile
+    if (index_clauses != NIL || useful_pathkeys != NIL ||
+        useful_predicate || index_only_scan) {
+
+        IndexPath *ipath = create_index_path(root, index, index_clauses,
+                                           orderbyclauses, orderbyclausecols,
+                                           useful_pathkeys, ForwardScanDirection,
+                                           index_only_scan, outer_relids,
+                                           loop_count, false);
+        result = lappend(result, ipath);
+
+        // Consider parallel index scan if appropriate
+        if (index->amcanparallel && rel->consider_parallel &&
+            outer_relids == NULL && scantype != ST_BITMAPSCAN) {
+            IndexPath *parallel_path = create_index_path(root, index, index_clauses,
+                                                       orderbyclauses, orderbyclausecols,
+                                                       useful_pathkeys, ForwardScanDirection,
+                                                       index_only_scan, outer_relids,
+                                                       loop_count, true);
+            if (parallel_path->path.parallel_workers > 0)
+                add_partial_path(rel, (Path *) parallel_path);
+            else
+                pfree(parallel_path);
+        }
+    }
+
+    // Step 5: Generate backward scan path for ordered indexes
+    if (index_ordered && pathkeys_useful) {
+        List *backward_pathkeys = build_index_pathkeys(root, index, BackwardScanDirection);
+        List *useful_backward = truncate_useless_pathkeys(root, rel, backward_pathkeys);
+
+        if (useful_backward != NIL) {
+            IndexPath *backward_path = create_index_path(root, index, index_clauses,
+                                                       NIL, NIL, useful_backward,
+                                                       BackwardScanDirection, index_only_scan,
+                                                       outer_relids, loop_count, false);
+            result = lappend(result, backward_path);
+
+            // Parallel backward scan if appropriate
+            if (index->amcanparallel && rel->consider_parallel &&
+                outer_relids == NULL && scantype != ST_BITMAPSCAN) {
+                IndexPath *parallel_backward = create_index_path(root, index, index_clauses,
+                                                               NIL, NIL, useful_backward,
+                                                               BackwardScanDirection, index_only_scan,
+                                                               outer_relids, loop_count, true);
+                if (parallel_backward->path.parallel_workers > 0)
+                    add_partial_path(rel, (Path *) parallel_backward);
+                else
+                    pfree(parallel_backward);
+            }
+        }
+    }
+
+    return result;
+}
+```

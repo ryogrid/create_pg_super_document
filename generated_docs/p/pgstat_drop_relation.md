@@ -35,3 +35,36 @@ The function ensures that pg_stat_xact_all_tables views show zero counters for t
 - Only processes statistics for relations that should be counted (checked via pgstat_should_count_relation)
 - Preserves truncate/drop counters by calling save_truncdrop_counters before resetting tuple counters
 - Operates at the current transaction nesting level to ensure proper transactional behavior with savepoints
+
+## Simplified Source
+
+```c
+void pgstat_drop_relation(Relation rel)
+{
+    int nest_level = GetCurrentTransactionNestLevel();
+    PgStat_TableStatus *pgstat_info;
+
+    // Schedule stats to be dropped when transaction commits
+    pgstat_drop_transactional(PGSTAT_KIND_RELATION,
+                              rel->rd_rel->relisshared ? InvalidOid : MyDatabaseId,
+                              RelationGetRelid(rel));
+
+    // Skip further processing if relation shouldn't be counted
+    if (!pgstat_should_count_relation(rel))
+        return;
+
+    // Reset transactional counters to 0 for current nesting level
+    pgstat_info = rel->pgstat_info;
+    if (pgstat_info->trans &&
+        pgstat_info->trans->nest_level == nest_level)
+    {
+        // Save truncate/drop counters before reset
+        save_truncdrop_counters(pgstat_info->trans, true);
+
+        // Clear tuple operation counters
+        pgstat_info->trans->tuples_inserted = 0;
+        pgstat_info->trans->tuples_updated = 0;
+        pgstat_info->trans->tuples_deleted = 0;
+    }
+}
+```

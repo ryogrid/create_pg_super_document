@@ -33,3 +33,12 @@ This function serves as a convenience wrapper around table_tuple_insert, providi
 - Part of PostgreSQL's simplified table access method interface
 - Commonly used in replication and utility operations where insertion complexity is not needed
 - The 'true' parameter to GetCurrentCommandId indicates this is a write operation that should increment the command counter
+
+## Simplified Source
+
+```c
+void simple_table_tuple_insert(Relation rel, TupleTableSlot *slot) {
+    // Simple wrapper - delegates to full table_tuple_insert with defaults
+    table_tuple_insert(rel, slot, GetCurrentCommandId(true), 0, NULL);
+}
+```

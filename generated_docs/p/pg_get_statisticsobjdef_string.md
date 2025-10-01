@@ -30,3 +30,14 @@ This function is an internal version of the statistics object definition retriev
 - Returns a palloc'd string that must be freed by the caller
 - Does not perform pretty-printing, returning raw definition text
 - The function delegates all actual work to pg_get_statisticsobj_worker with specific parameters (false, false)
+
+## Simplified Source
+
+```c
+char *
+pg_get_statisticsobjdef_string(Oid statextid)
+{
+    // Generate complete CREATE STATISTICS statement for internal use
+    return pg_get_statisticsobj_worker(statextid, false, false);
+}
+```

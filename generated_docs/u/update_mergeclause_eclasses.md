@@ -39,3 +39,23 @@ This function traverses the `ec_merged` chain for both the left and right Equiva
 - Essential for correct merge join planning and pathkey operations
 - The function modifies the RestrictInfo structure in-place to update the EC pointers
 - Complements `initialize_mergeclause_eclasses` which sets up the initial EC links
+
+## Simplified Source
+
+```c
+void update_mergeclause_eclasses(PlannerInfo *root, RestrictInfo *restrictinfo)
+{
+    // Validate this is a mergeclause with initialized EC pointers
+    Assert(restrictinfo->mergeopfamilies != NIL);
+    Assert(restrictinfo->left_ec != NULL);
+    Assert(restrictinfo->right_ec != NULL);
+
+    // Follow ec_merged chain to find canonical left EC
+    while (restrictinfo->left_ec->ec_merged)
+        restrictinfo->left_ec = restrictinfo->left_ec->ec_merged;
+
+    // Follow ec_merged chain to find canonical right EC
+    while (restrictinfo->right_ec->ec_merged)
+        restrictinfo->right_ec = restrictinfo->right_ec->ec_merged;
+}
+```

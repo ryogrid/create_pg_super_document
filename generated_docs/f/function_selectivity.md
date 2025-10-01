@@ -49,3 +49,50 @@ If no support function is available, the function falls back to PostgreSQL's his
 
 ## Notes and Other Information
 The function validates that the returned selectivity value is between 0.0 and 1.0, throwing an error if the support function returns an invalid value. The historical default of 0.3333333 reflects PostgreSQL's conservative approach to estimation when specific knowledge about a function's behavior is unavailable. This mechanism allows function authors to provide custom selectivity estimation logic for their functions, improving query optimization accuracy.
+
+## Simplified Source
+
+```c
+Selectivity
+function_selectivity(PlannerInfo *root, Oid funcid, List *args, Oid inputcollid,
+                    bool is_join, int varRelid, JoinType jointype,
+                    SpecialJoinInfo *sjinfo)
+{
+    RegProcedure prosupport = get_func_support(funcid);
+    SupportRequestSelectivity req;
+    SupportRequestSelectivity *sresult;
+
+    // Use historical default if no support function available
+    if (!prosupport) {
+        return (Selectivity) 0.3333333;
+    }
+
+    // Prepare request structure for support function
+    req.type = T_SupportRequestSelectivity;
+    req.root = root;
+    req.funcid = funcid;
+    req.args = args;
+    req.inputcollid = inputcollid;
+    req.is_join = is_join;
+    req.varRelid = varRelid;
+    req.jointype = jointype;
+    req.sjinfo = sjinfo;
+    req.selectivity = -1;  // Sentinel value
+
+    // Call the support function
+    sresult = (SupportRequestSelectivity *)
+        DatumGetPointer(OidFunctionCall1(prosupport, PointerGetDatum(&req)));
+
+    // Use default if support function failed
+    if (sresult != &req) {
+        return (Selectivity) 0.3333333;
+    }
+
+    // Validate returned selectivity
+    if (req.selectivity < 0.0 || req.selectivity > 1.0) {
+        elog(ERROR, "invalid function selectivity: %f", req.selectivity);
+    }
+
+    return (Selectivity) req.selectivity;
+}
+```

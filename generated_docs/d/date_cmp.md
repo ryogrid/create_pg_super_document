@@ -32,3 +32,23 @@ This function provides a three-way comparison for DATE data types in PostgreSQL,
 - Returns standard comparison values: -1 (less), 0 (equal), 1 (greater)
 - Uses simple integer comparison since DateADT is represented as days since 2000-01-01
 - Follows PostgreSQL V1 function calling convention
+
+## Simplified Source
+
+```c
+Datum
+date_cmp(PG_FUNCTION_ARGS)
+{
+    // Extract date values from function arguments
+    DateADT date1 = PG_GETARG_DATEADT(0);
+    DateADT date2 = PG_GETARG_DATEADT(1);
+
+    // Simple integer comparison since DateADT is stored as days since epoch
+    if (date1 < date2)
+        PG_RETURN_INT32(-1);
+    else if (date1 > date2)
+        PG_RETURN_INT32(1);
+
+    PG_RETURN_INT32(0);  // dates are equal
+}
+```

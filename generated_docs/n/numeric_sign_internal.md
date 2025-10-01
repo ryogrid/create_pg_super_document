@@ -45,3 +45,30 @@ The function assumes that NaN cases have been handled by the caller, but it prop
 - Leverages PostgreSQL's packed numeric format optimization where zero-trimmed values with no digits represent zero
 - Critical for mathematical operations that need to handle sign-dependent logic like multiplication, division, and power operations
 - Returns standard mathematical sign convention: -1 (negative), 0 (zero), 1 (positive)
+
+## Simplified Source
+
+```c
+static int numeric_sign_internal(Numeric num)
+{
+    // Handle special values (infinities)
+    if (NUMERIC_IS_SPECIAL(num)) {
+        Assert(!NUMERIC_IS_NAN(num));  // Caller handles NaN
+
+        if (NUMERIC_IS_PINF(num))
+            return 1;   // Positive infinity
+        else
+            return -1;  // Negative infinity
+    }
+
+    // Check for zero (no digits in packed format)
+    if (NUMERIC_NDIGITS(num) == 0)
+        return 0;
+
+    // Check sign of regular numbers
+    if (NUMERIC_SIGN(num) == NUMERIC_NEG)
+        return -1;
+    else
+        return 1;
+}
+```

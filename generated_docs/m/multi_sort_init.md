@@ -45,3 +45,23 @@ The resulting structure provides a framework for setting up sort operations acro
 - Part of PostgreSQL's infrastructure for computing multi-variate statistics
 - The function is lightweight and only handles initial allocation - actual sort configuration happens separately
 - Used across different extended statistics modules (dependencies, MCV, n-distinct) indicating its fundamental role in multi-column analysis
+
+## Simplified Source
+
+```c
+MultiSortSupport
+multi_sort_init(int ndims)
+{
+    MultiSortSupport mss;
+
+    Assert(ndims >= 2);
+
+    // Allocate structure with space for ndims SortSupportData elements
+    mss = (MultiSortSupport) palloc0(offsetof(MultiSortSupportData, ssup) +
+                                     sizeof(SortSupportData) * ndims);
+
+    mss->ndims = ndims;
+
+    return mss;
+}
+```

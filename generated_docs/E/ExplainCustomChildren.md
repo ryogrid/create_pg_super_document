@@ -32,3 +32,19 @@ This function iterates through the list of child PlanState nodes associated with
 - Iterates through the custom_ps list in the CustomScanState structure
 - Passes NULL for the plan name parameter to ExplainNode since custom children typically don't have specific names
 - File location: src/backend/commands/explain.c:4459-4480
+
+## Simplified Source
+
+```c
+static void
+ExplainCustomChildren(CustomScanState *css, List *ancestors, ExplainState *es)
+{
+    // Choose appropriate label based on child count
+    const char *label = (list_length(css->custom_ps) != 1 ? "children" : "child");
+
+    // Explain each child plan
+    ListCell *cell;
+    foreach(cell, css->custom_ps)
+        ExplainNode((PlanState *) lfirst(cell), ancestors, label, NULL, es);
+}
+```

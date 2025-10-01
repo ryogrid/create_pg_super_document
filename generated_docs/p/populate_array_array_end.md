@@ -35,3 +35,31 @@ This function serves as a JSON parsing event handler for array end events during
 - Works with populate_array_check_dimension to enforce structural constraints
 - Handles both initial dimension discovery and ongoing dimension validation
 - Essential component in the JSON-to-PostgreSQL array conversion pipeline
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+populate_array_array_end(void *_state)
+{
+    PopulateArrayState *state = (PopulateArrayState *) _state;
+    PopulateArrayContext *ctx = state->ctx;
+    int ndim = state->lex->lex_level;
+
+    // Assign dimensions if not yet determined
+    if (ctx->ndims <= 0)
+    {
+        if (!populate_array_assign_ndims(ctx, ndim + 1))
+            return JSON_SEM_ACTION_FAILED;
+    }
+
+    // Validate dimension consistency for established arrays
+    if (ndim < ctx->ndims)
+    {
+        if (!populate_array_check_dimension(ctx, ndim))
+            return JSON_SEM_ACTION_FAILED;
+    }
+
+    return JSON_SUCCESS;
+}
+```

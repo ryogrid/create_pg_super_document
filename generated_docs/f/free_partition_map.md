@@ -35,3 +35,15 @@ This is a cleanup function that should be called when the PartitionMap is no lon
 - Does not free the PartitionMap structure itself, only its internal arrays
 - Essential for preventing memory leaks in partition merging operations
 - Should be called in cleanup sections of functions that use PartitionMap
+
+## Simplified Source
+
+```c
+static void free_partition_map(PartitionMap *map)
+{
+    // Free all allocated arrays in the PartitionMap
+    pfree(map->merged_indexes);
+    pfree(map->merged);
+    pfree(map->old_indexes);
+}
+```

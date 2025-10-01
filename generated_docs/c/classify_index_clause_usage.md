@@ -39,3 +39,51 @@ The function maintains a global clause list across multiple calls to identify di
 - Two clauses are considered the same if they are equal() according to PostgreSQL's equality semantics
 - Currently used only within choose_bitmap_and() but designed for potential broader use
 - The unclassifiable flag allows calling code to handle complex paths appropriately without expensive analysis
+
+## Simplified Source
+
+```c
+static PathClauseUsage *
+classify_index_clause_usage(Path *path, List **clauselist)
+{
+    PathClauseUsage *result;
+    Bitmapset *clauseids;
+    ListCell *lc;
+
+    result = (PathClauseUsage *) palloc(sizeof(PathClauseUsage));
+    result->path = path;
+
+    // Recursively extract quals and preds from the path
+    result->quals = NIL;
+    result->preds = NIL;
+    find_indexpath_quals(path, &result->quals, &result->preds);
+
+    // Safeguard against O(N^2) behavior with excessive clauses
+    if (list_length(result->quals) + list_length(result->preds) > 100)
+    {
+        result->clauseids = NULL;
+        result->unclassifiable = true;
+        return result;
+    }
+
+    // Build bitmapset representing the quals and preds
+    clauseids = NULL;
+    foreach(lc, result->quals)
+    {
+        Node *node = (Node *) lfirst(lc);
+        clauseids = bms_add_member(clauseids,
+                                   find_list_position(node, clauselist));
+    }
+    foreach(lc, result->preds)
+    {
+        Node *node = (Node *) lfirst(lc);
+        clauseids = bms_add_member(clauseids,
+                                   find_list_position(node, clauselist));
+    }
+
+    result->clauseids = clauseids;
+    result->unclassifiable = false;
+
+    return result;
+}
+```

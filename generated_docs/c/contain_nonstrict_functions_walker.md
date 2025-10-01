@@ -36,3 +36,52 @@ This function implements a comprehensive tree walker that recursively examines P
 - Uses PostgreSQL's expression_tree_walker infrastructure for comprehensive tree traversal
 - Located in src/backend/optimizer/util/clauses.c at lines 1005-1136
 - Critical component for NULL-handling optimization in the PostgreSQL query planner
+
+## Simplified Source
+
+```c
+static bool contain_nonstrict_functions_walker(Node *node, void *context) {
+    if (node == NULL)
+        return false;
+
+    // Check for inherently non-strict node types
+    if (IsA(node, Aggref) || IsA(node, GroupingFunc) || IsA(node, WindowFunc))
+        return true;
+
+    // Array subscripting - assignment is always non-strict
+    if (IsA(node, SubscriptingRef)) {
+        SubscriptingRef *sbsref = (SubscriptingRef *) node;
+        if (sbsref->refassgnexpr != NULL)
+            return true;
+        // Check if fetch operation is strict
+        const SubscriptRoutines *sbsroutines = getSubscriptingRoutines(sbsref->refcontainertype, NULL);
+        if (!(sbsroutines && sbsroutines->fetch_strict))
+            return true;
+    }
+
+    // Boolean expressions - AND/OR are non-strict
+    if (IsA(node, BoolExpr)) {
+        BoolExpr *expr = (BoolExpr *) node;
+        if (expr->boolop == AND_EXPR || expr->boolop == OR_EXPR)
+            return true;
+    }
+
+    // Other inherently non-strict constructs
+    if (IsA(node, DistinctExpr) || IsA(node, NullIfExpr) ||
+        IsA(node, SubLink) || IsA(node, SubPlan) || IsA(node, CaseExpr) ||
+        IsA(node, CoalesceExpr) || IsA(node, NullTest))
+        return true;
+
+    // Special handling for coercion nodes
+    if (IsA(node, CoerceViaIO))
+        return contain_nonstrict_functions_walker((Node *) ((CoerceViaIO *) node)->arg, context);
+    if (IsA(node, ArrayCoerceExpr))
+        return contain_nonstrict_functions_walker((Node *) ((ArrayCoerceExpr *) node)->arg, context);
+
+    // Check functions in node and recurse
+    if (check_functions_in_node(node, contain_nonstrict_functions_checker, context))
+        return true;
+
+    return expression_tree_walker(node, contain_nonstrict_functions_walker, context);
+}
+```

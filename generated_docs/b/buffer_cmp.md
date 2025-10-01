@@ -31,3 +31,23 @@ This is a standard qsort-style comparison function that compares two PendingWrit
 - Used primarily by smgr_bulk_flush to sort pending writes by block number for optimal I/O performance
 - Sorting by block number allows for sequential disk writes, reducing seek overhead
 - The comparison follows the standard C library qsort comparison function interface
+
+## Simplified Source
+
+```c
+static int
+buffer_cmp(const void *a, const void *b)
+{
+    const PendingWrite *bufa = (const PendingWrite *) a;
+    const PendingWrite *bufb = (const PendingWrite *) b;
+
+    // Assert no duplicate writes for same block
+    Assert(bufa->blkno != bufb->blkno);
+
+    // Standard comparison: negative if a < b, positive if a > b
+    if (bufa->blkno > bufb->blkno)
+        return 1;
+    else
+        return -1;
+}
+```

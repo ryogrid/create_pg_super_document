@@ -64,3 +64,90 @@ The initialization process encompasses several critical areas:
 - The scanopsfixed flag is set to false since FDW return formats are unpredictable
 - [ResultRelInfo](../R/ResultRelInfo.md) lookup is skipped during EvalPlanQual to avoid initialization issues
 - Outer plan initialization supports complex query structures with foreign scans as inner nodes
+
+## Simplified Source
+
+```c
+ForeignScanState *
+ExecInitForeignScan(ForeignScan *node, EState *estate, int eflags)
+{
+    // Create and initialize basic state structure
+    ForeignScanState *scanstate = makeNode(ForeignScanState);
+    scanstate->ss.ps.plan = (Plan *) node;
+    scanstate->ss.ps.state = estate;
+    scanstate->ss.ps.ExecProcNode = ExecForeignScan;
+
+    // Create expression context
+    ExecAssignExprContext(estate, &scanstate->ss.ps);
+
+    // Open scan relation and get FDW routines
+    Relation currentRelation = NULL;
+    FdwRoutine *fdwroutine;
+    if (node->scan.scanrelid > 0)
+    {
+        currentRelation = ExecOpenScanRelation(estate, node->scan.scanrelid, eflags);
+        scanstate->ss.ss_currentRelation = currentRelation;
+        fdwroutine = GetFdwRoutineForRelation(currentRelation, true);
+    }
+    else
+    {
+        fdwroutine = GetFdwRoutineByServerId(node->fs_server);
+    }
+
+    // Set up scan tuple type and slot
+    int tlistvarno;
+    if (node->fdw_scan_tlist != NIL || currentRelation == NULL)
+    {
+        TupleDesc scan_tupdesc = ExecTypeFromTL(node->fdw_scan_tlist);
+        ExecInitScanTupleSlot(estate, &scanstate->ss, scan_tupdesc, &TTSOpsHeapTuple);
+        tlistvarno = INDEX_VAR;
+    }
+    else
+    {
+        TupleDesc scan_tupdesc = CreateTupleDescCopy(RelationGetDescr(currentRelation));
+        ExecInitScanTupleSlot(estate, &scanstate->ss, scan_tupdesc, &TTSOpsHeapTuple);
+        tlistvarno = node->scan.scanrelid;
+    }
+
+    // Configure scan operations flags
+    scanstate->ss.ps.scanopsfixed = false;
+    scanstate->ss.ps.scanopsset = true;
+
+    // Initialize result slot and projection
+    ExecInitResultTypeTL(&scanstate->ss.ps);
+    ExecAssignScanProjectionInfoWithVarno(&scanstate->ss, tlistvarno);
+
+    // Initialize qualification expressions
+    scanstate->ss.ps.qual = ExecInitQual(node->scan.plan.qual, (PlanState *) scanstate);
+    scanstate->fdw_recheck_quals = ExecInitQual(node->fdw_recheck_quals, (PlanState *) scanstate);
+
+    // Set up async capability
+    scanstate->ss.ps.async_capable = (((Plan *) node)->async_capable &&
+                                     estate->es_epq_active == NULL);
+
+    // Initialize FDW state
+    scanstate->fdwroutine = fdwroutine;
+    scanstate->fdw_state = NULL;
+
+    // Set up result relation for modifications
+    if (node->resultRelation > 0 && estate->es_epq_active == NULL)
+    {
+        scanstate->resultRelInfo = estate->es_result_relations[node->resultRelation - 1];
+    }
+
+    // Initialize any outer plan
+    if (outerPlan(node))
+        outerPlanState(scanstate) = ExecInitNode(outerPlan(node), estate, eflags);
+
+    // Initialize FDW scan
+    if (node->operation != CMD_SELECT)
+    {
+        if (estate->es_epq_active == NULL)
+            fdwroutine->BeginDirectModify(scanstate, eflags);
+    }
+    else
+        fdwroutine->BeginForeignScan(scanstate, eflags);
+
+    return scanstate;
+}
+```

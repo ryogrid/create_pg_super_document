@@ -36,3 +36,39 @@ This function constructs a Path node specifically for CTE scan operations. It in
 - No parallel workers are assigned (parallel_workers = 0)
 - The cost calculation is delegated to the cost_ctescan function which computes startup and total costs
 - This function is part of PostgreSQL's cost-based query optimizer infrastructure
+
+## Simplified Source
+
+This function follows a standard path creation pattern:
+
+```c
+Path *create_ctescan_path(PlannerInfo *root, RelOptInfo *rel,
+                         List *pathkeys, Relids required_outer)
+{
+    Path *pathnode = makeNode(Path);
+
+    // Set basic path properties
+    pathnode->pathtype = T_CteScan;
+    pathnode->parent = rel;
+    pathnode->pathtarget = rel->reltarget;
+    pathnode->param_info = get_baserel_parampathinfo(root, rel, required_outer);
+
+    // Set parallelism properties
+    pathnode->parallel_aware = false;
+    pathnode->parallel_safe = rel->consider_parallel;
+    pathnode->parallel_workers = 0;
+
+    // Set ordering
+    pathnode->pathkeys = pathkeys;
+
+    // Calculate costs
+    cost_ctescan(pathnode, root, rel, pathnode->param_info);
+
+    return pathnode;
+}
+```
+
+**Key simplifications made:**
+- Grouped related field assignments with comments
+- Maintained all essential initialization steps
+- Preserved the standard path creation pattern used throughout PostgreSQL

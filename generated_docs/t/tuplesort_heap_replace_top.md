@@ -52,3 +52,37 @@ The function uses unsigned integers to prevent integer overflow in child index c
 - Works with both min-heaps and max-heaps depending on the comparison function
 - Essential for bounded sorting where only top-K elements need to be maintained
 - The function assumes the heap has at least one element (checked by assertion)
+
+## Simplified Source
+
+```c
+static void tuplesort_heap_replace_top(Tuplesortstate *state, SortTuple *tuple) {
+    SortTuple *memtuples = state->memtuples;
+    unsigned int i = 0;  // Current "hole" position
+    unsigned int n = state->memtupcount;
+
+    // Sift down: find proper position for new tuple
+    for (;;) {
+        unsigned int j = 2 * i + 1;  // Left child index
+
+        // If no children, we found the position
+        if (j >= n)
+            break;
+
+        // Choose smaller child (min-heap property)
+        if (j + 1 < n && COMPARETUP(state, &memtuples[j], &memtuples[j + 1]) > 0)
+            j++;  // Right child is smaller
+
+        // If new tuple is in correct position, stop
+        if (COMPARETUP(state, tuple, &memtuples[j]) <= 0)
+            break;
+
+        // Move smaller child up, creating hole at child position
+        memtuples[i] = memtuples[j];
+        i = j;
+    }
+
+    // Place new tuple in final hole position
+    memtuples[i] = *tuple;
+}
+```

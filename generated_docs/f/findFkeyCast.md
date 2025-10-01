@@ -35,3 +35,31 @@ This function determines whether a type conversion (cast) is possible between a 
 - Raises an ERROR if no coercion pathway exists, suggesting a regression in cast availability
 - Part of the foreign key constraint validation process during table alterations
 - The error message indicates this function expects previously working casts to remain available
+
+## Simplified Source
+
+```c
+static CoercionPathType
+findFkeyCast(Oid targetTypeId, Oid sourceTypeId, Oid *funcid)
+{
+    CoercionPathType ret;
+
+    if (targetTypeId == sourceTypeId)
+    {
+        // Types are identical - just relabel
+        ret = COERCION_PATH_RELABELTYPE;
+        *funcid = InvalidOid;
+    }
+    else
+    {
+        // Types differ - find implicit coercion path
+        ret = find_coercion_pathway(targetTypeId, sourceTypeId,
+                                   COERCION_IMPLICIT, funcid);
+        if (ret == COERCION_PATH_NONE)
+            elog(ERROR, "could not find cast from %u to %u",
+                 sourceTypeId, targetTypeId);
+    }
+
+    return ret;
+}
+```

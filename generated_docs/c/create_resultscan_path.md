@@ -38,3 +38,35 @@ This function constructs a Path node specifically for result scan operations on 
 - Cost calculation is handled by cost_resultscan function
 - Used for scanning relations that generate computed results like VALUES clauses or function calls
 - This path type is essential for handling non-table data sources in PostgreSQL queries
+
+## Simplified Source
+
+```c
+Path *
+create_resultscan_path(PlannerInfo *root, RelOptInfo *rel,
+                       Relids required_outer)
+{
+    Path *pathnode = makeNode(Path);
+
+    // Set basic path properties for result scan
+    pathnode->pathtype = T_Result;
+    pathnode->parent = rel;
+    pathnode->pathtarget = rel->reltarget;
+
+    // Set up parameterization info
+    pathnode->param_info = get_baserel_parampathinfo(root, rel, required_outer);
+
+    // Configure parallelization settings
+    pathnode->parallel_aware = false;   // Result scans are not parallel-aware
+    pathnode->parallel_safe = rel->consider_parallel;
+    pathnode->parallel_workers = 0;     // No parallel workers
+
+    // Result scans always produce unordered output
+    pathnode->pathkeys = NIL;
+
+    // Calculate execution costs
+    cost_resultscan(pathnode, root, rel, pathnode->param_info);
+
+    return pathnode;
+}
+```

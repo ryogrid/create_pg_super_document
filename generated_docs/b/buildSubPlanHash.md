@@ -58,3 +58,96 @@ The separation of null and non-null tuples optimizes performance by allowing exa
 - Clears projection slot to prevent double-free issues when subplan context is reset
 - The unknownEqFalse flag determines whether null-containing tuples need to be stored
 - Uses innerecontext for parameter value extraction to isolate memory usage per tuple
+
+## Simplified Source
+
+```c
+static void
+buildSubPlanHash(SubPlanState *node, ExprContext *econtext)
+{
+    SubPlan *subplan = node->subplan;
+    PlanState *planstate = node->planstate;
+    int ncols = node->numCols;
+    MemoryContext oldcontext;
+    long nbuckets;
+    TupleTableSlot *slot;
+
+    Assert(subplan->subLinkType == ANY_SUBLINK);
+
+    // Reset hash table memory and initialize state
+    MemoryContextReset(node->hashtablecxt);
+    node->havehashrows = false;
+    node->havenullrows = false;
+
+    // Calculate bucket count from estimated rows
+    nbuckets = clamp_cardinality_to_long(planstate->plan->plan_rows);
+    if (nbuckets < 1) nbuckets = 1;
+
+    // Create or reset main hash table for non-null tuples
+    if (node->hashtable)
+        ResetTupleHashTable(node->hashtable);
+    else
+        node->hashtable = BuildTupleHashTableExt(node->parent, node->descRight, ncols,
+                                               node->keyColIdx, node->tab_eq_funcoids,
+                                               node->tab_hash_funcs, node->tab_collations,
+                                               nbuckets, 0, node->planstate->state->es_query_cxt,
+                                               node->hashtablecxt, node->hashtempcxt, false);
+
+    // Create separate hash table for null-containing tuples if needed
+    if (!subplan->unknownEqFalse) {
+        if (ncols == 1)
+            nbuckets = 1;  // Only one possible null entry
+        else {
+            nbuckets /= 16;  // Smaller table for nulls
+            if (nbuckets < 1) nbuckets = 1;
+        }
+
+        if (node->hashnulls)
+            ResetTupleHashTable(node->hashnulls);
+        else
+            node->hashnulls = BuildTupleHashTableExt(node->parent, node->descRight, ncols,
+                                                   node->keyColIdx, node->tab_eq_funcoids,
+                                                   node->tab_hash_funcs, node->tab_collations,
+                                                   nbuckets, 0, node->planstate->state->es_query_cxt,
+                                                   node->hashtablecxt, node->hashtempcxt, false);
+    } else {
+        node->hashnulls = NULL;
+    }
+
+    // Switch to per-query context for subplan execution
+    oldcontext = MemoryContextSwitchTo(econtext->ecxt_per_query_memory);
+
+    // Scan subplan and populate hash tables
+    ExecReScan(planstate);
+    for (slot = ExecProcNode(planstate); !TupIsNull(slot); slot = ExecProcNode(planstate)) {
+        int col = 1;
+        ListCell *plst;
+        bool isnew;
+
+        // Load parameters from subplan output
+        foreach(plst, subplan->paramIds) {
+            int paramid = lfirst_int(plst);
+            ParamExecData *prmdata = &(innerecontext->ecxt_param_exec_vals[paramid]);
+            Assert(prmdata->execPlan == NULL);
+            prmdata->value = slot_getattr(slot, col, &(prmdata->isnull));
+            col++;
+        }
+        slot = ExecProject(node->projRight);
+
+        // Store in appropriate hash table based on null content
+        if (slotNoNulls(slot)) {
+            LookupTupleHashEntry(node->hashtable, slot, &isnew, NULL);
+            node->havehashrows = true;
+        } else if (node->hashnulls) {
+            LookupTupleHashEntry(node->hashnulls, slot, &isnew, NULL);
+            node->havenullrows = true;
+        }
+
+        ResetExprContext(innerecontext);
+    }
+
+    // Clean up projection slot to prevent double-free
+    ExecClearTuple(node->projRight->pi_state.resultslot);
+    MemoryContextSwitchTo(oldcontext);
+}
+```

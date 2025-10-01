@@ -40,3 +40,23 @@ The function includes safety checks to ensure it's only called on appropriate re
 - Uses linear-time tuple decomposition for efficiency when multiple varlena columns are present
 - The function won't be called unless there's at least one varlena column in the tuple
 - Part of PostgreSQL's TOAST (The Oversized-Attribute Storage Technique) system for handling large column values
+
+## Simplified Source
+
+```c
+void heap_toast_delete(Relation rel, HeapTuple oldtup, bool is_speculative) {
+    // Validate relation type (only regular tables and materialized views)
+    Assert(rel->rd_rel->relkind == RELKIND_RELATION ||
+           rel->rd_rel->relkind == RELKIND_MATVIEW);
+
+    // Get tuple descriptor and decompose tuple into fields
+    TupleDesc tupleDesc = rel->rd_att;
+    Datum toast_values[MaxHeapAttributeNumber];
+    bool toast_isnull[MaxHeapAttributeNumber];
+
+    heap_deform_tuple(oldtup, tupleDesc, toast_values, toast_isnull);
+
+    // Delegate actual TOAST deletion to external function
+    toast_delete_external(rel, toast_values, toast_isnull, is_speculative);
+}
+```

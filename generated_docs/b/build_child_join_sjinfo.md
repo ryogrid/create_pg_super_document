@@ -47,3 +47,53 @@ The function maintains the semantic correctness of join operations while ensurin
 - Maintains correspondence with free_child_join_sjinfo() - any changes to translation logic should be reflected in the cleanup function
 - Essential for maintaining correct join semantics in partitionwise join optimization
 - Memory management includes cleanup of temporary AppendRelInfo arrays after translation
+
+## Simplified Source
+
+```c
+static SpecialJoinInfo *build_child_join_sjinfo(PlannerInfo *root,
+                                               SpecialJoinInfo *parent_sjinfo,
+                                               Relids left_relids,
+                                               Relids right_relids) {
+    SpecialJoinInfo *sjinfo = makeNode(SpecialJoinInfo);
+
+    // Handle simple INNER joins - create dummy SpecialJoinInfo
+    if (parent_sjinfo->jointype == JOIN_INNER) {
+        Assert(parent_sjinfo->ojrelid == 0);
+        init_dummy_sjinfo(sjinfo, left_relids, right_relids);
+        return sjinfo;
+    }
+
+    // Copy parent SpecialJoinInfo as starting point
+    memcpy(sjinfo, parent_sjinfo, sizeof(SpecialJoinInfo));
+
+    // Find AppendRelInfo structures for child relations
+    AppendRelInfo **left_appinfos, **right_appinfos;
+    int left_nappinfos, right_nappinfos;
+
+    left_appinfos = find_appinfos_by_relids(root, left_relids, &left_nappinfos);
+    right_appinfos = find_appinfos_by_relids(root, right_relids, &right_nappinfos);
+
+    // Translate relation ID sets to reference child partitions
+    sjinfo->min_lefthand = adjust_child_relids(sjinfo->min_lefthand,
+                                              left_nappinfos, left_appinfos);
+    sjinfo->min_righthand = adjust_child_relids(sjinfo->min_righthand,
+                                               right_nappinfos, right_appinfos);
+    sjinfo->syn_lefthand = adjust_child_relids(sjinfo->syn_lefthand,
+                                              left_nappinfos, left_appinfos);
+    sjinfo->syn_righthand = adjust_child_relids(sjinfo->syn_righthand,
+                                               right_nappinfos, right_appinfos);
+
+    // Translate semi-join expressions for child relations
+    sjinfo->semi_rhs_exprs = (List *) adjust_appendrel_attrs(root,
+                                                            (Node *) sjinfo->semi_rhs_exprs,
+                                                            right_nappinfos,
+                                                            right_appinfos);
+
+    // Clean up temporary arrays
+    pfree(left_appinfos);
+    pfree(right_appinfos);
+
+    return sjinfo;
+}
+```

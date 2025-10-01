@@ -35,3 +35,19 @@ The  function performs a complete deep copy of chromosome data from one chromoso
 - Part of the GEQO module which implements a genetic algorithm approach for query optimization when dealing with large numbers of joins
 - The function follows the GEQO naming convention with the 'geqo_' prefix
 - Located in src/backend/optimizer/geqo/geqo_copy.c:45-54
+
+## Simplified Source
+
+```c
+void geqo_copy(PlannerInfo *root, Chromosome *chromo1, Chromosome *chromo2,
+               int string_length) {
+    int i;
+
+    // Copy each gene from source to destination chromosome
+    for (i = 0; i < string_length; i++)
+        chromo1->string[i] = chromo2->string[i];
+
+    // Copy the fitness value
+    chromo1->worth = chromo2->worth;
+}
+```

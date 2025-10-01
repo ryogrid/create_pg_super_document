@@ -50,3 +50,47 @@ The mask expansion technique allows efficient word-level masking by creating a p
 - Returns  to accommodate large buffer popcount results
 - Part of PostgreSQL's specialized bit manipulation utilities for masked operations
 - The masking operation is applied before the popcount, allowing selective bit counting based on the mask pattern
+
+## Simplified Source
+
+```c
+static uint64
+pg_popcount_masked_slow(const char *buf, int bytes, bits8 mask)
+{
+    uint64 popcnt = 0;
+
+#if SIZEOF_VOID_P >= 8
+    // Process 64-bit chunks if aligned
+    uint64 maskv = ~UINT64CONST(0) / 0xFF * mask;
+
+    if (buf == (const char *) TYPEALIGN(8, buf)) {
+        const uint64 *words = (const uint64 *) buf;
+
+        while (bytes >= 8) {
+            popcnt += pg_popcount64_slow(*words++ & maskv);
+            bytes -= 8;
+        }
+        buf = (const char *) words;
+    }
+#else
+    // Process 32-bit chunks if aligned
+    uint32 maskv = ~((uint32) 0) / 0xFF * mask;
+
+    if (buf == (const char *) TYPEALIGN(4, buf)) {
+        const uint32 *words = (const uint32 *) buf;
+
+        while (bytes >= 4) {
+            popcnt += pg_popcount32_slow(*words++ & maskv);
+            bytes -= 4;
+        }
+        buf = (const char *) words;
+    }
+#endif
+
+    // Process remaining bytes individually
+    while (bytes--)
+        popcnt += pg_number_of_ones[(unsigned char) *buf++ & mask];
+
+    return popcnt;
+}
+```

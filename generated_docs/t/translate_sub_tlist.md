@@ -38,3 +38,25 @@ This conservative approach ensures that uniqueness determinations are only made 
 - Used specifically in the context of determining whether a subquery already provides the uniqueness required by a semijoin
 - The function's "punt and return NIL" strategy is a common pattern in PostgreSQL's optimizer when encountering complex cases that would be difficult to analyze correctly
 - Column numbers (varattno values) start from 1 in PostgreSQL's system catalogs and Var nodes
+
+## Simplified Source
+
+```c
+static List *translate_sub_tlist(List *tlist, int relid) {
+    List *result = NIL;
+
+    // Extract column numbers from simple Var references
+    foreach(l, tlist) {
+        Var *var = (Var *) lfirst(l);
+
+        // Ensure this is a simple Var referencing the expected relation
+        if (!var || !IsA(var, Var) || var->varno != relid)
+            return NIL;  // Punt on complex expressions
+
+        // Collect the column number (varattno)
+        result = lappend_int(result, var->varattno);
+    }
+
+    return result;
+}
+```

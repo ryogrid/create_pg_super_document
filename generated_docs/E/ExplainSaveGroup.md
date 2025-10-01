@@ -45,3 +45,31 @@ This enables a pattern where formatting state can be temporarily set aside, cont
 - Currently uses integer storage for saved state, though this may be extended in the future
 - Must be paired with ExplainRestoreGroup to properly restore the saved state
 - Located in src/backend/commands/explain.c:5005-5040
+
+## Simplified Source
+
+```c
+static void
+ExplainSaveGroup(ExplainState *es, int depth, int *state_save)
+{
+    switch (es->format)
+    {
+        case EXPLAIN_FORMAT_TEXT:
+            // Text format requires no state management
+            break;
+
+        case EXPLAIN_FORMAT_XML:
+            // XML only needs indentation adjustment
+            es->indent -= depth;
+            break;
+
+        case EXPLAIN_FORMAT_JSON:
+        case EXPLAIN_FORMAT_YAML:
+            // JSON/YAML require full state management
+            es->indent -= depth;
+            *state_save = linitial_int(es->grouping_stack);
+            es->grouping_stack = list_delete_first(es->grouping_stack);
+            break;
+    }
+}
+```

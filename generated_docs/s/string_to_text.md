@@ -35,3 +35,17 @@ This function serves as a convenient wrapper around `cstring_to_text()` for scen
 - The function assumes ownership of the input string and will free it, so callers should not use the string after passing it to this function
 - Used extensively throughout the rule utility functions for converting temporary string representations to TEXT datums
 - The memory management pattern (allocate, convert, free) is a common idiom in PostgreSQL for temporary string processing
+
+## Simplified Source
+
+```c
+static text *string_to_text(char *str) {
+    // Convert C string to PostgreSQL TEXT datum
+    text *result = cstring_to_text(str);
+
+    // Free the input string (assumes it was palloc'd)
+    pfree(str);
+
+    return result;
+}
+```

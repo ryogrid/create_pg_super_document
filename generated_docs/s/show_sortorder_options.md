@@ -50,3 +50,52 @@ The function intelligently determines when to show collation information (COLLAT
 - Includes comprehensive error handling for cache lookup failures
 - The function determines the 'reverse' flag to properly handle null ordering defaults
 - Uses proper SQL identifier quoting for collation names to handle special characters
+
+## Simplified Source
+
+```c
+static void
+show_sortorder_options(StringInfo buf, Node *sortexpr,
+                       Oid sortOperator, Oid collation, bool nullsFirst)
+{
+    Oid sortcoltype = exprType(sortexpr);
+    bool reverse = false;
+    TypeCacheEntry *typentry;
+
+    // Get type cache for default operators
+    typentry = lookup_type_cache(sortcoltype,
+                                 TYPECACHE_LT_OPR | TYPECACHE_GT_OPR);
+
+    // Show COLLATE if not default for this type
+    if (OidIsValid(collation) && collation != get_typcollation(sortcoltype))
+    {
+        char *collname = get_collation_name(collation);
+        if (collname == NULL)
+            elog(ERROR, "cache lookup failed for collation %u", collation);
+        appendStringInfo(buf, " COLLATE %s", quote_identifier(collname));
+    }
+
+    // Show direction or custom operator
+    if (sortOperator == typentry->gt_opr)
+    {
+        appendStringInfoString(buf, " DESC");
+        reverse = true;
+    }
+    else if (sortOperator != typentry->lt_opr)
+    {
+        char *opname = get_opname(sortOperator);
+        if (opname == NULL)
+            elog(ERROR, "cache lookup failed for operator %u", sortOperator);
+        appendStringInfo(buf, " USING %s", opname);
+
+        // Determine if this operator implies reverse ordering
+        (void) get_equality_op_for_ordering_op(sortOperator, &reverse);
+    }
+
+    // Show NULLS ordering only if non-default
+    if (nullsFirst && !reverse)
+        appendStringInfoString(buf, " NULLS FIRST");
+    else if (!nullsFirst && reverse)
+        appendStringInfoString(buf, " NULLS LAST");
+}
+```

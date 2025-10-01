@@ -43,3 +43,16 @@ The scaling factor `(2^52 - 1)` is chosen to maximize the use of the floating-po
 - Like `pg_prng_seed`, this function ensures the resulting state is not all-zeroes through the underlying initialization process
 - The function provides a convenient bridge between floating-point-based interfaces and the integer-based underlying PRNG implementation
 - Located in src/common/pg_prng.c, making it available to both frontend and backend code
+
+## Simplified Source
+
+```c
+void pg_prng_fseed(pg_prng_state *state, double fseed) {
+    // Convert floating-point seed to integer using 52-bit mantissa precision
+    // Scale by (2^52 - 1) to maximize use of floating-point precision
+    int64 seed = ((double) ((UINT64CONST(1) << 52) - 1)) * fseed;
+
+    // Initialize PRNG state with converted integer seed
+    pg_prng_seed(state, (uint64) seed);
+}
+```

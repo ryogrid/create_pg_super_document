@@ -37,3 +37,55 @@ This function produces a commuted version of a RestrictInfo containing a binary 
 - Statistical data swapping: Properly swaps left/right bucket sizes and most common value frequencies to maintain accurate optimization statistics
 - Cache invalidation: Clears the scansel_cache as it's not worth updating, and resets hash equality operators to InvalidOid for recalculation
 - Serial number preservation: Maintains the same rinfo_serial number to preserve debugging and tracking consistency
+
+## Simplified Source
+
+```c
+RestrictInfo *
+commute_restrictinfo(RestrictInfo *rinfo, Oid comm_op)
+{
+    RestrictInfo *result;
+    OpExpr *newclause;
+    OpExpr *clause = castNode(OpExpr, rinfo->clause);
+
+    Assert(list_length(clause->args) == 2);
+
+    // Create new OpExpr with swapped arguments
+    newclause = makeNode(OpExpr);
+    memcpy(newclause, clause, sizeof(OpExpr));
+    newclause->opno = comm_op;
+    newclause->opfuncid = InvalidOid;
+    newclause->args = list_make2(lsecond(clause->args),
+                                linitial(clause->args));
+
+    // Create new RestrictInfo with swapped left/right metadata
+    result = makeNode(RestrictInfo);
+    memcpy(result, rinfo, sizeof(RestrictInfo));
+
+    // Update fields that need to change for commutation
+    result->clause = (Expr *) newclause;
+    result->left_relids = rinfo->right_relids;
+    result->right_relids = rinfo->left_relids;
+    result->left_ec = rinfo->right_ec;
+    result->right_ec = rinfo->left_ec;
+    result->left_em = rinfo->right_em;
+    result->right_em = rinfo->left_em;
+    result->scansel_cache = NIL;  // Clear cache, not worth updating
+
+    // Update hash join operator if it matches the original
+    if (rinfo->hashjoinoperator == clause->opno)
+        result->hashjoinoperator = comm_op;
+    else
+        result->hashjoinoperator = InvalidOid;
+
+    // Swap statistical data for optimization
+    result->left_bucketsize = rinfo->right_bucketsize;
+    result->right_bucketsize = rinfo->left_bucketsize;
+    result->left_mcvfreq = rinfo->right_mcvfreq;
+    result->right_mcvfreq = rinfo->left_mcvfreq;
+    result->left_hasheqoperator = InvalidOid;
+    result->right_hasheqoperator = InvalidOid;
+
+    return result;
+}
+```

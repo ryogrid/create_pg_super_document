@@ -31,3 +31,25 @@ This function handles the cleanup of ON COMMIT action registrations when a tempo
 - Breaks after finding the first match, assuming one entry per relation
 - Essential for cleanup when temporary tables with ON COMMIT actions are dropped
 - Prevents orphaned ON COMMIT registrations that could cause errors at commit time
+
+## Simplified Source
+
+```c
+void remove_on_commit_action(Oid relid)
+{
+    ListCell *l;
+
+    // Search through registered ON COMMIT actions
+    foreach(l, on_commits)
+    {
+        OnCommitItem *oc = (OnCommitItem *) lfirst(l);
+
+        // Mark matching entry for deletion after commit
+        if (oc->relid == relid)
+        {
+            oc->deleting_subid = GetCurrentSubTransactionId();
+            break;
+        }
+    }
+}
+```

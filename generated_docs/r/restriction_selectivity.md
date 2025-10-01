@@ -51,3 +51,35 @@ The selectivity function receives context information including the planner stat
 - Used extensively in path cost calculations and join ordering decisions
 - Part of PostgreSQL's extensible selectivity estimation framework
 - Location: src/backend/optimizer/util/plancat.c:1947-1985
+
+## Simplified Source
+
+```c
+Selectivity
+restriction_selectivity(PlannerInfo *root, Oid operatorid, List *args,
+                        Oid inputcollid, int varRelid)
+{
+    RegProcedure oprrest = get_oprrest(operatorid);
+    float8 result;
+
+    // Default selectivity if no restriction procedure registered
+    if (!oprrest) {
+        return (Selectivity) 0.5;
+    }
+
+    // Call the operator's restriction selectivity function
+    result = DatumGetFloat8(OidFunctionCall4Coll(oprrest,
+                                                inputcollid,
+                                                PointerGetDatum(root),
+                                                ObjectIdGetDatum(operatorid),
+                                                PointerGetDatum(args),
+                                                Int32GetDatum(varRelid)));
+
+    // Validate result is within valid probability range
+    if (result < 0.0 || result > 1.0) {
+        elog(ERROR, "invalid restriction selectivity: %f", result);
+    }
+
+    return (Selectivity) result;
+}
+```

@@ -35,3 +35,28 @@ The function is static and used internally within the index path optimization mo
 - Uses 0-based indexing for position counting
 - The function ensures uniqueness of nodes in the list based on structural equality
 - Part of the index path optimization infrastructure in PostgreSQL's query planner
+
+## Simplified Source
+
+```c
+static int find_list_position(Node *node, List **nodelist)
+{
+    int i = 0;
+    ListCell *lc;
+
+    // Search for node in existing list
+    foreach(lc, *nodelist)
+    {
+        Node *oldnode = (Node *) lfirst(lc);
+
+        if (equal(node, oldnode))
+            return i;
+        i++;
+    }
+
+    // Node not found, add it to the end
+    *nodelist = lappend(*nodelist, node);
+
+    return i;
+}
+```

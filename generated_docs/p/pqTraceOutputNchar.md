@@ -39,3 +39,37 @@ The function intelligently handles non-printable characters by escaping them as 
 - Unlike pqTraceOutputString, this function does not have a suppress parameter since it's typically used for binary data
 - Used primarily for outputting parameter values and binary data where the exact byte content is important
 - The function advances the cursor by exactly the specified length, enabling precise parsing of fixed-length protocol fields
+
+## Simplified Source
+
+```c
+static void pqTraceOutputNchar(FILE *pfdebug, int len, const char *data, int *cursor)
+{
+    int i, next = 0;  // next = first char not yet printed
+    const char *v = data + *cursor;
+
+    fprintf(pfdebug, " '");
+
+    // Process characters, escaping non-printable ones
+    for (i = 0; i < len; ++i) {
+        if (isprint((unsigned char) v[i])) {
+            // Continue accumulating printable characters
+            continue;
+        } else {
+            // Output any accumulated printable characters
+            fwrite(v + next, 1, i - next, pfdebug);
+
+            // Output non-printable character as hex escape
+            fprintf(pfdebug, "\\x%02x", v[i]);
+            next = i + 1;
+        }
+    }
+
+    // Output any remaining printable characters
+    if (next < len)
+        fwrite(v + next, 1, len - next, pfdebug);
+
+    fprintf(pfdebug, "'");
+    *cursor += len;  // Advance cursor by exactly len bytes
+}
+```

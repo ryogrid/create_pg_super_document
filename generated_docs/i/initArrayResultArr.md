@@ -44,3 +44,40 @@ The function performs element type lookup if not provided and optionally creates
 - All input arrays must have identical dimensionality and element type
 - If subcontext=true, creates a memory context named "accumArrayResultArr" for managing temporary data
 - Throws an error if the provided array_type is not actually an array type
+
+## Simplified Source
+
+```c
+ArrayBuildStateArr *initArrayResultArr(Oid array_type, Oid element_type,
+                                      MemoryContext rcontext, bool subcontext) {
+    MemoryContext arr_context = rcontext;  // Default to parent context
+
+    // Lookup element type if not provided
+    if (!OidIsValid(element_type)) {
+        element_type = get_element_type(array_type);
+
+        if (!OidIsValid(element_type))
+            ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                          errmsg("data type %s is not an array type",
+                                format_type_be(array_type))));
+    }
+
+    // Create separate memory context if requested
+    if (subcontext)
+        arr_context = AllocSetContextCreate(rcontext, "accumArrayResultArr",
+                                          ALLOCSET_DEFAULT_SIZES);
+
+    // Allocate and zero-initialize the state structure
+    ArrayBuildStateArr *astate = (ArrayBuildStateArr *)
+        MemoryContextAllocZero(arr_context, sizeof(ArrayBuildStateArr));
+
+    astate->mcontext = arr_context;
+    astate->private_cxt = subcontext;
+
+    // Save datatype information
+    astate->array_type = array_type;
+    astate->element_type = element_type;
+
+    return astate;
+}
+```

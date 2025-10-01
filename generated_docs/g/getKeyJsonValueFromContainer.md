@@ -49,3 +49,57 @@ The function supports flexible memory management by allowing the caller to eithe
 - Memory management: if res is NULL, allocates and returns new JsonbValue; otherwise fills provided structure
 - Key comparison is Unicode-aware through lengthCompareJsonbString
 - Object storage layout: keys stored first, followed by corresponding values at indices [count, 2*count)
+
+## Simplified Source
+
+```c
+JsonbValue *
+getKeyJsonValueFromContainer(JsonbContainer *container,
+                            const char *keyVal, int keyLen, JsonbValue *res) {
+    JEntry *children = container->children;
+    int count = JsonContainerSize(container);
+    char *baseAddr;
+    uint32 stopLow, stopHigh;
+
+    Assert(JsonContainerIsObject(container));
+
+    // Quick exit for empty objects
+    if (count <= 0)
+        return NULL;
+
+    // Binary search through object keys
+    baseAddr = (char *) (children + count * 2);
+    stopLow = 0;
+    stopHigh = count;
+
+    while (stopLow < stopHigh) {
+        uint32 stopMiddle = stopLow + (stopHigh - stopLow) / 2;
+
+        // Get candidate key from object
+        const char *candidateVal = baseAddr + getJsonbOffset(container, stopMiddle);
+        int candidateLen = getJsonbLength(container, stopMiddle);
+
+        // Compare with target key
+        int difference = lengthCompareJsonbString(candidateVal, candidateLen,
+                                                 keyVal, keyLen);
+
+        if (difference == 0) {
+            // Found matching key, get corresponding value
+            int index = stopMiddle + count;
+
+            if (!res)
+                res = palloc(sizeof(JsonbValue));
+
+            fillJsonbValue(container, index, baseAddr,
+                          getJsonbOffset(container, index), res);
+            return res;
+        } else if (difference < 0) {
+            stopLow = stopMiddle + 1;
+        } else {
+            stopHigh = stopMiddle;
+        }
+    }
+
+    return NULL;  // Key not found
+}
+```

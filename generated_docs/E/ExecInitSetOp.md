@@ -9,9 +9,7 @@ ExecInitSetOp initializes the execution state for a SetOp plan node, setting up 
 ## Definition
 
 ```c
-structure
-	 */
-	setopstate = makeNode(SetOpState);
+SetOpState *ExecInitSetOp(SetOp *node, EState *estate, int eflags)
 ```
 ## Detailed Description
 ExecInitSetOp performs comprehensive initialization of a SetOp node's execution state. The function:
@@ -27,9 +25,9 @@ ExecInitSetOp performs comprehensive initialization of a SetOp node's execution 
 The initialization process adapts to the specific set operation command and strategy, ensuring optimal performance for the chosen execution approach.
 
 ## Parameters / Member Variables
-- : Pointer to the SetOp plan node containing operation configuration, column information, strategy, and child plan references
-- : Pointer to the EState (executor state) containing global execution context and memory management
-- : Execution flags controlling behavior like backward scanning and mark/restore capabilities
+- `node`: Pointer to the SetOp plan node containing operation configuration, column information, strategy, and child plan references
+- `estate`: Pointer to the EState (executor state) containing global execution context and memory management
+- `eflags`: Execution flags controlling behavior like backward scanning and mark/restore capabilities
 
 ## Dependencies
 - Functions called/Symbols referenced:
@@ -54,3 +52,72 @@ The initialization process adapts to the specific set operation command and stra
 - No projection info is set since SetOp nodes don't perform projections
 - Pre-computation of function lookup data optimizes performance during execution
 - Part of PostgreSQL's executor initialization framework for set operations
+
+## Simplified Source
+
+```c
+SetOpState *
+ExecInitSetOp(SetOp *node, EState *estate, int eflags)
+{
+    SetOpState *setopstate;
+    TupleDesc outerDesc;
+
+    // Validate execution flags
+    Assert(!(eflags & (EXEC_FLAG_BACKWARD | EXEC_FLAG_MARK)));
+
+    // Create and initialize state structure
+    setopstate = makeNode(SetOpState);
+    setopstate->ps.plan = (Plan *) node;
+    setopstate->ps.state = estate;
+    setopstate->ps.ExecProcNode = ExecSetOp;
+
+    // Initialize state fields
+    setopstate->eqfuncoids = NULL;
+    setopstate->hashfunctions = NULL;
+    setopstate->setop_done = false;
+    setopstate->numOutput = 0;
+    setopstate->pergroup = NULL;
+    setopstate->grp_firstTuple = NULL;
+    setopstate->hashtable = NULL;
+    setopstate->tableContext = NULL;
+
+    // Create expression context
+    ExecAssignExprContext(estate, &setopstate->ps);
+
+    // Create hash table context for hashed strategy
+    if (node->strategy == SETOP_HASHED)
+        setopstate->tableContext = AllocSetContextCreate(CurrentMemoryContext,
+                                                        "SetOp hash table",
+                                                        ALLOCSET_DEFAULT_SIZES);
+
+    // Initialize child node with appropriate flags
+    if (node->strategy == SETOP_HASHED)
+        eflags &= ~EXEC_FLAG_REWIND;
+    outerPlanState(setopstate) = ExecInitNode(outerPlan(node), estate, eflags);
+    outerDesc = ExecGetResultType(outerPlanState(setopstate));
+
+    // Initialize result slot based on strategy
+    ExecInitResultTupleSlotTL(&setopstate->ps,
+                             node->strategy == SETOP_HASHED ?
+                             &TTSOpsMinimalTuple : &TTSOpsHeapTuple);
+    setopstate->ps.ps_ProjInfo = NULL;
+
+    // Prepare comparison and hash functions
+    if (node->strategy == SETOP_HASHED)
+    {
+        execTuplesHashPrepare(node->numCols, node->dupOperators,
+                            &setopstate->eqfuncoids, &setopstate->hashfunctions);
+        build_hash_table(setopstate);
+        setopstate->table_filled = false;
+    }
+    else
+    {
+        setopstate->eqfunction = execTuplesMatchPrepare(outerDesc, node->numCols,
+                                                       node->dupColIdx, node->dupOperators,
+                                                       node->dupCollations, &setopstate->ps);
+        setopstate->pergroup = (SetOpStatePerGroup) palloc0(sizeof(SetOpStatePerGroupData));
+    }
+
+    return setopstate;
+}
+```

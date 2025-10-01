@@ -40,3 +40,45 @@ This function prepares an EPQ state for execution by handling two scenarios: ini
 - Must be called before EvalPlanQualNext to ensure proper EPQ execution state
 - Part of PostgreSQL's MVCC infrastructure for handling concurrent updates
 - Creates the execution environment needed for EPQ tuple validation
+
+## Simplified Source
+
+```c
+void EvalPlanQualBegin(EPQState *epqstate) {
+    EState *parentestate = epqstate->parentestate;
+    EState *recheckestate = epqstate->recheckestate;
+
+    if (recheckestate == NULL) {
+        // First time - create new child EState
+        EvalPlanQualStart(epqstate, epqstate->plan);
+    } else {
+        // Reset existing EPQ infrastructure
+        Index rtsize = parentestate->es_range_table_size;
+        PlanState *rcplanstate = epqstate->recheckplanstate;
+
+        // Copy blocked relations flags to prevent fetching from them
+        memcpy(epqstate->relsubs_done, epqstate->relsubs_blocked,
+               rtsize * sizeof(bool));
+
+        // Synchronize parameter values from parent to child
+        if (parentestate->es_plannedstmt->paramExecTypes != NIL) {
+            // Force evaluation of InitPlan outputs
+            ExecSetParamPlanMulti(rcplanstate->plan->extParam,
+                                  GetPerTupleExprContext(parentestate));
+
+            // Copy parameter values
+            int param_count = list_length(parentestate->es_plannedstmt->paramExecTypes);
+            for (int i = param_count - 1; i >= 0; i--) {
+                recheckestate->es_param_exec_vals[i].value =
+                    parentestate->es_param_exec_vals[i].value;
+                recheckestate->es_param_exec_vals[i].isnull =
+                    parentestate->es_param_exec_vals[i].isnull;
+            }
+        }
+
+        // Mark plan tree for rescan
+        rcplanstate->chgParam = bms_add_member(rcplanstate->chgParam,
+                                               epqstate->epqParam);
+    }
+}
+```

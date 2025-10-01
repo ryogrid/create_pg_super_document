@@ -75,3 +75,142 @@ This function represents the heart of PostgreSQL's selectivity estimation engine
 - Handles edge cases like pseudoconstant clauses, default selectivity punting, and numerical precision issues
 - Performance optimization includes early single-clause detection and bitmap-based clause tracking
 - The function is extensively used throughout the optimizer for cost estimation and plan selection
+
+## Simplified Source
+
+```c
+Selectivity clauselist_selectivity_ext(PlannerInfo *root,
+                                       List *clauses,
+                                       int varRelid,
+                                       JoinType jointype,
+                                       SpecialJoinInfo *sjinfo,
+                                       bool use_extended_stats)
+{
+    Selectivity s1 = 1.0;
+    RelOptInfo *rel;
+    Bitmapset *estimatedclauses = NULL;
+    RangeQueryClause *rqlist = NULL;
+    ListCell *l;
+    int listidx;
+
+    // Optimize single clause case
+    if (list_length(clauses) == 1)
+        return clause_selectivity_ext(root, (Node *) linitial(clauses),
+                                      varRelid, jointype, sjinfo,
+                                      use_extended_stats);
+
+    // Try using extended statistics for multi-column correlations
+    rel = find_single_rel_for_clauses(root, clauses);
+    if (use_extended_stats && rel && rel->rtekind == RTE_RELATION && rel->statlist != NIL) {
+        s1 = statext_clauselist_selectivity(root, clauses, varRelid,
+                                             jointype, sjinfo, rel,
+                                             &estimatedclauses, false);
+    }
+
+    // Process remaining clauses not handled by extended stats
+    listidx = -1;
+    foreach(l, clauses) {
+        Node *clause = (Node *) lfirst(l);
+        RestrictInfo *rinfo;
+        Selectivity s2;
+
+        listidx++;
+
+        // Skip clauses already estimated by extended statistics
+        if (bms_is_member(listidx, estimatedclauses))
+            continue;
+
+        // Calculate selectivity for this clause
+        s2 = clause_selectivity_ext(root, clause, varRelid, jointype, sjinfo,
+                                    use_extended_stats);
+
+        // Handle RestrictInfo wrapper
+        if (IsA(clause, RestrictInfo)) {
+            rinfo = (RestrictInfo *) clause;
+            if (rinfo->pseudoconstant) {
+                s1 = s1 * s2;
+                continue;
+            }
+            clause = (Node *) rinfo->clause;
+        } else
+            rinfo = NULL;
+
+        // Check for range query clauses (x > a AND x < b)
+        if (is_opclause(clause) && list_length(((OpExpr *) clause)->args) == 2) {
+            OpExpr *expr = (OpExpr *) clause;
+            bool varonleft = true;
+            bool is_range_clause = false;
+
+            // Verify it's a single-relation comparison with a constant
+            if (rinfo) {
+                is_range_clause = (rinfo->num_base_rels == 1) &&
+                    (is_pseudo_constant_clause_relids(lsecond(expr->args), rinfo->right_relids) ||
+                     (varonleft = false, is_pseudo_constant_clause_relids(linitial(expr->args), rinfo->left_relids)));
+            } else {
+                is_range_clause = (NumRelids(root, clause) == 1) &&
+                    (is_pseudo_constant_clause(lsecond(expr->args)) ||
+                     (varonleft = false, is_pseudo_constant_clause(linitial(expr->args))));
+            }
+
+            if (is_range_clause) {
+                // Add to range query list for paired processing
+                switch (get_oprrest(expr->opno)) {
+                    case F_SCALARLTSEL:
+                    case F_SCALARLESEL:
+                        addRangeClause(&rqlist, clause, varonleft, true, s2);
+                        break;
+                    case F_SCALARGTSEL:
+                    case F_SCALARGESEL:
+                        addRangeClause(&rqlist, clause, varonleft, false, s2);
+                        break;
+                    default:
+                        s1 = s1 * s2;
+                        break;
+                }
+                continue;
+            }
+        }
+
+        // Not a range clause, use standard multiplication
+        s1 = s1 * s2;
+    }
+
+    // Process range query pairs for better estimates
+    while (rqlist != NULL) {
+        RangeQueryClause *rqnext;
+
+        if (rqlist->have_lobound && rqlist->have_hibound) {
+            // Found matching pair: use range formula instead of multiplication
+            Selectivity s2;
+
+            if (rqlist->hibound == DEFAULT_INEQ_SEL ||
+                rqlist->lobound == DEFAULT_INEQ_SEL) {
+                s2 = DEFAULT_RANGE_INEQ_SEL;
+            } else {
+                // Range selectivity: hibound + lobound - 1 + null_fraction
+                s2 = rqlist->hibound + rqlist->lobound - 1.0;
+                s2 += nulltestsel(root, IS_NULL, rqlist->var, varRelid, jointype, sjinfo);
+
+                // Handle numerical issues
+                if (s2 <= 0.0) {
+                    s2 = (s2 < -0.01) ? DEFAULT_RANGE_INEQ_SEL : 1.0e-10;
+                }
+            }
+            s1 *= s2;
+        } else {
+            // Unpaired range clause, use standard estimate
+            if (rqlist->have_lobound)
+                s1 *= rqlist->lobound;
+            else
+                s1 *= rqlist->hibound;
+        }
+
+        // Move to next range clause
+        rqnext = rqlist->next;
+        pfree(rqlist);
+        rqlist = rqnext;
+    }
+
+    return s1;
+}
+```

@@ -35,3 +35,22 @@ This function implements iterator functionality for JsonValueList sequences in P
 - Returns the current value before advancing, following standard iterator semantics
 - Part of PostgreSQL's JSON path expression evaluation system
 - Used extensively in JSON path execution for iterating through result sets and intermediate values
+
+## Simplified Source
+
+```c
+static JsonbValue *JsonValueListNext(const JsonValueList *jvl, JsonValueListIterator *it) {
+    // Get current value before advancing iterator
+    JsonbValue *result = it->value;
+
+    // Advance to next element if available
+    if (it->next) {
+        it->value = lfirst(it->next);
+        it->next = lnext(it->list, it->next);
+    } else {
+        it->value = NULL;  // End of iteration
+    }
+
+    return result;
+}
+```

@@ -41,3 +41,35 @@ The function is essential for predicate testing logic where the optimizer needs 
 - Treats IS_NOT_TRUE, IS_FALSE, and IS_UNKNOWN boolean tests as equivalent forms of negation
 - Does not handle IS_NOT_FALSE or IS_TRUE as these represent affirmative conditions
 - The function assumes well-formed expression trees where NOT expressions have exactly one argument
+
+## Simplified Source
+
+```c
+static Node *
+extract_not_arg(Node *clause)
+{
+    if (clause == NULL)
+        return NULL;
+
+    if (IsA(clause, BoolExpr))
+    {
+        BoolExpr *bexpr = (BoolExpr *) clause;
+
+        // Handle explicit NOT expressions
+        if (bexpr->boolop == NOT_EXPR)
+            return (Node *) linitial(bexpr->args);
+    }
+    else if (IsA(clause, BooleanTest))
+    {
+        BooleanTest *btest = (BooleanTest *) clause;
+
+        // Handle boolean tests that assert non-truth
+        if (btest->booltesttype == IS_NOT_TRUE ||
+            btest->booltesttype == IS_FALSE ||
+            btest->booltesttype == IS_UNKNOWN)
+            return (Node *) btest->arg;
+    }
+
+    return NULL;
+}
+```

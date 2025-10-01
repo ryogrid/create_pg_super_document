@@ -40,3 +40,15 @@ This approach is more efficient because it avoids the overhead of text_to_cstrin
 - Handles both compressed and uncompressed text formats through VARDATA_ANY/VARSIZE_ANY_EXHDR
 - Commonly used in string manipulation and XML processing functions
 - The function does not null-terminate the appended data, as StringInfo handles this automatically
+
+## Simplified Source
+
+```c
+static void
+appendStringInfoText(StringInfo str, const text *t)
+{
+    // Append text data directly without converting to C string
+    // More efficient than text_to_cstring + appendStringInfoString
+    appendBinaryStringInfo(str, VARDATA_ANY(t), VARSIZE_ANY_EXHDR(t));
+}
+```

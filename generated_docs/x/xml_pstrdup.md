@@ -32,3 +32,11 @@ This function serves as a custom string duplication callback for the libxml libr
 - Returns a newly allocated copy of the input string in the LibxmlContext
 - The duplicated string will be automatically freed when LibxmlContext is destroyed
 - Uses PostgreSQL's MemoryContextStrdup which handles NULL input appropriately
+
+## Simplified Source
+
+```c
+static char *xml_pstrdup(const char *string) {
+    return MemoryContextStrdup(LibxmlContext, string);
+}
+```

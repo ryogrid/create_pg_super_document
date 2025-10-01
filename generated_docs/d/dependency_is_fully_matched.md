@@ -41,3 +41,25 @@ This is a critical validation step used by the query planner to determine when f
 - Part of the query optimization logic that leverages extended statistics for better cardinality estimation
 - Simple but critical validation function that prevents incorrect application of dependency statistics
 - The bitmapset represents attributes that have usable equality predicates in the current query context
+
+## Simplified Source
+
+```c
+static bool
+dependency_is_fully_matched(MVDependency *dependency, Bitmapset *attnums)
+{
+    int j;
+
+    // Check that all dependency attributes are covered by available clauses
+    for (j = 0; j < dependency->nattributes; j++) {
+        int attnum = dependency->attributes[j];
+
+        // If any attribute is missing from the available set, dependency can't be used
+        if (!bms_is_member(attnum, attnums))
+            return false;
+    }
+
+    // All dependency attributes are covered
+    return true;
+}
+```

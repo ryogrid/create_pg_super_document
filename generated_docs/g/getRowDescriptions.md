@@ -54,3 +54,120 @@ For DESCRIBE commands on prepared statements, it reuses an existing PGresult tha
 - Properly handles signed/unsigned integer conversions for 2-byte values
 - Critical for establishing the structure of result sets before data rows arrive
 - The function advances the input cursor on error to prevent protocol parsing issues
+
+## Simplified Source
+
+```c
+static int
+getRowDescriptions(PGconn *conn, int msgLength)
+{
+    PGresult *result;
+    int numFields;
+
+    // Determine if this is for a DESCRIBE command or regular query
+    if (!conn->cmd_queue_head ||
+        (conn->cmd_queue_head && conn->cmd_queue_head->queryclass == PGQUERY_DESCRIBE))
+    {
+        // Use existing result for DESCRIBE, or create new one
+        if (conn->result)
+            result = conn->result;
+        else
+            result = PQmakeEmptyPGresult(conn, PGRES_COMMAND_OK);
+    }
+    else
+    {
+        // Create new result for regular query
+        result = PQmakeEmptyPGresult(conn, PGRES_TUPLES_OK);
+    }
+
+    if (!result)
+        goto error_out_of_memory;
+
+    // Read number of fields
+    if (pqGetInt(&(result->numAttributes), 2, conn))
+        goto error_insufficient_data;
+    numFields = result->numAttributes;
+
+    // Allocate space for attribute descriptors
+    if (numFields > 0)
+    {
+        result->attDescs = (PGresAttDesc *)
+            pqResultAlloc(result, numFields * sizeof(PGresAttDesc), true);
+        if (!result->attDescs)
+            goto error_out_of_memory;
+        MemSet(result->attDescs, 0, numFields * sizeof(PGresAttDesc));
+    }
+
+    // All columns binary only if ALL are binary format
+    result->binary = (numFields > 0) ? 1 : 0;
+
+    // Read metadata for each field
+    for (int i = 0; i < numFields; i++)
+    {
+        int table_id, column_id, type_id, type_len, type_mod, format;
+
+        // Read field metadata from protocol stream
+        if (pqGets(&conn->workBuffer, conn) ||
+            pqGetInt(&table_id, 4, conn) ||
+            pqGetInt(&column_id, 2, conn) ||
+            pqGetInt(&type_id, 4, conn) ||
+            pqGetInt(&type_len, 2, conn) ||
+            pqGetInt(&type_mod, 4, conn) ||
+            pqGetInt(&format, 2, conn))
+            goto error_insufficient_data;
+
+        // Convert unsigned 2-byte values to signed
+        column_id = (int) ((int16) column_id);
+        type_len = (int) ((int16) type_len);
+        format = (int) ((int16) format);
+
+        // Store field metadata
+        result->attDescs[i].name = pqResultStrdup(result, conn->workBuffer.data);
+        if (!result->attDescs[i].name)
+            goto error_out_of_memory;
+
+        result->attDescs[i].tableid = table_id;
+        result->attDescs[i].columnid = column_id;
+        result->attDescs[i].format = format;
+        result->attDescs[i].typid = type_id;
+        result->attDescs[i].typlen = type_len;
+        result->attDescs[i].atttypmod = type_mod;
+
+        // If any field is text format, entire result is text
+        if (format != 1)
+            result->binary = 0;
+    }
+
+    // Success: store result
+    conn->result = result;
+
+    // For DESCRIBE operations, mark connection ready immediately
+    if ((!conn->cmd_queue_head) ||
+        (conn->cmd_queue_head && conn->cmd_queue_head->queryclass == PGQUERY_DESCRIBE))
+    {
+        conn->asyncStatus = PGASYNC_READY;
+    }
+
+    return 0;
+
+error_insufficient_data:
+    if (result && result != conn->result)
+        PQclear(result);
+    pqClearAsyncResult(conn);
+    appendPQExpBuffer(&conn->errorMessage, "%s\n",
+                     libpq_gettext("insufficient data in \"T\" message"));
+    pqSaveErrorResult(conn);
+    conn->inCursor = conn->inStart + 5 + msgLength;
+    return 0;
+
+error_out_of_memory:
+    if (result && result != conn->result)
+        PQclear(result);
+    pqClearAsyncResult(conn);
+    appendPQExpBuffer(&conn->errorMessage, "%s\n",
+                     libpq_gettext("out of memory for query result"));
+    pqSaveErrorResult(conn);
+    conn->inCursor = conn->inStart + 5 + msgLength;
+    return 0;
+}
+```

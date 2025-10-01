@@ -45,3 +45,40 @@ The function handles memory context switching to ensure hash computations occur 
 - For new entries, the additional_data field is automatically zeroed
 - The function validates that returned entries have the correct hash value via assertion
 - Critical for grouping operations in aggregation, set operations, and subplan execution
+
+## Simplified Source
+
+```c
+TupleHashEntry
+LookupTupleHashEntry(TupleHashTable hashtable, TupleTableSlot *slot,
+                     bool *isnew, uint32 *hash)
+{
+    TupleHashEntry entry;
+    MemoryContext oldContext;
+    uint32 local_hash;
+
+    // Switch to temporary context for hash computation
+    oldContext = MemoryContextSwitchTo(hashtable->tempcxt);
+
+    // Set up hashtable state for hash and equality functions
+    hashtable->inputslot = slot;
+    hashtable->in_hash_funcs = hashtable->tab_hash_funcs;
+    hashtable->cur_eq_func = hashtable->tab_eq_func;
+
+    // Compute hash value for the tuple
+    local_hash = TupleHashTableHash_internal(hashtable->hashtab, NULL);
+
+    // Look up or insert the entry
+    entry = LookupTupleHashEntry_internal(hashtable, slot, isnew, local_hash);
+
+    // Return hash value to caller if requested
+    if (hash != NULL) {
+        *hash = local_hash;
+    }
+
+    // Restore original memory context
+    MemoryContextSwitchTo(oldContext);
+
+    return entry;
+}
+```

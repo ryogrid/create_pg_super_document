@@ -39,3 +39,29 @@ The function takes both a statistics object OID and an inheritance flag to handl
 - The inheritance flag distinguishes between statistics computed on the table alone vs. including inheritance children
 - Called during statistics object deletion and when regenerating statistics data during ANALYZE
 - Part of PostgreSQL's extended statistics infrastructure for multivariate statistics
+
+## Simplified Source
+
+```c
+void RemoveStatisticsDataById(Oid statsOid, bool inh) {
+    Relation relation;
+    HeapTuple tup;
+
+    // Open statistics data catalog with exclusive lock
+    relation = table_open(StatisticExtDataRelationId, RowExclusiveLock);
+
+    // Look for the specific statistics data row
+    tup = SearchSysCache2(STATEXTDATASTXOID,
+                         ObjectIdGetDatum(statsOid),
+                         BoolGetDatum(inh));
+
+    // Delete the row if it exists (tolerate missing rows)
+    if (HeapTupleIsValid(tup)) {
+        CatalogTupleDelete(relation, &tup->t_self);
+        ReleaseSysCache(tup);
+    }
+
+    // Close catalog relation
+    table_close(relation, RowExclusiveLock);
+}
+```

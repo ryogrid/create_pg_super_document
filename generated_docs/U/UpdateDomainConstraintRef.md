@@ -38,3 +38,45 @@ When constraint changes are detected, the function performs proper reference cou
 - Reference counting ensures proper cleanup of shared constraint cache data
 - The function only loads domain type info when the TCFLAGS_CHECKED_DOMAIN_CONSTRAINTS flag indicates it's needed
 - Memory leakage is considered acceptable due to the rarity of constraint updates in practice
+
+## Simplified Source
+
+```c
+void UpdateDomainConstraintRef(DomainConstraintRef *ref)
+{
+    TypeCacheEntry *typentry = ref->tcache;
+
+    // Ensure type cache entry's domain constraint data is current
+    if ((typentry->flags & TCFLAGS_CHECKED_DOMAIN_CONSTRAINTS) == 0 &&
+        typentry->typtype == TYPTYPE_DOMAIN)
+        load_domaintype_info(typentry);
+
+    // Update constraint reference if domain data has changed
+    if (ref->dcc != typentry->domainData)
+    {
+        DomainConstraintCache *old_dcc = ref->dcc;
+
+        // Release old constraint cache reference
+        if (old_dcc)
+        {
+            ref->constraints = NIL;
+            ref->dcc = NULL;
+            decr_dcc_refcount(old_dcc);
+        }
+
+        // Set up new constraint cache reference
+        DomainConstraintCache *new_dcc = typentry->domainData;
+        if (new_dcc)
+        {
+            ref->dcc = new_dcc;
+            new_dcc->dccRefCount++;
+
+            // Prepare constraints based on execution requirements
+            if (ref->need_exprstate)
+                ref->constraints = prep_domain_constraints(new_dcc->constraints, ref->refctx);
+            else
+                ref->constraints = new_dcc->constraints;
+        }
+    }
+}
+```

@@ -33,3 +33,48 @@ parse_scalar handles the parsing of JSON scalar values within the recursive desc
 
 ## Notes and Other Information
 The function is declared as static inline for performance optimization within the parser. It distinguishes between string tokens (which provide processed string data) and other scalar tokens (which require raw lexeme extraction). The semantic callback receives both the extracted value and the original token type for proper type handling. If no semantic function is provided, the function simply consumes the token without further processing. Token validation ensures only valid scalar types are accepted, returning parse errors for invalid tokens.
+
+## Simplified Source
+
+```c
+static inline JsonParseErrorType
+parse_scalar(JsonLexContext *lex, JsonSemAction *sem)
+{
+    char *val = NULL;
+    json_scalar_action sfunc = sem->scalar;
+    JsonTokenType tok = lex_peek(lex);
+    JsonParseErrorType result;
+
+    // Validate scalar token type
+    if (tok != JSON_TOKEN_STRING && tok != JSON_TOKEN_NUMBER &&
+        tok != JSON_TOKEN_TRUE && tok != JSON_TOKEN_FALSE &&
+        tok != JSON_TOKEN_NULL)
+        return report_parse_error(JSON_PARSE_VALUE, lex);
+
+    // Extract value if semantic function exists
+    if (sfunc != NULL) {
+        if (lex_peek(lex) == JSON_TOKEN_STRING) {
+            // Use processed string data
+            if (lex->strval != NULL)
+                val = pstrdup(lex->strval->data);
+        } else {
+            // Extract raw lexeme for other scalar types
+            int len = (lex->token_terminator - lex->token_start);
+            val = palloc(len + 1);
+            memcpy(val, lex->token_start, len);
+            val[len] = '\0';
+        }
+    }
+
+    // Consume the token
+    result = json_lex(lex);
+    if (result != JSON_SUCCESS)
+        return result;
+
+    // Invoke semantic callback if provided
+    if (sfunc != NULL)
+        result = (*sfunc)(sem->semstate, val, tok);
+
+    return result;
+}
+```

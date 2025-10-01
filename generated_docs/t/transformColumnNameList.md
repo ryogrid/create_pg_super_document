@@ -48,3 +48,51 @@ The function is specifically tailored for foreign key processing, as evidenced b
 - The function enforces PostgreSQL's limit of INDEX_MAX_KEYS columns in a foreign key
 - The atttypids parameter is optional and can be NULL if type information isn't needed
 - Returns the number of columns processed, which should match the length of the input colList
+
+## Simplified Source
+
+```c
+static int transformColumnNameList(Oid relId, List *colList,
+                                  int16 *attnums, Oid *atttypids)
+{
+    ListCell *l;
+    int attnum;
+
+    attnum = 0;
+    foreach(l, colList)
+    {
+        char *attname = strVal(lfirst(l));
+        HeapTuple atttuple;
+        Form_pg_attribute attform;
+
+        // Look up column by name in system catalog
+        atttuple = SearchSysCacheAttName(relId, attname);
+        if (!HeapTupleIsValid(atttuple))
+            ereport(ERROR, (errcode(ERRCODE_UNDEFINED_COLUMN),
+                errmsg("column \"%s\" referenced in foreign key constraint does not exist",
+                       attname)));
+
+        attform = (Form_pg_attribute) GETSTRUCT(atttuple);
+
+        // Validate column is suitable for foreign key
+        if (attform->attnum < 0)
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                errmsg("system columns cannot be used in foreign keys")));
+
+        if (attnum >= INDEX_MAX_KEYS)
+            ereport(ERROR, (errcode(ERRCODE_TOO_MANY_COLUMNS),
+                errmsg("cannot have more than %d keys in a foreign key",
+                       INDEX_MAX_KEYS)));
+
+        // Store attribute number and optionally type OID
+        attnums[attnum] = attform->attnum;
+        if (atttypids != NULL)
+            atttypids[attnum] = attform->atttypid;
+
+        ReleaseSysCache(atttuple);
+        attnum++;
+    }
+
+    return attnum;
+}
+```

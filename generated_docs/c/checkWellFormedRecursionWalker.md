@@ -81,3 +81,150 @@ The walker integrates with the generic raw_expression_tree_walker for comprehens
 - Outer join handling is critical because recursive references in outer join contexts can produce incorrect results
 - The function prevents infinite loops by controlling WITH clause recursion and limiting raw_expression_tree_walker usage
 - Self-reference counting ensures the recursive term has exactly one self-reference (more or fewer is invalid)
+
+## Simplified Source
+
+```c
+static bool
+checkWellFormedRecursionWalker(Node *node, CteState *cstate)
+{
+    RecursionContext save_context = cstate->context;
+
+    if (node == NULL)
+        return false;
+
+    // Check for CTE self-references in RangeVar nodes
+    if (IsA(node, RangeVar))
+    {
+        RangeVar *rv = (RangeVar *) node;
+
+        // Skip qualified names (can't be CTEs)
+        if (rv->schemaname)
+            return false;
+
+        // Check if captured by inner WITH clause
+        foreach(lc, cstate->innerwiths)
+        {
+            List *withlist = (List *) lfirst(lc);
+            foreach(lc2, withlist)
+            {
+                CommonTableExpr *cte = (CommonTableExpr *) lfirst(lc2);
+                if (strcmp(rv->relname, cte->ctename) == 0)
+                    return false;  // Captured by inner WITH
+            }
+        }
+
+        // Check if this references the current CTE
+        CommonTableExpr *mycte = cstate->items[cstate->curitem].cte;
+        if (strcmp(rv->relname, mycte->ctename) == 0)
+        {
+            // Found recursive reference - validate context
+            if (cstate->context != RECURSION_OK)
+                ereport(ERROR, (errcode(ERRCODE_INVALID_RECURSION),
+                               errmsg(recursion_errormsgs[cstate->context],
+                                      mycte->ctename),
+                               parser_errposition(cstate->pstate, rv->location)));
+
+            // Ensure only one self-reference
+            if (++(cstate->selfrefcount) > 1)
+                ereport(ERROR, (errcode(ERRCODE_INVALID_RECURSION),
+                               errmsg("recursive reference to query \"%s\" must not appear more than once",
+                                      mycte->ctename),
+                               parser_errposition(cstate->pstate, rv->location)));
+        }
+        return false;
+    }
+
+    // Handle SELECT statements with WITH clauses
+    if (IsA(node, SelectStmt))
+    {
+        SelectStmt *stmt = (SelectStmt *) node;
+        if (stmt->withClause)
+        {
+            if (stmt->withClause->recursive)
+            {
+                // Recursive WITH: all CTEs visible to all
+                cstate->innerwiths = lcons(stmt->withClause->ctes, cstate->innerwiths);
+                foreach(lc, stmt->withClause->ctes)
+                    checkWellFormedRecursionWalker(((CommonTableExpr *) lfirst(lc))->ctequery, cstate);
+                checkWellFormedSelectStmt(stmt, cstate);
+                cstate->innerwiths = list_delete_first(cstate->innerwiths);
+            }
+            else
+            {
+                // Non-recursive WITH: sequential visibility
+                cstate->innerwiths = lcons(NIL, cstate->innerwiths);
+                foreach(lc, stmt->withClause->ctes)
+                {
+                    CommonTableExpr *cte = (CommonTableExpr *) lfirst(lc);
+                    checkWellFormedRecursionWalker(cte->ctequery, cstate);
+                    ListCell *cell1 = list_head(cstate->innerwiths);
+                    lfirst(cell1) = lappend((List *) lfirst(cell1), cte);
+                }
+                checkWellFormedSelectStmt(stmt, cstate);
+                cstate->innerwiths = list_delete_first(cstate->innerwiths);
+            }
+        }
+        else
+            checkWellFormedSelectStmt(stmt, cstate);
+        return false;
+    }
+
+    // Handle join expressions with context changes
+    if (IsA(node, JoinExpr))
+    {
+        JoinExpr *j = (JoinExpr *) node;
+        switch (j->jointype)
+        {
+            case JOIN_INNER:
+                checkWellFormedRecursionWalker(j->larg, cstate);
+                checkWellFormedRecursionWalker(j->rarg, cstate);
+                checkWellFormedRecursionWalker(j->quals, cstate);
+                break;
+            case JOIN_LEFT:
+                checkWellFormedRecursionWalker(j->larg, cstate);
+                if (save_context == RECURSION_OK)
+                    cstate->context = RECURSION_OUTERJOIN;
+                checkWellFormedRecursionWalker(j->rarg, cstate);
+                cstate->context = save_context;
+                checkWellFormedRecursionWalker(j->quals, cstate);
+                break;
+            case JOIN_RIGHT:
+                if (save_context == RECURSION_OK)
+                    cstate->context = RECURSION_OUTERJOIN;
+                checkWellFormedRecursionWalker(j->larg, cstate);
+                cstate->context = save_context;
+                checkWellFormedRecursionWalker(j->rarg, cstate);
+                checkWellFormedRecursionWalker(j->quals, cstate);
+                break;
+            case JOIN_FULL:
+                if (save_context == RECURSION_OK)
+                    cstate->context = RECURSION_OUTERJOIN;
+                checkWellFormedRecursionWalker(j->larg, cstate);
+                checkWellFormedRecursionWalker(j->rarg, cstate);
+                cstate->context = save_context;
+                checkWellFormedRecursionWalker(j->quals, cstate);
+                break;
+        }
+        return false;
+    }
+
+    // Handle sublinks with context change
+    if (IsA(node, SubLink))
+    {
+        SubLink *sl = (SubLink *) node;
+        cstate->context = RECURSION_SUBLINK;
+        checkWellFormedRecursionWalker(sl->subselect, cstate);
+        cstate->context = save_context;
+        checkWellFormedRecursionWalker(sl->testexpr, cstate);
+        return false;
+    }
+
+    // Prevent direct WITH clause recursion
+    if (IsA(node, WithClause))
+        return false;
+
+    // Continue with generic tree walker
+    return raw_expression_tree_walker(node, checkWellFormedRecursionWalker, (void *) cstate);
+}
+```

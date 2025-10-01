@@ -43,3 +43,59 @@ Key behaviors:
 - Differs from POSIX by only raising division by zero error for y-is-zero, not x-is-infinite
 - Error handling mechanism allows for more robust numeric computations in complex expressions
 - Used internally by higher-level modulo functions and JSON path operations
+
+## Simplified Source
+
+```c
+Numeric
+numeric_mod_opt_error(Numeric num1, Numeric num2, bool *have_error)
+{
+    Numeric res;
+    NumericVar arg1, arg2, result;
+
+    if (have_error)
+        *have_error = false;
+
+    // Handle special values (NaN, infinity) following POSIX fmod() semantics
+    if (NUMERIC_IS_SPECIAL(num1) || NUMERIC_IS_SPECIAL(num2)) {
+        // NaN propagates
+        if (NUMERIC_IS_NAN(num1) || NUMERIC_IS_NAN(num2))
+            return make_result(&const_nan);
+
+        if (NUMERIC_IS_INF(num1)) {
+            // Check for division by zero
+            if (numeric_sign_internal(num2) == 0) {
+                if (have_error) {
+                    *have_error = true;
+                    return NULL;
+                }
+                ereport(ERROR, "division by zero");
+            }
+            // Infinity % any_nonzero = NaN
+            return make_result(&const_nan);
+        }
+
+        // num2 is infinity: finite % infinity = finite
+        return duplicate_numeric(num1);
+    }
+
+    // Normal modulo: convert to internal format
+    init_var_from_num(num1, &arg1);
+    init_var_from_num(num2, &arg2);
+    init_var(&result);
+
+    // Check for division by zero if error handling enabled
+    if (have_error && (arg2.ndigits == 0 || arg2.digits[0] == 0)) {
+        *have_error = true;
+        return NULL;
+    }
+
+    // Perform the modulo operation
+    mod_var(&arg1, &arg2, &result);
+
+    res = make_result_opt_error(&result, NULL);
+    free_var(&result);
+
+    return res;
+}
+```

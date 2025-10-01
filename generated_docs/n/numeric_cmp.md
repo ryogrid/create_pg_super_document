@@ -40,3 +40,25 @@ The function follows PostgreSQL's standard function calling conventions, using t
 - Part of PostgreSQL's standard operator framework for the numeric data type
 - Can be called directly from SQL as well as from internal C code
 - The function signature follows PostgreSQL's V1 calling convention
+
+## Simplified Source
+
+```c
+Datum
+numeric_cmp(PG_FUNCTION_ARGS)
+{
+    // Extract numeric arguments from function call
+    Numeric num1 = PG_GETARG_NUMERIC(0);
+    Numeric num2 = PG_GETARG_NUMERIC(1);
+
+    // Perform the actual numeric comparison
+    int result = cmp_numerics(num1, num2);
+
+    // Clean up copied numeric values if necessary
+    PG_FREE_IF_COPY(num1, 0);
+    PG_FREE_IF_COPY(num2, 1);
+
+    // Return three-way comparison result
+    PG_RETURN_INT32(result);
+}
+```

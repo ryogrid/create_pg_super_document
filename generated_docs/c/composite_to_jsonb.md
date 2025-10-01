@@ -59,3 +59,71 @@ The function preserves the structure and field names of the original composite t
 - The function properly manages the tuple descriptor by calling ReleaseTupleDesc to avoid memory leaks
 - Field values are recursively processed through datum_to_jsonb_internal, allowing nested composite types and arrays to be properly converted
 - The resulting JSONB object preserves the original field order from the composite type definition
+
+## Simplified Source
+
+```c
+static void composite_to_jsonb(Datum composite, JsonbInState *result) {
+    HeapTupleHeader td;
+    Oid tupType;
+    int32 tupTypmod;
+    TupleDesc tupdesc;
+    HeapTupleData tmptup, *tuple;
+    int i;
+
+    // Extract tuple metadata
+    td = DatumGetHeapTupleHeader(composite);
+    tupType = HeapTupleHeaderGetTypeId(td);
+    tupTypmod = HeapTupleHeaderGetTypMod(td);
+    tupdesc = lookup_rowtype_tupdesc(tupType, tupTypmod);
+
+    // Build temporary HeapTuple structure
+    tmptup.t_len = HeapTupleHeaderGetDatumLength(td);
+    tmptup.t_data = td;
+    tuple = &tmptup;
+
+    // Begin JSONB object
+    result->res = pushJsonbValue(&result->parseState, WJB_BEGIN_OBJECT, NULL);
+
+    // Process each attribute
+    for (i = 0; i < tupdesc->natts; i++) {
+        Datum val;
+        bool isnull;
+        char *attname;
+        JsonTypeCategory tcategory;
+        Oid outfuncoid;
+        JsonbValue v;
+        Form_pg_attribute att = TupleDescAttr(tupdesc, i);
+
+        // Skip dropped attributes
+        if (att->attisdropped)
+            continue;
+
+        // Set up attribute name as JSONB key
+        attname = NameStr(att->attname);
+        v.type = jbvString;
+        v.val.string.len = strlen(attname);
+        v.val.string.val = attname;
+
+        result->res = pushJsonbValue(&result->parseState, WJB_KEY, &v);
+
+        // Get attribute value
+        val = heap_getattr(tuple, i + 1, tupdesc, &isnull);
+
+        // Determine JSON conversion approach
+        if (isnull) {
+            tcategory = JSONTYPE_NULL;
+            outfuncoid = InvalidOid;
+        } else {
+            json_categorize_type(att->atttypid, true, &tcategory, &outfuncoid);
+        }
+
+        // Convert value to JSONB
+        datum_to_jsonb_internal(val, isnull, result, tcategory, outfuncoid, false);
+    }
+
+    // End JSONB object
+    result->res = pushJsonbValue(&result->parseState, WJB_END_OBJECT, NULL);
+    ReleaseTupleDesc(tupdesc);
+}
+```

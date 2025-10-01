@@ -53,3 +53,39 @@ Key differences from rounding:
 - Uses PostgreSQL's high-precision NumericVar arithmetic for accurate decimal truncation
 - Memory management includes proper initialization and cleanup of temporary variables
 - Less commonly used than numeric_round, with fewer internal references in the codebase
+
+## Simplified Source
+
+```c
+Datum numeric_trunc(PG_FUNCTION_ARGS)
+{
+    Numeric num = PG_GETARG_NUMERIC(0);
+    int32 scale = PG_GETARG_INT32(1);
+    NumericVar arg;
+    Numeric res;
+
+    // Handle special values (NaN, infinity)
+    if (NUMERIC_IS_SPECIAL(num))
+        PG_RETURN_NUMERIC(duplicate_numeric(num));
+
+    // Limit scale to prevent overflow
+    scale = Max(scale, -(NUMERIC_WEIGHT_MAX + 1) * DEC_DIGITS);
+    scale = Min(scale, NUMERIC_DSCALE_MAX);
+
+    // Convert to working format and truncate
+    init_var(&arg);
+    set_var_from_num(num, &arg);
+
+    trunc_var(&arg, scale);
+
+    // Set display scale for negative truncation
+    if (scale < 0)
+        arg.dscale = 0;
+
+    // Convert back to result format
+    res = make_result(&arg);
+    free_var(&arg);
+
+    PG_RETURN_NUMERIC(res);
+}
+```

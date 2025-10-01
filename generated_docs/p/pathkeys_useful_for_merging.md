@@ -46,3 +46,61 @@ The function supports the path optimization strategy of only retaining useful pa
 - Considers pathkeys potentially useful if they correspond to merge ordering of either side of any joinclause
 - The overoptimistic approach trades precision for computational efficiency
 - Critical for preventing add_path() from considering paths with spuriously different orderings
+
+## Simplified Source
+
+```c
+static int
+pathkeys_useful_for_merging(PlannerInfo *root, RelOptInfo *rel, List *pathkeys)
+{
+    int useful = 0;
+    ListCell *i;
+
+    foreach(i, pathkeys)
+    {
+        PathKey *pathkey = (PathKey *) lfirst(i);
+        bool matched = false;
+
+        // Check if pathkey direction is suitable for merging
+        if (!right_merge_direction(root, pathkey))
+            break;
+
+        // Strategy 1: Check equivalence class for unmergered relations
+        if (rel->has_eclass_joins &&
+            eclass_useful_for_merging(root, pathkey->pk_eclass, rel))
+        {
+            matched = true;
+        }
+        else
+        {
+            // Strategy 2: Search joininfo for mergejoinable clauses
+            ListCell *j;
+            foreach(j, rel->joininfo)
+            {
+                RestrictInfo *restrictinfo = (RestrictInfo *) lfirst(j);
+
+                if (restrictinfo->mergeopfamilies == NIL)
+                    continue;
+
+                update_mergeclause_eclasses(root, restrictinfo);
+
+                // Check if pathkey matches either side of join clause
+                if (pathkey->pk_eclass == restrictinfo->left_ec ||
+                    pathkey->pk_eclass == restrictinfo->right_ec)
+                {
+                    matched = true;
+                    break;
+                }
+            }
+        }
+
+        // Stop at first non-useful pathkey (remaining ones are useless)
+        if (matched)
+            useful++;
+        else
+            break;
+    }
+
+    return useful;
+}
+```

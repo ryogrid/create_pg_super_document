@@ -38,3 +38,32 @@ Once the sort support function is found, it's called to initialize the SortSuppo
 - The function will error if the relation is not a GiST index or if the required sort support function is missing from the operator family
 - This is specifically designed for GiST index builds and is simpler than B-tree equivalents since it doesn't need to handle legacy comparison functions
 - Location: src/backend/utils/sort/sortsupport.c:188-210
+
+## Simplified Source
+
+```c
+void
+PrepareSortSupportFromGistIndexRel(Relation indexRel, SortSupport ssup)
+{
+    Oid opfamily = indexRel->rd_opfamily[ssup->ssup_attno - 1];
+    Oid opcintype = indexRel->rd_opcintype[ssup->ssup_attno - 1];
+    Oid sortSupportFunction;
+
+    // Verify this is a GiST index
+    if (indexRel->rd_rel->relam != GIST_AM_OID)
+        elog(ERROR, "unexpected non-gist AM: %u", indexRel->rd_rel->relam);
+
+    // GiST always sorts ascending during build
+    ssup->ssup_reverse = false;
+
+    // Find sort support function from operator family
+    sortSupportFunction = get_opfamily_proc(opfamily, opcintype, opcintype,
+                                          GIST_SORTSUPPORT_PROC);
+    if (!OidIsValid(sortSupportFunction))
+        elog(ERROR, "missing support function %d(%u,%u) in opfamily %u",
+             GIST_SORTSUPPORT_PROC, opcintype, opcintype, opfamily);
+
+    // Initialize sort support with type-specific comparator
+    OidFunctionCall1(sortSupportFunction, PointerGetDatum(ssup));
+}
+```

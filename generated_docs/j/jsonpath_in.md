@@ -35,3 +35,16 @@ The function follows PostgreSQL's standard pattern for type input functions, tak
 - The actual parsing logic is implemented in , making this function a thin wrapper
 - Memory allocation for the resulting jsonpath structure is handled through PostgreSQL's memory context system
 - Part of PostgreSQL's JSON path expression support introduced for SQL/JSON standard compliance
+
+## Simplified Source
+
+```c
+Datum jsonpath_in(PG_FUNCTION_ARGS) {
+    // Extract input string and calculate length
+    char *in = PG_GETARG_CSTRING(0);
+    int len = strlen(in);
+
+    // Parse string to jsonpath using core parser
+    return jsonPathFromCstring(in, len, fcinfo->context);
+}
+```

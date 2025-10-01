@@ -39,3 +39,36 @@ The function serves as a high-level interface that combines graph construction a
 - Part of PostgreSQL's ALTER EXTENSION ... UPDATE TO command implementation
 - Uses shortest path algorithm to minimize the number of update script executions required
 - Error message includes extension name and both version strings for debugging
+
+## Simplified Source
+
+```c
+static List *
+identify_update_path(ExtensionControlFile *control,
+                     const char *oldVersion, const char *newVersion)
+{
+    List *result;
+    List *evi_list;
+    ExtensionVersionInfo *evi_start;
+    ExtensionVersionInfo *evi_target;
+
+    // Build version dependency graph from script directory
+    evi_list = get_ext_ver_list(control);
+
+    // Find start and target version nodes
+    evi_start = get_ext_ver_info(oldVersion, &evi_list);
+    evi_target = get_ext_ver_info(newVersion, &evi_list);
+
+    // Calculate shortest path between versions
+    result = find_update_path(evi_list, evi_start, evi_target, false, false);
+
+    // Error if no valid update path exists
+    if (result == NIL)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("extension \"%s\" has no update path from version \"%s\" to version \"%s\"",
+                        control->name, oldVersion, newVersion)));
+
+    return result;
+}
+```

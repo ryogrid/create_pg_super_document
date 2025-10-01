@@ -51,3 +51,61 @@ For each partial outer path, the function examines all suitable inner paths, ens
 - The function explores memoization opportunities to optimize repeated access to inner relation tuples
 - For JOIN_UNIQUE_INNER, only the cheapest total path of the inner relation is used due to limitations in create_unique_path
 - The function processes all parameterized paths from the inner relation, but only those producing unparameterized results survive the join operation
+
+## Simplified Source
+
+```c
+static void consider_parallel_nestloop(PlannerInfo *root,
+                                      RelOptInfo *joinrel,
+                                      RelOptInfo *outerrel,
+                                      RelOptInfo *innerrel,
+                                      JoinType jointype,
+                                      JoinPathExtraData *extra)
+{
+    JoinType save_jointype = jointype;
+
+    // Convert JOIN_UNIQUE_INNER to regular JOIN_INNER for processing
+    if (jointype == JOIN_UNIQUE_INNER)
+        jointype = JOIN_INNER;
+
+    // Try each partial path from outer relation
+    foreach(lc1, outerrel->partial_pathlist)
+    {
+        Path *outerpath = (Path *) lfirst(lc1);
+
+        // Determine ordering for resulting join paths
+        List *pathkeys = build_join_pathkeys(root, joinrel, jointype,
+                                           outerpath->pathkeys);
+
+        // Try parameterized inner paths
+        foreach(lc2, innerrel->cheapest_parameterized_paths)
+        {
+            Path *innerpath = (Path *) lfirst(lc2);
+
+            // Skip non-parallel-safe inner paths
+            if (!innerpath->parallel_safe)
+                continue;
+
+            // Handle JOIN_UNIQUE_INNER specially
+            if (save_jointype == JOIN_UNIQUE_INNER)
+            {
+                if (innerpath != innerrel->cheapest_total_path)
+                    continue;
+                innerpath = (Path *) create_unique_path(root, innerrel,
+                                                       innerpath, extra->sjinfo);
+            }
+
+            // Try basic nested loop join
+            try_partial_nestloop_path(root, joinrel, outerpath, innerpath,
+                                    pathkeys, jointype, extra);
+
+            // Try with memoization for potential performance gain
+            Path *memoize_path = get_memoize_path(root, innerrel, outerrel,
+                                               innerpath, outerpath, jointype, extra);
+            if (memoize_path != NULL)
+                try_partial_nestloop_path(root, joinrel, outerpath, memoize_path,
+                                        pathkeys, jointype, extra);
+        }
+    }
+}
+```

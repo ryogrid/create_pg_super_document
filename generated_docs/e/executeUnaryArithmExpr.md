@@ -56,3 +56,69 @@ The function handles non-numeric values gracefully - it skips them when no resul
 - Part of the JSON path arithmetic expression system supporting unary operators
 - Automatic array unwrapping in lax mode enables intuitive arithmetic on array elements
 - Each numeric value is processed independently, allowing for vectorized-style operations on sequences
+
+## Simplified Source
+
+```c
+static JsonPathExecResult
+executeUnaryArithmExpr(JsonPathExecContext *cxt, JsonPathItem *jsp,
+                       JsonbValue *jb, PGFunction func, JsonValueList *found)
+{
+    JsonPathExecResult jper, jper2;
+    JsonPathItem elem;
+    JsonValueList seq = {0};
+    JsonValueListIterator it;
+    JsonbValue *val;
+    bool hasNext;
+
+    // Evaluate operand with auto-unwrapping
+    jspGetArg(jsp, &elem);
+    jper = executeItemOptUnwrapResult(cxt, &elem, jb, true, &seq);
+    if (jperIsError(jper))
+        return jper;
+
+    jper = jperNotFound;
+    hasNext = jspGetNext(jsp, &elem);
+
+    // Process each value in the sequence
+    JsonValueListInitIterator(&seq, &it);
+    while ((val = JsonValueListNext(&seq, &it)))
+    {
+        // Validate value is numeric
+        if ((val = getScalar(val, jbvNumeric)))
+        {
+            if (!found && !hasNext)
+                return jperOk;
+        }
+        else
+        {
+            if (!found && !hasNext)
+                continue;  // Skip non-numeric in some contexts
+
+            RETURN_ERROR(ereport(ERROR,
+                        (errcode(ERRCODE_SQL_JSON_NUMBER_NOT_FOUND),
+                         errmsg("operand of unary jsonpath operator %s is not a numeric value",
+                                jspOperationName(jsp->type)))));
+        }
+
+        // Apply arithmetic function if provided (NULL for identity/unary plus)
+        if (func)
+            val->val.numeric = DatumGetNumeric(DirectFunctionCall1(func,
+                                             NumericGetDatum(val->val.numeric)));
+
+        // Continue execution with transformed value
+        jper2 = executeNextItem(cxt, jsp, &elem, val, found, false);
+        if (jperIsError(jper2))
+            return jper2;
+
+        if (jper2 == jperOk)
+        {
+            if (!found)
+                return jperOk;
+            jper = jperOk;
+        }
+    }
+
+    return jper;
+}
+```

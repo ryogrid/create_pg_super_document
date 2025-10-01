@@ -44,3 +44,71 @@ The transformRangeTableSample function handles the transformation of TABLESAMPLE
 - Collation assignment is performed immediately since assign_query_collations() doesn't examine RTE substructure
 - Error messages distinguish between 'method does not exist' vs 'function does not exist' for better user experience
 - The resulting TableSampleClause contains the handler OID, transformed arguments, and optional repeatable expression
+
+## Simplified Source
+
+```c
+static TableSampleClause *transformRangeTableSample(ParseState *pstate, RangeTableSample *rts)
+{
+    TableSampleClause *tablesample;
+    Oid handlerOid;
+    Oid funcargtypes[1];
+    TsmRoutine *tsm;
+    List *fargs;
+
+    // Look up handler function for the tablesample method
+    funcargtypes[0] = INTERNALOID;
+    handlerOid = LookupFuncName(rts->method, 1, funcargtypes, true);
+
+    // Validate that the method exists
+    if (!OidIsValid(handlerOid))
+        ereport(ERROR, "tablesample method does not exist");
+
+    // Check handler has correct return type (tsm_handler)
+    if (get_func_rettype(handlerOid) != TSM_HANDLEROID)
+        ereport(ERROR, "function must return type tsm_handler");
+
+    // Get TsmRoutine for argument type information
+    tsm = GetTsmRoutine(handlerOid);
+
+    tablesample = makeNode(TableSampleClause);
+    tablesample->tsmhandler = handlerOid;
+
+    // Validate argument count matches method requirements
+    if (list_length(rts->args) != list_length(tsm->parameterTypes))
+        ereport(ERROR, "tablesample method requires different number of arguments");
+
+    // Transform and type-coerce all method arguments
+    fargs = NIL;
+    forboth(larg, rts->args, ltyp, tsm->parameterTypes)
+    {
+        Node *arg = (Node *) lfirst(larg);
+        Oid argtype = lfirst_oid(ltyp);
+
+        arg = transformExpr(pstate, arg, EXPR_KIND_FROM_FUNCTION);
+        arg = coerce_to_specific_type(pstate, arg, argtype, "TABLESAMPLE");
+        assign_expr_collations(pstate, arg);
+        fargs = lappend(fargs, arg);
+    }
+    tablesample->args = fargs;
+
+    // Process optional REPEATABLE clause
+    if (rts->repeatable != NULL)
+    {
+        Node *arg;
+
+        // Check if method supports REPEATABLE
+        if (!tsm->repeatable_across_queries)
+            ereport(ERROR, "tablesample method does not support REPEATABLE");
+
+        arg = transformExpr(pstate, rts->repeatable, EXPR_KIND_FROM_FUNCTION);
+        arg = coerce_to_specific_type(pstate, arg, FLOAT8OID, "REPEATABLE");
+        assign_expr_collations(pstate, arg);
+        tablesample->repeatable = (Expr *) arg;
+    }
+    else
+        tablesample->repeatable = NULL;
+
+    return tablesample;
+}
+```

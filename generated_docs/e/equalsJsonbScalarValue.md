@@ -32,3 +32,41 @@ This static function performs equality comparison between two JsonbValue scalar 
 
 ## Notes and Other Information
 The function is declared static, limiting its scope to the jsonb_util.c file. It requires both values to have identical types and will generate ERROR conditions for type mismatches or invalid scalar types. This strict type checking ensures that equality comparisons are semantically meaningful and prevents undefined behavior. The function is a key component in JSONB containment checking and value lookup operations.
+
+## Simplified Source
+
+```c
+static bool equalsJsonbScalarValue(JsonbValue *a, JsonbValue *b)
+{
+    // Ensure both values have the same type
+    if (a->type != b->type) {
+        elog(ERROR, "jsonb scalar type mismatch");
+        return false;
+    }
+
+    // Compare based on scalar type
+    switch (a->type) {
+        case jbvNull:
+            // All null values are equal
+            return true;
+
+        case jbvString:
+            // Compare strings using length and content
+            return lengthCompareJsonbStringValue(a, b) == 0;
+
+        case jbvNumeric:
+            // Use PostgreSQL's numeric equality function
+            return DatumGetBool(DirectFunctionCall2(numeric_eq,
+                                                   PointerGetDatum(a->val.numeric),
+                                                   PointerGetDatum(b->val.numeric)));
+
+        case jbvBool:
+            // Direct boolean comparison
+            return a->val.boolean == b->val.boolean;
+
+        default:
+            elog(ERROR, "invalid jsonb scalar type");
+            return false;
+    }
+}
+```

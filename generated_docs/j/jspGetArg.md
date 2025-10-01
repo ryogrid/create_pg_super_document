@@ -40,3 +40,25 @@ This function extracts the single argument from unary JSON path operations that 
 - Essential for traversing and evaluating JSON path expression trees
 - Used extensively in both compilation and execution phases of JSON path processing
 - Provides type-safe access to unary operation arguments across the entire JSON path system
+
+## Simplified Source
+
+```c
+void jspGetArg(JsonPathItem *v, JsonPathItem *a) {
+    // Validate that this is a unary operation type
+    Assert(v->type == jpiNot ||
+           v->type == jpiIsUnknown ||
+           v->type == jpiPlus ||
+           v->type == jpiMinus ||
+           v->type == jpiFilter ||
+           v->type == jpiExists ||
+           v->type == jpiDatetime ||
+           v->type == jpiTime ||
+           v->type == jpiTimeTz ||
+           v->type == jpiTimestamp ||
+           v->type == jpiTimestampTz);
+
+    // Initialize the argument JsonPathItem from the buffer
+    jspInitByBuffer(a, v->base, v->content.arg);
+}
+```

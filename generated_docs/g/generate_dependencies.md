@@ -34,3 +34,20 @@ The dependencies generated follow the pattern where the first (k-1) elements are
 - The generated dependencies are stored in the state->dependencies array
 - All dependencies are generated in a single call - this is not an iterator-based approach
 - Located at src/backend/statistics/dependencies.c:157-172
+
+## Simplified Source
+
+```c
+static void
+generate_dependencies(DependencyGenerator state)
+{
+    // Allocate working array for current dependency construction
+    AttrNumber *current = (AttrNumber *) palloc0(sizeof(AttrNumber) * state->k);
+
+    // Generate all k-permutations recursively
+    generate_dependencies_recurse(state, 0, 0, current);
+
+    // Clean up working array
+    pfree(current);
+}
+```

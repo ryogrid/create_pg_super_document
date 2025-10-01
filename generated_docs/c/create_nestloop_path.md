@@ -55,3 +55,72 @@ This function creates a NestPath node representing a nested loop join operation.
 - Top-level parent relation IDs are used for parameterization tests to handle partitioned tables correctly
 - The function distinguishes between clauses that should be applied at the join level versus those pushed to the inner path
 - This is a core function in PostgreSQL's nested loop join planning, handling the most complex join scenarios with parameterization
+
+## Simplified Source
+
+```c
+NestPath *
+create_nestloop_path(PlannerInfo *root,
+                     RelOptInfo *joinrel,
+                     JoinType jointype,
+                     JoinCostWorkspace *workspace,
+                     JoinPathExtraData *extra,
+                     Path *outer_path,
+                     Path *inner_path,
+                     List *restrict_clauses,
+                     List *pathkeys,
+                     Relids required_outer)
+{
+    NestPath *pathnode = makeNode(NestPath);
+    Relids inner_req_outer = PATH_REQ_OUTER(inner_path);
+    Relids outerrelids;
+
+    // Use top-level parent relids for parameterization tests
+    if (outer_path->parent->top_parent_relids)
+        outerrelids = outer_path->parent->top_parent_relids;
+    else
+        outerrelids = outer_path->parent->relids;
+
+    // Remove restrict clauses already enforced in parameterized inner path
+    if (bms_overlap(inner_req_outer, outerrelids))
+    {
+        Bitmapset *enforced_serials = get_param_path_clause_serials(inner_path);
+        List *jclauses = NIL;
+        ListCell *lc;
+
+        foreach(lc, restrict_clauses)
+        {
+            RestrictInfo *rinfo = (RestrictInfo *) lfirst(lc);
+            if (!bms_is_member(rinfo->rinfo_serial, enforced_serials))
+                jclauses = lappend(jclauses, rinfo);
+        }
+        restrict_clauses = jclauses;
+    }
+
+    // Initialize path node structure
+    pathnode->jpath.path.pathtype = T_NestLoop;
+    pathnode->jpath.path.parent = joinrel;
+    pathnode->jpath.path.pathtarget = joinrel->reltarget;
+    pathnode->jpath.path.param_info = get_joinrel_parampathinfo(root, joinrel,
+                                                                outer_path, inner_path,
+                                                                extra->sjinfo, required_outer,
+                                                                &restrict_clauses);
+    pathnode->jpath.path.parallel_safe = joinrel->consider_parallel &&
+                                         outer_path->parallel_safe &&
+                                         inner_path->parallel_safe;
+    pathnode->jpath.path.parallel_workers = outer_path->parallel_workers;
+    pathnode->jpath.path.pathkeys = pathkeys;
+
+    // Set join-specific fields
+    pathnode->jpath.jointype = jointype;
+    pathnode->jpath.inner_unique = extra->inner_unique;
+    pathnode->jpath.outerjoinpath = outer_path;
+    pathnode->jpath.innerjoinpath = inner_path;
+    pathnode->jpath.joinrestrictinfo = restrict_clauses;
+
+    // Compute final costs
+    final_cost_nestloop(root, pathnode, workspace, extra);
+
+    return pathnode;
+}
+```

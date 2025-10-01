@@ -40,3 +40,35 @@ This function serves as a convenience wrapper around table_tuple_delete, designe
 - The changingPart parameter is set to false, indicating this is not a partition change operation
 - Part of PostgreSQL's simplified table access method interface for straightforward deletion operations
 - Commonly used in replication and utility contexts where deletion failures indicate serious issues
+
+## Simplified Source
+
+```c
+void simple_table_tuple_delete(Relation rel, ItemPointer tid, Snapshot snapshot) {
+    TM_Result result;
+    TM_FailureData tmfd;
+
+    // Attempt to delete the tuple with default parameters
+    result = table_tuple_delete(rel, tid, GetCurrentCommandId(true), snapshot,
+                               InvalidSnapshot, true /* wait for commit */,
+                               &tmfd, false /* changingPart */);
+
+    // Handle results - only TM_Ok is acceptable, all others are errors
+    switch (result) {
+        case TM_SelfModified:
+            elog(ERROR, "tuple already updated by self");
+            break;
+        case TM_Ok:
+            /* Success - done */
+            break;
+        case TM_Updated:
+            elog(ERROR, "tuple concurrently updated");
+            break;
+        case TM_Deleted:
+            elog(ERROR, "tuple concurrently deleted");
+            break;
+        default:
+            elog(ERROR, "unrecognized table_tuple_delete status: %u", result);
+    }
+}
+```

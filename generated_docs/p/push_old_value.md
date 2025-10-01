@@ -48,3 +48,72 @@ Key behaviors:
 - The function handles complex state transitions between SET and SET LOCAL operations
 - Maintains proper cleanup of masked values to prevent memory leaks
 - Part of PostgreSQL's sophisticated GUC system that allows configuration changes to be transactional
+
+## Simplified Source
+
+```c
+static void
+push_old_value(struct config_generic *gconf, GucAction action)
+{
+    GucStack *stack;
+
+    // Exit early if not in a transaction nest level
+    if (GUCNestLevel == 0)
+        return;
+
+    // Check if stack entry exists at current nest level
+    stack = gconf->stack;
+    if (stack && stack->nest_level >= GUCNestLevel) {
+        // Adjust existing stack entry based on action type
+        switch (action) {
+            case GUC_ACTION_SET:
+                // SET overrides prior actions, cleanup if needed
+                if (stack->state == GUC_SET_LOCAL) {
+                    discard_stack_value(gconf, &stack->masked);
+                }
+                stack->state = GUC_SET;
+                break;
+
+            case GUC_ACTION_LOCAL:
+                // SET LOCAL after SET: save SET's value as masked
+                if (stack->state == GUC_SET) {
+                    stack->masked_scontext = gconf->scontext;
+                    stack->masked_srole = gconf->srole;
+                    set_stack_value(gconf, &stack->masked);
+                    stack->state = GUC_SET_LOCAL;
+                }
+                break;
+
+            case GUC_ACTION_SAVE:
+                // SAVE maintains existing SAVE state
+                break;
+        }
+        return;
+    }
+
+    // Create new stack entry for this nest level
+    stack = (GucStack *) MemoryContextAllocZero(TopTransactionContext,
+                                               sizeof(GucStack));
+
+    // Initialize new stack entry
+    stack->prev = gconf->stack;
+    stack->nest_level = GUCNestLevel;
+    stack->source = gconf->source;
+    stack->scontext = gconf->scontext;
+    stack->srole = gconf->srole;
+
+    // Set state based on action type
+    switch (action) {
+        case GUC_ACTION_SET:   stack->state = GUC_SET; break;
+        case GUC_ACTION_LOCAL: stack->state = GUC_LOCAL; break;
+        case GUC_ACTION_SAVE:  stack->state = GUC_SAVE; break;
+    }
+
+    // Save current value and link to stack
+    set_stack_value(gconf, &stack->prior);
+
+    if (gconf->stack == NULL)
+        slist_push_head(&guc_stack_list, &gconf->stack_link);
+    gconf->stack = stack;
+}
+```

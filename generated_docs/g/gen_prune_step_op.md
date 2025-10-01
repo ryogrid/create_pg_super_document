@@ -48,3 +48,34 @@ The newly created step is added to the context's steps list and returned as a Pa
 - The returned step becomes part of the overall pruning step sequence for partition elimination
 - Memory allocation uses makeNode which allocates in the current memory context
 - The step is automatically added to the context's step list for later execution
+
+## Simplified Source
+
+```c
+static PartitionPruneStep *gen_prune_step_op(GeneratePruningStepsContext *context,
+                                            StrategyNumber opstrategy, bool op_is_ne,
+                                            List *exprs, List *cmpfns,
+                                            Bitmapset *nullkeys) {
+    // Create new operator step node
+    PartitionPruneStepOp *opstep = makeNode(PartitionPruneStepOp);
+
+    // Assign unique step ID
+    opstep->step.step_id = context->next_step_id++;
+
+    // Handle special case for <> operators - use InvalidStrategy
+    opstep->opstrategy = op_is_ne ? InvalidStrategy : opstrategy;
+
+    // Validate expressions and comparison functions match
+    Assert(list_length(exprs) == list_length(cmpfns));
+
+    // Initialize step parameters
+    opstep->exprs = exprs;
+    opstep->cmpfns = cmpfns;
+    opstep->nullkeys = nullkeys;
+
+    // Add to context's step list
+    context->steps = lappend(context->steps, opstep);
+
+    return (PartitionPruneStep *) opstep;
+}
+```

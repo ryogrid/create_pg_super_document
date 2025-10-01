@@ -35,3 +35,14 @@ This function converts a timestamp (without timezone) to a timestamptz (with tim
 - This is one of the core type conversion functions in PostgreSQL's timestamp handling system
 - Located in src/backend/utils/adt/timestamp.c:6286-6303
 - The function follows PostgreSQL's convention for SQL-callable functions using the PG_FUNCTION_ARGS interface
+
+## Simplified Source
+
+```c
+Datum timestamp_timestamptz(PG_FUNCTION_ARGS) {
+    Timestamp timestamp = PG_GETARG_TIMESTAMP(0);
+
+    // Convert timestamp to timestamptz using session timezone
+    PG_RETURN_TIMESTAMPTZ(timestamp2timestamptz(timestamp));
+}
+```

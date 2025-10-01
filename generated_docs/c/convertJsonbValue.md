@@ -49,3 +49,26 @@ The `convertJsonbValue` function is the central recursive workhorse of JSONB ser
 - Throws an ERROR if an unknown JsonbValue type is encountered
 - Critical for maintaining the integrity of JSONB's binary format through proper header management
 - The function handles the recursive nature of JSONB structures (arrays containing arrays/objects, objects containing arrays/objects, etc.)
+
+## Simplified Source
+
+```c
+static void convertJsonbValue(StringInfo buffer, JEntry *header, JsonbValue *val, int level) {
+    // Prevent stack overflow in deep recursion
+    check_stack_depth();
+
+    if (!val)
+        return;
+
+    // Dispatch based on JsonbValue type
+    if (IsAJsonbScalar(val)) {
+        convertJsonbScalar(buffer, header, val);
+    } else if (val->type == jbvArray) {
+        convertJsonbArray(buffer, header, val, level);
+    } else if (val->type == jbvObject) {
+        convertJsonbObject(buffer, header, val, level);
+    } else {
+        elog(ERROR, "unknown type of jsonb container to convert");
+    }
+}
+```

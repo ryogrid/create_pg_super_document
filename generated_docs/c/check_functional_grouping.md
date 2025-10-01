@@ -51,3 +51,44 @@ This is used in SQL standard compliance for GROUP BY queries, where columns not 
 - Returns false if the relation has no primary key or if the primary key is not fully covered by the grouping columns
 - Part of PostgreSQL's SQL standard compliance for GROUP BY functionality
 - Located in src/backend/catalog/pg_constraint.c:1367-1403
+
+## Simplified Source
+
+```c
+bool
+check_functional_grouping(Oid relid, Index varno, Index varlevelsup,
+                         List *grouping_columns, List **constraintDeps)
+{
+    Bitmapset *pkattnos;
+    Bitmapset *groupbyattnos;
+    Oid constraintOid;
+
+    // Get primary key column numbers - no PK means no functional dependency
+    pkattnos = get_primary_key_attnos(relid, false, &constraintOid);
+    if (pkattnos == NULL)
+        return false;
+
+    // Build bitmap of relation columns that appear in GROUP BY
+    groupbyattnos = NULL;
+    foreach(gl, grouping_columns) {
+        Var *gvar = (Var *) lfirst(gl);
+
+        // Check if this is a column reference to our relation
+        if (IsA(gvar, Var) &&
+            gvar->varno == varno &&
+            gvar->varlevelsup == varlevelsup) {
+            // Add column to grouped columns bitmap
+            groupbyattnos = bms_add_member(groupbyattnos,
+                gvar->varattno - FirstLowInvalidHeapAttributeNumber);
+        }
+    }
+
+    // If primary key columns are subset of grouped columns, we have dependency
+    if (bms_is_subset(pkattnos, groupbyattnos)) {
+        *constraintDeps = lappend_oid(*constraintDeps, constraintOid);
+        return true;
+    }
+
+    return false;
+}
+```

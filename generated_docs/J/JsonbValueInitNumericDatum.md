@@ -31,3 +31,13 @@ This is a static utility function in the JSON path execution module that initial
 - Part of the JSON path execution infrastructure for handling numeric data types
 - Used during conversion of PostgreSQL native numeric types to JSONB representation
 - The function assumes the input Datum actually contains a valid numeric value
+
+## Simplified Source
+
+```c
+static void JsonbValueInitNumericDatum(JsonbValue *jbv, Datum num) {
+    // Initialize JsonbValue with numeric type and data
+    jbv->type = jbvNumeric;
+    jbv->val.numeric = DatumGetNumeric(num);
+}
+```

@@ -44,3 +44,60 @@ The function ensures the array has sufficient space before creating new entries 
 - Part of mechanism allowing transactions to exceed 62-command limit
 - Uses TopTransactionContext to ensure transaction-scoped lifetime
 - Located in src/backend/utils/time/combocid.c:204-278
+
+## Simplified Source
+
+```c
+static CommandId
+GetComboCommandId(CommandId cmin, CommandId cmax)
+{
+    ComboCidKeyData key;
+    ComboCidEntry entry;
+    bool found;
+
+    // Initialize hash table and array on first use
+    if (comboHash == NULL) {
+        HASHCTL hash_ctl;
+
+        // Create array for storing combo CID mappings
+        comboCids = MemoryContextAlloc(TopTransactionContext,
+                                      sizeof(ComboCidKeyData) * CCID_ARRAY_SIZE);
+        sizeComboCids = CCID_ARRAY_SIZE;
+        usedComboCids = 0;
+
+        // Create hash table for fast lookup
+        hash_ctl.keysize = sizeof(ComboCidKeyData);
+        hash_ctl.entrysize = sizeof(ComboCidEntryData);
+        hash_ctl.hcxt = TopTransactionContext;
+
+        comboHash = hash_create("Combo CIDs", CCID_HASH_SIZE, &hash_ctl,
+                               HASH_ELEM | HASH_BLOBS | HASH_CONTEXT);
+    }
+
+    // Expand array if needed
+    if (usedComboCids >= sizeComboCids) {
+        int newsize = sizeComboCids * 2;
+        comboCids = repalloc(comboCids, sizeof(ComboCidKeyData) * newsize);
+        sizeComboCids = newsize;
+    }
+
+    // Look for existing combo CID
+    key.cmin = cmin;
+    key.cmax = cmax;
+    entry = hash_search(comboHash, &key, HASH_ENTER, &found);
+
+    if (found) {
+        // Reuse existing combo CID
+        return entry->combocid;
+    }
+
+    // Create new combo CID
+    CommandId combocid = usedComboCids;
+    comboCids[combocid].cmin = cmin;
+    comboCids[combocid].cmax = cmax;
+    usedComboCids++;
+
+    entry->combocid = combocid;
+    return combocid;
+}
+```

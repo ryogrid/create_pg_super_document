@@ -34,3 +34,17 @@ This is the main interface function for combination generation within PostgreSQL
 - Part of the extended statistics framework for improving query optimization
 - The allocated working array size is k integers (size of each combination)
 - All actual combination generation logic is delegated to generate_combinations_recurse
+
+## Simplified Source
+```c
+static void generate_combinations(CombinationGenerator *state) {
+    // Allocate working array to hold current combination being built
+    int *current = (int *) palloc0(sizeof(int) * state->k);
+
+    // Generate all k-combinations recursively
+    generate_combinations_recurse(state, 0, 0, current);
+
+    // Clean up working array
+    pfree(current);
+}
+```

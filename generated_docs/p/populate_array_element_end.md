@@ -39,3 +39,51 @@ This function serves as a JSON semantic action callback that is invoked when the
 - It handles both scalar elements (using element_scalar) and complex elements (using element_start and length calculations)
 - The function is part of the JSON semantic action callback system used by PostgreSQL's JSON parser
 - Error handling is delegated to the populate_array_element function, with this function only reporting failures
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+populate_array_element_end(void *_state, bool isnull)
+{
+    PopulateArrayState *state = (PopulateArrayState *) _state;
+    PopulateArrayContext *ctx = state->ctx;
+    int ndim = state->lex->lex_level;
+
+    Assert(ctx->ndims > 0);
+
+    // Process elements at target dimension level
+    if (ndim == ctx->ndims)
+    {
+        JsValue jsv;
+
+        // Set up JSON value structure
+        jsv.is_json = true;
+        jsv.val.json.type = state->element_type;
+
+        if (isnull)
+        {
+            Assert(jsv.val.json.type == JSON_TOKEN_NULL);
+            jsv.val.json.str = NULL;
+            jsv.val.json.len = 0;
+        }
+        else if (state->element_scalar)
+        {
+            jsv.val.json.str = state->element_scalar;
+            jsv.val.json.len = -1; // null-terminated
+        }
+        else
+        {
+            jsv.val.json.str = state->element_start;
+            jsv.val.json.len = (state->lex->prev_token_terminator -
+                               state->element_start) * sizeof(char);
+        }
+
+        // Process the element
+        if (!populate_array_element(ctx, ndim, &jsv))
+            return JSON_SEM_ACTION_FAILED;
+    }
+
+    return JSON_SUCCESS;
+}
+```

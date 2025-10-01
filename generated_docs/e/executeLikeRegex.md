@@ -38,3 +38,31 @@ The `executeLikeRegex` function implements the LIKE_REGEX predicate functionalit
 - Uses PostgreSQL's regex engine with full Unicode and collation support
 - Input string must be convertible to string scalar; non-string values result in jpbUnknown
 - Part of PostgreSQL's JSON path expression evaluation system for pattern matching operations
+
+## Simplified Source
+
+```c
+static JsonPathBool
+executeLikeRegex(JsonPathItem *jsp, JsonbValue *str, JsonbValue *rarg, void *param) {
+    JsonLikeRegexContext *cxt = param;
+
+    // Ensure input is a string scalar
+    if (!(str = getScalar(str, jbvString)))
+        return jpbUnknown;
+
+    // Cache regex pattern and flags on first use
+    if (!cxt->regex) {
+        cxt->regex = cstring_to_text_with_len(jsp->content.like_regex.pattern,
+                                             jsp->content.like_regex.patternlen);
+        jspConvertRegexFlags(jsp->content.like_regex.flags, &(cxt->cflags), NULL);
+    }
+
+    // Execute regex match
+    if (RE_compile_and_execute(cxt->regex, str->val.string.val,
+                              str->val.string.len, cxt->cflags,
+                              DEFAULT_COLLATION_OID, 0, NULL))
+        return jpbTrue;
+
+    return jpbFalse;
+}
+```

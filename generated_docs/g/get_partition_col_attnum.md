@@ -37,3 +37,14 @@ This function is essential for identifying which table columns participate in pa
 - Used to map partition key positions to actual table columns
 - Essential for tuple routing and partition constraint evaluation
 - Located at src/include/utils/partcache.h:76-83
+
+## Simplified Source
+
+```c
+static inline int16
+get_partition_col_attnum(PartitionKey key, int col)
+{
+    // Return the attribute number for the specified partition key column
+    return key->partattrs[col];
+}
+```

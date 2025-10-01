@@ -39,3 +39,26 @@ This function calculates how much parallel execution will speed up a given opera
 - Critical for accurate cost estimation of parallel operations in query planning
 - The parallel_leader_participation setting can disable leader participation entirely
 - Used across all major parallel operation types including scans, joins, and aggregations
+
+## Simplified Source
+
+```c
+static double
+get_parallel_divisor(Path *path)
+{
+    double parallel_divisor = path->parallel_workers;
+
+    // Account for leader participation if enabled
+    if (parallel_leader_participation)
+    {
+        // Leader spends 30% time per worker on coordination,
+        // remainder available for parallel work
+        double leader_contribution = 1.0 - (0.3 * path->parallel_workers);
+
+        if (leader_contribution > 0)
+            parallel_divisor += leader_contribution;
+    }
+
+    return parallel_divisor;
+}
+```

@@ -40,3 +40,42 @@ The function enforces a critical rule: there must not be any resjunk ORDER BY it
 - Rejects queries where ORDER BY expressions don't appear in the argument list (for aggregates) or select list (for SELECT DISTINCT)
 - Handles corner cases where the same target list entry appears multiple times in ORDER BY with different sort operators
 - Returns an error if no columns are available to make DISTINCT, preventing malformed queries that would surprise users
+
+## Simplified Source
+
+```c
+List *transformDistinctClause(ParseState *pstate, List **targetlist,
+                             List *sortClause, bool is_agg) {
+    List *result = NIL;
+
+    // First, add all ORDER BY items to distinctClause
+    foreach(slitem, sortClause) {
+        SortGroupClause *scl = (SortGroupClause *) lfirst(slitem);
+        TargetEntry *tle = get_sortgroupclause_tle(scl, *targetlist);
+
+        // Error if ORDER BY item is not in select list
+        if (tle->resjunk) {
+            ereport(ERROR, /* appropriate error message for context */);
+        }
+
+        result = lappend(result, copyObject(scl));
+    }
+
+    // Add remaining non-junk targetlist items with default semantics
+    foreach(tlitem, *targetlist) {
+        TargetEntry *tle = (TargetEntry *) lfirst(tlitem);
+
+        if (!tle->resjunk) {
+            result = addTargetToGroupList(pstate, tle, result, *targetlist,
+                                        exprLocation((Node *) tle->expr));
+        }
+    }
+
+    // Error if no columns available for DISTINCT
+    if (result == NIL) {
+        ereport(ERROR, /* must have at least one column/argument */);
+    }
+
+    return result;
+}
+```

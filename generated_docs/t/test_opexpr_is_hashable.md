@@ -44,3 +44,27 @@ The function is designed to handle cases where function inlining might have alte
 - This requirement aligns with assumptions made by hash indexes and hash joins
 - The validation prevents invalid plan generation when function inlining has modified expression structure
 - Performance optimization is not a concern due to the infrequency of problematic cases
+
+## Simplified Source
+
+```c
+static bool test_opexpr_is_hashable(OpExpr *testexpr, List *param_ids) {
+    // Check if operator is hashable and strict (required for hash operations)
+    if (!hash_ok_operator(testexpr))
+        return false;
+
+    // Must have exactly 2 arguments (left and right operands)
+    if (list_length(testexpr->args) != 2)
+        return false;
+
+    // Left side must not contain subquery parameters
+    if (contain_exec_param((Node *) linitial(testexpr->args), param_ids))
+        return false;
+
+    // Right side must not contain outer query variables
+    if (contain_var_clause((Node *) lsecond(testexpr->args)))
+        return false;
+
+    return true;
+}
+```

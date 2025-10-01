@@ -37,3 +37,29 @@ The implementation includes safeguards against numerical issues, including handl
 - Higher bias values create stronger selection pressure toward lower indices
 - The function may retry the calculation if numerical issues produce out-of-range results
 - Part of PostgreSQL's Genetic Query Optimizer (GEQO) selection mechanism
+
+## Simplified Source
+
+```c
+static int linear_rand(PlannerInfo *root, int pool_size, double bias) {
+    double index;
+    double max = (double) pool_size;
+
+    // Use inverse transform sampling with linear distribution f(x) = bias - 2(bias-1)x
+    // Handle numerical edge cases by retrying if needed
+    do {
+        double sqrtval;
+
+        // Calculate discriminant for inverse transform
+        sqrtval = (bias * bias) - 4.0 * (bias - 1.0) * geqo_rand(root);
+        if (sqrtval > 0.0)
+            sqrtval = sqrt(sqrtval);
+
+        // Apply inverse transform formula
+        index = max * (bias - sqrtval) / 2.0 / (bias - 1.0);
+
+    } while (index < 0.0 || index >= max); // Retry if out of bounds
+
+    return (int) index;
+}
+```

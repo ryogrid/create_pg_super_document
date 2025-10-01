@@ -47,3 +47,39 @@ The depth parameter allows for multi-level nesting scenarios where the eventual 
 - Used in scenarios where output needs to be prepared and buffered before the actual group is opened
 - The function is part of PostgreSQL's deferred output mechanism for complex EXPLAIN formatting
 - Located in src/backend/commands/explain.c:4959-5003
+
+## Simplified Source
+
+```c
+static void
+ExplainOpenSetAsideGroup(const char *objtype, const char *labelname,
+                         bool labeled, int depth, ExplainState *es)
+{
+    switch (es->format)
+    {
+        case EXPLAIN_FORMAT_TEXT:
+            // Text format requires no state preparation
+            break;
+
+        case EXPLAIN_FORMAT_XML:
+            // XML only needs indentation adjustment
+            es->indent += depth;
+            break;
+
+        case EXPLAIN_FORMAT_JSON:
+            // JSON needs grouping stack management
+            es->grouping_stack = lcons_int(0, es->grouping_stack);
+            es->indent += depth;
+            break;
+
+        case EXPLAIN_FORMAT_YAML:
+            // YAML grouping depends on whether the group is labeled
+            if (labelname)
+                es->grouping_stack = lcons_int(1, es->grouping_stack);
+            else
+                es->grouping_stack = lcons_int(0, es->grouping_stack);
+            es->indent += depth;
+            break;
+    }
+}
+```

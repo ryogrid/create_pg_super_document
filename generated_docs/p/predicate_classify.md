@@ -48,3 +48,68 @@ For compound expressions (AND/OR types), the function populates the PredIterInfo
 - Only handles non-null constant arrays and simple (non-multidimensional) ArrayExpr for decomposition
 - Critical foundation function for all predicate implication and refutation logic
 - Ensures that compound expressions can be systematically processed by the recursive testing functions
+
+## Simplified Source
+
+```c
+static PredClass predicate_classify(Node *clause, PredIterInfo info) {
+    // Input validation
+    Assert(clause != NULL);
+    Assert(!IsA(clause, RestrictInfo));
+
+    // Handle implicit AND lists (e.g., RestrictInfo lists)
+    if (IsA(clause, List)) {
+        info->startup_fn = list_startup_fn;
+        info->next_fn = list_next_fn;
+        info->cleanup_fn = list_cleanup_fn;
+        return CLASS_AND;
+    }
+
+    // Handle explicit AND boolean clauses
+    if (is_andclause(clause)) {
+        info->startup_fn = boolexpr_startup_fn;
+        info->next_fn = list_next_fn;
+        info->cleanup_fn = list_cleanup_fn;
+        return CLASS_AND;
+    }
+
+    // Handle explicit OR boolean clauses
+    if (is_orclause(clause)) {
+        info->startup_fn = boolexpr_startup_fn;
+        info->next_fn = list_next_fn;
+        info->cleanup_fn = list_cleanup_fn;
+        return CLASS_OR;
+    }
+
+    // Handle ScalarArrayOpExpr (e.g., "col IN (1,2,3)" or "col = ANY(array)")
+    if (IsA(clause, ScalarArrayOpExpr)) {
+        ScalarArrayOpExpr *saop = (ScalarArrayOpExpr *) clause;
+        Node *array_node = lsecond(saop->args);
+
+        // Process constant arrays (if size is reasonable)
+        if (array_node && IsA(array_node, Const) && !((Const *) array_node)->constisnull) {
+            ArrayType *array_val = DatumGetArrayTypeP(((Const *) array_node)->constvalue);
+            int num_elements = ArrayGetNItems(ARR_NDIM(array_val), ARR_DIMS(array_val));
+
+            if (num_elements <= MAX_SAOP_ARRAY_SIZE) {
+                info->startup_fn = arrayconst_startup_fn;
+                info->next_fn = arrayconst_next_fn;
+                info->cleanup_fn = arrayconst_cleanup_fn;
+                return saop->useOr ? CLASS_OR : CLASS_AND;
+            }
+        }
+        // Process simple array expressions (if size is reasonable)
+        else if (array_node && IsA(array_node, ArrayExpr) &&
+                 !((ArrayExpr *) array_node)->multidims &&
+                 list_length(((ArrayExpr *) array_node)->elements) <= MAX_SAOP_ARRAY_SIZE) {
+            info->startup_fn = arrayexpr_startup_fn;
+            info->next_fn = arrayexpr_next_fn;
+            info->cleanup_fn = arrayexpr_cleanup_fn;
+            return saop->useOr ? CLASS_OR : CLASS_AND;
+        }
+    }
+
+    // Default: treat as atomic expression
+    return CLASS_ATOM;
+}
+```

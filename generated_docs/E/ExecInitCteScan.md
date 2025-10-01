@@ -60,3 +60,64 @@ The function uses a parameter execution slot to coordinate between multiple CTE 
 - Followers get independent read pointers but share the same tuplestore data
 - The cteplanstate points to the already-initialized CTE query plan from the estate's subplan list
 - Located at src/backend/executor/nodeCtescan.c:175-287
+
+## Simplified Source
+
+```c
+CteScanState *
+ExecInitCteScan(CteScan *node, EState *estate, int eflags)
+{
+    // Force REWIND capability for CTE rescanning
+    eflags |= EXEC_FLAG_REWIND;
+
+    // Create and initialize the CTE scan state
+    CteScanState *scanstate = makeNode(CteScanState);
+    scanstate->ss.ps.plan = (Plan *) node;
+    scanstate->ss.ps.state = estate;
+    scanstate->ss.ps.ExecProcNode = ExecCteScan;
+    scanstate->eflags = eflags;
+    scanstate->cte_table = NULL;
+    scanstate->eof_cte = false;
+
+    // Find the CTE query plan state
+    scanstate->cteplanstate = (PlanState *) list_nth(estate->es_subplanstates,
+                                                     node->ctePlanId - 1);
+
+    // Handle leader/follower coordination for shared tuplestore
+    ParamExecData *prmdata = &(estate->es_param_exec_vals[node->cteParam]);
+    scanstate->leader = castNode(CteScanState, DatumGetPointer(prmdata->value));
+
+    if (scanstate->leader == NULL)
+    {
+        // I am the leader - create shared tuplestore
+        prmdata->value = PointerGetDatum(scanstate);
+        scanstate->leader = scanstate;
+        scanstate->cte_table = tuplestore_begin_heap(true, false, work_mem);
+        tuplestore_set_eflags(scanstate->cte_table, scanstate->eflags);
+        scanstate->readptr = 0;
+    }
+    else
+    {
+        // I am a follower - create my own read pointer
+        scanstate->readptr = tuplestore_alloc_read_pointer(scanstate->leader->cte_table,
+                                                          scanstate->eflags);
+        tuplestore_select_read_pointer(scanstate->leader->cte_table, scanstate->readptr);
+        tuplestore_rescan(scanstate->leader->cte_table);
+    }
+
+    // Set up expression context and tuple handling
+    ExecAssignExprContext(estate, &scanstate->ss.ps);
+    ExecInitScanTupleSlot(estate, &scanstate->ss,
+                          ExecGetResultType(scanstate->cteplanstate),
+                          &TTSOpsMinimalTuple);
+
+    // Initialize result type and projection
+    ExecInitResultTypeTL(&scanstate->ss.ps);
+    ExecAssignScanProjectionInfo(&scanstate->ss);
+
+    // Initialize qualification expressions
+    scanstate->ss.ps.qual = ExecInitQual(node->scan.plan.qual, (PlanState *) scanstate);
+
+    return scanstate;
+}
+```

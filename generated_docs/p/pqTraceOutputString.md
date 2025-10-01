@@ -46,3 +46,22 @@ The function calculates the string length and advances the cursor accordingly. I
 - The suppress feature is important for security when tracing messages containing sensitive data
 - Cursor advancement calculation accounts for the formatting characters (space and quotes) when not suppressed
 - The function has void return type, unlike the integer output functions which return the parsed value
+
+## Simplified Source
+
+```c
+static void pqTraceOutputString(FILE *pfdebug, const char *data, int *cursor, bool suppress)
+{
+    if (suppress) {
+        // Hide sensitive content by outputting placeholder
+        fprintf(pfdebug, " \"SSSS\"");
+        *cursor += strlen(data + *cursor) + 1;
+    } else {
+        // Output actual string content with quotes
+        int len = fprintf(pfdebug, " \"%s\"", data + *cursor);
+
+        // Advance cursor by string length (subtract formatting chars, add null terminator)
+        *cursor += (len - 3 + 1);
+    }
+}
+```

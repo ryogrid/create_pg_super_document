@@ -52,3 +52,76 @@ The function handles both absolute counts (positive stadistinct) and relative es
 - The isdefault parameter helps callers understand the reliability of the estimate for decision-making
 - For small tables (fewer than DEFAULT_NUM_DISTINCT rows), assumes all values are distinct
 - System columns receive special treatment based on their known characteristics (ctid is unique, tableoid is constant)
+
+## Simplified Source
+
+```c
+double
+get_variable_numdistinct(VariableStatData *vardata, bool *isdefault)
+{
+    double stadistinct;
+    double stanullfrac = 0.0;
+    double ntuples;
+
+    *isdefault = false;
+
+    // Try to get statistics from pg_statistic
+    if (HeapTupleIsValid(vardata->statsTuple)) {
+        Form_pg_statistic stats = (Form_pg_statistic) GETSTRUCT(vardata->statsTuple);
+        stadistinct = stats->stadistinct;
+        stanullfrac = stats->stanullfrac;
+    }
+    // Special case: boolean columns have 2 distinct values
+    else if (vardata->vartype == BOOLOID) {
+        stadistinct = 2.0;
+    }
+    // VALUES clauses: assume unique
+    else if (vardata->rel && vardata->rel->rtekind == RTE_VALUES) {
+        stadistinct = -1.0;  // unique
+    }
+    // System columns have known characteristics
+    else if (vardata->var && IsA(vardata->var, Var)) {
+        switch (((Var *) vardata->var)->varattno) {
+            case SelfItemPointerAttributeNumber:
+                stadistinct = -1.0;  // ctid is unique
+                break;
+            case TableOidAttributeNumber:
+                stadistinct = 1.0;   // tableoid is constant
+                break;
+            default:
+                stadistinct = 0.0;   // unknown
+                break;
+        }
+    }
+    else {
+        stadistinct = 0.0;  // unknown
+    }
+
+    // Override with uniqueness constraint if known
+    if (vardata->isunique)
+        stadistinct = -1.0 * (1.0 - stanullfrac);
+
+    // Return absolute estimate if available
+    if (stadistinct > 0.0)
+        return clamp_row_est(stadistinct);
+
+    // Get relation size for relative estimates
+    if (vardata->rel == NULL || vardata->rel->tuples <= 0.0) {
+        *isdefault = true;
+        return DEFAULT_NUM_DISTINCT;
+    }
+
+    ntuples = vardata->rel->tuples;
+
+    // Apply relative estimate (negative stadistinct)
+    if (stadistinct < 0.0)
+        return clamp_row_est(-stadistinct * ntuples);
+
+    // Fallback: assume distinct = tuples for small tables, else default
+    if (ntuples < DEFAULT_NUM_DISTINCT)
+        return clamp_row_est(ntuples);
+
+    *isdefault = true;
+    return DEFAULT_NUM_DISTINCT;
+}
+```

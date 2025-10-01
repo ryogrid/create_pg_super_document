@@ -35,3 +35,17 @@ This function performs a comparison between a date and timestamptz value, but fi
 - Returns an integer comparison result (negative, zero, or positive)
 - Critical for maintaining temporal data integrity when comparing dates to timezone-aware timestamps
 - Will raise an error if timezone usage is not enabled, preventing potentially incorrect comparisons
+
+## Simplified Source
+
+```c
+static int
+cmpDateToTimestampTz(DateADT date1, TimestampTz tstz2, bool useTz)
+{
+    // Validate timezone usage is enabled for date-to-timestamptz comparison
+    checkTimezoneIsUsedForCast(useTz, "date", "timestamptz");
+
+    // Compare date to timezone-aware timestamp
+    return date_cmp_timestamptz_internal(date1, tstz2);
+}
+```

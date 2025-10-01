@@ -36,3 +36,43 @@ The function returns a newly allocated string containing the properly quoted and
 - Returns allocated memory that caller must manage
 - Essential for generating unambiguous type references in constraint definitions
 - Part of the rule/constraint decompilation system
+
+## Simplified Source
+
+```c
+// Simplified version of generate_qualified_type_name
+static char *generate_qualified_type_name(Oid typid) {
+    HeapTuple tp;
+    Form_pg_type typtup;
+    char *typname;
+    char *nspname;
+    char *result;
+
+    // Look up type information in system cache
+    tp = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typid));
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for type %u", typid);
+
+    // Extract type name from the tuple
+    typtup = (Form_pg_type) GETSTRUCT(tp);
+    typname = NameStr(typtup->typname);
+
+    // Get the namespace name for schema qualification
+    nspname = get_namespace_name_or_temp(typtup->typnamespace);
+    if (!nspname)
+        elog(ERROR, "cache lookup failed for namespace %u", typtup->typnamespace);
+
+    // Create fully qualified name: schema.typename
+    result = quote_qualified_identifier(nspname, typname);
+
+    ReleaseSysCache(tp);
+    return result;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving error handling logic
+- Added clear high-level comments explaining each major step
+- Focused on the core algorithm: lookup type → extract names → qualify → return
+- Preserved essential error checking for cache lookup failures
+- Maintained the important schema qualification behavior

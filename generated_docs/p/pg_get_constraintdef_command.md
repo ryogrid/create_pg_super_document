@@ -32,3 +32,14 @@ pg_get_constraintdef_command is an internal PostgreSQL function that generates a
 - Used primarily during table rebuilding operations where constraints need to be preserved
 - Located in src/backend/utils/adt/ruleutils.c:2164-2172
 - The returned string includes the full ALTER TABLE syntax with table name and ADD CONSTRAINT clause
+
+## Simplified Source
+
+```c
+char *
+pg_get_constraintdef_command(Oid constraintId)
+{
+    // Generate full ALTER TABLE ADD CONSTRAINT command
+    return pg_get_constraintdef_worker(constraintId, true, 0, false);
+}
+```

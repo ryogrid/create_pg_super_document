@@ -65,3 +65,60 @@ Unlike other range table entry functions, this one works with a fully-specified 
 - The function assumes the TableFunc node has been properly validated and constructed by earlier parsing stages
 - LATERAL table functions have special scoping rules allowing them to reference columns from preceding FROM items
 - Column count validation prevents exceeding PostgreSQL's tuple attribute limits (MaxTupleAttributeNumber)
+
+## Simplified Source
+
+```c
+ParseNamespaceItem *
+addRangeTableEntryForTableFunc(ParseState *pstate,
+                               TableFunc *tf,
+                               Alias *alias,
+                               bool lateral,
+                               bool inFromCl)
+{
+    RangeTblEntry *rte = makeNode(RangeTblEntry);
+    char *refname;
+    Alias *eref;
+    int numaliases;
+
+    // Validate column count doesn't exceed tuple limits
+    if (list_length(tf->colnames) > MaxTupleAttributeNumber)
+        ereport(ERROR, "functions in FROM can return at most %d columns");
+
+    // Set up RTE for table function
+    rte->rtekind = RTE_TABLEFUNC;
+    rte->relid = InvalidOid;
+    rte->tablefunc = tf;
+    rte->coltypes = tf->coltypes;
+    rte->coltypmods = tf->coltypmods;
+    rte->colcollations = tf->colcollations;
+    rte->alias = alias;
+
+    // Determine reference name (alias or default based on function type)
+    refname = alias ? alias->aliasname :
+        pstrdup(tf->functype == TFT_XMLTABLE ? "xmltable" : "json_table");
+    eref = alias ? copyObject(alias) : makeAlias(refname, NIL);
+    numaliases = list_length(eref->colnames);
+
+    // Fill in missing alias columns from table function definition
+    if (numaliases < list_length(tf->colnames))
+        eref->colnames = list_concat(eref->colnames,
+                                   list_copy_tail(tf->colnames, numaliases));
+
+    // Validate alias count doesn't exceed defined columns
+    if (numaliases > list_length(tf->colnames))
+        ereport(ERROR, "function has %d columns but %d aliases specified");
+
+    rte->eref = eref;
+    rte->lateral = lateral;
+    rte->inFromCl = inFromCl;
+
+    // Add RTE to parse state range table
+    pstate->p_rtable = lappend(pstate->p_rtable, rte);
+
+    // Build and return namespace item
+    return buildNSItemFromLists(rte, list_length(pstate->p_rtable),
+                               rte->coltypes, rte->coltypmods,
+                               rte->colcollations);
+}
+```

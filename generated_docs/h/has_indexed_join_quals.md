@@ -48,3 +48,50 @@ For BitmapHeapScan paths, only simple bitmap scans are accepted, not complex AND
 - Essential for accurate costing of SEMI/ANTI nestloop joins
 - The optimization assumes indexed lookups make non-matching outer tuples cheap to skip
 - Located in src/backend/optimizer/path/costsize.c:5104-5196
+
+## Simplified Source
+
+```c
+static bool has_indexed_join_quals(NestPath *path) {
+    JoinPath *joinpath = &path->jpath;
+    Path *innerpath = joinpath->innerjoinpath;
+    List *indexclauses;
+    bool found_one = false;
+
+    // Quick checks: no remaining quals and must be parameterized
+    if (joinpath->joinrestrictinfo != NIL || innerpath->param_info == NULL)
+        return false;
+
+    // Extract index clauses based on inner path type
+    switch (innerpath->pathtype) {
+        case T_IndexScan:
+        case T_IndexOnlyScan:
+            indexclauses = ((IndexPath *) innerpath)->indexclauses;
+            break;
+        case T_BitmapHeapScan:
+            // Only accept simple bitmap scans, not AND/OR combinations
+            Path *bmqual = ((BitmapHeapPath *) innerpath)->bitmapqual;
+            if (IsA(bmqual, IndexPath))
+                indexclauses = ((IndexPath *) bmqual)->indexclauses;
+            else
+                return false;
+            break;
+        default:
+            return false; // Other path types aren't fast for zero rows
+    }
+
+    // Check that all parameter clauses from outer path are covered by index
+    foreach(lc, innerpath->param_info->ppi_clauses) {
+        RestrictInfo *rinfo = (RestrictInfo *) lfirst(lc);
+
+        if (join_clause_is_movable_into(rinfo, innerpath->parent->relids,
+                                        joinpath->path.parent->relids)) {
+            if (!is_redundant_with_indexclauses(rinfo, indexclauses))
+                return false;
+            found_one = true;
+        }
+    }
+
+    return found_one; // Must have at least one join clause
+}
+```

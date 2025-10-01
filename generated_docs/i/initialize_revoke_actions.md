@@ -41,3 +41,24 @@ The resulting array serves as a working space where the system can plan what sho
 - Each array element corresponds to the membership grant at the same index in memlist
 - The function only initializes; actual action planning is done by separate functions
 - This is part of PostgreSQL's defensive programming approach to complex catalog operations
+
+## Simplified Source
+
+```c
+static RevokeRoleGrantAction *initialize_revoke_actions(CatCList *memlist) {
+    RevokeRoleGrantAction *result;
+
+    // Return NULL if no members exist
+    if (memlist->n_members == 0)
+        return NULL;
+
+    // Allocate array for action planning
+    result = palloc(sizeof(RevokeRoleGrantAction) * memlist->n_members);
+
+    // Initialize all actions to NOOP (no operation)
+    for (int i = 0; i < memlist->n_members; i++)
+        result[i] = RRG_NOOP;
+
+    return result;
+}
+```

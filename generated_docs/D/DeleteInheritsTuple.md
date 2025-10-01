@@ -49,3 +49,69 @@ The function scans pg_inherits by inhrelid (child relation) and optionally filte
 - Handles both regular table inheritance and partitioning scenarios
 - The childname parameter is primarily used for meaningful error messages in partition operations
 - Location: src/backend/catalog/pg_inherits.c:552-619
+
+## Simplified Source
+
+```c
+bool DeleteInheritsTuple(Oid inhrelid, Oid inhparent, bool expect_detach_pending,
+                        const char *childname)
+{
+    bool found = false;
+    Relation catalogRelation;
+    ScanKeyData key;
+    SysScanDesc scan;
+    HeapTuple inheritsTuple;
+
+    // Open pg_inherits catalog with exclusive lock
+    catalogRelation = table_open(InheritsRelationId, RowExclusiveLock);
+
+    // Set up scan to find inheritance entries by child relation ID
+    ScanKeyInit(&key, Anum_pg_inherits_inhrelid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(inhrelid));
+    scan = systable_beginscan(catalogRelation, InheritsRelidSeqnoIndexId,
+                              true, NULL, 1, &key);
+
+    // Process each matching inheritance tuple
+    while (HeapTupleIsValid(inheritsTuple = systable_getnext(scan)))
+    {
+        Oid parent;
+
+        // Get parent OID from tuple
+        parent = ((Form_pg_inherits) GETSTRUCT(inheritsTuple))->inhparent;
+
+        // Check if this is the parent we want to delete (or delete all)
+        if (!OidIsValid(inhparent) || parent == inhparent)
+        {
+            bool detach_pending;
+
+            // Check current detach pending state
+            detach_pending =
+                ((Form_pg_inherits) GETSTRUCT(inheritsTuple))->inhdetachpending;
+
+            // Validate detach pending state matches expectation
+            if (detach_pending && !expect_detach_pending)
+                ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                    errmsg("cannot detach partition \"%s\"",
+                           childname ? childname : "unknown relation"),
+                    errdetail("The partition is being detached concurrently.")));
+
+            if (!detach_pending && expect_detach_pending)
+                ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                    errmsg("cannot complete detaching partition \"%s\"",
+                           childname ? childname : "unknown relation"),
+                    errdetail("There's no pending concurrent detach.")));
+
+            // Delete the inheritance tuple
+            CatalogTupleDelete(catalogRelation, &inheritsTuple->t_self);
+            found = true;
+        }
+    }
+
+    // Clean up scan and close catalog
+    systable_endscan(scan);
+    table_close(catalogRelation, RowExclusiveLock);
+
+    return found;
+}
+```

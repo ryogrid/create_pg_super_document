@@ -52,3 +52,52 @@ After completion, the function sets the ER_FLAG_DVALUES_VALID flag to indicate t
 - Converting an empty record results in a row of all null values
 - After calling this function, it's safe to read dvalues/dnulls arrays directly
 - The function is idempotent - multiple calls are safe and efficient
+
+## Simplified Source
+
+```c
+void deconstruct_expanded_record(ExpandedRecordHeader *erh) {
+    TupleDesc tupdesc;
+    Datum *dvalues;
+    bool *dnulls;
+    int nfields;
+
+    // Return early if arrays are already valid
+    if (erh->flags & ER_FLAG_DVALUES_VALID) {
+        return;
+    }
+
+    // Get tuple descriptor for field information
+    tupdesc = expanded_record_get_tupdesc(erh);
+    nfields = tupdesc->natts;
+
+    // Allocate or reuse Datum and null arrays
+    if (erh->dvalues == NULL || erh->nfields != nfields) {
+        // Allocate both arrays in single memory chunk for efficiency
+        char *chunk = MemoryContextAlloc(erh->hdr.eoh_context,
+                                        nfields * (sizeof(Datum) + sizeof(bool)));
+        dvalues = (Datum *) chunk;
+        dnulls = (bool *) (chunk + nfields * sizeof(Datum));
+
+        erh->dvalues = dvalues;
+        erh->dnulls = dnulls;
+        erh->nfields = nfields;
+    } else {
+        dvalues = erh->dvalues;
+        dnulls = erh->dnulls;
+    }
+
+    // Populate arrays based on record state
+    if (erh->flags & ER_FLAG_FVALUE_VALID) {
+        // Deconstruct existing tuple into arrays
+        heap_deform_tuple(erh->fvalue, tupdesc, dvalues, dnulls);
+    } else {
+        // Initialize empty record as all nulls
+        memset(dvalues, 0, nfields * sizeof(Datum));
+        memset(dnulls, true, nfields * sizeof(bool));
+    }
+
+    // Mark arrays as valid for direct access
+    erh->flags |= ER_FLAG_DVALUES_VALID;
+}
+```

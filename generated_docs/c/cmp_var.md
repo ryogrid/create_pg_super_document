@@ -46,3 +46,15 @@ This is a convenience wrapper that simplifies the interface for comparing comple
 - Serves as a convenient wrapper around the more complex cmp_var_common function
 - Used extensively throughout numeric mathematical operations that require ordering comparisons
 - Essential for implementing comparison operators (<, <=, =, >=, >) for the numeric data type
+
+## Simplified Source
+
+```c
+static int cmp_var(const NumericVar *var1, const NumericVar *var2) {
+    // Extract components and delegate to common comparison function
+    return cmp_var_common(var1->digits, var1->ndigits,
+                         var1->weight, var1->sign,
+                         var2->digits, var2->ndigits,
+                         var2->weight, var2->sign);
+}
+```

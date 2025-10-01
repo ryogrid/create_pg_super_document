@@ -33,3 +33,21 @@ This function provides a clean interface to access the  field from the  system c
 - The 'byval' attribute is fundamental to PostgreSQL's type system and affects performance and memory management
 - Types that are passed by value are typically limited to a maximum size (usually 8 bytes on 64-bit systems)
 - This function is part of the parser subsystem's type handling utilities
+
+## Simplified Source
+
+```c
+bool typeByVal(Type t) {
+    // Extract the type structure from the heap tuple
+    Form_pg_type typ = (Form_pg_type) GETSTRUCT(t);
+
+    // Return the byval attribute (true = pass by value, false = pass by reference)
+    return typ->typbyval;
+}
+```
+
+**Simplification Notes:**
+- Added explanatory comments for clarity
+- Function is already minimal, so only added documentation comments
+- Core logic: extract type structure and return the byval field
+- Preserved the essential purpose: determine value passing semantics for the type

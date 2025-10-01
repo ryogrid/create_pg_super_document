@@ -37,3 +37,12 @@ The function serves as the standard interface for hashing 32-bit values in Postg
 
 ## Notes and Other Information
 This function is widely used throughout PostgreSQL for hashing various integer-based data types including characters, small integers, regular integers, object identifiers, and enums. It's also utilized in specialized contexts like abbreviation conversion for sorting operations and hash computations for complex types like ranges and multiranges. The optimized implementation makes it the preferred choice over general-purpose hashing when dealing with 32-bit integer values.
+
+## Simplified Source
+
+```c
+static inline Datum hash_uint32(uint32 k) {
+    // Convert 32-bit integer to optimized hash value
+    return UInt32GetDatum(hash_bytes_uint32(k));
+}
+```

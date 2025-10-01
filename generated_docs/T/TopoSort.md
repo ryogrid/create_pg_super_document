@@ -62,3 +62,104 @@ The algorithm handles lock groups (introduced for parallel queries) by treating 
 - Uses global arrays topoProcs[], beforeConstraints[], and afterConstraints[] for processing
 - Critical for deadlock resolution in PostgreSQL's lock management system
 - The algorithm's apparent slowness is acceptable since it typically works with only a few constraints
+
+## Simplified Source
+
+```c
+static bool
+TopoSort(LOCK *lock, EDGE *constraints, int nConstraints, PGPROC **ordering)
+{
+    dclist_head *waitQueue = &lock->waitProcs;
+    int queue_size = dclist_count(waitQueue);
+    PGPROC *proc;
+    int i, j, jj, k, kk, last;
+    dlist_iter proc_iter;
+
+    // Fill topoProcs[] with processes in current order
+    i = 0;
+    dclist_foreach(proc_iter, waitQueue) {
+        proc = dlist_container(PGPROC, links, proc_iter.cur);
+        topoProcs[i++] = proc;
+    }
+
+    // Initialize constraint tracking arrays
+    MemSet(beforeConstraints, 0, queue_size * sizeof(int));
+    MemSet(afterConstraints, 0, queue_size * sizeof(int));
+
+    // Process each constraint to build dependency graph
+    for (i = 0; i < nConstraints; i++) {
+        // Find waiter process in queue
+        proc = constraints[i].waiter;
+        jj = -1;
+        for (j = queue_size; --j >= 0;) {
+            PGPROC *waiter = topoProcs[j];
+            if (waiter == proc || waiter->lockGroupLeader == proc) {
+                if (jj == -1)
+                    jj = j;
+                else
+                    beforeConstraints[j] = -1; // Mark as group member
+            }
+        }
+
+        if (jj < 0) continue; // Constraint not relevant
+
+        // Find blocker process in queue
+        proc = constraints[i].blocker;
+        kk = -1;
+        for (k = queue_size; --k >= 0;) {
+            PGPROC *blocker = topoProcs[k];
+            if (blocker == proc || blocker->lockGroupLeader == proc) {
+                if (kk == -1)
+                    kk = k;
+                else
+                    beforeConstraints[k] = -1; // Mark as group member
+            }
+        }
+
+        if (kk < 0) continue; // Constraint not relevant
+
+        // Update constraint counts and links
+        beforeConstraints[jj]++;
+        constraints[i].pred = jj;
+        constraints[i].link = afterConstraints[kk];
+        afterConstraints[kk] = i + 1;
+    }
+
+    // Generate output order by backwards scan
+    last = queue_size - 1;
+    for (i = queue_size - 1; i >= 0;) {
+        int c, nmatches = 0;
+
+        // Find next candidate with no remaining constraints
+        while (topoProcs[last] == NULL)
+            last--;
+        for (j = last; j >= 0; j--) {
+            if (topoProcs[j] != NULL && beforeConstraints[j] == 0)
+                break;
+        }
+
+        if (j < 0) return false; // Contradictory constraints
+
+        // Output entire lock group
+        proc = topoProcs[j];
+        if (proc->lockGroupLeader != NULL)
+            proc = proc->lockGroupLeader;
+
+        for (c = 0; c <= last; ++c) {
+            if (topoProcs[c] == proc ||
+                (topoProcs[c] != NULL && topoProcs[c]->lockGroupLeader == proc)) {
+                ordering[i - nmatches] = topoProcs[c];
+                topoProcs[c] = NULL;
+                ++nmatches;
+            }
+        }
+        i -= nmatches;
+
+        // Update constraint counts for predecessors
+        for (k = afterConstraints[j]; k > 0; k = constraints[k - 1].link)
+            beforeConstraints[constraints[k - 1].pred]--;
+    }
+
+    return true;
+}
+```

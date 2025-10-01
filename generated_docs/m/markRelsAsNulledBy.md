@@ -41,3 +41,41 @@ This function implements a critical aspect of PostgreSQL's outer join semantics 
 - Critical for proper Var generation where varnullingrels must reflect nullability
 - Only called for outer join types (LEFT, RIGHT, FULL) that can actually null relations
 - The function processes the entire subtree to handle complex nested join scenarios
+
+## Simplified Source
+
+```c
+static void
+markRelsAsNulledBy(ParseState *pstate, Node *n, int jindex)
+{
+    int varno;
+
+    // Handle different node types
+    if (IsA(n, RangeTblRef))
+    {
+        varno = ((RangeTblRef *) n)->rtindex;
+    }
+    else if (IsA(n, JoinExpr))
+    {
+        JoinExpr *j = (JoinExpr *) n;
+
+        // Recursively mark children
+        markRelsAsNulledBy(pstate, j->larg, jindex);
+        markRelsAsNulledBy(pstate, j->rarg, jindex);
+        varno = j->rtindex;
+    }
+    else
+    {
+        elog(ERROR, "unrecognized node type: %d", (int) nodeTag(n));
+        varno = 0;
+    }
+
+    // Extend p_nullingrels list if needed
+    while (list_length(pstate->p_nullingrels) < varno)
+        pstate->p_nullingrels = lappend(pstate->p_nullingrels, NULL);
+
+    // Add jindex to the nulling relations bitmapset for this varno
+    ListCell *lc = list_nth_cell(pstate->p_nullingrels, varno - 1);
+    lfirst(lc) = bms_add_member((Bitmapset *) lfirst(lc), jindex);
+}
+```

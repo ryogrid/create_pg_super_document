@@ -49,3 +49,39 @@ If all conditions are met, the function sets up the join relation's partitioning
 - The actual partition bounds, partition count, and child relations are computed later in 
 - The function includes assertions to ensure the join relation doesn't already have partitioning information set
 - Partitionwise join is a critical PostgreSQL optimization that allows joins to be executed in parallel across matching partitions, significantly improving performance for large partitioned tables
+
+## Simplified Source
+
+```c
+static void build_joinrel_partition_info(PlannerInfo *root,
+                                        RelOptInfo *joinrel, RelOptInfo *outer_rel,
+                                        RelOptInfo *inner_rel, SpecialJoinInfo *sjinfo,
+                                        List *restrictlist) {
+    PartitionScheme part_scheme;
+
+    // Skip if partitionwise join is disabled
+    if (!enable_partitionwise_join) {
+        return;
+    }
+
+    // Check if partitionwise join is possible:
+    // - Both relations must be partitioned with same scheme
+    // - Both must allow partitionwise join
+    // - Must have equi-join on partition keys
+    if (outer_rel->part_scheme == NULL || inner_rel->part_scheme == NULL ||
+        !outer_rel->consider_partitionwise_join ||
+        !inner_rel->consider_partitionwise_join ||
+        outer_rel->part_scheme != inner_rel->part_scheme ||
+        !have_partkey_equi_join(root, joinrel, outer_rel, inner_rel,
+                               sjinfo->jointype, restrictlist)) {
+        return;
+    }
+
+    part_scheme = outer_rel->part_scheme;
+
+    // Initialize partition information for the join relation
+    joinrel->part_scheme = part_scheme;
+    set_joinrel_partition_key_exprs(joinrel, outer_rel, inner_rel, sjinfo->jointype);
+    joinrel->consider_partitionwise_join = true;
+}
+```

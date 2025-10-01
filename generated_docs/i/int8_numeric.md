@@ -31,3 +31,14 @@ This function is a PostgreSQL SQL-callable function that converts an int8 (64-bi
 - Part of PostgreSQL's type conversion system between integer and numeric types
 - The conversion from int64 to numeric is always safe since numeric can represent any 64-bit integer value exactly
 - Used internally by PostgreSQL's JSON path execution engine for type conversions
+
+## Simplified Source
+
+```c
+Datum int8_numeric(PG_FUNCTION_ARGS) {
+    int64 val = PG_GETARG_INT64(0);
+
+    // Direct conversion to numeric
+    PG_RETURN_NUMERIC(int64_to_numeric(val));
+}
+```

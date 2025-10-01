@@ -31,3 +31,20 @@ The function operates by setting up a conversion context and delegating the actu
 
 ## Notes and Other Information
 This function is part of PostgreSQL's subquery handling mechanism and works closely with the subquery planning infrastructure. The conversion is necessary because the parser creates placeholder parameters that need to be resolved to actual query results during execution planning. The function is static and only used internally within the subselect.c module.
+
+## Simplified Source
+
+```c
+static Node *
+convert_testexpr(PlannerInfo *root, Node *testexpr, List *subst_nodes)
+{
+    convert_testexpr_context context;
+
+    // Set up conversion context with planner info and substitution nodes
+    context.root = root;
+    context.subst_nodes = subst_nodes;
+
+    // Delegate to mutator to perform the actual parameter substitution
+    return convert_testexpr_mutator(testexpr, &context);
+}
+```

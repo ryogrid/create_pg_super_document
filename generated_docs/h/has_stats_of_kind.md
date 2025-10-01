@@ -35,3 +35,22 @@ This utility function iterates through a list of StatisticExtInfo structures to 
 - Part of the extended statistics framework for multi-column statistics support
 - Simple linear search implementation suitable for typical small statistic lists
 - Located in src/backend/statistics/extended_stats.c:1118-1140
+
+## Simplified Source
+
+```c
+bool
+has_stats_of_kind(List *stats, char requiredkind)
+{
+    ListCell *l;
+
+    foreach(l, stats) {
+        StatisticExtInfo *stat = (StatisticExtInfo *) lfirst(l);
+
+        if (stat->kind == requiredkind)
+            return true;
+    }
+
+    return false;
+}
+```

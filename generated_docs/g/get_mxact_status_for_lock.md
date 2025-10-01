@@ -44,3 +44,26 @@ The function operates by:
 - Critical for proper MultiXact member creation and conflict detection
 - Supports both update and non-update lock operations with different status mappings
 - Error handling ensures system consistency by rejecting invalid lock requests
+
+## Simplified Source
+
+```c
+static MultiXactStatus
+get_mxact_status_for_lock(LockTupleMode mode, bool is_update)
+{
+    int status;
+
+    // Select appropriate status based on operation type
+    if (is_update)
+        status = tupleLockExtraInfo[mode].updstatus;
+    else
+        status = tupleLockExtraInfo[mode].lockstatus;
+
+    // Validate the lookup result
+    if (status == -1)
+        elog(ERROR, "invalid lock tuple mode %d/%s", mode,
+             is_update ? "true" : "false");
+
+    return (MultiXactStatus) status;
+}
+```

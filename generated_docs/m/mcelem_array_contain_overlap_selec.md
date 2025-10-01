@@ -49,3 +49,82 @@ The function uses either binary search or linear scan to find matching elements 
 - Falls back to default selectivity estimates when elements are not found in MCELEM statistics
 - TODO comment suggests potential improvement by using distinct elements count histogram
 - The function expects numbers array to have exactly nmcelem + 3 elements (frequencies + min/max/null stats)
+
+## Simplified Source
+
+```c
+static Selectivity
+mcelem_array_contain_overlap_selec(Datum *mcelem, int nmcelem,
+                                   float4 *numbers, int nnumbers,
+                                   Datum *array_data, int nitems,
+                                   Oid operator, TypeCacheEntry *typentry)
+{
+    Selectivity selec, elem_selec;
+    int mcelem_index, i;
+    bool use_bsearch;
+    float4 minfreq;
+
+    // Validate statistics format - need nmcelem + 3 numbers
+    if (nnumbers != nmcelem + 3) {
+        numbers = NULL;
+        nnumbers = 0;
+    }
+
+    // Get minimum frequency from stats or use default
+    minfreq = numbers ? numbers[nmcelem] : 2 * DEFAULT_CONTAIN_SEL;
+
+    // Choose search strategy based on efficiency
+    use_bsearch = (nitems * floor_log2(nmcelem) < nmcelem + nitems);
+
+    // Initialize selectivity based on operator type
+    if (operator == OID_ARRAY_CONTAINS_OP)
+        selec = 1.0;  // Start with 1.0 for containment (@>)
+    else
+        selec = 0.0;  // Start with 0.0 for overlap (&&)
+
+    // Process each element in the constant array
+    mcelem_index = 0;
+    for (i = 0; i < nitems; i++) {
+        bool match = false;
+
+        // Skip duplicate elements
+        if (i > 0 && element_compare(&array_data[i-1], &array_data[i], typentry) == 0)
+            continue;
+
+        // Find matching element in MCELEM statistics
+        if (use_bsearch) {
+            match = find_next_mcelem(mcelem, nmcelem, array_data[i],
+                                   &mcelem_index, typentry);
+        } else {
+            // Linear search through mcelem array
+            while (mcelem_index < nmcelem) {
+                int cmp = element_compare(&mcelem[mcelem_index], &array_data[i], typentry);
+                if (cmp < 0)
+                    mcelem_index++;
+                else {
+                    if (cmp == 0) match = true;
+                    break;
+                }
+            }
+        }
+
+        // Calculate element selectivity
+        if (match && numbers) {
+            elem_selec = numbers[mcelem_index];  // Use actual frequency
+            mcelem_index++;
+        } else {
+            elem_selec = Min(DEFAULT_CONTAIN_SEL, minfreq / 2);  // Estimate for unknown elements
+        }
+
+        // Update overall selectivity using independence assumption
+        if (operator == OID_ARRAY_CONTAINS_OP)
+            selec *= elem_selec;  // Intersection: P(A and B) = P(A) * P(B)
+        else
+            selec = selec + elem_selec - selec * elem_selec;  // Union: P(A or B) = P(A) + P(B) - P(A)*P(B)
+
+        CLAMP_PROBABILITY(selec);
+    }
+
+    return selec;
+}
+```

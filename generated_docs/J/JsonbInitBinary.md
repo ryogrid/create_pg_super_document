@@ -34,3 +34,16 @@ This function initializes a JsonbValue structure to wrap an existing Jsonb conta
 - Uses VARSIZE_ANY_EXHDR to calculate the length of the binary data excluding the varlena header
 - The function returns the same JsonbValue pointer that was passed in, allowing for convenient chaining
 - Critical for interfacing between PostgreSQL's stored JSONB format and the JSON path execution engine
+
+## Simplified Source
+
+```c
+static JsonbValue *JsonbInitBinary(JsonbValue *jbv, Jsonb *jb) {
+    // Initialize JsonbValue to wrap existing JSONB binary data
+    jbv->type = jbvBinary;
+    jbv->val.binary.data = &jb->root;
+    jbv->val.binary.len = VARSIZE_ANY_EXHDR(jb);
+
+    return jbv;
+}
+```

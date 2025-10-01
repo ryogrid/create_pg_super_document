@@ -40,3 +40,14 @@ The iterator created by this function allows sequential access to all elements w
 - The iterator supports depth-first traversal of nested JSON structures
 - Used extensively throughout PostgreSQL's JSONB implementation for various operations including containment checks, serialization, aggregation, and manipulation functions
 - The function is the standard way to begin iteration over any JsonbContainer in PostgreSQL
+
+## Simplified Source
+
+```c
+JsonbIterator *
+JsonbIteratorInit(JsonbContainer *container)
+{
+    // Create a new iterator for the container with no parent
+    return iteratorFromContainer(container, NULL);
+}
+```

@@ -44,3 +44,37 @@ The resulting secret contains the salt, iteration count, and cryptographic keys 
 - The function is primarily used when creating new user passwords or changing existing ones
 - Handles memory management carefully by freeing the normalized password if allocated
 - Error handling includes reporting internal errors if random salt generation fails
+
+## Simplified Source
+
+```c
+char *pg_be_scram_build_secret(const char *password) {
+    char *prep_password;
+    pg_saslprep_rc rc;
+    char saltbuf[SCRAM_DEFAULT_SALT_LEN];
+    char *result;
+    const char *errstr = NULL;
+
+    // Normalize password with SASLprep if possible
+    rc = pg_saslprep(password, &prep_password);
+    if (rc == SASLPREP_SUCCESS)
+        password = (const char *) prep_password;
+
+    // Generate cryptographically secure random salt
+    if (!pg_strong_random(saltbuf, SCRAM_DEFAULT_SALT_LEN))
+        ereport(ERROR, (errcode(ERRCODE_INTERNAL_ERROR),
+                        errmsg("could not generate random salt")));
+
+    // Build SCRAM secret with salt and iteration count
+    result = scram_build_secret(PG_SHA256, SCRAM_SHA_256_KEY_LEN,
+                                saltbuf, SCRAM_DEFAULT_SALT_LEN,
+                                scram_sha_256_iterations, password,
+                                &errstr);
+
+    // Clean up normalized password if allocated
+    if (prep_password)
+        pfree(prep_password);
+
+    return result;
+}
+```

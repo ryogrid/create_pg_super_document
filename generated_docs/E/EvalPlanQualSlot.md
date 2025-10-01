@@ -40,3 +40,25 @@ This function provides access to tuple slots used during EPQ testing, which is p
 - The rti parameter is 1-based but converted to 0-based for array indexing
 - Includes assertions to validate relation and range table index bounds
 - Part of PostgreSQL's MVCC (Multi-Version Concurrency Control) infrastructure
+
+## Simplified Source
+
+```c
+TupleTableSlot *EvalPlanQualSlot(EPQState *epqstate, Relation relation, Index rti) {
+    // Validate inputs
+    Assert(relation);
+    Assert(rti > 0 && rti <= epqstate->parentestate->es_range_table_size);
+
+    // Get slot reference (convert 1-based rti to 0-based array index)
+    TupleTableSlot **slot = &epqstate->relsubs_slot[rti - 1];
+
+    // Create slot if it doesn't exist (lazy initialization)
+    if (*slot == NULL) {
+        MemoryContext oldcontext = MemoryContextSwitchTo(epqstate->parentestate->es_query_cxt);
+        *slot = table_slot_create(relation, &epqstate->tuple_table);
+        MemoryContextSwitchTo(oldcontext);
+    }
+
+    return *slot;
+}
+```

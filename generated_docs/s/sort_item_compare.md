@@ -32,3 +32,17 @@ This function provides a comparison mechanism for SortItem objects when sorting 
 - Properly handles NULL values according to PostgreSQL sorting semantics
 - Used as a callback function with qsort_interruptible for sorting operations
 - Part of the MCV statistics building infrastructure for frequency analysis
+
+## Simplified Source
+```c
+static int sort_item_compare(const void *a, const void *b, void *arg) {
+    SortSupport ssup = (SortSupport) arg;
+    SortItem *item_a = (SortItem *) a;
+    SortItem *item_b = (SortItem *) b;
+
+    // Compare first column values using PostgreSQL sort comparator
+    return ApplySortComparator(item_a->values[0], item_a->isnull[0],
+                              item_b->values[0], item_b->isnull[0],
+                              ssup);
+}
+```

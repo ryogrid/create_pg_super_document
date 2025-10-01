@@ -42,3 +42,17 @@ This function serves as a backward-compatibility wrapper for the older interface
 - Always passes is_merge_update as false, indicating standard UPDATE behavior
 - Maintains backward compatibility for existing callers that don't need MERGE-specific behavior
 - Return value and semantics are identical to ExecBRUpdateTriggersNew
+
+## Simplified Source
+
+```c
+bool ExecBRUpdateTriggers(EState *estate, EPQState *epqstate,
+                         ResultRelInfo *relinfo, ItemPointer tupleid,
+                         HeapTuple fdw_trigtuple, TupleTableSlot *newslot,
+                         TM_Result *tmresult, TM_FailureData *tmfd) {
+    // Simple wrapper for backward compatibility - delegates to new version
+    return ExecBRUpdateTriggersNew(estate, epqstate, relinfo, tupleid,
+                                  fdw_trigtuple, newslot, tmresult, tmfd,
+                                  false /* is_merge_update */);
+}
+```

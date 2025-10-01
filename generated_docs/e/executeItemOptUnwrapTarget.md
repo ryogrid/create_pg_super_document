@@ -71,3 +71,117 @@ The unwrap parameter controls whether single-element arrays are automatically un
 - Supports the complete range of JSONPath operations including advanced features like filters, method calls, and type conversions
 - The unwrap parameter enables proper SQL/JSON compliance for automatic value unwrapping
 - Maintains execution context for variable resolution and mode management throughout the recursion
+
+## Simplified Source
+
+```c
+static JsonPathExecResult executeItemOptUnwrapTarget(JsonPathExecContext *cxt,
+                                                    JsonPathItem *jsp,
+                                                    JsonbValue *jb,
+                                                    JsonValueList *found,
+                                                    bool unwrap) {
+    JsonPathItem elem;
+    JsonPathExecResult res = jperNotFound;
+
+    // Safety checks
+    check_stack_depth();
+    CHECK_FOR_INTERRUPTS();
+
+    switch (jsp->type) {
+        // Literal values (null, bool, numeric, string, variable)
+        case jpiNull:
+        case jpiBool:
+        case jpiNumeric:
+        case jpiString:
+        case jpiVariable:
+            {
+                JsonbValue *v;
+                bool hasNext = jspGetNext(jsp, &elem);
+
+                // Get the literal value
+                getJsonPathItem(cxt, jsp, v);
+
+                // Continue processing if there are more path items
+                return executeNextItem(cxt, jsp, &elem, v, found, hasNext);
+            }
+
+        // Boolean operations
+        case jpiAnd:
+        case jpiOr:
+        case jpiEqual:
+        case jpiExists:
+            {
+                JsonPathBool result = executeBoolItem(cxt, jsp, jb, true);
+                return appendBoolResult(cxt, jsp, found, result);
+            }
+
+        // Arithmetic operations
+        case jpiAdd:
+        case jpiSub:
+        case jpiMul:
+        case jpiDiv:
+        case jpiMod:
+            return executeBinaryArithmExpr(cxt, jsp, jb, /* operator */, found);
+
+        // Array access [*], [n], [n:m]
+        case jpiAnyArray:
+        case jpiIndexArray:
+            if (JsonbType(jb) == jbvArray) {
+                // Process array elements based on subscript/wildcard
+                return executeItemUnwrapTargetArray(cxt, &elem, jb, found, unwrap);
+            }
+            break;
+
+        // Object key access (.key, .*)
+        case jpiAnyKey:
+        case jpiKey:
+            if (JsonbType(jb) == jbvObject) {
+                // Navigate to object members
+                return executeAnyItem(cxt, &elem, jb->val.binary.data, found,
+                                    1, 1, 1, false, unwrap);
+            }
+            break;
+
+        // Type conversion methods (.string(), .number(), etc.)
+        case jpiStringFunc:
+        case jpiDouble:
+        case jpiInteger:
+        case jpiDecimal:
+        case jpiBoolean:
+            {
+                JsonbValue converted_value;
+                // Convert value to requested type
+                convertJsonbValueToType(jb, jsp->type, &converted_value);
+                return executeNextItem(cxt, jsp, NULL, &converted_value, found, true);
+            }
+
+        // Utility methods (.size(), .type(), .abs(), etc.)
+        case jpiSize:
+        case jpiType:
+        case jpiAbs:
+        case jpiFloor:
+        case jpiCeiling:
+            return executeUtilityMethod(cxt, jsp, jb, found);
+
+        // Context references ($ root, @ current)
+        case jpiRoot:
+            return executeNextItem(cxt, jsp, NULL, cxt->root, found, true);
+        case jpiCurrent:
+            return executeNextItem(cxt, jsp, NULL, cxt->current, found, true);
+
+        // Filter expressions (.? condition)
+        case jpiFilter:
+            {
+                JsonPathBool matches = executeNestedBoolItem(cxt, &elem, jb);
+                if (matches == jpbTrue)
+                    return executeNextItem(cxt, jsp, NULL, jb, found, true);
+                return jperNotFound;
+            }
+
+        default:
+            elog(ERROR, "unrecognized jsonpath item type: %d", jsp->type);
+    }
+
+    return res;
+}
+```

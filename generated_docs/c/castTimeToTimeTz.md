@@ -33,3 +33,15 @@ This function performs a type conversion from a PostgreSQL time data type to tim
 - The function ensures type safety by validating timezone requirements before conversion
 - Returns a Datum containing the converted timetz value
 - Uses PostgreSQL's DirectFunctionCall1 infrastructure for efficient function dispatch
+
+## Simplified Source
+
+```c
+static Datum castTimeToTimeTz(Datum time, bool useTz) {
+    // Validate that timezone usage is enabled for this cast
+    checkTimezoneIsUsedForCast(useTz, "time", "timetz");
+
+    // Perform the actual conversion using built-in function
+    return DirectFunctionCall1(time_timetz, time);
+}
+```

@@ -56,3 +56,96 @@ This function takes no parameters but operates on several global variables and a
 - Error handling includes checking for strftime failures and locale restoration failures (marked as FATAL)
 - Thread safety considerations: temporarily modifies process-wide locale settings
 - The cached data persists in TopMemoryContext for the lifetime of the backend process
+
+## Simplified Source
+
+```c
+void
+cache_locale_time(void)
+{
+    // Return early if cache is already valid
+    if (CurrentLCTimeValid)
+        return;
+
+    // Save current locale settings
+    char *save_lc_time = setlocale(LC_TIME, NULL);
+    save_lc_time = pstrdup(save_lc_time);
+
+#ifdef WIN32
+    char *save_lc_ctype = setlocale(LC_CTYPE, NULL);
+    save_lc_ctype = pstrdup(save_lc_ctype);
+    setlocale(LC_CTYPE, locale_time);
+#endif
+
+    // Set target locale for time formatting
+    setlocale(LC_TIME, locale_time);
+
+    // Extract localized day and month names using strftime
+    char buf[(2 * 7 + 2 * 12) * MAX_L10N_DATA];
+    char *bufptr = buf;
+    time_t timenow = time(NULL);
+    struct tm *timeinfo = localtime(&timenow);
+    bool strftimefail = false;
+
+    // Get localized day names (abbreviated and full)
+    for (int i = 0; i < 7; i++) {
+        timeinfo->tm_wday = i;
+        if (strftime(bufptr, MAX_L10N_DATA, "%a", timeinfo) <= 0)
+            strftimefail = true;
+        bufptr += MAX_L10N_DATA;
+        if (strftime(bufptr, MAX_L10N_DATA, "%A", timeinfo) <= 0)
+            strftimefail = true;
+        bufptr += MAX_L10N_DATA;
+    }
+
+    // Get localized month names (abbreviated and full)
+    for (int i = 0; i < 12; i++) {
+        timeinfo->tm_mon = i;
+        timeinfo->tm_mday = 1;  // ensure valid date
+        if (strftime(bufptr, MAX_L10N_DATA, "%b", timeinfo) <= 0)
+            strftimefail = true;
+        bufptr += MAX_L10N_DATA;
+        if (strftime(bufptr, MAX_L10N_DATA, "%B", timeinfo) <= 0)
+            strftimefail = true;
+        bufptr += MAX_L10N_DATA;
+    }
+
+    // Restore original locale settings (critical for cleanup)
+#ifdef WIN32
+    setlocale(LC_CTYPE, save_lc_ctype);
+    pfree(save_lc_ctype);
+#endif
+    setlocale(LC_TIME, save_lc_time);
+    pfree(save_lc_time);
+
+    // Check for strftime errors
+    if (strftimefail)
+        elog(ERROR, "strftime() failed: %m");
+
+    // Convert and cache the extracted strings
+    int encoding = PG_UTF8;  // Windows assumption
+#ifndef WIN32
+    encoding = pg_get_encoding_from_locale(locale_time, true);
+    if (encoding < 0)
+        encoding = PG_SQL_ASCII;
+#endif
+
+    // Cache day and month names in global arrays
+    bufptr = buf;
+    for (int i = 0; i < 7; i++) {
+        cache_single_string(&localized_abbrev_days[i], bufptr, encoding);
+        bufptr += MAX_L10N_DATA;
+        cache_single_string(&localized_full_days[i], bufptr, encoding);
+        bufptr += MAX_L10N_DATA;
+    }
+    for (int i = 0; i < 12; i++) {
+        cache_single_string(&localized_abbrev_months[i], bufptr, encoding);
+        bufptr += MAX_L10N_DATA;
+        cache_single_string(&localized_full_months[i], bufptr, encoding);
+        bufptr += MAX_L10N_DATA;
+    }
+
+    // Mark cache as valid
+    CurrentLCTimeValid = true;
+}
+```

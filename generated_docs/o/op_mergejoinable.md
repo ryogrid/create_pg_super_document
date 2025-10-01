@@ -37,3 +37,37 @@ This function checks if an operator can potentially be used in merge join operat
 - For record equality, it depends on whether records can be compared using btrecordcmp
 - The oprcanmerge flag in pg_operator is just a hint; actual merge join plans require suitable btree opfamily entries
 - This function is primarily used during query planning to optimize join operations
+
+## Simplified Source
+
+```c
+bool op_mergejoinable(Oid opno, Oid inputtype) {
+    bool result = false;
+    HeapTuple tp;
+    TypeCacheEntry *typentry;
+
+    // Special handling for array equality - check if elements are sortable
+    if (opno == ARRAY_EQ_OP) {
+        typentry = lookup_type_cache(inputtype, TYPECACHE_CMP_PROC);
+        if (typentry->cmp_proc == F_BTARRAYCMP)
+            result = true;
+    }
+    // Special handling for record equality - check if fields are sortable
+    else if (opno == RECORD_EQ_OP) {
+        typentry = lookup_type_cache(inputtype, TYPECACHE_CMP_PROC);
+        if (typentry->cmp_proc == F_BTRECORDCMP)
+            result = true;
+    }
+    // For other operators, check the oprcanmerge flag in pg_operator
+    else {
+        tp = SearchSysCache1(OPEROID, ObjectIdGetDatum(opno));
+        if (HeapTupleIsValid(tp)) {
+            Form_pg_operator optup = (Form_pg_operator) GETSTRUCT(tp);
+            result = optup->oprcanmerge;
+            ReleaseSysCache(tp);
+        }
+    }
+
+    return result;
+}
+```

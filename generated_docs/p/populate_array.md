@@ -50,3 +50,69 @@ This function serves as the primary interface for converting JSON or JSONB data 
 - The function assumes that dimension information will be determined during the parsing process
 - Memory cleanup is performed for temporary allocations (dims, sizes, lbs arrays) but not for the final array result
 - Part of PostgreSQL's JSON-to-native-type conversion infrastructure, enabling seamless integration between JSON data and PostgreSQL's type system
+
+## Simplified Source
+
+```c
+static Datum populate_array(ArrayIOData *aio,
+                           const char *colname,
+                           MemoryContext mcxt,
+                           JsValue *jsv,
+                           bool *isnull,
+                           Node *escontext) {
+    PopulateArrayContext ctx;
+    Datum result;
+    int *lbs;
+    int i;
+
+    // Initialize parsing context
+    ctx.aio = aio;
+    ctx.mcxt = mcxt;
+    ctx.acxt = CurrentMemoryContext;
+    ctx.astate = initArrayResult(aio->element_type, ctx.acxt, true);
+    ctx.colname = colname;
+    ctx.ndims = 0;      // To be determined during parsing
+    ctx.dims = NULL;
+    ctx.sizes = NULL;
+    ctx.escontext = escontext;
+
+    // Parse based on JSON format
+    if (jsv->is_json) {
+        // Parse JSON text format
+        if (!populate_array_json(&ctx, jsv->val.json.str,
+                                jsv->val.json.len >= 0 ? jsv->val.json.len
+                                                      : strlen(jsv->val.json.str))) {
+            *isnull = true;
+            return (Datum) 0;
+        }
+    } else {
+        // Parse JSONB binary format
+        if (!populate_array_dim_jsonb(&ctx, jsv->val.jsonb, 1)) {
+            *isnull = true;
+            return (Datum) 0;
+        }
+        ctx.dims[0] = ctx.sizes[0];
+    }
+
+    // Build final array with discovered dimensions
+    Assert(ctx.ndims > 0);
+
+    // Set lower bounds to 1 for all dimensions
+    lbs = palloc(sizeof(int) * ctx.ndims);
+    for (i = 0; i < ctx.ndims; i++) {
+        lbs[i] = 1;
+    }
+
+    // Create multi-dimensional array
+    result = makeMdArrayResult(ctx.astate, ctx.ndims, ctx.dims, lbs,
+                              ctx.acxt, true);
+
+    // Cleanup temporary allocations
+    pfree(ctx.dims);
+    pfree(ctx.sizes);
+    pfree(lbs);
+
+    *isnull = false;
+    return result;
+}
+```

@@ -38,3 +38,36 @@ BufFileAppend performs a high-performance append operation by transferring owner
 - Used primarily by logical tape operations for efficient tape concatenation
 - The operation works at the segment file level rather than copying actual data
 - Returned block number can be used as an offset for block position calculations
+
+## Simplified Source
+
+```c
+int64
+BufFileAppend(BufFile *target, BufFile *source)
+{
+    int64 startBlock = (int64) target->numFiles * BUFFILE_SEG_SIZE;
+    int newNumFiles = target->numFiles + source->numFiles;
+    int i;
+
+    // Validate both files use same fileset and resource owner
+    Assert(target->fileset != NULL);
+    Assert(source->readOnly);
+    Assert(!source->dirty);
+    Assert(source->fileset != NULL);
+
+    if (target->resowner != source->resowner)
+        elog(ERROR, "could not append BufFile with non-matching resource owner");
+
+    // Expand target's file array to hold source's files
+    target->files = (File *) repalloc(target->files, sizeof(File) * newNumFiles);
+
+    // Transfer source's file handles to target
+    for (i = target->numFiles; i < newNumFiles; i++)
+        target->files[i] = source->files[i - target->numFiles];
+
+    target->numFiles = newNumFiles;
+
+    // Return starting block position of appended content
+    return startBlock;
+}
+```

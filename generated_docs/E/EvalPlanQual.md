@@ -46,3 +46,39 @@ This mechanism ensures that under READ COMMITTED isolation, transactions see a c
 
 ## Notes and Other Information
 This function is fundamental to PostgreSQL's implementation of the READ COMMITTED isolation level and snapshot-based concurrency control. The EPQ mechanism allows transactions to handle concurrent modifications gracefully by re-evaluating qualification conditions on updated tuple versions. The function typically processes tuples that have been locked with table_tuple_lock() using TUPLE_LOCK_FLAG_FIND_LAST_VERSION to ensure the input represents the latest committed version. The materialization step is crucial to prevent the returned tuple from depending on EPQ query state that might be reused or destroyed.
+
+## Simplified Source
+
+```c
+TupleTableSlot *EvalPlanQual(EPQState *epqstate, Relation relation,
+                            Index rti, TupleTableSlot *inputslot) {
+    Assert(rti > 0);
+
+    // Initialize EPQ state for rechecking
+    EvalPlanQualBegin(epqstate);
+
+    // Set up test slot with input tuple
+    TupleTableSlot *testslot = EvalPlanQualSlot(epqstate, relation, rti);
+    if (testslot != inputslot) {
+        ExecCopySlot(testslot, inputslot);
+    }
+
+    // Mark relation as having EPQ tuple available
+    epqstate->relsubs_done[rti - 1] = false;
+    epqstate->relsubs_blocked[rti - 1] = false;
+
+    // Run EPQ query to test updated tuple against conditions
+    TupleTableSlot *slot = EvalPlanQualNext(epqstate);
+
+    // Materialize result to ensure independence from EPQ state
+    if (!TupIsNull(slot)) {
+        ExecMaterializeSlot(slot);
+    }
+
+    // Clean up test slot and mark relation as blocked
+    ExecClearTuple(testslot);
+    epqstate->relsubs_blocked[rti - 1] = true;
+
+    return slot;
+}
+```

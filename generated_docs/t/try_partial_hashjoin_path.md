@@ -54,3 +54,50 @@ The function performs several validation checks:
 - The function includes early bailout logic based on cost estimation to avoid expensive path creation for obviously poor choices
 - The parallel_hash parameter determines the execution model: shared hash tables vs. replicated private hash tables
 - Part of PostgreSQL's parallel query execution infrastructure for hash joins
+
+## Simplified Source
+
+```c
+static void
+try_partial_hashjoin_path(PlannerInfo *root,
+                          RelOptInfo *joinrel,
+                          Path *outer_path,
+                          Path *inner_path,
+                          List *hashclauses,
+                          JoinType jointype,
+                          JoinPathExtraData *extra,
+                          bool parallel_hash)
+{
+    JoinCostWorkspace workspace;
+
+    // Validate parameterization - partial paths cannot be parameterized
+    if (inner_path->param_info != NULL)
+    {
+        Relids inner_paramrels = inner_path->param_info->ppi_req_outer;
+        if (!bms_is_empty(inner_paramrels))
+            return;
+    }
+
+    // Get quick cost estimate to eliminate obviously poor paths
+    initial_cost_hashjoin(root, &workspace, jointype, hashclauses,
+                          outer_path, inner_path, extra, parallel_hash);
+
+    // Quick precheck to avoid expensive path creation
+    if (!add_partial_path_precheck(joinrel, workspace.total_cost, NIL))
+        return;
+
+    // Create and add the partial hash join path
+    add_partial_path(joinrel, (Path *)
+                     create_hashjoin_path(root,
+                                          joinrel,
+                                          jointype,
+                                          &workspace,
+                                          extra,
+                                          outer_path,
+                                          inner_path,
+                                          parallel_hash,
+                                          extra->restrictlist,
+                                          NULL,  // no required_outer for partial paths
+                                          hashclauses));
+}
+```

@@ -47,3 +47,70 @@ The function distinguishes between row marks that require actual tuple locking v
 - Parent row marks are ignored at runtime as they are only used during planning
 - The node reuses result slot operations from its outer subplan for efficiency
 - Function is located at src/backend/executor/nodeLockRows.c:291-384
+
+## Simplified Source
+
+```c
+LockRowsState *
+ExecInitLockRows(LockRows *node, EState *estate, int eflags)
+{
+    LockRowsState *lrstate;
+    Plan *outerPlan = outerPlan(node);
+    List *epq_arowmarks;
+    ListCell *lc;
+
+    // Validate execution flags - mark/restore not supported
+    Assert(!(eflags & EXEC_FLAG_MARK));
+
+    // Create and initialize state structure
+    lrstate = makeNode(LockRowsState);
+    lrstate->ps.plan = (Plan *) node;
+    lrstate->ps.state = estate;
+    lrstate->ps.ExecProcNode = ExecLockRows;
+
+    // Initialize result type (inherits from outer plan)
+    ExecInitResultTypeTL(&lrstate->ps);
+
+    // Initialize outer subplan
+    outerPlanState(lrstate) = ExecInitNode(outerPlan, estate, eflags);
+
+    // Set up result slot operations to match outer plan
+    lrstate->ps.resultopsset = true;
+    lrstate->ps.resultops = ExecGetResultSlotOps(outerPlanState(lrstate),
+                                                &lrstate->ps.resultopsfixed);
+
+    // No projection needed for LockRows nodes
+    lrstate->ps.ps_ProjInfo = NULL;
+
+    // Process row marks and build auxiliary row mark structures
+    lrstate->lr_arowMarks = NIL;
+    epq_arowmarks = NIL;
+
+    foreach(lc, node->rowMarks)
+    {
+        PlanRowMark *rc = lfirst_node(PlanRowMark, lc);
+        ExecRowMark *erm;
+        ExecAuxRowMark *aerm;
+
+        // Skip parent row marks - not needed at runtime
+        if (rc->isParent)
+            continue;
+
+        // Find the corresponding ExecRowMark and build auxiliary structure
+        erm = ExecFindRowMark(estate, rc->rti, false);
+        aerm = ExecBuildAuxRowMark(erm, outerPlan->targetlist);
+
+        // Separate locking vs non-locking marks
+        if (RowMarkRequiresRowShareLock(erm->markType))
+            lrstate->lr_arowMarks = lappend(lrstate->lr_arowMarks, aerm);
+        else
+            epq_arowmarks = lappend(epq_arowmarks, aerm);
+    }
+
+    // Initialize EvalPlanQual state for handling concurrent updates
+    EvalPlanQualInit(&lrstate->lr_epqstate, estate,
+                     outerPlan, epq_arowmarks, node->epqParam, NIL);
+
+    return lrstate;
+}
+```

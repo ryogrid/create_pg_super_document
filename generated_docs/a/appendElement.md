@@ -43,3 +43,32 @@ The function maintains the sequential order of elements as they are added, prese
 - Memory management uses PostgreSQL's memory context system through repalloc
 - Can handle both scalar values and nested containers (arrays and objects)
 - Works as part of the sequential JSONB construction process
+
+## Simplified Source
+
+```c
+static void
+appendElement(JsonbParseState *pstate, JsonbValue *scalarVal)
+{
+    JsonbValue *array = &pstate->contVal;
+
+    Assert(array->type == jbvArray);
+
+    // Check for maximum elements limit
+    if (array->val.array.nElems >= JSONB_MAX_ELEMS)
+        ereport(ERROR,
+                (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                 errmsg("number of jsonb array elements exceeds the maximum allowed (%zu)",
+                        JSONB_MAX_ELEMS)));
+
+    // Grow array if needed (double size)
+    if (array->val.array.nElems >= pstate->size) {
+        pstate->size *= 2;
+        array->val.array.elems = repalloc(array->val.array.elems,
+                                          sizeof(JsonbValue) * pstate->size);
+    }
+
+    // Add element and increment count
+    array->val.array.elems[array->val.array.nElems++] = *scalarVal;
+}
+```

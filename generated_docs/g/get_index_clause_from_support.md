@@ -47,3 +47,63 @@ The function initializes a support request structure with query context, functio
 - The lossy flag defaults to true, but support functions can override this to indicate exact matches
 - This mechanism allows custom data types and operators to provide sophisticated index optimization strategies
 - The generated IndexClause integrates seamlessly with PostgreSQL's cost-based query optimization framework
+
+## Simplified Source
+
+```c
+static IndexClause *
+get_index_clause_from_support(PlannerInfo *root,
+                             RestrictInfo *rinfo,
+                             Oid funcid,
+                             int indexarg,
+                             int indexcol,
+                             IndexOptInfo *index)
+{
+    Oid prosupport = get_func_support(funcid);
+    SupportRequestIndexCondition req;
+    List *sresult;
+
+    if (!OidIsValid(prosupport))
+        return NULL;
+
+    // Set up request structure for support function
+    req.type = T_SupportRequestIndexCondition;
+    req.root = root;
+    req.funcid = funcid;
+    req.node = (Node *) rinfo->clause;
+    req.indexarg = indexarg;
+    req.index = index;
+    req.indexcol = indexcol;
+    req.opfamily = index->opfamily[indexcol];
+    req.indexcollation = index->indexcollations[indexcol];
+    req.lossy = true;  // Default assumption
+
+    // Call the support function to generate index conditions
+    sresult = (List *) DatumGetPointer(OidFunctionCall1(prosupport,
+                                                       PointerGetDatum(&req)));
+
+    if (sresult != NIL) {
+        IndexClause *iclause = makeNode(IndexClause);
+        List *indexquals = NIL;
+        ListCell *lc;
+
+        // Wrap each condition in a RestrictInfo node
+        foreach(lc, sresult) {
+            Expr *clause = (Expr *) lfirst(lc);
+            indexquals = lappend(indexquals,
+                               make_simple_restrictinfo(root, clause));
+        }
+
+        // Build the IndexClause result
+        iclause->rinfo = rinfo;
+        iclause->indexquals = indexquals;
+        iclause->lossy = req.lossy;
+        iclause->indexcol = indexcol;
+        iclause->indexcols = NIL;
+
+        return iclause;
+    }
+
+    return NULL;
+}
+```

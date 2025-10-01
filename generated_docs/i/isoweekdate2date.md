@@ -38,3 +38,26 @@ This function converts a full ISO 8601 week date specification into a Gregorian 
 - Essential for PostgreSQL's date formatting system, especially when parsing ISO week date formats
 - The function modifies output parameters directly rather than returning a structure
 - Located in src/backend/utils/adt/timestamp.c:5149-5166
+
+## Simplified Source
+
+```c
+void
+isoweekdate2date(int isoweek, int wday, int *year, int *mon, int *mday)
+{
+    int jday;
+
+    // Get Julian day for Monday of the specified ISO week
+    jday = isoweek2j(*year, isoweek);
+
+    // Convert Gregorian weekday (Sunday=1) to ISO weekday offset
+    // Monday=1 in ISO, so Sunday(1) becomes +6, Tue(3) becomes +1, etc.
+    if (wday > 1)
+        jday += wday - 2;  // Tuesday-Saturday: simple offset
+    else
+        jday += 6;         // Sunday: wraps to end of week
+
+    // Convert Julian day to Gregorian date
+    j2date(jday, year, mon, mday);
+}
+```

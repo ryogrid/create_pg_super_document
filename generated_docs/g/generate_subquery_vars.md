@@ -38,3 +38,30 @@ The function skips resjunk entries since these are internal columns that shouldn
 - Generated Var nodes preserve the type information from the original target entries
 - Much simpler than generate_subquery_params as it doesn't need to create new parameters
 - Located in src/backend/optimizer/plan/subselect.c:613-641
+
+## Simplified Source
+
+```c
+static List *
+generate_subquery_vars(PlannerInfo *root, List *tlist, Index varno)
+{
+    List *result = NIL;
+    ListCell *lc;
+
+    // Create Var nodes for each non-junk target list entry
+    foreach(lc, tlist)
+    {
+        TargetEntry *tent = (TargetEntry *) lfirst(lc);
+
+        // Skip junk columns (internal use only)
+        if (tent->resjunk)
+            continue;
+
+        // Create Var node representing this subquery column
+        Var *var = makeVarFromTargetEntry(varno, tent);
+        result = lappend(result, var);
+    }
+
+    return result;
+}
+```

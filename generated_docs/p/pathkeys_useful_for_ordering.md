@@ -32,3 +32,18 @@ The function calls  to determine how many leading pathkeys from the query's  are
 - Returns 0 if no valuable keys are found, otherwise returns the number of leading keys shared
 - This is a static function used internally within the pathkeys.c module for path optimization
 - The incremental sort optimization can significantly improve performance when dealing with large datasets that are already partially sorted
+
+## Simplified Source
+
+```c
+static int
+pathkeys_useful_for_ordering(PlannerInfo *root, List *pathkeys)
+{
+    int n_common_pathkeys;
+
+    // Count how many leading pathkeys match the query's ordering requirements
+    pathkeys_count_contained_in(root->query_pathkeys, pathkeys, &n_common_pathkeys);
+
+    return n_common_pathkeys;
+}
+```

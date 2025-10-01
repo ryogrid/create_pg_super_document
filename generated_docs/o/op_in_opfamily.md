@@ -38,3 +38,16 @@ This function provides a simple boolean check to determine if an operator identi
 - Uses the AMOPOPID cache which indexes the pg_amop catalog by operator OID, strategy, and operator family OID
 - This is a lightweight cache lookup operation that avoids direct catalog table access
 - Commonly used in query optimization to determine if operators can be used with specific index access methods
+
+## Simplified Source
+
+```c
+bool op_in_opfamily(Oid opno, Oid opfamily) {
+    // Check if operator exists in the given operator family
+    // Only considers search operators (AMOP_SEARCH), not ordering operators
+    return SearchSysCacheExists3(AMOPOPID,
+                                ObjectIdGetDatum(opno),
+                                CharGetDatum(AMOP_SEARCH),
+                                ObjectIdGetDatum(opfamily));
+}
+```

@@ -38,3 +38,25 @@ This function performs range validation for field (column) numbers in PostgreSQL
 - Uses 0-based indexing for field numbers (0 to numAttributes-1)
 - Part of libpq's internal validation system for safe field access
 - Static function, not exposed in the public libpq API
+
+## Simplified Source
+
+```c
+static int
+check_field_number(const PGresult *res, int field_num)
+{
+    // Fail gracefully if no result
+    if (!res)
+        return false;
+
+    // Check if field number is within valid range
+    if (field_num < 0 || field_num >= res->numAttributes) {
+        pqInternalNotice(&res->noticeHooks,
+                        "column number %d is out of range 0..%d",
+                        field_num, res->numAttributes - 1);
+        return false;
+    }
+
+    return true;
+}
+```

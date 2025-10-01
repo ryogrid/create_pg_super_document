@@ -56,3 +56,92 @@ The function returns different PartClauseMatchStatus values indicating the match
 - PARTCLAUSE_UNSUPPORTED: Clause form unsuitable for any partition key
 
 Special handling exists for NOT IN operations with list partitioning and boolean partition keys with IS NOT TRUE/IS NOT FALSE tests.
+
+## Simplified Source
+
+```c
+static PartClauseMatchStatus match_clause_to_partition_key(GeneratePruningStepsContext *context,
+                                                          Expr *clause, Expr *partkey, int partkeyidx,
+                                                          bool *clause_is_not_null, PartClauseInfo **pc,
+                                                          List **clause_steps) {
+    PartitionScheme part_scheme = context->rel->part_scheme;
+    Oid partopfamily = part_scheme->partopfamily[partkeyidx];
+
+    // Try boolean partition clause matching first
+    PartClauseMatchStatus boolmatchstatus = match_boolean_partition_clause(partopfamily, clause,
+                                                                         partkey, &expr, &notclause);
+    if (boolmatchstatus == PARTCLAUSE_MATCH_CLAUSE) {
+        // Handle boolean operators - create PartClauseInfo
+        PartClauseInfo *partclause = palloc(sizeof(PartClauseInfo));
+        partclause->keyno = partkeyidx;
+        partclause->opno = BooleanEqualOperator;
+        partclause->expr = expr;
+        partclause->cmpfn = part_scheme->partsupfunc[partkeyidx].fn_oid;
+        *pc = partclause;
+        return PARTCLAUSE_MATCH_CLAUSE;
+    }
+
+    // Handle OpExpr (=, <, >, <=, >=, <>)
+    if (IsA(clause, OpExpr) && list_length(((OpExpr *) clause)->args) == 2) {
+        OpExpr *opclause = (OpExpr *) clause;
+        Expr *leftop = get_leftop(clause);
+        Expr *rightop = get_rightop(clause);
+
+        // Match partition key to left or right operand
+        if (equal(leftop, partkey)) {
+            expr = rightop;
+        } else if (equal(rightop, partkey)) {
+            // Try to commute the operator
+            Oid commutator = get_commutator(opclause->opno);
+            if (!OidIsValid(commutator))
+                return PARTCLAUSE_UNSUPPORTED;
+            expr = leftop;
+        } else {
+            return PARTCLAUSE_NOMATCH;
+        }
+
+        // Validate operator is in partition opfamily and is strict
+        if (!op_in_opfamily(opclause->opno, partopfamily) || !op_strict(opclause->opno))
+            return PARTCLAUSE_UNSUPPORTED;
+
+        // Validate expression constraints (constants, mutability, etc.)
+        if (!validate_expression_constraints(context, expr))
+            return PARTCLAUSE_UNSUPPORTED;
+
+        // Create and return PartClauseInfo
+        PartClauseInfo *partclause = create_partclause_info(context, partkeyidx,
+                                                          opclause->opno, expr);
+        *pc = partclause;
+        return PARTCLAUSE_MATCH_CLAUSE;
+    }
+
+    // Handle ScalarArrayOpExpr (IN, NOT IN)
+    if (IsA(clause, ScalarArrayOpExpr)) {
+        ScalarArrayOpExpr *saop = (ScalarArrayOpExpr *) clause;
+
+        // Check if left operand matches partition key
+        if (!equal(linitial(saop->args), partkey))
+            return PARTCLAUSE_NOMATCH;
+
+        // Convert array elements to individual clauses and generate steps
+        List *elem_clauses = convert_array_to_clauses(saop);
+        *clause_steps = gen_partprune_steps_internal(context, elem_clauses);
+
+        if (*clause_steps == NIL)
+            return PARTCLAUSE_UNSUPPORTED;
+        return PARTCLAUSE_MATCH_STEPS;
+    }
+
+    // Handle NullTest (IS NULL, IS NOT NULL)
+    if (IsA(clause, NullTest)) {
+        NullTest *nulltest = (NullTest *) clause;
+        if (!equal(nulltest->arg, partkey))
+            return PARTCLAUSE_NOMATCH;
+
+        *clause_is_not_null = (nulltest->nulltesttype == IS_NOT_NULL);
+        return PARTCLAUSE_MATCH_NULLNESS;
+    }
+
+    return boolmatchstatus;
+}
+```

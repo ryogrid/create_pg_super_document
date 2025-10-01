@@ -47,3 +47,41 @@ This optimization prevents the generation of expensive cartesian products when t
 - Part of PostgreSQL's optimization strategy to avoid unnecessary computation
 - Returns true if constant FALSE detected (indicating empty result), false otherwise
 - Located in src/backend/optimizer/path/joinrels.c:1425-1478
+
+## Simplified Source
+
+```c
+static bool
+restriction_is_constant_false(List *restrictlist,
+                              RelOptInfo *joinrel,
+                              bool only_pushed_down)
+{
+    ListCell *lc;
+
+    // Check each restriction clause in the list
+    foreach(lc, restrictlist)
+    {
+        RestrictInfo *rinfo = lfirst_node(RestrictInfo, lc);
+
+        // If only checking pushed-down clauses, skip others
+        if (only_pushed_down && !RINFO_IS_PUSHED_DOWN(rinfo, joinrel->relids))
+            continue;
+
+        // Check if this clause is a constant
+        if (rinfo->clause && IsA(rinfo->clause, Const))
+        {
+            Const *con = (Const *) rinfo->clause;
+
+            // NULL constant is equivalent to FALSE for our purposes
+            if (con->constisnull)
+                return true;
+
+            // Check if boolean constant is FALSE
+            if (!DatumGetBool(con->constvalue))
+                return true;
+        }
+    }
+
+    return false; // No constant FALSE found
+}
+```

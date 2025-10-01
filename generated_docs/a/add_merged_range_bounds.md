@@ -49,3 +49,52 @@ This function adds the bounds of a newly merged partition to the accumulating li
 - Implements bound deduplication optimization to avoid storing redundant boundary information
 - Essential for constructing the final merged partition bounds structure efficiently
 - Located in src/backend/partitioning/partbounds.c:2775-2851
+
+## Simplified Source
+
+```c
+static void
+add_merged_range_bounds(int partnatts, FmgrInfo *partsupfuncs,
+                       Oid *partcollations,
+                       PartitionRangeBound *merged_lb,
+                       PartitionRangeBound *merged_ub,
+                       int merged_index,
+                       List **merged_datums,
+                       List **merged_kinds,
+                       List **merged_indexes)
+{
+    int cmpval;
+
+    if (!*merged_datums)
+    {
+        // First merged partition - no comparison needed
+        cmpval = 1;
+    }
+    else
+    {
+        // Compare new lower bound with previous upper bound
+        PartitionRangeBound prev_ub;
+        prev_ub.index = llast_int(*merged_indexes);
+        prev_ub.datums = (Datum *) llast(*merged_datums);
+        prev_ub.kind = (PartitionRangeDatumKind *) llast(*merged_kinds);
+        prev_ub.lower = false;
+
+        cmpval = partition_rbound_cmp(partnatts, partsupfuncs, partcollations,
+                                     merged_lb->datums, merged_lb->kind,
+                                     false, &prev_ub);
+    }
+
+    // Add lower bound only if it's higher than previous upper bound
+    if (cmpval > 0)
+    {
+        *merged_datums = lappend(*merged_datums, merged_lb->datums);
+        *merged_kinds = lappend(*merged_kinds, merged_lb->kind);
+        *merged_indexes = lappend_int(*merged_indexes, -1);  // -1 marks lower bound
+    }
+
+    // Always add the upper bound
+    *merged_datums = lappend(*merged_datums, merged_ub->datums);
+    *merged_kinds = lappend(*merged_kinds, merged_ub->kind);
+    *merged_indexes = lappend_int(*merged_indexes, merged_index);
+}
+```

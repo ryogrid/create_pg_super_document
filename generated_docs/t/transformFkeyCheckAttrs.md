@@ -44,3 +44,104 @@ The validation process includes:
 - The function ensures one-to-one column matching between foreign key and unique index
 - Handles indexes with columns in any order relative to the foreign key specification
 - Part of the foreign key constraint validation process in table alteration commands
+
+## Simplified Source
+
+```c
+static Oid transformFkeyCheckAttrs(Relation pkrel, int numattrs, int16 *attnums,
+                                  Oid *opclasses)
+{
+    Oid indexoid = InvalidOid;
+    bool found = false;
+    bool found_deferrable = false;
+    List *indexoidlist;
+    ListCell *indexoidscan;
+    int i, j;
+
+    // Check for duplicate columns (forbidden by SQL standard)
+    for (i = 0; i < numattrs; i++)
+    {
+        for (j = i + 1; j < numattrs; j++)
+        {
+            if (attnums[i] == attnums[j])
+                ereport(ERROR, (errcode(ERRCODE_INVALID_FOREIGN_KEY),
+                    errmsg("foreign key referenced-columns list must not contain duplicates")));
+        }
+    }
+
+    // Get all indexes for this table
+    indexoidlist = RelationGetIndexList(pkrel);
+
+    // Search for a suitable unique index
+    foreach(indexoidscan, indexoidlist)
+    {
+        HeapTuple indexTuple;
+        Form_pg_index indexStruct;
+
+        indexoid = lfirst_oid(indexoidscan);
+        indexTuple = SearchSysCache1(INDEXRELID, ObjectIdGetDatum(indexoid));
+        if (!HeapTupleIsValid(indexTuple))
+            elog(ERROR, "cache lookup failed for index %u", indexoid);
+        indexStruct = (Form_pg_index) GETSTRUCT(indexTuple);
+
+        // Check if index is suitable for foreign key reference
+        if (indexStruct->indnkeyatts == numattrs &&
+            indexStruct->indisunique &&
+            indexStruct->indisvalid &&
+            heap_attisnull(indexTuple, Anum_pg_index_indpred, NULL) &&
+            heap_attisnull(indexTuple, Anum_pg_index_indexprs, NULL))
+        {
+            Datum indclassDatum;
+            oidvector *indclass;
+
+            // Get operator classes from index
+            indclassDatum = SysCacheGetAttrNotNull(INDEXRELID, indexTuple,
+                                                   Anum_pg_index_indclass);
+            indclass = (oidvector *) DatumGetPointer(indclassDatum);
+
+            // Match foreign key columns to index columns (any order)
+            for (i = 0; i < numattrs; i++)
+            {
+                found = false;
+                for (j = 0; j < numattrs; j++)
+                {
+                    if (attnums[i] == indexStruct->indkey.values[j])
+                    {
+                        opclasses[i] = indclass->values[j];
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                    break;
+            }
+
+            // Reject deferrable unique constraints (per SQL spec)
+            if (found && !indexStruct->indimmediate)
+            {
+                found_deferrable = true;
+                found = false;
+            }
+        }
+        ReleaseSysCache(indexTuple);
+        if (found)
+            break;
+    }
+
+    // Report appropriate error if no suitable index found
+    if (!found)
+    {
+        if (found_deferrable)
+            ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                errmsg("cannot use a deferrable unique constraint for referenced table \"%s\"",
+                       RelationGetRelationName(pkrel))));
+        else
+            ereport(ERROR, (errcode(ERRCODE_INVALID_FOREIGN_KEY),
+                errmsg("there is no unique constraint matching given keys for referenced table \"%s\"",
+                       RelationGetRelationName(pkrel))));
+    }
+
+    list_free(indexoidlist);
+    return indexoid;
+}
+```

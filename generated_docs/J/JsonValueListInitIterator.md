@@ -46,3 +46,27 @@ The function provides the foundation for sequential access to all values in a Js
 - The iterator provides a uniform interface for sequential access regardless of internal storage
 - Used extensively in operations that need to process all values in a result set
 - The iterator state tracks both the current position and the underlying data structure
+
+## Simplified Source
+
+```c
+static void JsonValueListInitIterator(const JsonValueList *jvl, JsonValueListIterator *it) {
+    // Initialize iterator based on JsonValueList structure
+    if (jvl->singleton) {
+        // Single value case
+        it->value = jvl->singleton;
+        it->list = NIL;
+        it->next = NULL;
+    } else if (jvl->list != NIL) {
+        // Multiple values in list
+        it->value = (JsonbValue *) linitial(jvl->list);
+        it->list = jvl->list;
+        it->next = list_second_cell(jvl->list);
+    } else {
+        // Empty case
+        it->value = NULL;
+        it->list = NIL;
+        it->next = NULL;
+    }
+}
+```

@@ -43,3 +43,32 @@ Parameter status messages are used by PostgreSQL to communicate important server
 - Entry assumes 'S' message type and length have already been consumed
 - Common parameters include: client_encoding, DateStyle, TimeZone, server_version, server_encoding
 - Error handling ensures proper cleanup of temporary buffer on read failure
+
+## Simplified Source
+
+```c
+static int
+getParameterStatus(PGconn *conn)
+{
+    PQExpBufferData valueBuf;
+
+    // Read parameter name
+    if (pqGets(&conn->workBuffer, conn))
+        return EOF;
+
+    // Read parameter value (may be large, so use expandable buffer)
+    initPQExpBuffer(&valueBuf);
+    if (pqGets(&valueBuf, conn))
+    {
+        termPQExpBuffer(&valueBuf);
+        return EOF;
+    }
+
+    // Save the parameter name-value pair in connection state
+    pqSaveParameterStatus(conn, conn->workBuffer.data, valueBuf.data);
+
+    // Clean up temporary buffer
+    termPQExpBuffer(&valueBuf);
+    return 0;
+}
+```

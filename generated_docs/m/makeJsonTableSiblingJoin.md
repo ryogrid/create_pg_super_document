@@ -36,3 +36,19 @@ This construct is essential for handling JSON_TABLE expressions that contain mul
 - Sibling joins can be nested to handle arbitrary numbers of nested column specifications
 - The plan structure supports the SQL/JSON standard requirement for independent nested column evaluation
 - Left and right plan ordering preserves the textual order of NESTED COLUMNS clauses in the original query
+
+## Simplified Source
+
+```c
+static JsonTablePlan *makeJsonTableSiblingJoin(JsonTablePlan *lplan, JsonTablePlan *rplan) {
+    // Create new sibling join node
+    JsonTableSiblingJoin *join = makeNode(JsonTableSiblingJoin);
+
+    // Initialize join plan fields
+    join->plan.type = T_JsonTableSiblingJoin;
+    join->lplan = lplan;
+    join->rplan = rplan;
+
+    return (JsonTablePlan *) join;
+}
+```

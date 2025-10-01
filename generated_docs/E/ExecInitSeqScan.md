@@ -42,3 +42,43 @@ ExecInitSeqScan performs comprehensive initialization of a sequential scan execu
 - Uses RelationGetDescr to get the tuple descriptor for slot initialization
 - Handles both result tuple projection and qualification expression setup
 - Part of PostgreSQL's node initialization infrastructure
+
+## Simplified Source
+
+```c
+SeqScanState *
+ExecInitSeqScan(SeqScan *node, EState *estate, int eflags)
+{
+    SeqScanState *scanstate;
+
+    // Validate no child plans (sequential scans are leaf nodes)
+    Assert(outerPlan(node) == NULL);
+    Assert(innerPlan(node) == NULL);
+
+    // Create and initialize state structure
+    scanstate = makeNode(SeqScanState);
+    scanstate->ss.ps.plan = (Plan *) node;
+    scanstate->ss.ps.state = estate;
+    scanstate->ss.ps.ExecProcNode = ExecSeqScan;
+
+    // Create expression context
+    ExecAssignExprContext(estate, &scanstate->ss.ps);
+
+    // Open the scan relation
+    scanstate->ss.ss_currentRelation = ExecOpenScanRelation(estate, node->scan.scanrelid, eflags);
+
+    // Initialize scan tuple slot with appropriate row type
+    ExecInitScanTupleSlot(estate, &scanstate->ss,
+                         RelationGetDescr(scanstate->ss.ss_currentRelation),
+                         table_slot_callbacks(scanstate->ss.ss_currentRelation));
+
+    // Initialize result handling
+    ExecInitResultTypeTL(&scanstate->ss.ps);
+    ExecAssignScanProjectionInfo(&scanstate->ss);
+
+    // Initialize qualification expressions
+    scanstate->ss.ps.qual = ExecInitQual(node->scan.plan.qual, (PlanState *) scanstate);
+
+    return scanstate;
+}
+```

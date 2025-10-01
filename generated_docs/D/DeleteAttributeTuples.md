@@ -53,3 +53,35 @@ This function is designed to be shared between relation deletion and index delet
 - This operation is typically performed before DeleteRelationTuple, as part of the comprehensive cleanup process when dropping database objects
 - The function handles both regular table attributes and index attributes, making it a versatile component in PostgreSQL's object deletion infrastructure
 - Each CatalogTupleDelete call also maintains any indexes on pg_attribute, ensuring catalog consistency throughout the deletion process
+
+## Simplified Source
+
+```c
+void DeleteAttributeTuples(Oid relid)
+{
+    Relation attrel;
+    SysScanDesc scan;
+    ScanKeyData key[1];
+    HeapTuple atttup;
+
+    // Open pg_attribute catalog with exclusive lock
+    attrel = table_open(AttributeRelationId, RowExclusiveLock);
+
+    // Set up scan key to find all attributes for this relation
+    ScanKeyInit(&key[0], Anum_pg_attribute_attrelid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(relid));
+
+    // Start indexed scan for efficient attribute lookup
+    scan = systable_beginscan(attrel, AttributeRelidNumIndexId, true,
+                              NULL, 1, key);
+
+    // Delete all matching attribute tuples
+    while ((atttup = systable_getnext(scan)) != NULL)
+        CatalogTupleDelete(attrel, &atttup->t_self);
+
+    // Clean up scan and close catalog
+    systable_endscan(scan);
+    table_close(attrel, RowExclusiveLock);
+}
+```

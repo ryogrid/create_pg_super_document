@@ -53,3 +53,37 @@ The  function serves as a control flow manager in JSONPath execution. It determi
 - Implements conditional value copying based on the copy parameter to optimize memory usage
 - Returns jperOk when successfully completing the chain without finding a next item to execute
 - Central to the sequential execution model of JSONPath expressions
+
+## Simplified Source
+
+```c
+static JsonPathExecResult
+executeNextItem(JsonPathExecContext *cxt,
+                JsonPathItem *cur, JsonPathItem *next,
+                JsonbValue *v, JsonValueList *found, bool copy)
+{
+    JsonPathItem elem;
+    bool hasNext;
+
+    // Determine if there's a next item to process
+    if (!cur)
+        hasNext = next != NULL;
+    else if (next)
+        hasNext = jspHasNext(cur);
+    else
+    {
+        next = &elem;
+        hasNext = jspGetNext(cur, next);
+    }
+
+    // If there's a next item, continue execution
+    if (hasNext)
+        return executeItem(cxt, next, v, found);
+
+    // No more items - add value to results if collecting
+    if (found)
+        JsonValueListAppend(found, copy ? copyJsonbValue(v) : v);
+
+    return jperOk;
+}
+```

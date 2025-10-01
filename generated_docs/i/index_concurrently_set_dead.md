@@ -45,3 +45,31 @@ This function is specifically designed for concurrent operations where the index
 - After this function executes, no new queries will use the index, though it may still be open for updates by existing transactions
 - The function ensures proper cleanup of predicate locks, which is crucial for serializable transaction isolation
 - Cache invalidation affects the entire table's index list, not just the specific index being dropped
+
+## Simplified Source
+
+```c
+void index_concurrently_set_dead(Oid heapId, Oid indexId)
+{
+    Relation userHeapRelation;
+    Relation userIndexRelation;
+
+    // Open both heap and index relations with exclusive lock
+    userHeapRelation = table_open(heapId, ShareUpdateExclusiveLock);
+    userIndexRelation = index_open(indexId, ShareUpdateExclusiveLock);
+
+    // Transfer predicate locks from index to heap relation
+    // This prevents conflicts during concurrent operations
+    TransferPredicateLocksToHeapRelation(userIndexRelation);
+
+    // Mark index as dead - unset indisready and indislive flags
+    index_set_state_flags(indexId, INDEX_DROP_SET_DEAD);
+
+    // Invalidate table's relcache so all sessions refresh index list
+    CacheInvalidateRelcache(userHeapRelation);
+
+    // Close relations while keeping session locks
+    table_close(userHeapRelation, NoLock);
+    index_close(userIndexRelation, NoLock);
+}
+```

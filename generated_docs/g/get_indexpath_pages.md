@@ -40,3 +40,46 @@ The function uses a recursive approach to handle nested bitmap operations, ensur
 - Same indexes may be counted multiple times if they appear in different parts of the bitmap tree
 - Error handling includes logging unrecognized node types
 - Located in src/backend/optimizer/path/costsize.c:963-1012
+
+## Simplified Source
+
+```c
+static double
+get_indexpath_pages(Path *bitmapqual)
+{
+    double result = 0;
+
+    if (IsA(bitmapqual, BitmapAndPath))
+    {
+        // Sum pages from all AND children
+        BitmapAndPath *apath = (BitmapAndPath *) bitmapqual;
+
+        foreach(ListCell *l, apath->bitmapquals)
+        {
+            result += get_indexpath_pages((Path *) lfirst(l));
+        }
+    }
+    else if (IsA(bitmapqual, BitmapOrPath))
+    {
+        // Sum pages from all OR children
+        BitmapOrPath *opath = (BitmapOrPath *) bitmapqual;
+
+        foreach(ListCell *l, opath->bitmapquals)
+        {
+            result += get_indexpath_pages((Path *) lfirst(l));
+        }
+    }
+    else if (IsA(bitmapqual, IndexPath))
+    {
+        // Get actual page count from index
+        IndexPath *ipath = (IndexPath *) bitmapqual;
+        result = (double) ipath->indexinfo->pages;
+    }
+    else
+    {
+        elog(ERROR, "unrecognized node type: %d", nodeTag(bitmapqual));
+    }
+
+    return result;
+}
+```

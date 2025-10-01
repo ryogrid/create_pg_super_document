@@ -51,3 +51,54 @@ The conversion process involves decomposing the timestamp into components, deter
 - Critical for implementing timestamp comparison operations that must handle boundary conditions
 - Located in src/backend/utils/adt/timestamp.c:6304-6355
 - Error handling includes specific error code ERRCODE_DATETIME_VALUE_OUT_OF_RANGE when overflow parameter is NULL
+
+## Simplified Source
+
+```c
+TimestampTz
+timestamp2timestamptz_opt_overflow(Timestamp timestamp, int *overflow)
+{
+    TimestampTz result;
+    struct pg_tm tt, *tm = &tt;
+    fsec_t fsec;
+    int tz;
+
+    if (overflow)
+        *overflow = 0;
+
+    // Pass through infinite timestamps unchanged
+    if (TIMESTAMP_NOT_FINITE(timestamp))
+        return timestamp;
+
+    // Convert timestamp to components and determine timezone offset
+    if (timestamp2tm(timestamp, NULL, tm, &fsec, NULL, NULL) == 0) {
+        tz = DetermineTimeZoneOffset(tm, session_timezone);
+
+        // Apply timezone offset to convert to UTC
+        result = dt2local(timestamp, -tz);
+
+        // Check if result is within valid range
+        if (IS_VALID_TIMESTAMP(result)) {
+            return result;
+        }
+        // Handle overflow cases if overflow parameter provided
+        else if (overflow) {
+            if (result < MIN_TIMESTAMP) {
+                *overflow = -1;
+                TIMESTAMP_NOBEGIN(result);
+            } else {
+                *overflow = 1;
+                TIMESTAMP_NOEND(result);
+            }
+            return result;
+        }
+    }
+
+    // Error if no overflow handling requested
+    ereport(ERROR,
+            (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+             errmsg("timestamp out of range")));
+
+    return 0;
+}
+```

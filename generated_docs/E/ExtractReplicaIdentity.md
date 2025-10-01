@@ -59,3 +59,68 @@ For REPLICA_IDENTITY_FULL, it returns the entire tuple, flattening any external/
 - Essential for logical decoding and replication to identify specific rows across different PostgreSQL instances
 - The key_required optimization allows skipping identity extraction when no key columns have changed
 - For relations without logical logging enabled, always returns NULL
+
+## Simplified Source
+
+```c
+static HeapTuple ExtractReplicaIdentity(Relation relation, HeapTuple tp,
+                                       bool key_required, bool *copy) {
+    TupleDesc desc = RelationGetDescr(relation);
+    char replident = relation->rd_rel->relreplident;
+    *copy = false;
+
+    // Return NULL if relation doesn't need logical logging
+    if (!RelationIsLogicallyLogged(relation))
+        return NULL;
+
+    // Handle different replica identity types
+    if (replident == REPLICA_IDENTITY_NOTHING)
+        return NULL;
+
+    if (replident == REPLICA_IDENTITY_FULL) {
+        // For full replica identity, flatten external columns if needed
+        if (HeapTupleHasExternal(tp)) {
+            *copy = true;
+            tp = toast_flatten_tuple(tp, desc);
+        }
+        return tp;
+    }
+
+    // For index-based replica identity, check if key is required
+    if (!key_required)
+        return NULL;
+
+    // Get replica identity columns from index
+    Bitmapset *idattrs = RelationGetIndexAttrBitmap(relation,
+                                                   INDEX_ATTR_BITMAP_IDENTITY_KEY);
+    if (bms_is_empty(idattrs))
+        return NULL;
+
+    // Build new tuple with only replica identity columns
+    Datum values[MaxHeapAttributeNumber];
+    bool nulls[MaxHeapAttributeNumber];
+
+    heap_deform_tuple(tp, desc, values, nulls);
+
+    // Set non-identity columns to NULL
+    for (int i = 0; i < desc->natts; i++) {
+        if (bms_is_member(i + 1 - FirstLowInvalidHeapAttributeNumber, idattrs))
+            Assert(!nulls[i]); // Identity columns cannot be NULL
+        else
+            nulls[i] = true;
+    }
+
+    HeapTuple key_tuple = heap_form_tuple(desc, values, nulls);
+    *copy = true;
+    bms_free(idattrs);
+
+    // Flatten external columns in the key tuple if needed
+    if (HeapTupleHasExternal(key_tuple)) {
+        HeapTuple oldtup = key_tuple;
+        key_tuple = toast_flatten_tuple(oldtup, desc);
+        heap_freetuple(oldtup);
+    }
+
+    return key_tuple;
+}
+```

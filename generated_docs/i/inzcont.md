@@ -33,3 +33,20 @@ The function validates that the number of fields is between ZONEC_MINFIELDS (3) 
 - Passes true as the iscont parameter to inzsub to indicate this is a continuation line
 - Part of PostgreSQL's timezone data compilation system (zic)
 - Continuation lines allow complex timezone definitions to span multiple input lines
+
+## Simplified Source
+
+```c
+static bool
+inzcont(char **fields, int nfields)
+{
+    // Validate field count for zone continuation lines
+    if (nfields < ZONEC_MINFIELDS || nfields > ZONEC_MAXFIELDS) {
+        error(_("wrong number of fields on Zone continuation line"));
+        return false;
+    }
+
+    // Process the zone continuation data
+    return inzsub(fields, nfields, true);
+}
+```

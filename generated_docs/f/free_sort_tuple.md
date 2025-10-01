@@ -38,3 +38,21 @@ The function is designed to be safe to call multiple times on the same SortTuple
 - The function sets the tuple pointer to NULL after freeing to prevent accidental reuse
 - Used internally within tuplesort operations for memory management
 - Essential for preventing memory leaks during large sort operations that may exceed available memory
+
+## Simplified Source
+
+```c
+static void free_sort_tuple(Tuplesortstate *state, SortTuple *stup) {
+    // Only free if tuple pointer is valid
+    if (stup->tuple) {
+        // Update memory accounting before freeing
+        FREEMEM(state, GetMemoryChunkSpace(stup->tuple));
+
+        // Free the tuple memory
+        pfree(stup->tuple);
+
+        // Clear pointer to prevent double-free
+        stup->tuple = NULL;
+    }
+}
+```

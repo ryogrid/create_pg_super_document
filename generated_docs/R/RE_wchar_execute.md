@@ -41,3 +41,29 @@ The function is designed to work with PostgreSQL's internal wide character repre
 - Works with Spencer's regex library which requires wide character input
 - The pmatch parameter can be NULL if match position details are not needed
 - Supports starting searches at arbitrary positions within the data for incremental matching
+
+## Simplified Source
+
+```c
+static bool
+RE_wchar_execute(regex_t *re, pg_wchar *data, int data_len,
+                 int start_search, int nmatch, regmatch_t *pmatch)
+{
+    // Execute regex against wide character data
+    int regexec_result = pg_regexec(re, data, data_len, start_search,
+                                   NULL, nmatch, pmatch, 0);
+
+    // Handle regex execution errors
+    if (regexec_result != REG_OKAY && regexec_result != REG_NOMATCH)
+    {
+        char errMsg[100];
+        pg_regerror(regexec_result, re, errMsg, sizeof(errMsg));
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_REGULAR_EXPRESSION),
+                 errmsg("regular expression failed: %s", errMsg)));
+    }
+
+    // Return true if match found, false otherwise
+    return (regexec_result == REG_OKAY);
+}
+```

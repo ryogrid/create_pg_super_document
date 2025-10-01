@@ -56,3 +56,98 @@ The function constructs a comprehensive list of available clauses including rest
 - Supports re-computation when new restrictions are added, though this rarely happens in core code
 - Computes indrestrictinfo even for non-predOK indexes as they may be useful in OR clauses
 - File location: src/backend/optimizer/path/indxpath.c:3244-3381
+
+## Simplified Source
+
+This simplified version focuses on the core predicate checking logic:
+
+```c
+void check_index_predicates(PlannerInfo *root, RelOptInfo *rel)
+{
+    List *clauselist;
+    bool have_partial;
+    bool is_target_rel;
+    Relids otherrels;
+    ListCell *lc;
+
+    // Only works on base or "other" member relations
+    Assert(IS_SIMPLE_REL(rel));
+
+    // Initialize and check for partial indexes
+    have_partial = false;
+    foreach(lc, rel->indexlist)
+    {
+        IndexOptInfo *index = (IndexOptInfo *) lfirst(lc);
+        index->indrestrictinfo = rel->baserestrictinfo;
+        if (index->indpred)
+            have_partial = true;
+    }
+    if (!have_partial)
+        return;  /* No partial indexes to process */
+
+    // Build list of clauses we can assume true
+    clauselist = list_copy(rel->baserestrictinfo);
+
+    // Add movable join clauses
+    foreach(lc, rel->joininfo)
+    {
+        RestrictInfo *rinfo = (RestrictInfo *) lfirst(lc);
+        if (join_clause_is_movable_to(rinfo, rel))
+            clauselist = lappend(clauselist, rinfo);
+    }
+
+    // Add equivalence-derivable join clauses
+    if (rel->reloptkind == RELOPT_OTHER_MEMBER_REL)
+        otherrels = bms_difference(root->all_query_rels,
+                                 find_childrel_parents(root, rel));
+    else
+        otherrels = bms_difference(root->all_query_rels, rel->relids);
+    otherrels = bms_del_members(otherrels, rel->nulling_relids);
+
+    if (!bms_is_empty(otherrels))
+        clauselist = list_concat(clauselist,
+                               generate_join_implied_equalities(root,
+                                                               bms_union(rel->relids, otherrels),
+                                                               otherrels, rel, NULL));
+
+    // Check if this is a target relation (affects qual removal)
+    is_target_rel = (bms_is_member(rel->relid, root->all_result_relids) ||
+                     get_plan_rowmark(root->rowMarks, rel->relid) != NULL);
+
+    // Test each partial index predicate
+    foreach(lc, rel->indexlist)
+    {
+        IndexOptInfo *index = (IndexOptInfo *) lfirst(lc);
+
+        if (index->indpred == NIL)
+            continue;  /* skip non-partial indexes */
+
+        // Check if predicate is satisfied
+        if (!index->predOK)
+            index->predOK = predicate_implied_by(index->indpred, clauselist, false);
+
+        // For target relations, can't remove implied quals
+        if (is_target_rel)
+            continue;
+
+        // Build restricted qual list (non-implied quals only)
+        index->indrestrictinfo = NIL;
+        foreach(ListCell *lcr, rel->baserestrictinfo)
+        {
+            RestrictInfo *rinfo = (RestrictInfo *) lfirst(lcr);
+
+            if (contain_mutable_functions((Node *) rinfo->clause) ||
+                !predicate_implied_by(list_make1(rinfo->clause),
+                                    index->indpred, false))
+                index->indrestrictinfo = lappend(index->indrestrictinfo, rinfo);
+        }
+    }
+}
+```
+
+**Key simplifications made:**
+- Removed extensive comments while preserving essential logic comments
+- Condensed the clauselist building process but maintained all three sources
+- Simplified the target relation check explanation
+- Preserved all critical safety checks and conditional logic
+- Reduced from ~150 lines to ~70 lines while maintaining full functionality

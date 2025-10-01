@@ -40,3 +40,12 @@ The current implementation uses a simple memory allocation approach, but the int
 - **Memory Context Integration**: Uses the memory context from the bulk write state for proper memory management
 - **Future Optimization**: The interface is designed to accommodate future optimizations like ring buffers without API changes
 - **Ownership Transfer**: Once allocated, the buffer should only be used with smgr_bulk_write() and should not be modified or freed by the caller
+
+## Simplified Source
+
+```c
+BulkWriteBuffer smgr_bulk_get_buf(BulkWriteState *bulkstate) {
+    // Allocate aligned buffer for one database block
+    return MemoryContextAllocAligned(bulkstate->memcxt, BLCKSZ, PG_IO_ALIGN_SIZE, 0);
+}
+```

@@ -33,3 +33,14 @@ ExecEstimateCacheEntryOverheadBytes is a utility function designed specifically 
 - Helps the optimizer decide between different execution strategies based on memory usage projections
 - Does not account for hash table load factor or collision handling overhead
 - Simple linear calculation: fixed entry overhead + (per-tuple overhead × number of tuples)
+
+## Simplified Source
+
+```c
+double ExecEstimateCacheEntryOverheadBytes(double ntuples) {
+    // Calculate memory overhead for a cache entry:
+    // - Fixed overhead: MemoizeEntry + MemoizeKey structures
+    // - Variable overhead: MemoizeTuple structures per tuple
+    return sizeof(MemoizeEntry) + sizeof(MemoizeKey) + sizeof(MemoizeTuple) * ntuples;
+}
+```

@@ -42,3 +42,64 @@ The `compute_trivial_stats` function performs minimal statistical analysis when 
 - If only nulls are found, assumes the entire column is null
 - Includes vacuum delay points to allow interruption during long analysis operations
 - Used when data types lack hash equality operators needed for more detailed statistical analysis
+
+## Simplified Source
+
+```c
+static void compute_trivial_stats(VacAttrStatsP stats,
+                                 AnalyzeAttrFetchFunc fetchfunc,
+                                 int samplerows,
+                                 double totalrows) {
+    int null_cnt = 0, nonnull_cnt = 0;
+    double total_width = 0;
+    bool is_varlena = (!stats->attrtype->typbyval &&
+                      stats->attrtype->typlen == -1);
+    bool is_varwidth = (!stats->attrtype->typbyval &&
+                       stats->attrtype->typlen < 0);
+
+    // Scan all sample rows to compute basic statistics
+    for (int i = 0; i < samplerows; i++) {
+        Datum value;
+        bool isnull;
+
+        vacuum_delay_point();
+        value = fetchfunc(stats, i, &isnull);
+
+        if (isnull) {
+            null_cnt++;
+            continue;
+        }
+        nonnull_cnt++;
+
+        // Calculate width for variable-length types
+        if (is_varlena) {
+            total_width += VARSIZE_ANY(DatumGetPointer(value));
+        }
+        else if (is_varwidth) {
+            // Handle cstring type
+            total_width += strlen(DatumGetCString(value)) + 1;
+        }
+    }
+
+    // Set statistics based on what we found
+    if (nonnull_cnt > 0) {
+        stats->stats_valid = true;
+        stats->stanullfrac = (double) null_cnt / (double) samplerows;
+
+        if (is_varwidth) {
+            stats->stawidth = total_width / (double) nonnull_cnt;
+        } else {
+            stats->stawidth = stats->attrtype->typlen;
+        }
+
+        stats->stadistinct = 0.0; // "unknown" - can't compute without equality operator
+    }
+    else if (null_cnt > 0) {
+        // Column appears to be entirely null
+        stats->stats_valid = true;
+        stats->stanullfrac = 1.0;
+        stats->stawidth = is_varwidth ? 0 : stats->attrtype->typlen;
+        stats->stadistinct = 0.0;
+    }
+}
+```

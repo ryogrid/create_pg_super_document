@@ -48,3 +48,64 @@ Currently assumes sjinfo == NULL (no outer-join filter clauses), though this res
 - Uses early filtering with bms_overlap to skip irrelevant ECs quickly
 - Part of PostgreSQL's parameterized path optimization infrastructure
 - Provides identical EC processing logic but with controlled input scope
+
+## Simplified Source
+
+```c
+List *generate_join_implied_equalities_for_ecs(PlannerInfo *root,
+                                              List *eclasses,
+                                              Relids join_relids,
+                                              Relids outer_relids,
+                                              RelOptInfo *inner_rel) {
+    List *result = NIL;
+    Relids inner_relids = inner_rel->relids;
+    Relids nominal_inner_relids;
+    Relids nominal_join_relids;
+    ListCell *lc;
+
+    // Handle child relations - use parent relids for EC matching
+    if (IS_OTHER_REL(inner_rel)) {
+        Assert(!bms_is_empty(inner_rel->top_parent_relids));
+        nominal_inner_relids = inner_rel->top_parent_relids;
+        nominal_join_relids = bms_union(outer_relids, nominal_inner_relids);
+    } else {
+        nominal_inner_relids = inner_relids;
+        nominal_join_relids = join_relids;
+    }
+
+    // Process each equivalence class in the provided list
+    foreach(lc, eclasses) {
+        EquivalenceClass *ec = (EquivalenceClass *) lfirst(lc);
+        List *sublist = NIL;
+
+        // Skip ECs that won't generate useful join clauses
+        if (ec->ec_has_const)                           // Constants need no enforcement
+            continue;
+        if (list_length(ec->ec_members) <= 1)           // Single members can't generate joins
+            continue;
+        if (!bms_overlap(ec->ec_relids, nominal_join_relids))  // Must overlap join
+            continue;
+
+        // Generate join clauses using appropriate method
+        if (!ec->ec_broken) {
+            sublist = generate_join_implied_equalities_normal(root, ec,
+                                                             join_relids,
+                                                             outer_relids,
+                                                             inner_relids);
+        }
+
+        // Fall back to broken EC handling if needed
+        if (ec->ec_broken) {
+            sublist = generate_join_implied_equalities_broken(root, ec,
+                                                             nominal_join_relids,
+                                                             outer_relids,
+                                                             nominal_inner_relids,
+                                                             inner_rel);
+        }
+
+        result = list_concat(result, sublist);
+    }
+
+    return result;
+}
+```

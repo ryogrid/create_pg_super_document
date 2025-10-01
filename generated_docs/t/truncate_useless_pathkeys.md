@@ -48,3 +48,27 @@ The function takes the maximum count from all four evaluations, ensuring that pa
 - The function safely avoids modifying the input list destructively
 - This optimization is crucial for maintaining efficient pathkey management throughout query planning
 - Used extensively in index path building and join pathkey construction
+
+## Simplified Source
+
+```c
+List *
+truncate_useless_pathkeys(PlannerInfo *root, RelOptInfo *rel, List *pathkeys)
+{
+    int nuseful;
+
+    // Find maximum usefulness across all optimization contexts
+    nuseful = pathkeys_useful_for_merging(root, rel, pathkeys);
+    nuseful = Max(nuseful, pathkeys_useful_for_ordering(root, pathkeys));
+    nuseful = Max(nuseful, pathkeys_useful_for_grouping(root, pathkeys));
+    nuseful = Max(nuseful, pathkeys_useful_for_setop(root, pathkeys));
+
+    // Return appropriate result based on usefulness count
+    if (nuseful == 0)
+        return NIL;                              // No useful pathkeys
+    else if (nuseful == list_length(pathkeys))
+        return pathkeys;                         // All pathkeys useful
+    else
+        return list_copy_head(pathkeys, nuseful); // Truncate to useful portion
+}
+```

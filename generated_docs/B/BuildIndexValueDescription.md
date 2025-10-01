@@ -45,3 +45,71 @@ The function implements comprehensive security checks to prevent data leakage by
 - The function respects Row Level Security policies and will not expose data when RLS is enabled
 - Values are formatted using the appropriate output functions for their data types
 - NULL values are displayed as the literal string "null" in the output
+
+## Simplified Source
+
+```c
+char *
+BuildIndexValueDescription(Relation indexRelation,
+                          const Datum *values, const bool *isnull)
+{
+    StringInfoData buf;
+    Form_pg_index idxrec;
+    int indnkeyatts;
+    Oid indexrelid = RelationGetRelid(indexRelation);
+    Oid indrelid;
+
+    indnkeyatts = IndexRelationGetNumberOfKeyAttributes(indexRelation);
+
+    // Check permissions - return NULL if user lacks access
+    idxrec = indexRelation->rd_index;
+    indrelid = idxrec->indrelid;
+
+    // Return NULL if RLS is enabled to avoid data leakage
+    if (check_enable_rls(indrelid, InvalidOid, true) == RLS_ENABLED)
+        return NULL;
+
+    // Check table-level SELECT permission
+    AclResult aclresult = pg_class_aclcheck(indrelid, GetUserId(), ACL_SELECT);
+    if (aclresult != ACLCHECK_OK) {
+        // No table-level access, check each column individually
+        for (int keyno = 0; keyno < indnkeyatts; keyno++) {
+            AttrNumber attnum = idxrec->indkey.values[keyno];
+
+            // Return NULL for expression indexes or columns without permission
+            if (attnum == InvalidAttrNumber ||
+                pg_attribute_aclcheck(indrelid, attnum, GetUserId(),
+                                    ACL_SELECT) != ACLCHECK_OK) {
+                return NULL;
+            }
+        }
+    }
+
+    // Build the description string
+    initStringInfo(&buf);
+    appendStringInfo(&buf, "(%s)=(",
+                    pg_get_indexdef_columns(indexrelid, true));
+
+    for (int i = 0; i < indnkeyatts; i++) {
+        char *val;
+
+        if (isnull[i]) {
+            val = "null";
+        } else {
+            // Get output function for the opclass input type
+            Oid foutoid;
+            bool typisvarlena;
+            getTypeOutputInfo(indexRelation->rd_opcintype[i],
+                            &foutoid, &typisvarlena);
+            val = OidOutputFunctionCall(foutoid, values[i]);
+        }
+
+        if (i > 0)
+            appendStringInfoString(&buf, ", ");
+        appendStringInfoString(&buf, val);
+    }
+
+    appendStringInfoChar(&buf, ')');
+    return buf.data;
+}
+```

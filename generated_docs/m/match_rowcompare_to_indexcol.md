@@ -49,3 +49,70 @@ The function performs several key validations: it ensures the index is a B-tree 
 - Supports B-tree strategy operators: <, <=, >=, > for establishing scan bounds
 - The function avoids matching based on opfamily alone to handle reverse-sort opfamilies correctly
 - Essential for optimizing complex multi-column WHERE clauses and ORDER BY operations
+
+## Simplified Source
+
+```c
+static IndexClause *
+match_rowcompare_to_indexcol(PlannerInfo *root,
+                             RestrictInfo *rinfo,
+                             int indexcol,
+                             IndexOptInfo *index)
+{
+    RowCompareExpr *clause = (RowCompareExpr *) rinfo->clause;
+    Index index_relid = index->rel->relid;
+    Oid opfamily = index->opfamily[indexcol];
+    Oid idxcollation = index->indexcollations[indexcol];
+    Node *leftop, *rightop;
+    bool var_on_left;
+    Oid expr_op, expr_coll;
+
+    // Only B-tree indexes support row comparisons
+    if (index->relam != BTREE_AM_OID)
+        return NULL;
+
+    // Get first column comparison details
+    leftop = (Node *) linitial(clause->largs);
+    rightop = (Node *) linitial(clause->rargs);
+    expr_op = linitial_oid(clause->opnos);
+    expr_coll = linitial_oid(clause->inputcollids);
+
+    // Check collation compatibility
+    if (!IndexCollMatchesExprColl(idxcollation, expr_coll))
+        return NULL;
+
+    // Check for (indexkey op constant) pattern
+    if (match_index_to_operand(leftop, indexcol, index) &&
+        !bms_is_member(index_relid, pull_varnos(root, rightop)) &&
+        !contain_volatile_functions(rightop))
+    {
+        var_on_left = true;
+    }
+    // Check for (constant op indexkey) pattern
+    else if (match_index_to_operand(rightop, indexcol, index) &&
+             !bms_is_member(index_relid, pull_varnos(root, leftop)) &&
+             !contain_volatile_functions(leftop))
+    {
+        // Need to commute operator
+        expr_op = get_commutator(expr_op);
+        if (expr_op == InvalidOid)
+            return NULL;
+        var_on_left = false;
+    }
+    else
+        return NULL;
+
+    // Check if operator supports B-tree strategy
+    switch (get_op_opfamily_strategy(expr_op, opfamily))
+    {
+        case BTLessStrategyNumber:
+        case BTLessEqualStrategyNumber:
+        case BTGreaterEqualStrategyNumber:
+        case BTGreaterStrategyNumber:
+            return expand_indexqual_rowcompare(root, rinfo, indexcol,
+                                             index, expr_op, var_on_left);
+    }
+
+    return NULL;
+}
+```

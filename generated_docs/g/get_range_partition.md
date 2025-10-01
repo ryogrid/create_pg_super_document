@@ -52,3 +52,25 @@ This filtering mechanism is crucial during partition-wise joins where some parti
 - The dummy partition filtering is essential for handling asymmetric partitioned tables in joins
 - The lb and ub parameters are output parameters that receive the boundary information for the found partition
 - This function is primarily used during range partition boundary merging operations where coordination between multiple partitioned relations is required
+
+## Simplified Source
+
+```c
+static int
+get_range_partition(RelOptInfo *rel, PartitionBoundInfo bi,
+                   int *lb_pos, PartitionRangeBound *lb,
+                   PartitionRangeBound *ub)
+{
+    int part_index;
+
+    // Keep trying until we find a non-dummy partition
+    do
+    {
+        part_index = get_range_partition_internal(bi, lb_pos, lb, ub);
+        if (part_index == -1)
+            return -1;  // No more partitions
+    } while (is_dummy_partition(rel, part_index));
+
+    return part_index;
+}
+```

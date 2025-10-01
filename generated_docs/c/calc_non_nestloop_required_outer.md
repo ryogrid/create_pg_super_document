@@ -37,3 +37,30 @@ This function calculates the set of relations that must be provided as parameter
 - The bms_union function correctly handles empty parameter sets, so no explicit empty check is needed
 - Memory management: the result does not share storage with the input paths to prevent corruption
 - This is a core utility function for non-nested loop join planning in the PostgreSQL query optimizer
+
+## Simplified Source
+
+```c
+Relids calc_non_nestloop_required_outer(Path *outer_path, Path *inner_path) {
+    // Get parameter requirements from both input paths
+    Relids outer_paramrels = PATH_REQ_OUTER(outer_path);
+    Relids inner_paramrels = PATH_REQ_OUTER(inner_path);
+
+    // Get relation IDs, using top-parent for partitioned tables
+    Relids outer_relids = outer_path->parent->top_parent_relids ?
+                         outer_path->parent->top_parent_relids :
+                         outer_path->parent->relids;
+
+    Relids inner_relids = inner_path->parent->top_parent_relids ?
+                         inner_path->parent->top_parent_relids :
+                         inner_path->parent->relids;
+
+    // Validate: neither path can depend on relations from the other side
+    // (merge/hash joins cannot pass parameters between input sides)
+    Assert(!bms_overlap(outer_paramrels, inner_relids));
+    Assert(!bms_overlap(inner_paramrels, outer_relids));
+
+    // Combine parameter requirements from both sides
+    return bms_union(outer_paramrels, inner_paramrels);
+}
+```

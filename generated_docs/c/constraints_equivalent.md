@@ -42,3 +42,24 @@ If any of these comparisons fail, the constraints are considered non-equivalent.
 - The decompile_conbin function handles the complexity of converting binary constraint expressions to comparable text form
 - This function is primarily used during inheritance and partitioning operations to determine if constraints need to be merged or are already equivalent
 - Returns true only if constraints are identical in all checked aspects (deferrable flags and expression text)
+
+## Simplified Source
+
+```c
+static bool
+constraints_equivalent(HeapTuple a, HeapTuple b, TupleDesc tupleDesc)
+{
+    // Extract constraint forms from tuples
+    Form_pg_constraint acon = (Form_pg_constraint) GETSTRUCT(a);
+    Form_pg_constraint bcon = (Form_pg_constraint) GETSTRUCT(b);
+
+    // Compare deferrable properties and decompiled expressions
+    if (acon->condeferrable != bcon->condeferrable ||
+        acon->condeferred != bcon->condeferred ||
+        strcmp(decompile_conbin(a, tupleDesc),
+               decompile_conbin(b, tupleDesc)) != 0)
+        return false;
+
+    return true;
+}
+```

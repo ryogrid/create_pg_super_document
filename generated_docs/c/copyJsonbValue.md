@@ -32,3 +32,14 @@ The copyJsonbValue function creates a shallow copy of a JsonbValue structure. It
 - Memory is allocated using palloc(), which is PostgreSQL's memory management system
 - The function is static, meaning it's only visible within the jsonpath_exec.c file
 - Used in JSONPath execution error handling and item processing contexts
+
+## Simplified Source
+
+```c
+static JsonbValue *
+copyJsonbValue(JsonbValue *src) {
+    JsonbValue *dst = palloc(sizeof(*dst));
+    *dst = *src;  // Shallow copy of structure
+    return dst;
+}
+```

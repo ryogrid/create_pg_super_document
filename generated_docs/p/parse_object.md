@@ -51,3 +51,69 @@ The function includes stack depth checking in non-frontend builds to prevent sta
 - Stack depth checking prevents stack overflow in deeply nested JSON structures
 - Error handling preserves parse context for meaningful error reporting
 - Part of PostgreSQL's common JSON parsing infrastructure used across multiple modules
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+parse_object(JsonLexContext *lex, JsonSemAction *sem)
+{
+    json_struct_action ostart = sem->object_start;
+    json_struct_action oend = sem->object_end;
+    JsonTokenType tok;
+    JsonParseErrorType result;
+
+    // Call object start semantic action
+    if (ostart != NULL) {
+        result = (*ostart)(sem->semstate);
+        if (result != JSON_SUCCESS)
+            return result;
+    }
+
+    // Increment nesting level
+    lex->lex_level++;
+
+    // Consume opening brace
+    result = json_lex(lex);
+    if (result != JSON_SUCCESS)
+        return result;
+
+    // Parse object fields
+    tok = lex_peek(lex);
+    switch (tok) {
+        case JSON_TOKEN_STRING:
+            result = parse_object_field(lex, sem);
+            // Parse additional fields separated by commas
+            while (result == JSON_SUCCESS && lex_peek(lex) == JSON_TOKEN_COMMA) {
+                result = json_lex(lex);  // consume comma
+                if (result != JSON_SUCCESS)
+                    break;
+                result = parse_object_field(lex, sem);
+            }
+            break;
+        case JSON_TOKEN_OBJECT_END:
+            break;  // Empty object
+        default:
+            result = report_parse_error(JSON_PARSE_OBJECT_START, lex);
+    }
+    if (result != JSON_SUCCESS)
+        return result;
+
+    // Expect closing brace
+    result = lex_expect(JSON_PARSE_OBJECT_NEXT, lex, JSON_TOKEN_OBJECT_END);
+    if (result != JSON_SUCCESS)
+        return result;
+
+    // Decrement nesting level
+    lex->lex_level--;
+
+    // Call object end semantic action
+    if (oend != NULL) {
+        result = (*oend)(sem->semstate);
+        if (result != JSON_SUCCESS)
+            return result;
+    }
+
+    return JSON_SUCCESS;
+}
+```

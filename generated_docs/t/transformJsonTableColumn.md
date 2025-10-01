@@ -44,3 +44,53 @@ When no explicit path is specified, it automatically generates a default JSONPat
 - Default path generation ensures valid JSONPath syntax by properly escaping column names
 - The location information is preserved for better error reporting during execution
 - Column names are stored for runtime error context in JsonExpr operations
+
+## Simplified Source
+
+```c
+static JsonFuncExpr *
+transformJsonTableColumn(JsonTableColumn *jtc, Node *contextItemExpr, List *passingArgs)
+{
+    JsonFuncExpr *jfexpr = makeNode(JsonFuncExpr);
+
+    // Choose JSON operation type based on column type
+    if (jtc->coltype == JTC_REGULAR)
+        jfexpr->op = JSON_VALUE_OP;
+    else if (jtc->coltype == JTC_EXISTS)
+        jfexpr->op = JSON_EXISTS_OP;
+    else
+        jfexpr->op = JSON_QUERY_OP;
+
+    // Store column name for error reporting
+    jfexpr->column_name = pstrdup(jtc->name);
+
+    // Set up context item with JSON format defaults
+    jfexpr->context_item = makeJsonValueExpr((Expr *) contextItemExpr, NULL,
+                                           makeJsonFormat(JS_FORMAT_DEFAULT, JS_ENC_DEFAULT, -1));
+
+    // Use specified path or generate default path: $.\"column_name\"
+    if (jtc->pathspec) {
+        jfexpr->pathspec = (Node *) jtc->pathspec->string;
+    } else {
+        StringInfoData path;
+        initStringInfo(&path);
+        appendStringInfoString(&path, "$.");
+        escape_json(&path, jtc->name);
+        jfexpr->pathspec = makeStringConst(path.data, -1);
+    }
+
+    // Copy remaining properties from column definition
+    jfexpr->passing = passingArgs;
+    jfexpr->output = makeNode(JsonOutput);
+    jfexpr->output->typeName = jtc->typeName;
+    jfexpr->output->returning = makeNode(JsonReturning);
+    jfexpr->output->returning->format = jtc->format;
+    jfexpr->on_empty = jtc->on_empty;
+    jfexpr->on_error = jtc->on_error;
+    jfexpr->quotes = jtc->quotes;
+    jfexpr->wrapper = jtc->wrapper;
+    jfexpr->location = jtc->location;
+
+    return jfexpr;
+}
+```

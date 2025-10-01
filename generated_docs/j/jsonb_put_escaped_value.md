@@ -38,3 +38,35 @@ This function takes a JSONB scalar value and converts it to its JSON string repr
 - [Boolean](../B/Boolean.md) values are converted to the standard JSON literals "true" and "false"
 - The function will raise an ERROR if an unknown scalar type is encountered
 - This function is primarily used as a helper in JSONB to string conversion routines
+
+## Simplified Source
+
+```c
+static void jsonb_put_escaped_value(StringInfo out, JsonbValue *scalarVal) {
+    switch (scalarVal->type) {
+        case jbvNull:
+            appendBinaryStringInfo(out, "null", 4);
+            break;
+        case jbvString:
+            // Escape and append string value
+            escape_json(out, pnstrdup(scalarVal->val.string.val,
+                                     scalarVal->val.string.len));
+            break;
+        case jbvNumeric:
+            // Convert numeric to string representation
+            appendStringInfoString(out,
+                DatumGetCString(DirectFunctionCall1(numeric_out,
+                    PointerGetDatum(scalarVal->val.numeric))));
+            break;
+        case jbvBool:
+            // Output "true" or "false"
+            if (scalarVal->val.boolean)
+                appendBinaryStringInfo(out, "true", 4);
+            else
+                appendBinaryStringInfo(out, "false", 5);
+            break;
+        default:
+            elog(ERROR, "unknown jsonb scalar type");
+    }
+}
+```

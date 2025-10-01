@@ -49,3 +49,48 @@ For outer joins involving default partitions, the function ensures proper handli
 - For outer joins (excluding RIGHT joins), special handling ensures that the default partition from the outer side becomes the default partition of the join result
 - The function is static, indicating it's only used within the partbounds.c file as part of the internal partitioning logic
 - When no outer default exists, the join type must be FULL, as only FULL joins require scanning the entire inner partition when there's no matching outer default
+
+## Simplified Source
+
+```c
+static int
+process_inner_partition(PartitionMap *outer_map, PartitionMap *inner_map,
+                       bool outer_has_default, bool inner_has_default,
+                       int inner_index, int outer_default, JoinType jointype,
+                       int *next_index, int *default_index)
+{
+    int merged_index = -1;
+
+    if (outer_has_default)
+    {
+        // Inner partition can join with outer default partition
+        // But not if inner also has default (too complex for partitionwise join)
+        if (inner_has_default)
+            return -1;
+
+        // Try to merge inner partition with outer default partition
+        merged_index = merge_matching_partitions(outer_map, inner_map,
+                                               outer_default, inner_index,
+                                               next_index);
+        if (merged_index == -1)
+            return -1;
+
+        // For outer joins, the merged partition becomes the default partition
+        if (IS_OUTER_JOIN(jointype))
+        {
+            if (*default_index == -1)
+                *default_index = merged_index;
+        }
+    }
+    else
+    {
+        // No outer default - must be FULL join
+        // Inner partition gets merged with dummy
+        merged_index = inner_map->merged_indexes[inner_index];
+        if (merged_index == -1)
+            merged_index = merge_partition_with_dummy(inner_map, inner_index, next_index);
+    }
+
+    return merged_index;
+}
+```

@@ -33,3 +33,19 @@ The function initializes the new state with default values for unique_keys and s
 - Default initialization sets unique_keys and skip_nulls to false
 - The new state becomes the current top of the stack upon creation
 - Essential for maintaining parsing context during recursive descent through nested JSONB structures
+
+## Simplified Source
+
+```c
+static JsonbParseState *pushState(JsonbParseState **pstate) {
+    // Allocate new parse state
+    JsonbParseState *new_state = palloc(sizeof(JsonbParseState));
+
+    // Link to existing stack and initialize defaults
+    new_state->next = *pstate;
+    new_state->unique_keys = false;
+    new_state->skip_nulls = false;
+
+    return new_state;
+}
+```

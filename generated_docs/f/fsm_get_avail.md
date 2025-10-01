@@ -37,3 +37,19 @@ The function converts the slot number to the corresponding leaf node index by ad
 - Part of PostgreSQL's Free Space Map system for efficient space management
 - The function is optimized for performance since it's frequently called during space searches
 - Direct array access makes this operation very fast compared to tree traversal methods
+
+## Simplified Source
+
+```c
+uint8 fsm_get_avail(Page page, int slot) {
+    // Extract FSM page structure from the page
+    FSMPage fsmpage = (FSMPage) PageGetContents(page);
+
+    // Validate slot is within valid range
+    Assert(slot < LeafNodesPerPage);
+
+    // Return free space value for this slot
+    // Leaf nodes start after NonLeafNodesPerPage
+    return fsmpage->fp_nodes[NonLeafNodesPerPage + slot];
+}
+```

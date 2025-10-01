@@ -38,3 +38,29 @@ This function performs a linear search through the namedRelList of a query envir
 - Performs linear search through the named relation list
 - This is a read-only operation that doesn't modify the query environment
 - The function is used internally by other ENR management functions
+
+## Simplified Source
+
+```c
+EphemeralNamedRelation
+get_ENR(QueryEnvironment *queryEnv, const char *name)
+{
+    ListCell *lc;
+
+    Assert(name != NULL);
+
+    if (queryEnv == NULL)
+        return NULL;
+
+    // Linear search through named relations list
+    foreach(lc, queryEnv->namedRelList)
+    {
+        EphemeralNamedRelation enr = (EphemeralNamedRelation) lfirst(lc);
+
+        if (strcmp(enr->md.name, name) == 0)
+            return enr;
+    }
+
+    return NULL;  // No match found
+}
+```

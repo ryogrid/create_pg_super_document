@@ -39,3 +39,23 @@ The  function implements the STARTS_WITH predicate functionality for JSON path e
 - Both input values must be convertible to string scalars; non-string values result in jpbUnknown (error)
 - Uses binary comparison which is case-sensitive and encoding-aware
 - Part of PostgreSQL's JSON path expression evaluation system
+
+## Simplified Source
+
+```c
+static JsonPathBool
+executeStartsWith(JsonPathItem *jsp, JsonbValue *whole, JsonbValue *initial, void *param) {
+    // Ensure both inputs are string scalars
+    if (!(whole = getScalar(whole, jbvString)))
+        return jpbUnknown;
+    if (!(initial = getScalar(initial, jbvString)))
+        return jpbUnknown;
+
+    // Check if whole string starts with initial string
+    if (whole->val.string.len >= initial->val.string.len &&
+        !memcmp(whole->val.string.val, initial->val.string.val, initial->val.string.len))
+        return jpbTrue;
+
+    return jpbFalse;
+}
+```

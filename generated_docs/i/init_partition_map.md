@@ -36,3 +36,29 @@ The function allocates memory for three arrays based on the number of partitions
 - The did_remapping flag is initially set to false
 - This is a helper function used in the partition merging process for joins
 - Memory allocated here should be freed using free_partition_map when no longer needed
+
+## Simplified Source
+
+```c
+static void init_partition_map(RelOptInfo *rel, PartitionMap *map)
+{
+    int nparts = rel->nparts;
+
+    // Initialize basic map properties
+    map->nparts = nparts;
+    map->did_remapping = false;
+
+    // Allocate arrays for tracking partition state
+    map->merged_indexes = palloc(sizeof(int) * nparts);
+    map->merged = palloc(sizeof(bool) * nparts);
+    map->old_indexes = palloc(sizeof(int) * nparts);
+
+    // Initialize all partitions as unmerged
+    for (int i = 0; i < nparts; i++)
+    {
+        map->merged_indexes[i] = -1;  // No merged index assigned yet
+        map->old_indexes[i] = -1;     // No old index stored yet
+        map->merged[i] = false;       // Not merged yet
+    }
+}
+```

@@ -42,3 +42,24 @@ The `pgstat_reset_entry` function resets the contents of a specific statistics e
 - Part of PostgreSQL's statistics reset and management infrastructure
 - Used for selective statistics clearing rather than bulk operations
 - Location: src/backend/utils/activity/pgstat_shmem.c:1009-1028
+
+## Simplified Source
+
+```c
+void pgstat_reset_entry(PgStat_Kind kind, Oid dboid, Oid objoid, TimestampTz ts) {
+    // Verify this is a variable-numbered entry type (not fixed-amount)
+    Assert(!pgstat_get_kind_info(kind)->fixed_amount);
+
+    // Try to get reference to the statistics entry
+    PgStat_EntryRef *entry_ref = pgstat_get_entry_ref(kind, dboid, objoid, false, NULL);
+
+    // Exit if entry doesn't exist or has been dropped
+    if (!entry_ref || entry_ref->shared_entry->dropped)
+        return;
+
+    // Lock entry, reset its contents, then unlock
+    pgstat_lock_entry(entry_ref, false);
+    shared_stat_reset_contents(kind, entry_ref->shared_stats, ts);
+    pgstat_unlock_entry(entry_ref);
+}
+```

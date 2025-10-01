@@ -49,3 +49,30 @@ This function is primarily used in contexts where sorting needs to match the ord
 - Ensures consistency between sort operations and existing index definitions
 - Strategy validation prevents misuse with invalid B-tree strategy numbers
 - Essential for operations that need to maintain or replicate the sort order of existing B-tree indexes
+
+## Simplified Source
+
+```c
+void
+PrepareSortSupportFromIndexRel(Relation indexRel, int16 strategy,
+                              SortSupport ssup)
+{
+    Oid opfamily = indexRel->rd_opfamily[ssup->ssup_attno - 1];
+    Oid opcintype = indexRel->rd_opcintype[ssup->ssup_attno - 1];
+
+    // Validate this is a B-tree index
+    if (indexRel->rd_rel->relam != BTREE_AM_OID)
+        elog(ERROR, "unexpected non-btree AM: %u", indexRel->rd_rel->relam);
+
+    // Validate strategy is valid for B-tree
+    if (strategy != BTGreaterStrategyNumber &&
+        strategy != BTLessStrategyNumber)
+        elog(ERROR, "unexpected sort support strategy: %d", strategy);
+
+    // Set sort direction based on strategy
+    ssup->ssup_reverse = (strategy == BTGreaterStrategyNumber);
+
+    // Configure the actual comparator function
+    FinishSortSupportFunction(opfamily, opcintype, ssup);
+}
+```

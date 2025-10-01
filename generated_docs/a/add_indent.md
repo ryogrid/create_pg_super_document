@@ -32,3 +32,15 @@ The  function is a simple formatting utility used during JSON serialization to a
 - Uses a fixed indentation of 4 spaces per level, which is a common convention for JSON pretty-printing
 - Only adds formatting when the indent flag is true, allowing the same code path to handle both compact and pretty-printed output
 - The function is lightweight and focused solely on formatting, with no error handling needed due to its simple nature
+
+## Simplified Source
+
+```c
+static void add_indent(StringInfo out, bool indent, int level) {
+    if (indent) {
+        // Add newline and proper indentation (4 spaces per level)
+        appendStringInfoCharMacro(out, '\n');
+        appendStringInfoSpaces(out, level * 4);
+    }
+}
+```

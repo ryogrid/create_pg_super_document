@@ -41,3 +41,38 @@ The function includes comprehensive error handling for missing statistics object
 - Properly manages system cache resources by releasing the tuple after use
 - Part of the query planner's infrastructure for using multivariate statistics in cost estimation
 - The inh parameter allows handling of partitioned tables and inheritance hierarchies
+
+## Simplified Source
+
+```c
+MVNDistinct *
+statext_ndistinct_load(Oid mvoid, bool inh)
+{
+    MVNDistinct *result;
+    bool isnull;
+    Datum ndist;
+    HeapTuple htup;
+
+    // Look up the statistics object in the system cache
+    htup = SearchSysCache2(STATEXTDATASTXOID,
+                          ObjectIdGetDatum(mvoid), BoolGetDatum(inh));
+    if (!HeapTupleIsValid(htup))
+        elog(ERROR, "cache lookup failed for statistics object %u", mvoid);
+
+    // Extract the ndistinct data from the tuple
+    ndist = SysCacheGetAttr(STATEXTDATASTXOID, htup,
+                           Anum_pg_statistic_ext_data_stxdndistinct, &isnull);
+    if (isnull)
+        elog(ERROR,
+             "requested statistics kind \"%c\" is not yet built for statistics object %u",
+             STATS_EXT_NDISTINCT, mvoid);
+
+    // Deserialize the binary data into MVNDistinct structure
+    result = statext_ndistinct_deserialize(DatumGetByteaPP(ndist));
+
+    // Clean up the cache reference
+    ReleaseSysCache(htup);
+
+    return result;
+}
+```

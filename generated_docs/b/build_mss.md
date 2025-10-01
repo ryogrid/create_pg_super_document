@@ -40,3 +40,35 @@ The function ensures that all necessary sorting operators are available and prop
 - The resulting MultiSortSupport can be used for complex multi-column sorting operations
 - Essential infrastructure component for MCV list construction and other multi-column statistical operations
 - Handles the complexity of setting up sort comparisons for heterogeneous column types
+
+## Simplified Source
+
+```c
+static MultiSortSupport
+build_mss(StatsBuildData *data)
+{
+    int i;
+    int numattrs = data->nattnums;
+
+    // Initialize multi-column sort support
+    MultiSortSupport mss = multi_sort_init(numattrs);
+
+    // Set up sort functions for each attribute
+    for (i = 0; i < numattrs; i++)
+    {
+        VacAttrStats *colstat = data->stats[i];
+        TypeCacheEntry *type;
+
+        // Look up the less-than operator for this data type
+        type = lookup_type_cache(colstat->attrtypid, TYPECACHE_LT_OPR);
+        if (type->lt_opr == InvalidOid)
+            elog(ERROR, "cache lookup failed for ordering operator for type %u",
+                 colstat->attrtypid);
+
+        // Add this dimension to the multi-sort support
+        multi_sort_add_dimension(mss, i, type->lt_opr, colstat->attrcollid);
+    }
+
+    return mss;
+}
+```

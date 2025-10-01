@@ -56,3 +56,132 @@ The function also performs important validation, ensuring that right joins and f
 - Merge clauses are preprocessed to extract comparison operators, strategies, and sort information
 - Initial join state is always set to EXEC_MJ_INITIALIZE_OUTER to begin execution
 - Supports all PostgreSQL join types with appropriate semantic configuration
+
+## Simplified Source
+
+```c
+MergeJoinState *
+ExecInitMergeJoin(MergeJoin *node, EState *estate, int eflags)
+{
+    MergeJoinState *mergestate;
+    TupleDesc outerDesc, innerDesc;
+    const TupleTableSlotOps *innerOps;
+
+    // Validate execution flags - backward scan and mark/restore not supported
+    Assert(!(eflags & (EXEC_FLAG_BACKWARD | EXEC_FLAG_MARK)));
+
+    // Create and initialize state structure
+    mergestate = makeNode(MergeJoinState);
+    mergestate->js.ps.plan = (Plan *) node;
+    mergestate->js.ps.state = estate;
+    mergestate->js.ps.ExecProcNode = ExecMergeJoin;
+    mergestate->js.jointype = node->join.jointype;
+    mergestate->mj_ConstFalseJoin = false;
+
+    // Set up expression contexts
+    ExecAssignExprContext(estate, &mergestate->js.ps);
+    mergestate->mj_OuterEContext = CreateExprContext(estate);
+    mergestate->mj_InnerEContext = CreateExprContext(estate);
+
+    // Configure mark/restore optimization
+    Assert(node->join.joinqual == NIL || !node->skip_mark_restore);
+    mergestate->mj_SkipMarkRestore = node->skip_mark_restore;
+
+    // Initialize child nodes
+    outerPlanState(mergestate) = ExecInitNode(outerPlan(node), estate, eflags);
+    outerDesc = ExecGetResultType(outerPlanState(mergestate));
+
+    innerPlanState(mergestate) = ExecInitNode(innerPlan(node), estate,
+                                             mergestate->mj_SkipMarkRestore ?
+                                             eflags : (eflags | EXEC_FLAG_MARK));
+    innerDesc = ExecGetResultType(innerPlanState(mergestate));
+
+    // Set up extra marks optimization for Material nodes
+    if (IsA(innerPlan(node), Material) &&
+        (eflags & EXEC_FLAG_REWIND) == 0 &&
+        !mergestate->mj_SkipMarkRestore)
+        mergestate->mj_ExtraMarks = true;
+    else
+        mergestate->mj_ExtraMarks = false;
+
+    // Initialize result slot and projection
+    ExecInitResultTupleSlotTL(&mergestate->js.ps, &TTSOpsVirtual);
+    ExecAssignProjectionInfo(&mergestate->js.ps, NULL);
+
+    // Set up marked tuple slot for inner relation
+    innerOps = ExecGetResultSlotOps(innerPlanState(mergestate), NULL);
+    mergestate->mj_MarkedTupleSlot = ExecInitExtraTupleSlot(estate, innerDesc, innerOps);
+
+    // Initialize qualification expressions
+    mergestate->js.ps.qual = ExecInitQual(node->join.plan.qual, (PlanState *) mergestate);
+    mergestate->js.joinqual = ExecInitQual(node->join.joinqual, (PlanState *) mergestate);
+
+    // Configure single match optimization
+    mergestate->js.single_match = (node->join.inner_unique ||
+                                  node->join.jointype == JOIN_SEMI);
+
+    // Set up null tuples based on join type
+    switch (node->join.jointype)
+    {
+        case JOIN_INNER:
+        case JOIN_SEMI:
+            mergestate->mj_FillOuter = false;
+            mergestate->mj_FillInner = false;
+            break;
+        case JOIN_LEFT:
+        case JOIN_ANTI:
+            mergestate->mj_FillOuter = true;
+            mergestate->mj_FillInner = false;
+            mergestate->mj_NullInnerTupleSlot =
+                ExecInitNullTupleSlot(estate, innerDesc, &TTSOpsVirtual);
+            break;
+        case JOIN_RIGHT:
+        case JOIN_RIGHT_ANTI:
+            mergestate->mj_FillOuter = false;
+            mergestate->mj_FillInner = true;
+            mergestate->mj_NullOuterTupleSlot =
+                ExecInitNullTupleSlot(estate, outerDesc, &TTSOpsVirtual);
+
+            // Validate that right joins use only merge-joinable conditions
+            if (!check_constant_qual(node->join.joinqual, &mergestate->mj_ConstFalseJoin))
+                ereport(ERROR,
+                       (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                        errmsg("RIGHT JOIN is only supported with merge-joinable join conditions")));
+            break;
+        case JOIN_FULL:
+            mergestate->mj_FillOuter = true;
+            mergestate->mj_FillInner = true;
+            mergestate->mj_NullOuterTupleSlot =
+                ExecInitNullTupleSlot(estate, outerDesc, &TTSOpsVirtual);
+            mergestate->mj_NullInnerTupleSlot =
+                ExecInitNullTupleSlot(estate, innerDesc, &TTSOpsVirtual);
+
+            // Validate that full joins use only merge-joinable conditions
+            if (!check_constant_qual(node->join.joinqual, &mergestate->mj_ConstFalseJoin))
+                ereport(ERROR,
+                       (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                        errmsg("FULL JOIN is only supported with merge-joinable join conditions")));
+            break;
+        default:
+            elog(ERROR, "unrecognized join type: %d", (int) node->join.jointype);
+    }
+
+    // Preprocess merge clauses
+    mergestate->mj_NumClauses = list_length(node->mergeclauses);
+    mergestate->mj_Clauses = MJExamineQuals(node->mergeclauses,
+                                           node->mergeFamilies,
+                                           node->mergeCollations,
+                                           node->mergeStrategies,
+                                           node->mergeNullsFirst,
+                                           (PlanState *) mergestate);
+
+    // Initialize join execution state
+    mergestate->mj_JoinState = EXEC_MJ_INITIALIZE_OUTER;
+    mergestate->mj_MatchedOuter = false;
+    mergestate->mj_MatchedInner = false;
+    mergestate->mj_OuterTupleSlot = NULL;
+    mergestate->mj_InnerTupleSlot = NULL;
+
+    return mergestate;
+}
+```

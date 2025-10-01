@@ -60,3 +60,103 @@ The function uses `do_to_timestamp` for the core parsing logic and then converts
 - Timezone information is extracted and returned separately when timezone components are present
 - Validates format string consistency (e.g., prevents zoned but not timed formats)
 - Part of PostgreSQL's advanced formatting system supporting dynamic type inference
+
+## Simplified Source
+
+```c
+Datum parse_datetime(text *date_txt, text *fmt, Oid collid, bool strict,
+                    Oid *typid, int32 *typmod, int *tz,
+                    Node *escontext)
+{
+    struct pg_tm tm;
+    struct fmt_tz ftz;
+    fsec_t fsec;
+    int fprec;
+    uint32 flags;
+
+    // Parse the input string according to format
+    if (!do_to_timestamp(date_txt, fmt, collid, strict,
+                        &tm, &fsec, &ftz, &fprec, &flags, escontext))
+        return (Datum) 0;
+
+    *typmod = fprec ? fprec : -1;  // Set fractional precision
+
+    // Determine output type based on format flags
+    if (flags & DCH_DATED) {
+        if (flags & DCH_TIMED) {
+            if (flags & DCH_ZONED) {
+                // Date + Time + Timezone -> TimestampTz
+                TimestampTz result;
+
+                if (!ftz.has_tz) {
+                    ereturn(escontext, (Datum) 0,
+                           (errcode(ERRCODE_INVALID_DATETIME_FORMAT),
+                            errmsg("missing time zone in input string for type timestamptz")));
+                }
+
+                *tz = ftz.gmtoffset;
+                tm2timestamp(&tm, fsec, tz, &result);
+                AdjustTimestampForTypmod(&result, *typmod, escontext);
+
+                *typid = TIMESTAMPTZOID;
+                return TimestampTzGetDatum(result);
+            } else {
+                // Date + Time -> Timestamp
+                Timestamp result;
+
+                tm2timestamp(&tm, fsec, NULL, &result);
+                AdjustTimestampForTypmod(&result, *typmod, escontext);
+
+                *typid = TIMESTAMPOID;
+                return TimestampGetDatum(result);
+            }
+        } else {
+            // Date only -> Date
+            DateADT result;
+
+            // Validate date range
+            if (!IS_VALID_JULIAN(tm.tm_year, tm.tm_mon, tm.tm_mday))
+                ereturn(escontext, (Datum) 0,
+                       (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                        errmsg("date out of range")));
+
+            result = date2j(tm.tm_year, tm.tm_mon, tm.tm_mday) - POSTGRES_EPOCH_JDATE;
+
+            *typid = DATEOID;
+            return DateADTGetDatum(result);
+        }
+    } else if (flags & DCH_TIMED) {
+        if (flags & DCH_ZONED) {
+            // Time + Timezone -> TimeTz
+            TimeTzADT *result = palloc(sizeof(TimeTzADT));
+
+            if (!ftz.has_tz) {
+                ereturn(escontext, (Datum) 0,
+                       (errcode(ERRCODE_INVALID_DATETIME_FORMAT),
+                        errmsg("missing time zone in input string for type timetz")));
+            }
+
+            *tz = ftz.gmtoffset;
+            tm2timetz(&tm, fsec, *tz, result);
+            AdjustTimeForTypmod(&result->time, *typmod);
+
+            *typid = TIMETZOID;
+            return TimeTzADTPGetDatum(result);
+        } else {
+            // Time only -> Time
+            TimeADT result;
+
+            tm2time(&tm, fsec, &result);
+            AdjustTimeForTypmod(&result, *typmod);
+
+            *typid = TIMEOID;
+            return TimeADTGetDatum(result);
+        }
+    } else {
+        // Invalid format - neither dated nor timed
+        ereturn(escontext, (Datum) 0,
+               (errcode(ERRCODE_INVALID_DATETIME_FORMAT),
+                errmsg("datetime format is not dated and not timed")));
+    }
+}
+```

@@ -36,3 +36,22 @@ The function extracts the Form_pg_type structure from the HeapTuple and returns 
 - No error checking on input parameter - assumes valid Type structure
 - Located in src/backend/parser/parse_type.c:599-608
 - Essential for determining memory allocation and storage requirements for type values
+
+## Simplified Source
+
+```c
+int16 typeLen(Type t) {
+    // Extract the type structure from the heap tuple
+    Form_pg_type typ = (Form_pg_type) GETSTRUCT(t);
+
+    // Return the type length field
+    // Positive: fixed-length types (bytes), -1: variable-length, -2: C strings
+    return typ->typlen;
+}
+```
+
+**Simplification Notes:**
+- Added explanatory comments describing the typlen semantics
+- Function is already minimal, so only added documentation
+- Core logic: extract type structure and return the length field
+- Preserved the essential purpose: provide storage length information for the type

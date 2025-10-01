@@ -41,3 +41,33 @@ This function takes no parameters.
 - Callback cleanup only occurs if no other code has replaced the callbacks in the meantime
 - Memory leak is intentional to allow callback reuse in subsequent connections
 - Not needed for OpenSSL 1.1.0+ which handles threading internally
+
+## Simplified Source
+
+```c
+static void destroy_ssl_system(void) {
+#if defined(HAVE_CRYPTO_LOCK)
+    // Acquire lock for thread-safe access to global state
+    if (pthread_mutex_lock(&ssl_config_mutex))
+        return;
+
+    // Decrement connection counter if we initialized crypto library
+    if (pq_init_crypto_lib && crypto_open_connections > 0)
+        --crypto_open_connections;
+
+    // Clean up callbacks when no connections remain
+    if (pq_init_crypto_lib && crypto_open_connections == 0) {
+        // Unregister our callbacks if they're still active
+        if (CRYPTO_get_locking_callback() == pq_lockingcallback)
+            CRYPTO_set_locking_callback(NULL);
+        if (CRYPTO_get_id_callback() == pq_threadidcallback)
+            CRYPTO_set_id_callback(NULL);
+
+        // Note: We intentionally don't free lock array to allow reuse
+        // This causes a small memory leak on repeated load/unload
+    }
+
+    pthread_mutex_unlock(&ssl_config_mutex);
+#endif
+}
+```

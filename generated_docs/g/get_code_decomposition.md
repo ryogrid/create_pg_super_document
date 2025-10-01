@@ -41,3 +41,27 @@ The function returns a pointer to the decomposition sequence and sets the `dec_s
 - For inline decompositions, the function asserts that the size is exactly 1 character
 - Returns a pointer to either the static variable `x` or the external decomposition array
 - Critical for Unicode normalization as it provides the actual replacement characters for composed forms
+
+## Simplified Source
+
+```c
+static const pg_wchar *
+get_code_decomposition(const pg_unicode_decomposition *entry, int *dec_size)
+{
+    static pg_wchar x;
+
+    if (DECOMPOSITION_IS_INLINE(entry))
+    {
+        // Single character stored inline
+        x = (pg_wchar) entry->dec_index;
+        *dec_size = 1;
+        return &x;
+    }
+    else
+    {
+        // Multi-character stored externally
+        *dec_size = DECOMPOSITION_SIZE(entry);
+        return &UnicodeDecomp_codepoints[entry->dec_index];
+    }
+}
+```

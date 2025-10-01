@@ -42,3 +42,43 @@ This function completes a bulk write operation by first flushing any remaining p
 - The function detects concurrent checkpoints by comparing the initial and current redo pointers
 - If a checkpoint occurred during bulk writing, immediate fsync is performed instead of deferring to the next checkpoint
 - This function implements the PostgreSQL crash recovery guarantee that all committed data can be recovered from WAL or is properly fsynced
+
+## Simplified Source
+
+```c
+void smgr_bulk_finish(BulkWriteState *bulkstate) {
+    // Flush any remaining pending writes
+    smgr_bulk_flush(bulkstate);
+
+    // Handle synchronization based on relation type and WAL usage
+    if (SmgrIsTemp(bulkstate->smgr)) {
+        // Temporary relations don't need fsync
+        return;
+    }
+    else if (!bulkstate->use_wal) {
+        // Unlogged relations or wal_level=minimal case
+        // Register for checkpoint sync (conservative approach)
+        smgrregistersync(bulkstate->smgr, bulkstate->forknum);
+    }
+    else {
+        // WAL-logged permanent relation
+        // Check for checkpoint race condition
+
+        // Prevent checkpoint from starting during our check
+        Assert((MyProc->delayChkptFlags & DELAY_CHKPT_START) == 0);
+        MyProc->delayChkptFlags |= DELAY_CHKPT_START;
+
+        if (bulkstate->start_RedoRecPtr != GetRedoRecPtr()) {
+            // Checkpoint occurred during bulk write - fsync immediately
+            MyProc->delayChkptFlags &= ~DELAY_CHKPT_START;
+            smgrimmedsync(bulkstate->smgr, bulkstate->forknum);
+            elog(DEBUG1, "flushed relation because a checkpoint occurred concurrently");
+        }
+        else {
+            // No checkpoint occurred - register for next checkpoint
+            smgrregistersync(bulkstate->smgr, bulkstate->forknum);
+            MyProc->delayChkptFlags &= ~DELAY_CHKPT_START;
+        }
+    }
+}
+```

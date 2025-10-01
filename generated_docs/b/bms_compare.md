@@ -39,3 +39,33 @@ The comparison algorithm ensures that bms_compare returns 0 if and only if bms_e
 - Used primarily in path comparison functions for query optimization
 - The comparison rule makes intuitive sense: sets with higher-numbered bits are considered greater
 - Validates both input sets in debug builds using Assert
+
+## Simplified Source
+
+```c
+int bms_compare(const Bitmapset *a, const Bitmapset *b)
+{
+    // Handle NULL cases
+    if (a == NULL)
+        return (b == NULL) ? 0 : -1;
+    else if (b == NULL)
+        return +1;
+
+    // Sets with more words are greater (contain higher-numbered bits)
+    if (a->nwords != b->nwords)
+        return (a->nwords > b->nwords) ? +1 : -1;
+
+    // Compare words from highest to lowest
+    int i = a->nwords - 1;
+    do {
+        bitmapword aw = a->words[i];
+        bitmapword bw = b->words[i];
+
+        if (aw != bw)
+            return (aw > bw) ? +1 : -1;
+    } while (--i >= 0);
+
+    // All words are equal
+    return 0;
+}
+```

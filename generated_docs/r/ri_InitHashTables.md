@@ -47,3 +47,39 @@ This function takes no parameters.
 - Called lazily when hash tables are first needed rather than at system startup
 - Cache sizes are controlled by RI_INIT_CONSTRAINTHASHSIZE and RI_INIT_QUERYHASHSIZE constants
 - Essential for referential integrity performance optimization by reducing catalog access overhead
+
+## Simplified Source
+
+```c
+static void
+ri_InitHashTables(void)
+{
+    HASHCTL ctl;
+
+    // Create constraint info cache
+    ctl.keysize = sizeof(Oid);
+    ctl.entrysize = sizeof(RI_ConstraintInfo);
+    ri_constraint_cache = hash_create("RI constraint cache",
+                                      RI_INIT_CONSTRAINTHASHSIZE,
+                                      &ctl, HASH_ELEM | HASH_BLOBS);
+
+    // Register callback to flush cache when constraints change
+    CacheRegisterSyscacheCallback(CONSTROID,
+                                  InvalidateConstraintCacheCallBack,
+                                  (Datum) 0);
+
+    // Create query plan cache
+    ctl.keysize = sizeof(RI_QueryKey);
+    ctl.entrysize = sizeof(RI_QueryHashEntry);
+    ri_query_cache = hash_create("RI query cache",
+                                 RI_INIT_QUERYHASHSIZE,
+                                 &ctl, HASH_ELEM | HASH_BLOBS);
+
+    // Create comparison operator cache
+    ctl.keysize = sizeof(RI_CompareKey);
+    ctl.entrysize = sizeof(RI_CompareHashEntry);
+    ri_compare_cache = hash_create("RI compare cache",
+                                   RI_INIT_QUERYHASHSIZE,
+                                   &ctl, HASH_ELEM | HASH_BLOBS);
+}
+```

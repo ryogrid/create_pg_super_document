@@ -41,3 +41,52 @@ The function returns NULL for unitless parameters, allowing callers to distingui
 - Throws an ERROR if an unrecognized unit flag is encountered
 - Block units are represented as "{size}kB" format (e.g., "8kB" for 8KB blocks)
 - Part of PostgreSQL's configuration system infrastructure
+
+## Simplified Source
+
+```c
+const char *
+get_config_unit_name(int flags)
+{
+    switch (flags & GUC_UNIT) {
+        case 0:
+            return NULL;        // No units
+
+        // Memory units
+        case GUC_UNIT_BYTE:
+            return "B";
+        case GUC_UNIT_KB:
+            return "kB";
+        case GUC_UNIT_MB:
+            return "MB";
+
+        // Block units (dynamically sized)
+        case GUC_UNIT_BLOCKS:
+            {
+                static char bbuf[8];
+                if (bbuf[0] == '\0')  // Initialize once
+                    snprintf(bbuf, sizeof(bbuf), "%dkB", BLCKSZ / 1024);
+                return bbuf;
+            }
+        case GUC_UNIT_XBLOCKS:
+            {
+                static char xbuf[8];
+                if (xbuf[0] == '\0')  // Initialize once
+                    snprintf(xbuf, sizeof(xbuf), "%dkB", XLOG_BLCKSZ / 1024);
+                return xbuf;
+            }
+
+        // Time units
+        case GUC_UNIT_MS:
+            return "ms";
+        case GUC_UNIT_S:
+            return "s";
+        case GUC_UNIT_MIN:
+            return "min";
+
+        default:
+            elog(ERROR, "unrecognized GUC units value: %d", flags & GUC_UNIT);
+            return NULL;
+    }
+}
+```

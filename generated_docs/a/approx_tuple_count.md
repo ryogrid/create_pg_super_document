@@ -47,3 +47,33 @@ The function creates a dummy SpecialJoinInfo structure for JOIN_INNER semantics,
 - The simplification is acceptable because many situations can't do better than independent multiplication anyway
 - Caching benefits make this approach more efficient for repeated cost calculations
 - Located in src/backend/optimizer/path/costsize.c:5197-5241
+
+## Simplified Source
+
+```c
+static double approx_tuple_count(PlannerInfo *root, JoinPath *path, List *quals) {
+    double tuples;
+    double outer_tuples = path->outerjoinpath->rows;
+    double inner_tuples = path->innerjoinpath->rows;
+    SpecialJoinInfo sjinfo;
+    Selectivity selec = 1.0;
+    ListCell *l;
+
+    // Create dummy SpecialJoinInfo for JOIN_INNER semantics
+    init_dummy_sjinfo(&sjinfo, path->outerjoinpath->parent->relids,
+                      path->innerjoinpath->parent->relids);
+
+    // Calculate combined selectivity by multiplying individual clause selectivities
+    foreach(l, quals) {
+        Node *qual = (Node *) lfirst(l);
+
+        // Use cached clause selectivity for efficiency
+        selec *= clause_selectivity(root, qual, 0, JOIN_INNER, &sjinfo);
+    }
+
+    // Apply selectivity to Cartesian product of input relations
+    tuples = selec * outer_tuples * inner_tuples;
+
+    return clamp_row_est(tuples);
+}
+```

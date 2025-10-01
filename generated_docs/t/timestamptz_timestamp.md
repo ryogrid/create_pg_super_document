@@ -35,3 +35,14 @@ The function is a thin wrapper around the core conversion function , following P
 - The function follows PostgreSQL's V1 calling convention for SQL functions
 - Located in  at lines 6365-6372
 - The actual conversion logic is delegated to the  helper function
+
+## Simplified Source
+
+```c
+Datum timestamptz_timestamp(PG_FUNCTION_ARGS) {
+    TimestampTz timestamp = PG_GETARG_TIMESTAMPTZ(0);
+
+    // Convert timestamptz to timestamp using session timezone
+    PG_RETURN_TIMESTAMP(timestamptz2timestamp(timestamp));
+}
+```

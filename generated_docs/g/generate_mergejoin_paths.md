@@ -67,3 +67,120 @@ The function performs several operations:
 - Implements incremental truncation of sort keys rather than exhaustive subset enumeration for performance
 - Optimizes memory usage by reusing clause lists when possible
 - The truncation strategy balances plan quality with planning time by considering progressively shorter sort key lists
+
+## Simplified Source
+
+```c
+static void generate_mergejoin_paths(PlannerInfo *root,
+                                     RelOptInfo *joinrel,
+                                     RelOptInfo *innerrel,
+                                     Path *outerpath,
+                                     JoinType jointype,
+                                     JoinPathExtraData *extra,
+                                     bool useallclauses,
+                                     Path *inner_cheapest_total,
+                                     List *merge_pathkeys,
+                                     bool is_partial)
+{
+    JoinType save_jointype = jointype;
+
+    // Convert unique join types to inner join for processing
+    if (jointype == JOIN_UNIQUE_OUTER || jointype == JOIN_UNIQUE_INNER)
+        jointype = JOIN_INNER;
+
+    // Find mergeclauses compatible with outer path ordering
+    List *mergeclauses = find_mergeclauses_for_outer_pathkeys(root,
+                                                              outerpath->pathkeys,
+                                                              extra->mergeclause_list);
+
+    // Handle special case: clauseless FULL JOIN (only mergejoin supports this)
+    if (mergeclauses == NIL)
+    {
+        if (jointype != JOIN_FULL)
+            return;
+    }
+
+    // If we need all clauses, ensure we have them
+    if (useallclauses &&
+        list_length(mergeclauses) != list_length(extra->mergeclause_list))
+        return;
+
+    // Compute required inner path ordering
+    List *innersortkeys = make_inner_pathkeys_for_merge(root, mergeclauses,
+                                                       outerpath->pathkeys);
+
+    // Try mergejoin with cheapest inner path (will sort if needed)
+    try_mergejoin_path(root, joinrel, outerpath, inner_cheapest_total,
+                      merge_pathkeys, mergeclauses, NIL, innersortkeys,
+                      jointype, extra, is_partial);
+
+    // Early exit for unique inner joins
+    if (save_jointype == JOIN_UNIQUE_INNER)
+        return;
+
+    // Initialize cost tracking for presorted path search
+    Path *cheapest_startup_inner = NULL;
+    Path *cheapest_total_inner = NULL;
+
+    if (pathkeys_contained_in(innersortkeys, inner_cheapest_total->pathkeys))
+    {
+        // Inner path was already sorted
+        cheapest_startup_inner = inner_cheapest_total;
+        cheapest_total_inner = inner_cheapest_total;
+    }
+
+    // Try truncated sort key lists to find better presorted paths
+    int num_sortkeys = list_length(innersortkeys);
+    List *trialsortkeys = (num_sortkeys > 1 && !useallclauses) ?
+                          list_copy(innersortkeys) : innersortkeys;
+
+    for (int sortkeycnt = num_sortkeys; sortkeycnt > 0; sortkeycnt--)
+    {
+        // Try progressively shorter sort key requirements
+        trialsortkeys = list_truncate(trialsortkeys, sortkeycnt);
+
+        // Find cheapest path for current sort requirements
+        Path *innerpath = get_cheapest_path_for_pathkeys(innerrel->pathlist,
+                                                        trialsortkeys, NULL,
+                                                        TOTAL_COST, is_partial);
+
+        if (innerpath != NULL &&
+            (cheapest_total_inner == NULL ||
+             compare_path_costs(innerpath, cheapest_total_inner, TOTAL_COST) < 0))
+        {
+            // Create appropriate mergeclause list for this path
+            List *newclauses = (sortkeycnt < num_sortkeys) ?
+                trim_mergeclauses_for_inner_pathkeys(root, mergeclauses, trialsortkeys) :
+                mergeclauses;
+
+            try_mergejoin_path(root, joinrel, outerpath, innerpath,
+                              merge_pathkeys, newclauses, NIL, NIL,
+                              jointype, extra, is_partial);
+            cheapest_total_inner = innerpath;
+        }
+
+        // Also check startup cost optimization
+        innerpath = get_cheapest_path_for_pathkeys(innerrel->pathlist,
+                                                  trialsortkeys, NULL,
+                                                  STARTUP_COST, is_partial);
+
+        if (innerpath != NULL && innerpath != cheapest_total_inner &&
+            (cheapest_startup_inner == NULL ||
+             compare_path_costs(innerpath, cheapest_startup_inner, STARTUP_COST) < 0))
+        {
+            // Reuse clause list if possible for memory efficiency
+            List *newclauses = (sortkeycnt < num_sortkeys) ?
+                trim_mergeclauses_for_inner_pathkeys(root, mergeclauses, trialsortkeys) :
+                mergeclauses;
+
+            try_mergejoin_path(root, joinrel, outerpath, innerpath,
+                              merge_pathkeys, newclauses, NIL, NIL,
+                              jointype, extra, is_partial);
+            cheapest_startup_inner = innerpath;
+        }
+
+        if (useallclauses)
+            break;
+    }
+}
+```

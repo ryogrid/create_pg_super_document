@@ -34,3 +34,16 @@ The two-step process (cleanup then append) prevents accumulation of multiple tra
 - Empty strings remain empty (no newline is added), which prevents unnecessary formatting of null content
 - Primarily used in XML error reporting infrastructure to maintain clean, readable error message formatting
 - The conditional append (only if len > 0) prevents adding newlines to empty error messages or contexts
+
+## Simplified Source
+
+```c
+static void appendStringInfoLineSeparator(StringInfo str) {
+    // Remove any existing trailing newlines
+    chopStringInfoNewlines(str);
+
+    // Add exactly one newline if string is not empty
+    if (str->len > 0)
+        appendStringInfoChar(str, '\n');
+}
+```

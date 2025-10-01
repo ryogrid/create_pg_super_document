@@ -41,3 +41,42 @@ The function automatically computes the required outer relations by taking the u
 - The cost_bitmap_and_node function sets both regular cost fields and the bitmapselectivity field
 - Used when multiple indexes can be efficiently combined to reduce the number of heap pages that need to be scanned
 - The selectivity of the AND operation is typically the product of individual selectivities (assuming independence)
+
+## Simplified Source
+
+```c
+BitmapAndPath *
+create_bitmap_and_path(PlannerInfo *root,
+                       RelOptInfo *rel,
+                       List *bitmapquals)
+{
+    BitmapAndPath *pathnode = makeNode(BitmapAndPath);
+    Relids required_outer = NULL;
+    ListCell *lc;
+
+    pathnode->path.pathtype = T_BitmapAnd;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = rel->reltarget;
+
+    // Compute required outer rels as union of child path dependencies
+    foreach(lc, bitmapquals)
+    {
+        Path *bitmapqual = (Path *) lfirst(lc);
+        required_outer = bms_add_members(required_outer, PATH_REQ_OUTER(bitmapqual));
+    }
+    pathnode->path.param_info = get_baserel_parampathinfo(root, rel, required_outer);
+
+    // Set parallel characteristics based on relation
+    pathnode->path.parallel_aware = false;
+    pathnode->path.parallel_safe = rel->consider_parallel;
+    pathnode->path.parallel_workers = 0;
+
+    pathnode->path.pathkeys = NIL; // always unordered
+    pathnode->bitmapquals = bitmapquals;
+
+    // Calculate costs and selectivity
+    cost_bitmap_and_node(pathnode, root);
+
+    return pathnode;
+}
+```

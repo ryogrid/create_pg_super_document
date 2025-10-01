@@ -40,3 +40,23 @@ The function handles the byte order conversion using pg_ntoh16() to ensure corre
 - Used extensively throughout the protocol tracing system for parsing 16-bit integer fields
 - Always outputs the integer value prefixed with a space for consistent formatting
 - The function modifies the cursor position as a side effect, enabling sequential parsing of protocol messages
+
+## Simplified Source
+
+```c
+static int pqTraceOutputInt16(FILE *pfdebug, const char *data, int *cursor)
+{
+    uint16 tmp;
+    int result;
+
+    // Read 2 bytes from buffer and advance cursor
+    memcpy(&tmp, data + *cursor, 2);
+    *cursor += 2;
+
+    // Convert from network byte order and output to trace log
+    result = (int) pg_ntoh16(tmp);
+    fprintf(pfdebug, " %d", result);
+
+    return result;
+}
+```

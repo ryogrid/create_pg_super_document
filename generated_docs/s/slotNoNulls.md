@@ -36,3 +36,22 @@ Like its counterpart slotAllNulls, this function intentionally does not handle d
 - Returns false immediately upon finding the first NULL attribute, optimizing for early termination
 - The function assumes the slot's tuple descriptor is valid and accessible
 - Provides the inverse functionality of slotAllNulls, together forming a complete NULL status checking toolkit for subplan operations
+
+## Simplified Source
+
+```c
+static bool
+slotNoNulls(TupleTableSlot *slot)
+{
+    int ncols = slot->tts_tupleDescriptor->natts;
+    int i;
+
+    // Check each attribute for NULL value
+    for (i = 1; i <= ncols; i++) {
+        if (slot_attisnull(slot, i))
+            return false;  // Found NULL attribute
+    }
+
+    return true;  // No NULL attributes found
+}
+```

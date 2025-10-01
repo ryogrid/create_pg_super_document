@@ -48,3 +48,31 @@ This mechanism is crucial for maintaining consistency in MultiXactId operations 
 - Critical for preventing race conditions where OldestVisibleMXactId could be computed incorrectly
 - Once set for a transaction, the value remains unchanged (idempotent operation)
 - Essential for the proper functioning of MultiXactIdExpand and other MultiXactId operations
+
+## Simplified Source
+
+```c
+void MultiXactIdSetOldestMember(void) {
+    // Only set if not already initialized for this transaction
+    if (!MultiXactIdIsValid(OldestMemberMXactId[MyProcNumber])) {
+
+        // Acquire lock to safely read nextMXact
+        LWLockAcquire(MultiXactGenLock, LW_SHARED);
+
+        // Get next MultiXactId to be assigned
+        MultiXactId nextMXact = MultiXactState->nextMXact;
+
+        // Handle wraparound case - ensure value is at least FirstMultiXactId
+        if (nextMXact < FirstMultiXactId)
+            nextMXact = FirstMultiXactId;
+
+        // Store the oldest member ID for this process
+        OldestMemberMXactId[MyProcNumber] = nextMXact;
+
+        LWLockRelease(MultiXactGenLock);
+
+        debug_elog4(DEBUG2, "MultiXact: setting OldestMember[%d] = %u",
+                    MyProcNumber, nextMXact);
+    }
+}
+```

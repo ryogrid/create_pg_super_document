@@ -36,3 +36,23 @@ The function operates by:
 - The function relies on cached information in the relation descriptor (rd_pkindex, rd_ispkdeferrable)
 - The distinction between deferrable and non-deferrable primary keys is important for replication and logical decoding operations
 - Located in src/backend/utils/cache/relcache.c:4997-5017
+
+## Simplified Source
+
+```c
+Oid
+RelationGetPrimaryKeyIndex(Relation relation)
+{
+    List *ilist;
+
+    // Ensure index information is current
+    if (!relation->rd_indexvalid) {
+        // This call updates rd_pkindex and rd_ispkdeferrable
+        ilist = RelationGetIndexList(relation);
+        list_free(ilist);
+    }
+
+    // Return primary key index OID, but only if not deferrable
+    return relation->rd_ispkdeferrable ? InvalidOid : relation->rd_pkindex;
+}
+```

@@ -35,3 +35,17 @@ This function performs a comparison between a regular timestamp and a timezone-a
 - Returns an integer comparison result (negative, zero, or positive)
 - Requires explicit timezone context to ensure meaningful comparison results
 - Will raise an error if timezone usage is not enabled, preventing potentially misleading timestamp comparisons
+
+## Simplified Source
+
+```c
+static int
+cmpTimestampToTimestampTz(Timestamp ts1, TimestampTz tstz2, bool useTz)
+{
+    // Validate timezone usage is enabled for timestamp-to-timestamptz comparison
+    checkTimezoneIsUsedForCast(useTz, "timestamp", "timestamptz");
+
+    // Compare timezone-naive timestamp to timezone-aware timestamp
+    return timestamp_cmp_timestamptz_internal(ts1, tstz2);
+}
+```

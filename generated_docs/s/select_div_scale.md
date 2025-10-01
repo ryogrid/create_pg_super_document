@@ -37,3 +37,47 @@ This function implements PostgreSQL's default scale selection algorithm for divi
 - The scale selection follows SQL standard guidelines for maintaining precision
 - Critical for maintaining numeric precision in financial and scientific calculations
 - Balances precision requirements with performance considerations
+
+## Simplified Source
+
+```c
+static int select_div_scale(const NumericVar *var1, const NumericVar *var2) {
+    int weight1 = 0, weight2 = 0, qweight;
+    NumericDigit firstdigit1 = 0, firstdigit2 = 0;
+    int i, rscale;
+
+    // Find the weight and first significant digit of var1
+    for (i = 0; i < var1->ndigits; i++) {
+        firstdigit1 = var1->digits[i];
+        if (firstdigit1 != 0) {
+            weight1 = var1->weight - i;
+            break;
+        }
+    }
+
+    // Find the weight and first significant digit of var2
+    for (i = 0; i < var2->ndigits; i++) {
+        firstdigit2 = var2->digits[i];
+        if (firstdigit2 != 0) {
+            weight2 = var2->weight - i;
+            break;
+        }
+    }
+
+    // Estimate quotient weight (assume var1 <= var2 if first digits equal)
+    qweight = weight1 - weight2;
+    if (firstdigit1 <= firstdigit2)
+        qweight--;
+
+    // Calculate result scale ensuring minimum significant digits
+    rscale = NUMERIC_MIN_SIG_DIGITS - qweight * DEC_DIGITS;
+
+    // Apply constraints: use at least input scales and stay within limits
+    rscale = Max(rscale, var1->dscale);
+    rscale = Max(rscale, var2->dscale);
+    rscale = Max(rscale, NUMERIC_MIN_DISPLAY_SCALE);
+    rscale = Min(rscale, NUMERIC_MAX_DISPLAY_SCALE);
+
+    return rscale;
+}
+```

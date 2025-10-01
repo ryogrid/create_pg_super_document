@@ -37,3 +37,64 @@ This function analyzes distinct value groups and computes frequency counts for i
 - Sorts and deduplicates values to compute accurate frequency counts
 - Essential component for calculating base frequencies in MCV list generation
 - Memory can be freed with a single pfree call due to chunk allocation strategy
+
+## Simplified Source
+
+```c
+static SortItem **
+build_column_frequencies(SortItem *groups, int ngroups,
+                        MultiSortSupport mss, int *ncounts)
+{
+    int i, dim;
+    SortItem **result;
+    char *ptr;
+
+    // Allocate arrays for all columns as a single memory chunk
+    ptr = palloc(MAXALIGN(sizeof(SortItem *) * mss->ndims) +
+                 mss->ndims * MAXALIGN(sizeof(SortItem) * ngroups));
+
+    // Set up result array pointers
+    result = (SortItem **) ptr;
+    ptr += MAXALIGN(sizeof(SortItem *) * mss->ndims);
+
+    // Process each column dimension
+    for (dim = 0; dim < mss->ndims; dim++)
+    {
+        SortSupport ssup = &mss->ssup[dim];
+
+        // Set up array for this column
+        result[dim] = (SortItem *) ptr;
+        ptr += MAXALIGN(sizeof(SortItem) * ngroups);
+
+        // Copy data from input groups
+        for (i = 0; i < ngroups; i++)
+        {
+            result[dim][i].values = &groups[i].values[dim];
+            result[dim][i].isnull = &groups[i].isnull[dim];
+            result[dim][i].count = groups[i].count;
+        }
+
+        // Sort values for this dimension
+        qsort_interruptible(result[dim], ngroups, sizeof(SortItem),
+                          sort_item_compare, ssup);
+
+        // Count distinct values and sum frequencies
+        ncounts[dim] = 1;
+        for (i = 1; i < ngroups; i++)
+        {
+            if (sort_item_compare(&result[dim][i - 1], &result[dim][i], ssup) == 0)
+            {
+                // Same value - add to frequency count
+                result[dim][ncounts[dim] - 1].count += result[dim][i].count;
+                continue;
+            }
+
+            // Different value - start new entry
+            result[dim][ncounts[dim]] = result[dim][i];
+            ncounts[dim]++;
+        }
+    }
+
+    return result;
+}
+```

@@ -39,3 +39,41 @@ The function treats the BitmapAndPath as a pseudo-Path object with cost properti
 - Does not set the rows field as this is an intermediate bitmap operation
 - The intersection cost may be underestimated and could benefit from more sophisticated modeling
 - Located in src/backend/optimizer/path/costsize.c:1157-1200
+
+## Simplified Source
+
+```c
+void cost_bitmap_and_node(BitmapAndPath *path, PlannerInfo *root)
+{
+    Cost totalCost = 0.0;
+    Selectivity selec = 1.0;
+    ListCell *l;
+
+    // Process each child bitmap path
+    foreach(l, path->bitmapquals)
+    {
+        Path *subpath = (Path *) lfirst(l);
+        Cost subCost;
+        Selectivity subselec;
+
+        // Get cost and selectivity of child path
+        cost_bitmap_tree_node(subpath, &subCost, &subselec);
+
+        // Combine selectivities (assume independence)
+        selec *= subselec;
+
+        // Add child cost
+        totalCost += subCost;
+
+        // Add intersection cost (100 * cpu_operator_cost per intersection)
+        if (l != list_head(path->bitmapquals))
+            totalCost += 100.0 * cpu_operator_cost;
+    }
+
+    // Set final cost and selectivity
+    path->bitmapselectivity = selec;
+    path->path.rows = 0;            // Not used for bitmap operations
+    path->path.startup_cost = totalCost;
+    path->path.total_cost = totalCost;
+}
+```

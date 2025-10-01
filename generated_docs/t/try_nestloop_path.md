@@ -54,3 +54,87 @@ The function validates parameterization constraints, checks for dangerous outer 
 - Handles complex scenarios involving outer joins and ensures no unsafe outer join references exist
 - Manages memory efficiently by freeing bitmapsets when paths are rejected
 - Critical for the query optimizer's ability to generate efficient nestloop join execution plans
+
+## Simplified Source
+
+```c
+static void
+try_nestloop_path(PlannerInfo *root,
+                  RelOptInfo *joinrel,
+                  Path *outer_path,
+                  Path *inner_path,
+                  List *pathkeys,
+                  JoinType jointype,
+                  JoinPathExtraData *extra)
+{
+    Relids required_outer;
+    JoinCostWorkspace workspace;
+    RelOptInfo *innerrel = inner_path->parent;
+    RelOptInfo *outerrel = outer_path->parent;
+    Relids innerrelids;
+    Relids outerrelids;
+    Relids inner_paramrels = PATH_REQ_OUTER(inner_path);
+    Relids outer_paramrels = PATH_REQ_OUTER(outer_path);
+
+    // Reject if outer join parameterization is invalid
+    if (extra->sjinfo->ojrelid != 0 &&
+        (bms_is_member(extra->sjinfo->ojrelid, inner_paramrels) ||
+         bms_is_member(extra->sjinfo->ojrelid, outer_paramrels)))
+        return;
+
+    // Determine relation IDs considering inheritance hierarchies
+    innerrelids = innerrel->top_parent_relids ?
+                  innerrel->top_parent_relids : innerrel->relids;
+    outerrelids = outerrel->top_parent_relids ?
+                  outerrel->top_parent_relids : outerrel->relids;
+
+    // Calculate required outer parameterization
+    required_outer = calc_nestloop_required_outer(outerrelids, outer_paramrels,
+                                                  innerrelids, inner_paramrels);
+
+    // Validate parameterization makes sense
+    if (required_outer &&
+        ((!bms_overlap(required_outer, extra->param_source_rels) &&
+          !allow_star_schema_join(root, outerrelids, inner_paramrels)) ||
+         have_dangerous_phv(root, outerrelids, inner_paramrels)))
+    {
+        bms_free(required_outer);
+        return;
+    }
+
+    // Check if inner path can be reparameterized if needed
+    if (PATH_PARAM_BY_PARENT(inner_path, outer_path->parent) &&
+        !path_is_reparameterizable_by_child(inner_path, outer_path->parent))
+    {
+        bms_free(required_outer);
+        return;
+    }
+
+    // Get initial cost estimate for nestloop join
+    initial_cost_nestloop(root, &workspace, jointype,
+                          outer_path, inner_path, extra);
+
+    // Two-phase approach: precheck before expensive path creation
+    if (add_path_precheck(joinrel,
+                          workspace.startup_cost, workspace.total_cost,
+                          pathkeys, required_outer))
+    {
+        // Create and add the nestloop path
+        add_path(joinrel, (Path *)
+                 create_nestloop_path(root,
+                                      joinrel,
+                                      jointype,
+                                      &workspace,
+                                      extra,
+                                      outer_path,
+                                      inner_path,
+                                      extra->restrictlist,
+                                      pathkeys,
+                                      required_outer));
+    }
+    else
+    {
+        bms_free(required_outer);
+    }
+}
+```

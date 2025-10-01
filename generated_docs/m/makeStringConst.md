@@ -32,3 +32,19 @@ The makeStringConst function is a utility function that constructs an A_Const no
 - The location parameter is important for providing accurate error messages and debugging information
 - This is part of a family of make* functions in makefuncs.c that create various node types
 - The returned node must be cast to the appropriate type when used in specific contexts
+
+## Simplified Source
+
+```c
+Node *makeStringConst(char *str, int location) {
+    // Create new A_Const node
+    A_Const *n = makeNode(A_Const);
+
+    // Initialize string constant fields
+    n->val.sval.type = T_String;
+    n->val.sval.sval = str;
+    n->location = location;
+
+    return (Node *) n;
+}
+```

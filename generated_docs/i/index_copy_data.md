@@ -45,3 +45,47 @@ The function operates by first flushing any buffered pages to ensure all data is
 - Uses direct file copying rather than tuple-by-tuple copying for performance
 - Automatically schedules cleanup of old storage files after successful copy
 - Part of the ALTER TABLE SET TABLESPACE infrastructure for moving relations between tablespaces
+
+## Simplified Source
+
+```c
+static void
+index_copy_data(Relation rel, RelFileLocator newrlocator)
+{
+    SMgrRelation dstrel;
+
+    // Flush any buffered pages to disk
+    FlushRelationBuffers(rel);
+
+    // Create new storage at destination
+    dstrel = RelationCreateStorage(newrlocator, rel->rd_rel->relpersistence, true);
+
+    // Copy main fork
+    RelationCopyStorage(RelationGetSmgr(rel), dstrel, MAIN_FORKNUM,
+                        rel->rd_rel->relpersistence);
+
+    // Copy additional forks that exist (FSM, VM, etc.)
+    for (ForkNumber forkNum = MAIN_FORKNUM + 1; forkNum <= MAX_FORKNUM; forkNum++)
+    {
+        if (smgrexists(RelationGetSmgr(rel), forkNum))
+        {
+            // Create fork at destination
+            smgrcreate(dstrel, forkNum, false);
+
+            // WAL log if needed (permanent relations or unlogged init fork)
+            if (RelationIsPermanent(rel) ||
+                (rel->rd_rel->relpersistence == RELPERSISTENCE_UNLOGGED &&
+                 forkNum == INIT_FORKNUM))
+                log_smgrcreate(&newrlocator, forkNum);
+
+            // Copy fork data
+            RelationCopyStorage(RelationGetSmgr(rel), dstrel, forkNum,
+                                rel->rd_rel->relpersistence);
+        }
+    }
+
+    // Clean up: drop old storage and close new
+    RelationDropStorage(rel);
+    smgrclose(dstrel);
+}
+```

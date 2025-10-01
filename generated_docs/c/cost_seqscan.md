@@ -50,3 +50,59 @@ The function also handles parameterized paths (used in nested loops) by using di
 - Target list evaluation costs are applied per output row, not per scanned tuple
 - Critical component of PostgreSQL's cost-based optimization for table access methods
 - Row estimates are adjusted for parameterized paths and parallel execution
+
+## Simplified Source
+
+```c
+void cost_seqscan(Path *path, PlannerInfo *root,
+                  RelOptInfo *baserel, ParamPathInfo *param_info)
+{
+    Cost startup_cost = 0;
+    Cost cpu_run_cost;
+    Cost disk_run_cost;
+    double spc_seq_page_cost;
+    QualCost qpqual_cost;
+    Cost cpu_per_tuple;
+
+    // Set row estimate based on parameterization
+    if (param_info)
+        path->rows = param_info->ppi_rows;
+    else
+        path->rows = baserel->rows;
+
+    // Add penalty cost if sequential scans are disabled
+    if (!enable_seqscan)
+        startup_cost += disable_cost;
+
+    // Get tablespace-specific page cost
+    get_tablespace_page_costs(baserel->reltablespace, NULL, &spc_seq_page_cost);
+
+    // Calculate disk I/O costs (pages * cost per page)
+    disk_run_cost = spc_seq_page_cost * baserel->pages;
+
+    // Calculate CPU costs for tuple processing and WHERE clause evaluation
+    get_restriction_qual_cost(root, baserel, param_info, &qpqual_cost);
+    startup_cost += qpqual_cost.startup;
+    cpu_per_tuple = cpu_tuple_cost + qpqual_cost.per_tuple;
+    cpu_run_cost = cpu_per_tuple * baserel->tuples;
+
+    // Add target list evaluation costs (per output row)
+    startup_cost += path->pathtarget->cost.startup;
+    cpu_run_cost += path->pathtarget->cost.per_tuple * path->rows;
+
+    // Adjust costs for parallel execution
+    if (path->parallel_workers > 0) {
+        double parallel_divisor = get_parallel_divisor(path);
+
+        // CPU cost is divided among workers
+        cpu_run_cost /= parallel_divisor;
+
+        // Adjust row count per worker
+        path->rows = clamp_row_est(path->rows / parallel_divisor);
+    }
+
+    // Set final costs
+    path->startup_cost = startup_cost;
+    path->total_cost = startup_cost + cpu_run_cost + disk_run_cost;
+}
+```

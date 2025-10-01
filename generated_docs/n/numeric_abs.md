@@ -42,3 +42,36 @@ This function implements the absolute value operation for PostgreSQL's NUMERIC t
 - Does not require unpacking the numeric to NumericVar format for efficiency
 - Part of the mathematical functions section in numeric.c
 - Located in src/backend/utils/adt/numeric.c:1391-1417
+
+## Simplified Source
+
+```c
+Datum
+numeric_abs(PG_FUNCTION_ARGS)
+{
+    Numeric num = PG_GETARG_NUMERIC(0);
+    Numeric result;
+
+    // Create a copy of the input numeric
+    result = duplicate_numeric(num);
+
+    // Remove the sign bit based on numeric format
+    if (NUMERIC_IS_SHORT(num)) {
+        // For short format: clear the sign bit
+        result->choice.n_short.n_header =
+            num->choice.n_short.n_header & ~NUMERIC_SHORT_SIGN_MASK;
+    }
+    else if (NUMERIC_IS_SPECIAL(num)) {
+        // For special values (NaN/Inf): clear infinity sign bit
+        // This converts -Inf to +Inf, NaN remains unchanged
+        result->choice.n_short.n_header =
+            num->choice.n_short.n_header & ~NUMERIC_INF_SIGN_MASK;
+    }
+    else {
+        // For long format: set positive sign while preserving scale
+        result->choice.n_long.n_sign_dscale = NUMERIC_POS | NUMERIC_DSCALE(num);
+    }
+
+    PG_RETURN_NUMERIC(result);
+}
+```

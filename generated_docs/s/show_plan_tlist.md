@@ -42,3 +42,41 @@ For displayable target lists, the function deparses each target entry expression
 - The useprefix flag determines whether to include table prefixes based on the number of tables in the range table
 - Essential for understanding what expressions a plan node computes and outputs
 - Helps in query debugging and optimization by showing intermediate results
+
+## Simplified Source
+
+```c
+static void
+show_plan_tlist(PlanState *planstate, List *ancestors, ExplainState *es)
+{
+    Plan *plan = planstate->plan;
+    List *result = NIL;
+    bool useprefix;
+
+    // Skip if no target list (bitmap indexscans have empty target lists)
+    if (plan->targetlist == NIL)
+        return;
+
+    // Skip for certain node types where target lists aren't helpful
+    if (IsA(plan, Append) || IsA(plan, MergeAppend) || IsA(plan, RecursiveUnion))
+        return;
+
+    // Skip ForeignScan nodes doing direct INSERT/UPDATE/DELETE
+    if (IsA(plan, ForeignScan) && ((ForeignScan *) plan)->operation != CMD_SELECT)
+        return;
+
+    // Set up context for expression deparsing
+    List *context = set_deparse_context_plan(es->deparse_cxt, plan, ancestors);
+    useprefix = list_length(es->rtable) > 1;
+
+    // Deparse each target entry into readable text
+    foreach(lc, plan->targetlist)
+    {
+        TargetEntry *tle = (TargetEntry *) lfirst(lc);
+        result = lappend(result, deparse_expression((Node *) tle->expr, context, useprefix, false));
+    }
+
+    // Display the output list
+    ExplainPropertyList("Output", result, es);
+}
+```

@@ -46,3 +46,39 @@ The function includes a small bitmap manipulation overhead for IndexPath nodes t
 - The bitmap manipulation cost helps differentiate bitmap scans from regular index scans in costing
 - Includes error handling for unrecognized node types
 - Located in src/backend/optimizer/path/costsize.c:1114-1156
+
+## Simplified Source
+
+```c
+void
+cost_bitmap_tree_node(Path *path, Cost *cost, Selectivity *selec)
+{
+    if (IsA(path, IndexPath))
+    {
+        // Extract cost and selectivity from index path
+        *cost = ((IndexPath *) path)->indextotalcost;
+        *selec = ((IndexPath *) path)->indexselectivity;
+
+        // Add small bitmap manipulation cost to distinguish from index scans
+        *cost += 0.1 * cpu_operator_cost * path->rows;
+    }
+    else if (IsA(path, BitmapAndPath))
+    {
+        // Use precomputed values from AND node
+        *cost = path->total_cost;
+        *selec = ((BitmapAndPath *) path)->bitmapselectivity;
+    }
+    else if (IsA(path, BitmapOrPath))
+    {
+        // Use precomputed values from OR node
+        *cost = path->total_cost;
+        *selec = ((BitmapOrPath *) path)->bitmapselectivity;
+    }
+    else
+    {
+        // Error for unrecognized node types
+        elog(ERROR, "unrecognized node type: %d", nodeTag(path));
+        *cost = *selec = 0;  // Keep compiler quiet
+    }
+}
+```

@@ -43,3 +43,31 @@ When relocating, the function handles the memory context hierarchy carefully:
 - Critical for SPI (Server Programming Interface) operations that need to move plans between temporary and permanent contexts
 - Throws errors if applied to saved or one-shot plans, which have stricter memory management requirements
 - Maintains the proper parent-child relationships in the PostgreSQL memory context tree
+
+## Simplified Source
+
+```c
+void
+CachedPlanSetParentContext(CachedPlanSource *plansource,
+                          MemoryContext newcontext)
+{
+    // Validate plan state - must be complete, unsaved, non-oneshot
+    Assert(plansource->magic == CACHEDPLANSOURCE_MAGIC);
+    Assert(plansource->is_complete);
+
+    if (plansource->is_saved)
+        elog(ERROR, "cannot move a saved cached plan to another context");
+    if (plansource->is_oneshot)
+        elog(ERROR, "cannot move a one-shot cached plan to another context");
+
+    // Move the main plansource context to new parent
+    MemoryContextSetParent(plansource->context, newcontext);
+
+    // Move generic plan context if it exists
+    // (query_context automatically follows as child of plansource->context)
+    if (plansource->gplan) {
+        Assert(plansource->gplan->magic == CACHEDPLAN_MAGIC);
+        MemoryContextSetParent(plansource->gplan->context, newcontext);
+    }
+}
+```

@@ -37,3 +37,25 @@ The returned character represents the constraint type using PostgreSQL's interna
 - The returned character follows PostgreSQL's constraint type encoding scheme
 - Part of the lsyscache utility functions for efficient system catalog access
 - The "No frills" comment indicates this is a basic lookup function without error handling for missing constraints
+
+## Simplified Source
+
+```c
+char
+get_constraint_type(Oid conoid)
+{
+    HeapTuple tp;
+    char contype;
+
+    // Look up constraint in system cache
+    tp = SearchSysCache1(CONSTROID, ObjectIdGetDatum(conoid));
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for constraint %u", conoid);
+
+    // Extract constraint type
+    contype = ((Form_pg_constraint) GETSTRUCT(tp))->contype;
+    ReleaseSysCache(tp);
+
+    return contype;
+}
+```

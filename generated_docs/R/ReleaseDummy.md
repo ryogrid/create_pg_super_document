@@ -40,3 +40,14 @@ The function's simple implementation reflects its focused purpose: it exists sol
 - The simple implementation (just calling ) indicates that these tuples don't require complex cleanup logic
 - This function exemplifies PostgreSQL's pattern of providing specific cleanup functions for different types of allocated memory
 - The function name 'ReleaseDummy' suggests it may be used in contexts where a release function pointer is required but only simple memory deallocation is needed
+
+## Simplified Source
+
+```c
+static void
+ReleaseDummy(HeapTuple tuple)
+{
+    // Free the memory allocated for the copied tuple
+    pfree(tuple);
+}
+```

@@ -37,3 +37,64 @@ This function provides a mapping from JsonPathItemType enumeration values to the
 - Some operations like jpiAdd/jpiPlus and jpiSub/jpiMinus share the same string representation
 - Covers arithmetic, comparison, logical operations, and various JSON type conversion and utility functions
 - Essential for error reporting and debugging in JSON path expression evaluation
+
+## Simplified Source
+
+```c
+const char *
+jspOperationName(JsonPathItemType type)
+{
+    switch (type)
+    {
+        // Logical operations
+        case jpiAnd:           return "&&";
+        case jpiOr:            return "||";
+
+        // Comparison operations
+        case jpiEqual:         return "==";
+        case jpiNotEqual:      return "!=";
+        case jpiLess:          return "<";
+        case jpiGreater:       return ">";
+        case jpiLessOrEqual:   return "<=";
+        case jpiGreaterOrEqual: return ">=";
+
+        // Arithmetic operations
+        case jpiAdd:
+        case jpiPlus:          return "+";
+        case jpiSub:
+        case jpiMinus:         return "-";
+        case jpiMul:           return "*";
+        case jpiDiv:           return "/";
+        case jpiMod:           return "%";
+
+        // Built-in functions
+        case jpiType:          return "type";
+        case jpiSize:          return "size";
+        case jpiAbs:           return "abs";
+        case jpiFloor:         return "floor";
+        case jpiCeiling:       return "ceiling";
+        case jpiDouble:        return "double";
+        case jpiDatetime:      return "datetime";
+        case jpiKeyValue:      return "keyvalue";
+        case jpiStartsWith:    return "starts with";
+        case jpiLikeRegex:     return "like_regex";
+
+        // Type conversion functions
+        case jpiBigint:        return "bigint";
+        case jpiBoolean:       return "boolean";
+        case jpiDate:          return "date";
+        case jpiDecimal:       return "decimal";
+        case jpiInteger:       return "integer";
+        case jpiNumber:        return "number";
+        case jpiStringFunc:    return "string";
+        case jpiTime:          return "time";
+        case jpiTimeTz:        return "time_tz";
+        case jpiTimestamp:     return "timestamp";
+        case jpiTimestampTz:   return "timestamp_tz";
+
+        default:
+            elog(ERROR, "unrecognized jsonpath item type: %d", type);
+            return NULL;
+    }
+}
+```

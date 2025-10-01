@@ -45,3 +45,26 @@ This approach ensures consistency with PostgreSQL's division behavior and handle
 - [Result](../R/Result.md) scale matches the divisor's display scale for consistency
 - Employs temporary variable management to avoid memory leaks
 - Provides foundation for higher-level modulo operations and mathematical functions like GCD
+
+## Simplified Source
+
+```c
+static void mod_var(const NumericVar *var1, const NumericVar *var2, NumericVar *result) {
+    NumericVar tmp;
+
+    init_var(&tmp);
+
+    // Calculate modulo using: mod(x,y) = x - trunc(x/y)*y
+
+    // Step 1: Compute trunc(x/y)
+    div_var(var1, var2, &tmp, 0, false);  // scale=0, no rounding (truncation)
+
+    // Step 2: Multiply quotient by divisor
+    mul_var(var2, &tmp, &tmp, var2->dscale);
+
+    // Step 3: Subtract product from dividend to get remainder
+    sub_var(var1, &tmp, result);
+
+    free_var(&tmp);
+}
+```

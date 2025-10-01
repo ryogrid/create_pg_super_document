@@ -51,3 +51,53 @@ The function is primarily used in hash-based subplan execution to determine if t
 - Uses temporary memory context to prevent accumulation of memory during equality function calls
 - The equality functions are type-specific and support custom collations for text comparisons
 - Essential component of partial matching logic in hash-based subplan execution
+
+## Simplified Source
+
+```c
+static bool
+execTuplesUnequal(TupleTableSlot *slot1,
+                  TupleTableSlot *slot2,
+                  int numCols,
+                  AttrNumber *matchColIdx,
+                  FmgrInfo *eqfunctions,
+                  const Oid *collations,
+                  MemoryContext evalContext)
+{
+    MemoryContext oldContext;
+    bool result = false;
+
+    // Switch to temporary context for equality function execution
+    MemoryContextReset(evalContext);
+    oldContext = MemoryContextSwitchTo(evalContext);
+
+    // Compare columns in reverse order (optimization for sorted data)
+    for (int i = numCols; --i >= 0;) {
+        AttrNumber att = matchColIdx[i];
+        Datum attr1, attr2;
+        bool isNull1, isNull2;
+
+        // Get attributes from both tuples
+        attr1 = slot_getattr(slot1, att, &isNull1);
+        if (isNull1) {
+            continue;  // NULL values can't prove inequality
+        }
+
+        attr2 = slot_getattr(slot2, att, &isNull2);
+        if (isNull2) {
+            continue;  // NULL values can't prove inequality
+        }
+
+        // Compare non-null values using type-specific equality function
+        if (!DatumGetBool(FunctionCall2Coll(&eqfunctions[i],
+                                           collations[i],
+                                           attr1, attr2))) {
+            result = true;  // Found unequal values - tuples are unequal
+            break;
+        }
+    }
+
+    MemoryContextSwitchTo(oldContext);
+    return result;
+}
+```

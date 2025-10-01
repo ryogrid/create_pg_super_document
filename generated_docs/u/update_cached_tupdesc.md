@@ -42,3 +42,32 @@ The function ensures type safety by validating that cached descriptors match bot
 - Validates both type ID (tdtypeid) and type modifier (tdtypmod) to detect type changes that require cache updates
 - Follows PostgreSQL's reference counting pattern with ReleaseTupleDesc() to properly manage shared tuple descriptor resources
 - The cache invalidation check handles cases where the composite type definition has changed during the session
+
+## Simplified Source
+
+```c
+static void update_cached_tupdesc(CompositeIOData *io, MemoryContext mcxt)
+{
+    // Check if cache needs update (missing, wrong type ID, or wrong type modifier)
+    if (!io->tupdesc ||
+        io->tupdesc->tdtypeid != io->base_typid ||
+        io->tupdesc->tdtypmod != io->base_typmod)
+    {
+        // Lookup current tuple descriptor for the composite type
+        TupleDesc tupdesc = lookup_rowtype_tupdesc(io->base_typid, io->base_typmod);
+        MemoryContext oldcxt;
+
+        // Free old cached descriptor if it exists
+        if (io->tupdesc)
+            FreeTupleDesc(io->tupdesc);
+
+        // Copy new descriptor into cache memory context
+        oldcxt = MemoryContextSwitchTo(mcxt);
+        io->tupdesc = CreateTupleDescCopy(tupdesc);
+        MemoryContextSwitchTo(oldcxt);
+
+        // Release temporary reference to lookup result
+        ReleaseTupleDesc(tupdesc);
+    }
+}
+```

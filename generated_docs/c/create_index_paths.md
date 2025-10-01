@@ -52,3 +52,62 @@ All generated paths are added to the relation's pathlist via add_path() for cost
 - Creates parallel bitmap heap paths when appropriate (rel->consider_parallel)
 - Uses IndexClauseSet structures to organize clauses by index column
 - Generates only one BitmapHeapPath per distinct parameterization to avoid exponential path explosion
+
+## Simplified Source
+
+```c
+void
+create_index_paths(PlannerInfo *root, RelOptInfo *rel)
+{
+    List *bitindexpaths = NIL;
+    List *bitjoinpaths = NIL;
+    IndexClauseSet rclauseset, jclauseset, eclauseset;
+    ListCell *lc;
+
+    // Skip if no indexes available
+    if (rel->indexlist == NIL)
+        return;
+
+    // Process each index
+    foreach(lc, rel->indexlist)
+    {
+        IndexOptInfo *index = (IndexOptInfo *) lfirst(lc);
+
+        // Skip partial indexes that don't match query
+        if (index->indpred != NIL && !index->predOK)
+            continue;
+
+        // Find restriction clauses that match this index
+        MemSet(&rclauseset, 0, sizeof(rclauseset));
+        match_restriction_clauses_to_index(root, index, &rclauseset);
+
+        // Create non-parameterized index paths
+        get_index_paths(root, rel, index, &rclauseset, &bitindexpaths);
+
+        // Find join clauses that match this index
+        MemSet(&jclauseset, 0, sizeof(jclauseset));
+        match_join_clauses_to_index(root, rel, index, &jclauseset, &joinorclauses);
+
+        // Find EquivalenceClass clauses
+        MemSet(&eclauseset, 0, sizeof(eclauseset));
+        match_eclass_clauses_to_index(root, index, &eclauseset);
+
+        // Create parameterized paths if join/eclass clauses found
+        if (jclauseset.nonempty || eclauseset.nonempty)
+            consider_index_join_clauses(root, rel, index,
+                                       &rclauseset, &jclauseset, &eclauseset,
+                                       &bitjoinpaths);
+    }
+
+    // Generate bitmap OR paths and create final bitmap heap paths
+    // (Additional bitmap processing logic simplified)
+
+    if (bitindexpaths != NIL)
+    {
+        Path *bitmapqual = choose_bitmap_and(root, rel, bitindexpaths);
+        BitmapHeapPath *bpath = create_bitmap_heap_path(root, rel, bitmapqual,
+                                                       rel->lateral_relids, 1.0, 0);
+        add_path(rel, (Path *) bpath);
+    }
+}
+```

@@ -36,3 +36,30 @@ For example, with pathkeys (a,b,c) and group keys (a,b,e), the function determin
 - Only counts consecutive matching pathkeys from the beginning of the list
 - This optimization can significantly reduce sorting overhead when data is already partially ordered according to grouping requirements
 - The logic preserves paths with ordering that doesn't directly match grouping keys but can still be beneficial with reordering
+
+## Simplified Source
+
+```c
+static int pathkeys_useful_for_grouping(PlannerInfo *root, List *pathkeys)
+{
+    int n = 0;
+
+    // No special ordering requested for grouping
+    if (root->group_pathkeys == NIL)
+        return 0;
+
+    // Count consecutive pathkeys that match group keys
+    foreach(key, pathkeys)
+    {
+        PathKey *pathkey = (PathKey *) lfirst(key);
+
+        // Stop at first non-matching group key
+        if (!list_member_ptr(root->group_pathkeys, pathkey))
+            break;
+
+        n++;
+    }
+
+    return n;
+}
+```

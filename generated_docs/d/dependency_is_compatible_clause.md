@@ -51,3 +51,108 @@ The function validates that the operator used is an equality operator by checkin
 - Filters out system attributes as statistics are not maintained for them
 - Uses a somewhat dubious method of checking equality operators via selectivity functions rather than btree/hash opclass membership
 - The function is recursive when processing OR clauses to ensure all sub-clauses reference the same attribute
+
+## Simplified Source
+
+```c
+static bool
+dependency_is_compatible_clause(Node *clause, Index relid, AttrNumber *attnum)
+{
+    Var *var;
+    Node *clause_expr;
+
+    // Handle RestrictInfo wrapper
+    if (IsA(clause, RestrictInfo)) {
+        RestrictInfo *rinfo = (RestrictInfo *) clause;
+
+        // Skip pseudoconstants and multi-relation clauses
+        if (rinfo->pseudoconstant ||
+            bms_membership(rinfo->clause_relids) != BMS_SINGLETON)
+            return false;
+
+        clause = (Node *) rinfo->clause;
+    }
+
+    // Handle different clause types
+    if (is_opclause(clause)) {
+        // Process Var = Const or Const = Var
+        OpExpr *expr = (OpExpr *) clause;
+
+        if (list_length(expr->args) != 2)
+            return false;
+
+        // Determine which argument is variable vs constant
+        if (is_pseudo_constant_clause(lsecond(expr->args)))
+            clause_expr = linitial(expr->args);
+        else if (is_pseudo_constant_clause(linitial(expr->args)))
+            clause_expr = lsecond(expr->args);
+        else
+            return false;
+
+        // Only accept equality operators
+        if (get_oprrest(expr->opno) != F_EQSEL)
+            return false;
+
+    } else if (IsA(clause, ScalarArrayOpExpr)) {
+        // Process Var IN Const (ANY semantics only)
+        ScalarArrayOpExpr *expr = (ScalarArrayOpExpr *) clause;
+
+        if (!expr->useOr || list_length(expr->args) != 2)
+            return false;
+
+        if (!is_pseudo_constant_clause(lsecond(expr->args)))
+            return false;
+
+        clause_expr = linitial(expr->args);
+
+        // Only accept equality operators
+        if (get_oprrest(expr->opno) != F_EQSEL)
+            return false;
+
+    } else if (is_orclause(clause)) {
+        // Recursively process OR clauses
+        BoolExpr *bool_expr = (BoolExpr *) clause;
+
+        *attnum = InvalidAttrNumber;
+        foreach(lc, bool_expr->args) {
+            AttrNumber clause_attnum;
+
+            // All sub-clauses must be compatible
+            if (!dependency_is_compatible_clause((Node *) lfirst(lc), relid, &clause_attnum))
+                return false;
+
+            // All sub-clauses must reference same attribute
+            if (*attnum == InvalidAttrNumber)
+                *attnum = clause_attnum;
+            else if (*attnum != clause_attnum)
+                return false;
+        }
+        return true;
+
+    } else if (is_notclause(clause)) {
+        // Handle NOT x as x = false
+        clause_expr = (Node *) get_notclausearg(clause);
+    } else {
+        // Handle boolean x as x = true
+        clause_expr = (Node *) clause;
+    }
+
+    // Strip RelabelType if present
+    if (IsA(clause_expr, RelabelType))
+        clause_expr = (Node *) ((RelabelType *) clause_expr)->arg;
+
+    // Only support simple Vars
+    if (!IsA(clause_expr, Var))
+        return false;
+
+    var = (Var *) clause_expr;
+
+    // Validate Var properties
+    if (var->varno != relid || var->varlevelsup != 0 ||
+        !AttrNumberIsForUserDefinedAttr(var->varattno))
+        return false;
+
+    *attnum = var->varattno;
+    return true;
+}
+```

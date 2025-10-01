@@ -40,3 +40,22 @@ The `shared_stat_reset_contents` function performs a standardized reset operatio
 - Uses the statistics kind information system to determine appropriate data size and callbacks
 - Part of PostgreSQL's statistics reset infrastructure
 - Location: src/backend/utils/activity/pgstat_shmem.c:993-1008
+
+## Simplified Source
+
+```c
+static void
+shared_stat_reset_contents(PgStat_Kind kind, PgStatShared_Common *header,
+                          TimestampTz ts)
+{
+    const PgStat_KindInfo *kind_info = pgstat_get_kind_info(kind);
+
+    // Zero out the statistics data
+    memset(pgstat_get_entry_data(kind, header), 0,
+           pgstat_get_entry_len(kind));
+
+    // Update reset timestamp if callback is available
+    if (kind_info->reset_timestamp_cb)
+        kind_info->reset_timestamp_cb(header, ts);
+}
+```

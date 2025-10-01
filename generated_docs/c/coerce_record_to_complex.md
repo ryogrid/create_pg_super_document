@@ -59,3 +59,122 @@ If the target type is a domain over a composite type, it applies domain constrai
 - Supports domain types over composite types through recursive coerce_to_domain call
 - Uses COERCE_IMPLICIT_CAST for individual field coercions to maintain consistent formatting
 - Validates that input records have exactly the right number of fields for the target type
+
+## Simplified Source
+
+```c
+static Node *coerce_record_to_complex(ParseState *pstate, Node *node,
+                                     Oid targetTypeId, CoercionContext ccontext,
+                                     CoercionForm cformat, int location) {
+    List *field_exprs = NIL;
+
+    // Extract field expressions from input node
+    if (node && IsA(node, RowExpr)) {
+        // Direct row expression - extract arguments
+        field_exprs = ((RowExpr *) node)->args;
+    }
+    else if (node && IsA(node, Var) &&
+             ((Var *) node)->varattno == InvalidAttrNumber) {
+        // Whole-row variable - expand to individual fields
+        int rtindex = ((Var *) node)->varno;
+        int sublevels_up = ((Var *) node)->varlevelsup;
+        ParseNamespaceItem *nsitem = GetNSItemByRangeTablePosn(pstate, rtindex, sublevels_up);
+        field_exprs = expandNSItemVars(pstate, nsitem, sublevels_up,
+                                      ((Var *) node)->location, NULL);
+    }
+    else {
+        // Unsupported input type
+        ereport(ERROR, (errcode(ERRCODE_CANNOT_COERCE),
+                       errmsg("cannot cast type %s to %s",
+                             format_type_be(RECORDOID),
+                             format_type_be(targetTypeId))));
+    }
+
+    // Get target composite type information
+    Oid baseTypeId;
+    int32 baseTypeMod = -1;
+    baseTypeId = getBaseTypeAndTypmod(targetTypeId, &baseTypeMod);
+    TupleDesc tupdesc = lookup_rowtype_tupdesc(baseTypeId, baseTypeMod);
+
+    // Coerce each field to match target type
+    List *coerced_fields = coerce_record_fields(pstate, field_exprs, tupdesc,
+                                               ccontext, location, node);
+
+    ReleaseTupleDesc(tupdesc);
+
+    // Build result row expression
+    RowExpr *result = makeNode(RowExpr);
+    result->args = coerced_fields;
+    result->row_typeid = baseTypeId;
+    result->row_format = cformat;
+    result->colnames = NIL;
+    result->location = location;
+
+    // Apply domain constraints if target is a domain type
+    if (baseTypeId != targetTypeId) {
+        result->row_format = COERCE_IMPLICIT_CAST;
+        return coerce_to_domain((Node *) result, baseTypeId, baseTypeMod,
+                               targetTypeId, ccontext, cformat, location, false);
+    }
+
+    return (Node *) result;
+}
+
+// Helper: Coerce individual record fields to target types
+static List *coerce_record_fields(ParseState *pstate, List *field_exprs,
+                                 TupleDesc tupdesc, CoercionContext ccontext,
+                                 int location, Node *original_node) {
+    List *coerced_fields = NIL;
+    ListCell *field_cell = list_head(field_exprs);
+    int field_num = 1;
+
+    for (int i = 0; i < tupdesc->natts; i++) {
+        Form_pg_attribute attr = TupleDescAttr(tupdesc, i);
+
+        // Handle dropped columns with NULL placeholders
+        if (attr->attisdropped) {
+            coerced_fields = lappend(coerced_fields,
+                                   makeNullConst(INT4OID, -1, InvalidOid));
+            continue;
+        }
+
+        // Check for missing input fields
+        if (field_cell == NULL) {
+            ereport(ERROR, (errcode(ERRCODE_CANNOT_COERCE),
+                           errmsg("Input has too few columns")));
+        }
+
+        // Coerce input field to target field type
+        Node *input_expr = (Node *) lfirst(field_cell);
+        Node *coerced_expr = coerce_to_target_type(pstate, input_expr,
+                                                  exprType(input_expr),
+                                                  attr->atttypid, attr->atttypmod,
+                                                  ccontext, COERCE_IMPLICIT_CAST, -1);
+
+        if (coerced_expr == NULL) {
+            ereport(ERROR, (errcode(ERRCODE_CANNOT_COERCE),
+                           errdetail("Cannot cast type in column %d", field_num)));
+        }
+
+        coerced_fields = lappend(coerced_fields, coerced_expr);
+        field_num++;
+        field_cell = lnext(field_exprs, field_cell);
+    }
+
+    // Check for extra input fields
+    if (field_cell != NULL) {
+        ereport(ERROR, (errcode(ERRCODE_CANNOT_COERCE),
+                       errmsg("Input has too many columns")));
+    }
+
+    return coerced_fields;
+}
+```
+
+**Simplification Notes:**
+- Split the complex logic into main function and helper for field processing
+- Preserved the essential algorithm: extract fields, get target type info, coerce fields, build result
+- Simplified error handling while maintaining critical validation
+- Maintained support for both RowExpr and whole-row Var inputs
+- Reduced from ~145 lines to ~75 lines while preserving functionality
+- Made the control flow clearer by separating field extraction and coercion logic

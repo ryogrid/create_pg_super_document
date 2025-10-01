@@ -35,3 +35,33 @@ This function searches through the CTE namespace starting from the current parsi
 - Returns the levelsup count indicating how many parsing levels up the CTE was found
 - No ambiguity handling needed since CTE names must be unique within each WITH clause
 - Part of PostgreSQL's CTE resolution system for recursive and non-recursive common table expressions
+
+## Simplified Source
+
+```c
+CommonTableExpr *
+scanNameSpaceForCTE(ParseState *pstate, const char *refname,
+                    Index *ctelevelsup)
+{
+    Index levelsup;
+
+    // Search through parsing state hierarchy for matching CTE
+    for (levelsup = 0; pstate != NULL; pstate = pstate->parentParseState, levelsup++)
+    {
+        ListCell *lc;
+
+        // Check all CTEs in current namespace level
+        foreach(lc, pstate->p_ctenamespace)
+        {
+            CommonTableExpr *cte = lfirst(lc);
+
+            if (strcmp(cte->ctename, refname) == 0)
+            {
+                *ctelevelsup = levelsup;
+                return cte;
+            }
+        }
+    }
+    return NULL;
+}
+```

@@ -44,3 +44,70 @@ This function converts an in-memory MCVList structure into a serialized bytea fo
 - Part of PostgreSQL's extended statistics system for efficient catalog storage
 - The function includes extensive assertions for debugging and validation
 - Detoasts varlena values during serialization for consistent storage format
+
+## Simplified Source
+
+```c
+bytea *statext_mcv_serialize(MCVList *mcvlist, VacAttrStats **stats) {
+    int ndims = mcvlist->ndimensions;
+    bytea *raw;
+    char *ptr;
+    Size total_length;
+
+    // Arrays to store deduplicated values per dimension
+    Datum **values = (Datum **) palloc0(sizeof(Datum *) * ndims);
+    int *counts = (int *) palloc0(sizeof(int) * ndims);
+    DimensionInfo *info = (DimensionInfo *) palloc0(sizeof(DimensionInfo) * ndims);
+    SortSupport ssup = (SortSupport) palloc0(sizeof(SortSupportData) * ndims);
+
+    // Phase 1: Collect and deduplicate values for each dimension
+    for (int dim = 0; dim < ndims; dim++) {
+        // Setup type information and sorting
+        info[dim].typlen = stats[dim]->attrtype->typlen;
+        info[dim].typbyval = stats[dim]->attrtype->typbyval;
+        values[dim] = (Datum *) palloc0(sizeof(Datum) * mcvlist->nitems);
+
+        // Collect non-null values
+        for (int i = 0; i < mcvlist->nitems; i++) {
+            if (!mcvlist->items[i].isnull[dim]) {
+                values[dim][counts[dim]] = mcvlist->items[i].values[dim];
+                counts[dim]++;
+            }
+        }
+
+        if (counts[dim] > 0) {
+            // Sort and deduplicate values
+            setup_sort_support(&ssup[dim], stats[dim]);
+            qsort_interruptible(values[dim], counts[dim], sizeof(Datum),
+                              compare_scalars_simple, &ssup[dim]);
+
+            // Remove duplicates, calculate storage size
+            int ndistinct = deduplicate_values(values[dim], counts[dim], &ssup[dim]);
+            info[dim].nvalues = ndistinct;
+            calculate_storage_size(&info[dim], values[dim], ndistinct);
+        }
+    }
+
+    // Phase 2: Calculate total serialized size
+    total_length = calculate_total_size(mcvlist, info, ndims);
+
+    // Phase 3: Serialize to output buffer
+    raw = (bytea *) palloc0(VARHDRSZ + total_length);
+    SET_VARSIZE(raw, VARHDRSZ + total_length);
+    ptr = VARDATA(raw);
+
+    // Store header information
+    ptr = copy_mcv_header(ptr, mcvlist, info, ndims);
+
+    // Store deduplicated values for all dimensions
+    ptr = copy_deduplicated_values(ptr, values, info, ndims);
+
+    // Store MCV items with indexes instead of values
+    ptr = copy_mcv_items_with_indexes(ptr, mcvlist, values, info, ssup, ndims);
+
+    pfree(values);
+    pfree(counts);
+
+    return raw;
+}
+```

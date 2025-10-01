@@ -52,3 +52,68 @@ This function extracts statistical information from a specific slot within a pg_
 - Handles both pass-by-value and pass-by-reference data types correctly
 - Critical component of PostgreSQL's cost-based query optimization system
 - Located in `src/backend/utils/cache/lsyscache.c:3234-3343`
+
+## Simplified Source
+
+```c
+bool get_attstatsslot(AttStatsSlot *sslot, HeapTuple statstuple, int reqkind, Oid reqop, int flags)
+{
+    Form_pg_statistic stats = (Form_pg_statistic) GETSTRUCT(statstuple);
+    int i;
+
+    // Initialize output structure
+    memset(sslot, 0, sizeof(AttStatsSlot));
+
+    // Find matching slot by kind and operator
+    for (i = 0; i < STATISTIC_NUM_SLOTS; i++) {
+        if ((&stats->stakind1)[i] == reqkind &&
+            (reqop == InvalidOid || (&stats->staop1)[i] == reqop))
+            break;
+    }
+    if (i >= STATISTIC_NUM_SLOTS)
+        return false;  // Slot not found
+
+    // Store slot metadata
+    sslot->staop = (&stats->staop1)[i];
+    sslot->stacoll = (&stats->stacoll1)[i];
+
+    // Extract values array if requested
+    if (flags & ATTSTATSSLOT_VALUES) {
+        Datum val = SysCacheGetAttrNotNull(STATRELATTINH, statstuple,
+                                         Anum_pg_statistic_stavalues1 + i);
+        ArrayType *statarray = DatumGetArrayTypePCopy(val);
+
+        sslot->valuetype = ARR_ELEMTYPE(statarray);
+
+        // Get type info and deconstruct array
+        HeapTuple typeTuple = SearchSysCache1(TYPEOID, ObjectIdGetDatum(sslot->valuetype));
+        Form_pg_type typeForm = (Form_pg_type) GETSTRUCT(typeTuple);
+
+        deconstruct_array(statarray, sslot->valuetype, typeForm->typlen,
+                         typeForm->typbyval, typeForm->typalign,
+                         &sslot->values, NULL, &sslot->nvalues);
+
+        // Keep array if pass-by-reference, otherwise free it
+        if (!typeForm->typbyval)
+            sslot->values_arr = statarray;
+        else
+            pfree(statarray);
+
+        ReleaseSysCache(typeTuple);
+    }
+
+    // Extract numbers array if requested
+    if (flags & ATTSTATSSLOT_NUMBERS) {
+        Datum val = SysCacheGetAttrNotNull(STATRELATTINH, statstuple,
+                                         Anum_pg_statistic_stanumbers1 + i);
+        ArrayType *statarray = DatumGetArrayTypePCopy(val);
+
+        // Point directly into the array data
+        sslot->numbers = (float4 *) ARR_DATA_PTR(statarray);
+        sslot->nnumbers = ARR_DIMS(statarray)[0];
+        sslot->numbers_arr = statarray;
+    }
+
+    return true;
+}
+```

@@ -52,3 +52,44 @@ The function initializes all the standard Path fields and calls cost_bitmap_heap
 - Supports parallel execution when parallel_degree > 0
 - The bitmapqual can be a complex tree structure combining multiple indexes through AND/OR operations
 - Cost estimation considers both the bitmap creation phase and the heap scanning phase
+
+## Simplified Source
+
+```c
+BitmapHeapPath *
+create_bitmap_heap_path(PlannerInfo *root,
+                        RelOptInfo *rel,
+                        Path *bitmapqual,
+                        Relids required_outer,
+                        double loop_count,
+                        int parallel_degree)
+{
+    BitmapHeapPath *pathnode = makeNode(BitmapHeapPath);
+
+    // Initialize basic path properties
+    pathnode->path.pathtype = T_BitmapHeapScan;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = rel->reltarget;
+
+    // Set up parameterization info
+    pathnode->path.param_info = get_baserel_parampathinfo(root, rel, required_outer);
+
+    // Configure parallel execution settings
+    pathnode->path.parallel_aware = (parallel_degree > 0);
+    pathnode->path.parallel_safe = rel->consider_parallel;
+    pathnode->path.parallel_workers = parallel_degree;
+
+    // Bitmap heap scans are always unordered
+    pathnode->path.pathkeys = NIL;
+
+    // Store the bitmap qualification tree
+    pathnode->bitmapqual = bitmapqual;
+
+    // Calculate execution costs
+    cost_bitmap_heap_scan(&pathnode->path, root, rel,
+                          pathnode->path.param_info,
+                          bitmapqual, loop_count);
+
+    return pathnode;
+}
+```

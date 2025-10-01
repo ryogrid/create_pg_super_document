@@ -39,6 +39,20 @@ The conversion is performed by calling the internal helper function , which hand
 - Unlike , this function produces a timezone-aware result
 - Overflow checking is performed by the underlying  function
 - The timezone used depends on the current PostgreSQL timezone setting
-- Located in 
+- Located in
 - Used primarily in SQL contexts where implicit or explicit conversion from date to timestamptz is needed
 - The resulting timestamptz represents the start of the specified date in the current timezone
+
+## Simplified Source
+
+```c
+Datum date_timestamptz(PG_FUNCTION_ARGS) {
+    DateADT dateVal = PG_GETARG_DATEADT(0);
+    TimestampTz result;
+
+    // Convert date to timestamptz (adds 00:00:00 time in session timezone)
+    result = date2timestamptz(dateVal);
+
+    PG_RETURN_TIMESTAMP(result);
+}
+```

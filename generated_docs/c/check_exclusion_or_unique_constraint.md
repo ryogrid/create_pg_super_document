@@ -85,3 +85,117 @@ Key features:
 - Error messages are differentiated between new index creation scenarios and runtime constraint violations
 - The found_self mechanism ensures the function properly handles the case where the tuple being checked is already in the index
 - Livelock prevention logic helps avoid infinite waiting scenarios in concurrent speculative insertion situations
+
+## Simplified Source
+
+```c
+static bool check_exclusion_or_unique_constraint(Relation heap, Relation index,
+                                                IndexInfo *indexInfo,
+                                                ItemPointer tupleid,
+                                                const Datum *values, const bool *isnull,
+                                                EState *estate, bool newIndex,
+                                                CEOUC_WAIT_MODE waitMode,
+                                                bool violationOK,
+                                                ItemPointer conflictTid) {
+    // Setup constraint operators and strategies
+    Oid *constr_procs = indexInfo->ii_ExclusionOps ?
+                       indexInfo->ii_ExclusionProcs : indexInfo->ii_UniqueProcs;
+    uint16 *constr_strats = indexInfo->ii_ExclusionOps ?
+                           indexInfo->ii_ExclusionStrats : indexInfo->ii_UniqueStrats;
+
+    // Early return if NULL values with nulls-distinct behavior
+    if (!indexInfo->ii_NullsNotDistinct) {
+        for (int i = 0; i < IndexRelationGetNumberOfKeyAttributes(index); i++) {
+            if (isnull[i])
+                return true; // No constraint violation
+        }
+    }
+
+    // Prepare index scan to find potential conflicts
+    IndexScanDesc index_scan;
+    ScanKeyData scankeys[INDEX_MAX_KEYS];
+    SnapshotData DirtySnapshot;
+    InitDirtySnapshot(DirtySnapshot);
+
+    // Setup scan keys for index search
+    for (int i = 0; i < IndexRelationGetNumberOfKeyAttributes(index); i++) {
+        ScanKeyEntryInitialize(&scankeys[i],
+                              isnull[i] ? SK_ISNULL | SK_SEARCHNULL : 0,
+                              i + 1, constr_strats[i], InvalidOid,
+                              index->rd_indcollation[i],
+                              constr_procs[i], values[i]);
+    }
+
+    // Setup tuple slots for conflict checking
+    TupleTableSlot *existing_slot = table_slot_create(heap, NULL);
+    ExprContext *econtext = GetPerTupleExprContext(estate);
+    TupleTableSlot *save_scantuple = econtext->ecxt_scantuple;
+    econtext->ecxt_scantuple = existing_slot;
+
+retry:
+    bool conflict = false;
+    bool found_self = false;
+    index_scan = index_beginscan(heap, index, &DirtySnapshot,
+                                IndexRelationGetNumberOfKeyAttributes(index), 0);
+    index_rescan(index_scan, scankeys, IndexRelationGetNumberOfKeyAttributes(index), NULL, 0);
+
+    // Scan for conflicting tuples
+    while (index_getnext_slot(index_scan, ForwardScanDirection, existing_slot)) {
+        // Skip self-tuple if found
+        if (ItemPointerIsValid(tupleid) &&
+            ItemPointerEquals(tupleid, &existing_slot->tts_tid)) {
+            found_self = true;
+            continue;
+        }
+
+        // Extract values from existing tuple and check for conflicts
+        Datum existing_values[INDEX_MAX_KEYS];
+        bool existing_isnull[INDEX_MAX_KEYS];
+        FormIndexDatum(indexInfo, existing_slot, estate, existing_values, existing_isnull);
+
+        // Recheck constraint if needed (for lossy scans)
+        if (index_scan->xs_recheck &&
+            !index_recheck_constraint(index, constr_procs, existing_values,
+                                     existing_isnull, values))
+            continue;
+
+        // Handle concurrent transactions
+        TransactionId xwait = TransactionIdIsValid(DirtySnapshot.xmin) ?
+                             DirtySnapshot.xmin : DirtySnapshot.xmax;
+
+        if (TransactionIdIsValid(xwait) && waitMode == CEOUC_WAIT) {
+            // Wait for concurrent transaction to complete
+            index_endscan(index_scan);
+            XactLockTableWait(xwait, heap, &existing_slot->tts_tid,
+                             indexInfo->ii_ExclusionOps ?
+                             XLTW_RecheckExclusionConstr : XLTW_InsertIndex);
+            goto retry;
+        }
+
+        // Conflict detected
+        if (violationOK) {
+            conflict = true;
+            if (conflictTid)
+                *conflictTid = existing_slot->tts_tid;
+            break;
+        }
+
+        // Report constraint violation error
+        char *error_new = BuildIndexValueDescription(index, values, isnull);
+        char *error_existing = BuildIndexValueDescription(index, existing_values, existing_isnull);
+
+        ereport(ERROR,
+                (errcode(ERRCODE_EXCLUSION_VIOLATION),
+                 errmsg("conflicting key value violates exclusion constraint \"%s\"",
+                        RelationGetRelationName(index)),
+                 errdetail("Key %s conflicts with existing key %s.",
+                          error_new, error_existing)));
+    }
+
+    index_endscan(index_scan);
+    econtext->ecxt_scantuple = save_scantuple;
+    ExecDropSingleTupleTableSlot(existing_slot);
+
+    return !conflict;
+}
+```

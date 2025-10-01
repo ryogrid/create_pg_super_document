@@ -36,3 +36,21 @@ The function ensures that variable level adjustments are handled correctly when 
 - Passes NULL for the `outer_hasSubLinks` parameter since subqueries handle their own sublink processing
 - Specifically designed for LATERAL subquery processing where variable references cross subquery boundaries
 - Returns a modified copy of the Query node with all variable references appropriately replaced
+
+## Simplified Source
+
+```c
+static Query *
+pullup_replace_vars_subquery(Query *query, pullup_replace_vars_context *context)
+{
+    // Validate input is a Query node
+    Assert(IsA(query, Query));
+
+    // Apply variable replacement with sublevels_up=1 for subquery context
+    return (Query *) replace_rte_variables((Node *) query,
+                                         context->varno, 1,
+                                         pullup_replace_vars_callback,
+                                         (void *) context,
+                                         NULL);
+}
+```

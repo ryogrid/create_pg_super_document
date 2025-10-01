@@ -50,3 +50,83 @@ The function maintains the merged state in PartitionMap structures and handles r
 - Maintains the merged state and merged_indexes arrays in both PartitionMap structures
 - Critical component of the partition merging algorithm for partitioned joins
 - The function ensures that partition merging operations are consistent and reversible when necessary
+
+## Simplified Source
+
+```c
+static int
+merge_matching_partitions(PartitionMap *outer_map, PartitionMap *inner_map,
+                         int outer_index, int inner_index, int *next_index)
+{
+    // Get current merge status for both partitions
+    int outer_merged_idx = outer_map->merged_indexes[outer_index];
+    int inner_merged_idx = inner_map->merged_indexes[inner_index];
+    bool outer_merged = outer_map->merged[outer_index];
+    bool inner_merged = inner_map->merged[inner_index];
+
+    // Case 1: Both partitions already have merged indexes
+    if (outer_merged_idx >= 0 && inner_merged_idx >= 0)
+    {
+        // If they map to the same merged partition, we're done
+        if (outer_merged_idx == inner_merged_idx)
+            return outer_merged_idx;
+
+        // If both were merged with dummy partitions, re-map to smaller index
+        if (!outer_merged && !inner_merged)
+        {
+            if (outer_merged_idx < inner_merged_idx)
+            {
+                // Re-map inner to outer's merged index
+                inner_map->merged_indexes[inner_index] = outer_merged_idx;
+                inner_map->old_indexes[inner_index] = inner_merged_idx;
+                inner_map->did_remapping = true;
+                outer_map->merged[outer_index] = true;
+                inner_map->merged[inner_index] = true;
+                return outer_merged_idx;
+            }
+            else
+            {
+                // Re-map outer to inner's merged index
+                outer_map->merged_indexes[outer_index] = inner_merged_idx;
+                outer_map->old_indexes[outer_index] = outer_merged_idx;
+                outer_map->did_remapping = true;
+                outer_map->merged[outer_index] = true;
+                inner_map->merged[inner_index] = true;
+                return inner_merged_idx;
+            }
+        }
+        return -1;  // Can't merge - conflict
+    }
+
+    // Case 2: Neither partition has been merged yet - create new merged partition
+    if (outer_merged_idx == -1 && inner_merged_idx == -1)
+    {
+        int new_merged_index = *next_index;
+        outer_map->merged_indexes[outer_index] = new_merged_index;
+        inner_map->merged_indexes[inner_index] = new_merged_index;
+        outer_map->merged[outer_index] = true;
+        inner_map->merged[inner_index] = true;
+        (*next_index)++;
+        return new_merged_index;
+    }
+
+    // Case 3: One partition merged with dummy, other not merged - join them
+    if (outer_merged_idx >= 0 && !outer_merged)
+    {
+        inner_map->merged_indexes[inner_index] = outer_merged_idx;
+        inner_map->merged[inner_index] = true;
+        outer_map->merged[outer_index] = true;
+        return outer_merged_idx;
+    }
+
+    if (inner_merged_idx >= 0 && !inner_merged)
+    {
+        outer_map->merged_indexes[outer_index] = inner_merged_idx;
+        outer_map->merged[outer_index] = true;
+        inner_map->merged[inner_index] = true;
+        return inner_merged_idx;
+    }
+
+    return -1;  // Unable to merge
+}
+```

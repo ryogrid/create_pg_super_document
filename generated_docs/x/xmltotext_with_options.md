@@ -47,3 +47,130 @@ When indentation is requested, the function creates a libxml2 save context and c
 - Uses XML save contexts with specific formatting flags (XML_SAVE_FORMAT, XML_SAVE_NO_DECL)
 - Manages memory carefully with proper cleanup in exception handlers
 - Located in src/backend/utils/adt/xml.c at lines 656-868
+
+## Simplified Source
+
+```c
+text *
+xmltotext_with_options(xmltype *data, XmlOptionType xmloption_arg, bool indent)
+{
+    text *result;
+    xmlDocPtr doc;
+    XmlOptionType parsed_xmloptiontype;
+    xmlNodePtr content_nodes;
+    xmlBufferPtr buf = NULL;
+    xmlSaveCtxtPtr ctxt = NULL;
+    PgXmlErrorContext *xmlerrcxt = NULL;
+
+    // Quick path: if no special processing needed, return input directly
+    if (xmloption_arg != XMLOPTION_DOCUMENT && !indent) {
+        return (text *) data;
+    }
+
+    // Parse the XML input according to specified options
+    // preserve_whitespace = false when indenting to allow proper formatting
+    doc = xml_parse(data, xmloption_arg, !indent, GetDatabaseEncoding(),
+                    &parsed_xmloptiontype, &content_nodes, &escontext);
+
+    if (doc == NULL || escontext.error_occurred) {
+        if (doc) xmlFreeDoc(doc);
+        ereport(ERROR, (errcode(ERRCODE_NOT_AN_XML_DOCUMENT),
+                       errmsg("not an XML document")));
+    }
+
+    // If no indentation requested, we're done
+    if (!indent) {
+        xmlFreeDoc(doc);
+        return (text *) data;
+    }
+
+    // Set up XML processing with error handling
+    xmlerrcxt = pg_xml_init(PG_XML_STRICTNESS_ALL);
+    buf = xmlBufferCreate();
+
+    if (buf == NULL || xmlerrcxt->err_occurred) {
+        xml_ereport(xmlerrcxt, ERROR, ERRCODE_OUT_OF_MEMORY,
+                   "could not allocate xmlBuffer");
+    }
+
+    // Detect XML declaration and set up save context
+    size_t decl_len = 0;
+    parse_xml_decl(xml_text2xmlChar(data), &decl_len, NULL, NULL, NULL);
+
+    // Create save context with appropriate flags
+    if (decl_len == 0) {
+        ctxt = xmlSaveToBuffer(buf, NULL, XML_SAVE_NO_DECL | XML_SAVE_FORMAT);
+    } else {
+        ctxt = xmlSaveToBuffer(buf, NULL, XML_SAVE_FORMAT);
+    }
+
+    if (ctxt == NULL || xmlerrcxt->err_occurred) {
+        xml_ereport(xmlerrcxt, ERROR, ERRCODE_OUT_OF_MEMORY,
+                   "could not allocate xmlSaveCtxt");
+    }
+
+    // Handle document vs content fragment differently
+    if (parsed_xmloptiontype == XMLOPTION_DOCUMENT) {
+        // Simple case: save complete document
+        if (xmlSaveDoc(ctxt, doc) == -1 || xmlerrcxt->err_occurred) {
+            xml_ereport(xmlerrcxt, ERROR, ERRCODE_INTERNAL_ERROR,
+                       "could not save document to xmlBuffer");
+        }
+    } else if (content_nodes != NULL) {
+        // Complex case: handle content fragments with proper formatting
+
+        // Create temporary root container for content nodes
+        xmlNodePtr root = xmlNewNode(NULL, (const xmlChar *) "content-root");
+        xmlNodePtr oldroot = xmlDocSetRootElement(doc, root);
+        if (oldroot != NULL) xmlFreeNode(oldroot);
+
+        xmlAddChildList(root, content_nodes);
+
+        // Create newline node for formatting
+        xmlNodePtr newline = xmlNewDocText(NULL, (const xmlChar *) "\n");
+
+        // Iterate through child nodes, adding newlines between elements
+        for (xmlNodePtr node = root->children; node; node = node->next) {
+            // Insert newlines between non-text nodes
+            if (node->type != XML_TEXT_NODE && node->prev != NULL) {
+                xmlSaveTree(ctxt, newline);
+            }
+            xmlSaveTree(ctxt, node);
+        }
+
+        xmlFreeNode(newline);
+    }
+
+    xmlSaveClose(ctxt);
+
+    // Clean up trailing newlines for documents
+    if (xmloption_arg == XMLOPTION_DOCUMENT) {
+        const char *str = (const char *) xmlBufferContent(buf);
+        int len = xmlBufferLength(buf);
+
+        while (len > 0 && (str[len - 1] == '\n' || str[len - 1] == '\r')) {
+            len--;
+        }
+
+        result = cstring_to_text_with_len(str, len);
+    } else {
+        result = (text *) xmlBuffer_to_xmltype(buf);
+    }
+
+    // Cleanup
+    xmlBufferFree(buf);
+    xmlFreeDoc(doc);
+    pg_xml_done(xmlerrcxt, false);
+
+    return result;
+}
+```
+
+This simplified version preserves the essential algorithm while removing:
+- Complex PG_TRY/PG_CATCH exception handling blocks
+- Detailed error state management and volatile declarations
+- Platform-specific preprocessing directives (#ifdef USE_LIBXML)
+- Redundant error checking and recovery logic
+- Detailed memory leak prevention code in error paths
+
+The core logic flow remains intact: quick path optimization, XML parsing with validation, conditional indentation processing, different handling for documents vs content fragments, and proper resource cleanup.

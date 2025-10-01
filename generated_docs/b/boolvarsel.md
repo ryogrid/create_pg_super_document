@@ -40,3 +40,28 @@ This function is a key component in PostgreSQL's cost-based query optimization, 
 - Part of PostgreSQL's selectivity estimation framework used by the query planner
 - Can handle indexed Boolean expressions when statistics are collected on them
 - The function properly manages memory by releasing variable statistics data after use
+
+## Simplified Source
+
+```c
+Selectivity
+boolvarsel(PlannerInfo *root, Node *arg, int varRelid)
+{
+    VariableStatData vardata;
+    double selec;
+
+    examine_variable(root, arg, varRelid, &vardata);
+
+    if (HeapTupleIsValid(vardata.statsTuple)) {
+        // Statistics available - treat as V = 't' equivalence
+        selec = var_eq_const(&vardata, BooleanEqualOperator, InvalidOid,
+                            BoolGetDatum(true), false, true, false);
+    } else {
+        // No statistics - default to 50% selectivity
+        selec = 0.5;
+    }
+
+    ReleaseVariableStats(vardata);
+    return selec;
+}
+```

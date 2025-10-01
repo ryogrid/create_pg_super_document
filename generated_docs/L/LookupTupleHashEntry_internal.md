@@ -42,3 +42,36 @@ This function serves as the internal implementation for both  and  functions. It
 - The  parameter controls whether insertion or lookup-only operation is performed
 - New entries have their  field initialized to NULL and  set to a copy of the input tuple
 - Part of PostgreSQL's executor grouping functionality for hash-based operations like GROUP BY and DISTINCT
+
+## Simplified Source
+
+```c
+static inline TupleHashEntry
+LookupTupleHashEntry_internal(TupleHashTable hashtable, TupleTableSlot *slot,
+                             bool *isnew, uint32 hash) {
+    TupleHashEntryData *entry;
+    bool found;
+    MinimalTuple key = NULL;  // flag to reference inputslot
+
+    if (isnew) {
+        // Insert mode: create new entry if not found
+        entry = tuplehash_insert_hash(hashtable->hashtab, key, hash, &found);
+
+        if (found) {
+            *isnew = false;  // found existing entry
+        } else {
+            *isnew = true;   // created new entry
+
+            // Initialize new entry
+            entry->additional = NULL;
+            MemoryContextSwitchTo(hashtable->tablecxt);
+            entry->firstTuple = ExecCopySlotMinimalTuple(slot);
+        }
+    } else {
+        // Lookup-only mode
+        entry = tuplehash_lookup_hash(hashtable->hashtab, key, hash);
+    }
+
+    return entry;
+}
+```

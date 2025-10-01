@@ -49,3 +49,52 @@ The function implements comprehensive special value handling for NaN and infinit
 - Memory management follows PostgreSQL conventions with proper variable cleanup
 - Critical component of PostgreSQL's arbitrary precision numeric system
 - Used both directly and indirectly throughout the database system for precise arithmetic
+
+## Simplified Source
+
+```c
+Numeric
+numeric_add_opt_error(Numeric num1, Numeric num2, bool *have_error)
+{
+    NumericVar arg1, arg2, result;
+    Numeric res;
+
+    // Handle special values: NaN and infinity
+    if (NUMERIC_IS_SPECIAL(num1) || NUMERIC_IS_SPECIAL(num2)) {
+        // NaN propagates to result
+        if (NUMERIC_IS_NAN(num1) || NUMERIC_IS_NAN(num2))
+            return make_result(&const_nan);
+
+        // Handle infinity arithmetic
+        if (NUMERIC_IS_PINF(num1)) {
+            if (NUMERIC_IS_NINF(num2))
+                return make_result(&const_nan);  // +Inf + (-Inf) = NaN
+            else
+                return make_result(&const_pinf); // +Inf + finite = +Inf
+        }
+
+        if (NUMERIC_IS_NINF(num1)) {
+            if (NUMERIC_IS_PINF(num2))
+                return make_result(&const_nan);  // -Inf + (+Inf) = NaN
+            else
+                return make_result(&const_ninf); // -Inf + finite = -Inf
+        }
+
+        // num1 is finite, num2 is infinite
+        return NUMERIC_IS_PINF(num2) ? make_result(&const_pinf) : make_result(&const_ninf);
+    }
+
+    // Normal arithmetic: convert to internal format and add
+    init_var_from_num(num1, &arg1);
+    init_var_from_num(num2, &arg2);
+
+    init_var(&result);
+    add_var(&arg1, &arg2, &result);
+
+    // Create result with optional error handling
+    res = make_result_opt_error(&result, have_error);
+
+    free_var(&result);
+    return res;
+}
+```

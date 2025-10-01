@@ -37,3 +37,22 @@ This function implements the conversion from ISO 8601 week date format to Julian
 - Critical component for PostgreSQL's ISO week date support and date arithmetic operations
 - The calculation  converts from 1-based week numbering to 0-based offset calculation
 - Located in src/backend/utils/adt/timestamp.c:5116-5135
+
+## Simplified Source
+
+```c
+int
+isoweek2j(int year, int week)
+{
+    int day0, day4;
+
+    // Find Julian day for January 4th (always in ISO week 1)
+    day4 = date2j(year, 1, 4);
+
+    // Calculate offset to first Monday of the year
+    day0 = j2day(day4 - 1);
+
+    // Calculate Julian day for Monday of the specified week
+    return ((week - 1) * 7) + (day4 - day0);
+}
+```

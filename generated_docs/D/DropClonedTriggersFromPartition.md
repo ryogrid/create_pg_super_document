@@ -54,3 +54,54 @@ This process ensures that when a partition is detached, it doesn't retain trigge
 - The dependency removal is made visible via CommandCounterIncrement before performing deletions
 - Essential for preventing orphaned triggers after partition detachment
 - Part of the comprehensive cleanup required to properly separate a partition from its parent table
+
+## Simplified Source
+
+```c
+static void DropClonedTriggersFromPartition(Oid partitionId) {
+    ObjectAddresses *objects = new_object_addresses();
+
+    // Open trigger catalog and scan for triggers on this partition
+    Relation tgrel = table_open(TriggerRelationId, RowExclusiveLock);
+    ScanKeyData skey;
+    ScanKeyInit(&skey, Anum_pg_trigger_tgrelid, BTEqualStrategyNumber,
+                F_OIDEQ, ObjectIdGetDatum(partitionId));
+
+    SysScanDesc scan = systable_beginscan(tgrel, TriggerRelidNameIndexId, true, NULL, 1, &skey);
+    HeapTuple trigtup;
+
+    while (HeapTupleIsValid(trigtup = systable_getnext(scan))) {
+        Form_pg_trigger pg_trigger = (Form_pg_trigger) GETSTRUCT(trigtup);
+
+        // Skip triggers that weren't cloned from parent
+        if (!OidIsValid(pg_trigger->tgparentid))
+            continue;
+
+        // Skip internal FK constraint triggers (handled separately)
+        if (OidIsValid(pg_trigger->tgconstrrelid))
+            continue;
+
+        // Remove partition dependency records
+        deleteDependencyRecordsForClass(TriggerRelationId, pg_trigger->oid,
+                                       TriggerRelationId, DEPENDENCY_PARTITION_PRI);
+        deleteDependencyRecordsForClass(TriggerRelationId, pg_trigger->oid,
+                                       RelationRelationId, DEPENDENCY_PARTITION_SEC);
+
+        // Add trigger to deletion list
+        ObjectAddress trig;
+        ObjectAddressSet(trig, TriggerRelationId, pg_trigger->oid);
+        add_exact_object_address(&trig, objects);
+    }
+
+    // Make dependency removal visible before deletion
+    CommandCounterIncrement();
+
+    // Perform batch deletion of all collected triggers
+    performMultipleDeletions(objects, DROP_RESTRICT, PERFORM_DELETION_INTERNAL);
+
+    // Clean up
+    free_object_addresses(objects);
+    systable_endscan(scan);
+    table_close(tgrel, RowExclusiveLock);
+}
+```

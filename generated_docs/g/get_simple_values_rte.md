@@ -68,3 +68,60 @@ The function is designed to work even when the query contains OLD or NEW rule RT
 - [DefineView](../D/DefineView.md) might modify the target list by injecting column aliases, which this function detects
 - Returns NULL if the query structure is too complex or if column names have been modified
 - Part of the PostgreSQL rule utilities for query deparsing and rule generation
+
+## Simplified Source
+
+```c
+static RangeTblEntry *get_simple_values_rte(Query *query, TupleDesc resultDesc)
+{
+    RangeTblEntry *result = NULL;
+
+    // Scan rtable to find exactly one VALUES RTE in FROM clause
+    foreach(lc, query->rtable)
+    {
+        RangeTblEntry *rte = (RangeTblEntry *) lfirst(lc);
+
+        if (rte->rtekind == RTE_VALUES && rte->inFromCl)
+        {
+            if (result)
+                return NULL;  // Multiple VALUES RTEs not allowed
+            result = rte;
+        }
+        else if (rte->rtekind == RTE_RELATION && !rte->inFromCl)
+            continue;  // Ignore OLD/NEW rule entries
+        else
+            return NULL;  // Other RTE types make this non-simple
+    }
+
+    // Verify column names match expected values (no renaming)
+    if (result)
+    {
+        if (list_length(query->targetList) != list_length(result->eref->colnames))
+            return NULL;
+
+        int colno = 0;
+        forboth(lc, query->targetList, lcn, result->eref->colnames)
+        {
+            TargetEntry *tle = (TargetEntry *) lfirst(lc);
+            char *cname = strVal(lfirst(lcn));
+            char *colname;
+
+            if (tle->resjunk)
+                return NULL;
+
+            // Get expected column name
+            colno++;
+            if (resultDesc && colno <= resultDesc->natts)
+                colname = NameStr(TupleDescAttr(resultDesc, colno - 1)->attname);
+            else
+                colname = tle->resname;
+
+            // Check if names match
+            if (colname == NULL || strcmp(colname, cname) != 0)
+                return NULL;  // Column name changed
+        }
+    }
+
+    return result;
+}
+```

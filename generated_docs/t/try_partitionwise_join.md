@@ -57,3 +57,116 @@ For each partition pair, the function:
 - Maintains partition bounds information and live partition tracking
 - Uses AppendRelInfo structures to translate expressions between parent and child relations
 - Part of PostgreSQL's advanced join optimization framework for partitioned tables
+
+## Simplified Source
+
+```c
+static void try_partitionwise_join(PlannerInfo *root, RelOptInfo *rel1, RelOptInfo *rel2,
+                                  RelOptInfo *joinrel, SpecialJoinInfo *parent_sjinfo,
+                                  List *parent_restrictlist) {
+    bool rel1_is_simple = IS_SIMPLE_REL(rel1);
+    bool rel2_is_simple = IS_SIMPLE_REL(rel2);
+    List *parts1 = NIL, *parts2 = NIL;
+    ListCell *lcr1 = NULL, *lcr2 = NULL;
+    int cnt_parts;
+
+    check_stack_depth();
+
+    // Early exit conditions
+    if (joinrel->part_scheme == NULL || joinrel->nparts == 0)
+        return;
+
+    if (!IS_PARTITIONED_REL(rel1) || !IS_PARTITIONED_REL(rel2))
+        return;
+
+    // Compute partition bounds for matching partitions
+    compute_partition_bounds(root, rel1, rel2, joinrel, parent_sjinfo, &parts1, &parts2);
+
+    if (joinrel->partbounds_merged) {
+        lcr1 = list_head(parts1);
+        lcr2 = list_head(parts2);
+    }
+
+    // Process each partition pair
+    for (cnt_parts = 0; cnt_parts < joinrel->nparts; cnt_parts++) {
+        RelOptInfo *child_rel1, *child_rel2;
+        bool rel1_empty, rel2_empty;
+
+        // Get child relations for this partition
+        if (joinrel->partbounds_merged) {
+            child_rel1 = lfirst_node(RelOptInfo, lcr1);
+            child_rel2 = lfirst_node(RelOptInfo, lcr2);
+            lcr1 = lnext(parts1, lcr1);
+            lcr2 = lnext(parts2, lcr2);
+        } else {
+            child_rel1 = rel1->part_rels[cnt_parts];
+            child_rel2 = rel2->part_rels[cnt_parts];
+        }
+
+        rel1_empty = (child_rel1 == NULL || IS_DUMMY_REL(child_rel1));
+        rel2_empty = (child_rel2 == NULL || IS_DUMMY_REL(child_rel2));
+
+        // Skip empty partition segments based on join type
+        switch (parent_sjinfo->jointype) {
+            case JOIN_INNER:
+            case JOIN_SEMI:
+                if (rel1_empty || rel2_empty) continue;
+                break;
+            case JOIN_LEFT:
+            case JOIN_ANTI:
+                if (rel1_empty) continue;
+                break;
+            case JOIN_FULL:
+                if (rel1_empty && rel2_empty) continue;
+                break;
+        }
+
+        // Fail if child partitions are completely pruned
+        if (child_rel1 == NULL || child_rel2 == NULL) {
+            joinrel->nparts = 0;
+            return;
+        }
+
+        // Fail if dummy relations don't support partitionwise join
+        if ((rel1_is_simple && !child_rel1->consider_partitionwise_join) ||
+            (rel2_is_simple && !child_rel2->consider_partitionwise_join)) {
+            joinrel->nparts = 0;
+            return;
+        }
+
+        // Build child join structures
+        SpecialJoinInfo *child_sjinfo = build_child_join_sjinfo(root, parent_sjinfo,
+                                                               child_rel1->relids,
+                                                               child_rel2->relids);
+
+        AppendRelInfo **appinfos;
+        int nappinfos;
+        appinfos = find_appinfos_by_relids(root,
+                                          bms_union(child_rel1->relids, child_rel2->relids),
+                                          &nappinfos);
+
+        List *child_restrictlist = (List *) adjust_appendrel_attrs(root,
+                                                                  (Node *) parent_restrictlist,
+                                                                  nappinfos, appinfos);
+
+        // Create or find child join relation
+        RelOptInfo *child_joinrel = joinrel->part_rels[cnt_parts];
+        if (!child_joinrel) {
+            child_joinrel = build_child_join_rel(root, child_rel1, child_rel2,
+                                                joinrel, child_restrictlist, child_sjinfo);
+            joinrel->part_rels[cnt_parts] = child_joinrel;
+            joinrel->live_parts = bms_add_member(joinrel->live_parts, cnt_parts);
+            joinrel->all_partrels = bms_add_members(joinrel->all_partrels,
+                                                   child_joinrel->relids);
+        }
+
+        // Generate paths for the child join
+        populate_joinrel_with_paths(root, child_rel1, child_rel2, child_joinrel,
+                                   child_sjinfo, child_restrictlist);
+
+        // Clean up
+        pfree(appinfos);
+        free_child_join_sjinfo(child_sjinfo, parent_sjinfo);
+    }
+}
+```

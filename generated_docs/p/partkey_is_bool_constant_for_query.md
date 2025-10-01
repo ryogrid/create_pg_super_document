@@ -36,3 +36,34 @@ The function checks if a boolean partition key column has such a boolean restric
 - Part of PostgreSQL's partition-aware query optimization infrastructure
 - Enables consistent handling of boolean vs. non-boolean partition key columns in pathkey generation
 - Returns true if a matching boolean restriction clause is found, false otherwise
+
+## Simplified Source
+
+```c
+static bool
+partkey_is_bool_constant_for_query(RelOptInfo *partrel, int partkeycol)
+{
+    PartitionScheme partscheme = partrel->part_scheme;
+    ListCell *lc;
+
+    // Only boolean partition keys can match boolean restrictions
+    if (!IsBuiltinBooleanOpfamily(partscheme->partopfamily[partkeycol]))
+        return false;
+
+    // Check each WHERE clause restriction for this partitioned relation
+    foreach(lc, partrel->baserestrictinfo)
+    {
+        RestrictInfo *rinfo = (RestrictInfo *) lfirst(lc);
+
+        // Skip pseudoconstant clauses (they don't constrain partition keys)
+        if (rinfo->pseudoconstant)
+            continue;
+
+        // Check if this restriction clause matches the boolean partition key
+        if (matches_boolean_partition_clause(rinfo, partrel, partkeycol))
+            return true;
+    }
+
+    return false;
+}
+```

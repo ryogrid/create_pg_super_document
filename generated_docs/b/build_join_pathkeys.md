@@ -44,3 +44,25 @@ The function also truncates pathkeys that are uninteresting for higher-level joi
 - FULL, RIGHT, and RIGHT_ANTI joins cannot preserve outer path ordering due to potential null row insertion
 - The function is critical for maintaining sort order information through join operations in query planning
 - [Path](../P/Path.md) key truncation helps optimize memory usage and planning efficiency by removing irrelevant ordering constraints
+
+## Simplified Source
+
+```c
+List *
+build_join_pathkeys(PlannerInfo *root,
+                    RelOptInfo *joinrel,
+                    JoinType jointype,
+                    List *outer_pathkeys)
+{
+    // FULL, RIGHT, and RIGHT_ANTI joins cannot preserve ordering
+    // because null lefthand rows may be inserted at random points
+    if (jointype == JOIN_FULL ||
+        jointype == JOIN_RIGHT ||
+        jointype == JOIN_RIGHT_ANTI)
+        return NIL;
+
+    // For other join types, preserve outer path's ordering
+    // but truncate pathkeys that are uninteresting for higher joins
+    return truncate_useless_pathkeys(root, joinrel, outer_pathkeys);
+}
+```

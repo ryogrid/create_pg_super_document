@@ -9,30 +9,7 @@ Sets the size estimates for a base relation that represents a named tuplestore r
 ## Definition
 
 ```c
-structed
- * already.
- *
- * We set the same fields as set_baserel_size_estimates.
- */
-void
-set_result_size_estimates(PlannerInfo *root, RelOptInfo *rel)
-{
-	/* Should only be applied to RTE_RESULT base relations */
-	Assert(rel->relid > 0);
-	Assert(planner_rt_fetch(rel->relid, root)->rtekind == RTE_RESULT);
-
-	/* RTE_RESULT always generates a single row, natively */
-	rel->tuples = 1;
-
-	/* Now estimate number of output rows, etc */
-	set_baserel_size_estimates(root, rel);
-}
-
-/*
- * set_foreign_size_estimates
- *		Set the size estimates for a base relation that is a foreign table.
- *
- * There is not a whole lot that we can do here;
+void set_namedtuplestore_size_estimates(PlannerInfo *root, RelOptInfo *rel)
 ```
 ## Detailed Description
 This function estimates cardinality for relations that reference named tuplestores (Ephemeral Named Relations or ENRs), which are temporary result sets that can be referenced multiple times within a query. The function attempts to use the tuple count provided by the code generating the named tuplestore via the  field. If no valid estimate is available (indicated by a negative value), it falls back to a default estimate of 1000 rows.
@@ -58,3 +35,33 @@ Named tuplestores are commonly used in scenarios like stored procedures, trigger
 - Supports both exact counts (when available) and heuristic estimates for plan reuse scenarios
 - The fallback value of 1000 represents a reasonable middle ground for unknown tuplestore sizes
 - Uses assertions to verify proper relation type before processing
+
+## Simplified Source
+
+This function handles tuplestore size estimation with fallback logic:
+
+```c
+void set_namedtuplestore_size_estimates(PlannerInfo *root, RelOptInfo *rel)
+{
+    RangeTblEntry *rte;
+
+    // Validate this is a named tuplestore relation
+    Assert(rel->relid > 0);
+    rte = planner_rt_fetch(rel->relid, root);
+    Assert(rte->rtekind == RTE_NAMEDTUPLESTORE);
+
+    // Use provided estimate if available, otherwise use default
+    rel->tuples = rte->enrtuples;
+    if (rel->tuples < 0)
+        rel->tuples = 1000;  /* default fallback */
+
+    // Calculate remaining size estimates
+    set_baserel_size_estimates(root, rel);
+}
+```
+
+**Key simplifications made:**
+- Condensed comments while preserving the fallback logic explanation
+- Maintained essential validation and both estimation strategies
+- Preserved the clear conditional for fallback to default value
+- Function demonstrates the pattern of using external estimates when available

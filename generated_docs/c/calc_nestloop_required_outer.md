@@ -39,3 +39,31 @@ This function calculates the set of relations that must be provided as parameter
 - The function uses top-level parent relation IDs even when considering child joins for consistency
 - Memory management is important: the result is allocated separately and does not share storage with inputs
 - This is a core utility function for nested loop join planning in the PostgreSQL query optimizer
+
+## Simplified Source
+
+```c
+Relids
+calc_nestloop_required_outer(Relids outerrelids,
+                             Relids outer_paramrels,
+                             Relids innerrelids,
+                             Relids inner_paramrels)
+{
+    Relids required_outer;
+
+    // Validate: inner path can require outer rels, but not vice versa
+    Assert(!bms_overlap(outer_paramrels, innerrelids));
+
+    // Simple case: inner path not parameterized
+    if (!inner_paramrels)
+        return bms_copy(outer_paramrels);
+
+    // Combine parameter requirements from both sides
+    required_outer = bms_union(outer_paramrels, inner_paramrels);
+
+    // Remove parameters that will be satisfied by the outer relation
+    required_outer = bms_del_members(required_outer, outerrelids);
+
+    return required_outer;
+}
+```

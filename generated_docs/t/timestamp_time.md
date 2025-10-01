@@ -38,3 +38,29 @@ This function converts a timestamp to a time data type by extracting only the ti
 - Located in src/backend/utils/adt/date.c at lines 1905-1934
 - Part of PostgreSQL's date/time conversion function suite
 - Preserves microsecond precision in the conversion process
+
+## Simplified Source
+
+```c
+Datum timestamp_time(PG_FUNCTION_ARGS) {
+    Timestamp timestamp = PG_GETARG_TIMESTAMP(0);
+    TimeADT result;
+    struct pg_tm tm;
+    fsec_t fsec;
+
+    // Return NULL for infinite timestamps
+    if (TIMESTAMP_NOT_FINITE(timestamp))
+        PG_RETURN_NULL();
+
+    // Decompose timestamp into time components
+    if (timestamp2tm(timestamp, NULL, &tm, &fsec, NULL, NULL) != 0)
+        ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                       errmsg("timestamp out of range")));
+
+    // Calculate time in microseconds since midnight
+    result = ((((tm.tm_hour * MINS_PER_HOUR + tm.tm_min) * SECS_PER_MINUTE) + tm.tm_sec) *
+              USECS_PER_SEC) + fsec;
+
+    PG_RETURN_TIMEADT(result);
+}
+```

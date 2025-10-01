@@ -61,3 +61,91 @@ The function implements comprehensive error handling for different tuple states 
 - Uses different strategies depending on whether EPQ rechecking is required
 - Critical for maintaining data consistency during trigger execution in concurrent scenarios
 - The function is static and only used internally within the trigger system
+
+## Simplified Source
+
+```c
+static bool
+GetTupleForTrigger(EState *estate,
+                   EPQState *epqstate,
+                   ResultRelInfo *relinfo,
+                   ItemPointer tid,
+                   LockTupleMode lockmode,
+                   TupleTableSlot *oldslot,
+                   bool do_epq_recheck,
+                   TupleTableSlot **epqslot,
+                   TM_Result *tmresultp,
+                   TM_FailureData *tmfdp)
+{
+    Relation relation = relinfo->ri_RelationDesc;
+
+    if (epqslot != NULL) {
+        // Complex path: lock tuple and handle concurrency
+        TM_Result test;
+        TM_FailureData tmfd;
+        int lockflags = 0;
+
+        *epqslot = NULL;
+
+        // Set lock flags for snapshot isolation
+        if (!IsolationUsesXactSnapshot()) {
+            lockflags |= TUPLE_LOCK_FLAG_FIND_LAST_VERSION;
+        }
+
+        // Lock the tuple
+        test = table_tuple_lock(relation, tid, estate->es_snapshot, oldslot,
+                               estate->es_output_cid, lockmode, LockWaitBlock,
+                               lockflags, &tmfd);
+
+        // Return status to caller
+        if (tmresultp) *tmresultp = test;
+        if (tmfdp) *tmfdp = tmfd;
+
+        switch (test) {
+            case TM_SelfModified:
+                // Check if tuple was modified by current command
+                if (tmfd.cmax != estate->es_output_cid) {
+                    ereport(ERROR, "tuple modified by triggered operation");
+                }
+                return false;  // Skip this tuple
+
+            case TM_Ok:
+                if (tmfd.traversed) {
+                    // Tuple was updated, handle with EPQ if requested
+                    if (do_epq_recheck) {
+                        *epqslot = EvalPlanQual(epqstate, relation,
+                                               relinfo->ri_RangeTableIndex, oldslot);
+                        if (TupIsNull(*epqslot)) {
+                            *epqslot = NULL;
+                            return false;
+                        }
+                    } else {
+                        if (tmresultp) *tmresultp = TM_Updated;
+                        return false;
+                    }
+                }
+                break;
+
+            case TM_Updated:
+            case TM_Deleted:
+                // Handle serialization failures and deletions
+                if (IsolationUsesXactSnapshot()) {
+                    ereport(ERROR, "serialization failure due to concurrent modification");
+                }
+                return false;
+
+            case TM_Invisible:
+            default:
+                elog(ERROR, "unexpected tuple lock status: %u", test);
+                return false;
+        }
+    } else {
+        // Simple path: just fetch the tuple
+        if (!table_tuple_fetch_row_version(relation, tid, SnapshotAny, oldslot)) {
+            elog(ERROR, "failed to fetch tuple for trigger");
+        }
+    }
+
+    return true;
+}
+```

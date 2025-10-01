@@ -41,3 +41,74 @@ The `interval_in` function is the input conversion function for PostgreSQL's int
 - Applies precision and range constraints through typmod processing
 - Uses soft error handling through escontext for better error reporting
 - The function initializes a pg_itm_in structure to zero before parsing to ensure clean state
+
+## Simplified Source
+
+```c
+Datum
+interval_in(PG_FUNCTION_ARGS)
+{
+    char *str = PG_GETARG_CSTRING(0);
+    int32 typmod = PG_GETARG_INT32(2);
+    Node *escontext = fcinfo->context;
+    Interval *result;
+    struct pg_itm_in tt, *itm_in = &tt;
+    int dtype, nf, range, dterr;
+    char *field[MAXDATEFIELDS];
+    int ftype[MAXDATEFIELDS];
+    char workbuf[256];
+    DateTimeErrorExtra extra;
+
+    // Initialize time structure
+    itm_in->tm_year = 0;
+    itm_in->tm_mon = 0;
+    itm_in->tm_mday = 0;
+    itm_in->tm_usec = 0;
+
+    // Extract range from typmod
+    range = (typmod >= 0) ? INTERVAL_RANGE(typmod) : INTERVAL_FULL_RANGE;
+
+    // Parse string using standard PostgreSQL format
+    dterr = ParseDateTime(str, workbuf, sizeof(workbuf), field, ftype, MAXDATEFIELDS, &nf);
+    if (dterr == 0)
+        dterr = DecodeInterval(field, ftype, nf, range, &dtype, itm_in);
+
+    // Try ISO8601 format if standard parsing failed
+    if (dterr == DTERR_BAD_FORMAT)
+        dterr = DecodeISO8601Interval(str, &dtype, itm_in);
+
+    // Handle parsing errors
+    if (dterr != 0) {
+        if (dterr == DTERR_FIELD_OVERFLOW)
+            dterr = DTERR_INTERVAL_OVERFLOW;
+        DateTimeParseError(dterr, &extra, str, "interval", escontext);
+        PG_RETURN_NULL();
+    }
+
+    result = (Interval *) palloc(sizeof(Interval));
+
+    // Convert based on parsed data type
+    switch (dtype) {
+        case DTK_DELTA:
+            if (itmin2interval(itm_in, result) != 0)
+                ereturn(escontext, (Datum) 0, "interval out of range");
+            break;
+
+        case DTK_LATE:
+            INTERVAL_NOEND(result);
+            break;
+
+        case DTK_EARLY:
+            INTERVAL_NOBEGIN(result);
+            break;
+
+        default:
+            elog(ERROR, "unexpected dtype %d while parsing interval \"%s\"", dtype, str);
+    }
+
+    // Apply type modifier constraints
+    AdjustIntervalForTypmod(result, typmod, escontext);
+
+    PG_RETURN_INTERVAL_P(result);
+}
+```

@@ -40,3 +40,59 @@ This function performs a generalized test to determine if a given operand (from 
 - For expression indexes, the function searches through the index's expression list to find the matching expression
 - Returns false if no match is found, true if the operand matches the specified index column
 - Critical for determining index usability during query planning and optimization
+
+## Simplified Source
+
+```c
+bool
+match_index_to_operand(Node *operand, int indexcol, IndexOptInfo *index)
+{
+    int indkey;
+
+    // Strip any RelabelType node for binary-compatible operators
+    if (operand && IsA(operand, RelabelType))
+        operand = (Node *) ((RelabelType *) operand)->arg;
+
+    indkey = index->indexkeys[indexcol];
+    if (indkey != 0)
+    {
+        // Simple index column: check for matching Var
+        if (operand && IsA(operand, Var) &&
+            index->rel->relid == ((Var *) operand)->varno &&
+            indkey == ((Var *) operand)->varattno &&
+            ((Var *) operand)->varnullingrels == NULL)
+            return true;
+    }
+    else
+    {
+        // Index expression: find the correct expression
+        ListCell *indexpr_item;
+        int i;
+        Node *indexkey;
+
+        indexpr_item = list_head(index->indexprs);
+        for (i = 0; i < indexcol; i++)
+        {
+            if (index->indexkeys[i] == 0)
+            {
+                if (indexpr_item == NULL)
+                    elog(ERROR, "wrong number of index expressions");
+                indexpr_item = lnext(index->indexprs, indexpr_item);
+            }
+        }
+        if (indexpr_item == NULL)
+            elog(ERROR, "wrong number of index expressions");
+        indexkey = (Node *) lfirst(indexpr_item);
+
+        // Strip RelabelType from index expression too
+        if (indexkey && IsA(indexkey, RelabelType))
+            indexkey = (Node *) ((RelabelType *) indexkey)->arg;
+
+        // Check for deep equality
+        if (equal(indexkey, operand))
+            return true;
+    }
+
+    return false;
+}
+```

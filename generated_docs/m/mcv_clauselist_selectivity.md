@@ -43,3 +43,43 @@ This function determines which MCV items match every clause in an ANDed list and
 - Works in conjunction with mcv_combine_selectivities() for final estimate calculation
 - Critical component of PostgreSQL's extended statistics system for multi-column correlation analysis
 - Located in src/backend/statistics/mcv.c:2048-2125
+
+## Simplified Source
+
+```c
+Selectivity
+mcv_clauselist_selectivity(PlannerInfo *root, StatisticExtInfo *stat,
+                           List *clauses, int varRelid,
+                           JoinType jointype, SpecialJoinInfo *sjinfo,
+                           RelOptInfo *rel,
+                           Selectivity *basesel, Selectivity *totalsel)
+{
+    int i;
+    MCVList *mcv;
+    Selectivity s = 0.0;
+    RangeTblEntry *rte = root->simple_rte_array[rel->relid];
+    bool *matches = NULL;
+
+    // Load MCV list from statistics object
+    mcv = statext_mcv_load(stat->statOid, rte->inh);
+
+    // Build match bitmap for the clauses
+    matches = mcv_get_match_bitmap(root, clauses, stat->keys, stat->exprs,
+                                   mcv, false);
+
+    // Calculate selectivities by summing frequencies
+    *basesel = 0.0;
+    *totalsel = 0.0;
+
+    for (i = 0; i < mcv->nitems; i++) {
+        *totalsel += mcv->items[i].frequency;
+
+        if (matches[i] != false) {
+            *basesel += mcv->items[i].base_frequency;
+            s += mcv->items[i].frequency;
+        }
+    }
+
+    return s;
+}
+```

@@ -36,3 +36,40 @@ This function constructs a Path node specifically for named tuplestore scan oper
 - No parallel workers are assigned (parallel_workers = 0)
 - Cost calculation is handled by cost_namedtuplestorescan function
 - Named tuplestores are primarily used for intermediate storage in complex query operations
+
+## Simplified Source
+
+This function follows the standard path creation pattern for tuplestores:
+
+```c
+Path *create_namedtuplestorescan_path(PlannerInfo *root, RelOptInfo *rel,
+                                     Relids required_outer)
+{
+    Path *pathnode = makeNode(Path);
+
+    // Set basic path properties
+    pathnode->pathtype = T_NamedTuplestoreScan;
+    pathnode->parent = rel;
+    pathnode->pathtarget = rel->reltarget;
+    pathnode->param_info = get_baserel_parampathinfo(root, rel, required_outer);
+
+    // Set parallelism properties
+    pathnode->parallel_aware = false;
+    pathnode->parallel_safe = rel->consider_parallel;
+    pathnode->parallel_workers = 0;
+
+    // Tuplestores always produce unordered results
+    pathnode->pathkeys = NIL;
+
+    // Calculate costs
+    cost_namedtuplestorescan(pathnode, root, rel, pathnode->param_info);
+
+    return pathnode;
+}
+```
+
+**Key simplifications made:**
+- Grouped field assignments with descriptive comments
+- Maintained the key difference from other paths (always unordered)
+- Preserved all essential initialization steps
+- Function follows the same pattern as create_ctescan_path but for tuplestore access

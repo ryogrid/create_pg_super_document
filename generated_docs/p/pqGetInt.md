@@ -40,3 +40,46 @@ The function performs bounds checking to ensure sufficient data is available in 
 - The function uses memcpy to safely extract bytes from the buffer, avoiding potential alignment issues
 - Critical for parsing PostgreSQL protocol messages which use network byte order for all integer fields
 - Part of the libpq internal API, not exposed to client applications directly
+
+## Simplified Source
+
+```c
+int pqGetInt(int *result, size_t bytes, PGconn *conn)
+{
+    uint16 tmp2;
+    uint32 tmp4;
+
+    switch (bytes) {
+        case 2:
+            // Check if enough data available
+            if (conn->inCursor + 2 > conn->inEnd)
+                return EOF;
+
+            // Read 2 bytes and convert from network byte order
+            memcpy(&tmp2, conn->inBuffer + conn->inCursor, 2);
+            conn->inCursor += 2;
+            *result = (int) pg_ntoh16(tmp2);
+            break;
+
+        case 4:
+            // Check if enough data available
+            if (conn->inCursor + 4 > conn->inEnd)
+                return EOF;
+
+            // Read 4 bytes and convert from network byte order
+            memcpy(&tmp4, conn->inBuffer + conn->inCursor, 4);
+            conn->inCursor += 4;
+            *result = (int) pg_ntoh32(tmp4);
+            break;
+
+        default:
+            // Unsupported integer size
+            pqInternalNotice(&conn->noticeHooks,
+                           "integer of size %lu not supported by pqGetInt",
+                           (unsigned long) bytes);
+            return EOF;
+    }
+
+    return 0;  // Success
+}
+```

@@ -38,3 +38,22 @@ A clustered index indicates that the table's physical storage order matches the 
 - Prevents data corruption by ensuring table has at most one clustered index
 - The stored index name will be used later to restore the clustering setting after table rebuild
 - Essential for maintaining intended physical storage organization during schema changes
+
+## Simplified Source
+
+```c
+static void
+RememberClusterOnForRebuilding(Oid indoid, AlteredTableInfo *tab)
+{
+    // Skip if index is not clustered
+    if (!get_index_isclustered(indoid))
+        return;
+
+    // Ensure only one clustered index per table
+    if (tab->clusterOnIndex)
+        elog(ERROR, "relation %u has multiple clustered indexes", tab->relid);
+
+    // Store the clustered index name for later restoration
+    tab->clusterOnIndex = get_rel_name(indoid);
+}
+```

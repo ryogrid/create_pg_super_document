@@ -40,3 +40,33 @@ The function is designed to be safe for both top-level transactions and subtrans
 - If the relation still has active references, it raises an ERROR rather than proceeding
 - Special handling for subtransaction scenarios: relations created or modified within subtransactions are marked as "dropped" rather than immediately destroyed to support rollback operations
 - The function is part of PostgreSQL's relation cache management system, ensuring cache consistency when relations are dropped
+
+## Simplified Source
+
+```c
+void RelationForgetRelation(Oid rid) {
+    Relation relation;
+
+    // Look up relation in cache
+    RelationIdCacheLookup(rid, relation);
+
+    // Early return if not in cache
+    if (!PointerIsValid(relation))
+        return;
+
+    // Ensure relation is not still in use
+    if (!RelationHasReferenceCountZero(relation))
+        elog(ERROR, "relation %u is still open", rid);
+
+    // Handle subtransaction safety
+    Assert(relation->rd_droppedSubid == InvalidSubTransactionId);
+    if (relation->rd_createSubid != InvalidSubTransactionId ||
+        relation->rd_firstRelfilelocatorSubid != InvalidSubTransactionId) {
+        // Mark as dropped for subtransaction rollback safety
+        relation->rd_droppedSubid = GetCurrentSubTransactionId();
+    }
+
+    // Clear the relation cache entry
+    RelationClearRelation(relation, false);
+}
+```

@@ -36,3 +36,26 @@ The function is essential for converting human-readable enum option names (like 
 - Returns false and sets retval to 0 when no matching enum option is found
 - Essential component of PostgreSQL's configuration parameter validation system
 - Used internally by the GUC (Grand Unified Configuration) system for enum-type parameters
+
+## Simplified Source
+
+```c
+bool
+config_enum_lookup_by_name(struct config_enum *record, const char *value,
+                           int *retval)
+{
+    const struct config_enum_entry *entry;
+
+    // Search through enum options for matching name (case-insensitive)
+    for (entry = record->options; entry && entry->name; entry++) {
+        if (pg_strcasecmp(value, entry->name) == 0) {
+            *retval = entry->val;
+            return true;
+        }
+    }
+
+    // Not found - set to 0 and return false
+    *retval = 0;
+    return false;
+}
+```

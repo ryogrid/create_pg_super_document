@@ -45,3 +45,34 @@ The function is specifically designed for subplan execution scenarios where cros
 - Uses the caller-provided equality functions rather than the hashtable's internal functions to support cross-type comparisons
 - Returns true immediately upon finding the first partial match, optimizing for early termination
 - The TermTupleHashIterator call is only needed when breaking out of the loop early (when a match is found)
+
+## Simplified Source
+
+```c
+static bool
+findPartialMatch(TupleHashTable hashtable, TupleTableSlot *slot, FmgrInfo *eqfunctions)
+{
+    int numCols = hashtable->numCols;
+    AttrNumber *keyColIdx = hashtable->keyColIdx;
+    TupleHashIterator hashiter;
+    TupleHashEntry entry;
+
+    // Scan entire hash table for potential matches
+    InitTupleHashIterator(hashtable, &hashiter);
+    while ((entry = ScanTupleHashTable(hashtable, &hashiter)) != NULL) {
+        CHECK_FOR_INTERRUPTS();
+
+        // Load hash table entry into slot and compare with input tuple
+        ExecStoreMinimalTuple(entry->firstTuple, hashtable->tableslot, false);
+        if (!execTuplesUnequal(slot, hashtable->tableslot, numCols, keyColIdx,
+                             eqfunctions, hashtable->tab_collations, hashtable->tempcxt)) {
+            // Found a partial match
+            TermTupleHashIterator(&hashiter);
+            return true;
+        }
+    }
+
+    // No partial match found
+    return false;
+}
+```

@@ -42,3 +42,34 @@ The function works in conjunction with appendValue to complete the key-value pai
 - Error reporting follows PostgreSQL conventions with specific error codes
 - Works as part of a two-step process: appendKey followed by appendValue
 - Memory management uses PostgreSQL's memory context system through repalloc
+
+## Simplified Source
+
+```c
+static void
+appendKey(JsonbParseState *pstate, JsonbValue *string)
+{
+    JsonbValue *object = &pstate->contVal;
+
+    Assert(object->type == jbvObject);
+    Assert(string->type == jbvString);
+
+    // Check for maximum pairs limit
+    if (object->val.object.nPairs >= JSONB_MAX_PAIRS)
+        ereport(ERROR,
+                (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                 errmsg("number of jsonb object pairs exceeds the maximum allowed (%zu)",
+                        JSONB_MAX_PAIRS)));
+
+    // Grow pairs array if needed (double size)
+    if (object->val.object.nPairs >= pstate->size) {
+        pstate->size *= 2;
+        object->val.object.pairs = repalloc(object->val.object.pairs,
+                                            sizeof(JsonbPair) * pstate->size);
+    }
+
+    // Store key and set insertion order
+    object->val.object.pairs[object->val.object.nPairs].key = *string;
+    object->val.object.pairs[object->val.object.nPairs].order = object->val.object.nPairs;
+}
+```

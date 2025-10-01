@@ -38,3 +38,30 @@ This function returns the effective type of a JsonbValue structure. For most Jso
 - Throws an ERROR if an invalid JSONB container type is encountered
 - Essential for type checking and dispatch logic in JSON path operations
 - The function handles the abstraction layer between PostgreSQL's binary JSONB storage format and the JSON path execution engine's type system
+
+## Simplified Source
+
+```c
+static int
+JsonbType(JsonbValue *jb)
+{
+    int type = jb->type;
+
+    if (jb->type == jbvBinary) {
+        JsonbContainer *container = (void *) jb->val.binary.data;
+
+        // Scalars should be extracted before this point
+        Assert(!JsonContainerIsScalar(container));
+
+        // Resolve binary container to actual type
+        if (JsonContainerIsObject(container))
+            type = jbvObject;
+        else if (JsonContainerIsArray(container))
+            type = jbvArray;
+        else
+            elog(ERROR, "invalid jsonb container type: 0x%08x", container->header);
+    }
+
+    return type;
+}
+```

@@ -34,3 +34,14 @@ This function provides a simplified interface to from_char_parse_int_len() for c
 - For cases with mismatched lengths, call from_char_parse_int_len() directly with explicit length
 - Provides a cleaner, more maintainable interface for the majority of date/time parsing scenarios
 - Part of the layered design of PostgreSQL's formatting system, offering both convenience and flexibility
+
+## Simplified Source
+
+```c
+static int
+from_char_parse_int(int *dest, const char **src, FormatNode *node, Node *escontext)
+{
+    // Delegate to the full-featured parsing function using the format keyword length
+    return from_char_parse_int_len(dest, src, node->key->len, node, escontext);
+}
+```

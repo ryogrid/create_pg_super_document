@@ -47,3 +47,60 @@ For expression-based attributes (attno == 0), it compares the inference element 
 - Implements forgiving redundancy handling across multiple indexed attributes
 - Both opclass and collation must match simultaneously when both are specified
 - Supports PostgreSQL's historical lack of alternative equality notions in collations/opclasses
+
+## Simplified Source
+
+```c
+static bool
+infer_collation_opclass_match(InferenceElem *elem, Relation idxRel, List *idxExprs)
+{
+    AttrNumber natt;
+    Oid inferopfamily = InvalidOid;
+    Oid inferopcinputtype = InvalidOid;
+    int nplain = 0;
+
+    // Fast path: no collation/opclass constraints specified
+    if (elem->infercollid == InvalidOid && elem->inferopclass == InvalidOid)
+        return true;
+
+    // Get opclass family and input type for matching
+    if (elem->inferopclass) {
+        inferopfamily = get_opclass_family(elem->inferopclass);
+        inferopcinputtype = get_opclass_input_type(elem->inferopclass);
+    }
+
+    // Check each index attribute for compatibility
+    for (natt = 1; natt <= idxRel->rd_att->natts; natt++) {
+        Oid opfamily = idxRel->rd_opfamily[natt - 1];
+        Oid opcinputtype = idxRel->rd_opcintype[natt - 1];
+        Oid collation = idxRel->rd_indcollation[natt - 1];
+        int attno = idxRel->rd_index->indkey.values[natt - 1];
+
+        if (attno != 0)
+            nplain++;
+
+        // Check opclass compatibility
+        if (elem->inferopclass != InvalidOid &&
+            (inferopfamily != opfamily || inferopcinputtype != opcinputtype))
+            continue;
+
+        // Check collation compatibility
+        if (elem->infercollid != InvalidOid && elem->infercollid != collation)
+            continue;
+
+        // Check if this attribute matches the inference element
+        if (IsA(elem->expr, Var)) {
+            // Simple attribute reference
+            if (((Var *) elem->expr)->varattno == attno)
+                return true;
+        } else if (attno == 0) {
+            // Expression-based index attribute
+            Node *nattExpr = list_nth(idxExprs, (natt - 1) - nplain);
+            if (equal(elem->expr, nattExpr))
+                return true;
+        }
+    }
+
+    return false;
+}
+```

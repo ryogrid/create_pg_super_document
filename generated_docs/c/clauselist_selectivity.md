@@ -55,3 +55,19 @@ Key features include:
 
 ## Notes and Other Information
 This function serves as the primary interface for selectivity estimation in PostgreSQL's cost-based optimizer. It's heavily used throughout the costing system for estimating row counts and query execution costs. The function is designed to be a simple wrapper that enables extended statistics by default, delegating complex logic to `clauselist_selectivity_ext`. The selectivity value returned (0.0 to 1.0) represents the fraction of rows expected to pass the combined clause conditions.
+
+## Simplified Source
+
+```c
+Selectivity
+clauselist_selectivity(PlannerInfo *root,
+                       List *clauses,
+                       int varRelid,
+                       JoinType jointype,
+                       SpecialJoinInfo *sjinfo)
+{
+    // Delegate to extended function with extended statistics enabled
+    return clauselist_selectivity_ext(root, clauses, varRelid,
+                                     jointype, sjinfo, true);
+}
+```

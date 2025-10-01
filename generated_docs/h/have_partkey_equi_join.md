@@ -55,3 +55,69 @@ The function iterates through all restriction clauses, filtering for equality co
 - Handles special cases for outer joins by filtering pushed-down clauses and managing nulling relations
 - Critical for PostgreSQL's partitionwise join optimization which can dramatically improve performance on partitioned tables
 - The function ensures that partitionwise join will produce correct results by validating that all partition boundaries align properly through equi-join conditions
+
+## Simplified Source
+
+```c
+static bool have_partkey_equi_join(PlannerInfo *root, RelOptInfo *joinrel,
+                                  RelOptInfo *rel1, RelOptInfo *rel2,
+                                  JoinType jointype, List *restrictlist) {
+    PartitionScheme part_scheme = rel1->part_scheme;
+    bool pk_has_clause[PARTITION_MAX_KEYS];
+
+    // Both relations must have same partitioning scheme
+    Assert(rel1->part_scheme == rel2->part_scheme);
+
+    // Initialize tracking array for partition keys
+    memset(pk_has_clause, 0, sizeof(pk_has_clause));
+
+    // Check each restriction clause for partition key equi-joins
+    foreach(lc, restrictlist) {
+        RestrictInfo *rinfo = lfirst_node(RestrictInfo, lc);
+
+        // Skip inappropriate clauses for outer joins
+        if (IS_OUTER_JOIN(jointype) && RINFO_IS_PUSHED_DOWN(rinfo, joinrel->relids))
+            continue;
+
+        // Only process equality join clauses
+        if (!rinfo->can_join ||
+            (!rinfo->mergeopfamilies && !OidIsValid(rinfo->hashjoinoperator)))
+            continue;
+
+        OpExpr *opexpr = castNode(OpExpr, rinfo->clause);
+
+        // Match operands to relations and extract expressions
+        Expr *expr1, *expr2;
+        if (!match_operands_to_relations(rinfo, rel1, rel2, &expr1, &expr2))
+            continue;
+
+        // Handle nulling relations for strict operators
+        bool strict_op = op_strict(opexpr->opno);
+        if (strict_op) {
+            expr1 = remove_nulling_relids_if_needed(expr1, rel1, root);
+            expr2 = remove_nulling_relids_if_needed(expr2, rel2, root);
+        }
+
+        // Check if expressions match partition keys at same position
+        int ipk1 = match_expr_to_partition_keys(expr1, rel1, strict_op);
+        int ipk2 = match_expr_to_partition_keys(expr2, rel2, strict_op);
+        if (ipk1 < 0 || ipk2 < 0 || ipk1 != ipk2)
+            continue;
+
+        // Validate collation and operator family compatibility
+        if (!validate_partition_join_compatibility(rel1, opexpr, rinfo, ipk1))
+            continue;
+
+        // Mark this partition key as having an equi-join clause
+        pk_has_clause[ipk1] = true;
+    }
+
+    // Verify all partition keys have equi-join conditions
+    for (int cnt_pks = 0; cnt_pks < part_scheme->partnatts; cnt_pks++) {
+        if (!pk_has_clause[cnt_pks])
+            return false;
+    }
+
+    return true;
+}
+```

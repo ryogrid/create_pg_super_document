@@ -53,3 +53,65 @@ A key characteristic of hash joins is that they never produce any output pathkey
 - The parallel_hash parameter is explicitly set to false in create_hashjoin_path call
 - Essential for generating hash join execution plans, particularly efficient for large equijoins
 - Performs the same outer join parameterization validation as other join types
+
+## Simplified Source
+
+```c
+static void
+try_hashjoin_path(PlannerInfo *root,
+                  RelOptInfo *joinrel,
+                  Path *outer_path,
+                  Path *inner_path,
+                  List *hashclauses,
+                  JoinType jointype,
+                  JoinPathExtraData *extra)
+{
+    Relids required_outer;
+    JoinCostWorkspace workspace;
+
+    // Reject if outer join parameterization is invalid
+    if (extra->sjinfo->ojrelid != 0 &&
+        (bms_is_member(extra->sjinfo->ojrelid, PATH_REQ_OUTER(inner_path)) ||
+         bms_is_member(extra->sjinfo->ojrelid, PATH_REQ_OUTER(outer_path))))
+        return;
+
+    // Calculate required outer relations for parameterization
+    required_outer = calc_non_nestloop_required_outer(outer_path, inner_path);
+
+    // Reject if parameterization doesn't make sense
+    if (required_outer &&
+        !bms_overlap(required_outer, extra->param_source_rels))
+    {
+        bms_free(required_outer);
+        return;
+    }
+
+    // Get initial cost estimate for hash join
+    initial_cost_hashjoin(root, &workspace, jointype, hashclauses,
+                          outer_path, inner_path, extra, false);
+
+    // Check if this path is worth considering before creating full path
+    if (add_path_precheck(joinrel,
+                          workspace.startup_cost, workspace.total_cost,
+                          NIL, required_outer))  // Hash joins have no pathkeys
+    {
+        // Create and add the hash join path
+        add_path(joinrel, (Path *)
+                 create_hashjoin_path(root,
+                                      joinrel,
+                                      jointype,
+                                      &workspace,
+                                      extra,
+                                      outer_path,
+                                      inner_path,
+                                      false,    /* parallel_hash */
+                                      extra->restrictlist,
+                                      required_outer,
+                                      hashclauses));
+    }
+    else
+    {
+        bms_free(required_outer);
+    }
+}
+```

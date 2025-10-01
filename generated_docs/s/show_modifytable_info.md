@@ -46,3 +46,175 @@ This function serves three main objectives for ModifyTable operations (INSERT, U
 - Automatically labels target tables when there are multiple targets or they differ from nominal targets
 - Provides comprehensive instrumentation data including conflict resolution statistics and tuple counts
 - Part of PostgreSQL's advanced query execution plan explanation system
+
+## Simplified Source
+
+```c
+static void
+show_modifytable_info(ModifyTableState *mtstate, List *ancestors, ExplainState *es)
+{
+    ModifyTable *node = (ModifyTable *) mtstate->ps.plan;
+    const char *operation;
+    const char *foperation;
+    bool labeltargets;
+    List *idxNames = NIL;
+
+    // Determine operation type strings
+    switch (node->operation)
+    {
+        case CMD_INSERT:
+            operation = "Insert";
+            foperation = "Foreign Insert";
+            break;
+        case CMD_UPDATE:
+            operation = "Update";
+            foperation = "Foreign Update";
+            break;
+        case CMD_DELETE:
+            operation = "Delete";
+            foperation = "Foreign Delete";
+            break;
+        case CMD_MERGE:
+            operation = "Merge";
+            foperation = "Foreign Merge";
+            break;
+        default:
+            operation = "???";
+            foperation = "Foreign ???";
+            break;
+    }
+
+    // Decide whether to explicitly label target relations
+    labeltargets = (mtstate->mt_nrels > 1 ||
+                   (mtstate->mt_nrels == 1 &&
+                    mtstate->resultRelInfo[0].ri_RangeTableIndex != node->nominalRelation));
+
+    if (labeltargets)
+        ExplainOpenGroup("Target Tables", "Target Tables", false, es);
+
+    // Process each target relation
+    for (int j = 0; j < mtstate->mt_nrels; j++)
+    {
+        ResultRelInfo *resultRelInfo = mtstate->resultRelInfo + j;
+        FdwRoutine *fdwroutine = resultRelInfo->ri_FdwRoutine;
+
+        if (labeltargets)
+        {
+            ExplainOpenGroup("Target Table", NULL, true, es);
+
+            // Add operation type decoration for text mode
+            if (es->format == EXPLAIN_FORMAT_TEXT)
+            {
+                ExplainIndentText(es);
+                appendStringInfoString(es->str, fdwroutine ? foperation : operation);
+            }
+
+            // Show target relation
+            ExplainTargetRel((Plan *) node, resultRelInfo->ri_RangeTableIndex, es);
+
+            if (es->format == EXPLAIN_FORMAT_TEXT)
+            {
+                appendStringInfoChar(es->str, '\n');
+                es->indent++;
+            }
+        }
+
+        // Allow FDW to add custom information
+        if (!resultRelInfo->ri_usesFdwDirectModify &&
+            fdwroutine != NULL &&
+            fdwroutine->ExplainForeignModify != NULL)
+        {
+            List *fdw_private = (List *) list_nth(node->fdwPrivLists, j);
+            fdwroutine->ExplainForeignModify(mtstate, resultRelInfo, fdw_private, j, es);
+        }
+
+        if (labeltargets)
+        {
+            if (es->format == EXPLAIN_FORMAT_TEXT)
+                es->indent--;
+            ExplainCloseGroup("Target Table", NULL, true, es);
+        }
+    }
+
+    // Collect ON CONFLICT arbiter index names
+    foreach(lst, node->arbiterIndexes)
+    {
+        char *indexname = get_rel_name(lfirst_oid(lst));
+        idxNames = lappend(idxNames, indexname);
+    }
+
+    // Show ON CONFLICT information
+    if (node->onConflictAction != ONCONFLICT_NONE)
+    {
+        ExplainPropertyText("Conflict Resolution",
+                           node->onConflictAction == ONCONFLICT_NOTHING ? "NOTHING" : "UPDATE",
+                           es);
+
+        if (idxNames)
+            ExplainPropertyList("Conflict Arbiter Indexes", idxNames, es);
+
+        // Show conflict filter if present
+        if (node->onConflictWhere)
+        {
+            show_upper_qual((List *) node->onConflictWhere, "Conflict Filter",
+                           &mtstate->ps, ancestors, es);
+            show_instrumentation_count("Rows Removed by Conflict Filter", 1, &mtstate->ps, es);
+        }
+
+        // Show conflict resolution statistics for EXPLAIN ANALYZE
+        if (es->analyze && mtstate->ps.instrument)
+        {
+            InstrEndLoop(outerPlanState(mtstate)->instrument);
+
+            double total = outerPlanState(mtstate)->instrument->ntuples;
+            double other_path = mtstate->ps.instrument->ntuples2;
+            double insert_path = total - other_path;
+
+            ExplainPropertyFloat("Tuples Inserted", NULL, insert_path, 0, es);
+            ExplainPropertyFloat("Conflicting Tuples", NULL, other_path, 0, es);
+        }
+    }
+    else if (node->operation == CMD_MERGE)
+    {
+        // Show MERGE operation statistics for EXPLAIN ANALYZE
+        if (es->analyze && mtstate->ps.instrument)
+        {
+            InstrEndLoop(outerPlanState(mtstate)->instrument);
+
+            double total = outerPlanState(mtstate)->instrument->ntuples;
+            double insert_path = mtstate->mt_merge_inserted;
+            double update_path = mtstate->mt_merge_updated;
+            double delete_path = mtstate->mt_merge_deleted;
+            double skipped_path = total - insert_path - update_path - delete_path;
+
+            if (es->format == EXPLAIN_FORMAT_TEXT)
+            {
+                if (total > 0)
+                {
+                    ExplainIndentText(es);
+                    appendStringInfoString(es->str, "Tuples:");
+                    if (insert_path > 0)
+                        appendStringInfo(es->str, " inserted=%.0f", insert_path);
+                    if (update_path > 0)
+                        appendStringInfo(es->str, " updated=%.0f", update_path);
+                    if (delete_path > 0)
+                        appendStringInfo(es->str, " deleted=%.0f", delete_path);
+                    if (skipped_path > 0)
+                        appendStringInfo(es->str, " skipped=%.0f", skipped_path);
+                    appendStringInfoChar(es->str, '\n');
+                }
+            }
+            else
+            {
+                ExplainPropertyFloat("Tuples Inserted", NULL, insert_path, 0, es);
+                ExplainPropertyFloat("Tuples Updated", NULL, update_path, 0, es);
+                ExplainPropertyFloat("Tuples Deleted", NULL, delete_path, 0, es);
+                ExplainPropertyFloat("Tuples Skipped", NULL, skipped_path, 0, es);
+            }
+        }
+    }
+
+    if (labeltargets)
+        ExplainCloseGroup("Target Tables", "Target Tables", false, es);
+}
+```

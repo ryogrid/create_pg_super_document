@@ -35,3 +35,51 @@ The function performs a deep copy of all array metadata including dimensions, bo
 - Allocates dimension arrays (dims and lbound) together in a single allocation for efficiency
 - The destination array will have no flat representation (fvalue, fstartptr, fendptr are set to NULL)
 - Handles the optional dnulls array correctly - only allocates and copies if it exists in the source
+
+## Simplified Source
+
+```c
+static void
+copy_byval_expanded_array(ExpandedArrayHeader *eah,
+                          ExpandedArrayHeader *oldeah)
+{
+    MemoryContext objcxt = eah->hdr.eoh_context;
+    int ndims = oldeah->ndims;
+    int dvalueslen = oldeah->dvalueslen;
+
+    // Copy array metadata
+    eah->ndims = ndims;
+    eah->element_type = oldeah->element_type;
+    eah->typlen = oldeah->typlen;
+    eah->typbyval = oldeah->typbyval;
+    eah->typalign = oldeah->typalign;
+
+    // Allocate and copy dimension arrays together
+    eah->dims = (int *) MemoryContextAlloc(objcxt, ndims * 2 * sizeof(int));
+    eah->lbound = eah->dims + ndims;
+    memcpy(eah->dims, oldeah->dims, ndims * sizeof(int));
+    memcpy(eah->lbound, oldeah->lbound, ndims * sizeof(int));
+
+    // Copy the deconstructed Datum array
+    eah->dvalues = (Datum *) MemoryContextAlloc(objcxt, dvalueslen * sizeof(Datum));
+    memcpy(eah->dvalues, oldeah->dvalues, dvalueslen * sizeof(Datum));
+
+    // Copy null flags if they exist
+    if (oldeah->dnulls) {
+        eah->dnulls = (bool *) MemoryContextAlloc(objcxt, dvalueslen * sizeof(bool));
+        memcpy(eah->dnulls, oldeah->dnulls, dvalueslen * sizeof(bool));
+    } else {
+        eah->dnulls = NULL;
+    }
+
+    // Set remaining fields
+    eah->dvalueslen = dvalueslen;
+    eah->nelems = oldeah->nelems;
+    eah->flat_size = oldeah->flat_size;
+
+    // No flat representation in destination
+    eah->fvalue = NULL;
+    eah->fstartptr = NULL;
+    eah->fendptr = NULL;
+}
+```

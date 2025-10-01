@@ -37,3 +37,50 @@ This function traverses a list of ancestor tables (ordered from immediate parent
 
 ## Notes and Other Information
 This function is crucial for resolving publication inheritance in partitioned table hierarchies. It handles both direct table publication and schema-based publication, ensuring that partitions can inherit publication settings from their ancestors. The ancestor_level parameter enables comparison between multiple publications to determine which provides the most specific or highest-level coverage. The function properly manages memory by freeing temporary lists created during the search process. The ordering requirement for the ancestors list (topmost last) is important for the level calculation to work correctly.
+
+## Simplified Source
+
+```c
+Oid
+GetTopMostAncestorInPublication(Oid puboid, List *ancestors, int *ancestor_level)
+{
+    ListCell *lc;
+    Oid topmost_relid = InvalidOid;
+    int level = 0;
+
+    // Find the "topmost" ancestor that is in this publication
+    foreach(lc, ancestors)
+    {
+        Oid ancestor = lfirst_oid(lc);
+        List *apubids = GetRelationPublications(ancestor);
+        List *aschemaPubids = NIL;
+
+        level++;
+
+        // Check if ancestor is directly in the publication
+        if (list_member_oid(apubids, puboid))
+        {
+            topmost_relid = ancestor;
+            if (ancestor_level)
+                *ancestor_level = level;
+        }
+        else
+        {
+            // Check if ancestor's schema is in the publication
+            aschemaPubids = GetSchemaPublications(get_rel_namespace(ancestor));
+            if (list_member_oid(aschemaPubids, puboid))
+            {
+                topmost_relid = ancestor;
+                if (ancestor_level)
+                    *ancestor_level = level;
+            }
+        }
+
+        // Clean up temporary lists
+        list_free(apubids);
+        list_free(aschemaPubids);
+    }
+
+    return topmost_relid;
+}
+```

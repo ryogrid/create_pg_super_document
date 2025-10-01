@@ -32,3 +32,14 @@ This function serves as a custom memory deallocation callback for the libxml lib
 - Includes NULL pointer safety check as libxml expects xmlFree(NULL) to be allowed
 - Only calls pfree if the pointer is not NULL, preventing potential errors
 - Memory freed through this function must have been allocated within the PostgreSQL memory system
+
+## Simplified Source
+
+```c
+static void xml_pfree(void *ptr) {
+    // libxml expects free(NULL) to be allowed
+    if (ptr) {
+        pfree(ptr);
+    }
+}
+```

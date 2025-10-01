@@ -44,3 +44,31 @@ The function includes an assertion to ensure exactly one of these two fields is 
 - The function enforces that exactly one of  or  fields must be valid through an assertion
 - This is part of PostgreSQL's support for ephemeral named relations, which are primarily used for trigger transition tables
 - Located in src/backend/utils/misc/queryenvironment.c (lines 125-144)
+
+## Simplified Source
+
+```c
+TupleDesc
+ENRMetadataGetTupDesc(EphemeralNamedRelationMetadata enrmd)
+{
+    TupleDesc tupdesc;
+
+    // Ensure exactly one field is populated (tupdesc XOR reliddesc)
+    Assert((enrmd->reliddesc == InvalidOid) != (enrmd->tupdesc == NULL));
+
+    if (enrmd->tupdesc != NULL)
+    {
+        // Direct TupleDesc available
+        tupdesc = enrmd->tupdesc;
+    }
+    else
+    {
+        // Get TupleDesc from catalog relation
+        Relation relation = table_open(enrmd->reliddesc, NoLock);
+        tupdesc = relation->rd_att;
+        table_close(relation, NoLock);
+    }
+
+    return tupdesc;
+}
+```

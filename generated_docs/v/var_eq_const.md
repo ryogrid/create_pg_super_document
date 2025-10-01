@@ -64,3 +64,85 @@ The function also handles inequality operations through the negate parameter, co
 - Uses security checks before accessing detailed column statistics
 - Optimizes performance by setting up function call info structures once and reusing them
 - Falls back gracefully when statistics are unavailable or insufficient
+
+## Simplified Source
+
+```c
+double
+var_eq_const(VariableStatData *vardata, Oid oproid, Oid collation,
+             Datum constval, bool constisnull, bool varonleft, bool negate)
+{
+    double selec;
+    double nullfrac = 0.0;
+
+    // NULL constants always return 0 selectivity
+    if (constisnull)
+        return 0.0;
+
+    // Get null fraction from statistics if available
+    if (HeapTupleIsValid(vardata->statsTuple)) {
+        Form_pg_statistic stats = (Form_pg_statistic) GETSTRUCT(vardata->statsTuple);
+        nullfrac = stats->stanullfrac;
+    }
+
+    // For unique columns: selectivity = 1/tuple_count
+    if (vardata->isunique && vardata->rel && vardata->rel->tuples >= 1.0) {
+        selec = 1.0 / vardata->rel->tuples;
+    }
+    // Use detailed statistics if available and secure
+    else if (HeapTupleIsValid(vardata->statsTuple) &&
+             statistic_proc_security_check(vardata, get_opcode(oproid))) {
+
+        AttStatsSlot sslot;
+        bool match = false;
+
+        // Check if constant matches any Most Common Value
+        if (get_attstatsslot(&sslot, vardata->statsTuple, STATISTIC_KIND_MCV,
+                            InvalidOid, ATTSTATSSLOT_VALUES | ATTSTATSSLOT_NUMBERS)) {
+
+            // Setup function call to test equality with each MCV
+            FmgrInfo eqproc;
+            fmgr_info(get_opcode(oproid), &eqproc);
+
+            for (int i = 0; i < sslot.nvalues; i++) {
+                // Test if constant equals this common value
+                if (values_are_equal(constval, sslot.values[i], &eqproc, varonleft, collation)) {
+                    match = true;
+                    selec = sslot.numbers[i]; // Use exact MCV frequency
+                    break;
+                }
+            }
+        }
+
+        if (!match) {
+            // Constant not in MCV list - estimate from remaining values
+            double sumcommon = 0.0;
+            for (int i = 0; i < sslot.nnumbers; i++)
+                sumcommon += sslot.numbers[i];
+
+            // Remaining selectivity divided among other distinct values
+            selec = 1.0 - sumcommon - nullfrac;
+            double otherdistinct = get_variable_numdistinct(vardata, NULL) - sslot.nnumbers;
+            if (otherdistinct > 1)
+                selec /= otherdistinct;
+
+            // Cap at least common MCV frequency
+            if (sslot.nnumbers > 0 && selec > sslot.numbers[sslot.nnumbers - 1])
+                selec = sslot.numbers[sslot.nnumbers - 1];
+        }
+
+        free_attstatsslot(&sslot);
+    }
+    else {
+        // No statistics - assume uniform distribution
+        selec = 1.0 / get_variable_numdistinct(vardata, NULL);
+    }
+
+    // For inequality (!= operator), compute complement
+    if (negate)
+        selec = 1.0 - selec - nullfrac;
+
+    CLAMP_PROBABILITY(selec);
+    return selec;
+}
+```

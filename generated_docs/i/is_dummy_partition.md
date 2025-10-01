@@ -39,3 +39,15 @@ This is an optimization technique used during partition pruning and join plannin
 - Essential for optimizing partitioned joins by avoiding unnecessary work on empty partitions
 - The partition index is expected to be valid (>= 0) as verified by the Assert
 - Part of the partition pruning optimization strategy in PostgreSQL's query planner
+
+## Simplified Source
+
+```c
+static bool is_dummy_partition(RelOptInfo *rel, int part_index)
+{
+    RelOptInfo *partition_rel = rel->part_rels[part_index];
+
+    // Partition is dummy if it doesn't exist or has been marked as dummy
+    return (partition_rel == NULL || IS_DUMMY_REL(partition_rel));
+}
+```

@@ -34,3 +34,13 @@ This function serves as a qsort-compatible comparison wrapper that extracts Datu
 - Used primarily in MCV (Most Common Values) statistics serialization where scalar values need sorting
 - The function provides type safety by delegating to compare_datums_simple rather than implementing comparison logic directly
 - Essential for maintaining consistent sorting behavior across PostgreSQL's statistics subsystem
+
+## Simplified Source
+```c
+int compare_scalars_simple(const void *a, const void *b, void *arg) {
+    // Extract Datum values from void pointers and compare
+    return compare_datums_simple(*(Datum *) a,
+                                *(Datum *) b,
+                                (SortSupport) arg);
+}
+```

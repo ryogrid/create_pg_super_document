@@ -35,3 +35,15 @@ This approach was chosen over throwing an error to avoid disrupting XML processi
 - While it would be preferable to allow loading entities from the system's global XML catalog, the complexity and fragility of libxml2 APIs for this purpose led to the simpler approach of blocking all external access
 - The function returns an xmlParserInputPtr that represents an empty string, effectively making external entities expand to nothing
 - This is a static function only used within the xml.c module
+
+## Simplified Source
+
+```c
+static xmlParserInputPtr
+xmlPgEntityLoader(const char *URL, const char *ID,
+                  xmlParserCtxtPtr ctxt)
+{
+    // Security: prevent loading external entities by returning empty string
+    return xmlNewStringInputStream(ctxt, (const xmlChar *) "");
+}
+```

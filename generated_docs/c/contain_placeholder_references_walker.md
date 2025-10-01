@@ -41,3 +41,39 @@ For Query nodes (subqueries), the function properly manages the sublevels_up cou
 - It doesn't recurse into PlaceHolderVar expressions because phrels adequately summarizes the contained relations
 - Proper sublevel management is implemented for handling nested subqueries
 - The function returns true as soon as it finds a matching reference, providing early termination optimization
+
+## Simplified Source
+
+```c
+static bool contain_placeholder_references_walker(Node *node,
+                                                 contain_placeholder_references_context *context) {
+    if (node == NULL)
+        return false;
+
+    // Check PlaceHolderVar nodes at current query level
+    if (IsA(node, PlaceHolderVar)) {
+        PlaceHolderVar *phv = (PlaceHolderVar *) node;
+
+        if (phv->phlevelsup == context->sublevels_up) {
+            // Found reference if target relid is in phrels
+            if (bms_is_member(context->relid, phv->phrels))
+                return true;
+            // Don't recurse - phrels summarizes contained relations
+            return false;
+        }
+    }
+    // Handle subqueries with proper level tracking
+    else if (IsA(node, Query)) {
+        bool result;
+        context->sublevels_up++;
+        result = query_tree_walker((Query *) node,
+                                  contain_placeholder_references_walker,
+                                  context, 0);
+        context->sublevels_up--;
+        return result;
+    }
+
+    // Continue walking the expression tree
+    return expression_tree_walker(node, contain_placeholder_references_walker, context);
+}
+```

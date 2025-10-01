@@ -42,3 +42,50 @@ The function operates in two main phases:
 - Memory management is handled properly with palloc/pfree for the temporary new_indexes array
 - The function handles cases where either outer_map or inner_map (or both) have performed remapping operations
 - Index values of -1 are used to indicate invalid or unset indexes in the mapping process
+
+## Simplified Source
+
+```c
+static void
+fix_merged_indexes(PartitionMap *outer_map, PartitionMap *inner_map,
+                   int nmerged, List *merged_indexes)
+{
+    // Create mapping array to translate old indexes to new indexes
+    int *index_mapping = palloc(sizeof(int) * nmerged);
+    for (int i = 0; i < nmerged; i++)
+        index_mapping[i] = -1;
+
+    // Build mapping from outer partition map if it was remapped
+    if (outer_map->did_remapping)
+    {
+        for (int i = 0; i < outer_map->nparts; i++)
+        {
+            int old_index = outer_map->old_indexes[i];
+            if (old_index >= 0)
+                index_mapping[old_index] = outer_map->merged_indexes[i];
+        }
+    }
+
+    // Build mapping from inner partition map if it was remapped
+    if (inner_map->did_remapping)
+    {
+        for (int i = 0; i < inner_map->nparts; i++)
+        {
+            int old_index = inner_map->old_indexes[i];
+            if (old_index >= 0)
+                index_mapping[old_index] = inner_map->merged_indexes[i];
+        }
+    }
+
+    // Apply the mapping to fix the merged_indexes list
+    ListCell *lc;
+    foreach(lc, merged_indexes)
+    {
+        int current_index = lfirst_int(lc);
+        if (index_mapping[current_index] >= 0)
+            lfirst_int(lc) = index_mapping[current_index];
+    }
+
+    pfree(index_mapping);
+}
+```

@@ -36,3 +36,33 @@ This function creates and initializes a CombinationGenerator structure that pre-
 - Memory is allocated as a single chunk for the generator state, with separate allocation for combinations array
 - After generation, resets the current index to 0 to begin iteration from the first combination
 - Located in src/backend/statistics/mvdistinct.c, used for multivariate distinct value statistics
+
+## Simplified Source
+
+```c
+static CombinationGenerator *
+generator_init(int n, int k)
+{
+    CombinationGenerator *state;
+
+    // Allocate generator state
+    state = (CombinationGenerator *) palloc(sizeof(CombinationGenerator));
+
+    // Calculate total number of combinations and allocate space
+    state->ncombinations = n_choose_k(n, k);
+    state->combinations = (int *) palloc(sizeof(int) * k * state->ncombinations);
+
+    // Initialize state
+    state->current = 0;
+    state->k = k;
+    state->n = n;
+
+    // Generate all combinations
+    generate_combinations(state);
+
+    // Reset to start from first combination
+    state->current = 0;
+
+    return state;
+}
+```

@@ -33,3 +33,22 @@ This function traverses an expression tree to find the first window function cal
 - Uses query_or_expression_tree_walker to handle both Query nodes and bare expression trees
 - Only operates on the current query level, not descending into subqueries
 - Part of the query rewrite manipulation infrastructure in PostgreSQL
+
+## Simplified Source
+
+```c
+int locate_windowfunc(Node *node) {
+    locate_windowfunc_context context;
+
+    // Initialize context to track window function location
+    context.win_location = -1;
+
+    // Walk expression tree to find first window function location
+    (void) query_or_expression_tree_walker(node,
+                                         locate_windowfunc_walker,
+                                         (void *) &context,
+                                         0);
+
+    return context.win_location;
+}
+```

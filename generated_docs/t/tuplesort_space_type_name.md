@@ -40,3 +40,12 @@ The function includes an assertion to validate that only the expected enumeratio
 - Part of PostgreSQL's comprehensive query performance reporting system
 - The string values ("Disk" vs "Memory") are designed to be immediately understandable to database users analyzing query performance
 - Critical for understanding sort performance characteristics, as disk-based sorts are typically much slower than memory-based sorts
+
+## Simplified Source
+
+```c
+const char *tuplesort_space_type_name(TuplesortSpaceType t) {
+    Assert(t == SORT_SPACE_TYPE_DISK || t == SORT_SPACE_TYPE_MEMORY);
+    return t == SORT_SPACE_TYPE_DISK ? "Disk" : "Memory";
+}
+```

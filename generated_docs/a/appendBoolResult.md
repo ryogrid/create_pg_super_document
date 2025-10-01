@@ -41,3 +41,31 @@ This function is responsible for converting a boolean execution result from json
 - Handles the special case where jpbUnknown is converted to JSON null rather than a boolean
 - Returns jperOk immediately for singleton boolean values when there's no next item and no found list
 - Part of the PostgreSQL jsonpath execution engine that processes SQL/JSON path expressions
+
+## Simplified Source
+
+```c
+static JsonPathExecResult
+appendBoolResult(JsonPathExecContext *cxt, JsonPathItem *jsp,
+                 JsonValueList *found, JsonPathBool res)
+{
+    JsonPathItem next;
+    JsonbValue jbv;
+
+    // Return early for singleton boolean values
+    if (!jspGetNext(jsp, &next) && !found)
+        return jperOk;
+
+    // Convert JsonPathBool to JsonbValue
+    if (res == jpbUnknown) {
+        jbv.type = jbvNull;
+    }
+    else {
+        jbv.type = jbvBool;
+        jbv.val.boolean = res == jpbTrue;
+    }
+
+    // Continue execution with the converted value
+    return executeNextItem(cxt, jsp, &next, &jbv, found, true);
+}
+```

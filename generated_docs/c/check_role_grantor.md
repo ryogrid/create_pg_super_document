@@ -48,3 +48,46 @@ For explicit grantors, the function enforces integrity constraints:
 - Enforces stricter validation for grants than revokes (allows cleanup of invalid existing grants)
 - The function maintains the integrity of the grant chain structure essential for CASCADE revokes
 - Error messages distinguish between grant and revoke operations for better user experience
+
+## Simplified Source
+
+```c
+static Oid check_role_grantor(Oid currentUserId, Oid roleid, Oid grantorId, bool is_grant) {
+    // If no grantor specified, infer one
+    if (!OidIsValid(grantorId)) {
+        // Superusers default to bootstrap superuser for grant independence
+        if (superuser_arg(currentUserId))
+            return BOOTSTRAP_SUPERUSERID;
+
+        // Find best admin role for the target role
+        grantorId = select_best_admin(currentUserId, roleid);
+        if (!OidIsValid(grantorId))
+            elog(ERROR, "no possible grantors");
+        return grantorId;
+    }
+
+    // Validate explicit grantor
+    if (is_grant) {
+        // Check current user has privileges of grantor role
+        if (!has_privs_of_role(currentUserId, grantorId))
+            ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                           errmsg("permission denied to grant privileges as role \"%s\"",
+                                  GetUserNameFromId(grantorId, false))));
+
+        // Verify grantor has admin option on target role
+        if (grantorId != BOOTSTRAP_SUPERUSERID &&
+            select_best_admin(grantorId, roleid) != grantorId)
+            ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                           errmsg("permission denied to grant privileges as role \"%s\"",
+                                  GetUserNameFromId(grantorId, false))));
+    } else {
+        // For revokes, only check role privilege inheritance
+        if (!has_privs_of_role(currentUserId, grantorId))
+            ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                           errmsg("permission denied to revoke privileges granted by role \"%s\"",
+                                  GetUserNameFromId(grantorId, false))));
+    }
+
+    return grantorId;
+}
+```

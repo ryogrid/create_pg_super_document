@@ -45,3 +45,43 @@ The function guarantees that on successful return, at least one new character is
 - Error handling is deferred to specialized functions (CopyConversionError) to provide detailed encoding error messages
 - The INPUT_BUF_BYTES macro is used to efficiently check available processed data
 - The function guarantees progress by ensuring that either new data becomes available or a terminal condition (EOF/error) is reached
+
+## Simplified Source
+
+```c
+static void
+CopyLoadInputBuf(CopyFromState cstate)
+{
+    int nbytes = INPUT_BUF_BYTES(cstate);
+
+    // Synchronize buffer indices when raw_buf and input_buf are the same
+    if (cstate->raw_buf == cstate->input_buf)
+    {
+        Assert(!cstate->need_transcoding);
+        Assert(cstate->input_buf_index >= cstate->raw_buf_index);
+        cstate->raw_buf_index = cstate->input_buf_index;
+    }
+
+    for (;;)
+    {
+        // Convert any available raw data to proper encoding
+        CopyConvertBuf(cstate);
+
+        // Check if we have new input bytes ready to return
+        if (INPUT_BUF_BYTES(cstate) > nbytes)
+            return;
+
+        // Handle encoding conversion errors
+        if (cstate->input_reached_error)
+            CopyConversionError(cstate);
+
+        // Exit if we've reached EOF and processed all data
+        if (cstate->input_reached_eof)
+            break;
+
+        // Load more raw data if available
+        Assert(!cstate->raw_reached_eof);
+        CopyLoadRawBuf(cstate);
+    }
+}
+```

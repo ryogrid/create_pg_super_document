@@ -52,3 +52,55 @@ For complex path types like ProjectionPath, the function recursively checks the 
 - The function returns false for any unrecognized path types, providing conservative behavior
 - Custom scan providers must explicitly set the CUSTOMPATH_SUPPORT_MARK_RESTORE flag to indicate support
 - [Result](../R/Result.md) nodes with multiple path types (ProjectionPath, MinMaxAggPath, GroupResultPath) have different support characteristics
+
+## Simplified Source
+
+```c
+bool ExecSupportsMarkRestore(Path *pathnode) {
+    // Check pathtype (Plan node type) rather than nodeTag for consistency
+    switch (pathnode->pathtype) {
+        case T_IndexScan:
+        case T_IndexOnlyScan:
+            // Index support depends on access method capabilities
+            return castNode(IndexPath, pathnode)->indexinfo->amcanmarkpos;
+
+        case T_Material:
+        case T_Sort:
+            return true; // Always support mark/restore
+
+        case T_CustomScan:
+            // Support depends on custom scan provider flag
+            return (castNode(CustomPath, pathnode)->flags & CUSTOMPATH_SUPPORT_MARK_RESTORE) != 0;
+
+        case T_Result:
+            // Support depends on child plan's capabilities
+            if (IsA(pathnode, ProjectionPath))
+                return ExecSupportsMarkRestore(((ProjectionPath *) pathnode)->subpath);
+            else if (IsA(pathnode, MinMaxAggPath) || IsA(pathnode, GroupResultPath))
+                return false; // Childless Result nodes
+            else
+                return false; // Simple RTE_RESULT base relation
+
+        case T_Append:
+            {
+                AppendPath *appendPath = castNode(AppendPath, pathnode);
+                // Single-child Append will be optimized away, check child
+                if (list_length(appendPath->subpaths) == 1)
+                    return ExecSupportsMarkRestore((Path *) linitial(appendPath->subpaths));
+                return false; // Multi-child Append doesn't support it
+            }
+
+        case T_MergeAppend:
+            {
+                MergeAppendPath *mapath = castNode(MergeAppendPath, pathnode);
+                // Single-child MergeAppend will be optimized away, check child
+                if (list_length(mapath->subpaths) == 1)
+                    return ExecSupportsMarkRestore((Path *) linitial(mapath->subpaths));
+                return false; // Multi-child MergeAppend doesn't support it
+            }
+
+        default:
+            return false; // Conservative default for unrecognized types
+    }
+}
+```

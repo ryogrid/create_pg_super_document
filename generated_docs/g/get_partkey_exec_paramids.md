@@ -37,3 +37,34 @@ This function is essential for determining which runtime parameters affect parti
 - The accumulated Bitmapset represents all runtime parameters that could affect pruning decisions
 - Used during query planning to understand parameter dependencies in partition pruning
 - Part of PostgreSQL's partition-wise optimization framework
+
+## Simplified Source
+
+```c
+static Bitmapset *get_partkey_exec_paramids(List *steps) {
+    Bitmapset *execparamids = NULL;
+    ListCell *lc;
+
+    // Iterate through all pruning steps
+    foreach(lc, steps) {
+        PartitionPruneStepOp *step = (PartitionPruneStepOp *) lfirst(lc);
+
+        // Skip non-operator steps
+        if (!IsA(step, PartitionPruneStepOp))
+            continue;
+
+        // Check each expression in the step
+        ListCell *lc2;
+        foreach(lc2, step->exprs) {
+            Expr *expr = lfirst(lc2);
+
+            // Skip constants, only process expressions that might contain parameters
+            if (!IsA(expr, Const)) {
+                execparamids = bms_join(execparamids, pull_exec_paramids(expr));
+            }
+        }
+    }
+
+    return execparamids;
+}
+```

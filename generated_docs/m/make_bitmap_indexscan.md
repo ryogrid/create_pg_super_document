@@ -36,3 +36,28 @@ This function constructs a BitmapIndexScan plan node, which is the first stage o
 - Bitmap scans are most efficient when combined with multiple index conditions or when dealing with moderately selective queries
 - The distinction between indexqual and indexqualorig allows the planner to maintain both processed and original forms of conditions
 - Always used in conjunction with BitmapHeapScan for the complete bitmap scan operation
+
+## Simplified Source
+
+```c
+static BitmapIndexScan *
+make_bitmap_indexscan(Index scanrelid, Oid indexid, List *indexqual, List *indexqualorig)
+{
+    BitmapIndexScan *node = makeNode(BitmapIndexScan);
+    Plan *plan = &node->scan.plan;
+
+    // No targetlist or qual needed - this node only produces bitmaps
+    plan->targetlist = NIL;
+    plan->qual = NIL;
+    plan->lefttree = NULL;
+    plan->righttree = NULL;
+
+    // Set scan parameters
+    node->scan.scanrelid = scanrelid;
+    node->indexid = indexid;
+    node->indexqual = indexqual;
+    node->indexqualorig = indexqualorig;
+
+    return node;
+}
+```

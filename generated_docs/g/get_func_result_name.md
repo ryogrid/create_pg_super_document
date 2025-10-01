@@ -45,3 +45,57 @@ The function accesses the pg_proc system catalog to retrieve the function's argu
 - Checks both that the parameter exists and that it has a non-empty name
 - Used primarily in query planning to determine appropriate column aliases for function results
 - The function validates array structure and throws errors for malformed proargmodes or proargnames arrays
+
+## Simplified Source
+
+```c
+char *get_func_result_name(Oid functionId) {
+    char *result = NULL;
+
+    // Fetch function metadata from pg_proc
+    HeapTuple procTuple = SearchSysCache1(PROCOID, ObjectIdGetDatum(functionId));
+    if (!HeapTupleIsValid(procTuple))
+        elog(ERROR, "cache lookup failed for function %u", functionId);
+
+    // Check if function has named arguments
+    if (heap_attisnull(procTuple, Anum_pg_proc_proargmodes, NULL) ||
+        heap_attisnull(procTuple, Anum_pg_proc_proargnames, NULL)) {
+        result = NULL;
+    } else {
+        // Extract argument modes and names arrays
+        Datum proargmodes = SysCacheGetAttrNotNull(PROCOID, procTuple, Anum_pg_proc_proargmodes);
+        Datum proargnames = SysCacheGetAttrNotNull(PROCOID, procTuple, Anum_pg_proc_proargnames);
+
+        // Validate and extract array data
+        ArrayType *modes_arr = DatumGetArrayTypeP(proargmodes);
+        int numargs = ARR_DIMS(modes_arr)[0];
+        char *argmodes = (char *) ARR_DATA_PTR(modes_arr);
+
+        ArrayType *names_arr = DatumGetArrayTypeP(proargnames);
+        Datum *argnames;
+        int nargnames;
+        deconstruct_array_builtin(names_arr, TEXTOID, &argnames, NULL, &nargnames);
+
+        // Find single named output parameter
+        int numoutargs = 0;
+        for (int i = 0; i < numargs; i++) {
+            if (argmodes[i] == PROARGMODE_IN || argmodes[i] == PROARGMODE_VARIADIC)
+                continue;
+
+            if (++numoutargs > 1) {
+                result = NULL; // Multiple output args
+                break;
+            }
+
+            result = TextDatumGetCString(argnames[i]);
+            if (result == NULL || result[0] == '\0') {
+                result = NULL; // Unnamed parameter
+                break;
+            }
+        }
+    }
+
+    ReleaseSysCache(procTuple);
+    return result;
+}
+```

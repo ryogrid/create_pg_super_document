@@ -31,3 +31,14 @@ This is a simple accessor function that retrieves the pointer to the last succes
 - The returned pointer points into the original haystack string, not a copy
 - The function is used as part of PostgreSQL's text manipulation functions for string replacement and splitting operations
 - The pointer is only valid as long as the original haystack string remains unchanged and in scope
+
+## Simplified Source
+
+```c
+static char *
+text_position_get_match_ptr(TextPositionState *state)
+{
+    // Return pointer to the current match location in the original string
+    return state->last_match;
+}
+```

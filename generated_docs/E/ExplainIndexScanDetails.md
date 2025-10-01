@@ -51,3 +51,37 @@ The scan direction is particularly important for understanding query performance
 - The "???" scan direction indicates an unexpected or undefined scan direction value
 - This function is specifically designed for IndexScan and IndexOnlyScan node types
 - Part of PostgreSQL's comprehensive EXPLAIN infrastructure for understanding query execution plans
+
+## Simplified Source
+
+```c
+static void
+ExplainIndexScanDetails(Oid indexid, ScanDirection indexorderdir, ExplainState *es)
+{
+    const char *indexname = explain_get_index_name(indexid);
+
+    if (es->format == EXPLAIN_FORMAT_TEXT) {
+        // Text format: append to existing description
+        if (ScanDirectionIsBackward(indexorderdir))
+            appendStringInfoString(es->str, " Backward");
+        appendStringInfo(es->str, " using %s", quote_identifier(indexname));
+    } else {
+        // Structured format: separate properties
+        const char *scandir;
+        switch (indexorderdir) {
+            case BackwardScanDirection:
+                scandir = "Backward";
+                break;
+            case ForwardScanDirection:
+                scandir = "Forward";
+                break;
+            default:
+                scandir = "???";
+                break;
+        }
+
+        ExplainPropertyText("Scan Direction", scandir, es);
+        ExplainPropertyText("Index Name", indexname, es);
+    }
+}
+```

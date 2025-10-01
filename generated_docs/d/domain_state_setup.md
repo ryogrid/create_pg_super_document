@@ -46,4 +46,52 @@ An important note is that the cache struct cannot be reused for different domain
 - Memory allocated for the cache structure is intentionally leaked when switching domain types within a query
 - The function sets up both the underlying base type I/O functions and domain-specific constraint checking
 - An ExprContext is not created until needed, optimizing memory usage
-- The cache is marked as valid by setting the  field to the input 
+- The cache is marked as valid by setting the domain_type field to the input domainType
+
+## Simplified Source
+
+```c
+static DomainIOData *domain_state_setup(Oid domainType, bool binary, MemoryContext mcxt) {
+    DomainIOData *my_extra;
+    TypeCacheEntry *typentry;
+    Oid baseType;
+
+    // Allocate cache structure
+    my_extra = (DomainIOData *) MemoryContextAlloc(mcxt, sizeof(DomainIOData));
+
+    // Validate domain type and get base type info
+    typentry = lookup_type_cache(domainType, TYPECACHE_DOMAIN_BASE_INFO);
+    if (typentry->typtype != TYPTYPE_DOMAIN) {
+        ereport(ERROR,
+                (errcode(ERRCODE_DATATYPE_MISMATCH),
+                 errmsg("type %s is not a domain",
+                        format_type_be(domainType))));
+    }
+
+    // Extract base type information
+    baseType = typentry->domainBaseType;
+    my_extra->typtypmod = typentry->domainBaseTypmod;
+
+    // Setup I/O functions for base type
+    if (binary) {
+        getTypeBinaryInputInfo(baseType,
+                              &my_extra->typiofunc,
+                              &my_extra->typioparam);
+    } else {
+        getTypeInputInfo(baseType,
+                        &my_extra->typiofunc,
+                        &my_extra->typioparam);
+    }
+    fmgr_info_cxt(my_extra->typiofunc, &my_extra->proc, mcxt);
+
+    // Initialize domain constraints
+    InitDomainConstraintRef(domainType, &my_extra->constraint_ref, mcxt, true);
+
+    // Initialize remaining fields
+    my_extra->econtext = NULL;  // Created when needed
+    my_extra->mcxt = mcxt;
+    my_extra->domain_type = domainType;  // Mark cache valid
+
+    return my_extra;
+}
+``` 

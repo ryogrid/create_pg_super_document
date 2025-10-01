@@ -40,3 +40,31 @@ The function only performs lookups and never creates new entries, making it pure
 - Memory context switching ensures hash computations occur in appropriate temporary context
 - The custom hash and equality functions must be compatible with the tuple types being compared
 - Provides flexibility for complex query execution scenarios requiring heterogeneous tuple comparisons
+
+## Simplified Source
+
+```c
+TupleHashEntry
+FindTupleHashEntry(TupleHashTable hashtable, TupleTableSlot *slot,
+                   ExprState *eqcomp, FmgrInfo *hashfunctions)
+{
+    TupleHashEntry entry;
+    MemoryContext oldContext;
+    MinimalTuple key;
+
+    // Switch to hash table's temporary context for computations
+    oldContext = MemoryContextSwitchTo(hashtable->tempcxt);
+
+    // Set up hash table to use custom functions and input slot
+    hashtable->inputslot = slot;
+    hashtable->in_hash_funcs = hashfunctions;
+    hashtable->cur_eq_func = eqcomp;
+
+    // Search hash table using NULL key to reference inputslot
+    key = NULL;
+    entry = tuplehash_lookup(hashtable->hashtab, key);
+
+    MemoryContextSwitchTo(oldContext);
+    return entry;
+}
+```

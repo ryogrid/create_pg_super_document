@@ -52,3 +52,40 @@ The function maintains a running count of values processed through the valcount 
 - The valcount parameter is passed by reference and modified to track progress through the flattened element arrays
 - Each recursive call creates one level of nested JSONB arrays, preserving the original array structure
 - The function assumes that dims, vals, and nulls arrays are properly sized and valid
+
+## Simplified Source
+
+```c
+static void array_dim_to_jsonb(JsonbInState *result, int dim, int ndims, int *dims,
+                               const Datum *vals, const bool *nulls, int *valcount,
+                               JsonTypeCategory tcategory, Oid outfuncoid)
+{
+    int i;
+
+    Assert(dim < ndims);
+
+    // Start JSONB array for this dimension
+    result->res = pushJsonbValue(&result->parseState, WJB_BEGIN_ARRAY, NULL);
+
+    // Process all elements in this dimension
+    for (i = 1; i <= dims[dim]; i++)
+    {
+        if (dim + 1 == ndims)
+        {
+            // Innermost dimension: convert element to JSONB
+            datum_to_jsonb_internal(vals[*valcount], nulls[*valcount], result,
+                                   tcategory, outfuncoid, false);
+            (*valcount)++;
+        }
+        else
+        {
+            // Outer dimension: recursively process next dimension
+            array_dim_to_jsonb(result, dim + 1, ndims, dims, vals, nulls,
+                              valcount, tcategory, outfuncoid);
+        }
+    }
+
+    // End JSONB array for this dimension
+    result->res = pushJsonbValue(&result->parseState, WJB_END_ARRAY, NULL);
+}
+```

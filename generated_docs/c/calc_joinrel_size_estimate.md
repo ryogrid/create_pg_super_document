@@ -64,3 +64,68 @@ The estimation process follows these key steps:
 - [Result](../R/Result.md) clamping prevents unrealistic estimates that could mislead the optimizer
 - The function carefully manages memory by freeing temporary lists to prevent leaks
 - Different join types have fundamentally different cardinality semantics that are properly reflected in the calculations
+
+## Simplified Source
+
+```c
+static double calc_joinrel_size_estimate(PlannerInfo *root, RelOptInfo *joinrel,
+                                        RelOptInfo *outer_rel, RelOptInfo *inner_rel,
+                                        double outer_rows, double inner_rows,
+                                        SpecialJoinInfo *sjinfo, List *restrictlist) {
+    JoinType jointype = sjinfo->jointype;
+
+    // Apply foreign key join selectivity analysis
+    Selectivity fkselec = get_foreign_key_join_selectivity(root,
+                                                          outer_rel->relids,
+                                                          inner_rel->relids,
+                                                          sjinfo, &restrictlist);
+
+    // Calculate join clause selectivity
+    Selectivity jselec, pselec = 0.0;
+
+    if (IS_OUTER_JOIN(jointype)) {
+        // Separate join conditions from pushed-down conditions
+        List *joinquals, *pushedquals;
+        separate_join_and_pushed_quals(restrictlist, joinrel, &joinquals, &pushedquals);
+
+        jselec = clauselist_selectivity(root, joinquals, 0, jointype, sjinfo);
+        pselec = clauselist_selectivity(root, pushedquals, 0, jointype, sjinfo);
+
+        cleanup_temp_lists(joinquals, pushedquals);
+    } else {
+        jselec = clauselist_selectivity(root, restrictlist, 0, jointype, sjinfo);
+    }
+
+    // Apply join-type-specific cardinality calculation
+    double nrows;
+    switch (jointype) {
+        case JOIN_INNER:
+            nrows = outer_rows * inner_rows * fkselec * jselec;
+            break;
+
+        case JOIN_LEFT:
+            nrows = outer_rows * inner_rows * fkselec * jselec;
+            nrows = Max(nrows, outer_rows);  // At least as many as outer
+            nrows *= pselec;
+            break;
+
+        case JOIN_FULL:
+            nrows = outer_rows * inner_rows * fkselec * jselec;
+            nrows = Max(nrows, outer_rows);  // At least as many as outer
+            nrows = Max(nrows, inner_rows);  // At least as many as inner
+            nrows *= pselec;
+            break;
+
+        case JOIN_SEMI:
+            nrows = outer_rows * fkselec * jselec;
+            break;
+
+        case JOIN_ANTI:
+            nrows = outer_rows * (1.0 - fkselec * jselec);
+            nrows *= pselec;
+            break;
+    }
+
+    return clamp_row_est(nrows);
+}
+```

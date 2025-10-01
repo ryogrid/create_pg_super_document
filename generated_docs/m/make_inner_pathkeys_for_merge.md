@@ -53,3 +53,67 @@ Key behaviors:
 - Output pathkey list may not be ordered exactly like mergeclauses due to redundancy elimination
 - Complexity in create_mergejoin_plan() is introduced due to potential reordering from redundancy elimination
 - Reuses outer pathkeys when inner and outer equivalence classes are identical for efficiency
+
+## Simplified Source
+
+```c
+List *make_inner_pathkeys_for_merge(PlannerInfo *root,
+                                   List *mergeclauses,
+                                   List *outer_pathkeys)
+{
+    List *pathkeys = NIL;
+    EquivalenceClass *lastoeclass = NULL;
+    PathKey *opathkey = NULL;
+    ListCell *lop = list_head(outer_pathkeys);
+
+    foreach(lc, mergeclauses)
+    {
+        RestrictInfo *rinfo = (RestrictInfo *) lfirst(lc);
+        EquivalenceClass *oeclass;
+        EquivalenceClass *ieclass;
+
+        // Ensure equivalence classes are up to date
+        update_mergeclause_eclasses(root, rinfo);
+
+        // Extract outer and inner equivalence classes
+        if (rinfo->outer_is_left)
+        {
+            oeclass = rinfo->left_ec;
+            ieclass = rinfo->right_ec;
+        }
+        else
+        {
+            oeclass = rinfo->right_ec;
+            ieclass = rinfo->left_ec;
+        }
+
+        // Advance to next outer pathkey if needed
+        if (oeclass != lastoeclass)
+        {
+            if (!lop)
+                elog(ERROR, "too few pathkeys for mergeclauses");
+            opathkey = (PathKey *) lfirst(lop);
+            lop = lnext(outer_pathkeys, lop);
+            lastoeclass = opathkey->pk_eclass;
+            if (oeclass != lastoeclass)
+                elog(ERROR, "outer pathkeys do not match mergeclause");
+        }
+
+        // Create inner pathkey - reuse outer pathkey if ECs match
+        PathKey *pathkey;
+        if (ieclass == oeclass)
+            pathkey = opathkey;
+        else
+            pathkey = make_canonical_pathkey(root, ieclass,
+                                           opathkey->pk_opfamily,
+                                           opathkey->pk_strategy,
+                                           opathkey->pk_nulls_first);
+
+        // Add to result if not redundant
+        if (!pathkey_is_redundant(pathkey, pathkeys))
+            pathkeys = lappend(pathkeys, pathkey);
+    }
+
+    return pathkeys;
+}
+```

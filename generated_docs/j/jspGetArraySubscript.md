@@ -41,3 +41,24 @@ Both output parameters are initialized using jspInitByBuffer, which sets up Json
 - The initialized JsonPathItem structures share the same base buffer as the original JsonPathItem
 - Used primarily for processing array access operations like [0], [1:3], or [:5] in JSON path expressions
 - The 'i' parameter allows extraction of multiple subscript elements when an array access has multiple index specifications
+
+## Simplified Source
+
+```c
+bool jspGetArraySubscript(JsonPathItem *v, JsonPathItem *from, JsonPathItem *to, int i) {
+    // Validate that this is an array index operation
+    Assert(v->type == jpiIndexArray);
+
+    // Always initialize the 'from' bound of the subscript
+    jspInitByBuffer(from, v->base, v->content.array.elems[i].from);
+
+    // Check if this is a range operation (has a 'to' bound)
+    if (!v->content.array.elems[i].to)
+        return false;  // Single index access, no range
+
+    // Initialize the 'to' bound for range operations
+    jspInitByBuffer(to, v->base, v->content.array.elems[i].to);
+
+    return true;  // Range operation with both bounds
+}
+```

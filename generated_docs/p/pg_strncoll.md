@@ -60,3 +60,29 @@ LC_ALL=: Locale specification determining collation rules and provider
 - The caller must handle deterministic collation tie-breaking for consistency with pg_strnxfrm()
 - Returns standard C library comparison result: negative for less than, zero for equal, positive for greater than
 - Located in src/backend/utils/adt/pg_locale.c:2156-2175
+
+## Simplified Source
+
+```c
+int
+pg_strncoll(const char *arg1, size_t len1, const char *arg2, size_t len2, pg_locale_t locale)
+{
+    int result;
+
+    // Dispatch to appropriate collation implementation
+    if (!locale || locale->provider == COLLPROVIDER_LIBC) {
+        result = pg_strncoll_libc(arg1, len1, arg2, len2, locale);
+    }
+#ifdef USE_ICU
+    else if (locale->provider == COLLPROVIDER_ICU) {
+        result = pg_strncoll_icu(arg1, len1, arg2, len2, locale);
+    }
+#endif
+    else {
+        // Unsupported collation provider
+        PGLOCALE_SUPPORT_ERROR(locale->provider);
+    }
+
+    return result;
+}
+```

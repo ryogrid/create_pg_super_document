@@ -38,3 +38,39 @@ The function is designed to be called only after CopyConvertBuf has detected an 
 - In the transcoding case, the function calls pg_do_encoding_conversion_buf with noError=false specifically to trigger the error - this is a deliberate design to get detailed error messages from the conversion subsystem
 - The fallback elog(ERROR) should never be reached as the conversion routine is expected to throw an error when noError=false
 - Error positioning is precise: input_buf_len points to the problematic character when no transcoding is needed, while raw_buf_index points to it when transcoding is required
+
+## Simplified Source
+
+```c
+static void
+CopyConversionError(CopyFromState cstate)
+{
+    Assert(cstate->raw_buf_len > 0);
+    Assert(cstate->input_reached_error);
+
+    if (!cstate->need_transcoding)
+    {
+        // File and database encodings are the same - report validation error
+        report_invalid_encoding(cstate->file_encoding,
+                                cstate->raw_buf + cstate->input_buf_len,
+                                cstate->raw_buf_len - cstate->input_buf_len);
+    }
+    else
+    {
+        // Transcoding needed - let conversion routine report the specific error
+        unsigned char *src = (unsigned char *) cstate->raw_buf + cstate->raw_buf_index;
+        int srclen = cstate->raw_buf_len - cstate->raw_buf_index;
+        unsigned char *dst = (unsigned char *) cstate->input_buf + cstate->input_buf_len;
+        int dstlen = INPUT_BUF_SIZE - cstate->input_buf_len + 1;
+
+        // Call conversion with noError=false to trigger error reporting
+        (void) pg_do_encoding_conversion_buf(cstate->conversion_proc,
+                                             cstate->file_encoding,
+                                             GetDatabaseEncoding(),
+                                             src, srclen, dst, dstlen, false);
+
+        // Should not reach here
+        elog(ERROR, "encoding conversion failed without error");
+    }
+}
+```

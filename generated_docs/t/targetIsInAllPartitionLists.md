@@ -40,3 +40,26 @@ The implementation notes that it would be possible to optimize by ignoring windo
 - Part of the broader qualifier pushdown safety framework in PostgreSQL's optimizer
 - Performance consideration: Does not optimize for unused window definitions to keep implementation simple
 - Located in src/backend/optimizer/path/allpaths.c:3812-3854
+
+## Simplified Source
+
+```c
+static bool
+targetIsInAllPartitionLists(TargetEntry *tle, Query *query)
+{
+    ListCell *lc;
+
+    // Check each window clause
+    foreach(lc, query->windowClause)
+    {
+        WindowClause *wc = (WindowClause *) lfirst(lc);
+
+        // If target is not in this window's partition clause, return false
+        if (!targetIsInSortList(tle, InvalidOid, wc->partitionClause))
+            return false;
+    }
+
+    // Target is in all partition clauses (or no windows exist)
+    return true;
+}
+```

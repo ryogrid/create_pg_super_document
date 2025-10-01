@@ -41,3 +41,43 @@ The rationale is that operators within the same opfamily are designed to have co
 - Cross-type operators (e.g., int24eq vs int4eq) can be compatible if they're in the same opfamily
 - This compatibility check is important for query optimization, particularly in determining when operations can be considered equivalent
 - Located in src/backend/utils/cache/lsyscache.c at lines 698-748
+
+## Simplified Source
+
+```c
+bool
+equality_ops_are_compatible(Oid opno1, Oid opno2)
+{
+    bool result;
+    CatCList *catlist;
+    int i;
+
+    // Same operators are trivially compatible
+    if (opno1 == opno2)
+        return true;
+
+    // Search through all pg_amop entries for opno1
+    catlist = SearchSysCacheList1(AMOPOPID, ObjectIdGetDatum(opno1));
+
+    result = false;
+    for (i = 0; i < catlist->n_members; i++)
+    {
+        HeapTuple op_tuple = &catlist->members[i]->tuple;
+        Form_pg_amop op_form = (Form_pg_amop) GETSTRUCT(op_tuple);
+
+        // Check if both operators are in same btree or hash opfamily
+        if (op_form->amopmethod == BTREE_AM_OID ||
+            op_form->amopmethod == HASH_AM_OID)
+        {
+            if (op_in_opfamily(opno2, op_form->amopfamily))
+            {
+                result = true;
+                break;
+            }
+        }
+    }
+
+    ReleaseSysCacheList(catlist);
+    return result;
+}
+```

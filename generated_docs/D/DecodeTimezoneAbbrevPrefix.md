@@ -39,3 +39,59 @@ This function provides timezone abbreviation parsing functionality specifically 
 - The function requires zoneabbrevtbl to be initialized, returning -1 immediately if not available
 - Downcasing is performed internally using pg_tolower for case-insensitive matching
 - Declared in src/include/utils/datetime.h with TZNAME_ZONE constant
+
+## Simplified Source
+
+```c
+int
+DecodeTimezoneAbbrevPrefix(const char *str, int *offset, pg_tz **tz)
+{
+    char lowtoken[TOKMAXLEN + 1];
+    int len;
+
+    // Initialize output parameters
+    *offset = 0;
+    *tz = NULL;
+
+    // Check if timezone abbreviation table is available
+    if (!zoneabbrevtbl)
+        return -1;
+
+    // Convert input to lowercase for case-insensitive matching
+    for (len = 0; len < TOKMAXLEN; len++) {
+        if (*str == '\0' || !isalpha((unsigned char) *str))
+            break;
+        lowtoken[len] = pg_tolower((unsigned char) *str++);
+    }
+    lowtoken[len] = '\0';
+
+    // Search with successively shorter strings to find longest match
+    while (len > 0) {
+        const datetkn *tp = datebsearch(lowtoken, zoneabbrevtbl->abbrevs,
+                                       zoneabbrevtbl->numabbrevs);
+
+        if (tp != NULL) {
+            if (tp->type == DYNTZ) {
+                // Handle dynamic timezone abbreviation
+                DateTimeErrorExtra extra;
+                pg_tz *tzp = FetchDynamicTimeZone(zoneabbrevtbl, tp, &extra);
+
+                if (tzp != NULL) {
+                    *tz = tzp;
+                    return len;  // Return length of matched abbreviation
+                }
+            } else {
+                // Handle fixed-offset timezone abbreviation
+                *offset = tp->value;
+                return len;  // Return length of matched abbreviation
+            }
+        }
+
+        // Try shorter string by removing last character
+        lowtoken[--len] = '\0';
+    }
+
+    // No match found
+    return -1;
+}
+```

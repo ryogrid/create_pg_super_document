@@ -40,3 +40,44 @@ If the expression is not already part of an EquivalenceClass and create_it is fa
 - Assumes that the provided operator is a valid B-tree ordering operator
 - Returns a single-element list containing one PathKey, or NIL if pathkey creation fails
 - Part of PostgreSQL's query optimization pathkey system for representing sort orders
+
+## Simplified Source
+
+```c
+List *
+build_expression_pathkey(PlannerInfo *root,
+                        Expr *expr,
+                        Oid opno,
+                        Relids rel,
+                        bool create_it)
+{
+    List *pathkeys;
+    Oid opfamily, opcintype;
+    int16 strategy;
+    PathKey *cpathkey;
+
+    // Look up operator properties in pg_amop
+    if (!get_ordering_op_properties(opno, &opfamily, &opcintype, &strategy))
+        elog(ERROR, "operator %u is not a valid ordering operator", opno);
+
+    // Create pathkey from sort information
+    cpathkey = make_pathkey_from_sortinfo(root,
+                                          expr,
+                                          opfamily,
+                                          opcintype,
+                                          exprCollation((Node *) expr),
+                                          (strategy == BTGreaterStrategyNumber),
+                                          (strategy == BTGreaterStrategyNumber),
+                                          0,
+                                          rel,
+                                          create_it);
+
+    // Return single-element list or NIL
+    if (cpathkey)
+        pathkeys = list_make1(cpathkey);
+    else
+        pathkeys = NIL;
+
+    return pathkeys;
+}
+```

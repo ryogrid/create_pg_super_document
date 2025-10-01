@@ -40,3 +40,17 @@ This function acquires a session-level lock on a shared database object, similar
 - The function is located in src/backend/storage/lmgr/lmgr.c:1159-1176
 - Does not return a value (void function)
 - Must be paired with UnlockSharedObjectForSession to release the lock
+
+## Simplified Source
+
+```c
+void LockSharedObjectForSession(Oid classid, Oid objid, uint16 objsubid, LOCKMODE lockmode) {
+    LOCKTAG tag;
+
+    // Build lock tag for the shared object
+    SET_LOCKTAG_OBJECT(tag, InvalidOid, classid, objid, objsubid);
+
+    // Acquire session-level lock (persists until session end)
+    LockAcquire(&tag, lockmode, true, false);
+}
+```

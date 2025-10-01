@@ -35,3 +35,36 @@ This utility function analyzes operator clause arguments to identify expressions
 
 ## Notes and Other Information
 The function enforces that exactly two arguments are provided (checked via Assert), which is expected for binary operator expressions. RelabelType nodes are automatically stripped as they represent type coercion operations that don't affect the underlying data values. The function supports flexible output by allowing any of the output parameters to be NULL if the caller doesn't need that particular information. This design makes it suitable for various use cases where only specific parts of the parsed expression are needed.
+
+## Simplified Source
+
+```c
+bool examine_opclause_args(List *args, Node **exprp, Const **cstp, bool *expronleftp) {
+    Node *leftop = linitial(args);
+    Node *rightop = lsecond(args);
+
+    // Strip RelabelType wrappers from both operands
+    if (IsA(leftop, RelabelType))
+        leftop = ((RelabelType *) leftop)->arg;
+    if (IsA(rightop, RelabelType))
+        rightop = ((RelabelType *) rightop)->arg;
+
+    // Check for (Expr op Const) pattern
+    if (IsA(rightop, Const)) {
+        if (exprp) *exprp = leftop;
+        if (cstp) *cstp = (Const *) rightop;
+        if (expronleftp) *expronleftp = true;
+        return true;
+    }
+
+    // Check for (Const op Expr) pattern
+    if (IsA(leftop, Const)) {
+        if (exprp) *exprp = rightop;
+        if (cstp) *cstp = (Const *) leftop;
+        if (expronleftp) *expronleftp = false;
+        return true;
+    }
+
+    return false;  // Neither pattern matched
+}
+```

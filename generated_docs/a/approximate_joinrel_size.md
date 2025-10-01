@@ -40,3 +40,37 @@ The function handles edge cases like empty relations and validates relation arra
 - Ignores relations that have been proven empty (dummy relations)
 - The deliberate overestimate works well with the intended downstream usage pattern
 - Most accurate for Cartesian product scenarios and single-relation semijoins
+
+## Simplified Source
+
+```c
+static double
+approximate_joinrel_size(PlannerInfo *root, Relids relids)
+{
+    double rowcount = 1.0;
+    int relid = -1;
+
+    // Multiply row counts of all participating relations
+    while ((relid = bms_next_member(relids, relid)) >= 0)
+    {
+        RelOptInfo *rel;
+
+        // Skip invalid relation indexes
+        if (relid >= root->simple_rel_array_size)
+            continue;
+
+        rel = root->simple_rel_array[relid];
+        if (rel == NULL)
+            continue;
+
+        // Skip empty relations
+        if (IS_DUMMY_REL(rel))
+            continue;
+
+        // Multiply by this relation's estimated row count
+        rowcount *= rel->rows;
+    }
+
+    return rowcount;
+}
+```

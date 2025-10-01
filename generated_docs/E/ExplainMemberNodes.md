@@ -34,3 +34,15 @@ This function iterates through an array of child plan states and recursively cal
 - The ancestors list should already contain the immediate parent of these member plans when this function is called
 - Part of PostgreSQL's hierarchical query execution plan explanation system
 - Provides a uniform way to display child plans regardless of the specific composite node type
+
+## Simplified Source
+
+```c
+static void
+ExplainMemberNodes(PlanState **planstates, int nplans, List *ancestors, ExplainState *es)
+{
+    // Explain each member plan
+    for (int j = 0; j < nplans; j++)
+        ExplainNode(planstates[j], ancestors, "Member", NULL, es);
+}
+```

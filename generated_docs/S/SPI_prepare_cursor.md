@@ -48,3 +48,43 @@ This function is the foundation for SPI_prepare (which calls it with cursorOptio
 - cursorOptions can control parallel execution, holdability, and other cursor behaviors
 - Validates that argtypes is provided when nargs > 0
 - The magic number _SPI_PLAN_MAGIC is used for plan validation in subsequent operations
+
+## Simplified Source
+
+```c
+SPIPlanPtr SPI_prepare_cursor(const char *src, int nargs, Oid *argtypes,
+                             int cursorOptions) {
+    // Validate input parameters
+    if (src == NULL || nargs < 0 || (nargs > 0 && argtypes == NULL)) {
+        SPI_result = SPI_ERROR_ARGUMENT;
+        return NULL;
+    }
+
+    // Begin SPI call context
+    SPI_result = _SPI_begin_call(true);
+    if (SPI_result < 0)
+        return NULL;
+
+    // Initialize plan structure
+    _SPI_plan plan;
+    memset(&plan, 0, sizeof(_SPI_plan));
+    plan.magic = _SPI_PLAN_MAGIC;
+    plan.parse_mode = RAW_PARSE_DEFAULT;
+    plan.cursor_options = cursorOptions;
+    plan.nargs = nargs;
+    plan.argtypes = argtypes;
+    plan.parserSetup = NULL;
+    plan.parserSetupArg = NULL;
+
+    // Parse and plan the query
+    _SPI_prepare_plan(src, &plan);
+
+    // Copy plan to procedure context to make it persistent
+    SPIPlanPtr result = _SPI_make_plan_non_temp(&plan);
+
+    // End SPI call context
+    _SPI_end_call(true);
+
+    return result;
+}
+```

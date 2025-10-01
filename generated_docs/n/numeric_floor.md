@@ -40,3 +40,29 @@ The function follows PostgreSQL's standard function call convention using  and r
 - Part of PostgreSQL's mathematical function suite for the numeric data type
 - Follows PostgreSQL's memory management patterns with proper cleanup
 - Complementary function to , providing the floor operation
+
+## Simplified Source
+
+```c
+Datum
+numeric_floor(PG_FUNCTION_ARGS)
+{
+    Numeric num = PG_GETARG_NUMERIC(0);
+    Numeric res;
+    NumericVar result;
+
+    // Handle special values (NaN, infinity) - return as-is
+    if (NUMERIC_IS_SPECIAL(num))
+        PG_RETURN_NUMERIC(duplicate_numeric(num));
+
+    // Convert to internal representation and apply floor
+    init_var_from_num(num, &result);
+    floor_var(&result, &result);
+
+    // Convert back to Numeric and clean up
+    res = make_result(&result);
+    free_var(&result);
+
+    PG_RETURN_NUMERIC(res);
+}
+```

@@ -36,3 +36,19 @@ The descending order arrangement ensures that the most frequently occurring valu
 - Produces descending order (highest counts first), which is optimal for MCV list construction
 - Simple integer comparison logic with no complex data type handling required
 - Essential for frequency-based sorting in statistical analysis operations
+
+## Simplified Source
+```c
+static int compare_sort_item_count(const void *a, const void *b, void *arg) {
+    SortItem *item_a = (SortItem *) a;
+    SortItem *item_b = (SortItem *) b;
+
+    // Sort by count in descending order (highest frequency first)
+    if (item_a->count == item_b->count)
+        return 0;
+    else if (item_a->count > item_b->count)
+        return -1;  // a comes before b
+
+    return 1;       // b comes before a
+}
+```

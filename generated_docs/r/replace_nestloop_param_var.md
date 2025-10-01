@@ -46,3 +46,38 @@ This approach ensures that identical variables from the outer relation share the
 - The curOuterParams list serves as both a de-duplication cache and a specification for required NestLoop parameters
 - Each NestLoopParam entry links a parameter number (paramno) with its source expression (paramval)
 - Critical for nested loop join performance as it enables efficient parameter passing without redundant evaluations
+
+## Simplified Source
+
+```c
+Param *replace_nestloop_param_var(PlannerInfo *root, Var *var) {
+    // Check if this Var is already parameterized
+    ListCell *lc;
+    foreach(lc, root->curOuterParams) {
+        NestLoopParam *nlp = (NestLoopParam *) lfirst(lc);
+        if (equal(var, nlp->paramval)) {
+            // Reuse existing parameter slot
+            Param *param = makeNode(Param);
+            param->paramkind = PARAM_EXEC;
+            param->paramid = nlp->paramno;
+            param->paramtype = var->vartype;
+            param->paramtypmod = var->vartypmod;
+            param->paramcollid = var->varcollid;
+            param->location = var->location;
+            return param;
+        }
+    }
+
+    // Create new execution parameter
+    Param *param = generate_new_exec_param(root, var->vartype, var->vartypmod, var->varcollid);
+    param->location = var->location;
+
+    // Add new NestLoopParam to track this parameterization
+    NestLoopParam *nlp = makeNode(NestLoopParam);
+    nlp->paramno = param->paramid;
+    nlp->paramval = copyObject(var);
+    root->curOuterParams = lappend(root->curOuterParams, nlp);
+
+    return param;
+}
+```

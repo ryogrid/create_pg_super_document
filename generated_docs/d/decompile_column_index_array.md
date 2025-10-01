@@ -43,3 +43,37 @@ The function handles the formatting details such as proper comma separation and 
 - Formats output with proper comma separation - no comma before the first column, commas with spaces before subsequent columns
 - Located in src/backend/utils/adt/ruleutils.c:2577-2628
 - Essential component of PostgreSQL's constraint definition reconstruction system
+
+## Simplified Source
+
+```c
+// Simplified version of decompile_column_index_array
+static int decompile_column_index_array(Datum column_index_array, Oid relId, StringInfo buf) {
+    Datum *keys;
+    int nKeys;
+
+    // Extract column indices from the int16 array
+    deconstruct_array_builtin(DatumGetArrayTypeP(column_index_array), INT2OID, &keys, NULL, &nKeys);
+
+    // Convert each column index to column name and append to buffer
+    for (int j = 0; j < nKeys; j++) {
+        // Get column name for this attribute number
+        char *colName = get_attname(relId, DatumGetInt16(keys[j]), false);
+
+        // Format with proper comma separation
+        if (j == 0)
+            appendStringInfoString(buf, quote_identifier(colName));
+        else
+            appendStringInfo(buf, ", %s", quote_identifier(colName));
+    }
+
+    return nKeys;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving core functionality
+- Simplified variable declarations by moving loop variable to modern C style
+- Added high-level comments explaining the main steps
+- Focused on the essential algorithm: extract array → loop through indices → lookup names → format output
+- Preserved the important comma formatting logic

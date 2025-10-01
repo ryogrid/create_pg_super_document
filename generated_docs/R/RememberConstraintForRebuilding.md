@@ -48,3 +48,31 @@ The deduplication check is critical because:
 - The captured definition string will be used later to recreate the constraint with identical semantics
 - Handles both the constraint itself and any special properties of its associated index
 - Part of the broader constraint rebuilding infrastructure in PostgreSQL's ALTER TABLE implementation
+
+## Simplified Source
+
+```c
+static void
+RememberConstraintForRebuilding(Oid conoid, AlteredTableInfo *tab)
+{
+    // Prevent duplicate entries - critical for multiple column dependencies
+    if (!list_member_oid(tab->changedConstraintOids, conoid))
+    {
+        // Capture constraint definition before any changes
+        char *defstring = pg_get_constraintdef_command(conoid);
+        Oid indoid;
+
+        // Add to tracking lists
+        tab->changedConstraintOids = lappend_oid(tab->changedConstraintOids, conoid);
+        tab->changedConstraintDefs = lappend(tab->changedConstraintDefs, defstring);
+
+        // Handle constraint's associated index properties
+        indoid = get_constraint_index(conoid);
+        if (OidIsValid(indoid))
+        {
+            RememberReplicaIdentityForRebuilding(indoid, tab);
+            RememberClusterOnForRebuilding(indoid, tab);
+        }
+    }
+}
+```

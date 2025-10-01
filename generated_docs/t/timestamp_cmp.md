@@ -32,3 +32,14 @@ This function implements the comparison function for PostgreSQL timestamp values
 - Used by PostgreSQL's sorting and indexing mechanisms for timestamp columns
 - Part of PostgreSQL's SQL operator implementation framework
 - Located in src/backend/utils/adt/timestamp.c:2270-2280
+
+## Simplified Source
+
+```c
+Datum timestamp_cmp(PG_FUNCTION_ARGS) {
+    Timestamp dt1 = PG_GETARG_TIMESTAMP(0);
+    Timestamp dt2 = PG_GETARG_TIMESTAMP(1);
+
+    PG_RETURN_INT32(timestamp_cmp_internal(dt1, dt2));
+}
+```

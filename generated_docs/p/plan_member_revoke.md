@@ -41,3 +41,23 @@ The function always uses DROP_CASCADE behavior and revokes entire grants (not ju
 - The function iterates through all membership entries and processes each one where the specified OID appears as a member
 - Used in conjunction with AddRoleMems to ensure clean role membership management
 - The function is static and only accessible within the user.c module
+
+## Simplified Source
+
+```c
+static void plan_member_revoke(CatCList *memlist, RevokeRoleGrantAction *actions, Oid member) {
+    // Iterate through all membership grants
+    for (int i = 0; i < memlist->n_members; ++i) {
+        HeapTuple authmem_tuple;
+        Form_pg_auth_members authmem_form;
+
+        // Get membership tuple and extract form data
+        authmem_tuple = &memlist->members[i]->tuple;
+        authmem_form = (Form_pg_auth_members) GETSTRUCT(authmem_tuple);
+
+        // If this grant involves the specified member, plan recursive revocation
+        if (authmem_form->member == member)
+            plan_recursive_revoke(memlist, actions, i, false, DROP_CASCADE);
+    }
+}
+```

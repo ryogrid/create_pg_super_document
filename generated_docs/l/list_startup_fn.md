@@ -301,3 +301,17 @@ Text creation and manipulation
 - It works in conjunction with list_next_fn and list_cleanup_fn to provide complete list iteration capability
 - The iteration state is stored as a void pointer to the current ListCell
 - This is a static function used internally within the predicate testing module
+
+## Simplified Source
+
+```c
+static void
+list_startup_fn(Node *clause, PredIterInfo info)
+{
+    // Initialize list iteration state
+    info->state_list = (List *) clause;
+
+    // Set current position to start of list
+    info->state = (void *) list_head(info->state_list);
+}
+```

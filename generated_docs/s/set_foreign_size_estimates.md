@@ -34,3 +34,30 @@ The function focuses on estimates that can be reasonably calculated without deep
 - Must be called after the relation's targetlist and restrictinfo list are constructed
 - Cannot provide meaningful row count estimates without FDW-specific knowledge
 - Part of PostgreSQL's foreign data wrapper infrastructure within the query optimizer
+
+## Simplified Source
+
+This function provides basic estimates before the FDW takes over:
+
+```c
+void set_foreign_size_estimates(PlannerInfo *root, RelOptInfo *rel)
+{
+    // Validate this is a base relation
+    Assert(rel->relid > 0);
+
+    // Set placeholder row estimate (FDW will provide real estimate)
+    rel->rows = 1000;  /* deliberately bogus default */
+
+    // Calculate cost of evaluating restriction clauses
+    cost_qual_eval(&rel->baserestrictcost, rel->baserestrictinfo, root);
+
+    // Calculate relation width based on datatypes
+    set_rel_width(root, rel);
+}
+```
+
+**Key simplifications made:**
+- Removed extensive explanatory comments while preserving the key insight
+- Maintained essential validation and all three core operations
+- Kept the deliberate "bogus" estimate comment as it's functionally important
+- Function is already quite concise, focusing on the preparation-for-FDW pattern

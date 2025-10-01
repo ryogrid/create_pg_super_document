@@ -48,3 +48,62 @@ Incremental sort cannot support backward scans or mark/restore operations becaus
 - Two standalone tuple slots are created: one for storing pivot prefix keys (group_pivot) and another for carrying tuples between batches (transfer_tuple)
 - The execution status is initially set to INCSORT_LOADFULLSORT, indicating the first phase of incremental sorting
 - No projection information is needed since incremental sort nodes don't perform projections
+
+## Simplified Source
+
+```c
+IncrementalSortState *
+ExecInitIncrementalSort(IncrementalSort *node, EState *estate, int eflags)
+{
+    IncrementalSortState *incrsortstate;
+
+    // Validate execution flags - incremental sort doesn't support backward scans or mark/restore
+    Assert((eflags & (EXEC_FLAG_BACKWARD | EXEC_FLAG_MARK)) == 0);
+
+    // Create and initialize state structure
+    incrsortstate = makeNode(IncrementalSortState);
+    incrsortstate->ss.ps.plan = (Plan *) node;
+    incrsortstate->ss.ps.state = estate;
+    incrsortstate->ss.ps.ExecProcNode = ExecIncrementalSort;
+
+    // Initialize execution state variables
+    incrsortstate->execution_status = INCSORT_LOADFULLSORT;
+    incrsortstate->bounded = false;
+    incrsortstate->outerNodeDone = false;
+    incrsortstate->bound_Done = 0;
+    incrsortstate->fullsort_state = NULL;
+    incrsortstate->prefixsort_state = NULL;
+    incrsortstate->group_pivot = NULL;
+    incrsortstate->transfer_tuple = NULL;
+    incrsortstate->n_fullsort_remaining = 0;
+    incrsortstate->presorted_keys = NULL;
+
+    // Initialize instrumentation for performance monitoring if enabled
+    if (incrsortstate->ss.ps.instrument != NULL)
+    {
+        // Zero out fullsort and prefixsort group info counters
+        memset(&incrsortstate->incsort_info.fullsortGroupInfo, 0,
+               sizeof(IncrementalSortGroupInfo));
+        memset(&incrsortstate->incsort_info.prefixsortGroupInfo, 0,
+               sizeof(IncrementalSortGroupInfo));
+    }
+
+    // Initialize child node (outer plan)
+    outerPlanState(incrsortstate) = ExecInitNode(outerPlan(node), estate, eflags);
+
+    // Set up scan slot and result slot
+    ExecCreateScanSlotFromOuterPlan(estate, &incrsortstate->ss, &TTSOpsMinimalTuple);
+    ExecInitResultTupleSlotTL(&incrsortstate->ss.ps, &TTSOpsMinimalTuple);
+    incrsortstate->ss.ps.ps_ProjInfo = NULL;
+
+    // Create standalone slots for pivot keys and tuple transfer
+    incrsortstate->group_pivot =
+        MakeSingleTupleTableSlot(ExecGetResultType(outerPlanState(incrsortstate)),
+                                &TTSOpsMinimalTuple);
+    incrsortstate->transfer_tuple =
+        MakeSingleTupleTableSlot(ExecGetResultType(outerPlanState(incrsortstate)),
+                                &TTSOpsMinimalTuple);
+
+    return incrsortstate;
+}
+```

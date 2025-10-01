@@ -51,3 +51,39 @@ If the array has no null bitmap (ARR_HASNULL returns false), the function immedi
 - Essential for operations that need to know definitively whether nulls are present, such as certain optimization decisions
 - Performance scales with the position of the first null element rather than total array size
 - Used extensively in array utility functions and JSON processing where null handling is critical
+
+## Simplified Source
+
+```c
+bool array_contains_nulls(ArrayType *array) {
+    // Quick check: if no null bitmap exists, no nulls are present
+    if (!ARR_HASNULL(array)) {
+        return false;
+    }
+
+    // Get total number of elements and null bitmap
+    int nelems = ArrayGetNItems(ARR_NDIM(array), ARR_DIMS(array));
+    bits8 *bitmap = ARR_NULLBITMAP(array);
+
+    // Check complete bytes (8 elements at a time)
+    while (nelems >= 8) {
+        if (*bitmap != 0xFF) {  // 0xFF means all 8 bits are 1 (non-null)
+            return true;        // Found at least one 0 bit (null)
+        }
+        bitmap++;
+        nelems -= 8;
+    }
+
+    // Check remaining elements in the final partial byte
+    int bitmask = 1;
+    while (nelems > 0) {
+        if ((*bitmap & bitmask) == 0) {  // Bit is 0, indicating null
+            return true;
+        }
+        bitmask <<= 1;  // Move to next bit
+        nelems--;
+    }
+
+    return false;  // No nulls found
+}
+```

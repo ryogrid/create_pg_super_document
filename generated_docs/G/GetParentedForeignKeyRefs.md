@@ -55,3 +55,40 @@ The function is optimized to avoid unnecessary catalog scans when the partition 
 - Used primarily during partition detachment operations to check for constraint dependencies
 - Returns NIL (empty list) if no matching constraints are found
 - The function uses AccessShareLock for reading the constraint catalog to ensure consistency
+
+## Simplified Source
+
+```c
+static List *GetParentedForeignKeyRefs(Relation partition) {
+    List *constraints = NIL;
+
+    // Early exit: if no indexes or referenceable columns, no FK refs possible
+    if (RelationGetIndexList(partition) == NIL ||
+        bms_is_empty(RelationGetIndexAttrBitmap(partition, INDEX_ATTR_BITMAP_KEY)))
+        return NIL;
+
+    // Open constraint catalog and set up scan keys
+    Relation pg_constraint = table_open(ConstraintRelationId, AccessShareLock);
+    ScanKeyData key[2];
+    ScanKeyInit(&key[0], Anum_pg_constraint_confrelid, BTEqualStrategyNumber,
+                F_OIDEQ, ObjectIdGetDatum(RelationGetRelid(partition)));
+    ScanKeyInit(&key[1], Anum_pg_constraint_contype, BTEqualStrategyNumber,
+                F_CHAREQ, CharGetDatum(CONSTRAINT_FOREIGN));
+
+    // Scan for foreign keys referencing this partition
+    SysScanDesc scan = systable_beginscan(pg_constraint, InvalidOid, true, NULL, 2, key);
+    HeapTuple tuple;
+    while ((tuple = systable_getnext(scan)) != NULL) {
+        Form_pg_constraint constraint = (Form_pg_constraint) GETSTRUCT(tuple);
+
+        // Only include constraints that have parent constraints (partitioned)
+        if (OidIsValid(constraint->conparentid))
+            constraints = lappend_oid(constraints, constraint->oid);
+    }
+
+    // Clean up and return constraint list
+    systable_endscan(scan);
+    table_close(pg_constraint, AccessShareLock);
+    return constraints;
+}
+```

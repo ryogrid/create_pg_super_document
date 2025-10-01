@@ -51,3 +51,67 @@ The function includes security checks to ensure the user has permission to acces
 - The function handles different collations properly, which is crucial for text data where sorting order depends on locale
 - Histogram data is preferred when available as it typically provides more accurate range information than MCV data alone
 - The implementation carefully manages memory by copying datum values and freeing statistical slots after use
+
+## Simplified Source
+
+```c
+static bool get_variable_range(PlannerInfo *root, VariableStatData *vardata,
+                              Oid sortop, Oid collation,
+                              Datum *min, Datum *max) {
+    Datum tmin = 0, tmax = 0;
+    bool have_data = false;
+    int16 typLen;
+    bool typByVal;
+    AttStatsSlot sslot;
+
+    // No statistics available - return failure
+    if (!HeapTupleIsValid(vardata->statsTuple))
+        return false;
+
+    // Security check: ensure we can apply the sort operator
+    if (!statistic_proc_security_check(vardata, get_opcode(sortop)))
+        return false;
+
+    get_typlenbyval(vardata->atttype, &typLen, &typByVal);
+
+    // Strategy 1: Look for histogram with exact ordering operator
+    if (get_attstatsslot(&sslot, vardata->statsTuple, STATISTIC_KIND_HISTOGRAM, sortop, ATTSTATSSLOT_VALUES)) {
+        if (sslot.stacoll == collation && sslot.nvalues > 0) {
+            // Use first and last histogram values as min/max
+            tmin = datumCopy(sslot.values[0], typByVal, typLen);
+            tmax = datumCopy(sslot.values[sslot.nvalues - 1], typByVal, typLen);
+            have_data = true;
+        }
+        free_attstatsslot(&sslot);
+    }
+
+    // Strategy 2: Scan any histogram for extremal values with our ordering
+    if (!have_data && get_attstatsslot(&sslot, vardata->statsTuple, STATISTIC_KIND_HISTOGRAM, InvalidOid, ATTSTATSSLOT_VALUES)) {
+        get_stats_slot_range(&sslot, get_opcode(sortop), NULL, collation, typLen, typByVal, &tmin, &tmax, &have_data);
+        free_attstatsslot(&sslot);
+    }
+
+    // Strategy 3: Check most-common-values for extreme values
+    if (get_attstatsslot(&sslot, vardata->statsTuple, STATISTIC_KIND_MCV, InvalidOid,
+                        have_data ? ATTSTATSSLOT_VALUES : (ATTSTATSSLOT_VALUES | ATTSTATSSLOT_NUMBERS))) {
+        bool use_mcvs = have_data;
+
+        // If no histogram, only use MCVs if they represent nearly complete dataset
+        if (!have_data) {
+            double sumcommon = 0.0, nullfrac;
+            for (int i = 0; i < sslot.nnumbers; i++)
+                sumcommon += sslot.numbers[i];
+            nullfrac = ((Form_pg_statistic) GETSTRUCT(vardata->statsTuple))->stanullfrac;
+            use_mcvs = (sumcommon + nullfrac > 0.99999);
+        }
+
+        if (use_mcvs)
+            get_stats_slot_range(&sslot, get_opcode(sortop), NULL, collation, typLen, typByVal, &tmin, &tmax, &have_data);
+        free_attstatsslot(&sslot);
+    }
+
+    *min = tmin;
+    *max = tmax;
+    return have_data;
+}
+```

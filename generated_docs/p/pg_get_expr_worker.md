@@ -46,3 +46,60 @@ The function performs several important validation steps: it ensures the input i
 - Handles both relation-contextualized expressions and standalone expressions
 - Located in src/backend/utils/adt/ruleutils.c:2664-2748
 - Uses AccessShareLock when opening relations to prevent concurrent modifications
+
+## Simplified Source
+
+```c
+static text *pg_get_expr_worker(text *expr, Oid relid, int prettyFlags) {
+    Node *node;
+    Relids relids;
+    List *context;
+    char *exprstr;
+    Relation rel = NULL;
+    char *str;
+
+    // Convert TEXT input to C string and parse into node tree
+    exprstr = text_to_cstring(expr);
+    node = (Node *) stringToNode(exprstr);
+    pfree(exprstr);
+
+    // Validate input is an expression, not a query
+    Node *tst = node;
+    while (tst && IsA(tst, List))
+        tst = linitial((List *) tst);
+    if (tst && IsA(tst, Query))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                errmsg("input is a query, not an expression")));
+
+    // Validate variable references are consistent with relation context
+    relids = pull_varnos(NULL, node);
+    if (OidIsValid(relid)) {
+        if (!bms_is_subset(relids, bms_make_singleton(1)))
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                    errmsg("expression contains variables of more than one relation")));
+    } else {
+        if (!bms_is_empty(relids))
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                    errmsg("expression contains variables")));
+    }
+
+    // Set up deparse context with relation info if needed
+    if (OidIsValid(relid)) {
+        rel = try_relation_open(relid, AccessShareLock);
+        if (rel == NULL)
+            return NULL;
+        context = deparse_context_for(RelationGetRelationName(rel), relid);
+    } else {
+        context = NIL;
+    }
+
+    // Convert node tree back to formatted SQL text
+    str = deparse_expression_pretty(node, context, false, false, prettyFlags, 0);
+
+    // Clean up relation lock
+    if (rel != NULL)
+        relation_close(rel, AccessShareLock);
+
+    return string_to_text(str);
+}
+```

@@ -39,3 +39,22 @@ The `padBufferToInt` function ensures proper memory alignment for JSONB data str
 - The padding ensures that subsequent integer reads/writes from the buffer are properly aligned for optimal performance
 - Commonly used before finalizing JSONB containers to ensure proper structural alignment
 - The function fills padding bytes with null characters ('\0')
+
+## Simplified Source
+
+```c
+static short padBufferToInt(StringInfo buffer) {
+    // Calculate padding needed for integer alignment
+    int padlen = INTALIGN(buffer->len) - buffer->len;
+
+    // Reserve space for padding bytes
+    int offset = reserveFromBuffer(buffer, padlen);
+
+    // Fill padding with null bytes (faster than memset for small amounts)
+    for (int p = 0; p < padlen; p++) {
+        buffer->data[offset + p] = '\0';
+    }
+
+    return padlen;
+}
+```

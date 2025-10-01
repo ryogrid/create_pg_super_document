@@ -38,3 +38,25 @@ The returned string is allocated using pstrdup() and must be freed by the caller
 - Uses the PostgreSQL system catalog pg_authid to look up role information
 - Proper cache management is handled internally with ReleaseSysCache()
 - Located in src/backend/utils/adt/acl.c:5556-5577
+
+## Simplified Source
+
+```c
+char *get_rolespec_name(const RoleSpec *role) {
+    HeapTuple tp;
+    Form_pg_authid authForm;
+    char *rolename;
+
+    // Get the role tuple from system catalog
+    tp = get_rolespec_tuple(role);
+
+    // Extract role name from the tuple
+    authForm = (Form_pg_authid) GETSTRUCT(tp);
+    rolename = pstrdup(NameStr(authForm->rolname));
+
+    // Release system cache entry
+    ReleaseSysCache(tp);
+
+    return rolename;
+}
+```

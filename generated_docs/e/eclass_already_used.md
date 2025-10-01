@@ -41,3 +41,27 @@ This check is essential because EquivalenceClasses can generate multiple logical
 - Specifically targets EquivalenceClass-derived clauses, which are particularly prone to generating equivalent alternatives
 - Returns true immediately upon finding the first matching clause, implementing short-circuit evaluation
 - Essential for maintaining reasonable planning time in queries with complex join conditions and multiple EquivalenceClasses
+
+## Simplified Source
+
+```c
+static bool eclass_already_used(EquivalenceClass *parent_ec, Relids oldrelids,
+                               List *indexjoinclauses)
+{
+    ListCell *lc;
+
+    // Check each existing join clause
+    foreach(lc, indexjoinclauses)
+    {
+        IndexClause *iclause = (IndexClause *) lfirst(lc);
+        RestrictInfo *rinfo = iclause->rinfo;
+
+        // Check if clause is from same EquivalenceClass and covers subset of relations
+        if (rinfo->parent_ec == parent_ec &&
+            bms_is_subset(rinfo->clause_relids, oldrelids))
+            return true;
+    }
+
+    return false;
+}
+```

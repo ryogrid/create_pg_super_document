@@ -43,3 +43,38 @@ The link information is stored in a dynamically growing array () that will be pr
 - Proper validation ensures that malformed link entries don't corrupt the timezone database
 - The links array grows dynamically using  to accommodate any number of timezone links
 - Each link structure contains source file tracking information for debugging and error reporting
+
+## Simplified Source
+
+```c
+static void
+inlink(char **fields, int nfields)
+{
+    // Validate field count
+    if (nfields != LINK_FIELDS) {
+        error(_("wrong number of fields on Link line"));
+        return;
+    }
+
+    // Validate target field is not empty
+    if (*fields[LF_TARGET] == '\0') {
+        error(_("blank TARGET field on Link line"));
+        return;
+    }
+
+    // Validate link name format
+    if (!namecheck(fields[LF_LINKNAME]))
+        return;
+
+    // Create link structure
+    struct link l;
+    l.l_filename = filename;
+    l.l_linenum = linenum;
+    l.l_target = ecpyalloc(fields[LF_TARGET]);
+    l.l_linkname = ecpyalloc(fields[LF_LINKNAME]);
+
+    // Add to links array, expanding if needed
+    links = growalloc(links, sizeof *links, nlinks, &nlinks_alloc);
+    links[nlinks++] = l;
+}
+```

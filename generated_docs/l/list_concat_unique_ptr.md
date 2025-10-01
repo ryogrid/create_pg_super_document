@@ -38,3 +38,24 @@ The function modifies list1 in-place by appending each element from list2 that i
 - Commonly used in query optimization where the same object instances need to be handled uniquely
 - Preserves the relative order of non-duplicate elements from list2
 - Particularly useful when working with plan nodes, expressions, or other structures where pointer identity matters
+
+## Simplified Source
+
+```c
+List *list_concat_unique_ptr(List *list1, const List *list2)
+{
+    ListCell *cell;
+
+    Assert(IsPointerList(list1));
+    Assert(IsPointerList(list2));
+
+    // Add each element from list2 that's not already in list1 (by pointer equality)
+    foreach(cell, list2) {
+        if (!list_member_ptr(list1, lfirst(cell)))
+            list1 = lappend(list1, lfirst(cell));
+    }
+
+    check_list_invariants(list1);
+    return list1;
+}
+```

@@ -45,3 +45,38 @@ The `arrive` parameter controls whether the detaching process is also considered
 - Returns true if this participant was the last to detach, enabling cleanup logic in callers
 - Handles the complex logic of determining when to advance the barrier phase and release waiting participants
 - Located in src/backend/storage/ipc/barrier.c:300-333
+
+## Simplified Source
+
+```c
+static inline bool BarrierDetachImpl(Barrier *barrier, bool arrive) {
+    bool release = false;
+    bool last;
+
+    // Verify this is not a static party barrier
+    Assert(!barrier->static_party);
+
+    // Safely update barrier state under lock
+    SpinLockAcquire(&barrier->mutex);
+    Assert(barrier->participants > 0);
+    --barrier->participants;
+
+    // Determine if we should advance phase and release waiting participants
+    if ((arrive || barrier->participants > 0) &&
+        barrier->arrived == barrier->participants) {
+        release = true;
+        barrier->arrived = 0;
+        ++barrier->phase;
+    }
+
+    // Check if this was the last participant
+    last = (barrier->participants == 0);
+    SpinLockRelease(&barrier->mutex);
+
+    // Wake up any waiting participants if phase advanced
+    if (release)
+        ConditionVariableBroadcast(&barrier->condition_variable);
+
+    return last;
+}
+```

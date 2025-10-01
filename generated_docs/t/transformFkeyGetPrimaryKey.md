@@ -61,3 +61,81 @@ The function ensures the primary key is valid and immediate, as deferrable prima
 - All output parameters except pkrel must be provided by the caller
 - Used specifically when the REFERENCES clause omits the column list, requiring automatic primary key detection
 - Validates that the primary key index is both primary and valid before using it
+
+## Simplified Source
+
+```c
+static int
+transformFkeyGetPrimaryKey(Relation pkrel, Oid *indexOid,
+                          List **attnamelist,
+                          int16 *attnums, Oid *atttypids,
+                          Oid *opclasses)
+{
+    List       *indexoidlist;
+    ListCell   *indexoidscan;
+    HeapTuple   indexTuple = NULL;
+    Form_pg_index indexStruct = NULL;
+    Datum       indclassDatum;
+    oidvector  *indclass;
+    int         i;
+
+    // Find primary key index among all table indexes
+    *indexOid = InvalidOid;
+    indexoidlist = RelationGetIndexList(pkrel);
+
+    foreach(indexoidscan, indexoidlist)
+    {
+        Oid indexoid = lfirst_oid(indexoidscan);
+
+        indexTuple = SearchSysCache1(INDEXRELID, ObjectIdGetDatum(indexoid));
+        if (!HeapTupleIsValid(indexTuple))
+            elog(ERROR, "cache lookup failed for index %u", indexoid);
+
+        indexStruct = (Form_pg_index) GETSTRUCT(indexTuple);
+
+        if (indexStruct->indisprimary && indexStruct->indisvalid)
+        {
+            // Reject deferrable primary keys per SQL spec
+            if (!indexStruct->indimmediate)
+                ereport(ERROR,
+                       (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                        errmsg("cannot use a deferrable primary key for referenced table \"%s\"",
+                               RelationGetRelationName(pkrel))));
+
+            *indexOid = indexoid;
+            break;
+        }
+        ReleaseSysCache(indexTuple);
+    }
+
+    list_free(indexoidlist);
+
+    // Ensure we found a primary key
+    if (!OidIsValid(*indexOid))
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("there is no primary key for referenced table \"%s\"",
+                        RelationGetRelationName(pkrel))));
+
+    // Extract index operator classes
+    indclassDatum = SysCacheGetAttrNotNull(INDEXRELID, indexTuple,
+                                          Anum_pg_index_indclass);
+    indclass = (oidvector *) DatumGetPointer(indclassDatum);
+
+    // Build lists of primary key column information
+    *attnamelist = NIL;
+    for (i = 0; i < indexStruct->indnkeyatts; i++)
+    {
+        int pkattno = indexStruct->indkey.values[i];
+
+        attnums[i] = pkattno;
+        atttypids[i] = attnumTypeId(pkrel, pkattno);
+        opclasses[i] = indclass->values[i];
+        *attnamelist = lappend(*attnamelist,
+                              makeString(pstrdup(NameStr(*attnumAttName(pkrel, pkattno)))));
+    }
+
+    ReleaseSysCache(indexTuple);
+    return i;  // Number of primary key columns
+}
+```

@@ -49,3 +49,40 @@ NOTE: This function modifies nodes in-place, which is safe because the tree was 
 - Part of the append relation processing where individual table references are replaced with references to their constituent partitions or inheritance children
 - The in-place modification is safe due to prior tree copying by pullup_replace_vars
 - Maintains PHV integrity by ensuring phrels is never left empty after substitution
+
+## Simplified Source
+
+```c
+static bool substitute_phv_relids_walker(Node *node, substitute_phv_relids_context *context) {
+    if (node == NULL)
+        return false;
+
+    // Handle PlaceHolderVar nodes - replace relation IDs
+    if (IsA(node, PlaceHolderVar)) {
+        PlaceHolderVar *phv = (PlaceHolderVar *) node;
+
+        // Check if this PHV references the target relation at correct level
+        if (phv->phlevelsup == context->sublevels_up &&
+            bms_is_member(context->varno, phv->phrels)) {
+
+            // Replace varno with subrelids
+            phv->phrels = bms_union(phv->phrels, context->subrelids);
+            phv->phrels = bms_del_member(phv->phrels, context->varno);
+
+            Assert(!bms_is_empty(phv->phrels));
+        }
+    }
+
+    // Handle subqueries with adjusted nesting level
+    if (IsA(node, Query)) {
+        context->sublevels_up++;
+        bool result = query_tree_walker((Query *) node, substitute_phv_relids_walker,
+                                      (void *) context, 0);
+        context->sublevels_up--;
+        return result;
+    }
+
+    // Continue walking the expression tree
+    return expression_tree_walker(node, substitute_phv_relids_walker, (void *) context);
+}
+```

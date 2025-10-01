@@ -55,3 +55,18 @@ The function is designed to be called by higher-level deletion routines rather t
 - This is an inline function that delegates to the table access method's specific implementation
 - Proper locking of the relation is the caller's responsibility
 - The changingPart parameter helps distinguish between regular deletions and partition key updates
+
+## Simplified Source
+
+```c
+static inline TM_Result
+table_tuple_delete(Relation rel, ItemPointer tid, CommandId cid,
+                   Snapshot snapshot, Snapshot crosscheck, bool wait,
+                   TM_FailureData *tmfd, bool changingPart)
+{
+    // Delegate to the table access method's delete implementation
+    return rel->rd_tableam->tuple_delete(rel, tid, cid,
+                                        snapshot, crosscheck,
+                                        wait, tmfd, changingPart);
+}
+```

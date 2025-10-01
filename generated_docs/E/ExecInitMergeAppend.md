@@ -51,3 +51,98 @@ The function handles both cases where partition pruning is enabled and disabled,
 - Runtime partition pruning allows dynamic exclusion of unnecessary partitions based on query parameters
 - The ms_initialized flag is set to false, indicating that the actual subplan execution hasn't started yet
 - [Result](../R/Result.md) tuple slots use virtual tuple table slot operations (TTSOpsVirtual) since they point to tuples from subplans
+
+## Simplified Source
+
+```c
+MergeAppendState *
+ExecInitMergeAppend(MergeAppend *node, EState *estate, int eflags)
+{
+    MergeAppendState *mergestate = makeNode(MergeAppendState);
+    PlanState **mergeplanstates;
+    Bitmapset *validsubplans;
+    int nplans, i, j;
+
+    // Validate execution flags - backward scan and mark/restore not supported
+    Assert(!(eflags & (EXEC_FLAG_BACKWARD | EXEC_FLAG_MARK)));
+
+    // Initialize state structure
+    mergestate->ps.plan = (Plan *) node;
+    mergestate->ps.state = estate;
+    mergestate->ps.ExecProcNode = ExecMergeAppend;
+
+    // Set up partition pruning if enabled
+    if (node->part_prune_info != NULL)
+    {
+        PartitionPruneState *prunestate;
+
+        // Initialize pruning and determine valid subplans
+        prunestate = ExecInitPartitionPruning(&mergestate->ps,
+                                             list_length(node->mergeplans),
+                                             node->part_prune_info,
+                                             &validsubplans);
+        mergestate->ms_prune_state = prunestate;
+        nplans = bms_num_members(validsubplans);
+
+        // Optimize for no runtime pruning case
+        if (!prunestate->do_exec_prune && nplans > 0)
+            mergestate->ms_valid_subplans = bms_add_range(NULL, 0, nplans - 1);
+    }
+    else
+    {
+        // No partition pruning - all subplans are valid
+        nplans = list_length(node->mergeplans);
+        Assert(nplans > 0);
+        mergestate->ms_valid_subplans = validsubplans =
+            bms_add_range(NULL, 0, nplans - 1);
+        mergestate->ms_prune_state = NULL;
+    }
+
+    // Allocate arrays for plan states and slots
+    mergeplanstates = (PlanState **) palloc(nplans * sizeof(PlanState *));
+    mergestate->mergeplans = mergeplanstates;
+    mergestate->ms_nplans = nplans;
+    mergestate->ms_slots = (TupleTableSlot **) palloc0(sizeof(TupleTableSlot *) * nplans);
+
+    // Initialize binary heap for merging sorted streams
+    mergestate->ms_heap = binaryheap_allocate(nplans, heap_compare_slots, mergestate);
+
+    // Initialize result slot
+    ExecInitResultTupleSlotTL(&mergestate->ps, &TTSOpsVirtual);
+    mergestate->ps.resultopsset = true;
+    mergestate->ps.resultopsfixed = false; // Points to different subplan tuples
+
+    // Initialize valid subplans
+    j = 0;
+    i = -1;
+    while ((i = bms_next_member(validsubplans, i)) >= 0)
+    {
+        Plan *initNode = (Plan *) list_nth(node->mergeplans, i);
+        mergeplanstates[j++] = ExecInitNode(initNode, estate, eflags);
+    }
+
+    mergestate->ps.ps_ProjInfo = NULL; // No projection needed
+
+    // Initialize sort key information
+    mergestate->ms_nkeys = node->numCols;
+    mergestate->ms_sortkeys = palloc0(sizeof(SortSupportData) * node->numCols);
+
+    for (i = 0; i < node->numCols; i++)
+    {
+        SortSupport sortKey = mergestate->ms_sortkeys + i;
+
+        sortKey->ssup_cxt = CurrentMemoryContext;
+        sortKey->ssup_collation = node->collations[i];
+        sortKey->ssup_nulls_first = node->nullsFirst[i];
+        sortKey->ssup_attno = node->sortColIdx[i];
+        sortKey->abbreviate = false; // Disabled for incremental processing
+
+        PrepareSortSupportFromOrderingOp(node->sortOperators[i], sortKey);
+    }
+
+    // Mark as not yet initialized for execution
+    mergestate->ms_initialized = false;
+
+    return mergestate;
+}
+```

@@ -46,3 +46,52 @@ The function is designed to be conservative - it returns false for any malformed
 - Enables SQL/XML:2006+ compliant CONTENT parsing in PostgreSQL
 - DTD detection is optimized for typical cases (DTD near document start)
 - Part of PostgreSQL's XML standards compliance implementation
+
+## Simplified Source
+
+```c
+static bool
+xml_doctype_in_content(const xmlChar *str)
+{
+    const xmlChar *p = str;
+
+    for (;;)
+    {
+        const xmlChar *e;
+
+        // Skip whitespace
+        SKIP_XML_SPACE(p);
+        if (*p != '<')
+            return false;
+        p++;
+
+        if (*p == '!')
+        {
+            p++;
+            // Check for DOCTYPE declaration
+            if (xmlStrncmp(p, (xmlChar *) "DOCTYPE", 7) == 0)
+                return true;
+
+            // Handle comments <!-- ... -->
+            if (xmlStrncmp(p, (xmlChar *) "--", 2) != 0)
+                return false;
+            p = xmlStrstr(p + 2, (xmlChar *) "--");
+            if (!p || p[2] != '>')
+                return false;
+            p += 3;
+            continue;
+        }
+
+        // Handle processing instructions <? ... ?>
+        if (*p != '?')
+            return false;
+        p++;
+
+        e = xmlStrstr(p, (xmlChar *) "?>");
+        if (!e)
+            return false;
+
+        p = e + 2;
+    }
+}
+```

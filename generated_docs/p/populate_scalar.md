@@ -63,3 +63,83 @@ The function uses InputFunctionCallSafe() for the final type conversion, ensurin
 - Uses safe input functions to allow graceful error handling rather than throwing exceptions
 - The omit_quotes parameter allows flexible handling of string quotation marks depending on context
 - Handles binary JsonB containers by converting them to C strings for input processing
+
+## Simplified Source
+
+```c
+static Datum populate_scalar(ScalarIOData *io, Oid typid, int32 typmod,
+                            JsValue *jsv, bool *isnull, Node *escontext,
+                            bool omit_quotes) {
+    Datum result;
+    char *str = NULL;
+    const char *json = NULL;
+
+    if (jsv->is_json) {
+        // Handle plain JSON string input
+        int len = jsv->val.json.len;
+        json = jsv->val.json.str;
+
+        if (len >= 0) {
+            // Copy non-null-terminated string
+            str = palloc(len + 1);
+            memcpy(str, json, len);
+            str[len] = '\0';
+        } else {
+            str = unconstify(char *, json);
+        }
+
+        // Apply JSON escaping for JSON/JSONB target types
+        if ((typid == JSONOID || typid == JSONBOID) &&
+            jsv->val.json.type == JSON_TOKEN_STRING) {
+            StringInfoData buf;
+            initStringInfo(&buf);
+            escape_json(&buf, str);
+            if (str != json) pfree(str);
+            str = buf.data;
+        }
+    } else {
+        // Handle JsonB input
+        JsonbValue *jbv = jsv->val.jsonb;
+
+        if (jbv->type == jbvString && omit_quotes) {
+            str = pnstrdup(jbv->val.string.val, jbv->val.string.len);
+        } else if (typid == JSONBOID) {
+            // Direct JsonB-to-JsonB conversion
+            Jsonb *jsonb = JsonbValueToJsonb(jbv);
+            return JsonbPGetDatum(jsonb);
+        } else {
+            // Convert JsonB to string for other types
+            switch (jbv->type) {
+                case jbvString:
+                    str = pnstrdup(jbv->val.string.val, jbv->val.string.len);
+                    break;
+                case jbvBool:
+                    str = pstrdup(jbv->val.boolean ? "true" : "false");
+                    break;
+                case jbvNumeric:
+                    str = DatumGetCString(DirectFunctionCall1(numeric_out,
+                                         PointerGetDatum(jbv->val.numeric)));
+                    break;
+                case jbvBinary:
+                    str = JsonbToCString(NULL, jbv->val.binary.data,
+                                        jbv->val.binary.len);
+                    break;
+                default:
+                    elog(ERROR, "unrecognized jsonb type: %d", (int) jbv->type);
+            }
+        }
+    }
+
+    // Convert string to target type
+    if (!InputFunctionCallSafe(&io->typiofunc, str, io->typioparam, typmod,
+                              escontext, &result)) {
+        result = (Datum) 0;
+        *isnull = true;
+    }
+
+    // Clean up temporary buffer
+    if (str != json) pfree(str);
+
+    return result;
+}
+```

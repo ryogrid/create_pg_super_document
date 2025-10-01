@@ -39,3 +39,30 @@ The function validates that the relation indeed has no storage using the RELKIND
 - Maintains consistency with the ALTER TABLE command framework through hook invocations
 - Makes changes immediately visible through CommandCounterIncrement for subsequent operations
 - Part of the broader ALTER TABLE execution framework that routes different relation types to appropriate handlers
+
+## Simplified Source
+
+```c
+static void
+ATExecSetTableSpaceNoStorage(Relation rel, Oid newTableSpace)
+{
+    // Verify this relation has no physical storage
+    Assert(!RELKIND_HAS_STORAGE(rel->rd_rel->relkind));
+
+    // Check if the tablespace move is allowed
+    if (!CheckRelationTableSpaceMove(rel, newTableSpace)) {
+        // Move not allowed, just trigger hooks and exit
+        InvokeObjectPostAlterHook(RelationRelationId, RelationGetRelid(rel), 0);
+        return;
+    }
+
+    // Update the tablespace metadata in pg_class
+    SetRelationTableSpace(rel, newTableSpace, InvalidOid);
+
+    // Trigger post-alter hooks for dependency tracking
+    InvokeObjectPostAlterHook(RelationRelationId, RelationGetRelid(rel), 0);
+
+    // Make the tablespace change visible to subsequent operations
+    CommandCounterIncrement();
+}
+```

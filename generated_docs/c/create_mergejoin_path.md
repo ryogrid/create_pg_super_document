@@ -53,3 +53,59 @@ This function constructs a MergePath node that represents a merge join execution
 
 ## Notes and Other Information
 The function sets up the basic MergePath structure but defers final cost calculation to final_cost_mergejoin. Some fields like skip_mark_restore and materialize_inner are set later during cost calculation. The parallel_workers estimation uses a simple heuristic that copies from the outer path, which the code comments acknowledge as suboptimal.
+
+## Simplified Source
+
+```c
+MergePath *
+create_mergejoin_path(PlannerInfo *root,
+                      RelOptInfo *joinrel,
+                      JoinType jointype,
+                      JoinCostWorkspace *workspace,
+                      JoinPathExtraData *extra,
+                      Path *outer_path,
+                      Path *inner_path,
+                      List *restrict_clauses,
+                      List *pathkeys,
+                      Relids required_outer,
+                      List *mergeclauses,
+                      List *outersortkeys,
+                      List *innersortkeys)
+{
+    MergePath *pathnode = makeNode(MergePath);
+
+    // Initialize basic path properties
+    pathnode->jpath.path.pathtype = T_MergeJoin;
+    pathnode->jpath.path.parent = joinrel;
+    pathnode->jpath.path.pathtarget = joinrel->reltarget;
+    pathnode->jpath.path.param_info = get_joinrel_parampathinfo(root, joinrel,
+                                                                outer_path, inner_path,
+                                                                extra->sjinfo, required_outer,
+                                                                &restrict_clauses);
+
+    // Set parallel execution properties
+    pathnode->jpath.path.parallel_safe = joinrel->consider_parallel &&
+                                         outer_path->parallel_safe &&
+                                         inner_path->parallel_safe;
+    pathnode->jpath.path.parallel_workers = outer_path->parallel_workers;
+    pathnode->jpath.path.pathkeys = pathkeys;
+
+    // Set join-specific properties
+    pathnode->jpath.jointype = jointype;
+    pathnode->jpath.inner_unique = extra->inner_unique;
+    pathnode->jpath.outerjoinpath = outer_path;
+    pathnode->jpath.innerjoinpath = inner_path;
+    pathnode->jpath.joinrestrictinfo = restrict_clauses;
+
+    // Set merge-specific properties
+    pathnode->path_mergeclauses = mergeclauses;
+    pathnode->outersortkeys = outersortkeys;
+    pathnode->innersortkeys = innersortkeys;
+    // Note: skip_mark_restore and materialize_inner set by final_cost_mergejoin
+
+    // Compute final costs and optimization flags
+    final_cost_mergejoin(root, pathnode, workspace, extra);
+
+    return pathnode;
+}
+```

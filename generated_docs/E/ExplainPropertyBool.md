@@ -31,3 +31,12 @@ This function serves as a specialized wrapper around ExplainProperty for handlin
 - The `true` parameter passed to ExplainProperty indicates this is a definite/literal property value
 - Less frequently used compared to numeric property functions, but essential for feature flags and boolean settings
 - Ensures consistent boolean formatting across TEXT, XML, JSON, and YAML output formats
+
+## Simplified Source
+
+```c
+void ExplainPropertyBool(const char *qlabel, bool value, ExplainState *es) {
+    // Convert boolean to string and delegate to generic property function
+    ExplainProperty(qlabel, NULL, value ? "true" : "false", true, es);
+}
+```

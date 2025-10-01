@@ -64,3 +64,133 @@ The algorithm estimates quotient digits using the first two dividend digits, adj
 - Part of PostgreSQL's arbitrary precision numeric arithmetic system
 - Uses temporary memory allocation that is cleaned up automatically
 - The quotient estimation and correction steps ensure mathematical accuracy
+
+## Simplified Source
+
+```c
+static void div_var(const NumericVar *var1, const NumericVar *var2, NumericVar *result,
+                   int rscale, bool round)
+{
+    int div_ndigits, res_ndigits, res_sign, res_weight;
+    int var1ndigits = var1->ndigits;
+    int var2ndigits = var2->ndigits;
+    NumericDigit *dividend, *divisor, *res_digits;
+
+    // Check for division by zero
+    if (var2ndigits == 0 || var2->digits[0] == 0)
+        ereport(ERROR, (errcode(ERRCODE_DIVISION_BY_ZERO),
+                       errmsg("division by zero")));
+
+    // Optimize for short divisors (1-2 digits)
+    if (var2ndigits <= 2) {
+        int idivisor = var2->digits[0];
+        int idivisor_weight = var2->weight;
+        if (var2ndigits == 2) {
+            idivisor = idivisor * NBASE + var2->digits[1];
+            idivisor_weight--;
+        }
+        if (var2->sign == NUMERIC_NEG)
+            idivisor = -idivisor;
+
+        div_var_int(var1, idivisor, idivisor_weight, result, rscale, round);
+        return;
+    }
+
+#ifdef HAVE_INT128
+    // Optimize for medium divisors (3-4 digits) on 128-bit platforms
+    if (var2ndigits <= 4) {
+        int64 idivisor = var2->digits[0];
+        int idivisor_weight = var2->weight;
+        for (int i = 1; i < var2ndigits; i++) {
+            idivisor = idivisor * NBASE + var2->digits[i];
+            idivisor_weight--;
+        }
+        if (var2->sign == NUMERIC_NEG)
+            idivisor = -idivisor;
+
+        div_var_int64(var1, idivisor, idivisor_weight, result, rscale, round);
+        return;
+    }
+#endif
+
+    // Handle zero dividend
+    if (var1ndigits == 0) {
+        zero_var(result);
+        result->dscale = rscale;
+        return;
+    }
+
+    // Calculate result properties
+    res_sign = (var1->sign == var2->sign) ? NUMERIC_POS : NUMERIC_NEG;
+    res_weight = var1->weight - var2->weight;
+    res_ndigits = res_weight + 1 + (rscale + DEC_DIGITS - 1) / DEC_DIGITS;
+    res_ndigits = Max(res_ndigits, 1);
+    if (round)
+        res_ndigits++;
+
+    // Setup working memory for long division
+    div_ndigits = Max(res_ndigits + var2ndigits, var1ndigits);
+    dividend = (NumericDigit *) palloc0((div_ndigits + var2ndigits + 2) * sizeof(NumericDigit));
+    divisor = dividend + (div_ndigits + 1);
+
+    // Copy input data to working arrays
+    memcpy(dividend + 1, var1->digits, var1ndigits * sizeof(NumericDigit));
+    memcpy(divisor + 1, var2->digits, var2ndigits * sizeof(NumericDigit));
+
+    // Allocate result storage
+    alloc_var(result, res_ndigits);
+    res_digits = result->digits;
+
+    // Normalize divisor for algorithm stability (ensure first digit >= NBASE/2)
+    if (divisor[1] < HALF_NBASE) {
+        int d = NBASE / (divisor[1] + 1);
+        // Scale both divisor and dividend by factor d
+        // [Detailed scaling code omitted for brevity]
+    }
+
+    // Main long division loop using Knuth's Algorithm 4.3.1D
+    for (int j = 0; j < res_ndigits; j++) {
+        // Estimate quotient digit from first two dividend digits
+        int next2digits = dividend[j] * NBASE + dividend[j + 1];
+        int qhat;
+
+        if (next2digits == 0) {
+            res_digits[j] = 0;
+            continue;
+        }
+
+        // Calculate initial quotient estimate
+        if (dividend[j] == divisor[1])
+            qhat = NBASE - 1;
+        else
+            qhat = next2digits / divisor[1];
+
+        // Refine quotient estimate for accuracy
+        while (divisor[2] * qhat >
+               (next2digits - qhat * divisor[1]) * NBASE + dividend[j + 2])
+            qhat--;
+
+        // Subtract qhat * divisor from working dividend
+        if (qhat > 0) {
+            // [Detailed subtraction and correction code omitted]
+            // Includes borrow handling and quotient adjustment if needed
+        }
+
+        res_digits[j] = qhat;
+    }
+
+    pfree(dividend);
+
+    // Finalize result
+    result->weight = res_weight;
+    result->sign = res_sign;
+
+    // Apply rounding or truncation to target precision
+    if (round)
+        round_var(result, rscale);
+    else
+        trunc_var(result, rscale);
+
+    strip_var(result);  // Remove leading/trailing zeros
+}
+```

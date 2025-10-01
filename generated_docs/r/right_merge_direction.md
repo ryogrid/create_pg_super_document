@@ -32,3 +32,28 @@ The function plays a crucial role in optimizing merge joins by ensuring that the
 - The function ignores  when making comparisons, which means additional sorting might still be needed in some cases
 - When no ORDER BY clause matches, the function defaults to preferring ascending order
 - This is a static function used internally within the pathkeys.c module for merge join optimization
+
+## Simplified Source
+
+```c
+static bool
+right_merge_direction(PlannerInfo *root, PathKey *pathkey)
+{
+    ListCell *l;
+
+    // Check if pathkey matches any query ORDER BY column
+    foreach(l, root->query_pathkeys) {
+        PathKey *query_pathkey = (PathKey *) lfirst(l);
+
+        if (pathkey->pk_eclass == query_pathkey->pk_eclass &&
+            pathkey->pk_opfamily == query_pathkey->pk_opfamily) {
+            // Found matching column - prefer direction if strategies match
+            // Note: ignores pk_nulls_first for simplicity
+            return (pathkey->pk_strategy == query_pathkey->pk_strategy);
+        }
+    }
+
+    // No matching ORDER BY request - default to ascending direction
+    return (pathkey->pk_strategy == BTLessStrategyNumber);
+}
+```

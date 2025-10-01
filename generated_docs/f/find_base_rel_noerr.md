@@ -36,3 +36,18 @@ This makes it suitable for tentative lookups where the absence of a relation is 
 - Much less frequently used than find_base_rel, primarily in statistical functions
 - Suitable for cases where relation existence is uncertain or optional
 - Part of the core relation access API providing both error and non-error variants
+
+## Simplified Source
+
+```c
+RelOptInfo *find_base_rel_noerr(PlannerInfo *root, int relid)
+{
+    // Use unsigned comparison to prevent negative array access
+    // and check bounds safely
+    if ((uint32) relid < (uint32) root->simple_rel_array_size)
+        return root->simple_rel_array[relid];
+
+    // Return NULL if relation not found (no error)
+    return NULL;
+}
+```

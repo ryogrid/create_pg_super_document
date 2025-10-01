@@ -40,3 +40,42 @@ The getArrayIndex function is responsible for evaluating array subscript express
 - Returns appropriate error codes for invalid subscripts (non-numeric, multiple values, out of range)
 - Uses PostgreSQL's numeric type system for precise arithmetic operations
 - Part of the JSONPath execution engine for handling array indexing operations
+
+## Simplified Source
+
+```c
+static JsonPathExecResult
+getArrayIndex(JsonPathExecContext *cxt, JsonPathItem *jsp, JsonbValue *jb, int32 *index)
+{
+    JsonbValue *jbv;
+    JsonValueList found = {0};
+    JsonPathExecResult res = executeItem(cxt, jsp, jb, &found);
+    Datum numeric_index;
+    bool have_error = false;
+
+    if (jperIsError(res))
+        return res;
+
+    // Ensure we have exactly one numeric result
+    if (JsonValueListLength(&found) != 1 ||
+        !(jbv = getScalar(JsonValueListHead(&found), jbvNumeric)))
+        RETURN_ERROR(ereport(ERROR,
+                (errcode(ERRCODE_INVALID_SQL_JSON_SUBSCRIPT),
+                 errmsg("jsonpath array subscript is not a single numeric value"))));
+
+    // Truncate to integer (remove fractional part)
+    numeric_index = DirectFunctionCall2(numeric_trunc,
+                                       NumericGetDatum(jbv->val.numeric),
+                                       Int32GetDatum(0));
+
+    // Convert to int32 with overflow checking
+    *index = numeric_int4_opt_error(DatumGetNumeric(numeric_index), &have_error);
+
+    if (have_error)
+        RETURN_ERROR(ereport(ERROR,
+                (errcode(ERRCODE_INVALID_SQL_JSON_SUBSCRIPT),
+                 errmsg("jsonpath array subscript is out of integer range"))));
+
+    return jperOk;
+}
+```

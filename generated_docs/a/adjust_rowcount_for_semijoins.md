@@ -41,3 +41,36 @@ This adjustment is crucial for accurate cost estimation in parameterized paths, 
 - Takes the minimum of original rowcount and estimated unique count
 - Critical for accurate costing of parameterized paths involving semijoins
 - Helps prevent overestimation of nested loop iteration costs
+
+## Simplified Source
+
+```c
+static double
+adjust_rowcount_for_semijoins(PlannerInfo *root, Index cur_relid,
+                              Index outer_relid, double rowcount)
+{
+    ListCell *lc;
+
+    // Check each special join in the query
+    foreach(lc, root->join_info_list) {
+        SpecialJoinInfo *sjinfo = (SpecialJoinInfo *) lfirst(lc);
+
+        // Look for semijoins where cur_relid is on left, outer_relid on right
+        if (sjinfo->jointype == JOIN_SEMI &&
+            bms_is_member(cur_relid, sjinfo->syn_lefthand) &&
+            bms_is_member(outer_relid, sjinfo->syn_righthand)) {
+
+            // Estimate unique-ified rows from semijoin RHS
+            double raw_rows = approximate_joinrel_size(root, sjinfo->syn_righthand);
+            double unique_rows = estimate_num_groups(root, sjinfo->semi_rhs_exprs,
+                                                   raw_rows, NULL, NULL);
+
+            // Use the smaller estimate (semijoin reduces rows)
+            if (rowcount > unique_rows)
+                rowcount = unique_rows;
+        }
+    }
+
+    return rowcount;
+}
+```

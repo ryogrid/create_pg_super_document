@@ -46,3 +46,70 @@ The  function promotes a PostgreSQL date to a timestamp with time zone, incorpor
 - Timezone offset calculation considers historical timezone changes and daylight saving time rules
 - More complex than regular timestamp conversion due to timezone considerations
 - Essential for operations requiring timezone-aware date-timestamp interoperability
+
+## Simplified Source
+
+```c
+TimestampTz
+date2timestamptz_opt_overflow(DateADT dateVal, int *overflow)
+{
+    TimestampTz result;
+    struct pg_tm tt, *tm = &tt;
+    int tz;
+
+    if (overflow)
+        *overflow = 0;
+
+    // Handle infinite date values
+    if (DATE_IS_NOBEGIN(dateVal))
+        TIMESTAMP_NOBEGIN(result);
+    else if (DATE_IS_NOEND(dateVal))
+        TIMESTAMP_NOEND(result);
+    else {
+        // Check for upper boundary overflow before timezone adjustment
+        if (dateVal >= (TIMESTAMP_END_JULIAN - POSTGRES_EPOCH_JDATE)) {
+            if (overflow) {
+                *overflow = 1;
+                TIMESTAMP_NOEND(result);
+                return result;
+            } else {
+                ereport(ERROR,
+                        (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                         errmsg("date out of range for timestamp")));
+            }
+        }
+
+        // Convert date to broken-down time (midnight in session timezone)
+        j2date(dateVal + POSTGRES_EPOCH_JDATE,
+               &(tm->tm_year), &(tm->tm_mon), &(tm->tm_mday));
+        tm->tm_hour = 0;
+        tm->tm_min = 0;
+        tm->tm_sec = 0;
+
+        // Determine timezone offset for this date/time
+        tz = DetermineTimeZoneOffset(tm, session_timezone);
+
+        // Convert to timestamp and apply timezone offset
+        result = dateVal * USECS_PER_DAY + tz * USECS_PER_SEC;
+
+        // Check for overflow after timezone adjustment
+        if (!IS_VALID_TIMESTAMP(result)) {
+            if (overflow) {
+                if (result < MIN_TIMESTAMP) {
+                    *overflow = -1;
+                    TIMESTAMP_NOBEGIN(result);
+                } else {
+                    *overflow = 1;
+                    TIMESTAMP_NOEND(result);
+                }
+            } else {
+                ereport(ERROR,
+                        (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                         errmsg("date out of range for timestamp")));
+            }
+        }
+    }
+
+    return result;
+}
+```

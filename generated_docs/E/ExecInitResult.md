@@ -9,9 +9,7 @@ ExecInitResult creates and initializes the execution state for a Result plan nod
 ## Definition
 
 ```c
-structure
-	 */
-	resstate = makeNode(ResultState);
+ResultState *ExecInitResult(Result *node, EState *estate, int eflags)
 ```
 ## Detailed Description
 ExecInitResult is the initialization function for Result plan nodes that creates the runtime execution state (ResultState) and prepares the node for execution. This function is part of PostgreSQL's executor initialization phase.
@@ -28,9 +26,9 @@ Key initialization steps performed:
 The function handles both Result nodes with outer plans (filter/projection nodes) and standalone Result nodes (constant expression evaluators). It ensures that inner plans are not present (Result nodes never have right children) and properly sets up constant qualification checking flags.
 
 ## Parameters / Member Variables
-- : The Result plan node from the query plan tree
-- : The execution state containing global executor information
-- : Execution flags indicating required capabilities (e.g., EXEC_FLAG_MARK for position marking)
+- `node`: The Result plan node from the query plan tree
+- `estate`: The execution state containing global executor information
+- `eflags`: Execution flags indicating required capabilities (e.g., EXEC_FLAG_MARK for position marking)
 
 ## Dependencies
 - Functions called/Symbols referenced:
@@ -52,3 +50,43 @@ The function handles both Result nodes with outer plans (filter/projection nodes
 - Uses virtual tuple table slot operations (TTSOpsVirtual) for efficient tuple handling
 - The function integrates with PostgreSQL's expression evaluation framework for both regular and constant qualifications
 - Returns a fully initialized ResultState ready for execution by ExecResult
+
+## Simplified Source
+
+```c
+ResultState *
+ExecInitResult(Result *node, EState *estate, int eflags)
+{
+    ResultState *resstate;
+
+    // Validate that mark/restore flags only set when outer plan exists
+    Assert(!(eflags & (EXEC_FLAG_MARK | EXEC_FLAG_BACKWARD)) || outerPlan(node) != NULL);
+
+    // Create and initialize state structure
+    resstate = makeNode(ResultState);
+    resstate->ps.plan = (Plan *) node;
+    resstate->ps.state = estate;
+    resstate->ps.ExecProcNode = ExecResult;
+
+    // Initialize processing state
+    resstate->rs_done = false;
+    resstate->rs_checkqual = (node->resconstantqual != NULL);
+
+    // Create expression context
+    ExecAssignExprContext(estate, &resstate->ps);
+
+    // Initialize child nodes (no inner plan allowed)
+    outerPlanState(resstate) = ExecInitNode(outerPlan(node), estate, eflags);
+    Assert(innerPlan(node) == NULL);
+
+    // Initialize result handling
+    ExecInitResultTupleSlotTL(&resstate->ps, &TTSOpsVirtual);
+    ExecAssignProjectionInfo(&resstate->ps, NULL);
+
+    // Initialize qualification expressions
+    resstate->ps.qual = ExecInitQual(node->plan.qual, (PlanState *) resstate);
+    resstate->resconstantqual = ExecInitQual((List *) node->resconstantqual, (PlanState *) resstate);
+
+    return resstate;
+}
+```

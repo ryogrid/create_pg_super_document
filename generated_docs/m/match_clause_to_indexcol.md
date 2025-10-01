@@ -52,4 +52,65 @@ The function employs a liberal definition of "const" - accepting any expression 
 - The executor currently requires indexkey on the left side, so clauses may need commutation
 - Collation matching is enforced when the index has a specific collation requirement
 - Supports planner support functions for deriving lossy indexquals from non-directly-indexable clauses
-- Part of the cost-based optimization system in 
+- Part of the cost-based optimization system in PostgreSQL
+
+## Simplified Source
+
+```c
+static IndexClause *
+match_clause_to_indexcol(PlannerInfo *root, RestrictInfo *rinfo,
+                         int indexcol, IndexOptInfo *index)
+{
+    IndexClause *iclause;
+    Expr *clause = rinfo->clause;
+
+    if (clause == NULL)
+        return NULL;
+
+    // Try boolean index matching first
+    Oid opfamily = index->opfamily[indexcol];
+    if (IsBooleanOpfamily(opfamily))
+    {
+        iclause = match_boolean_index_clause(root, rinfo, indexcol, index);
+        if (iclause)
+            return iclause;
+    }
+
+    // Match different types of clauses to index columns
+    if (IsA(clause, OpExpr))
+    {
+        return match_opclause_to_indexcol(root, rinfo, indexcol, index);
+    }
+    else if (IsA(clause, FuncExpr))
+    {
+        return match_funcclause_to_indexcol(root, rinfo, indexcol, index);
+    }
+    else if (IsA(clause, ScalarArrayOpExpr))
+    {
+        return match_saopclause_to_indexcol(root, rinfo, indexcol, index);
+    }
+    else if (IsA(clause, RowCompareExpr))
+    {
+        return match_rowcompare_to_indexcol(root, rinfo, indexcol, index);
+    }
+    else if (index->amsearchnulls && IsA(clause, NullTest))
+    {
+        NullTest *nt = (NullTest *) clause;
+
+        if (!nt->argisrow &&
+            match_index_to_operand((Node *) nt->arg, indexcol, index))
+        {
+            // Create IndexClause for NULL test
+            iclause = makeNode(IndexClause);
+            iclause->rinfo = rinfo;
+            iclause->indexquals = list_make1(rinfo);
+            iclause->lossy = false;
+            iclause->indexcol = indexcol;
+            iclause->indexcols = NIL;
+            return iclause;
+        }
+    }
+
+    return NULL;
+}
+``` 

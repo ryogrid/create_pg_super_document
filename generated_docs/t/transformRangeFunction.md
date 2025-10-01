@@ -40,3 +40,108 @@ The transformRangeFunction function handles the complex transformation of functi
 - The function determines LATERAL marking based on either explicit specification (r->lateral) or presence of lateral cross-references
 - Collation assignment is performed before creating the RTE to ensure proper collation information is available for Vars
 - Error handling includes specific messages for ROWS FROM() vs UNNEST() syntax violations
+
+## Simplified Source
+
+```c
+static ParseNamespaceItem *transformRangeFunction(ParseState *pstate, RangeFunction *r)
+{
+    List *funcexprs = NIL;
+    List *funcnames = NIL;
+    List *coldeflists = NIL;
+    bool is_lateral;
+
+    // Enable lateral references for SQL spec compliance
+    pstate->p_lateral_active = true;
+
+    // Transform each function expression
+    foreach(lc, r->functions)
+    {
+        List *pair = (List *) lfirst(lc);
+        Node *fexpr = (Node *) linitial(pair);
+        List *coldeflist = (List *) lsecond(pair);
+        Node *newfexpr;
+        Node *last_srf;
+
+        // Special case: expand multi-argument UNNEST() into separate calls
+        if (IsA(fexpr, FuncCall))
+        {
+            FuncCall *fc = (FuncCall *) fexpr;
+
+            // Check for unnest() with multiple args and no decoration
+            if (list_length(fc->funcname) == 1 &&
+                strcmp(strVal(linitial(fc->funcname)), "unnest") == 0 &&
+                list_length(fc->args) > 1 &&
+                /* ... other conditions ... */ &&
+                coldeflist == NIL)
+            {
+                // Create separate unnest() call for each argument
+                foreach(lc2, fc->args)
+                {
+                    Node *arg = (Node *) lfirst(lc2);
+                    FuncCall *newfc;
+
+                    last_srf = pstate->p_last_srf;
+                    newfc = makeFuncCall(SystemFuncName("unnest"),
+                                        list_make1(arg),
+                                        COERCE_EXPLICIT_CALL,
+                                        fc->location);
+
+                    newfexpr = transformExpr(pstate, (Node *) newfc,
+                                           EXPR_KIND_FROM_FUNCTION);
+
+                    // Validate SRF at top level
+                    if (pstate->p_last_srf != last_srf &&
+                        pstate->p_last_srf != newfexpr)
+                        ereport(ERROR, "set-returning functions must appear at top level of FROM");
+
+                    funcexprs = lappend(funcexprs, newfexpr);
+                    funcnames = lappend(funcnames, FigureColname((Node *) newfc));
+                    coldeflists = lappend(coldeflists, coldeflist);
+                }
+                continue;
+            }
+        }
+
+        // Normal function transformation
+        last_srf = pstate->p_last_srf;
+        newfexpr = transformExpr(pstate, fexpr, EXPR_KIND_FROM_FUNCTION);
+
+        // Validate SRF at top level
+        if (pstate->p_last_srf != last_srf &&
+            pstate->p_last_srf != newfexpr)
+            ereport(ERROR, "set-returning functions must appear at top level of FROM");
+
+        funcexprs = lappend(funcexprs, newfexpr);
+        funcnames = lappend(funcnames, FigureColname(fexpr));
+
+        // Check for conflicting column definition lists
+        if (coldeflist && r->coldeflist)
+            ereport(ERROR, "multiple column definition lists are not allowed");
+
+        coldeflists = lappend(coldeflists, coldeflist);
+    }
+
+    pstate->p_lateral_active = false;
+
+    // Assign collations for proper type information
+    assign_list_collations(pstate, funcexprs);
+
+    // Handle top-level column definition list
+    if (r->coldeflist)
+    {
+        if (list_length(funcexprs) != 1)
+            ereport(ERROR, "column definition list requires single function");
+        if (r->ordinality)
+            ereport(ERROR, "WITH ORDINALITY cannot be used with column definition list");
+
+        coldeflists = list_make1(r->coldeflist);
+    }
+
+    // Determine if LATERAL marking is needed
+    is_lateral = r->lateral || contain_vars_of_level((Node *) funcexprs, 0);
+
+    return addRangeTableEntryForFunction(pstate, funcnames, funcexprs,
+                                        coldeflists, r, is_lateral, true);
+}
+```

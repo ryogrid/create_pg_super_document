@@ -42,3 +42,24 @@ The function operates on the child plan's target list (tlist) to determine and d
 - The grouping keys refer to columns in the target list of the child plan, not the Group plan itself
 - The ancestors list manipulation ensures proper context is maintained during recursive plan explanation
 - The function passes NULL values for several parameters to show_sort_group_keys, indicating that Group nodes don't use sorting-specific features like sort operators or collations
+
+## Simplified Source
+
+```c
+static void
+show_group_keys(GroupState *gstate, List *ancestors, ExplainState *es)
+{
+    Group *plan = (Group *) gstate->ss.ps.plan;
+
+    // Add current plan to ancestors for proper column reference resolution
+    ancestors = lcons(plan, ancestors);
+
+    // Show the grouping keys using the standard display function
+    show_sort_group_keys(outerPlanState(gstate), "Group Key",
+                        plan->numCols, 0, plan->grpColIdx,
+                        NULL, NULL, NULL, ancestors, es);
+
+    // Remove plan from ancestors list
+    ancestors = list_delete_first(ancestors);
+}
+```

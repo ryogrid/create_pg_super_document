@@ -53,3 +53,71 @@ The aggregation strategy takes maximum values across workers because each worker
 - Text format provides two different output styles: detailed (when parameters changed) and simplified (when parameters remained constant)
 - Parallel aggregation uses maximum values rather than sums because we want to show peak resource usage per process
 - The function properly handles cases where workers may have different instrumentation data due to work distribution differences
+
+## Simplified Source
+
+```c
+static void
+show_hash_info(HashState *hashstate, ExplainState *es)
+{
+    HashInstrumentation hinstrument = {0};
+
+    // Collect stats from local process
+    if (hashstate->hinstrument)
+        memcpy(&hinstrument, hashstate->hinstrument, sizeof(HashInstrumentation));
+
+    // Merge results from parallel workers (take maximum values)
+    if (hashstate->shared_info)
+    {
+        SharedHashInfo *shared_info = hashstate->shared_info;
+
+        for (int i = 0; i < shared_info->num_workers; ++i)
+        {
+            HashInstrumentation *worker_hi = &shared_info->hinstrument[i];
+
+            hinstrument.nbuckets = Max(hinstrument.nbuckets, worker_hi->nbuckets);
+            hinstrument.nbuckets_original = Max(hinstrument.nbuckets_original, worker_hi->nbuckets_original);
+            hinstrument.nbatch = Max(hinstrument.nbatch, worker_hi->nbatch);
+            hinstrument.nbatch_original = Max(hinstrument.nbatch_original, worker_hi->nbatch_original);
+            hinstrument.space_peak = Max(hinstrument.space_peak, worker_hi->space_peak);
+        }
+    }
+
+    // Display hash statistics if any batches were used
+    if (hinstrument.nbatch > 0)
+    {
+        uint64 spacePeakKb = BYTES_TO_KILOBYTES(hinstrument.space_peak);
+
+        if (es->format != EXPLAIN_FORMAT_TEXT)
+        {
+            // Structured output format
+            ExplainPropertyInteger("Hash Buckets", NULL, hinstrument.nbuckets, es);
+            ExplainPropertyInteger("Original Hash Buckets", NULL, hinstrument.nbuckets_original, es);
+            ExplainPropertyInteger("Hash Batches", NULL, hinstrument.nbatch, es);
+            ExplainPropertyInteger("Original Hash Batches", NULL, hinstrument.nbatch_original, es);
+            ExplainPropertyUInteger("Peak Memory Usage", "kB", spacePeakKb, es);
+        }
+        else
+        {
+            // Text output - show detailed or simple format based on whether values changed
+            ExplainIndentText(es);
+            if (hinstrument.nbatch_original != hinstrument.nbatch ||
+                hinstrument.nbuckets_original != hinstrument.nbuckets)
+            {
+                // Show original vs final values when they differ
+                appendStringInfo(es->str,
+                    "Buckets: %d (originally %d)  Batches: %d (originally %d)  Memory Usage: %lukB\n",
+                    hinstrument.nbuckets, hinstrument.nbuckets_original,
+                    hinstrument.nbatch, hinstrument.nbatch_original, spacePeakKb);
+            }
+            else
+            {
+                // Simple format when values didn't change
+                appendStringInfo(es->str,
+                    "Buckets: %d  Batches: %d  Memory Usage: %lukB\n",
+                    hinstrument.nbuckets, hinstrument.nbatch, spacePeakKb);
+            }
+        }
+    }
+}
+```

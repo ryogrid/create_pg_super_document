@@ -35,3 +35,29 @@ The function ensures that nested boolean evaluations operate on the correct JSON
 - The function maintains execution context integrity by properly saving and restoring the previous current item
 - Essential for filter operations and other nested boolean expressions in JSON path queries
 - Part of the JSON path execution engine that implements SQL/JSON path functionality
+
+## Simplified Source
+
+```c
+static JsonPathBool
+executeNestedBoolItem(JsonPathExecContext *cxt, JsonPathItem *jsp,
+                      JsonbValue *jb)
+{
+    JsonbValue *prev;
+    JsonPathBool res;
+
+    // Save current context item
+    prev = cxt->current;
+
+    // Set new current item for nested evaluation
+    cxt->current = jb;
+
+    // Execute boolean expression with new context
+    res = executeBoolItem(cxt, jsp, jb, false);
+
+    // Restore previous current item
+    cxt->current = prev;
+
+    return res;
+}
+```

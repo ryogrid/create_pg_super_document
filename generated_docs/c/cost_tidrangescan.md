@@ -42,3 +42,65 @@ The `cost_tidrangescan` function calculates the cost of performing a TID range s
 - Respects the enable_tidscan GUC parameter
 - TID range quals are assumed to be a subset of overall restriction quals
 - Uses ceil() to ensure at least one page is always estimated to be accessed
+
+## Simplified Source
+
+```c
+void
+cost_tidrangescan(Path *path, PlannerInfo *root, RelOptInfo *baserel,
+                  List *tidrangequals, ParamPathInfo *param_info)
+{
+    Selectivity selectivity;
+    double pages, ntuples, nseqpages;
+    Cost startup_cost = 0, run_cost = 0;
+    QualCost qpqual_cost, tid_qual_cost;
+    Cost cpu_per_tuple;
+    double spc_random_page_cost, spc_seq_page_cost;
+
+    Assert(baserel->relid > 0 && baserel->rtekind == RTE_RELATION);
+
+    // Set row estimate based on parameterization
+    if (param_info)
+        path->rows = param_info->ppi_rows;
+    else
+        path->rows = baserel->rows;
+
+    // Calculate selectivity and estimated pages/tuples to scan
+    selectivity = clauselist_selectivity(root, tidrangequals, baserel->relid,
+                                       JOIN_INNER, NULL);
+    pages = ceil(selectivity * baserel->pages);
+    if (pages <= 0.0)
+        pages = 1.0;
+
+    ntuples = selectivity * baserel->tuples;
+    nseqpages = pages - 1.0; // First page is random, rest sequential
+
+    // Apply disable cost if TID scans are disabled
+    if (!enable_tidscan)
+        startup_cost += disable_cost;
+
+    // Calculate TID qualification costs
+    cost_qual_eval(&tid_qual_cost, tidrangequals, root);
+
+    // Get tablespace-specific page costs
+    get_tablespace_page_costs(baserel->reltablespace,
+                             &spc_random_page_cost, &spc_seq_page_cost);
+
+    // I/O costs: 1 random page + sequential pages
+    run_cost += spc_random_page_cost + spc_seq_page_cost * nseqpages;
+
+    // CPU costs for scanning and qualification
+    get_restriction_qual_cost(root, baserel, param_info, &qpqual_cost);
+
+    startup_cost += qpqual_cost.startup + tid_qual_cost.per_tuple;
+    cpu_per_tuple = cpu_tuple_cost + qpqual_cost.per_tuple - tid_qual_cost.per_tuple;
+    run_cost += cpu_per_tuple * ntuples;
+
+    // Target list evaluation costs
+    startup_cost += path->pathtarget->cost.startup;
+    run_cost += path->pathtarget->cost.per_tuple * path->rows;
+
+    path->startup_cost = startup_cost;
+    path->total_cost = startup_cost + run_cost;
+}
+```

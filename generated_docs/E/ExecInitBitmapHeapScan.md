@@ -57,3 +57,63 @@ The function also performs important validation checks, ensuring that unsupporte
 - Returns a fully initialized BitmapHeapScanState that's ready for execution
 - Part of the standard executor node initialization interface
 - Critical for establishing all necessary data structures and relationships before scan execution begins
+
+## Simplified Source
+
+```c
+BitmapHeapScanState *
+ExecInitBitmapHeapScan(BitmapHeapScan *node, EState *estate, int eflags)
+{
+    BitmapHeapScanState *scanstate;
+    Relation currentRelation;
+
+    // Validation
+    Assert(!(eflags & (EXEC_FLAG_BACKWARD | EXEC_FLAG_MARK)));
+    Assert(IsMVCCSnapshot(estate->es_snapshot));
+
+    // Create and initialize state structure
+    scanstate = makeNode(BitmapHeapScanState);
+    scanstate->ss.ps.plan = (Plan *) node;
+    scanstate->ss.ps.state = estate;
+    scanstate->ss.ps.ExecProcNode = ExecBitmapHeapScan;
+
+    // Initialize bitmap-related fields
+    scanstate->tbm = NULL;
+    scanstate->tbmiterator = NULL;
+    scanstate->tbmres = NULL;
+    scanstate->exact_pages = 0;
+    scanstate->lossy_pages = 0;
+    scanstate->prefetch_iterator = NULL;
+    scanstate->initialized = false;
+
+    // Setup expression context
+    ExecAssignExprContext(estate, &scanstate->ss.ps);
+
+    // Open the target relation
+    currentRelation = ExecOpenScanRelation(estate, node->scan.scanrelid, eflags);
+
+    // Initialize child nodes (typically bitmap index scans)
+    outerPlanState(scanstate) = ExecInitNode(outerPlan(node), estate, eflags);
+
+    // Setup scan tuple slot
+    ExecInitScanTupleSlot(estate, &scanstate->ss,
+                          RelationGetDescr(currentRelation),
+                          table_slot_callbacks(currentRelation));
+
+    // Initialize result tuple processing
+    ExecInitResultTypeTL(&scanstate->ss.ps);
+    ExecAssignScanProjectionInfo(&scanstate->ss);
+
+    // Initialize qualification expressions
+    scanstate->ss.ps.qual = ExecInitQual(node->scan.plan.qual, (PlanState *) scanstate);
+    scanstate->bitmapqualorig = ExecInitQual(node->bitmapqualorig, (PlanState *) scanstate);
+
+    // Setup prefetch configuration
+    scanstate->prefetch_maximum =
+        get_tablespace_io_concurrency(currentRelation->rd_rel->reltablespace);
+
+    scanstate->ss.ss_currentRelation = currentRelation;
+
+    return scanstate;
+}
+```

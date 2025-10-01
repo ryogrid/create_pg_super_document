@@ -42,3 +42,25 @@ The function is designed as a convenience routine specifically for error checkin
 - This function is part of the tablesample API infrastructure in PostgreSQL
 - The TsmRoutine structure contains function pointers and metadata needed for both planning and executing tablesample operations
 - Located in src/backend/access/tablesample/tablesample.c:27-40
+
+## Simplified Source
+
+```c
+TsmRoutine *
+GetTsmRoutine(Oid tsmhandler)
+{
+    Datum datum;
+    TsmRoutine *routine;
+
+    // Call the tablesample handler function
+    datum = OidFunctionCall1(tsmhandler, PointerGetDatum(NULL));
+    routine = (TsmRoutine *) DatumGetPointer(datum);
+
+    // Validate the returned routine structure
+    if (routine == NULL || !IsA(routine, TsmRoutine))
+        elog(ERROR, "tablesample handler function %u did not return a TsmRoutine struct",
+             tsmhandler);
+
+    return routine;
+}
+```

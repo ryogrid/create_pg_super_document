@@ -44,3 +44,25 @@ A special optimization is applied when the partitioned table is itself a partiti
 - This function handles the setup and special cases while the internal function does the heavy lifting
 - The partition_qual optimization is particularly important for default partition pruning in multi-level hierarchies
 - The function is static and only used within the partition pruning subsystem
+
+## Simplified Source
+
+```c
+static void gen_partprune_steps(RelOptInfo *rel, List *clauses, PartClauseTarget target,
+                              GeneratePruningStepsContext *context) {
+    // Initialize output context
+    memset(context, 0, sizeof(GeneratePruningStepsContext));
+    context->rel = rel;
+    context->target = target;
+
+    // Special optimization for partitioned tables that are themselves partitions
+    // If this table has a default partition and inherits constraints from parent,
+    // add the table's own partition quals to help prune the default partition
+    if (partition_bound_has_default(rel->boundinfo) && rel->partition_qual) {
+        clauses = list_concat_copy(clauses, rel->partition_qual);
+    }
+
+    // Generate the actual pruning steps
+    (void) gen_partprune_steps_internal(context, clauses);
+}
+```

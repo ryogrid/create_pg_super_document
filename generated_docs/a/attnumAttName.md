@@ -34,3 +34,26 @@ The  function performs the reverse lookup of  - it takes an attribute number and
 - Throws ERROR for invalid attribute numbers beyond the relation's attribute count
 - Uses 1-based indexing for user attributes (subtracts 1 when accessing rd_att array)
 - Should only be used with already opened relations - use cache version get_atttype() for non-opened relations
+
+## Simplified Source
+
+```c
+const NameData *
+attnumAttName(Relation rd, int attid)
+{
+    // Handle system attributes (negative attribute numbers)
+    if (attid <= 0)
+    {
+        const FormData_pg_attribute *sysatt;
+        sysatt = SystemAttributeDefinition(attid);
+        return &sysatt->attname;
+    }
+
+    // Validate attribute number for user attributes
+    if (attid > rd->rd_att->natts)
+        elog(ERROR, "invalid attribute number %d", attid);
+
+    // Return user attribute name (convert 1-based to 0-based indexing)
+    return &TupleDescAttr(rd->rd_att, attid - 1)->attname;
+}
+```

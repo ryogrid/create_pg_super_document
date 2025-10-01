@@ -30,3 +30,12 @@ The function serves as a key component in PostgreSQL's write-ahead logging and c
 - Most callers should use the bulk loading facility in bulk_write.c which handles checkpoint timing automatically
 - This function is part of the storage manager abstraction layer, allowing different storage implementations
 - Critical for maintaining data consistency while optimizing performance in bulk operations
+
+## Simplified Source
+
+```c
+void smgrregistersync(SMgrRelation reln, ForkNumber forknum) {
+    // Register relation for sync at next checkpoint
+    smgrsw[reln->smgr_which].smgr_registersync(reln, forknum);
+}
+```

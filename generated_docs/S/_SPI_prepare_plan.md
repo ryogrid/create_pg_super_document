@@ -45,3 +45,70 @@ All resulting data structures are stored in the current memory context, typicall
 - Establishes error context stack for enhanced error reporting during parsing
 - All memory allocation occurs in CurrentMemoryContext (SPI executor context)
 - Creates unsaved plancache entries that can be reused across multiple executions
+
+## Simplified Source
+
+```c
+static void
+_SPI_prepare_plan(const char *src, SPIPlanPtr plan)
+{
+    // Setup error context for better error reporting
+    SPICallbackArg spicallbackarg;
+    ErrorContextCallback spierrcontext;
+    spicallbackarg.query = src;
+    spicallbackarg.mode = plan->parse_mode;
+    spierrcontext.callback = _SPI_error_callback;
+    spierrcontext.arg = &spicallbackarg;
+    spierrcontext.previous = error_context_stack;
+    error_context_stack = &spierrcontext;
+
+    // Parse SQL string into raw parse trees
+    List *raw_parsetree_list = raw_parser(src, plan->parse_mode);
+    List *plancache_list = NIL;
+
+    // Process each parse tree
+    ListCell *list_item;
+    foreach(list_item, raw_parsetree_list)
+    {
+        RawStmt *parsetree = lfirst_node(RawStmt, list_item);
+
+        // Create cached plan source
+        CachedPlanSource *plansource = CreateCachedPlan(parsetree, src,
+                                                       CreateCommandTag(parsetree->stmt));
+
+        // Analyze and rewrite based on parameter setup mode
+        List *stmt_list;
+        if (plan->parserSetup != NULL)
+        {
+            // Dynamic parameter mode
+            stmt_list = pg_analyze_and_rewrite_withcb(parsetree, src,
+                                                     plan->parserSetup,
+                                                     plan->parserSetupArg,
+                                                     _SPI_current->queryEnv);
+        }
+        else
+        {
+            // Fixed parameter mode
+            stmt_list = pg_analyze_and_rewrite_fixedparams(parsetree, src,
+                                                          plan->argtypes,
+                                                          plan->nargs,
+                                                          _SPI_current->queryEnv);
+        }
+
+        // Complete the cached plan
+        CompleteCachedPlan(plansource, stmt_list, NULL,
+                          plan->argtypes, plan->nargs,
+                          plan->parserSetup, plan->parserSetupArg,
+                          plan->cursor_options, false);
+
+        plancache_list = lappend(plancache_list, plansource);
+    }
+
+    // Store results in plan
+    plan->plancache_list = plancache_list;
+    plan->oneshot = false;
+
+    // Restore error context
+    error_context_stack = spierrcontext.previous;
+}
+```

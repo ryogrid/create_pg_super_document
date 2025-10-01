@@ -32,3 +32,11 @@ This function serves as a custom memory reallocation callback for the libxml lib
 - Part of PostgreSQL's integration with libxml for consistent memory management
 - The function relies on PostgreSQL's repalloc which can handle memory allocated in any memory context
 - If ptr is NULL, this behaves like a regular allocation; if size is 0, this behaves like a free operation
+
+## Simplified Source
+
+```c
+static void *xml_repalloc(void *ptr, size_t size) {
+    return repalloc(ptr, size);
+}
+```

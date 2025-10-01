@@ -33,3 +33,18 @@ The `time_cmp` function is a PostgreSQL built-in function that implements a comp
 - Uses conditional logic to determine the comparison result rather than a single expression
 - Essential for sorting and indexing operations on time columns
 - Returns -1 for time1 < time2, 0 for time1 == time2, and 1 for time1 > time2
+
+## Simplified Source
+
+```c
+Datum time_cmp(PG_FUNCTION_ARGS) {
+    TimeADT time1 = PG_GETARG_TIMEADT(0);
+    TimeADT time2 = PG_GETARG_TIMEADT(1);
+
+    if (time1 < time2)
+        PG_RETURN_INT32(-1);
+    if (time1 > time2)
+        PG_RETURN_INT32(1);
+    PG_RETURN_INT32(0);
+}
+```

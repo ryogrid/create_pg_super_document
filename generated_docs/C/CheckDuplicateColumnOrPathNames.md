@@ -43,3 +43,40 @@ The function ensures that all column and path names within a JSON_TABLE are uniq
 - Error reporting includes precise source location information for better user diagnostics
 - The recursive nature allows handling arbitrarily nested JSON_TABLE structures
 - Names are added to cxt->pathNames as they are validated, building up the complete set of used names
+
+## Simplified Source
+
+```c
+static void
+CheckDuplicateColumnOrPathNames(JsonTableParseContext *cxt,
+                                List *columns)
+{
+    ListCell *lc1;
+
+    foreach(lc1, columns)
+    {
+        JsonTableColumn *jtc = castNode(JsonTableColumn, lfirst(lc1));
+
+        if (jtc->coltype == JTC_NESTED)
+        {
+            // Check nested path name for duplicates
+            if (jtc->pathspec->name)
+            {
+                if (LookupPathOrColumnName(cxt, jtc->pathspec->name))
+                    ereport(ERROR, "duplicate JSON_TABLE path name: %s");
+                cxt->pathNames = lappend(cxt->pathNames, jtc->pathspec->name);
+            }
+
+            // Recursively check nested columns
+            CheckDuplicateColumnOrPathNames(cxt, jtc->columns);
+        }
+        else
+        {
+            // Check regular column name for duplicates
+            if (LookupPathOrColumnName(cxt, jtc->name))
+                ereport(ERROR, "duplicate JSON_TABLE column name: %s");
+            cxt->pathNames = lappend(cxt->pathNames, jtc->name);
+        }
+    }
+}
+```

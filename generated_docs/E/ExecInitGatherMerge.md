@@ -47,3 +47,71 @@ The initialization ensures that the node can handle tuples both from the leader 
 - [Sort](../S/Sort.md) key initialization includes setting up SortSupport structures but explicitly disables abbreviated key conversion for consistency with MergeAppend behavior
 - The function sets outeropsset=true and outeropsfixed=false to handle the mixed tuple sources (leader vs workers)
 - Memory allocation for sort keys and workspace is performed in the current memory context
+
+## Simplified Source
+
+```c
+GatherMergeState *
+ExecInitGatherMerge(GatherMerge *node, EState *estate, int eflags)
+{
+    // Create and initialize the GatherMerge state structure
+    GatherMergeState *gm_state = makeNode(GatherMergeState);
+    gm_state->ps.plan = (Plan *) node;
+    gm_state->ps.state = estate;
+    gm_state->ps.ExecProcNode = ExecGatherMerge;
+
+    // Initialize GatherMerge-specific state
+    gm_state->initialized = false;
+    gm_state->gm_initialized = false;
+    gm_state->tuples_needed = -1;
+
+    // Create expression context
+    ExecAssignExprContext(estate, &gm_state->ps);
+
+    // Initialize the outer plan
+    Plan *outerNode = outerPlan(node);
+    outerPlanState(gm_state) = ExecInitNode(outerNode, estate, eflags);
+
+    // Set up slot operations for mixed tuple sources
+    gm_state->ps.outeropsset = true;
+    gm_state->ps.outeropsfixed = false;
+
+    // Store tuple descriptor and initialize result type
+    TupleDesc tupDesc = ExecGetResultType(outerPlanState(gm_state));
+    gm_state->tupDesc = tupDesc;
+
+    ExecInitResultTypeTL(&gm_state->ps);
+    ExecConditionalAssignProjectionInfo(&gm_state->ps, tupDesc, OUTER_VAR);
+
+    // Handle result operations when no projection
+    if (gm_state->ps.ps_ProjInfo == NULL)
+    {
+        gm_state->ps.resultopsset = true;
+        gm_state->ps.resultopsfixed = false;
+    }
+
+    // Initialize sort key information
+    if (node->numCols)
+    {
+        gm_state->gm_nkeys = node->numCols;
+        gm_state->gm_sortkeys = palloc0(sizeof(SortSupportData) * node->numCols);
+
+        for (int i = 0; i < node->numCols; i++)
+        {
+            SortSupport sortKey = gm_state->gm_sortkeys + i;
+            sortKey->ssup_cxt = CurrentMemoryContext;
+            sortKey->ssup_collation = node->collations[i];
+            sortKey->ssup_nulls_first = node->nullsFirst[i];
+            sortKey->ssup_attno = node->sortColIdx[i];
+            sortKey->abbreviate = false;  // No abbreviated keys for consistency with MergeAppend
+
+            PrepareSortSupportFromOrderingOp(node->sortOperators[i], sortKey);
+        }
+    }
+
+    // Allocate workspace for gather merge
+    gather_merge_setup(gm_state);
+
+    return gm_state;
+}
+```

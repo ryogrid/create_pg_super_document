@@ -43,3 +43,35 @@ The function uses a simple loop to walk up the constraint hierarchy, making syst
 - Performs error checking to ensure constraint lookups succeed
 - Returns the same OID if the input constraint is already a root constraint (has no parent)
 - Located in src/backend/utils/adt/ri_triggers.c:2194-2227
+
+## Simplified Source
+
+```c
+static Oid
+get_ri_constraint_root(Oid constrOid)
+{
+    for (;;)
+    {
+        HeapTuple tuple;
+        Oid constrParentOid;
+
+        // Look up constraint in system catalog
+        tuple = SearchSysCache1(CONSTROID, ObjectIdGetDatum(constrOid));
+        if (!HeapTupleIsValid(tuple))
+            elog(ERROR, "cache lookup failed for constraint %u", constrOid);
+
+        // Get parent constraint OID
+        constrParentOid = ((Form_pg_constraint) GETSTRUCT(tuple))->conparentid;
+        ReleaseSysCache(tuple);
+
+        // If no parent, we've reached the root
+        if (!OidIsValid(constrParentOid))
+            break;
+
+        // Move up to parent constraint
+        constrOid = constrParentOid;
+    }
+
+    return constrOid;
+}
+```

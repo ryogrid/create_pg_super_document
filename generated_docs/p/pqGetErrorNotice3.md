@@ -50,3 +50,97 @@ The function handles pipeline mode by setting the pipeline status to aborted whe
 - For errors in pipeline mode, sets pipeline status to PQ_PIPELINE_ABORTED
 - Notice messages trigger registered notice callbacks if available
 - [Query](../Q/Query.md) text is preserved in the result only when statement position information is present
+
+## Simplified Source
+
+```c
+int pqGetErrorNotice3(PGconn *conn, bool isError)
+{
+    PGresult *res = NULL;
+    bool have_position = false;
+    PQExpBufferData workBuf;
+    char id;
+
+    // Set pipeline error status if needed
+    if (isError && conn->pipelineStatus != PQ_PIPELINE_OFF)
+        conn->pipelineStatus = PQ_PIPELINE_ABORTED;
+
+    // Clear any incomplete query result for errors
+    if (isError)
+        pqClearAsyncResult(conn);
+
+    // Initialize temporary buffer for potentially long field data
+    initPQExpBuffer(&workBuf);
+
+    // Create result structure to hold error/notice fields
+    res = PQmakeEmptyPGresult(conn, PGRES_EMPTY_QUERY);
+    if (res)
+        res->resultStatus = isError ? PGRES_FATAL_ERROR : PGRES_NONFATAL_ERROR;
+
+    // Read all message fields until null terminator
+    for (;;) {
+        if (pqGetc(&id, conn))
+            goto fail;
+        if (id == '\0')
+            break;  // terminator found
+
+        if (pqGets(&workBuf, conn))
+            goto fail;
+
+        pqSaveMessageField(res, id, workBuf.data);
+
+        // Save special fields
+        if (id == PG_DIAG_SQLSTATE)
+            strlcpy(conn->last_sqlstate, workBuf.data, sizeof(conn->last_sqlstate));
+        else if (id == PG_DIAG_STATEMENT_POSITION)
+            have_position = true;
+    }
+
+    // Save query text if position info is available
+    if (have_position && res && conn->cmd_queue_head && conn->cmd_queue_head->query)
+        res->errQuery = pqResultStrdup(res, conn->cmd_queue_head->query);
+
+    // Build formatted error message
+    resetPQExpBuffer(&workBuf);
+    pqBuildErrorMessage3(&workBuf, res, conn->verbosity, conn->show_context);
+
+    // Handle result based on message type
+    if (isError) {
+        // Store as async result for errors
+        pqClearAsyncResult(conn);
+        if (res) {
+            pqSetResultError(res, &workBuf, 0);
+            conn->result = res;
+        } else {
+            conn->error_result = true;
+        }
+
+        // Append to connection error message
+        if (PQExpBufferDataBroken(workBuf))
+            libpq_append_conn_error(conn, "out of memory");
+        else
+            appendPQExpBufferStr(&conn->errorMessage, workBuf.data);
+    } else {
+        // Process as notice
+        if (res) {
+            if (PQExpBufferDataBroken(workBuf))
+                res->errMsg = libpq_gettext("out of memory\n");
+            else
+                res->errMsg = workBuf.data;
+
+            // Trigger notice callback if registered
+            if (res->noticeHooks.noticeRec != NULL)
+                res->noticeHooks.noticeRec(res->noticeHooks.noticeRecArg, res);
+            PQclear(res);
+        }
+    }
+
+    termPQExpBuffer(&workBuf);
+    return 0;
+
+fail:
+    PQclear(res);
+    termPQExpBuffer(&workBuf);
+    return EOF;
+}
+```

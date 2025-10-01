@@ -48,3 +48,32 @@ The function includes an optimization for cases where a  structure is available,
 - Contains detailed comments about handling outer join scenarios and the intentional exclusion of outer joins from base relation counting
 - The XXX comment indicates potential future enhancement for handling injected nulls from outer joins
 - This function is a critical component in PostgreSQL's cost-based optimization, affecting how selectivity estimates are computed for different types of clauses
+
+## Simplified Source
+
+```c
+static inline bool
+treat_as_join_clause(PlannerInfo *root, Node *clause, RestrictInfo *rinfo,
+                     int varRelid, SpecialJoinInfo *sjinfo)
+{
+    // Forced restriction mode - caller is forcing restriction evaluation
+    if (varRelid != 0) {
+        return false;
+    }
+
+    // Scan-level evaluation - being evaluated at a scan node
+    else if (sjinfo == NULL) {
+        return false;
+    }
+
+    // Join-level evaluation - determine based on number of relations
+    else {
+        // Use pre-computed value if available, otherwise count relations
+        if (rinfo) {
+            return (rinfo->num_base_rels > 1);
+        } else {
+            return (NumRelids(root, clause) > 1);
+        }
+    }
+}
+```

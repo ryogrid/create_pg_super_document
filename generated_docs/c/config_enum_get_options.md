@@ -45,3 +45,39 @@ This function is commonly used for generating user-friendly error messages and h
 - Uses StringInfo for efficient string building with dynamic memory allocation
 - Commonly used in error reporting to show valid enum option values to users
 - Part of PostgreSQL's GUC (Grand Unified Configuration) system infrastructure
+
+## Simplified Source
+
+```c
+char *
+config_enum_get_options(struct config_enum *record, const char *prefix,
+                        const char *suffix, const char *separator)
+{
+    const struct config_enum_entry *entry;
+    StringInfoData retstr;
+    int seplen;
+
+    // Initialize string buffer and add prefix
+    initStringInfo(&retstr);
+    appendStringInfoString(&retstr, prefix);
+
+    // Iterate through enum options, adding non-hidden ones
+    seplen = strlen(separator);
+    for (entry = record->options; entry && entry->name; entry++) {
+        if (!entry->hidden) {
+            appendStringInfoString(&retstr, entry->name);
+            appendBinaryStringInfo(&retstr, separator, seplen);
+        }
+    }
+
+    // Remove final separator if any options were added
+    if (retstr.len >= seplen) {
+        retstr.data[retstr.len - seplen] = '\0';
+        retstr.len -= seplen;
+    }
+
+    // Add suffix and return the formatted string
+    appendStringInfoString(&retstr, suffix);
+    return retstr.data;
+}
+```

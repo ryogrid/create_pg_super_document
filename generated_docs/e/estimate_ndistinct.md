@@ -44,3 +44,24 @@ The function includes safeguards to clamp the result within reasonable bounds (b
 - The final result is rounded to the nearest integer for practical use
 - Located in src/backend/statistics/mvdistinct.c:521-549
 - This is a static function only used within the mvdistinct.c module
+
+## Simplified Source
+```c
+static double estimate_ndistinct(double totalrows, int numrows, int d, int f1) {
+    // Apply Duj1 estimator formula
+    double numerator = (double) numrows * (double) d;
+    double denominator = (double) (numrows - f1) +
+                        (double) f1 * (double) numrows / totalrows;
+
+    double ndistinct = numerator / denominator;
+
+    // Clamp result to reasonable bounds
+    if (ndistinct < (double) d)
+        ndistinct = (double) d;
+    if (ndistinct > totalrows)
+        ndistinct = totalrows;
+
+    // Round to nearest integer
+    return floor(ndistinct + 0.5);
+}
+```

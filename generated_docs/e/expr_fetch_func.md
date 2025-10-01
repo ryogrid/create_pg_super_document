@@ -29,3 +29,16 @@ This function serves as a callback for the statistics computation infrastructure
 
 ## Notes and Other Information
 This function is specifically designed for expression statistics computation where data has been pre-evaluated and stored in arrays rather than constructed as tuples. The rowstride mechanism allows for flexible data organization, typically set to 1 for single-column expression statistics. The function provides an efficient interface between the pre-computed expression evaluation results and PostgreSQL's standard statistics computation routines that expect a fetch function callback interface.
+
+## Simplified Source
+
+```c
+static Datum expr_fetch_func(VacAttrStatsP stats, int rownum, bool *isNull) {
+    // Calculate array index based on row number and stride
+    int i = rownum * stats->rowstride;
+
+    // Return the value and null status from pre-computed arrays
+    *isNull = stats->exprnulls[i];
+    return stats->exprvals[i];
+}
+```

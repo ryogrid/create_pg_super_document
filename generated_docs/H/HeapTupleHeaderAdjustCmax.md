@@ -41,3 +41,25 @@ This operation is separated from HeapTupleHeaderSetCmax() because combo command 
 - Part of PostgreSQL's combo command ID mechanism for transactions exceeding 62 commands
 - The combo CID allows proper visibility determination for tuples modified multiple times in one transaction
 - Located in src/backend/utils/time/combocid.c:153-181
+
+## Simplified Source
+
+```c
+void HeapTupleHeaderAdjustCmax(HeapTupleHeader tup,
+                              CommandId *cmax,
+                              bool *iscombo) {
+    // Check if tuple was inserted by current transaction
+    // Use cheap committed check first before expensive transaction ID comparison
+    if (!HeapTupleHeaderXminCommitted(tup) &&
+        TransactionIdIsCurrentTransactionId(HeapTupleHeaderGetRawXmin(tup))) {
+
+        // Need combo CID: combine insertion and deletion command IDs
+        CommandId cmin = HeapTupleHeaderGetCmin(tup);
+        *cmax = GetComboCommandId(cmin, *cmax);
+        *iscombo = true;
+    } else {
+        // No combo CID needed
+        *iscombo = false;
+    }
+}
+```

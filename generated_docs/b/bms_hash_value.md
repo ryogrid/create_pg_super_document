@@ -37,3 +37,19 @@ The hash is computed over the entire `words` array of the Bitmapset, taking into
 - The hash computation includes the full bitmap word array, not just the set bits
 - Essential for using Bitmapsets as keys in hash tables or for hash-based equality comparisons
 - The function assumes the Bitmapset is in canonical form (no trailing zero words)
+
+## Simplified Source
+
+```c
+uint32
+bms_hash_value(const Bitmapset *a)
+{
+    // Validate input and handle NULL/empty case
+    if (a == NULL)
+        return 0;  // All empty sets hash to 0
+
+    // Hash the bitmap word array
+    return DatumGetUInt32(hash_any((const unsigned char *) a->words,
+                                   a->nwords * sizeof(bitmapword)));
+}
+```

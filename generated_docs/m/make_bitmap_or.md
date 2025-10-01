@@ -32,3 +32,25 @@ The function initializes a new BitmapOr node with standard plan node fields set 
 - The function follows PostgreSQL's standard pattern for creating plan nodes with minimal initialization
 - [BitmapOr](../B/BitmapOr.md) nodes are typically created when the query planner determines that multiple indexes can be used with OR conditions
 - The actual bitmap OR operation logic is handled during plan execution, not in this creation function
+
+## Simplified Source
+
+```c
+static BitmapOr *
+make_bitmap_or(List *bitmapplans)
+{
+    BitmapOr *node = makeNode(BitmapOr);
+    Plan *plan = &node->plan;
+
+    // Initialize plan fields - no targetlist or quals needed for bitmap operations
+    plan->targetlist = NIL;
+    plan->qual = NIL;
+    plan->lefttree = NULL;
+    plan->righttree = NULL;
+
+    // Store child bitmap plans for OR operation
+    node->bitmapplans = bitmapplans;
+
+    return node;
+}
+```

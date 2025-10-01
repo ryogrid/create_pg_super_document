@@ -59,3 +59,105 @@ The function handles the complexity of parallel aggregation where the leader pro
 - Batch count greater than 1 indicates that the hash table exceeded memory limits and required disk spilling
 - The gotone flag in text formatting ensures proper spacing and newlines between different information sections
 - During parallel execution, each worker maintains separate instrumentation data that is displayed individually
+
+## Simplified Source
+
+```c
+static void
+show_hashagg_info(AggState *aggstate, ExplainState *es)
+{
+    Agg *agg = (Agg *) aggstate->ss.ps.plan;
+    int64 memPeakKb = BYTES_TO_KILOBYTES(aggstate->hash_mem_peak);
+
+    // Only process hash and mixed aggregation strategies
+    if (agg->aggstrategy != AGG_HASHED && agg->aggstrategy != AGG_MIXED)
+        return;
+
+    if (es->format != EXPLAIN_FORMAT_TEXT)
+    {
+        // Structured output format
+        if (es->costs)
+            ExplainPropertyInteger("Planned Partitions", NULL, aggstate->hash_planned_partitions, es);
+
+        // Only show runtime stats if this process did work (hash_mem_peak > 0)
+        if (es->analyze && aggstate->hash_mem_peak > 0)
+        {
+            ExplainPropertyInteger("HashAgg Batches", NULL, aggstate->hash_batches_used, es);
+            ExplainPropertyInteger("Peak Memory Usage", "kB", memPeakKb, es);
+            ExplainPropertyInteger("Disk Usage", "kB", aggstate->hash_disk_used, es);
+        }
+    }
+    else
+    {
+        // Text output format
+        bool gotone = false;
+
+        // Show planned partitions if requested
+        if (es->costs && aggstate->hash_planned_partitions > 0)
+        {
+            ExplainIndentText(es);
+            appendStringInfo(es->str, "Planned Partitions: %d", aggstate->hash_planned_partitions);
+            gotone = true;
+        }
+
+        // Show runtime statistics if this process did work
+        if (es->analyze && aggstate->hash_mem_peak > 0)
+        {
+            if (!gotone)
+                ExplainIndentText(es);
+            else
+                appendStringInfoSpaces(es->str, 2);
+
+            appendStringInfo(es->str, "Batches: %d  Memory Usage: %ldkB",
+                            aggstate->hash_batches_used, memPeakKb);
+
+            // Only show disk usage if spilling occurred
+            if (aggstate->hash_batches_used > 1)
+                appendStringInfo(es->str, "  Disk Usage: %lukB", aggstate->hash_disk_used);
+
+            gotone = true;
+        }
+
+        if (gotone)
+            appendStringInfoChar(es->str, '\n');
+    }
+
+    // Display stats for each parallel worker that did work
+    if (es->analyze && aggstate->shared_info != NULL)
+    {
+        for (int n = 0; n < aggstate->shared_info->num_workers; n++)
+        {
+            AggregateInstrumentation *sinstrument = &aggstate->shared_info->sinstrument[n];
+
+            // Skip workers that didn't do any work
+            if (sinstrument->hash_mem_peak == 0)
+                continue;
+
+            memPeakKb = BYTES_TO_KILOBYTES(sinstrument->hash_mem_peak);
+
+            if (es->workers_state)
+                ExplainOpenWorker(n, es);
+
+            if (es->format == EXPLAIN_FORMAT_TEXT)
+            {
+                ExplainIndentText(es);
+                appendStringInfo(es->str, "Batches: %d  Memory Usage: %ldkB",
+                                sinstrument->hash_batches_used, memPeakKb);
+
+                if (sinstrument->hash_batches_used > 1)
+                    appendStringInfo(es->str, "  Disk Usage: %lukB", sinstrument->hash_disk_used);
+                appendStringInfoChar(es->str, '\n');
+            }
+            else
+            {
+                ExplainPropertyInteger("HashAgg Batches", NULL, sinstrument->hash_batches_used, es);
+                ExplainPropertyInteger("Peak Memory Usage", "kB", memPeakKb, es);
+                ExplainPropertyInteger("Disk Usage", "kB", sinstrument->hash_disk_used, es);
+            }
+
+            if (es->workers_state)
+                ExplainCloseWorker(n, es);
+        }
+    }
+}
+```

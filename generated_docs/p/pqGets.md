@@ -43,3 +43,13 @@ The function operates on buffered data that has already been received from the n
 - Does not perform network I/O; operates only on already buffered data
 - Thread-safety depends on the connection's locking mechanisms
 - Essential for parsing PostgreSQL wire protocol messages containing string data
+
+## Simplified Source
+
+```c
+int pqGets(PQExpBuffer buf, PGconn *conn)
+{
+    // Call internal function with resetbuffer=true to clear buffer first
+    return pqGets_internal(buf, conn, true);
+}
+```

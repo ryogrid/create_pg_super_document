@@ -50,3 +50,48 @@ Returns a palloc()'d copy of the found value or NULL if not found. For objects, 
 - For object searches, the key parameter must be of type jbvString
 - Memory management: caller is responsible for freeing the returned JsonbValue
 - Falls through to return NULL if container type doesn't match the requested flags
+
+## Simplified Source
+
+```c
+JsonbValue *
+findJsonbValueFromContainer(JsonbContainer *container, uint32 flags, JsonbValue *key)
+{
+    JEntry *children = container->children;
+    int count = JsonContainerSize(container);
+
+    // Quick return for empty containers
+    if (count <= 0)
+        return NULL;
+
+    // Search through array elements
+    if ((flags & JB_FARRAY) && JsonContainerIsArray(container))
+    {
+        JsonbValue *result = palloc(sizeof(JsonbValue));
+        char *base_addr = (char *) (children + count);
+        uint32 offset = 0;
+
+        // Compare each array element with the search key
+        for (int i = 0; i < count; i++)
+        {
+            fillJsonbValue(container, i, base_addr, offset, result);
+
+            if (key->type == result->type && equalsJsonbScalarValue(key, result))
+                return result;
+
+            JBE_ADVANCE_OFFSET(offset, children[i]);
+        }
+
+        pfree(result);
+    }
+    // Search object for matching key
+    else if ((flags & JB_FOBJECT) && JsonContainerIsObject(container))
+    {
+        // Delegate to specialized object key lookup
+        return getKeyJsonValueFromContainer(container, key->val.string.val,
+                                          key->val.string.len, NULL);
+    }
+
+    return NULL; // Not found or type mismatch
+}
+```

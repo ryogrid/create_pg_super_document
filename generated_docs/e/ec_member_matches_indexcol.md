@@ -48,3 +48,34 @@ For btree indexes, the function enforces strict opfamily compatibility since no 
 - The arg parameter must be cast to ec_member_matches_arg structure to access index and indexcol fields
 - Returns true only if all compatibility checks pass and the member expression matches the index operand
 - File location: src/backend/optimizer/path/indxpath.c:3382-3439
+
+## Simplified Source
+
+```c
+static bool
+ec_member_matches_indexcol(PlannerInfo *root, RelOptInfo *rel,
+                           EquivalenceClass *ec, EquivalenceMember *em,
+                           void *arg)
+{
+    // Extract index and column info from callback argument
+    IndexOptInfo *index = ((ec_member_matches_arg *) arg)->index;
+    int indexcol = ((ec_member_matches_arg *) arg)->indexcol;
+    Oid curFamily = index->opfamily[indexcol];
+    Oid curCollation = index->indexcollations[indexcol];
+
+    Assert(indexcol < index->nkeycolumns);
+
+    // For btree indexes, check operator family compatibility
+    // Non-btree indexes skip this check due to complexity
+    if (index->relam == BTREE_AM_OID &&
+        !list_member_oid(ec->ec_opfamilies, curFamily))
+        return false;
+
+    // All index types require collation match
+    if (!IndexCollMatchesExprColl(curCollation, ec->ec_collation))
+        return false;
+
+    // Final check: does the member expression match the index operand?
+    return match_index_to_operand((Node *) em->em_expr, indexcol, index);
+}
+```

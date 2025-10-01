@@ -34,3 +34,20 @@ This function advances EPQ testing by executing one iteration of the recheck pla
 - Part of the iterative EPQ processing workflow
 - Must be called after EvalPlanQualBegin has initialized the recheck plan state
 - Returns NULL when no more tuples are available from the EPQ recheck
+
+## Simplified Source
+
+```c
+TupleTableSlot *EvalPlanQualNext(EPQState *epqstate) {
+    // Switch to recheck estate's memory context
+    MemoryContext oldcontext = MemoryContextSwitchTo(epqstate->recheckestate->es_query_cxt);
+
+    // Execute one iteration of the recheck plan
+    TupleTableSlot *slot = ExecProcNode(epqstate->recheckplanstate);
+
+    // Restore original memory context
+    MemoryContextSwitchTo(oldcontext);
+
+    return slot;
+}
+```

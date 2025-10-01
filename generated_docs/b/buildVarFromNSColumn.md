@@ -36,3 +36,28 @@ This function serves as a constructor for Var nodes based on ParseNamespaceColum
 - Always sets varlevelsup to 0 as these are base-level references
 - The function ensures proper nulling semantics by calling markNullableIfNeeded
 - Critical for maintaining correct variable semantics in JOIN operations with aliases
+
+## Simplified Source
+
+```c
+static Var *
+buildVarFromNSColumn(ParseState *pstate, ParseNamespaceColumn *nscol)
+{
+    // Create Var node with column metadata
+    Var *var = makeVar(nscol->p_varno,
+                       nscol->p_varattno,
+                       nscol->p_vartype,
+                       nscol->p_vartypmod,
+                       nscol->p_varcollid,
+                       0);  // varlevelsup = 0 for base-level reference
+
+    // Set syntactic reference information manually
+    var->varnosyn = nscol->p_varnosyn;
+    var->varattnosyn = nscol->p_varattnosyn;
+
+    // Update nulling relations based on parse context
+    markNullableIfNeeded(pstate, var);
+
+    return var;
+}
+```

@@ -37,3 +37,30 @@ This function serves as a specialized resolver for non-ordinary relation types d
 - The function prioritizes CTEs over ENRs in its search order
 - Qualified names (with schema) immediately disqualify special relation types
 - Returns NULL when the RangeVar doesn't refer to any special relation type, allowing normal table resolution to proceed
+
+## Simplified Source
+
+```c
+static ParseNamespaceItem *
+getNSItemForSpecialRelationTypes(ParseState *pstate, RangeVar *rv)
+{
+    CommonTableExpr *cte;
+    Index levelsup;
+
+    // Qualified names can't be CTEs or ENRs
+    if (rv->schemaname)
+        return NULL;
+
+    // First check for CTE
+    cte = scanNameSpaceForCTE(pstate, rv->relname, &levelsup);
+    if (cte)
+        return addRangeTableEntryForCTE(pstate, cte, levelsup, rv, true);
+
+    // Then check for Ephemeral Named Relation
+    if (scanNameSpaceForENR(pstate, rv->relname))
+        return addRangeTableEntryForENR(pstate, rv, true);
+
+    // Not a special relation type
+    return NULL;
+}
+```

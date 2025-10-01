@@ -51,3 +51,51 @@ The function handles arrays of any number of dimensions and any supported Postgr
 - Memory management includes freeing the temporary elements and nulls arrays created by deconstruct_array
 - Supports arrays of any dimensionality supported by PostgreSQL (up to MAXDIM dimensions)
 - The element type analysis determines how individual array elements will be converted to JSONB values
+
+## Simplified Source
+
+```c
+static void array_to_jsonb_internal(Datum array, JsonbInState *result) {
+    ArrayType *v = DatumGetArrayTypeP(array);
+    Oid element_type = ARR_ELEMTYPE(v);
+    int *dim;
+    int ndim;
+    int nitems;
+    int count = 0;
+    Datum *elements;
+    bool *nulls;
+    int16 typlen;
+    bool typbyval;
+    char typalign;
+    JsonTypeCategory tcategory;
+    Oid outfuncoid;
+
+    // Extract array metadata
+    ndim = ARR_NDIM(v);
+    dim = ARR_DIMS(v);
+    nitems = ArrayGetNItems(ndim, dim);
+
+    // Handle empty arrays
+    if (nitems <= 0) {
+        result->res = pushJsonbValue(&result->parseState, WJB_BEGIN_ARRAY, NULL);
+        result->res = pushJsonbValue(&result->parseState, WJB_END_ARRAY, NULL);
+        return;
+    }
+
+    // Get element type information
+    get_typlenbyvalalign(element_type, &typlen, &typbyval, &typalign);
+    json_categorize_type(element_type, true, &tcategory, &outfuncoid);
+
+    // Deconstruct array into individual elements
+    deconstruct_array(v, element_type, typlen, typbyval, typalign,
+                     &elements, &nulls, &nitems);
+
+    // Recursively process array dimensions
+    array_dim_to_jsonb(result, 0, ndim, dim, elements, nulls, &count,
+                      tcategory, outfuncoid);
+
+    // Clean up temporary arrays
+    pfree(elements);
+    pfree(nulls);
+}
+```

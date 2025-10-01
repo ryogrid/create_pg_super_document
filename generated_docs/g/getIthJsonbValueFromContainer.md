@@ -40,3 +40,34 @@ Unlike object lookups which require key comparison, array access is direct using
 - Uses zero-based indexing like standard C arrays
 - Direct O(1) access time for array elements
 - Base address calculation accounts for the JEntry array structure preceding the actual element data
+
+## Simplified Source
+
+```c
+JsonbValue *
+getIthJsonbValueFromContainer(JsonbContainer *container, uint32 i)
+{
+    JsonbValue *result;
+    char *base_addr;
+    uint32 nelements;
+
+    // Verify this is an array container
+    if (!JsonContainerIsArray(container))
+        elog(ERROR, "not a jsonb array");
+
+    nelements = JsonContainerSize(container);
+
+    // Bounds check - return NULL if index out of range
+    if (i >= nelements)
+        return NULL;
+
+    // Calculate base address for element data
+    base_addr = (char *) &container->children[nelements];
+
+    // Allocate result and fill with element data
+    result = palloc(sizeof(JsonbValue));
+    fillJsonbValue(container, i, base_addr, getJsonbOffset(container, i), result);
+
+    return result;
+}
+```

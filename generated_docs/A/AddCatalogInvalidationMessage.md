@@ -42,3 +42,25 @@ This type of invalidation is more aggressive than individual cache entry invalid
 - Includes Valgrind memory debugging support for multi-process shared memory scenarios
 - Part of PostgreSQL's catalog cache invalidation system for handling structural catalog changes
 - More aggressive than AddCatcacheInvalidationMessage as it invalidates entire catalogs rather than specific entries
+
+## Simplified Source
+
+```c
+static void
+AddCatalogInvalidationMessage(InvalidationMsgsGroup *group,
+                             Oid dbId, Oid catId)
+{
+    SharedInvalidationMessage msg;
+
+    // Set up catalog invalidation message
+    msg.cat.id = SHAREDINVALCATALOG_ID;
+    msg.cat.dbId = dbId;
+    msg.cat.catId = catId;
+
+    // Ensure memory is properly initialized for Valgrind
+    VALGRIND_MAKE_MEM_DEFINED(&msg, sizeof(msg));
+
+    // Add the message to the invalidation group
+    AddInvalidationMessage(group, CatCacheMsgs, &msg);
+}
+```

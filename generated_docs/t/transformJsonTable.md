@@ -46,3 +46,68 @@ The function ensures SQL standard compliance and proper handling of lateral refe
 - The function creates a dummy JSON_TABLE_OP JsonExpr to represent the top-level context item and path specification
 - PASSING arguments are duplicated in both the JsonExpr and TableFunc nodes for separate evaluation contexts
 - The resulting ParseNamespaceItem is marked as lateral if explicitly specified or if lateral cross-references are detected
+
+## Simplified Source
+
+```c
+ParseNamespaceItem *transformJsonTable(ParseState *pstate, JsonTable *jt)
+{
+    TableFunc *tf;
+    JsonFuncExpr *jfe;
+    JsonExpr *je;
+    JsonTablePathSpec *rootPathSpec = jt->pathspec;
+    bool is_lateral;
+    JsonTableParseContext cxt = {pstate};
+
+    // Validate ON ERROR behavior - only ERROR, EMPTY, or EMPTY ARRAY allowed
+    if (jt->on_error &&
+        jt->on_error->btype != JSON_BEHAVIOR_ERROR &&
+        jt->on_error->btype != JSON_BEHAVIOR_EMPTY &&
+        jt->on_error->btype != JSON_BEHAVIOR_EMPTY_ARRAY)
+        ereport(ERROR, "invalid ON ERROR behavior");
+
+    // Generate path names and check for duplicates
+    cxt.pathNameId = 0;
+    if (rootPathSpec->name == NULL)
+        rootPathSpec->name = generateJsonTablePathName(&cxt);
+    cxt.pathNames = list_make1(rootPathSpec->name);
+    CheckDuplicateColumnOrPathNames(&cxt, jt->columns);
+
+    // Enable lateral references for SQL spec compliance
+    pstate->p_lateral_active = true;
+
+    // Create TableFunc node
+    tf = makeNode(TableFunc);
+    tf->functype = TFT_JSON_TABLE;
+
+    // Transform context item and pathspec into JsonExpr
+    jfe = makeNode(JsonFuncExpr);
+    jfe->op = JSON_TABLE_OP;
+    jfe->context_item = jt->context_item;
+    jfe->pathspec = (Node *) rootPathSpec->string;
+    jfe->passing = jt->passing;
+    jfe->on_error = jt->on_error;
+    jfe->location = jt->location;
+    tf->docexpr = transformExpr(pstate, (Node *) jfe, EXPR_KIND_FROM_FUNCTION);
+
+    // Transform column specifications into execution plan
+    cxt.jt = jt;
+    cxt.tf = tf;
+    tf->plan = (Node *) transformJsonTableColumns(&cxt, jt->columns,
+                                                  jt->passing, rootPathSpec);
+
+    // Copy PASSING arguments for separate evaluation
+    je = (JsonExpr *) tf->docexpr;
+    tf->passingvalexprs = copyObject(je->passing_values);
+
+    tf->ordinalitycol = -1;  // No ordinality column
+    tf->location = jt->location;
+
+    pstate->p_lateral_active = false;
+
+    // Determine if LATERAL marking is needed
+    is_lateral = jt->lateral || contain_vars_of_level((Node *) tf, 0);
+
+    return addRangeTableEntryForTableFunc(pstate, tf, jt->alias, is_lateral, true);
+}
+```

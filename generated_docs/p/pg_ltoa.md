@@ -39,3 +39,27 @@ The function provides a complete string conversion solution, unlike `pg_ultoa_n`
 - Returns string length, eliminating need for separate strlen() call
 - Serves as the foundation for smaller integer type conversions (via pg_itoa)
 - Used extensively in PostgreSQL's integer output functions and internal formatting
+
+## Simplified Source
+
+```c
+int
+pg_ltoa(int32 value, char *a)
+{
+    uint32 uvalue = (uint32) value;
+    int len = 0;
+
+    // Handle negative numbers
+    if (value < 0) {
+        uvalue = (uint32) 0 - uvalue;  // Convert to positive
+        a[len++] = '-';
+    }
+
+    // Convert unsigned value to string
+    len += pg_ultoa_n(uvalue, a + len);
+
+    // Null-terminate the string
+    a[len] = '\0';
+    return len;
+}
+```

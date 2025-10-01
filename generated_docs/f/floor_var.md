@@ -45,3 +45,26 @@ The algorithm:
 - Uses temporary variable management to avoid modifying the input parameter
 - Part of PostgreSQL's high-precision arithmetic system that avoids floating-point limitations
 - Complementary to `ceil_var` function with opposite rounding behavior for negative numbers
+
+## Simplified Source
+
+```c
+static void floor_var(const NumericVar *var, NumericVar *result) {
+    NumericVar tmp;
+
+    // Initialize temporary variable and copy input
+    init_var(&tmp);
+    set_var_from_var(var, &tmp);
+
+    // Truncate to remove fractional part
+    trunc_var(&tmp, 0);
+
+    // For negative numbers with fractional part, subtract 1 more
+    if (var->sign == NUMERIC_NEG && cmp_var(var, &tmp) != 0)
+        sub_var(&tmp, &const_one, &tmp);
+
+    // Store result and cleanup
+    set_var_from_var(&tmp, result);
+    free_var(&tmp);
+}
+```

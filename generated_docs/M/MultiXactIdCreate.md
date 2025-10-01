@@ -47,3 +47,29 @@ The function creates a MultiXactMember array with the two provided transactions 
 - This is part of PostgreSQL's tuple-level locking mechanism that allows multiple transactions to hold compatible locks simultaneously
 - The function assumes that MultiXactIdSetOldestMember() has been called to properly initialize the oldest member tracking system
 - The resulting MultiXactId can be stored in tuple headers to represent complex locking scenarios
+
+## Simplified Source
+
+```c
+MultiXactId
+MultiXactIdCreate(TransactionId xid1, MultiXactStatus status1,
+                  TransactionId xid2, MultiXactStatus status2)
+{
+    MultiXactMember members[2];
+
+    // Validate input transaction IDs
+    Assert(TransactionIdIsValid(xid1));
+    Assert(TransactionIdIsValid(xid2));
+    Assert(!TransactionIdEquals(xid1, xid2) || (status1 != status2));
+    Assert(MultiXactIdIsValid(OldestMemberMXactId[MyProcNumber]));
+
+    // Build member array for the two transactions
+    members[0].xid = xid1;
+    members[0].status = status1;
+    members[1].xid = xid2;
+    members[1].status = status2;
+
+    // Create the MultiXactId and return it
+    return MultiXactIdCreateFromMembers(2, members);
+}
+```

@@ -36,3 +36,16 @@ The function returns a modified copy of the expression tree, making it suitable 
 - Uses the generic replace_rte_variables infrastructure with pullup-specific callback logic
 - The `outer_hasSubLinks` parameter from context is passed through to handle sublink processing appropriately
 - Acts as a thin wrapper that bridges between the pullup-specific context and the generic variable replacement infrastructure
+
+## Simplified Source
+
+```c
+static Node *pullup_replace_vars(Node *expr, pullup_replace_vars_context *context)
+{
+    return replace_rte_variables(expr,
+                                context->varno, 0,
+                                pullup_replace_vars_callback,
+                                (void *) context,
+                                context->outer_hasSubLinks);
+}
+```

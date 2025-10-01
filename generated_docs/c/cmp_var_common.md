@@ -50,3 +50,39 @@ The comparison algorithm follows these rules: zero is handled specially, positiv
 - When both numbers are negative, argument order is swapped for cmp_abs_common to handle sign inversion
 - Designed to work with both NumericVar structures and raw Numeric data
 - Forms the foundation for all numeric comparison operations in PostgreSQL
+
+## Simplified Source
+
+```c
+static int cmp_var_common(const NumericDigit *var1digits, int var1ndigits,
+                         int var1weight, int var1sign,
+                         const NumericDigit *var2digits, int var2ndigits,
+                         int var2weight, int var2sign) {
+    // Handle zero values (ndigits == 0 means the value is zero)
+    if (var1ndigits == 0) {
+        if (var2ndigits == 0)
+            return 0;  // Both zero
+        return (var2sign == NUMERIC_NEG) ? 1 : -1;  // 0 vs non-zero
+    }
+    if (var2ndigits == 0) {
+        return (var1sign == NUMERIC_POS) ? 1 : -1;  // non-zero vs 0
+    }
+
+    // Handle sign differences: positive > negative
+    if (var1sign == NUMERIC_POS) {
+        if (var2sign == NUMERIC_NEG)
+            return 1;  // positive > negative
+        // Both positive: compare absolute values directly
+        return cmp_abs_common(var1digits, var1ndigits, var1weight,
+                             var2digits, var2ndigits, var2weight);
+    }
+
+    if (var2sign == NUMERIC_POS)
+        return -1;  // negative < positive
+
+    // Both negative: compare absolute values with swapped arguments
+    // (because larger absolute value means smaller negative number)
+    return cmp_abs_common(var2digits, var2ndigits, var2weight,
+                         var1digits, var1ndigits, var1weight);
+}
+```

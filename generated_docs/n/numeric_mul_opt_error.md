@@ -63,3 +63,47 @@ The multiplication preserves maximum precision by setting the result scale to th
 - The function carefully handles zero-times-infinity cases which result in NaN
 - Location: 
 - Part of PostgreSQL's internal numeric arithmetic implementation with enhanced precision control and error handling
+
+## Simplified Source
+
+```c
+Numeric
+numeric_mul_opt_error(Numeric num1, Numeric num2, bool *have_error)
+{
+    // Handle special values (NaN, infinity)
+    if (NUMERIC_IS_SPECIAL(num1) || NUMERIC_IS_SPECIAL(num2)) {
+        if (NUMERIC_IS_NAN(num1) || NUMERIC_IS_NAN(num2))
+            return make_result(&const_nan);
+
+        // Handle infinity multiplication rules
+        if (NUMERIC_IS_PINF(num1)) {
+            int sign = numeric_sign_internal(num2);
+            return (sign == 0) ? make_result(&const_nan) :  // Inf * 0
+                   (sign > 0) ? make_result(&const_pinf) :   // Inf * positive
+                                make_result(&const_ninf);    // Inf * negative
+        }
+
+        // Similar logic for negative infinity and finite numbers
+        // ... (other infinity cases follow same pattern)
+    }
+
+    // Convert to internal format for computation
+    NumericVar arg1, arg2, result;
+    init_var_from_num(num1, &arg1);
+    init_var_from_num(num2, &arg2);
+    init_var(&result);
+
+    // Perform multiplication with exact precision
+    mul_var(&arg1, &arg2, &result, arg1.dscale + arg2.dscale);
+
+    // Round if result exceeds maximum scale
+    if (result.dscale > NUMERIC_DSCALE_MAX)
+        round_var(&result, NUMERIC_DSCALE_MAX);
+
+    // Convert back to external format
+    Numeric res = make_result_opt_error(&result, have_error);
+    free_var(&result);
+
+    return res;
+}
+```

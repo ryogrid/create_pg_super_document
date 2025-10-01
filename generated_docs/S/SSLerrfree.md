@@ -35,3 +35,13 @@ The function is specifically designed to work with the SSL error handling system
 - It works in conjunction with SSL error formatting functions that may return either allocated memory or the static ssl_nomem buffer
 - The function is called extensively throughout SSL initialization and I/O operations to clean up error messages
 - Located in src/interfaces/libpq/fe-secure-openssl.c:1782-1795
+
+## Simplified Source
+
+```c
+static void SSLerrfree(char *buf) {
+    // Only free if it's not the static "out of memory" message
+    if (buf != ssl_nomem)
+        free(buf);
+}
+```

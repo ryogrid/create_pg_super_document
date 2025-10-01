@@ -55,3 +55,36 @@ The join selectivity function receives comprehensive context information includi
 - [SpecialJoinInfo](../S/SpecialJoinInfo.md) parameter provides context for complex join scenarios
 - Essential component of PostgreSQL's join planning and optimization system
 - Location: src/backend/optimizer/util/plancat.c:1986-2026
+
+## Simplified Source
+
+```c
+Selectivity
+join_selectivity(PlannerInfo *root, Oid operatorid, List *args, Oid inputcollid,
+                JoinType jointype, SpecialJoinInfo *sjinfo)
+{
+    RegProcedure oprjoin = get_oprjoin(operatorid);
+    float8 result;
+
+    // Default selectivity if no join procedure registered
+    if (!oprjoin) {
+        return (Selectivity) 0.5;
+    }
+
+    // Call the operator's join selectivity function
+    result = DatumGetFloat8(OidFunctionCall5Coll(oprjoin,
+                                                inputcollid,
+                                                PointerGetDatum(root),
+                                                ObjectIdGetDatum(operatorid),
+                                                PointerGetDatum(args),
+                                                Int16GetDatum(jointype),
+                                                PointerGetDatum(sjinfo)));
+
+    // Validate result is within valid probability range
+    if (result < 0.0 || result > 1.0) {
+        elog(ERROR, "invalid join selectivity: %f", result);
+    }
+
+    return (Selectivity) result;
+}
+```

@@ -51,3 +51,57 @@ The function implements the mathematical rules for signed number subtraction:
 - The decimal scale (dscale) of the result is set to the maximum of the input scales when the result is zero
 - Part of PostgreSQL's arbitrary precision numeric arithmetic system
 - Complementary to add_var, implementing the inverse operation
+
+## Simplified Source
+
+```c
+static void sub_var(const NumericVar *var1, const NumericVar *var2, NumericVar *result) {
+    // Handle subtraction based on signs of operands
+
+    if (var1->sign == NUMERIC_POS) {
+        if (var2->sign == NUMERIC_NEG) {
+            // (+A) - (-B) = +(A + B)
+            add_abs(var1, var2, result);
+            result->sign = NUMERIC_POS;
+        } else {
+            // Both positive: compare absolute values
+            switch (cmp_abs(var1, var2)) {
+                case 0:  // Equal: result is zero
+                    zero_var(result);
+                    result->dscale = Max(var1->dscale, var2->dscale);
+                    break;
+                case 1:  // var1 > var2: +(var1 - var2)
+                    sub_abs(var1, var2, result);
+                    result->sign = NUMERIC_POS;
+                    break;
+                case -1: // var1 < var2: -(var2 - var1)
+                    sub_abs(var2, var1, result);
+                    result->sign = NUMERIC_NEG;
+                    break;
+            }
+        }
+    } else {
+        if (var2->sign == NUMERIC_NEG) {
+            // Both negative: compare absolute values
+            switch (cmp_abs(var1, var2)) {
+                case 0:  // Equal: result is zero
+                    zero_var(result);
+                    result->dscale = Max(var1->dscale, var2->dscale);
+                    break;
+                case 1:  // |var1| > |var2|: -(var1 - var2)
+                    sub_abs(var1, var2, result);
+                    result->sign = NUMERIC_NEG;
+                    break;
+                case -1: // |var1| < |var2|: +(var2 - var1)
+                    sub_abs(var2, var1, result);
+                    result->sign = NUMERIC_POS;
+                    break;
+            }
+        } else {
+            // (-A) - (+B) = -(A + B)
+            add_abs(var1, var2, result);
+            result->sign = NUMERIC_NEG;
+        }
+    }
+}
+```

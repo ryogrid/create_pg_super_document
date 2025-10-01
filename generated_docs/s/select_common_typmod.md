@@ -39,3 +39,35 @@ This function computes a common type modifier for expressions that have already 
 - The pstate parameter is currently unused but maintained for API consistency
 - Essential for maintaining type precision in operations like UNION where result column specifications matter
 - Located in src/backend/parser/parse_coerce.c:1646-1738
+
+## Simplified Source
+
+```c
+int32 select_common_typmod(ParseState *pstate, List *exprs, Oid common_type) {
+    bool first = true;
+    int32 result = -1;
+
+    // Check each expression for consistent type and typmod
+    foreach(lc, exprs) {
+        Node *expr = (Node *) lfirst(lc);
+
+        // Verify expression has expected type
+        if (exprType(expr) != common_type) {
+            return -1;
+        }
+
+        if (first) {
+            // Set initial typmod from first expression
+            result = exprTypmod(expr);
+            first = false;
+        } else {
+            // Return -1 if any typmod differs
+            if (result != exprTypmod(expr)) {
+                return -1;
+            }
+        }
+    }
+
+    return result;
+}
+```

@@ -42,3 +42,25 @@ The search relies on the fact that non-constant members are placed on the left s
 - The derived clauses are stored in the ec_derives list of the equivalence class
 - Used primarily in selectivity estimation for foreign key joins
 - The function includes assertions to verify the expected preconditions about the EC and EM
+
+## Simplified Source
+
+```c
+RestrictInfo *find_derived_clause_for_ec_member(EquivalenceClass *ec, EquivalenceMember *em) {
+    // Validate preconditions: EC has constants, EM is not a constant
+    Assert(ec->ec_has_const);
+    Assert(!em->em_is_const);
+
+    // Search through derived clauses for one referencing this member
+    ListCell *lc;
+    foreach(lc, ec->ec_derives) {
+        RestrictInfo *clause = (RestrictInfo *) lfirst(lc);
+
+        // Non-const members are placed on left side by convention
+        if (clause->left_em == em)
+            return clause;
+    }
+
+    return NULL;  // No matching clause found
+}
+```

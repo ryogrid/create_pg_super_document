@@ -52,3 +52,56 @@ The function also initializes the joinrel's partition-related data structures in
 - Allocates part_rels array sized to hold RelOptInfo pointers for all partition combinations
 - Critical for determining feasibility and strategy of partitionwise join optimization
 - Handles various partitioning scenarios including hash, range, and list partitioning schemes
+
+## Simplified Source
+
+```c
+static void compute_partition_bounds(PlannerInfo *root, RelOptInfo *rel1,
+                                   RelOptInfo *rel2, RelOptInfo *joinrel,
+                                   SpecialJoinInfo *parent_sjinfo,
+                                   List **parts1, List **parts2) {
+    // Only compute if not already done
+    if (joinrel->nparts == -1) {
+        PartitionScheme part_scheme = joinrel->part_scheme;
+        PartitionBoundInfo boundinfo = NULL;
+        int nparts = 0;
+
+        // Optimization: check if both relations have identical bounds
+        if (!rel1->partbounds_merged && !rel2->partbounds_merged &&
+            rel1->nparts == rel2->nparts &&
+            partition_bounds_equal(part_scheme->partnatts,
+                                  part_scheme->parttyplen,
+                                  part_scheme->parttypbyval,
+                                  rel1->boundinfo, rel2->boundinfo)) {
+            // Identical bounds - inherit directly
+            boundinfo = rel1->boundinfo;
+            nparts = rel1->nparts;
+        } else {
+            // Different bounds - merge them
+            boundinfo = partition_bounds_merge(part_scheme->partnatts,
+                                              part_scheme->partsupfunc,
+                                              part_scheme->partcollation,
+                                              rel1, rel2,
+                                              parent_sjinfo->jointype,
+                                              parts1, parts2);
+            if (boundinfo == NULL) {
+                joinrel->nparts = 0;  // Cannot merge
+                return;
+            }
+            nparts = list_length(*parts1);
+            joinrel->partbounds_merged = true;
+        }
+
+        // Set up join relation partition info
+        joinrel->boundinfo = boundinfo;
+        joinrel->nparts = nparts;
+        joinrel->part_rels = (RelOptInfo **) palloc0(sizeof(RelOptInfo *) * nparts);
+
+    } else {
+        // Already computed - just get partition pairs if needed
+        if (joinrel->partbounds_merged) {
+            get_matching_part_pairs(root, joinrel, rel1, rel2, parts1, parts2);
+        }
+    }
+}
+```

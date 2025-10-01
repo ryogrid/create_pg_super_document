@@ -49,3 +49,17 @@ The function delegates all actual trigger processing to ExecBRDeleteTriggersNew,
 - Returns true if the delete operation should proceed, false if triggers suppressed the delete
 - Located in src/backend/commands/trigger.c:2794-2811
 - Part of PostgreSQL's trigger execution subsystem for DELETE operations
+
+## Simplified Source
+
+```c
+bool ExecBRDeleteTriggers(EState *estate, EPQState *epqstate,
+                         ResultRelInfo *relinfo, ItemPointer tupleid,
+                         HeapTuple fdw_trigtuple, TupleTableSlot **epqslot,
+                         TM_Result *tmresult, TM_FailureData *tmfd) {
+    // Simple wrapper for backward compatibility - delegates to new version
+    return ExecBRDeleteTriggersNew(estate, epqstate, relinfo, tupleid,
+                                  fdw_trigtuple, epqslot, tmresult, tmfd,
+                                  false /* is_merge_delete */);
+}
+```

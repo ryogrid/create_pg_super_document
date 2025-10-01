@@ -43,3 +43,40 @@ The function follows the same error handling and memory management patterns as _
 - Results stored in plan->plancache_list as list of incomplete CachedPlanSource entries
 - All memory allocation occurs in CurrentMemoryContext (SPI executor context)
 - Parse analysis will be performed later during _SPI_execute_plan execution
+
+## Simplified Source
+
+```c
+static void _SPI_prepare_oneshot_plan(const char *src, SPIPlanPtr plan) {
+    List *raw_parsetree_list;
+    List *plancache_list;
+    ListCell *list_item;
+
+    // Setup error context for parsing
+    // ... error callback setup ...
+
+    // Parse the SQL string into raw parse trees
+    raw_parsetree_list = raw_parser(src, plan->parse_mode);
+
+    // Create one-shot cached plan sources (no analysis yet)
+    plancache_list = NIL;
+    foreach(list_item, raw_parsetree_list) {
+        RawStmt *parsetree = lfirst_node(RawStmt, list_item);
+        CachedPlanSource *plansource;
+
+        // Create one-shot plan source for deferred analysis
+        plansource = CreateOneShotCachedPlan(parsetree,
+                                            src,
+                                            CreateCommandTag(parsetree->stmt));
+
+        plancache_list = lappend(plancache_list, plansource);
+    }
+
+    // Store results in plan structure
+    plan->plancache_list = plancache_list;
+    plan->oneshot = true;
+
+    // Cleanup error context
+    error_context_stack = spierrcontext.previous;
+}
+```

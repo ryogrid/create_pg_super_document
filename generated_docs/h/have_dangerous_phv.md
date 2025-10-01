@@ -47,3 +47,35 @@ This check is performed in two contexts: during initial join legality assessment
 - This safety check prevents executor complexity by ensuring only simple Var parameters are passed to nestloops
 - The check occurs at two different planning stages to catch both minimum and extended parameterizations
 - Located in src/backend/optimizer/path/joinrels.c:1305-1332
+
+## Simplified Source
+
+```c
+bool have_dangerous_phv(PlannerInfo *root,
+                       Relids outer_relids, Relids inner_params) {
+    ListCell *lc;
+
+    // Check each placeholder in the global list
+    foreach(lc, root->placeholder_list) {
+        PlaceHolderInfo *phinfo = (PlaceHolderInfo *) lfirst(lc);
+
+        // Skip if PHV cannot be a nestloop parameter
+        if (!bms_is_subset(phinfo->ph_eval_at, inner_params))
+            continue;
+
+        // Skip if PHV is not relevant to this join
+        if (!bms_overlap(phinfo->ph_eval_at, outer_relids))
+            continue;
+
+        // Safe if PHV can be evaluated entirely within outer relation
+        if (bms_is_subset(phinfo->ph_eval_at, outer_relids))
+            continue;
+
+        // Dangerous PHV found - reject the join
+        return true;
+    }
+
+    // No dangerous PHVs found - safe to proceed
+    return false;
+}
+```

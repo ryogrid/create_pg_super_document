@@ -35,3 +35,17 @@ This function provides an internal interface for retrieving index definitions th
 - Part of PostgreSQL's rule utilities system for DDL reconstruction
 - Located in src/backend/utils/adt/ruleutils.c:1205-1214
 - Critical for maintaining index properties during table modifications
+
+## Simplified Source
+
+```c
+char *
+pg_get_indexdef_string(Oid indexrelid)
+{
+    // Generate complete CREATE INDEX statement including tablespace
+    return pg_get_indexdef_worker(indexrelid, 0, NULL,
+                                 false, false,    // no pretty printing
+                                 true, true,      // include tablespace
+                                 0, false);       // internal format
+}
+```

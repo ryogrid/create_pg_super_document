@@ -38,3 +38,27 @@ This function implements a specialized tree walker that recursively examines Pos
 - Part of the parameter dependency analysis system in PostgreSQL's optimizer
 - Located in src/backend/optimizer/util/clauses.c at lines 1143-1178
 - The recursive nature ensures all nested expressions are examined for parameter references
+
+## Simplified Source
+
+```c
+static bool
+contain_exec_param_walker(Node *node, List *param_ids)
+{
+    if (node == NULL)
+        return false;
+
+    if (IsA(node, Param))
+    {
+        Param *p = (Param *) node;
+
+        // Check if this is a matching PARAM_EXEC parameter
+        if (p->paramkind == PARAM_EXEC &&
+            list_member_int(param_ids, p->paramid))
+            return true;
+    }
+
+    // Recursively check all child nodes
+    return expression_tree_walker(node, contain_exec_param_walker, param_ids);
+}
+```

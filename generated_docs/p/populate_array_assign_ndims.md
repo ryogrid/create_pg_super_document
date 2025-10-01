@@ -53,3 +53,34 @@ The function ensures that the context is properly prepared for subsequent array 
 - Uses PostgreSQL's soft error handling mechanism, allowing callers to handle errors gracefully
 - The allocated  and  arrays are used throughout the array population process to track and validate array structure consistency
 - Memory allocation uses PostgreSQL's memory context system for proper cleanup
+
+## Simplified Source
+
+```c
+static bool
+populate_array_assign_ndims(PopulateArrayContext *ctx, int ndims)
+{
+    int i;
+
+    Assert(ctx->ndims <= 0);
+
+    // Validate dimension count
+    if (ndims <= 0)
+    {
+        populate_array_report_expected_array(ctx, ndims);
+        Assert(SOFT_ERROR_OCCURRED(ctx->escontext));
+        return false;
+    }
+
+    // Initialize dimension tracking arrays
+    ctx->ndims = ndims;
+    ctx->dims = palloc(sizeof(int) * ndims);
+    ctx->sizes = palloc0(sizeof(int) * ndims);
+
+    // Initialize all dimensions as unknown (-1)
+    for (i = 0; i < ndims; i++)
+        ctx->dims[i] = -1;
+
+    return true;
+}
+```

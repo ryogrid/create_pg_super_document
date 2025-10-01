@@ -34,3 +34,23 @@ This function performs a system catalog lookup to determine which index access m
 - Returns the raw OID of the access method, which can be used to look up access method properties
 - Essential for determining which index access method operations are available for a given operator class
 - The access method OID can be used with other system functions to get access method names and properties
+
+## Simplified Source
+
+```c
+Oid get_opclass_method(Oid opclass) {
+    // Look up operator class in system cache
+    HeapTuple tp = SearchSysCache1(CLAOID, ObjectIdGetDatum(opclass));
+
+    if (!HeapTupleIsValid(tp)) {
+        elog(ERROR, "cache lookup failed for opclass %u", opclass);
+    }
+
+    // Extract access method OID from catalog tuple
+    Form_pg_opclass cla_tup = (Form_pg_opclass) GETSTRUCT(tp);
+    Oid result = cla_tup->opcmethod;
+
+    ReleaseSysCache(tp);
+    return result;
+}
+```

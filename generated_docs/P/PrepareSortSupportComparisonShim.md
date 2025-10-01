@@ -46,3 +46,30 @@ This approach provides significant performance benefits by avoiding the overhead
 - The pre-initialization of function call structures is a key optimization that reduces per-comparison overhead
 - Both function arguments are marked as non-null in the pre-initialized structure
 - Part of PostgreSQL's performance optimization strategy for sorting operations
+
+## Simplified Source
+
+```c
+void
+PrepareSortSupportComparisonShim(Oid cmpFunc, SortSupport ssup)
+{
+    SortShimExtra *extra;
+
+    // Allocate memory for shim data structure
+    extra = (SortShimExtra *) MemoryContextAlloc(ssup->ssup_cxt,
+                                                SizeForSortShimExtra(2));
+
+    // Cache comparison function info for reuse
+    fmgr_info_cxt(cmpFunc, &extra->flinfo, ssup->ssup_cxt);
+
+    // Pre-initialize function call structure (performance optimization)
+    InitFunctionCallInfoData(extra->fcinfo, &extra->flinfo, 2,
+                           ssup->ssup_collation, NULL, NULL);
+    extra->fcinfo.args[0].isnull = false;
+    extra->fcinfo.args[1].isnull = false;
+
+    // Configure sort support to use our shim
+    ssup->ssup_extra = extra;
+    ssup->comparator = comparison_shim;
+}
+```

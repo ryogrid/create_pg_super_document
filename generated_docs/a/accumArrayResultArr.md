@@ -54,3 +54,101 @@ The function manages both the actual array data and null bitmaps, handling cases
 - **Performance**: Automatically handles memory expansion and detoasting of input arrays
 - **Null handling**: Retrospectively handles null bitmaps when the first array with nulls is encountered
 - Part of the three-function API: initArrayResultArr/accumArrayResultArr/makeArrayResultArr
+
+## Simplified Source
+
+```c
+ArrayBuildStateArr *accumArrayResultArr(ArrayBuildStateArr *astate,
+                                       Datum dvalue, bool disnull,
+                                       Oid array_type, MemoryContext rcontext) {
+    // Null sub-arrays not allowed
+    if (disnull)
+        ereport(ERROR, (errcode(ERRCODE_NULL_VALUE_NOT_ALLOWED),
+                       errmsg("cannot accumulate null arrays")));
+
+    // Detoast input array
+    ArrayType *arg = DatumGetArrayTypeP(dvalue);
+
+    // Initialize state on first call
+    if (astate == NULL)
+        astate = initArrayResultArr(array_type, InvalidOid, rcontext, true);
+
+    MemoryContext oldcontext = MemoryContextSwitchTo(astate->mcontext);
+
+    // Extract array metadata
+    int ndims = ARR_NDIM(arg);
+    int *dims = ARR_DIMS(arg);
+    int *lbs = ARR_LBOUND(arg);
+    char *data = ARR_DATA_PTR(arg);
+    int nitems = ArrayGetNItems(ndims, dims);
+    int ndatabytes = ARR_SIZE(arg) - ARR_DATA_OFFSET(arg);
+
+    if (astate->ndims == 0) {
+        // First input - establish dimensionality pattern
+        if (ndims == 0 || ndims + 1 > MAXDIM)
+            ereport(ERROR, (...)); // Error for empty/too many dimensions
+
+        // Output array has n+1 dimensions
+        astate->ndims = ndims + 1;
+        astate->dims[0] = 0;
+        memcpy(&astate->dims[1], dims, ndims * sizeof(int));
+        astate->lbs[0] = 1;
+        memcpy(&astate->lbs[1], lbs, ndims * sizeof(int));
+
+        // Allocate initial data space
+        astate->abytes = pg_nextpower2_32(Max(1024, ndatabytes + 1));
+        astate->data = (char *) palloc(astate->abytes);
+    } else {
+        // Subsequent inputs - must match first input's dimensionality
+        if (astate->ndims != ndims + 1)
+            ereport(ERROR, (...)); // Dimensionality mismatch
+
+        // Validate all dimensions match
+        for (int i = 0; i < ndims; i++) {
+            if (astate->dims[i + 1] != dims[i] || astate->lbs[i + 1] != lbs[i])
+                ereport(ERROR, (...)); // Dimension mismatch
+        }
+
+        // Expand data space if needed
+        if (astate->nbytes + ndatabytes > astate->abytes) {
+            astate->abytes = Max(astate->abytes * 2, astate->nbytes + ndatabytes);
+            astate->data = (char *) repalloc(astate->data, astate->abytes);
+        }
+    }
+
+    // Copy array data
+    memcpy(astate->data + astate->nbytes, data, ndatabytes);
+    astate->nbytes += ndatabytes;
+
+    // Handle null bitmap if needed
+    if (astate->nullbitmap || ARR_HASNULL(arg)) {
+        int newnitems = astate->nitems + nitems;
+
+        if (astate->nullbitmap == NULL) {
+            // First array with nulls - retrospectively handle previous items
+            astate->aitems = pg_nextpower2_32(Max(256, newnitems + 1));
+            astate->nullbitmap = (bits8 *) palloc((astate->aitems + 7) / 8);
+            array_bitmap_copy(astate->nullbitmap, 0, NULL, 0, astate->nitems);
+        } else if (newnitems > astate->aitems) {
+            // Expand null bitmap
+            astate->aitems = Max(astate->aitems * 2, newnitems);
+            astate->nullbitmap = (bits8 *) repalloc(astate->nullbitmap,
+                                                   (astate->aitems + 7) / 8);
+        }
+        array_bitmap_copy(astate->nullbitmap, astate->nitems,
+                         ARR_NULLBITMAP(arg), 0, nitems);
+    }
+
+    // Update counters
+    astate->nitems += nitems;
+    astate->dims[0] += 1;
+
+    MemoryContextSwitchTo(oldcontext);
+
+    // Clean up detoasted copy
+    if ((Pointer) arg != DatumGetPointer(dvalue))
+        pfree(arg);
+
+    return astate;
+}
+```

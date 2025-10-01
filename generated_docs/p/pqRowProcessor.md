@@ -52,3 +52,64 @@ The function integrates with the tuple array management through pqAddTuple() and
 - Integrates with both single-row mode and chunked partial result delivery mechanisms
 - Field format detection (binary vs text) is based on the attDescs format field
 - Manages the transition between full result mode and partial result modes seamlessly
+
+## Simplified Source
+
+```c
+int
+pqRowProcessor(PGconn *conn, const char **errmsgp)
+{
+    PGresult *res = conn->result;
+    int nfields = res->numAttributes;
+    const PGdataValue *columns = conn->rowBuf;
+    PGresAttValue *tup;
+
+    // Handle partial result mode - clone result if needed
+    if (conn->partialResMode && conn->saved_result == NULL) {
+        res = PQcopyResult(res, PG_COPYRES_ATTRS | PG_COPYRES_EVENTS | PG_COPYRES_NOTICEHOOKS);
+        if (!res)
+            return 0;
+        res->resultStatus = (conn->singleRowMode ? PGRES_SINGLE_TUPLE : PGRES_TUPLES_CHUNK);
+        conn->saved_result = conn->result;
+        conn->result = res;
+    }
+
+    // Allocate space for the tuple
+    tup = (PGresAttValue *) pqResultAlloc(res, nfields * sizeof(PGresAttValue), true);
+    if (tup == NULL)
+        return 0;
+
+    // Process each field in the row
+    for (int i = 0; i < nfields; i++) {
+        int clen = columns[i].len;
+
+        if (clen < 0) {
+            // NULL field
+            tup[i].len = NULL_LEN;
+            tup[i].value = res->null_field;
+        } else {
+            bool isbinary = (res->attDescs[i].format != 0);
+            char *val = (char *) pqResultAlloc(res, clen + 1, isbinary);
+            if (val == NULL)
+                return 0;
+
+            // Copy and null-terminate the data
+            memcpy(val, columns[i].value, clen);
+            val[clen] = '\0';
+
+            tup[i].len = clen;
+            tup[i].value = val;
+        }
+    }
+
+    // Add the tuple to the result
+    if (!pqAddTuple(res, tup, errmsgp))
+        return 0;
+
+    // Check if partial result should be made available
+    if (conn->partialResMode && res->ntups >= conn->maxChunkSize)
+        conn->asyncStatus = PGASYNC_READY_MORE;
+
+    return 1;
+}
+```

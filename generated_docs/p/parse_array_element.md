@@ -48,3 +48,46 @@ This design enables the JSON parser to handle arbitrarily nested data structures
 - Integrates with semantic action framework for customizable element processing
 - Part of the recursive descent parser architecture that cleanly separates concerns by value type
 - Error propagation preserves parse context for meaningful error reporting
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+parse_array_element(JsonLexContext *lex, JsonSemAction *sem)
+{
+    JsonTokenType tok = lex_peek(lex);
+    JsonParseErrorType result;
+    bool isnull = (tok == JSON_TOKEN_NULL);
+
+    // Call array element start callback
+    if (sem->array_element_start != NULL) {
+        result = (*sem->array_element_start)(sem->semstate, isnull);
+        if (result != JSON_SUCCESS)
+            return result;
+    }
+
+    // Parse element based on type
+    switch (tok) {
+        case JSON_TOKEN_OBJECT_START:
+            result = parse_object(lex, sem);
+            break;
+        case JSON_TOKEN_ARRAY_START:
+            result = parse_array(lex, sem);
+            break;
+        default:
+            result = parse_scalar(lex, sem);
+    }
+
+    if (result != JSON_SUCCESS)
+        return result;
+
+    // Call array element end callback
+    if (sem->array_element_end != NULL) {
+        result = (*sem->array_element_end)(sem->semstate, isnull);
+        if (result != JSON_SUCCESS)
+            return result;
+    }
+
+    return JSON_SUCCESS;
+}
+```

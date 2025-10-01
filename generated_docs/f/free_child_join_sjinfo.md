@@ -44,3 +44,38 @@ This selective approach prevents double-free errors and memory corruption while 
 - semi_rhs_exprs are intentionally not freed due to complexity of expression tree deallocation
 - Includes assertions to verify that commutation flags and semi_operators remain shared with parent
 - Essential for preventing memory leaks in partitionwise join processing without causing double-free errors
+
+## Simplified Source
+
+```c
+static void free_child_join_sjinfo(SpecialJoinInfo *child_sjinfo,
+                                  SpecialJoinInfo *parent_sjinfo) {
+    // INNER joins use dummy SpecialJoinInfo with no translated fields
+    if (child_sjinfo->jointype != JOIN_INNER) {
+        // Only free bitmapsets that were translated copies
+        if (child_sjinfo->min_lefthand != parent_sjinfo->min_lefthand)
+            bms_free(child_sjinfo->min_lefthand);
+
+        if (child_sjinfo->min_righthand != parent_sjinfo->min_righthand)
+            bms_free(child_sjinfo->min_righthand);
+
+        if (child_sjinfo->syn_lefthand != parent_sjinfo->syn_lefthand)
+            bms_free(child_sjinfo->syn_lefthand);
+
+        if (child_sjinfo->syn_righthand != parent_sjinfo->syn_righthand)
+            bms_free(child_sjinfo->syn_righthand);
+
+        // Verify shared fields remain unchanged
+        Assert(child_sjinfo->commute_above_l == parent_sjinfo->commute_above_l);
+        Assert(child_sjinfo->commute_above_r == parent_sjinfo->commute_above_r);
+        Assert(child_sjinfo->commute_below_l == parent_sjinfo->commute_below_l);
+        Assert(child_sjinfo->commute_below_r == parent_sjinfo->commute_below_r);
+        Assert(child_sjinfo->semi_operators == parent_sjinfo->semi_operators);
+
+        // Leave semi_rhs_exprs alone - requires complex expression tree cleanup
+    }
+
+    // Free the main structure
+    pfree(child_sjinfo);
+}
+```

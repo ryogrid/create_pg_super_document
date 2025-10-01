@@ -43,3 +43,27 @@ This mechanism prevents potential information leakage where statistical data cou
 - Logs a DEBUG2 message when denying access to non-leak-proof functions, which helps with debugging selectivity estimation issues
 - This security mechanism is critical for maintaining data privacy in multi-tenant environments or systems with row-level security
 - The leak-proof function concept ensures that even if a function processes statistical data, it cannot inadvertently reveal information about the underlying data distribution to unauthorized users
+
+## Simplified Source
+
+```c
+bool
+statistic_proc_security_check(VariableStatData *vardata, Oid func_oid)
+{
+    // Allow access if user has proper SELECT privileges and no security restrictions
+    if (vardata->acl_ok)
+        return true;
+
+    if (!OidIsValid(func_oid))
+        return false;
+
+    // Allow leak-proof functions to access statistics
+    if (get_func_leakproof(func_oid))
+        return true;
+
+    // Log denial for debugging
+    ereport(DEBUG2, (errmsg_internal("not using statistics because function \"%s\" is not leak-proof",
+                                   get_func_name(func_oid))));
+    return false;
+}
+```

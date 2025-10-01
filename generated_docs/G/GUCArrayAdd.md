@@ -51,3 +51,51 @@ The function handles the special case where the input array is NULL by creating 
 - Memory allocation is handled through PostgreSQL's array construction functions
 - Used primarily by ALTER ROLE/DATABASE SET and CREATE/ALTER FUNCTION commands
 - The function assumes TEXT element type and 1-dimensional arrays with 1-based indexing
+
+## Simplified Source
+
+```c
+ArrayType *GUCArrayAdd(ArrayType *array, const char *name, const char *value) {
+    struct config_generic *record;
+    Datum datum;
+    char *newval;
+    ArrayType *a;
+
+    // Validate the option name and value
+    validate_option_array_item(name, value, false);
+
+    // Normalize name (convert obsolete names to modern spellings)
+    record = find_option(name, false, true, WARNING);
+    if (record)
+        name = record->name;
+
+    // Build "name=value" string
+    newval = psprintf("%s=%s", name, value);
+    datum = CStringGetTextDatum(newval);
+
+    if (array) {
+        // Search existing array for matching parameter name
+        int index = ARR_DIMS(array)[0] + 1; // default: add at end
+
+        for (int i = 1; i <= ARR_DIMS(array)[0]; i++) {
+            Datum d = array_ref(array, 1, &i, -1, -1, false, TYPALIGN_INT, &isnull);
+            if (!isnull) {
+                char *current = TextDatumGetCString(d);
+                // Check if parameter names match (up to '=' character)
+                if (strncmp(current, newval, strlen(name) + 1) == 0) {
+                    index = i; // Replace existing entry
+                    break;
+                }
+            }
+        }
+
+        // Update or append to existing array
+        a = array_set(array, 1, &index, datum, false, -1, -1, false, TYPALIGN_INT);
+    } else {
+        // Create new single-element array
+        a = construct_array_builtin(&datum, 1, TEXTOID);
+    }
+
+    return a;
+}
+```

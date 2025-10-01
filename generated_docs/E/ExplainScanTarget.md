@@ -38,3 +38,14 @@ The function is used across different types of scan operations (SeqScan, IndexSc
 - Used by multiple scan node types to display the target table/view name in EXPLAIN output
 - Part of PostgreSQL's modular EXPLAIN infrastructure that separates node-specific interfaces from general formatting functions
 - The  field identifies the specific relation being scanned within the query's range table
+
+## Simplified Source
+
+```c
+static void
+ExplainScanTarget(Scan *plan, ExplainState *es)
+{
+    // Show the target relation being scanned
+    ExplainTargetRel((Plan *) plan, plan->scanrelid, es);
+}
+```

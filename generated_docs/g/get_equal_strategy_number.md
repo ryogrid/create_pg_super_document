@@ -32,3 +32,17 @@ This function serves as an abstraction layer, allowing callers to work with oper
 - The function is part of the replication infrastructure in PostgreSQL
 - It provides a higher-level interface compared to `get_equal_strategy_number_for_am` by working with operator classes instead of access methods directly
 - Inherits the same limitations as `get_equal_strategy_number_for_am` - only supports B-tree and Hash indexes
+
+## Simplified Source
+
+```c
+static StrategyNumber
+get_equal_strategy_number(Oid opclass)
+{
+    // Get the access method for this operator class
+    Oid am = get_opclass_method(opclass);
+
+    // Return the equality strategy number for this access method
+    return get_equal_strategy_number_for_am(am);
+}
+```

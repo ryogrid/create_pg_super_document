@@ -35,3 +35,22 @@ The function works by getting the bitmap of all updated columns and comparing it
 
 ## Notes and Other Information
 This function is part of PostgreSQL's optimized locking strategy introduced to improve concurrency for UPDATE operations. When only non-key columns are updated, the weaker LockTupleNoKeyExclusive lock allows concurrent transactions to acquire shared locks on the same tuple, whereas LockTupleExclusive would block all concurrent access. This optimization is particularly beneficial for workloads with frequent updates to non-key columns.
+
+## Simplified Source
+
+```c
+LockTupleMode ExecUpdateLockMode(EState *estate, ResultRelInfo *relinfo) {
+    // Get bitmaps of updated columns and key columns
+    Bitmapset *updatedCols = ExecGetAllUpdatedCols(relinfo, estate);
+    Bitmapset *keyCols = RelationGetIndexAttrBitmap(relinfo->ri_RelationDesc,
+                                                   INDEX_ATTR_BITMAP_KEY);
+
+    // If key columns are modified, use exclusive lock
+    if (bms_overlap(keyCols, updatedCols)) {
+        return LockTupleExclusive;
+    }
+
+    // Only non-key columns modified, use weaker lock for better concurrency
+    return LockTupleNoKeyExclusive;
+}
+```

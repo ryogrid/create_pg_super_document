@@ -39,3 +39,45 @@ The function carefully manages memory allocation, including tracking the total a
 - Updates the memSize parameter to include all allocated memory (array + strings)
 - Static function, internal to fe-exec.c module
 - Essential for proper event system functionality when copying connections and results
+
+## Simplified Source
+
+```c
+static PGEvent *
+dupEvents(PGEvent *events, int count, size_t *memSize)
+{
+    if (!events || count <= 0)
+        return NULL;
+
+    // Allocate array for new events
+    size_t arraySize = count * sizeof(PGEvent);
+    PGEvent *newEvents = (PGEvent *) malloc(arraySize);
+    if (!newEvents)
+        return NULL;
+
+    // Copy each event, duplicating names and resetting instance data
+    for (int i = 0; i < count; i++)
+    {
+        newEvents[i].proc = events[i].proc;
+        newEvents[i].passThrough = events[i].passThrough;
+        newEvents[i].data = NULL;                    // Reset instance data
+        newEvents[i].resultInitialized = false;     // Reset initialization flag
+
+        // Duplicate the event name
+        newEvents[i].name = strdup(events[i].name);
+        if (!newEvents[i].name)
+        {
+            // Cleanup on failure: free all previously allocated names
+            while (--i >= 0)
+                free(newEvents[i].name);
+            free(newEvents);
+            return NULL;
+        }
+
+        arraySize += strlen(events[i].name) + 1;  // Track total memory used
+    }
+
+    *memSize += arraySize;  // Update total memory counter
+    return newEvents;
+}
+```

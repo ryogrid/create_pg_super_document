@@ -45,3 +45,22 @@ The compiler uses this information to:
 - MSVC version is empty because MSVC requires the attribute before function declaration, not after
 - Part of PostgreSQL's portable attribute system for cross-compiler compatibility
 - Helps prevent warnings about missing return statements in functions that never return
+
+## Simplified Source
+
+```c
+// Portable macro for marking functions that never return to caller
+#if defined(__GNUC__) || defined(__SUNPRO_C)
+    // GCC and Sunpro: Use compiler attribute for optimization
+    #define pg_attribute_noreturn() __attribute__((noreturn))
+#else
+    // MSVC and others: Empty macro for compatibility
+    #define pg_attribute_noreturn()
+#endif
+```
+
+**Core Logic:**
+- Provides portable way to mark non-returning functions
+- Enables compiler optimizations on GCC/Sunpro
+- Maintains compatibility with MSVC and other compilers
+- Allows compiler to optimize code paths and issue warnings

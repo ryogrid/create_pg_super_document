@@ -41,3 +41,35 @@ The function specifically handles this case by checking if a boolean index colum
 - Returns true if any boolean restriction clause constrains the specified index column
 - Helps ensure boolean index columns receive the same optimization treatment as other data types
 - File location: src/backend/optimizer/path/indxpath.c:3614-3664
+
+## Simplified Source
+
+```c
+bool
+indexcol_is_bool_constant_for_query(PlannerInfo *root,
+                                   IndexOptInfo *index,
+                                   int indexcol)
+{
+    ListCell *lc;
+
+    // Only boolean index columns can be handled this way
+    if (!IsBooleanOpfamily(index->opfamily[indexcol]))
+        return false;
+
+    // Check each restriction clause for the index's relation
+    foreach(lc, index->rel->baserestrictinfo)
+    {
+        RestrictInfo *rinfo = (RestrictInfo *) lfirst(lc);
+
+        // Skip pseudoconstants (unlikely to match, not worth the cycles)
+        if (rinfo->pseudoconstant)
+            continue;
+
+        // Check if this boolean clause constrains our index column
+        if (match_boolean_index_clause(root, rinfo, indexcol, index))
+            return true;
+    }
+
+    return false;
+}
+```

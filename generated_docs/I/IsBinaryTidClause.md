@@ -35,3 +35,52 @@ This function examines a RestrictInfo to check if it represents a clause of the 
 
 ## Notes and Other Information
 The function performs several validation steps: ensures the clause is an OpExpr with exactly two arguments, identifies which argument (if any) is a CTID variable for the specified relation, and verifies that the other argument is a true pseudoconstant by checking that it doesn't reference the relation and contains no volatile functions. This careful validation ensures that only appropriate clauses are considered for TID-based optimization.
+
+## Simplified Source
+
+```c
+static bool
+IsBinaryTidClause(RestrictInfo *rinfo, RelOptInfo *rel)
+{
+    OpExpr *node;
+    Node *arg1, *arg2, *other;
+    Relids other_relids;
+
+    // Must be an OpExpr with exactly two arguments
+    if (!is_opclause(rinfo->clause))
+        return false;
+
+    node = (OpExpr *) rinfo->clause;
+    if (list_length(node->args) != 2)
+        return false;
+
+    arg1 = linitial(node->args);
+    arg2 = lsecond(node->args);
+
+    // Find which argument is CTID and which is the other operand
+    other = NULL;
+    other_relids = NULL;
+
+    if (arg1 && IsA(arg1, Var) && IsCTIDVar((Var *) arg1, rel))
+    {
+        other = arg2;
+        other_relids = rinfo->right_relids;
+    }
+    else if (arg2 && IsA(arg2, Var) && IsCTIDVar((Var *) arg2, rel))
+    {
+        other = arg1;
+        other_relids = rinfo->left_relids;
+    }
+
+    if (!other)
+        return false;
+
+    // The other argument must be a pseudoconstant
+    // (not reference this relation and not contain volatile functions)
+    if (bms_is_member(rel->relid, other_relids) ||
+        contain_volatile_functions(other))
+        return false;
+
+    return true;
+}
+```

@@ -36,3 +36,34 @@ This static function registers a directed edge from city1 to city2 in the input 
 - Maintains counters for total_edges and unused_edges in the edge table
 - Returns 1 for new edges, 0 for existing edges to help track edge diversity
 - Part of the ERX algorithm's edge detection and sharing mechanism
+
+## Simplified Source
+
+```c
+static int gimme_edge(PlannerInfo *root, Gene gene1, Gene gene2, Edge *edge_table) {
+    int i;
+    int edges;
+    int city1 = (int) gene1;
+    int city2 = (int) gene2;
+
+    // Check if edge city1->city2 already exists
+    edges = edge_table[city1].total_edges;
+
+    for (i = 0; i < edges; i++) {
+        if ((Gene) abs(edge_table[city1].edge_list[i]) == city2) {
+            // Mark shared edges as negative
+            edge_table[city1].edge_list[i] = 0 - city2;
+            return 0; // Edge already existed
+        }
+    }
+
+    // Add new edge city1->city2
+    edge_table[city1].edge_list[edges] = city2;
+
+    // Update edge counters
+    edge_table[city1].total_edges++;
+    edge_table[city1].unused_edges++;
+
+    return 1; // New edge added
+}
+```

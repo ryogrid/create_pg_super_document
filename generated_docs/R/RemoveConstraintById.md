@@ -46,3 +46,57 @@ The function ensures proper locking semantics by holding AccessExclusiveLock on 
 - Domain constraint removal is currently minimal and marked for future enhancement
 - Maintains proper lock hierarchy: AccessExclusiveLock on target relation, RowExclusiveLock on catalogs
 - The constraint's relation lock is held until transaction end to ensure consistency
+
+## Simplified Source
+
+```c
+void
+RemoveConstraintById(Oid conId)
+{
+    Relation conDesc;
+    HeapTuple tup;
+    Form_pg_constraint con;
+
+    // Open constraint catalog and find the constraint
+    conDesc = table_open(ConstraintRelationId, RowExclusiveLock);
+    tup = SearchSysCache1(CONSTROID, ObjectIdGetDatum(conId));
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for constraint %u", conId);
+
+    con = (Form_pg_constraint) GETSTRUCT(tup);
+
+    // Handle constraint-specific cleanup
+    if (OidIsValid(con->conrelid)) {
+        // Relation constraint - lock the relation
+        Relation rel = table_open(con->conrelid, AccessExclusiveLock);
+
+        // For CHECK constraints, update relchecks count
+        if (con->contype == CONSTRAINT_CHECK) {
+            Relation pgrel = table_open(RelationRelationId, RowExclusiveLock);
+            HeapTuple relTup = SearchSysCacheCopy1(RELOID, ObjectIdGetDatum(con->conrelid));
+            if (!HeapTupleIsValid(relTup))
+                elog(ERROR, "cache lookup failed for relation %u", con->conrelid);
+
+            Form_pg_class classForm = (Form_pg_class) GETSTRUCT(relTup);
+            if (classForm->relchecks == 0)
+                elog(ERROR, "relation \"%s\" has relchecks = 0", RelationGetRelationName(rel));
+
+            classForm->relchecks--;
+            CatalogTupleUpdate(pgrel, &relTup->t_self, relTup);
+            heap_freetuple(relTup);
+            table_close(pgrel, RowExclusiveLock);
+        }
+
+        table_close(rel, NoLock);  // Keep lock until transaction end
+    } else if (OidIsValid(con->contypid)) {
+        // Domain constraint - minimal processing for now
+    } else {
+        elog(ERROR, "constraint %u is not of a known type", conId);
+    }
+
+    // Delete the constraint tuple and clean up
+    CatalogTupleDelete(conDesc, &tup->t_self);
+    ReleaseSysCache(tup);
+    table_close(conDesc, RowExclusiveLock);
+}
+```

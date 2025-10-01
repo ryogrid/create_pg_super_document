@@ -48,3 +48,40 @@ The algorithm assumes the heap is never spilled to disk since N (number of strea
 - Adds a small per-tuple overhead using cpu_tuple_cost * APPEND_CPU_COST_MULTIPLIER
 - Does not account for the decreasing effective value of N as input streams are exhausted
 - Final costs are stored in path->startup_cost and path->total_cost
+
+## Simplified Source
+
+```c
+void
+cost_merge_append(Path *path, PlannerInfo *root,
+                  List *pathkeys, int n_streams,
+                  Cost input_startup_cost, Cost input_total_cost,
+                  double tuples)
+{
+    Cost startup_cost = 0;
+    Cost run_cost = 0;
+    Cost comparison_cost;
+    double N;
+    double logN;
+
+    // Avoid log(0) - use minimum of 2 streams
+    N = (n_streams < 2) ? 2.0 : (double) n_streams;
+    logN = LOG2(N);
+
+    // Cost per tuple comparison (2 operator evaluations)
+    comparison_cost = 2.0 * cpu_operator_cost;
+
+    // Initial heap construction: N*log2(N) comparisons
+    startup_cost += comparison_cost * N * logN;
+
+    // Per-tuple heap maintenance: log2(N) comparisons per tuple
+    run_cost += tuples * comparison_cost * logN;
+
+    // Add small per-tuple overhead for merge operation
+    run_cost += cpu_tuple_cost * APPEND_CPU_COST_MULTIPLIER * tuples;
+
+    // Set final path costs
+    path->startup_cost = startup_cost + input_startup_cost;
+    path->total_cost = startup_cost + run_cost + input_total_cost;
+}
+```

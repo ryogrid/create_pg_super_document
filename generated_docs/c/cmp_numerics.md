@@ -53,3 +53,48 @@ For normal numeric values, it delegates to `cmp_var_common` which performs the a
 - Located in `src/backend/utils/adt/numeric.c:2521-2577`
 - Critical for the correctness of all numeric comparison operations in PostgreSQL
 - Handles the complexity of special values so that higher-level comparison functions remain simple
+
+## Simplified Source
+
+```c
+static int cmp_numerics(Numeric num1, Numeric num2) {
+    int result;
+
+    // Handle special values first (NaN, +Inf, -Inf)
+    if (NUMERIC_IS_SPECIAL(num1)) {
+        // NaN handling: NaN > everything else, NaN = NaN
+        if (NUMERIC_IS_NAN(num1)) {
+            result = NUMERIC_IS_NAN(num2) ? 0 : 1;
+        }
+        // Positive infinity handling: +Inf < NaN, +Inf = +Inf, +Inf > others
+        else if (NUMERIC_IS_PINF(num1)) {
+            if (NUMERIC_IS_NAN(num2))
+                result = -1;
+            else if (NUMERIC_IS_PINF(num2))
+                result = 0;
+            else
+                result = 1;
+        }
+        // Negative infinity handling: -Inf = -Inf, -Inf < everything else
+        else { // num1 is NINF
+            result = NUMERIC_IS_NINF(num2) ? 0 : -1;
+        }
+    }
+    // Handle case where only num2 is special
+    else if (NUMERIC_IS_SPECIAL(num2)) {
+        if (NUMERIC_IS_NINF(num2))
+            result = 1;  // normal > -Inf
+        else
+            result = -1; // normal < (+Inf or NaN)
+    }
+    // Both are normal numeric values - compare using digit comparison
+    else {
+        result = cmp_var_common(NUMERIC_DIGITS(num1), NUMERIC_NDIGITS(num1),
+                               NUMERIC_WEIGHT(num1), NUMERIC_SIGN(num1),
+                               NUMERIC_DIGITS(num2), NUMERIC_NDIGITS(num2),
+                               NUMERIC_WEIGHT(num2), NUMERIC_SIGN(num2));
+    }
+
+    return result;
+}
+```

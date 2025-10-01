@@ -47,3 +47,48 @@ This dual-mode behavior makes the function suitable for both contexts where exce
 - Provides range checking to ensure the numeric value fits within int32 bounds (-2,147,483,648 to 2,147,483,647)
 - Used extensively in JSON path operations where numeric values might need to be converted to integers for array indexing or other operations
 - The function follows PostgreSQL's pattern of offering both exception-throwing and error-flag variants for type conversions
+
+## Simplified Source
+
+```c
+int32
+numeric_int4_opt_error(Numeric num, bool *have_error)
+{
+    NumericVar x;
+    int32 result;
+
+    if (have_error)
+        *have_error = false;
+
+    // Handle special values (NaN, infinity)
+    if (NUMERIC_IS_SPECIAL(num)) {
+        if (have_error) {
+            *have_error = true;
+            return 0;
+        }
+        else {
+            // Throw appropriate error for NaN or infinity
+            if (NUMERIC_IS_NAN(num))
+                ereport(ERROR, "cannot convert NaN to integer");
+            else
+                ereport(ERROR, "cannot convert infinity to integer");
+        }
+    }
+
+    // Convert to internal format and then to int32
+    init_var_from_num(num, &x);
+
+    if (!numericvar_to_int32(&x, &result)) {
+        // Range overflow - value too large for int32
+        if (have_error) {
+            *have_error = true;
+            return 0;
+        }
+        else {
+            ereport(ERROR, "integer out of range");
+        }
+    }
+
+    return result;
+}
+```

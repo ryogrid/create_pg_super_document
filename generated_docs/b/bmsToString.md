@@ -32,3 +32,19 @@ bmsToString is a specialized function designed to convert Bitmapset data structu
 - The string representation typically shows the set members in a readable format, useful for debugging optimizer decisions
 - Primarily used in debugging contexts, particularly in the query planner and optimizer components
 - The function follows the same StringInfo pattern as other PostgreSQL string-building utilities
+
+## Simplified Source
+
+```c
+char *
+bmsToString(const Bitmapset *bms)
+{
+    StringInfoData str;
+
+    // Initialize string buffer and convert bitmapset to string
+    initStringInfo(&str);
+    outBitmapset(&str, bms);
+
+    return str.data;
+}
+```

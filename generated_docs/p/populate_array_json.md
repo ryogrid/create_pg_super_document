@@ -47,3 +47,38 @@ This function orchestrates the parsing of JSON array data by setting up a JSON l
 - Memory management includes proper cleanup of the JSON lexical context regardless of parsing outcome
 - Part of PostgreSQL's JSON-to-array conversion functionality, supporting various JSON array structures
 - The semantic action callbacks work together to handle nested JSON structures and convert them to PostgreSQL array format
+
+## Simplified Source
+
+```c
+static bool populate_array_json(PopulateArrayContext *ctx, const char *json, int len)
+{
+    PopulateArrayState state;
+    JsonSemAction sem;
+
+    // Create JSON lexical context for parsing
+    state.lex = makeJsonLexContextCstringLen(NULL, json, len, GetDatabaseEncoding(), true);
+    state.ctx = ctx;
+
+    // Set up semantic action callbacks for different JSON events
+    memset(&sem, 0, sizeof(sem));
+    sem.semstate = (void *) &state;
+    sem.object_start = populate_array_object_start;
+    sem.array_end = populate_array_array_end;
+    sem.array_element_start = populate_array_element_start;
+    sem.array_element_end = populate_array_element_end;
+    sem.scalar = populate_array_scalar;
+
+    // Parse JSON using error-safe parser
+    if (pg_parse_json_or_errsave(state.lex, &sem, ctx->escontext))
+    {
+        // Ensure array dimensions were determined during parsing
+        Assert(ctx->ndims > 0 && ctx->dims);
+    }
+
+    // Clean up lexical context
+    freeJsonLexContext(state.lex);
+
+    return !SOFT_ERROR_OCCURRED(ctx->escontext);
+}
+```

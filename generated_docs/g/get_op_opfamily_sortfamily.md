@@ -39,3 +39,31 @@ This function looks up an operator in the pg_amop system catalog to determine if
 - The amopsortfamily field may be InvalidOid even for valid ordering operators if no specific sort family is defined
 - Used primarily in query optimization for ORDER BY clause processing and index scan ordering
 - Ordering operators are typically used for < <= > >= comparisons in sorting contexts rather than equality testing
+
+## Simplified Source
+
+```c
+Oid
+get_op_opfamily_sortfamily(Oid opno, Oid opfamily)
+{
+    HeapTuple tp;
+    Form_pg_amop amop_tup;
+    Oid result;
+
+    // Search pg_amop catalog for ordering operator in specified family
+    tp = SearchSysCache3(AMOPOPID,
+                        ObjectIdGetDatum(opno),
+                        CharGetDatum(AMOP_ORDER),
+                        ObjectIdGetDatum(opfamily));
+
+    if (!HeapTupleIsValid(tp))
+        return InvalidOid;
+
+    // Extract sort family OID from the catalog entry
+    amop_tup = (Form_pg_amop) GETSTRUCT(tp);
+    result = amop_tup->amopsortfamily;
+    ReleaseSysCache(tp);
+
+    return result;
+}
+```

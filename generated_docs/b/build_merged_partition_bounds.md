@@ -62,3 +62,59 @@ The function also handles special partition indexes for NULL values and default 
 - For range partitioning, the function appends an additional -1 index to handle the upper boundary
 - The function validates input consistency with assertions (merged_kinds length matches ndatums for range strategy)
 - All allocated memory becomes part of the returned PartitionBoundInfo structure
+
+## Simplified Source
+
+```c
+static PartitionBoundInfo
+build_merged_partition_bounds(char strategy, List *merged_datums,
+                             List *merged_kinds, List *merged_indexes,
+                             int null_index, int default_index)
+{
+    int ndatums = list_length(merged_datums);
+
+    // Allocate and initialize the main structure
+    PartitionBoundInfo bounds = palloc(sizeof(PartitionBoundInfoData));
+    bounds->strategy = strategy;
+    bounds->ndatums = ndatums;
+
+    // Copy datums array
+    bounds->datums = palloc(sizeof(Datum *) * ndatums);
+    int pos = 0;
+    ListCell *lc;
+    foreach(lc, merged_datums)
+        bounds->datums[pos++] = (Datum *) lfirst(lc);
+
+    // Handle strategy-specific setup
+    if (strategy == PARTITION_STRATEGY_RANGE)
+    {
+        // Range partitioning needs kinds array
+        bounds->kind = palloc(sizeof(PartitionRangeDatumKind *) * ndatums);
+        pos = 0;
+        foreach(lc, merged_kinds)
+            bounds->kind[pos++] = (PartitionRangeDatumKind *) lfirst(lc);
+
+        // Range partitioning has n+1 indexes (extra boundary)
+        merged_indexes = lappend_int(merged_indexes, -1);
+        ndatums++;
+    }
+    else  // LIST partitioning
+    {
+        bounds->kind = NULL;  // Not used for list partitioning
+    }
+
+    // Copy indexes array
+    bounds->nindexes = ndatums;
+    bounds->indexes = palloc(sizeof(int) * ndatums);
+    pos = 0;
+    foreach(lc, merged_indexes)
+        bounds->indexes[pos++] = lfirst_int(lc);
+
+    // Set special partition indexes
+    bounds->null_index = null_index;
+    bounds->default_index = default_index;
+    bounds->interleaved_parts = NULL;  // Always NULL for join relations
+
+    return bounds;
+}
+```

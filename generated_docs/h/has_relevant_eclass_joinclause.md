@@ -39,3 +39,31 @@ The function examines equivalence classes that mention the given relation and ch
 - Checks if equivalence class spans beyond the input relation
 - Part of PostgreSQL's join planning optimization framework
 - Located in src/backend/optimizer/path/equivclass.c:3163-3206
+
+## Simplified Source
+
+```c
+bool has_relevant_eclass_joinclause(PlannerInfo *root, RelOptInfo *rel1) {
+    Bitmapset *matched_ecs;
+    int i;
+
+    // Get all equivalence classes that mention rel1
+    matched_ecs = get_eclass_indexes_for_relids(root, rel1->relids);
+
+    // Check each equivalence class
+    i = -1;
+    while ((i = bms_next_member(matched_ecs, i)) >= 0) {
+        EquivalenceClass *ec = (EquivalenceClass *) list_nth(root->eq_classes, i);
+
+        // Skip single-member equivalence classes (no joins possible)
+        if (list_length(ec->ec_members) <= 1)
+            continue;
+
+        // If EC spans beyond rel1, it could produce join clauses
+        if (!bms_is_subset(ec->ec_relids, rel1->relids))
+            return true;
+    }
+
+    return false;
+}
+```

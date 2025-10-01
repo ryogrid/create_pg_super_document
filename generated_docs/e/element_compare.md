@@ -41,3 +41,22 @@ The function is designed to work with PostgreSQL's function manager infrastructu
 - Critical component for array statistics collection and selectivity estimation
 - Handles collation-sensitive types through TypeCacheEntry's typcollation field
 - Returns standard comparison result: <0, 0, or >0 for less, equal, greater respectively
+
+## Simplified Source
+
+```c
+static int element_compare(const void *key1, const void *key2, void *arg) {
+    // Extract Datum values from pointers
+    Datum d1 = *((const Datum *) key1);
+    Datum d2 = *((const Datum *) key2);
+
+    // Get type information for comparison
+    TypeCacheEntry *typentry = (TypeCacheEntry *) arg;
+    FmgrInfo *cmpfunc = &typentry->cmp_proc_finfo;
+
+    // Perform comparison using type's comparison function
+    Datum result = FunctionCall2Coll(cmpfunc, typentry->typcollation, d1, d2);
+
+    return DatumGetInt32(result);
+}
+```

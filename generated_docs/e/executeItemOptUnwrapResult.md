@@ -52,3 +52,40 @@ The  function extends the basic  functionality by providing conditional array un
 - Falls back to standard executeItem behavior when unwrapping conditions are not met
 - Critical for implementing PostgreSQL's JSONPath lax mode semantics where arrays are automatically unwrapped in certain contexts
 - Error handling preserves error states from the underlying executeItem call
+
+## Simplified Source
+
+```c
+static JsonPathExecResult
+executeItemOptUnwrapResult(JsonPathExecContext *cxt, JsonPathItem *jsp,
+                           JsonbValue *jb, bool unwrap,
+                           JsonValueList *found) {
+    // Check if unwrapping is needed and enabled
+    if (unwrap && jspAutoUnwrap(cxt)) {
+        JsonValueList seq = {0};
+        JsonValueListIterator it;
+
+        // Execute item and collect results in temporary sequence
+        JsonPathExecResult res = executeItem(cxt, jsp, jb, &seq);
+        if (jperIsError(res))
+            return res;
+
+        // Process each result, unwrapping arrays
+        JsonValueListInitIterator(&seq, &it);
+        JsonbValue *item;
+        while ((item = JsonValueListNext(&seq, &it))) {
+            if (JsonbType(item) == jbvArray) {
+                // Unwrap array elements
+                executeItemUnwrapTargetArray(cxt, NULL, item, found, false);
+            } else {
+                // Add non-array items directly
+                JsonValueListAppend(found, item);
+            }
+        }
+        return jperOk;
+    }
+
+    // No unwrapping needed - use standard execution
+    return executeItem(cxt, jsp, jb, found);
+}
+```

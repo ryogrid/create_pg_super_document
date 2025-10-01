@@ -35,3 +35,23 @@ This function performs a safe conversion from PostgreSQL's internal numeric repr
 - The input NumericVar is explicitly not freed by this function, leaving memory management to the caller
 - Uses unlikely() macro hints for the range check conditions to optimize for the common case where values are within range
 - Part of PostgreSQL's numeric type conversion infrastructure
+
+## Simplified Source
+
+```c
+static bool numericvar_to_int32(const NumericVar *var, int32 *result) {
+    int64 val;
+
+    // First convert to int64
+    if (!numericvar_to_int64(var, &val))
+        return false;
+
+    // Check if value fits in int32 range
+    if (unlikely(val < PG_INT32_MIN) || unlikely(val > PG_INT32_MAX))
+        return false;
+
+    // Cast to int32 and store result
+    *result = (int32) val;
+    return true;
+}
+```

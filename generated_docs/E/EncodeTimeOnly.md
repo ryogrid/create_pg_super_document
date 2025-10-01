@@ -42,3 +42,27 @@ EncodeTimeOnly converts time-related components from a pg_tm structure and fract
 - Always NUL-terminates the output string
 - Delegates timezone formatting to EncodeTimezone function for consistency
 - Suitable for both time and timetz PostgreSQL data types depending on print_tz setting
+
+## Simplified Source
+
+```c
+void EncodeTimeOnly(struct pg_tm *tm, fsec_t fsec, bool print_tz, int tz, int style, char *str) {
+    // Format hours with zero padding (HH)
+    str = pg_ultostr_zeropad(str, tm->tm_hour, 2);
+    *str++ = ':';
+
+    // Format minutes with zero padding (MM)
+    str = pg_ultostr_zeropad(str, tm->tm_min, 2);
+    *str++ = ':';
+
+    // Format seconds and fractional seconds (SS.ssssss)
+    str = AppendSeconds(str, tm->tm_sec, fsec, MAX_TIME_PRECISION, true);
+
+    // Include timezone offset if requested (for timetz type)
+    if (print_tz)
+        str = EncodeTimezone(str, tz, style);
+
+    // Null-terminate the string
+    *str = '\0';
+}
+```

@@ -54,3 +54,69 @@ The function extends the standard behavior by unwrapping array operands for all 
 - Error handling mode affects whether arithmetic errors are thrown as exceptions or returned as jperError
 - Part of the comprehensive JSON path arithmetic expression evaluation system
 - The function creates new JsonbValue results on the heap when continuing execution chains
+
+## Simplified Source
+
+```c
+static JsonPathExecResult
+executeBinaryArithmExpr(JsonPathExecContext *cxt, JsonPathItem *jsp,
+                        JsonbValue *jb, BinaryArithmFunc func,
+                        JsonValueList *found)
+{
+    JsonPathExecResult jper;
+    JsonPathItem elem;
+    JsonValueList lseq = {0};
+    JsonValueList rseq = {0};
+    JsonbValue *lval, *rval;
+    Numeric res;
+
+    // Evaluate left operand
+    jspGetLeftArg(jsp, &elem);
+    jper = executeItemOptUnwrapResult(cxt, &elem, jb, true, &lseq);
+    if (jperIsError(jper))
+        return jper;
+
+    // Evaluate right operand
+    jspGetRightArg(jsp, &elem);
+    jper = executeItemOptUnwrapResult(cxt, &elem, jb, true, &rseq);
+    if (jperIsError(jper))
+        return jper;
+
+    // Validate left operand is singleton numeric
+    if (JsonValueListLength(&lseq) != 1 ||
+        !(lval = getScalar(JsonValueListHead(&lseq), jbvNumeric)))
+        RETURN_ERROR(ereport(ERROR,
+                    (errcode(ERRCODE_SINGLETON_SQL_JSON_ITEM_REQUIRED),
+                     errmsg("left operand of jsonpath operator %s is not a single numeric value",
+                            jspOperationName(jsp->type)))));
+
+    // Validate right operand is singleton numeric
+    if (JsonValueListLength(&rseq) != 1 ||
+        !(rval = getScalar(JsonValueListHead(&rseq), jbvNumeric)))
+        RETURN_ERROR(ereport(ERROR,
+                    (errcode(ERRCODE_SINGLETON_SQL_JSON_ITEM_REQUIRED),
+                     errmsg("right operand of jsonpath operator %s is not a single numeric value",
+                            jspOperationName(jsp->type)))));
+
+    // Perform arithmetic operation
+    if (jspThrowErrors(cxt))
+        res = func(lval->val.numeric, rval->val.numeric, NULL);
+    else
+    {
+        bool error = false;
+        res = func(lval->val.numeric, rval->val.numeric, &error);
+        if (error)
+            return jperError;
+    }
+
+    // Continue with result or return success
+    if (!jspGetNext(jsp, &elem) && !found)
+        return jperOk;
+
+    lval = palloc(sizeof(*lval));
+    lval->type = jbvNumeric;
+    lval->val.numeric = res;
+
+    return executeNextItem(cxt, jsp, &elem, lval, found, false);
+}
+```

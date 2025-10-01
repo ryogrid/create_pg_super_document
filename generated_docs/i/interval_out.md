@@ -38,3 +38,29 @@ The `interval_out` function is the output conversion function for PostgreSQL's i
 - The function allocates memory for the result string using `pstrdup` to ensure proper memory management
 - Supports special interval values representing positive and negative infinity
 - The internal `pg_itm` structure is used as an intermediate representation for encoding
+
+## Simplified Source
+
+```c
+Datum
+interval_out(PG_FUNCTION_ARGS)
+{
+    Interval *span = PG_GETARG_INTERVAL_P(0);
+    char *result;
+    struct pg_itm tt, *itm = &tt;
+    char buf[MAXDATELEN + 1];
+
+    // Handle infinite intervals specially
+    if (INTERVAL_NOT_FINITE(span))
+        EncodeSpecialInterval(span, buf);
+    else {
+        // Convert internal interval to time structure
+        interval2itm(*span, itm);
+        // Encode to string based on IntervalStyle setting
+        EncodeInterval(itm, IntervalStyle, buf);
+    }
+
+    result = pstrdup(buf);
+    PG_RETURN_CSTRING(result);
+}
+```

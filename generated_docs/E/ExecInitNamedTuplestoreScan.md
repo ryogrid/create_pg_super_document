@@ -50,3 +50,51 @@ The initialization follows PostgreSQL's standard executor initialization pattern
 - Comment indicates that attempts to add read pointer cleanup did not improve performance
 - Part of the CTE (Common Table Expression) execution infrastructure
 - Returns fully initialized NamedTuplestoreScanState ready for execution
+
+## Simplified Source
+
+```c
+NamedTuplestoreScanState *
+ExecInitNamedTuplestoreScan(NamedTuplestoreScan *node, EState *estate, int eflags)
+{
+    NamedTuplestoreScanState *scanstate;
+    EphemeralNamedRelation enr;
+
+    // Validate execution flags and plan structure
+    Assert(!(eflags & (EXEC_FLAG_BACKWARD | EXEC_FLAG_MARK)));
+    Assert(outerPlan(node) == NULL && innerPlan(node) == NULL);
+
+    // Create and initialize the scan state
+    scanstate = makeNode(NamedTuplestoreScanState);
+    scanstate->ss.ps.plan = (Plan *) node;
+    scanstate->ss.ps.state = estate;
+    scanstate->ss.ps.ExecProcNode = ExecNamedTuplestoreScan;
+
+    // Find the named tuple store from the query environment
+    enr = get_ENR(estate->es_queryEnv, node->enrname);
+    if (!enr)
+        elog(ERROR, "executor could not find named tuplestore \"%s\"", node->enrname);
+
+    // Set up tuple store access
+    scanstate->relation = (Tuplestorestate *) enr->reldata;
+    scanstate->tupdesc = ENRMetadataGetTupDesc(&(enr->md));
+    scanstate->readptr = tuplestore_alloc_read_pointer(scanstate->relation, EXEC_FLAG_REWIND);
+
+    // Position the read pointer at the beginning
+    tuplestore_select_read_pointer(scanstate->relation, scanstate->readptr);
+    tuplestore_rescan(scanstate->relation);
+
+    // Initialize execution context and tuple handling
+    ExecAssignExprContext(estate, &scanstate->ss.ps);
+    ExecInitScanTupleSlot(estate, &scanstate->ss, scanstate->tupdesc, &TTSOpsMinimalTuple);
+
+    // Initialize result type and projection
+    ExecInitResultTypeTL(&scanstate->ss.ps);
+    ExecAssignScanProjectionInfo(&scanstate->ss);
+
+    // Initialize qualification expressions
+    scanstate->ss.ps.qual = ExecInitQual(node->scan.plan.qual, (PlanState *) scanstate);
+
+    return scanstate;
+}
+```

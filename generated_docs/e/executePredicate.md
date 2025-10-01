@@ -52,3 +52,69 @@ The function uses existence semantics where TRUE is returned if ANY pair satisfi
 - Critical for implementing comparison operators, existence tests, and other predicate operations in JSON path expressions
 - The strict/lax mode distinction affects both error handling and early termination behavior
 - Uses callback pattern to allow different predicate implementations to reuse the same sequence iteration logic
+
+## Simplified Source
+
+```c
+static JsonPathBool
+executePredicate(JsonPathExecContext *cxt, JsonPathItem *pred,
+                JsonPathItem *larg, JsonPathItem *rarg, JsonbValue *jb,
+                bool unwrapRightArg, JsonPathPredicateCallback exec,
+                void *param) {
+    JsonValueList lseq = {0}, rseq = {0};
+    JsonValueListIterator lseqit;
+    bool error = false, found = false;
+
+    // Execute left argument (always unwrapped)
+    JsonPathExecResult res = executeItemOptUnwrapResultNoThrow(cxt, larg, jb, true, &lseq);
+    if (jperIsError(res))
+        return jpbUnknown;
+
+    // Execute right argument if present (conditionally unwrapped)
+    if (rarg) {
+        res = executeItemOptUnwrapResultNoThrow(cxt, rarg, jb, unwrapRightArg, &rseq);
+        if (jperIsError(res))
+            return jpbUnknown;
+    }
+
+    // Iterate through left sequence
+    JsonValueListInitIterator(&lseq, &lseqit);
+    JsonbValue *lval;
+    while ((lval = JsonValueListNext(&lseq, &lseqit))) {
+        JsonValueListIterator rseqit;
+        JsonbValue *rval = NULL;
+        bool first = true;
+
+        // Prepare right sequence iteration
+        JsonValueListInitIterator(&rseq, &rseqit);
+        if (rarg)
+            rval = JsonValueListNext(&rseq, &rseqit);
+
+        // Compare left value with each right value (or single pass for unary)
+        while (rarg ? (rval != NULL) : first) {
+            JsonPathBool result = exec(pred, lval, rval, param);
+
+            if (result == jpbUnknown) {
+                if (jspStrictAbsenceOfErrors(cxt))
+                    return jpbUnknown;
+                error = true;
+            } else if (result == jpbTrue) {
+                if (!jspStrictAbsenceOfErrors(cxt))
+                    return jpbTrue;  // Early return in lax mode
+                found = true;
+            }
+
+            first = false;
+            if (rarg)
+                rval = JsonValueListNext(&rseq, &rseqit);
+        }
+    }
+
+    // Return results based on findings
+    if (found)
+        return jpbTrue;   // Strict mode with found result
+    if (error)
+        return jpbUnknown; // Lax mode with errors
+    return jpbFalse;
+}
+```

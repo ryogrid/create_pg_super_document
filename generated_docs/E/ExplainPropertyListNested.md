@@ -47,3 +47,49 @@ This function is specifically designed for cases where list data needs to be rep
 - YAML format uses the "- [...]" notation to represent an array as a list item
 - The function maintains proper comma separation and escaping for each supported format
 - Primarily used for complex nested structures like grouping set keys where lists need to be embedded within other list structures
+
+## Simplified Source
+
+```c
+void
+ExplainPropertyListNested(const char *qlabel, List *data, ExplainState *es)
+{
+    ListCell *lc;
+    bool first = true;
+
+    switch (es->format) {
+        case EXPLAIN_FORMAT_TEXT:
+        case EXPLAIN_FORMAT_XML:
+            // TEXT and XML formats don't need special nested handling
+            ExplainPropertyList(qlabel, data, es);
+            return;
+
+        case EXPLAIN_FORMAT_JSON:
+            // Create JSON array without property label
+            ExplainJSONLineEnding(es);
+            appendStringInfoSpaces(es->str, es->indent * 2);
+            appendStringInfoChar(es->str, '[');
+            foreach(lc, data) {
+                if (!first)
+                    appendStringInfoString(es->str, ", ");
+                escape_json(es->str, (const char *) lfirst(lc));
+                first = false;
+            }
+            appendStringInfoChar(es->str, ']');
+            break;
+
+        case EXPLAIN_FORMAT_YAML:
+            // Create YAML list item with array notation
+            ExplainYAMLLineStarting(es);
+            appendStringInfoString(es->str, "- [");
+            foreach(lc, data) {
+                if (!first)
+                    appendStringInfoString(es->str, ", ");
+                escape_yaml(es->str, (const char *) lfirst(lc));
+                first = false;
+            }
+            appendStringInfoChar(es->str, ']');
+            break;
+    }
+}
+```

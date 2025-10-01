@@ -43,3 +43,76 @@ The function supports all PostgreSQL partitioning strategies (LIST, RANGE, HASH)
 - Handles special partition types: null-accepting partitions (LIST strategy only) and default partitions (LIST/RANGE strategies)
 - The function performs bounds checking and validates partition indexes before adding them to the result set
 - Memory allocation for results array uses palloc0 to ensure proper initialization
+
+## Simplified Source
+
+```c
+Bitmapset *
+get_matching_partitions(PartitionPruneContext *context, List *pruning_steps)
+{
+    Bitmapset *result;
+    int num_steps = list_length(pruning_steps);
+    PruneStepResult **results, *final_result;
+    ListCell *lc;
+    bool scan_default;
+
+    // Return all partitions if no pruning steps provided
+    if (num_steps == 0) {
+        return bms_add_range(NULL, 0, context->nparts - 1);
+    }
+
+    // Allocate space for storing intermediate step results
+    results = (PruneStepResult **) palloc0(num_steps * sizeof(PruneStepResult *));
+
+    // Execute each pruning step in sequence
+    foreach(lc, pruning_steps) {
+        PartitionPruneStep *step = lfirst(lc);
+
+        switch (nodeTag(step)) {
+            case T_PartitionPruneStepOp:
+                // Perform base pruning operation
+                results[step->step_id] = perform_pruning_base_step(context,
+                                                                  (PartitionPruneStepOp *) step);
+                break;
+
+            case T_PartitionPruneStepCombine:
+                // Combine results from previous steps
+                results[step->step_id] = perform_pruning_combine_step(context,
+                                                                     (PartitionPruneStepCombine *) step,
+                                                                     results);
+                break;
+
+            default:
+                elog(ERROR, "invalid pruning step type: %d", (int) nodeTag(step));
+        }
+    }
+
+    // Get final pruning result and convert bound offsets to partition indexes
+    final_result = results[num_steps - 1];
+    result = NULL;
+    scan_default = final_result->scan_default;
+
+    int i = -1;
+    while ((i = bms_next_member(final_result->bound_offsets, i)) >= 0) {
+        int partindex = context->boundinfo->indexes[i];
+
+        if (partindex < 0) {
+            // No partition covers this range, check if we need default partition
+            scan_default |= partition_bound_has_default(context->boundinfo);
+            continue;
+        }
+
+        result = bms_add_member(result, partindex);
+    }
+
+    // Add special partitions if needed
+    if (final_result->scan_null) {
+        result = bms_add_member(result, context->boundinfo->null_index);
+    }
+    if (scan_default) {
+        result = bms_add_member(result, context->boundinfo->default_index);
+    }
+
+    return result;
+}
+```

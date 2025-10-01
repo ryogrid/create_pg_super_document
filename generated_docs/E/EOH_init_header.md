@@ -50,3 +50,31 @@ The function sets the magic number that identifies this as an expanded object he
 - The EOH_HEADER_MAGIC value serves as a type identifier for expanded object headers
 - This initialization is essential before an expanded object can be used in PostgreSQL's type system
 - The function is defined in src/backend/utils/adt/expandeddatum.c:48-74
+
+## Simplified Source
+
+```c
+void
+EOH_init_header(ExpandedObjectHeader *eohptr,
+                const ExpandedObjectMethods *methods,
+                MemoryContext obj_context)
+{
+    varatt_expanded ptr;
+
+    // Set header fields
+    eohptr->vl_len_ = EOH_HEADER_MAGIC;
+    eohptr->eoh_methods = methods;
+    eohptr->eoh_context = obj_context;
+
+    // Prepare pointer structure for TOAST references
+    ptr.eohptr = eohptr;
+
+    // Create read-write TOAST pointer
+    SET_VARTAG_EXTERNAL(eohptr->eoh_rw_ptr, VARTAG_EXPANDED_RW);
+    memcpy(VARDATA_EXTERNAL(eohptr->eoh_rw_ptr), &ptr, sizeof(ptr));
+
+    // Create read-only TOAST pointer
+    SET_VARTAG_EXTERNAL(eohptr->eoh_ro_ptr, VARTAG_EXPANDED_RO);
+    memcpy(VARDATA_EXTERNAL(eohptr->eoh_ro_ptr), &ptr, sizeof(ptr));
+}
+```

@@ -46,3 +46,59 @@ The function performs type coercion for UNKNOWN literals to TEXT, determines app
 - Provides comprehensive error reporting with parse position context
 - Manages NULL ordering preferences (NULLS FIRST/LAST) with sensible defaults
 - Determines operator hashability for potential hash-based sorting optimizations
+
+## Simplified Source
+
+```c
+List *addTargetToSortList(ParseState *pstate, TargetEntry *tle,
+                         List *sortlist, List *targetlist, SortBy *sortby) {
+    Oid restype = exprType((Node *) tle->expr);
+    Oid sortop, eqop;
+    bool hashable, reverse;
+
+    // Convert UNKNOWN literals to TEXT
+    if (restype == UNKNOWNOID) {
+        tle->expr = (Expr *) coerce_type(pstate, (Node *) tle->expr,
+                                       restype, TEXTOID, -1, /* coercion flags */);
+        restype = TEXTOID;
+    }
+
+    // Determine sort and equality operators based on direction
+    switch (sortby->sortby_dir) {
+        case SORTBY_ASC:
+            get_sort_group_operators(restype, true, true, false,
+                                   &sortop, &eqop, NULL, &hashable);
+            reverse = false;
+            break;
+        case SORTBY_DESC:
+            get_sort_group_operators(restype, false, true, true,
+                                   NULL, &eqop, &sortop, &hashable);
+            reverse = true;
+            break;
+        case SORTBY_USING:
+            // Custom operator handling
+            sortop = compatible_oper_opid(sortby->useOp, restype, restype, false);
+            eqop = get_equality_op_for_ordering_op(sortop, &reverse);
+            hashable = op_hashjoinable(eqop, restype);
+            break;
+    }
+
+    // Add to sort list if not already present
+    if (!targetIsInSortList(tle, sortop, sortlist)) {
+        SortGroupClause *sortcl = makeNode(SortGroupClause);
+
+        sortcl->tleSortGroupRef = assignSortGroupRef(tle, targetlist);
+        sortcl->eqop = eqop;
+        sortcl->sortop = sortop;
+        sortcl->hashable = hashable;
+
+        // Set null ordering preference
+        sortcl->nulls_first = (sortby->sortby_nulls == SORTBY_NULLS_FIRST) ||
+                             (sortby->sortby_nulls == SORTBY_NULLS_DEFAULT && reverse);
+
+        sortlist = lappend(sortlist, sortcl);
+    }
+
+    return sortlist;
+}
+```

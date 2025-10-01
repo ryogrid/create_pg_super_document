@@ -40,3 +40,51 @@ When a valid dependency is found (last element doesn't match any of the first k-
 - Memory management is handled dynamically using repalloc as dependencies are discovered
 - The algorithm ensures no duplicate dependencies like (a,b=>c) and (b,a=>c) by maintaining ascending order in the first k-1 positions
 - Located at src/backend/statistics/dependencies.c:91-156
+
+## Simplified Source
+
+```c
+static void
+generate_dependencies_recurse(DependencyGenerator state, int index,
+                              AttrNumber start, AttrNumber *current)
+{
+    // Handle first (k-1) elements: generate in ascending order
+    if (index < (state->k - 1))
+    {
+        for (AttrNumber i = start; i < state->n; i++)
+        {
+            current[index] = i;
+            generate_dependencies_recurse(state, (index + 1), (i + 1), current);
+        }
+    }
+    else
+    {
+        // Handle last element: can be any attribute not in first (k-1) positions
+        for (int i = 0; i < state->n; i++)
+        {
+            current[index] = i;
+
+            // Check if this attribute already appears in first (k-1) positions
+            bool match = false;
+            for (int j = 0; j < index; j++)
+            {
+                if (current[j] == i)
+                {
+                    match = true;
+                    break;
+                }
+            }
+
+            // If unique, store this dependency
+            if (!match)
+            {
+                state->dependencies = (AttrNumber *) repalloc(state->dependencies,
+                    state->k * (state->ndependencies + 1) * sizeof(AttrNumber));
+                memcpy(&state->dependencies[(state->k * state->ndependencies)],
+                       current, state->k * sizeof(AttrNumber));
+                state->ndependencies++;
+            }
+        }
+    }
+}
+```

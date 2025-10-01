@@ -43,3 +43,47 @@ The function also handles format-specific behavior: in TEXT format, it prefixes 
 - Works in tandem with ExplainCloseWorker to manage worker output sessions
 - Part of the infrastructure that enables coherent per-worker statistics presentation in EXPLAIN output
 - File location: src/backend/commands/explain.c:4498-4559
+
+## Simplified Source
+
+```c
+static void
+ExplainOpenWorker(int n, ExplainState *es)
+{
+    ExplainWorkersState *wstate = es->workers_state;
+
+    // Validate worker state
+    Assert(wstate && n >= 0 && n < wstate->num_workers);
+
+    // Save current output buffer
+    wstate->prev_str = es->str;
+
+    if (!wstate->worker_inited[n]) {
+        // First time: initialize worker buffer
+        initStringInfo(&wstate->worker_str[n]);
+        es->str = &wstate->worker_str[n];
+
+        // Set up formatting for worker group
+        ExplainOpenSetAsideGroup("Worker", NULL, true, 2, es);
+
+        // Add worker number for structured formats
+        if (es->format != EXPLAIN_FORMAT_TEXT)
+            ExplainPropertyInteger("Worker Number", NULL, n, es);
+
+        wstate->worker_inited[n] = true;
+    } else {
+        // Resuming: restore worker buffer and formatting state
+        es->str = &wstate->worker_str[n];
+        ExplainRestoreGroup(es, 2, &wstate->worker_state_save[n]);
+    }
+
+    // Handle TEXT format prefix and indentation
+    if (es->format == EXPLAIN_FORMAT_TEXT) {
+        if (es->str->len == 0) {
+            ExplainIndentText(es);
+            appendStringInfo(es->str, "Worker %d:  ", n);
+        }
+        es->indent++;
+    }
+}
+```

@@ -54,3 +54,85 @@ where oi represents element occurrences, fi represents element frequencies, m is
 - More sophisticated than simple containment/overlap because contained-by typically involves larger constant arrays
 - Accounts for element occurrence dependencies that are common in real datasets
 - The algorithm processes elements in sorted order and maintains running calculations of probability multipliers
+
+## Simplified Source
+
+```c
+static Selectivity
+mcelem_array_contained_selec(Datum *mcelem, int nmcelem,
+                             float4 *numbers, int nnumbers,
+                             Datum *array_data, int nitems,
+                             float4 *hist, int nhist,
+                             Oid operator, TypeCacheEntry *typentry)
+{
+    int mcelem_index, i, unique_nitems = 0;
+    float selec, minfreq, nullelem_freq;
+    float *elem_selec;
+    float avg_count, mult, rest;
+
+    // Validate statistics format
+    if (numbers == NULL || nnumbers != nmcelem + 3)
+        return DEFAULT_CONTAIN_SEL;
+    if (hist == NULL || nhist < 3)
+        return DEFAULT_CONTAIN_SEL;
+
+    // Extract summary statistics
+    minfreq = numbers[nmcelem];           // Minimum frequency
+    nullelem_freq = numbers[nmcelem + 2]; // Null element frequency
+    avg_count = hist[nhist - 1];          // Average distinct element count
+
+    // Initialize calculations
+    rest = avg_count;  // Sum of frequencies for elements not in MCELEM
+    mult = 1.0f;       // Multiplier for elements not present in constant
+    elem_selec = (float *) palloc(sizeof(float) * nitems);
+
+    // Process each element in the constant array
+    mcelem_index = 0;
+    for (i = 0; i < nitems; i++) {
+        bool match = false;
+
+        // Skip duplicate elements
+        if (i > 0 && element_compare(&array_data[i-1], &array_data[i], typentry) == 0)
+            continue;
+
+        // Find matching element in MCELEM, updating mult and rest for skipped elements
+        while (mcelem_index < nmcelem) {
+            int cmp = element_compare(&mcelem[mcelem_index], &array_data[i], typentry);
+            if (cmp < 0) {
+                mult *= (1.0f - numbers[mcelem_index]);  // Account for non-occurrence
+                rest -= numbers[mcelem_index];
+                mcelem_index++;
+            } else {
+                if (cmp == 0) match = true;
+                break;
+            }
+        }
+
+        // Record element selectivity
+        if (match) {
+            elem_selec[unique_nitems] = numbers[mcelem_index];
+            rest -= numbers[mcelem_index];
+            mcelem_index++;
+        } else {
+            elem_selec[unique_nitems] = Min(DEFAULT_CONTAIN_SEL, minfreq / 2);
+        }
+        unique_nitems++;
+    }
+
+    // Complete processing remaining MCELEM elements
+    while (mcelem_index < nmcelem) {
+        mult *= (1.0f - numbers[mcelem_index]);
+        rest -= numbers[mcelem_index];
+        mcelem_index++;
+    }
+
+    // Apply Poisson correction for rare elements
+    mult *= exp(-rest);
+
+    // Calculate final selectivity using distribution correction
+    // (Complex distribution calculations omitted for brevity)
+    selec = mult * /* distribution calculation based on hist and elem_selec */;
+
+    return selec;
+}
+```

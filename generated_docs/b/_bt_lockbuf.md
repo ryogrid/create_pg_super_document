@@ -41,3 +41,19 @@ The function includes comprehensive comments about Valgrind behavior and memory 
 - Handles both local and shared buffer pools appropriately
 - Error conditions don't cause Valgrind false positives due to careful design
 - Located in src/backend/access/nbtree/nbtpage.c:1039-1069
+
+## Simplified Source
+
+```c
+void
+_bt_lockbuf(Relation rel, Buffer buf, int access)
+{
+    // Lock the buffer (must already be pinned)
+    LockBuffer(buf, access);
+
+    // Make buffer memory accessible to Valgrind for debugging
+    if (!RelationUsesLocalBuffers(rel)) {
+        VALGRIND_MAKE_MEM_DEFINED(BufferGetPage(buf), BLCKSZ);
+    }
+}
+```

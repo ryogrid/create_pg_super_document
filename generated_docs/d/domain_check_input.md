@@ -54,3 +54,73 @@ If the  parameter points to an ErrorSaveContext, any failures are reported there
 - The function performs cleanup by calling ReScanExprContext to avoid leaking non-memory resources
 - [Constraint](../C/Constraint.md) validation follows a fail-fast approach - the first failed constraint causes the function to jump to cleanup
 - The function updates domain constraints before validation to ensure they are current
+
+## Simplified Source
+
+```c
+static void domain_check_input(Datum value, bool isnull, DomainIOData *my_extra,
+                              Node *escontext) {
+    ExprContext *econtext = my_extra->econtext;
+    ListCell *l;
+
+    // Ensure constraints are up-to-date
+    UpdateDomainConstraintRef(&my_extra->constraint_ref);
+
+    // Check each constraint
+    foreach(l, my_extra->constraint_ref.constraints) {
+        DomainConstraintState *con = (DomainConstraintState *) lfirst(l);
+
+        switch (con->constrainttype) {
+            case DOM_CONSTRAINT_NOTNULL:
+                if (isnull) {
+                    errsave(escontext,
+                            (errcode(ERRCODE_NOT_NULL_VIOLATION),
+                             errmsg("domain %s does not allow null values",
+                                    format_type_be(my_extra->domain_type)),
+                             errdatatype(my_extra->domain_type)));
+                    goto fail;
+                }
+                break;
+
+            case DOM_CONSTRAINT_CHECK:
+                // Create expression context if needed
+                if (econtext == NULL) {
+                    MemoryContext oldcontext = MemoryContextSwitchTo(my_extra->mcxt);
+                    econtext = CreateStandaloneExprContext();
+                    MemoryContextSwitchTo(oldcontext);
+                    my_extra->econtext = econtext;
+                }
+
+                // Set up value for CoerceToDomainValue nodes
+                econtext->domainValue_datum =
+                    MakeExpandedObjectReadOnly(value, isnull,
+                                              my_extra->constraint_ref.tcache->typlen);
+                econtext->domainValue_isNull = isnull;
+
+                // Execute CHECK constraint
+                if (!ExecCheck(con->check_exprstate, econtext)) {
+                    errsave(escontext,
+                            (errcode(ERRCODE_CHECK_VIOLATION),
+                             errmsg("value for domain %s violates check constraint \"%s\"",
+                                    format_type_be(my_extra->domain_type),
+                                    con->name),
+                             errdomainconstraint(my_extra->domain_type,
+                                               con->name)));
+                    goto fail;
+                }
+                break;
+
+            default:
+                elog(ERROR, "unrecognized constraint type: %d",
+                     (int) con->constrainttype);
+                break;
+        }
+    }
+
+fail:
+    // Cleanup expression context resources
+    if (econtext) {
+        ReScanExprContext(econtext);
+    }
+}
+```

@@ -55,3 +55,42 @@ The function includes special handling for foreign data wrapper tables, prohibit
 - Returns void as AFTER triggers cannot prevent the delete operation
 - Located in src/backend/commands/trigger.c:2812-2858
 - Part of PostgreSQL's deferred trigger execution system for DELETE operations
+
+## Simplified Source
+
+```c
+void ExecARDeleteTriggers(EState *estate, ResultRelInfo *relinfo,
+                         ItemPointer tupleid, HeapTuple fdw_trigtuple,
+                         TransitionCaptureState *transition_capture,
+                         bool is_crosspart_update) {
+    TriggerDesc *trigdesc = relinfo->ri_TrigDesc;
+
+    // Error check: foreign tables can't capture transition tuples from children
+    if (relinfo->ri_FdwRoutine && transition_capture &&
+        transition_capture->tcs_delete_old_table) {
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("cannot collect transition tuples from child foreign tables")));
+    }
+
+    // Check if we need to execute AFTER triggers or capture transition data
+    if ((trigdesc && trigdesc->trig_delete_after_row) ||
+        (transition_capture && transition_capture->tcs_delete_old_table)) {
+
+        // Get a slot to store the deleted tuple
+        TupleTableSlot *slot = ExecGetTriggerOldSlot(estate, relinfo);
+
+        // Get the deleted tuple data (either from FDW or by fetching via tupleid)
+        if (fdw_trigtuple == NULL) {
+            GetTupleForTrigger(estate, NULL, relinfo, tupleid,
+                              LockTupleExclusive, slot, false, NULL, NULL, NULL);
+        } else {
+            ExecForceStoreHeapTuple(fdw_trigtuple, slot, false);
+        }
+
+        // Queue the trigger event for deferred execution
+        AfterTriggerSaveEvent(estate, relinfo, NULL, NULL,
+                             TRIGGER_EVENT_DELETE, true, slot, NULL, NIL, NULL,
+                             transition_capture, is_crosspart_update);
+    }
+}
+```

@@ -40,3 +40,34 @@ The output format is: `(alias1, alias2, alias3)` or nothing if no aliases are ne
 - Handles edge cases where no aliases are needed by producing no output
 - Part of the broader query deparsing system that reconstructs readable SQL from internal query structures
 - The function assumes the caller has already printed the relation alias name if one exists
+
+## Simplified Source
+
+```c
+static void get_column_alias_list(deparse_columns *colinfo, deparse_context *context) {
+    StringInfo buf = context->buf;
+    bool first = true;
+
+    // Skip if aliases aren't needed
+    if (!colinfo->printaliases)
+        return;
+
+    // Build comma-separated list: (alias1, alias2, ...)
+    for (int i = 0; i < colinfo->num_new_cols; i++) {
+        char *colname = colinfo->new_colnames[i];
+
+        if (first) {
+            appendStringInfoChar(buf, '(');
+            first = false;
+        } else {
+            appendStringInfoString(buf, ", ");
+        }
+
+        appendStringInfoString(buf, quote_identifier(colname));
+    }
+
+    // Close parentheses if we opened them
+    if (!first)
+        appendStringInfoChar(buf, ')');
+}
+```

@@ -63,3 +63,90 @@ The function updates both the equivalence class membership and the child relatio
 - The transformed expressions maintain the same datatype and join domain as the original members
 - Handles both inheritance and partitioning scenarios in PostgreSQL's query planning
 - The function is designed to avoid exponential explosion of derived expressions in complex inheritance hierarchies
+
+## Simplified Source
+
+This simplified version focuses on the core equivalence transformation logic:
+
+```c
+void add_child_rel_equivalences(PlannerInfo *root,
+                               AppendRelInfo *appinfo,
+                               RelOptInfo *parent_rel,
+                               RelOptInfo *child_rel)
+{
+    Relids top_parent_relids = child_rel->top_parent_relids;
+    Relids child_relids = child_rel->relids;
+    int i;
+
+    // Use parent rel's eclass_indexes to iterate efficiently
+    Assert(root->ec_merging_done);
+    Assert(IS_SIMPLE_REL(parent_rel));
+
+    i = -1;
+    while ((i = bms_next_member(parent_rel->eclass_indexes, i)) >= 0)
+    {
+        EquivalenceClass *cur_ec = (EquivalenceClass *) list_nth(root->eq_classes, i);
+        int num_members;
+
+        // Skip volatile equivalence classes for safety
+        if (cur_ec->ec_has_volatile)
+            continue;
+
+        Assert(bms_is_subset(top_parent_relids, cur_ec->ec_relids));
+
+        // Process only pre-existing members to avoid O(N²) explosion
+        num_members = list_length(cur_ec->ec_members);
+        for (int pos = 0; pos < num_members; pos++)
+        {
+            EquivalenceMember *cur_em = (EquivalenceMember *) list_nth(cur_ec->ec_members, pos);
+
+            // Skip constants and already-transformed child members
+            if (cur_em->em_is_const || cur_em->em_is_child)
+                continue;
+
+            // Only process members that reference top parent rel
+            if (bms_is_subset(cur_em->em_relids, top_parent_relids) &&
+                !bms_is_empty(cur_em->em_relids))
+            {
+                Expr *child_expr;
+                Relids new_relids;
+
+                // Transform expression for child relation
+                if (parent_rel->reloptkind == RELOPT_BASEREL)
+                {
+                    // Simple single-level transformation
+                    child_expr = (Expr *) adjust_appendrel_attrs(root,
+                                                               (Node *) cur_em->em_expr,
+                                                               1, &appinfo);
+                }
+                else
+                {
+                    // Multi-level transformation
+                    child_expr = (Expr *) adjust_appendrel_attrs_multilevel(root,
+                                                                          (Node *) cur_em->em_expr,
+                                                                          child_rel,
+                                                                          child_rel->top_parent);
+                }
+
+                // Update relids to reference child instead of parent
+                new_relids = bms_difference(cur_em->em_relids, top_parent_relids);
+                new_relids = bms_add_members(new_relids, child_relids);
+
+                // Add the transformed member to the equivalence class
+                (void) add_eq_member(cur_ec, child_expr, new_relids,
+                                   cur_em->em_jdomain, cur_em, cur_em->em_datatype);
+
+                // Record this EC index for the child rel
+                child_rel->eclass_indexes = bms_add_member(child_rel->eclass_indexes, i);
+            }
+        }
+    }
+}
+```
+
+**Key simplifications made:**
+- Removed extensive explanatory comments while preserving critical logic comments
+- Maintained essential safety checks and optimizations
+- Preserved the two-tier transformation strategy (single vs multi-level)
+- Kept clear variable names and algorithmic structure
+- Reduced from ~130 lines to ~60 lines while maintaining all essential functionality

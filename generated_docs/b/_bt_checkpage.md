@@ -49,3 +49,33 @@ When corruption is detected, the function reports detailed error information inc
 - Part of PostgreSQL's defense-in-depth strategy against index corruption
 - The special area size check ensures the page can hold B-tree opaque data properly
 - The function is located in src/backend/access/nbtree/nbtpage.c:797-844
+
+## Simplified Source
+
+```c
+void
+_bt_checkpage(Relation rel, Buffer buf)
+{
+    Page page = BufferGetPage(buf);
+
+    // Check for uninitialized (all-zero) pages
+    if (PageIsNew(page)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INDEX_CORRUPTED),
+                 errmsg("index \"%s\" contains unexpected zero page at block %u",
+                        RelationGetRelationName(rel),
+                        BufferGetBlockNumber(buf)),
+                 errhint("Please REINDEX it.")));
+    }
+
+    // Validate B-tree special area size
+    if (PageGetSpecialSize(page) != MAXALIGN(sizeof(BTPageOpaqueData))) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INDEX_CORRUPTED),
+                 errmsg("index \"%s\" contains corrupted page at block %u",
+                        RelationGetRelationName(rel),
+                        BufferGetBlockNumber(buf)),
+                 errhint("Please REINDEX it.")));
+    }
+}
+```

@@ -37,3 +37,18 @@ The function is designed to work with scalar values only, as validated by the ca
 - Works with the assumption that memory allocation has been handled by appendKey
 - Simple and efficient implementation focusing on completing the pair insertion
 - Part of the sequential JSONB construction process alongside appendKey
+
+## Simplified Source
+
+```c
+static void
+appendValue(JsonbParseState *pstate, JsonbValue *scalarVal)
+{
+    JsonbValue *object = &pstate->contVal;
+
+    Assert(object->type == jbvObject);
+
+    // Complete the key-value pair and increment count
+    object->val.object.pairs[object->val.object.nPairs++].value = *scalarVal;
+}
+```

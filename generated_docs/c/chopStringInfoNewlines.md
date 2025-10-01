@@ -34,3 +34,13 @@ The function is particularly useful in XML processing contexts where formatted o
 - The while loop ensures all consecutive trailing newlines are removed, not just a single one
 - The function is safe to call on empty strings (len == 0 condition prevents accessing invalid memory)
 - Part of PostgreSQL's XML processing infrastructure for maintaining clean formatted output
+
+## Simplified Source
+
+```c
+static void chopStringInfoNewlines(StringInfo str) {
+    // Remove all trailing newlines by working backwards
+    while (str->len > 0 && str->data[str->len - 1] == '\n')
+        str->data[--str->len] = '\0';
+}
+```

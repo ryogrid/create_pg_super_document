@@ -38,3 +38,22 @@ The default collation can be overridden at the column level or in specific opera
 - The returned OID can be used to look up collation details in the pg_collation catalog
 - This function is part of the parser subsystem's type handling utilities
 - Collations affect the behavior of comparison operators, ORDER BY clauses, and text-processing functions
+
+## Simplified Source
+
+```c
+Oid typeTypeCollation(Type typ) {
+    // Extract the type structure from the heap tuple
+    Form_pg_type typtup = (Form_pg_type) GETSTRUCT(typ);
+
+    // Return the default collation OID for this type
+    // Non-collatable types return InvalidOid (0)
+    return typtup->typcollation;
+}
+```
+
+**Simplification Notes:**
+- Added explanatory comments about collation purpose
+- Function is already minimal, so only added documentation
+- Core logic: extract type structure and return the collation OID
+- Preserved the essential purpose: provide default collation information for the type

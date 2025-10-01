@@ -52,3 +52,76 @@ This function serves as a comprehensive type converter that transforms PostgreSQ
 - Throws an error for unsupported data types with a descriptive message
 - Part of PostgreSQL's SQL/JSON type conversion system
 - The function modifies the output parameter 'res' rather than returning a value
+
+## Simplified Source
+
+```c
+static void JsonItemFromDatum(Datum val, Oid typid, int32 typmod, JsonbValue *res) {
+    // Convert PostgreSQL Datum to JsonbValue based on type
+    switch (typid) {
+        case BOOLOID:
+            res->type = jbvBool;
+            res->val.boolean = DatumGetBool(val);
+            break;
+
+        case NUMERICOID:
+            JsonbValueInitNumericDatum(res, val);
+            break;
+
+        case INT2OID:
+        case INT4OID:
+        case INT8OID:
+        case FLOAT4OID:
+        case FLOAT8OID:
+            // Convert all numeric types to numeric for JSON consistency
+            JsonbValueInitNumericDatum(res, DirectFunctionCall1(numeric_conversion_func, val));
+            break;
+
+        case TEXTOID:
+        case VARCHAROID:
+            res->type = jbvString;
+            res->val.string.val = VARDATA_ANY(val);
+            res->val.string.len = VARSIZE_ANY_EXHDR(val);
+            break;
+
+        case DATEOID:
+        case TIMEOID:
+        case TIMETZOID:
+        case TIMESTAMPOID:
+        case TIMESTAMPTZOID:
+            // Preserve datetime types with metadata
+            res->type = jbvDatetime;
+            res->val.datetime.value = val;
+            res->val.datetime.typid = typid;
+            res->val.datetime.typmod = typmod;
+            break;
+
+        case JSONBOID:
+            {
+                Jsonb *jb = DatumGetJsonbP(val);
+                if (JsonContainerIsScalar(&jb->root)) {
+                    JsonbExtractScalar(&jb->root, res);
+                } else {
+                    JsonbInitBinary(res, jb);
+                }
+                break;
+            }
+
+        case JSONOID:
+            // Convert JSON text to JSONB first, then recurse
+            {
+                text *txt = DatumGetTextP(val);
+                char *str = text_to_cstring(txt);
+                Jsonb *jb = DatumGetJsonbP(DirectFunctionCall1(jsonb_in, CStringGetDatum(str)));
+                pfree(str);
+                JsonItemFromDatum(JsonbPGetDatum(jb), JSONBOID, -1, res);
+                break;
+            }
+
+        default:
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                          errmsg("could not convert value of type %s to jsonpath",
+                                format_type_be(typid))));
+    }
+}
+```

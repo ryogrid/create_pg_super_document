@@ -37,3 +37,24 @@ The function returns the position of the highest set bit, which equals floor(log
 - Used in array selectivity estimation to determine optimal search algorithms (binary vs linear)
 - Common usage pattern: deciding between binary search and linear scan based on array sizes
 - More efficient than using mathematical log functions for integer inputs
+
+## Simplified Source
+
+```c
+static int floor_log2(uint32 n) {
+    int result = 0;
+
+    // Handle edge case: log2(0) is undefined
+    if (n == 0) return -1;
+
+    // Binary search for highest set bit position
+    // Check each power of 2 in decreasing order
+    if (n >= (1 << 16)) { n >>= 16; result += 16; }  // Check 2^16
+    if (n >= (1 << 8))  { n >>= 8;  result += 8;  }  // Check 2^8
+    if (n >= (1 << 4))  { n >>= 4;  result += 4;  }  // Check 2^4
+    if (n >= (1 << 2))  { n >>= 2;  result += 2;  }  // Check 2^2
+    if (n >= (1 << 1))  { result += 1; }             // Check 2^1
+
+    return result;  // Position of highest set bit = floor(log2(n))
+}
+```

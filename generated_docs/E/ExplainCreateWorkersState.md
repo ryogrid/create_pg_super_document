@@ -34,3 +34,24 @@ The workspace includes arrays for tracking initialization status, string buffers
 - Essential for coherent presentation of parallel execution statistics
 - Memory is allocated using PostgreSQL's memory context system
 - File location: src/backend/commands/explain.c:4481-4497
+
+## Simplified Source
+
+```c
+static ExplainWorkersState *
+ExplainCreateWorkersState(int num_workers)
+{
+    // Allocate main workspace structure
+    ExplainWorkersState *wstate = palloc(sizeof(ExplainWorkersState));
+
+    // Set worker count
+    wstate->num_workers = num_workers;
+
+    // Allocate arrays for per-worker data
+    wstate->worker_inited = palloc0(num_workers * sizeof(bool));
+    wstate->worker_str = palloc0(num_workers * sizeof(StringInfoData));
+    wstate->worker_state_save = palloc(num_workers * sizeof(int));
+
+    return wstate;
+}
+```

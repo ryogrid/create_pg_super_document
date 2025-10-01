@@ -44,3 +44,79 @@ This function creates a RangeTblEntry for Ephemeral Named Relations, which are t
 - Stores additional ENR-specific metadata including name and tuple count
 - Used primarily for transition tables in trigger contexts and similar ephemeral relations
 - Located in src/backend/parser/parse_relation.c:2466-2574
+
+## Simplified Source
+
+```c
+ParseNamespaceItem *
+addRangeTableEntryForENR(ParseState *pstate,
+                         RangeVar *rv,
+                         bool inFromCl)
+{
+    RangeTblEntry *rte = makeNode(RangeTblEntry);
+    Alias *alias = rv->alias;
+    char *refname = alias ? alias->aliasname : rv->relname;
+    EphemeralNamedRelationMetadata enrmd;
+    TupleDesc tupdesc;
+    int attno;
+
+    // Get ENR metadata from query environment
+    enrmd = get_visible_ENR(pstate, rv->relname);
+
+    // Set RTE type based on ENR type
+    switch (enrmd->enrtype)
+    {
+        case ENR_NAMED_TUPLESTORE:
+            rte->rtekind = RTE_NAMEDTUPLESTORE;
+            break;
+        default:
+            elog(ERROR, "unexpected enrtype: %d", enrmd->enrtype);
+            return NULL;
+    }
+
+    // Record dependency for plan invalidation
+    rte->relid = enrmd->reliddesc;
+
+    // Build column aliases and type information
+    tupdesc = ENRMetadataGetTupDesc(enrmd);
+    rte->eref = makeAlias(refname, NIL);
+    buildRelationAliases(tupdesc, alias, rte->eref);
+
+    // Store ENR-specific metadata
+    rte->enrname = enrmd->name;
+    rte->enrtuples = enrmd->enrtuples;
+    rte->coltypes = NIL;
+    rte->coltypmods = NIL;
+    rte->colcollations = NIL;
+
+    // Extract column type information from tuple descriptor
+    for (attno = 1; attno <= tupdesc->natts; ++attno)
+    {
+        Form_pg_attribute att = TupleDescAttr(tupdesc, attno - 1);
+
+        if (att->attisdropped)
+        {
+            // Record invalid values for dropped columns
+            rte->coltypes = lappend_oid(rte->coltypes, InvalidOid);
+            rte->coltypmods = lappend_int(rte->coltypmods, 0);
+            rte->colcollations = lappend_oid(rte->colcollations, InvalidOid);
+        }
+        else
+        {
+            // Record actual type information for active columns
+            rte->coltypes = lappend_oid(rte->coltypes, att->atttypid);
+            rte->coltypmods = lappend_int(rte->coltypmods, att->atttypmod);
+            rte->colcollations = lappend_oid(rte->colcollations, att->attcollation);
+        }
+    }
+
+    rte->lateral = false;
+    rte->inFromCl = inFromCl;
+
+    // Add RTE to range table
+    pstate->p_rtable = lappend(pstate->p_rtable, rte);
+
+    // Build and return namespace item
+    return buildNSItemFromTupleDesc(rte, list_length(pstate->p_rtable), NULL, tupdesc);
+}
+```

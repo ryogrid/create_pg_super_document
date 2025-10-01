@@ -43,3 +43,34 @@ The function uses PostgreSQL's system catalog scanning infrastructure to efficie
 - The scan uses the InheritsRelidSeqnoIndexId index for efficient lookup of inheritance entries by child relation ID
 - This function only handles the child side of inheritance relationships; parent relationships are handled through the dependency system
 - The function is part of the relation deletion workflow and is called during the cleanup phase of dropping tables
+
+## Simplified Source
+
+```c
+static void RelationRemoveInheritance(Oid relid) {
+    Relation catalogRelation;
+    SysScanDesc scan;
+    ScanKeyData key;
+    HeapTuple tuple;
+
+    // Open pg_inherits catalog for modification
+    catalogRelation = table_open(InheritsRelationId, RowExclusiveLock);
+
+    // Set up scan key to find inheritance entries for this child relation
+    ScanKeyInit(&key, Anum_pg_inherits_inhrelid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(relid));
+
+    // Begin indexed scan using InheritsRelidSeqnoIndexId
+    scan = systable_beginscan(catalogRelation, InheritsRelidSeqnoIndexId, true,
+                             NULL, 1, &key);
+
+    // Delete all inheritance entries where this relation is the child
+    while (HeapTupleIsValid(tuple = systable_getnext(scan)))
+        CatalogTupleDelete(catalogRelation, &tuple->t_self);
+
+    // Clean up scan and close catalog
+    systable_endscan(scan);
+    table_close(catalogRelation, RowExclusiveLock);
+}
+```

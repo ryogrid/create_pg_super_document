@@ -36,3 +36,50 @@ The function validates that the rule name doesn't start with whitespace, control
 - Maintains max_abbrvar_len global variable to track maximum abbreviation length
 - Rule names cannot start with whitespace, control characters, or digits
 - Part of PostgreSQL's timezone data compilation system
+
+## Simplified Source
+
+```c
+static void
+inrule(char **fields, int nfields)
+{
+    static struct rule r;
+
+    // Validate field count
+    if (nfields != RULE_FIELDS) {
+        error(_("wrong number of fields on Rule line"));
+        return;
+    }
+
+    // Validate rule name - cannot start with whitespace, control chars, or digits
+    char first_char = *fields[RF_NAME];
+    if (first_char == '\0' || isspace(first_char) || first_char == '+' ||
+        first_char == '-' || isdigit(first_char)) {
+        error(_("Invalid rule name \"%s\""), fields[RF_NAME]);
+        return;
+    }
+
+    // Set file tracking info
+    r.r_filename = filename;
+    r.r_linenum = linenum;
+
+    // Parse save time and DST flag
+    r.r_save = getsave(fields[RF_SAVE], &r.r_isdst);
+
+    // Process temporal rule data (years, month, day, time)
+    rulesub(&r, fields[RF_LOYEAR], fields[RF_HIYEAR], fields[RF_COMMAND],
+            fields[RF_MONTH], fields[RF_DAY], fields[RF_TOD]);
+
+    // Copy rule name and abbreviation
+    r.r_name = ecpyalloc(fields[RF_NAME]);
+    r.r_abbrvar = ecpyalloc(fields[RF_ABBRVAR]);
+
+    // Track maximum abbreviation length
+    if (max_abbrvar_len < strlen(r.r_abbrvar))
+        max_abbrvar_len = strlen(r.r_abbrvar);
+
+    // Add rule to global array
+    rules = growalloc(rules, sizeof *rules, nrules, &nrules_alloc);
+    rules[nrules++] = r;
+}
+```

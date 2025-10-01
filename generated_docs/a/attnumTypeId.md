@@ -36,3 +36,25 @@ The  function returns the type OID (Object Identifier) of an attribute specified
 - Uses 1-based indexing for user attributes (subtracts 1 when accessing rd_att array)
 - Should only be used with already opened relations - use cache version get_atttype() for non-opened relations
 - Essential for type compatibility checking in query processing
+
+## Simplified Source
+
+```c
+Oid
+attnumTypeId(Relation rd, int attid)
+{
+    // Handle system attributes (negative attribute numbers)
+    if (attid <= 0) {
+        const FormData_pg_attribute *sysatt;
+        sysatt = SystemAttributeDefinition(attid);
+        return sysatt->atttypid;
+    }
+
+    // Validate user attribute number
+    if (attid > rd->rd_att->natts)
+        elog(ERROR, "invalid attribute number %d", attid);
+
+    // Return type OID for user attribute (convert to 0-based index)
+    return TupleDescAttr(rd->rd_att, attid - 1)->atttypid;
+}
+```

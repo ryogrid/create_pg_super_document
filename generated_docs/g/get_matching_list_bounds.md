@@ -48,3 +48,88 @@ The function properly handles special cases including NULL values (which may go 
 
 ## Notes and Other Information
 List partitioning only supports single-column partition keys, hence the assertion that partnatts == 1. The function sets scan_null and scan_default flags appropriately based on whether special partitions exist and need to be included in the scan. Binary search is used for efficient bound lookup in the sorted partition bounds array. For inequality operations (using InvalidStrategy), the function starts with all partitions and removes the matching one. Range operations conservatively include the default partition due to the potential gaps in list partition value coverage.
+
+## Simplified Source
+
+```c
+static PruneStepResult *
+get_matching_list_bounds(PartitionPruneContext *context,
+                         StrategyNumber opstrategy, Datum value, int nvalues,
+                         FmgrInfo *partsupfunc, Bitmapset *nullkeys)
+{
+    PruneStepResult *result = (PruneStepResult *) palloc0(sizeof(PruneStepResult));
+    PartitionBoundInfo boundinfo = context->boundinfo;
+
+    result->scan_null = result->scan_default = false;
+
+    // Handle NULL values
+    if (!bms_is_empty(nullkeys)) {
+        if (partition_bound_accepts_nulls(boundinfo))
+            result->scan_null = true;
+        else
+            result->scan_default = partition_bound_has_default(boundinfo);
+        return result;
+    }
+
+    // Handle empty partition bound list
+    if (boundinfo->ndatums == 0) {
+        result->scan_default = partition_bound_has_default(boundinfo);
+        return result;
+    }
+
+    // Handle request for all non-null values
+    if (nvalues == 0) {
+        result->bound_offsets = bms_add_range(NULL, 0, boundinfo->ndatums - 1);
+        result->scan_default = partition_bound_has_default(boundinfo);
+        return result;
+    }
+
+    // Handle different operator strategies
+    switch (opstrategy) {
+        case BTEqualStrategyNumber: {
+            // Find exact match using binary search
+            bool is_equal;
+            int off = partition_list_bsearch(partsupfunc, context->partcollation,
+                                           boundinfo, value, &is_equal);
+            if (off >= 0 && is_equal) {
+                result->bound_offsets = bms_make_singleton(off);
+            } else {
+                result->scan_default = partition_bound_has_default(boundinfo);
+            }
+            break;
+        }
+
+        case InvalidStrategy: {
+            // Inequality (<>) - all partitions except matching one
+            result->bound_offsets = bms_add_range(NULL, 0, boundinfo->ndatums - 1);
+            bool is_equal;
+            int off = partition_list_bsearch(partsupfunc, context->partcollation,
+                                           boundinfo, value, &is_equal);
+            if (off >= 0 && is_equal)
+                result->bound_offsets = bms_del_member(result->bound_offsets, off);
+            result->scan_default = partition_bound_has_default(boundinfo);
+            break;
+        }
+
+        case BTGreaterStrategyNumber:
+        case BTGreaterEqualStrategyNumber:
+        case BTLessStrategyNumber:
+        case BTLessEqualStrategyNumber: {
+            // Range operations - find appropriate bound range
+            bool is_equal;
+            int off = partition_list_bsearch(partsupfunc, context->partcollation,
+                                           boundinfo, value, &is_equal);
+
+            // Calculate minoff/maxoff based on strategy and inclusivity
+            int minoff = 0, maxoff = boundinfo->ndatums - 1;
+            // ... bound calculation logic ...
+
+            result->bound_offsets = bms_add_range(NULL, minoff, maxoff);
+            result->scan_default = partition_bound_has_default(boundinfo);
+            break;
+        }
+    }
+
+    return result;
+}
+```

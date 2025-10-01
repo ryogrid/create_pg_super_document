@@ -45,3 +45,21 @@ The function handles the inherent complexity of copying function manager informa
 - The destination memory context is explicitly set to ensure proper memory management
 - Widely used throughout PostgreSQL's index access methods and query execution
 - Essential for copying function information between different execution phases
+
+## Simplified Source
+
+```c
+void
+fmgr_info_copy(FmgrInfo *dstinfo, FmgrInfo *srcinfo,
+               MemoryContext destcxt)
+{
+    // Copy the entire FmgrInfo structure
+    memcpy(dstinfo, srcinfo, sizeof(FmgrInfo));
+
+    // Set the destination memory context
+    dstinfo->fn_mcxt = destcxt;
+
+    // Clear language-dependent subsidiary info (will be recomputed if needed)
+    dstinfo->fn_extra = NULL;
+}
+```

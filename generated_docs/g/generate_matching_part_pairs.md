@@ -53,3 +53,62 @@ A key feature is handling dummy partitions - when both outer and inner partition
 - The function handles asymmetric partition counts between outer and inner relations by using Max(outer_nparts, inner_nparts)
 - Index value -1 is used as a sentinel to indicate dummy/non-existent partitions
 - The resulting lists maintain correspondence - outer_parts[i] and inner_parts[i] represent matching partitions for the same merged partition
+
+## Simplified Source
+
+```c
+static void
+generate_matching_part_pairs(RelOptInfo *outer_rel, RelOptInfo *inner_rel,
+                             PartitionMap *outer_map, PartitionMap *inner_map,
+                             int nmerged, List **outer_parts, List **inner_parts)
+{
+    // Create temporary index mapping arrays
+    int *outer_indexes = palloc(sizeof(int) * nmerged);
+    int *inner_indexes = palloc(sizeof(int) * nmerged);
+
+    // Initialize all indexes as unset
+    for (int i = 0; i < nmerged; i++)
+        outer_indexes[i] = inner_indexes[i] = -1;
+
+    // Map partition indexes to merged partition positions
+    int max_parts = Max(outer_map->nparts, inner_map->nparts);
+    for (int i = 0; i < max_parts; i++)
+    {
+        // Map outer partition if it exists
+        if (i < outer_map->nparts)
+        {
+            int merged_idx = outer_map->merged_indexes[i];
+            if (merged_idx >= 0)
+                outer_indexes[merged_idx] = i;
+        }
+
+        // Map inner partition if it exists
+        if (i < inner_map->nparts)
+        {
+            int merged_idx = inner_map->merged_indexes[i];
+            if (merged_idx >= 0)
+                inner_indexes[merged_idx] = i;
+        }
+    }
+
+    // Build the output lists in merged partition order
+    for (int i = 0; i < nmerged; i++)
+    {
+        int outer_idx = outer_indexes[i];
+        int inner_idx = inner_indexes[i];
+
+        // Skip if both partitions are dummy (removed during re-merging)
+        if (outer_idx == -1 && inner_idx == -1)
+            continue;
+
+        // Add RelOptInfo pointers or NULL for missing partitions
+        *outer_parts = lappend(*outer_parts,
+                              outer_idx >= 0 ? outer_rel->part_rels[outer_idx] : NULL);
+        *inner_parts = lappend(*inner_parts,
+                              inner_idx >= 0 ? inner_rel->part_rels[inner_idx] : NULL);
+    }
+
+    pfree(outer_indexes);
+    pfree(inner_indexes);
+}
+```

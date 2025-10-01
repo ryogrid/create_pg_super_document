@@ -48,3 +48,41 @@ This is commonly used by various data types' typmod input functions to process c
 - Used extensively by PostgreSQL's type system for constraint processing
 - Essential for implementing SQL type specifications with modifiers
 - Located in src/backend/utils/adt/arrayutils.c:233-264
+
+## Simplified Source
+
+```c
+int32 *ArrayGetIntegerTypmods(ArrayType *arr, int *n) {
+    int32 *result;
+    Datum *elem_values;
+    int i;
+
+    // Validate array is cstring[]
+    if (ARR_ELEMTYPE(arr) != CSTRINGOID)
+        ereport(ERROR, (errcode(ERRCODE_ARRAY_ELEMENT_ERROR),
+                       errmsg("typmod array must be type cstring[]")));
+
+    // Validate array is one-dimensional
+    if (ARR_NDIM(arr) != 1)
+        ereport(ERROR, (errcode(ERRCODE_ARRAY_SUBSCRIPT_ERROR),
+                       errmsg("typmod array must be one-dimensional")));
+
+    // Validate array contains no NULLs
+    if (array_contains_nulls(arr))
+        ereport(ERROR, (errcode(ERRCODE_NULL_VALUE_NOT_ALLOWED),
+                       errmsg("typmod array must not contain nulls")));
+
+    // Extract array elements
+    deconstruct_array_builtin(arr, CSTRINGOID, &elem_values, NULL, n);
+
+    // Allocate result array
+    result = (int32 *) palloc(*n * sizeof(int32));
+
+    // Convert each string element to integer
+    for (i = 0; i < *n; i++)
+        result[i] = pg_strtoint32(DatumGetCString(elem_values[i]));
+
+    pfree(elem_values);
+    return result;
+}
+```

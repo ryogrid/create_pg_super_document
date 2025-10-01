@@ -35,3 +35,20 @@ This function provides a simplified interface to retrieve partition constraint d
 - Commonly used in referential integrity checks and constraint validation scenarios
 - The returned string should be freed by the caller when no longer needed
 - Used when constraint expressions need to be embedded in larger SQL constructs where formatting is not important
+
+## Simplified Source
+
+```c
+char *
+pg_get_partconstrdef_string(Oid partitionId, char *aliasname)
+{
+    // Get the partition constraint expression
+    Expr *constr_expr = get_partition_qual_relid(partitionId);
+
+    // Create deparsing context with the specified alias
+    List *context = deparse_context_for(aliasname, partitionId);
+
+    // Convert expression to string (no pretty-printing)
+    return deparse_expression((Node *) constr_expr, context, true, false);
+}
+```

@@ -38,3 +38,45 @@ This is the core function that determines whether a specific restriction clause 
 - The function can handle expression indexes and partial indexes with appropriate safety checks
 - Part of PostgreSQL's sophisticated index selection and optimization system
 - Location: src/backend/optimizer/path/indxpath.c:2084-2202
+
+## Simplified Source
+
+```c
+static void
+match_clause_to_index(PlannerInfo *root, RestrictInfo *rinfo,
+                      IndexOptInfo *index, IndexClauseSet *clauseset)
+{
+    int indexcol;
+
+    // Skip pseudoconstant clauses (constants can't use indexes effectively)
+    if (rinfo->pseudoconstant)
+        return;
+
+    // Check security restrictions - some clauses must wait for others
+    if (!restriction_is_securely_promotable(rinfo, index->rel))
+        return;
+
+    // Try to match clause against each index key column
+    for (indexcol = 0; indexcol < index->nkeycolumns; indexcol++) {
+        IndexClause *iclause;
+        ListCell *lc;
+
+        // Check for duplicates - avoid adding same clause twice
+        foreach(lc, clauseset->indexclauses[indexcol]) {
+            iclause = (IndexClause *) lfirst(lc);
+            if (iclause->rinfo == rinfo)
+                return; // Already processed this clause
+        }
+
+        // Attempt to match clause to this specific index column
+        iclause = match_clause_to_indexcol(root, rinfo, indexcol, index);
+        if (iclause) {
+            // Success - add to appropriate column list
+            clauseset->indexclauses[indexcol] =
+                lappend(clauseset->indexclauses[indexcol], iclause);
+            clauseset->nonempty = true;
+            return; // Use first match only to avoid selectivity inflation
+        }
+    }
+}
+```

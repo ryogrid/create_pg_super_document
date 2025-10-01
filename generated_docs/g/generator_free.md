@@ -33,3 +33,17 @@ This function deallocates the memory used by a CombinationGenerator structure, i
 - No null pointer checks - assumes valid state pointer (typical for internal functions)
 - Located in src/backend/statistics/mvdistinct.c, part of the multivariate distinct value statistics system
 - Complements generator_init as the cleanup counterpart in the generator lifecycle
+
+## Simplified Source
+
+```c
+static void
+generator_free(CombinationGenerator *state)
+{
+    // Free the combinations array
+    pfree(state->combinations);
+
+    // Free the generator structure itself
+    pfree(state);
+}
+```

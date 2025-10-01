@@ -52,3 +52,68 @@ The function only processes attributes that have valid table attribute numbers, 
 - Sets appropriate collation for each scan key entry from the index definition
 - Designed specifically for replication identity scenarios, not general-purpose index scanning
 - Returns the number of scan key entries created (skey_attoff)
+
+## Simplified Source
+
+```c
+static int
+build_replindex_scan_key(ScanKey skey, Relation rel, Relation idxrel,
+                         TupleTableSlot *searchslot)
+{
+    int index_attoff;
+    int skey_attoff = 0;
+    Datum indclassDatum;
+    oidvector *opclass;
+    int2vector *indkey = &idxrel->rd_index->indkey;
+
+    // Get index operator classes
+    indclassDatum = SysCacheGetAttrNotNull(INDEXRELID, idxrel->rd_indextuple,
+                                         Anum_pg_index_indclass);
+    opclass = (oidvector *) DatumGetPointer(indclassDatum);
+
+    // Build scan key for each index key attribute
+    for (index_attoff = 0; index_attoff < IndexRelationGetNumberOfKeyAttributes(idxrel);
+         index_attoff++) {
+        Oid operator;
+        Oid optype;
+        Oid opfamily;
+        RegProcedure regop;
+        int table_attno = indkey->values[index_attoff];
+        StrategyNumber eq_strategy;
+
+        // Skip expression-based index columns (not supported)
+        if (!AttributeNumberIsValid(table_attno))
+            continue;
+
+        // Get operator information for equality comparison
+        optype = get_opclass_input_type(opclass->values[index_attoff]);
+        opfamily = get_opclass_family(opclass->values[index_attoff]);
+        eq_strategy = get_equal_strategy_number(opclass->values[index_attoff]);
+
+        operator = get_opfamily_member(opfamily, optype, optype, eq_strategy);
+        if (!OidIsValid(operator))
+            elog(ERROR, "missing operator %d(%u,%u) in opfamily %u",
+                 eq_strategy, optype, optype, opfamily);
+
+        regop = get_opcode(operator);
+
+        // Initialize scan key entry
+        ScanKeyInit(&skey[skey_attoff],
+                   index_attoff + 1,
+                   eq_strategy,
+                   regop,
+                   searchslot->tts_values[table_attno - 1]);
+
+        skey[skey_attoff].sk_collation = idxrel->rd_indcollation[index_attoff];
+
+        // Handle null values with special flags
+        if (searchslot->tts_isnull[table_attno - 1])
+            skey[skey_attoff].sk_flags |= (SK_ISNULL | SK_SEARCHNULL);
+
+        skey_attoff++;
+    }
+
+    Assert(skey_attoff > 0);  // Must have at least one scan key
+    return skey_attoff;
+}
+```

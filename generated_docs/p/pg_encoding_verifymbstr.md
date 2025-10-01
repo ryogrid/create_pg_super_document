@@ -50,3 +50,16 @@ The verification follows these rules:
 - Essential component of PostgreSQL's character encoding validation infrastructure
 - Helps ensure data consistency across different character encodings and prevents encoding-related corruption
 - Used in both server-side and client-side code for comprehensive validation coverage
+
+## Simplified Source
+
+```c
+int
+pg_encoding_verifymbstr(int encoding, const char *mbstr, int len)
+{
+    // Use encoding-specific verification function if valid, otherwise fallback to ASCII
+    return (PG_VALID_ENCODING(encoding) ?
+            pg_wchar_table[encoding].mbverifystr((const unsigned char *) mbstr, len) :
+            pg_wchar_table[PG_SQL_ASCII].mbverifystr((const unsigned char *) mbstr, len));
+}
+```

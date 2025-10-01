@@ -56,3 +56,31 @@ The cost parameters are essential for PostgreSQL's cost-based query optimizer to
 - Supports heterogeneous storage environments where different tablespaces have different I/O characteristics
 - The function assumes the cache entry will always be valid (enforced by Assert)
 - Part of PostgreSQL's sophisticated cost estimation framework used by the query planner
+
+## Simplified Source
+
+```c
+void
+get_tablespace_page_costs(Oid spcid, double *spc_random_page_cost, double *spc_seq_page_cost)
+{
+    // Get cached tablespace entry
+    TableSpaceCacheEntry *spc = get_tablespace(spcid);
+    Assert(spc != NULL);
+
+    // Set random page cost
+    if (spc_random_page_cost) {
+        if (!spc->opts || spc->opts->random_page_cost < 0)
+            *spc_random_page_cost = random_page_cost;  // Use global default
+        else
+            *spc_random_page_cost = spc->opts->random_page_cost;  // Use tablespace setting
+    }
+
+    // Set sequential page cost
+    if (spc_seq_page_cost) {
+        if (!spc->opts || spc->opts->seq_page_cost < 0)
+            *spc_seq_page_cost = seq_page_cost;  // Use global default
+        else
+            *spc_seq_page_cost = spc->opts->seq_page_cost;  // Use tablespace setting
+    }
+}
+```

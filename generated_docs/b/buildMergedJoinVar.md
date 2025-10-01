@@ -47,3 +47,84 @@ This function creates a unified expression for columns that appear in a JOIN USI
 - The function ensures proper collation information is maintained through type coercions
 - Essential for correct behavior of JOIN USING clauses with mixed column types
 - Always applies assign_expr_collations to maintain proper collation semantics in the result
+
+## Simplified Source
+
+```c
+static Node *
+buildMergedJoinVar(ParseState *pstate, JoinType jointype,
+                   Var *l_colvar, Var *r_colvar)
+{
+    // Determine common output type and typmod for both columns
+    Oid outcoltype = select_common_type(pstate,
+                                        list_make2(l_colvar, r_colvar),
+                                        "JOIN/USING", NULL);
+    int32 outcoltypmod = select_common_typmod(pstate,
+                                              list_make2(l_colvar, r_colvar),
+                                              outcoltype);
+
+    // Apply type coercion to left column if needed
+    Node *l_node;
+    if (l_colvar->vartype != outcoltype)
+        l_node = coerce_type(pstate, (Node *) l_colvar, l_colvar->vartype,
+                             outcoltype, outcoltypmod,
+                             COERCION_IMPLICIT, COERCE_IMPLICIT_CAST, -1);
+    else if (l_colvar->vartypmod != outcoltypmod)
+        l_node = (Node *) makeRelabelType((Expr *) l_colvar,
+                                          outcoltype, outcoltypmod,
+                                          InvalidOid, COERCE_IMPLICIT_CAST);
+    else
+        l_node = (Node *) l_colvar;
+
+    // Apply type coercion to right column if needed
+    Node *r_node;
+    if (r_colvar->vartype != outcoltype)
+        r_node = coerce_type(pstate, (Node *) r_colvar, r_colvar->vartype,
+                             outcoltype, outcoltypmod,
+                             COERCION_IMPLICIT, COERCE_IMPLICIT_CAST, -1);
+    else if (r_colvar->vartypmod != outcoltypmod)
+        r_node = (Node *) makeRelabelType((Expr *) r_colvar,
+                                          outcoltype, outcoltypmod,
+                                          InvalidOid, COERCE_IMPLICIT_CAST);
+    else
+        r_node = (Node *) r_colvar;
+
+    // Choose output based on join type
+    Node *res_node;
+    switch (jointype)
+    {
+        case JOIN_INNER:
+            // Prefer non-coerced variable if available
+            if (IsA(l_node, Var))
+                res_node = l_node;
+            else if (IsA(r_node, Var))
+                res_node = r_node;
+            else
+                res_node = l_node;
+            break;
+        case JOIN_LEFT:
+            res_node = l_node;
+            break;
+        case JOIN_RIGHT:
+            res_node = r_node;
+            break;
+        case JOIN_FULL:
+            // Create COALESCE to handle nulls from either side
+            CoalesceExpr *c = makeNode(CoalesceExpr);
+            c->coalescetype = outcoltype;
+            c->args = list_make2(l_node, r_node);
+            c->location = -1;
+            res_node = (Node *) c;
+            break;
+        default:
+            elog(ERROR, "unrecognized join type: %d", (int) jointype);
+            res_node = NULL;
+            break;
+    }
+
+    // Apply collation information to coercion/CoalesceExpr nodes
+    assign_expr_collations(pstate, res_node);
+
+    return res_node;
+}
+```

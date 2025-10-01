@@ -41,3 +41,35 @@ This function serves as a JSON semantic action callback specifically designed fo
 - Error handling includes both hard failures and soft error reporting through the error context system
 - The function assumes element_type was already set by populate_array_element_start() when processing scalars at the target dimension
 - Part of PostgreSQL's JSON semantic action callback infrastructure for array population operations
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+populate_array_scalar(void *_state, char *token, JsonTokenType tokentype)
+{
+    PopulateArrayState *state = (PopulateArrayState *) _state;
+    PopulateArrayContext *ctx = state->ctx;
+    int ndim = state->lex->lex_level;
+
+    // Assign dimensions if not yet determined
+    if (ctx->ndims <= 0) {
+        if (!populate_array_assign_ndims(ctx, ndim))
+            return JSON_SEM_ACTION_FAILED;
+    }
+    // Validate scalar appears at correct nesting level
+    else if (ndim < ctx->ndims) {
+        populate_array_report_expected_array(ctx, ndim);
+        return JSON_SEM_ACTION_FAILED;
+    }
+
+    // Store scalar token if at target dimension
+    if (ndim == ctx->ndims) {
+        state->element_scalar = token;
+        // element_type should match from populate_array_element_start()
+        Assert(state->element_type == tokentype);
+    }
+
+    return JSON_SUCCESS;
+}
+```

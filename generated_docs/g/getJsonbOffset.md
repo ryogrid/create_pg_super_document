@@ -38,3 +38,24 @@ The algorithm works by walking backwards from the target index to find the most 
 - Part of the low-level JSONB binary format handling infrastructure
 - Essential for efficiently accessing variable-length data without parsing the entire container
 - Located in src/backend/utils/adt/jsonb_util.c:134-158
+
+## Simplified Source
+
+```c
+uint32
+getJsonbOffset(const JsonbContainer *jc, int index)
+{
+    uint32 offset = 0;
+    int i;
+
+    // Walk backwards from target index to find absolute offset
+    // Accumulate lengths of entries until we find one with stored offset
+    for (i = index - 1; i >= 0; i--) {
+        offset += JBE_OFFLENFLD(jc->children[i]);
+        if (JBE_HAS_OFF(jc->children[i]))
+            break;
+    }
+
+    return offset;
+}
+```

@@ -55,3 +55,32 @@ The conversion process involves breaking down the timestamptz into its constitue
 - Unlike , this function considers timezone when determining the resulting date
 - Used primarily in SQL contexts where implicit or explicit conversion from timestamptz to date is needed
 - The resulting date represents the date portion in the timestamp's timezone context
+
+## Simplified Source
+
+```c
+Datum timestamptz_date(PG_FUNCTION_ARGS) {
+    TimestampTz timestamp = PG_GETARG_TIMESTAMP(0);
+    DateADT result;
+    struct pg_tm tm;
+    fsec_t fsec;
+    int tz;
+
+    // Handle infinite timestamps
+    if (TIMESTAMP_IS_NOBEGIN(timestamp))
+        DATE_NOBEGIN(result);
+    else if (TIMESTAMP_IS_NOEND(timestamp))
+        DATE_NOEND(result);
+    else {
+        // Convert timestamp to time components with timezone
+        if (timestamp2tm(timestamp, &tz, &tm, &fsec, NULL, NULL) != 0)
+            ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                           errmsg("timestamp out of range")));
+
+        // Convert date components to Julian date and adjust for PostgreSQL epoch
+        result = date2j(tm.tm_year, tm.tm_mon, tm.tm_mday) - POSTGRES_EPOCH_JDATE;
+    }
+
+    PG_RETURN_DATEADT(result);
+}
+```

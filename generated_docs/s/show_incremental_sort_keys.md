@@ -36,3 +36,22 @@ This function is responsible for showing the sort keys used by an IncrementalSor
 - The function accesses both  (total sort columns) and  (already sorted columns) to show the incremental nature of the sort
 - The sorting information includes column indexes, operators, collations, and null handling preferences
 - This is a static function, only accessible within the explain.c compilation unit
+
+## Simplified Source
+
+```c
+static void
+show_incremental_sort_keys(IncrementalSortState *incrsortstate,
+                          List *ancestors, ExplainState *es)
+{
+    IncrementalSort *plan = (IncrementalSort *) incrsortstate->ss.ps.plan;
+
+    // Display sort keys using the standard sort key display function
+    show_sort_group_keys((PlanState *) incrsortstate, "Sort Key",
+                        plan->sort.numCols, plan->nPresortedCols,
+                        plan->sort.sortColIdx,
+                        plan->sort.sortOperators, plan->sort.collations,
+                        plan->sort.nullsFirst,
+                        ancestors, es);
+}
+```

@@ -36,3 +36,16 @@ This inline static function performs a focused comparison of tuple infomask valu
 - Used as part of concurrency control to validate tuple state consistency after lock reacquisition
 - Returns true if any of the monitored Xmax-related bits have changed, false if they remain the same
 - Critical for ensuring transaction isolation and preventing race conditions in heap operations
+
+## Simplified Source
+
+```c
+static inline bool xmax_infomask_changed(uint16 new_infomask, uint16 old_infomask) {
+    // Only check bits relevant to Xmax transaction state
+    const uint16 interesting =
+        HEAP_XMAX_IS_MULTI | HEAP_XMAX_LOCK_ONLY | HEAP_LOCK_MASK;
+
+    // Return true if any interesting bits changed
+    return (new_infomask & interesting) != (old_infomask & interesting);
+}
+```

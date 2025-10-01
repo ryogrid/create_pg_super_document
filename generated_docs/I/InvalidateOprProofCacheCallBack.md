@@ -35,3 +35,25 @@ The function implements a simple but effective invalidation strategy: it resets 
 - Uses a "reset all" strategy rather than selective invalidation for simplicity and correctness
 - The cache entries maintain two boolean flags (have_implic, have_refute) that track whether implication and refutation proofs have been computed
 - This callback ensures that cached operator proof information remains consistent when the underlying operator definitions change
+
+## Simplified Source
+
+```c
+static void
+InvalidateOprProofCacheCallBack(Datum arg, int cacheid, uint32 hashvalue)
+{
+    HASH_SEQ_STATUS status;
+    OprProofCacheEntry *hentry;
+
+    Assert(OprProofCacheHash != NULL);
+
+    // Reset all cache entries when pg_amop catalog changes
+    hash_seq_init(&status, OprProofCacheHash);
+
+    while ((hentry = (OprProofCacheEntry *) hash_seq_search(&status)) != NULL) {
+        // Invalidate both proof flags for this entry
+        hentry->have_implic = false;
+        hentry->have_refute = false;
+    }
+}
+```

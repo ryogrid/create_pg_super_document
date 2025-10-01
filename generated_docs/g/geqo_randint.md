@@ -41,3 +41,15 @@ This function is extensively used throughout the GEQO algorithm for operations t
 - Essential for position-based operations in genetic algorithms such as crossover point selection and gene indexing
 - The random state must be properly initialized before calling this function
 - Performance-critical function as it's called frequently during genetic algorithm execution
+
+## Simplified Source
+
+```c
+int geqo_randint(PlannerInfo *root, int upper, int lower) {
+    GeqoPrivateData *private = (GeqoPrivateData *) root->join_search_private;
+
+    // Generate random integer in range [lower, upper]
+    // Current usage assumes lower is never negative
+    return (int) pg_prng_uint64_range(&private->random_state, lower, upper);
+}
+```

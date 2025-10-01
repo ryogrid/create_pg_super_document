@@ -43,3 +43,60 @@ Each selection within a priority tier is made randomly to maintain genetic diver
 - The three-tier fallback system ensures the algorithm can always make progress, even in degenerate cases
 - Extensive logging helps with debugging edge cases in the genetic algorithm
 - This mechanism is crucial for the robustness of the ERX crossover operator, ensuring tours can always be completed even when the edge recombination strategy breaks down
+
+## Simplified Source
+
+```c
+static Gene edge_failure(PlannerInfo *root, Gene *gene, int index, Edge *edge_table, int num_gene) {
+    int i;
+    Gene fail_gene = gene[index];
+    int remaining_edges = 0;
+    int four_count = 0;
+    int rand_decision;
+
+    // Count remaining edges and genes with 4 total edges
+    for (i = 1; i <= num_gene; i++) {
+        if ((edge_table[i].unused_edges != -1) && (i != (int) fail_gene)) {
+            remaining_edges++;
+            if (edge_table[i].total_edges == 4)
+                four_count++;
+        }
+    }
+
+    // Priority 1: Random selection from genes with 4 total edges
+    if (four_count != 0) {
+        rand_decision = geqo_randint(root, four_count - 1, 0);
+        for (i = 1; i <= num_gene; i++) {
+            if ((Gene) i != fail_gene &&
+                edge_table[i].unused_edges != -1 &&
+                edge_table[i].total_edges == 4) {
+                four_count--;
+                if (rand_decision == four_count)
+                    return (Gene) i;
+            }
+        }
+    }
+    // Priority 2: Random selection from any remaining genes
+    else if (remaining_edges != 0) {
+        rand_decision = geqo_randint(root, remaining_edges - 1, 0);
+        for (i = 1; i <= num_gene; i++) {
+            if ((Gene) i != fail_gene &&
+                edge_table[i].unused_edges != -1) {
+                remaining_edges--;
+                if (rand_decision == remaining_edges)
+                    return i;
+            }
+        }
+    }
+    // Priority 3: Last resort - find any unused point
+    else {
+        for (i = 1; i <= num_gene; i++)
+            if (edge_table[i].unused_edges >= 0)
+                return (Gene) i;
+    }
+
+    // Should never reach here
+    elog(ERROR, "no edge found");
+    return 0;
+}
+```

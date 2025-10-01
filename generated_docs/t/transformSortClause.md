@@ -49,3 +49,30 @@ This function processes ORDER BY clauses for various SQL constructs including SE
 - The choice between SQL99 and SQL92 affects how column references and expressions are resolved
 - Part of PostgreSQL's comprehensive ORDER BY support across different SQL constructs
 - The resulting SortGroupClause list is used by the query planner to determine sort strategies
+
+## Simplified Source
+
+```c
+List *transformSortClause(ParseState *pstate, List *orderlist,
+                         List **targetlist, ParseExprKind exprKind, bool useSQL99) {
+    List *sortlist = NIL;
+
+    // Process each ORDER BY item
+    foreach(olitem, orderlist) {
+        SortBy *sortby = (SortBy *) lfirst(olitem);
+        TargetEntry *tle;
+
+        // Find or create target entry using appropriate SQL standard rules
+        if (useSQL99) {
+            tle = findTargetlistEntrySQL99(pstate, sortby->node, targetlist, exprKind);
+        } else {
+            tle = findTargetlistEntrySQL92(pstate, sortby->node, targetlist, exprKind);
+        }
+
+        // Add target to sort list with sort specifications
+        sortlist = addTargetToSortList(pstate, tle, sortlist, *targetlist, sortby);
+    }
+
+    return sortlist;
+}
+```

@@ -34,3 +34,17 @@ The function is designed to enforce restrictions on publication WHERE clauses by
 - This is a static function used internally within publicationcmds.c
 - The function helps maintain data consistency in logical replication by preventing non-deterministic functions in WHERE clauses
 - User-defined functions are rejected regardless of their volatility to ensure security and predictability
+
+## Simplified Source
+
+```c
+static bool
+contain_mutable_or_user_functions_checker(Oid func_id, void *context)
+{
+    // Return true if function should be rejected:
+    // 1. Not immutable (volatile or stable)
+    // 2. User-defined function (OID >= FirstNormalObjectId)
+    return (func_volatile(func_id) != PROVOLATILE_IMMUTABLE ||
+            func_id >= FirstNormalObjectId);
+}
+```

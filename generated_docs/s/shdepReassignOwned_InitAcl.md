@@ -42,3 +42,19 @@ The current approach prioritizes system consistency and tool compatibility over 
 - The extensive comments document known limitations and design decisions
 - Works in conjunction with shdepReassignOwned_Owner to provide complete ownership reassignment
 - Ensures pg_init_privs entries remain consistent with current object ownership after reassignment
+
+## Simplified Source
+
+```c
+static void
+shdepReassignOwned_InitAcl(Form_pg_shdepend sdepForm, Oid oldrole, Oid newrole)
+{
+    // Replace old role with new role in pg_init_privs entries
+    // This ensures consistency with REASSIGN OWNED operations,
+    // though it sacrifices historical accuracy for practical reasons
+    ReplaceRoleInInitPriv(oldrole, newrole,
+                         sdepForm->classid,
+                         sdepForm->objid,
+                         sdepForm->objsubid);
+}
+```

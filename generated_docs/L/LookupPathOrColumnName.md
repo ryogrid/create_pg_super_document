@@ -34,3 +34,22 @@ This is a core utility function used during JSON_TABLE parsing to enforce the un
 - Simple O(n) linear search through the pathNames list
 - Returns boolean result: true for duplicate found, false for unique name
 - Part of the duplicate detection mechanism that ensures JSON_TABLE column and path name uniqueness
+
+## Simplified Source
+
+```c
+static bool
+LookupPathOrColumnName(JsonTableParseContext *cxt, char *name)
+{
+    ListCell *lc;
+
+    // Linear search through path names list
+    foreach(lc, cxt->pathNames)
+    {
+        if (strcmp(name, (const char *) lfirst(lc)) == 0)
+            return true;  // Duplicate found
+    }
+
+    return false;  // Name is unique
+}
+```

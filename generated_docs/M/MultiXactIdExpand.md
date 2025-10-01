@@ -47,3 +47,60 @@ The filtering step is critical for freezing operations - it removes dead members
 - Critical for tuple freezing operations as it removes dead transaction members
 - Race condition safety is maintained by creating new MultiXactIds rather than modifying existing ones
 - Should not be used with MultiXactIds from clusters upgraded by pg_upgrade from older versions
+
+## Simplified Source
+
+```c
+MultiXactId
+MultiXactIdExpand(MultiXactId multi, TransactionId xid, MultiXactStatus status)
+{
+    MultiXactMember *members;
+    MultiXactMember *newMembers;
+    int nmembers;
+    int i, j;
+
+    Assert(MultiXactIdIsValid(multi));
+    Assert(TransactionIdIsValid(xid));
+
+    // Get existing members of the MultiXactId
+    nmembers = GetMultiXactIdMembers(multi, &members, false, false);
+
+    // Handle obsolete MultiXactId case
+    if (nmembers < 0) {
+        MultiXactMember member = {xid, status};
+        return MultiXactIdCreateFromMembers(1, &member);
+    }
+
+    // Check if xid is already a member with same status
+    for (i = 0; i < nmembers; i++) {
+        if (TransactionIdEquals(members[i].xid, xid) &&
+            (members[i].status == status)) {
+            pfree(members);
+            return multi;  // Already exists, return original
+        }
+    }
+
+    // Build new member list with active transactions only
+    newMembers = palloc(sizeof(MultiXactMember) * (nmembers + 1));
+
+    for (i = 0, j = 0; i < nmembers; i++) {
+        // Keep running transactions and committed updates
+        if (TransactionIdIsInProgress(members[i].xid) ||
+            (ISUPDATE_from_mxstatus(members[i].status) &&
+             TransactionIdDidCommit(members[i].xid))) {
+            newMembers[j++] = members[i];
+        }
+    }
+
+    // Add the new transaction
+    newMembers[j].xid = xid;
+    newMembers[j++].status = status;
+
+    // Create new MultiXactId and cleanup
+    MultiXactId newMulti = MultiXactIdCreateFromMembers(j, newMembers);
+    pfree(members);
+    pfree(newMembers);
+
+    return newMulti;
+}
+```

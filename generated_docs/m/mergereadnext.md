@@ -37,3 +37,22 @@ The mergereadnext function is a core component of the merge phase in PostgreSQL'
 - Uses getlen with true parameter to handle EOF detection
 - The READTUP macro handles the actual tuple data reading based on tuple type
 - Critical for maintaining proper merge heap state during multi-way merge operations
+
+## Simplified Source
+
+```c
+static bool
+mergereadnext(Tuplesortstate *state, LogicalTape *srcTape, SortTuple *stup)
+{
+    unsigned int tuplen;
+
+    // Read tuple length from tape
+    if ((tuplen = getlen(srcTape, true)) == 0)
+        return false;  // EOF reached
+
+    // Read the actual tuple data
+    READTUP(state, stup, srcTape, tuplen);
+
+    return true;  // Successfully read tuple
+}
+```

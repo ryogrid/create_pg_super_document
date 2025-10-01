@@ -53,3 +53,96 @@ Key behaviors:
 - Ensures domain type constraints are validated even for missing JSON fields
 - Memory management is handled through the provided memory context
 - Part of PostgreSQL's JSON/JSONB to record conversion infrastructure
+
+## Simplified Source
+
+```c
+static HeapTupleHeader populate_record(TupleDesc tupdesc, RecordIOData **record_p,
+                                      HeapTupleHeader defaultval, MemoryContext mcxt,
+                                      JsObject *obj, Node *escontext)
+{
+    RecordIOData *record = *record_p;
+    Datum *values;
+    bool *nulls;
+    HeapTuple res;
+    int ncolumns = tupdesc->natts;
+    int i;
+
+    // Return default immediately if JSON object is empty and default provided
+    if (defaultval && JsObjectIsEmpty(obj))
+        return defaultval;
+
+    // Allocate or reuse metadata cache
+    if (record == NULL || record->ncolumns != ncolumns)
+        *record_p = record = allocate_record_info(mcxt, ncolumns);
+
+    // Invalidate cache if record type has changed
+    if (record->record_type != tupdesc->tdtypeid ||
+        record->record_typmod != tupdesc->tdtypmod)
+    {
+        MemSet(record, 0, offsetof(RecordIOData, columns) + ncolumns * sizeof(ColumnIOData));
+        record->record_type = tupdesc->tdtypeid;
+        record->record_typmod = tupdesc->tdtypmod;
+        record->ncolumns = ncolumns;
+    }
+
+    // Allocate arrays for column values and null indicators
+    values = (Datum *) palloc(ncolumns * sizeof(Datum));
+    nulls = (bool *) palloc(ncolumns * sizeof(bool));
+
+    // Initialize values from default tuple or set to null
+    if (defaultval)
+    {
+        HeapTupleData tuple;
+        tuple.t_len = HeapTupleHeaderGetDatumLength(defaultval);
+        ItemPointerSetInvalid(&(tuple.t_self));
+        tuple.t_tableOid = InvalidOid;
+        tuple.t_data = defaultval;
+
+        heap_deform_tuple(&tuple, tupdesc, values, nulls);
+    }
+    else
+    {
+        for (i = 0; i < ncolumns; ++i)
+        {
+            values[i] = (Datum) 0;
+            nulls[i] = true;
+        }
+    }
+
+    // Process each column, mapping JSON fields to record fields
+    for (i = 0; i < ncolumns; ++i)
+    {
+        Form_pg_attribute att = TupleDescAttr(tupdesc, i);
+        char *colname = NameStr(att->attname);
+        JsValue field = {0};
+        bool found;
+
+        // Skip dropped columns
+        if (att->attisdropped)
+        {
+            nulls[i] = true;
+            continue;
+        }
+
+        found = JsObjectGetField(obj, colname, &field);
+
+        // Skip if field not found and we have defaults
+        if (defaultval && !found)
+            continue;
+
+        // Populate field value with type conversion
+        values[i] = populate_record_field(&record->columns[i], att->atttypid, att->atttypmod,
+                                         colname, mcxt, nulls[i] ? (Datum) 0 : values[i],
+                                         &field, &nulls[i], escontext, false);
+    }
+
+    // Form the final tuple
+    res = heap_form_tuple(tupdesc, values, nulls);
+
+    pfree(values);
+    pfree(nulls);
+
+    return res->t_data;
+}
+```

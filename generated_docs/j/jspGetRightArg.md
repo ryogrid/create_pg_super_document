@@ -38,3 +38,29 @@ The jspGetRightArg function is the counterpart to jspGetLeftArg, designed to ext
 - Essential companion function to jspGetLeftArg for complete binary operation argument extraction
 - Used extensively in JSON path expression evaluation and manipulation throughout PostgreSQL's JSON processing engine
 - The function accesses content.args.right instead of content.args.left to retrieve the second operand of binary operations
+
+## Simplified Source
+
+```c
+void jspGetRightArg(JsonPathItem *v, JsonPathItem *a) {
+    // Validate that this is a binary operation type
+    Assert(v->type == jpiAnd ||
+           v->type == jpiOr ||
+           v->type == jpiEqual ||
+           v->type == jpiNotEqual ||
+           v->type == jpiLess ||
+           v->type == jpiGreater ||
+           v->type == jpiLessOrEqual ||
+           v->type == jpiGreaterOrEqual ||
+           v->type == jpiAdd ||
+           v->type == jpiSub ||
+           v->type == jpiMul ||
+           v->type == jpiDiv ||
+           v->type == jpiMod ||
+           v->type == jpiStartsWith ||
+           v->type == jpiDecimal);
+
+    // Initialize the right argument JsonPathItem from the buffer
+    jspInitByBuffer(a, v->base, v->content.args.right);
+}
+```

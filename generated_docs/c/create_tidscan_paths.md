@@ -47,3 +47,45 @@ The function is particularly important for optimizing queries that involve CTID 
 - [EquivalenceClass](../E/EquivalenceClass.md) processing enables recognition of CTID equalities that emerged from query transformation
 - The function distinguishes between exact TID matches and range-based TID access patterns
 - Generated paths compete with other access methods during the cost-based path selection process
+
+## Simplified Source
+
+```c
+void
+create_tidscan_paths(PlannerInfo *root, RelOptInfo *rel)
+{
+    List *tidquals;
+    List *tidrangequals;
+
+    // Check for direct TID quals in restriction clauses
+    tidquals = TidQualFromRestrictInfoList(root, rel->baserestrictinfo, rel);
+
+    if (tidquals != NIL)
+    {
+        Relids required_outer = rel->lateral_relids;
+        add_path(rel, (Path *) create_tidscan_path(root, rel, tidquals, required_outer));
+    }
+
+    // Check for TID range quals
+    tidrangequals = TidRangeQualFromRestrictInfoList(rel->baserestrictinfo, rel);
+
+    if (tidrangequals != NIL)
+    {
+        Relids required_outer = rel->lateral_relids;
+        add_path(rel, (Path *) create_tidrangescan_path(root, rel, tidrangequals, required_outer));
+    }
+
+    // Generate parameterized TID paths from EquivalenceClasses
+    if (rel->has_eclass_joins)
+    {
+        List *clauses = generate_implied_equalities_for_column(root, rel,
+                                                              ec_member_matches_ctid,
+                                                              NULL,
+                                                              rel->lateral_referencers);
+        BuildParameterizedTidPaths(root, rel, clauses);
+    }
+
+    // Generate parameterized TID paths from loose join quals
+    BuildParameterizedTidPaths(root, rel, rel->joininfo);
+}
+```

@@ -41,3 +41,15 @@ The function serves as a high-level wrapper around the platform-specific impleme
 - The signed `add_` parameter allows for both increment and decrement operations
 - Used extensively in vacuum operations, bitmap operations, and logical replication
 - The inline nature of the function ensures minimal overhead while maintaining atomicity guarantees
+
+## Simplified Source
+
+```c
+static inline uint32 pg_atomic_add_fetch_u32(volatile pg_atomic_uint32 *ptr, int32 add_) {
+    // Ensure pointer is properly aligned
+    AssertPointerAlignment(ptr, 4);
+
+    // Atomically add value and return new result
+    return pg_atomic_add_fetch_u32_impl(ptr, add_);
+}
+```

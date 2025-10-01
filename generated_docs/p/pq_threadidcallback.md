@@ -35,5 +35,17 @@ Note that OpenSSL 1.1.0 and later versions handle their own internal locking and
 - Only used with OpenSSL versions that require manual thread callbacks (< 1.1.0)
 - The cast from  to  is not portable but required by OpenSSL's API
 - This is a static function internal to the OpenSSL secure connection implementation
-- Located in 
+- Located in
 - Part of the legacy threading support that becomes unnecessary with modern OpenSSL versions
+
+## Simplified Source
+
+```c
+static unsigned long
+pq_threadidcallback(void)
+{
+    // Return current thread ID cast to unsigned long
+    // Note: This cast is not standards-compliant but required by OpenSSL API
+    return (unsigned long) pthread_self();
+}
+```

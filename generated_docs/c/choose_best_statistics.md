@@ -39,3 +39,65 @@ This function implements a selection algorithm to choose the most appropriate st
 
 ## Notes and Other Information
 The selection algorithm uses a greedy approach with clear prioritization: it first seeks to maximize coverage (number of matched attributes and expressions) and only considers the number of keys as a secondary criterion for tie-breaking. If multiple statistics objects tie on both criteria, the selection depends on the order they appear in the stats list, which may warrant additional tiebreakers in future implementations. The function requires at least two matched attributes/expressions as a minimum threshold for consideration.
+
+## Simplified Source
+
+```c
+StatisticExtInfo *
+choose_best_statistics(List *stats, char requiredkind, bool inh,
+                       Bitmapset **clause_attnums, List **clause_exprs,
+                       int nclauses)
+{
+    ListCell *lc;
+    StatisticExtInfo *best_match = NULL;
+    int best_num_matched = 2;        // Goal #1: maximize coverage
+    int best_match_keys = (STATS_MAX_DIMENSIONS + 1);  // Goal #2: minimize keys
+
+    foreach(lc, stats) {
+        int i;
+        StatisticExtInfo *info = (StatisticExtInfo *) lfirst(lc);
+        Bitmapset *matched_attnums = NULL;
+        Bitmapset *matched_exprs = NULL;
+        int num_matched;
+        int numkeys;
+
+        // Filter by statistics kind and inheritance flag
+        if (info->kind != requiredkind || info->inherit != inh)
+            continue;
+
+        // Collect attributes and expressions covered by this statistic
+        for (i = 0; i < nclauses; i++) {
+            Bitmapset *expr_idxs = NULL;
+
+            // Skip incompatible or already estimated clauses
+            if (!clause_attnums[i] && !clause_exprs[i])
+                continue;
+
+            // Check if clause is fully covered by this statistic
+            if (!bms_is_subset(clause_attnums[i], info->keys) ||
+                !stat_covers_expressions(info, clause_exprs[i], &expr_idxs))
+                continue;
+
+            // Add covered attributes and expressions
+            matched_attnums = bms_add_members(matched_attnums, clause_attnums[i]);
+            matched_exprs = bms_add_members(matched_exprs, expr_idxs);
+        }
+
+        num_matched = bms_num_members(matched_attnums) + bms_num_members(matched_exprs);
+        numkeys = bms_num_members(info->keys) + list_length(info->exprs);
+
+        // Update best match if this statistic is better
+        if (num_matched > best_num_matched ||
+            (num_matched == best_num_matched && numkeys < best_match_keys)) {
+            best_match = info;
+            best_num_matched = num_matched;
+            best_match_keys = numkeys;
+        }
+
+        bms_free(matched_attnums);
+        bms_free(matched_exprs);
+    }
+
+    return best_match;
+}
+```

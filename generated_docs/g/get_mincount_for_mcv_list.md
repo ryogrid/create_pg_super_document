@@ -40,3 +40,26 @@ The mathematical foundation assumes sampling without replacement and applies fin
 - The 10-instance rule of thumb for normal approximation of hypergeometric distribution underlies this calculation
 - Designed to work with minimum sample sizes of 300 rows in practice
 - The formula remains valid even when the result is less than 10, contrary to the strict statistical derivation
+
+## Simplified Source
+
+```c
+static double
+get_mincount_for_mcv_list(int samplerows, double totalrows)
+{
+    double n = samplerows;
+    double N = totalrows;
+    double numer, denom;
+
+    // Apply statistical formula: cnt > n*(N-n) / (N-n+0.04*n*(N-1))
+    // This ensures relative standard error stays below 20%
+    numer = n * (N - n);
+    denom = N - n + 0.04 * n * (N - 1);
+
+    // Avoid division by zero
+    if (denom == 0.0)
+        return 0.0;
+
+    return numer / denom;
+}
+```

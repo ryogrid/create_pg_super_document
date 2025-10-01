@@ -37,3 +37,18 @@ The star-schema case is detected when the outer relation provides some (but not 
 This function is marked as static inline, indicating it's a small optimization function used internally within the joinpath.c module. The function enables more flexible join planning for data warehouse workloads that commonly use star-schema designs.
 
 The override is specifically designed for nested loop joins where the traditional parameter passing restrictions would prevent optimal plan generation. Without this override, the optimizer might miss efficient execution strategies for complex star-schema queries involving multiple dimension tables.
+
+## Simplified Source
+
+```c
+static inline bool
+allow_star_schema_join(PlannerInfo *root,
+                       Relids outerrelids,
+                       Relids inner_paramrels)
+{
+    // Star-schema case: outer rel provides some but not all of inner's parameters
+    // This allows stacking nestloops with small tables on outside for large parameterized tables
+    return (bms_overlap(inner_paramrels, outerrelids) &&
+            bms_nonempty_difference(inner_paramrels, outerrelids));
+}
+```

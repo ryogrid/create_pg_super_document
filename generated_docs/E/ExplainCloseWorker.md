@@ -40,3 +40,32 @@ The function also manages indentation levels and ensures that the formatting sta
 - Essential for maintaining clean, organized output when workers have no data to report
 - Part of the worker output management system that enables coherent parallel execution statistics
 - File location: src/backend/commands/explain.c:4560-4595
+
+## Simplified Source
+
+```c
+static void
+ExplainCloseWorker(int n, ExplainState *es)
+{
+    ExplainWorkersState *wstate = es->workers_state;
+
+    // Validate worker state
+    Assert(wstate && n >= 0 && n < wstate->num_workers && wstate->worker_inited[n]);
+
+    // Save current formatting state for potential future use
+    ExplainSaveGroup(es, 2, &wstate->worker_state_save[n]);
+
+    // Handle TEXT format cleanup - remove empty worker lines
+    if (es->format == EXPLAIN_FORMAT_TEXT) {
+        // Truncate partial line if no content was added
+        while (es->str->len > 0 && es->str->data[es->str->len - 1] != '\n')
+            es->str->data[--(es->str->len)] = '\0';
+
+        // Restore indentation level
+        es->indent--;
+    }
+
+    // Restore previous output buffer
+    es->str = wstate->prev_str;
+}
+```

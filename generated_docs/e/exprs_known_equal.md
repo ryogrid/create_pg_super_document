@@ -42,3 +42,47 @@ Note that the function does not check for structural equality (equal(item1, item
 - Used primarily for selectivity estimation rather than correctness-critical equality checking
 - The caller must handle the case where the two expressions might be structurally identical
 - Early exit optimization stops searching as soon as both expressions are found in the same equivalence class
+
+## Simplified Source
+
+```c
+bool
+exprs_known_equal(PlannerInfo *root, Node *item1, Node *item2)
+{
+    ListCell *lc1;
+
+    // Search through all equivalence classes
+    foreach(lc1, root->eq_classes)
+    {
+        EquivalenceClass *ec = (EquivalenceClass *) lfirst(lc1);
+        bool item1member = false;
+        bool item2member = false;
+        ListCell *lc2;
+
+        // Skip volatile equivalence classes
+        if (ec->ec_has_volatile)
+            continue;
+
+        // Check if both expressions are members of this equivalence class
+        foreach(lc2, ec->ec_members)
+        {
+            EquivalenceMember *em = (EquivalenceMember *) lfirst(lc2);
+
+            // Skip child members
+            if (em->em_is_child)
+                continue;
+
+            // Check for expression matches
+            if (equal(item1, em->em_expr))
+                item1member = true;
+            else if (equal(item2, em->em_expr))
+                item2member = true;
+
+            // Early exit if both found in same equivalence class
+            if (item1member && item2member)
+                return true;
+        }
+    }
+    return false;
+}
+```

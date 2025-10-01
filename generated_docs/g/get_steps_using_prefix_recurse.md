@@ -62,3 +62,101 @@ The function maintains careful bookkeeping of expressions and comparison functio
 
 ## Notes and Other Information
 The function includes important assertions to validate the structure for hash partitioning, ensuring that each partition key has either an equality clause or is marked as NULL in step_nullkeys. The recursion is bounded by PARTITION_MAX_KEYS to prevent stack overflow. Memory management is carefully handled by copying and freeing intermediate expression/function lists to avoid modifying shared data structures. This function is critical for optimizing queries with complex multi-column partition key predicates involving multiple clauses per key.
+
+## Simplified Source
+
+```c
+static List *
+get_steps_using_prefix_recurse(GeneratePruningStepsContext *context,
+                               StrategyNumber step_opstrategy,
+                               bool step_op_is_ne,
+                               Expr *step_lastexpr,
+                               Oid step_lastcmpfn,
+                               Bitmapset *step_nullkeys,
+                               List *prefix,
+                               ListCell *start,
+                               List *step_exprs,
+                               List *step_cmpfns)
+{
+    List *result = NIL;
+    ListCell *lc;
+    int cur_keyno;
+    int final_keyno;
+
+    // Stack depth check to prevent overflow
+    check_stack_depth();
+
+    cur_keyno = ((PartClauseInfo *) lfirst(start))->keyno;
+    final_keyno = ((PartClauseInfo *) llast(prefix))->keyno;
+
+    // Check if we need to recurse to next partition key
+    if (cur_keyno < final_keyno)
+    {
+        PartClauseInfo *pc;
+        ListCell *next_start;
+
+        // Find start of next partition key
+        for_each_cell(lc, prefix, start)
+        {
+            pc = lfirst(lc);
+            if (pc->keyno > cur_keyno)
+                break;
+        }
+        next_start = lc;
+
+        // Process each clause for current key
+        for_each_cell(lc, prefix, start)
+        {
+            pc = lfirst(lc);
+            if (pc->keyno == cur_keyno)
+            {
+                // Build expression and function lists for this combination
+                List *step_exprs1 = list_copy(step_exprs);
+                List *step_cmpfns1 = list_copy(step_cmpfns);
+
+                step_exprs1 = lappend(step_exprs1, pc->expr);
+                step_cmpfns1 = lappend_oid(step_cmpfns1, pc->cmpfn);
+
+                // Recurse for remaining keys
+                List *moresteps = get_steps_using_prefix_recurse(context,
+                                                               step_opstrategy, step_op_is_ne,
+                                                               step_lastexpr, step_lastcmpfn,
+                                                               step_nullkeys, prefix, next_start,
+                                                               step_exprs1, step_cmpfns1);
+                result = list_concat(result, moresteps);
+
+                // Clean up temporary lists
+                list_free(step_exprs1);
+                list_free(step_cmpfns1);
+            }
+            else
+                break;
+        }
+    }
+    else
+    {
+        // Base case: generate pruning steps for final key
+        for_each_cell(lc, prefix, start)
+        {
+            PartClauseInfo *pc = lfirst(lc);
+            PartitionPruneStep *step;
+
+            // Build final expression and function lists
+            List *step_exprs1 = list_copy(step_exprs);
+            List *step_cmpfns1 = list_copy(step_cmpfns);
+
+            step_exprs1 = lappend(step_exprs1, pc->expr);
+            step_exprs1 = lappend(step_exprs1, step_lastexpr);
+            step_cmpfns1 = lappend_oid(step_cmpfns1, pc->cmpfn);
+            step_cmpfns1 = lappend_oid(step_cmpfns1, step_lastcmpfn);
+
+            // Generate the actual pruning step
+            step = gen_prune_step_op(context, step_opstrategy, step_op_is_ne,
+                                   step_exprs1, step_cmpfns1, step_nullkeys);
+            result = lappend(result, step);
+        }
+    }
+
+    return result;
+}
+```

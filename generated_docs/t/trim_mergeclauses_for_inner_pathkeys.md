@@ -47,3 +47,71 @@ The function ensures that the returned mergeclauses maintain the required sequen
 - Required because make_inner_pathkeys_for_merge's output ordering may not match mergeclauses ordering
 - Handles cases where pathkey truncation requires dropping mergeclauses that would otherwise be usable
 - Essential for maintaining correctness when using pre-sorted inner relations in merge joins
+
+## Simplified Source
+
+```c
+List *
+trim_mergeclauses_for_inner_pathkeys(PlannerInfo *root,
+                                     List *mergeclauses,
+                                     List *pathkeys)
+{
+    List *new_mergeclauses = NIL;
+    PathKey *pathkey;
+    EquivalenceClass *pathkey_ec;
+    bool matched_pathkey;
+    ListCell *lip;
+    ListCell *i;
+
+    // No pathkeys means no mergeclauses can be used
+    if (pathkeys == NIL)
+        return NIL;
+
+    // Initialize to first pathkey
+    lip = list_head(pathkeys);
+    pathkey = (PathKey *) lfirst(lip);
+    pathkey_ec = pathkey->pk_eclass;
+    lip = lnext(pathkeys, lip);
+    matched_pathkey = false;
+
+    // Process each mergeclause to see if it works with current pathkeys
+    foreach(i, mergeclauses)
+    {
+        RestrictInfo *rinfo = (RestrictInfo *) lfirst(i);
+        EquivalenceClass *clause_ec;
+
+        // Get the inner-side equivalence class from the mergeclause
+        clause_ec = rinfo->outer_is_left ? rinfo->right_ec : rinfo->left_ec;
+
+        // If no match with current pathkey, try to advance to next pathkey
+        if (clause_ec != pathkey_ec)
+        {
+            // Must stop if current pathkey had no matching clauses
+            if (!matched_pathkey)
+                break;
+
+            // Advance to next pathkey if available
+            if (lip == NULL)
+                break;
+            pathkey = (PathKey *) lfirst(lip);
+            pathkey_ec = pathkey->pk_eclass;
+            lip = lnext(pathkeys, lip);
+            matched_pathkey = false;
+        }
+
+        // If mergeclause matches current pathkey, include it
+        if (clause_ec == pathkey_ec)
+        {
+            new_mergeclauses = lappend(new_mergeclauses, rinfo);
+            matched_pathkey = true;
+        }
+        else
+        {
+            // No match possible, stop processing
+            break;
+        }
+    }
+
+    return new_mergeclauses;
+}
+```

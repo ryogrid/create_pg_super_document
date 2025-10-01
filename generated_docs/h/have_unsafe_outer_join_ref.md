@@ -48,3 +48,47 @@ This function is marked as static inline and is used internally within the joinp
 The function includes memory management by explicitly freeing the temporary Relids bitmaps (unsatisfied and satisfied) to avoid memory waste when rejecting paths. This is particularly important since join planning can evaluate many potential paths.
 
 The safety check is specifically designed to prevent parameterized joins that would change the NULL-generation semantics of outer joins, which could lead to incorrect query results that are difficult to detect.
+
+## Simplified Source
+
+```c
+static inline bool
+have_unsafe_outer_join_ref(PlannerInfo *root,
+                           Relids outerrelids,
+                           Relids inner_paramrels)
+{
+    bool result = false;
+    Relids unsatisfied = bms_difference(inner_paramrels, outerrelids);
+    Relids satisfied = bms_intersect(inner_paramrels, outerrelids);
+
+    // Check if unsatisfied parameters involve outer join relations
+    if (bms_overlap(unsatisfied, root->outer_join_rels))
+    {
+        ListCell *lc;
+
+        // Check each outer join constraint for unsafe interactions
+        foreach(lc, root->join_info_list)
+        {
+            SpecialJoinInfo *sjinfo = (SpecialJoinInfo *) lfirst(lc);
+
+            if (!bms_is_member(sjinfo->ojrelid, unsatisfied))
+                continue;  // Not relevant to this outer join
+
+            // Unsafe if satisfied params overlap with join's min sides
+            if (bms_overlap(satisfied, sjinfo->min_righthand) ||
+                (sjinfo->jointype == JOIN_FULL &&
+                 bms_overlap(satisfied, sjinfo->min_lefthand)))
+            {
+                result = true;  // Would violate outer join semantics
+                break;
+            }
+        }
+    }
+
+    // Clean up temporary bitmaps
+    bms_free(unsatisfied);
+    bms_free(satisfied);
+
+    return result;
+}
+```

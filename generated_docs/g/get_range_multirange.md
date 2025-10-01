@@ -41,3 +41,23 @@ The function queries the pg_range system catalog using the provided range type O
 - Part of PostgreSQL's range/multirange type infrastructure
 - Essential for type resolution in polymorphic function contexts involving anymultirange types
 - The function assumes proper cache management and releases the cache tuple after use
+
+## Simplified Source
+
+```c
+Oid get_range_multirange(Oid rangeOid) {
+    // Look up range type in system catalog
+    HeapTuple tp = SearchSysCache1(RANGETYPE, ObjectIdGetDatum(rangeOid));
+
+    if (HeapTupleIsValid(tp)) {
+        // Extract multirange type OID from range catalog entry
+        Form_pg_range rngtup = (Form_pg_range) GETSTRUCT(tp);
+        Oid result = rngtup->rngmultitypid;
+        ReleaseSysCache(tp);
+        return result;
+    }
+
+    // Return invalid OID if not a range type
+    return InvalidOid;
+}
+```

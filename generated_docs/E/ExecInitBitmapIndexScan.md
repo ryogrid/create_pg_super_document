@@ -42,3 +42,80 @@ The function handles various execution modes including EXPLAIN-only operations, 
 - Handles both runtime keys (parameterized values) and array keys (IN clauses)
 - Returns fully initialized BitmapIndexScanState ready for execution
 - Located at src/backend/executor/nodeBitmapIndexscan.c:202-321
+
+## Simplified Source
+
+```c
+BitmapIndexScanState *
+ExecInitBitmapIndexScan(BitmapIndexScan *node, EState *estate, int eflags)
+{
+    BitmapIndexScanState *indexstate;
+    LOCKMODE lockmode;
+
+    // Validation
+    Assert(!(eflags & (EXEC_FLAG_BACKWARD | EXEC_FLAG_MARK)));
+
+    // Create and initialize state structure
+    indexstate = makeNode(BitmapIndexScanState);
+    indexstate->ss.ps.plan = (Plan *) node;
+    indexstate->ss.ps.state = estate;
+    indexstate->ss.ps.ExecProcNode = ExecBitmapIndexScan;
+
+    // Initialize bitmap result (created at runtime)
+    indexstate->biss_result = NULL;
+
+    // Base relation is handled by ancestor BitmapHeapScan
+    indexstate->ss.ss_currentRelation = NULL;
+    indexstate->ss.ss_currentScanDesc = NULL;
+
+    // Early return for EXPLAIN only
+    if (eflags & EXEC_FLAG_EXPLAIN_ONLY)
+        return indexstate;
+
+    // Open the index relation
+    lockmode = exec_rt_fetch(node->scan.scanrelid, estate)->rellockmode;
+    indexstate->biss_RelationDesc = index_open(node->indexid, lockmode);
+
+    // Initialize scan key state
+    indexstate->biss_RuntimeKeysReady = false;
+    indexstate->biss_RuntimeKeys = NULL;
+    indexstate->biss_NumRuntimeKeys = 0;
+
+    // Build scan keys from index qualification
+    ExecIndexBuildScanKeys((PlanState *) indexstate,
+                           indexstate->biss_RelationDesc,
+                           node->indexqual,
+                           false,
+                           &indexstate->biss_ScanKeys,
+                           &indexstate->biss_NumScanKeys,
+                           &indexstate->biss_RuntimeKeys,
+                           &indexstate->biss_NumRuntimeKeys,
+                           &indexstate->biss_ArrayKeys,
+                           &indexstate->biss_NumArrayKeys);
+
+    // Setup expression context for runtime keys if needed
+    if (indexstate->biss_NumRuntimeKeys != 0 || indexstate->biss_NumArrayKeys != 0) {
+        ExprContext *stdecontext = indexstate->ss.ps.ps_ExprContext;
+        ExecAssignExprContext(estate, &indexstate->ss.ps);
+        indexstate->biss_RuntimeContext = indexstate->ss.ps.ps_ExprContext;
+        indexstate->ss.ps.ps_ExprContext = stdecontext;
+    } else {
+        indexstate->biss_RuntimeContext = NULL;
+    }
+
+    // Initialize scan descriptor
+    indexstate->biss_ScanDesc =
+        index_beginscan_bitmap(indexstate->biss_RelationDesc,
+                               estate->es_snapshot,
+                               indexstate->biss_NumScanKeys);
+
+    // Set scan keys if no runtime evaluation needed
+    if (indexstate->biss_NumRuntimeKeys == 0 && indexstate->biss_NumArrayKeys == 0) {
+        index_rescan(indexstate->biss_ScanDesc,
+                     indexstate->biss_ScanKeys, indexstate->biss_NumScanKeys,
+                     NULL, 0);
+    }
+
+    return indexstate;
+}
+```

@@ -63,3 +63,20 @@ On successful update, the function updates the slot's metadata including the new
 - In failure cases, tmfd is filled with tuple's t_ctid, t_xmax, and t_cmax when available
 - Proper relation locking is the caller's responsibility
 - The update_indexes output helps determine if index maintenance is needed
+
+## Simplified Source
+
+```c
+static inline TM_Result table_tuple_update(Relation rel, ItemPointer otid,
+                                           TupleTableSlot *slot, CommandId cid,
+                                           Snapshot snapshot, Snapshot crosscheck,
+                                           bool wait, TM_FailureData *tmfd,
+                                           LockTupleMode *lockmode,
+                                           TU_UpdateIndexes *update_indexes) {
+    // Delegate to table access method's update implementation
+    // Each storage engine (heap, zheap, etc.) provides optimized update logic
+    return rel->rd_tableam->tuple_update(rel, otid, slot, cid, snapshot,
+                                        crosscheck, wait, tmfd, lockmode,
+                                        update_indexes);
+}
+```

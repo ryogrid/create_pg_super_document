@@ -36,3 +36,22 @@ This function serves as a simple iterator wrapper that processes multiple restri
 - Commonly used as a helper function by other clause matching routines in the same file
 - Part of the index path optimization infrastructure in PostgreSQL's query planner
 - Location: src/backend/optimizer/path/indxpath.c:2051-2083
+
+## Simplified Source
+
+```c
+static void
+match_clauses_to_index(PlannerInfo *root, List *clauses,
+                       IndexOptInfo *index, IndexClauseSet *clauseset)
+{
+    ListCell *lc;
+
+    // Process each restriction clause in the list
+    foreach(lc, clauses) {
+        RestrictInfo *rinfo = lfirst_node(RestrictInfo, lc);
+
+        // Delegate to match_clause_to_index for actual matching
+        match_clause_to_index(root, rinfo, index, clauseset);
+    }
+}
+```

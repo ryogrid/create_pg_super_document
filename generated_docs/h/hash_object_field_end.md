@@ -49,3 +49,43 @@ The function works in conjunction with hash_object_field_start to complete the f
 - Scalar values are stored directly from the saved_scalar field
 - The function includes an assertion to validate null consistency between isnull parameter and token type
 - Memory allocation for string values uses palloc() and includes proper null termination
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+hash_object_field_end(void *state, char *fname, bool isnull) {
+    JHashState *_state = (JHashState *) state;
+    JsonHashEntry *hashentry;
+    bool found;
+
+    // Only process top-level fields
+    if (_state->lex->lex_level > 1)
+        return JSON_SUCCESS;
+
+    // Skip field names that are too long
+    if (strlen(fname) >= NAMEDATALEN)
+        return JSON_SUCCESS;
+
+    // Insert or update hash entry for this field
+    hashentry = hash_search(_state->hash, fname, HASH_ENTER, &found);
+
+    // Store field type and value
+    hashentry->type = _state->saved_token_type;
+    Assert(isnull == (hashentry->type == JSON_TOKEN_NULL));
+
+    if (_state->save_json_start != NULL) {
+        // Store complex value as JSON text
+        int len = _state->lex->prev_token_terminator - _state->save_json_start;
+        char *val = palloc((len + 1) * sizeof(char));
+        memcpy(val, _state->save_json_start, len);
+        val[len] = '\0';
+        hashentry->val = val;
+    } else {
+        // Store scalar value directly
+        hashentry->val = _state->saved_scalar;
+    }
+
+    return JSON_SUCCESS;
+}
+```

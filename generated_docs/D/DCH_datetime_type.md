@@ -41,3 +41,63 @@ The function uses a large switch statement to classify each formatting token by 
 - Returns a bitmask that can contain multiple flags if the format includes different component types
 - Essential for PostgreSQL's type system to validate format string compatibility with timestamp, timestamptz, date, and time data types
 - The comprehensive switch statement handles all supported PostgreSQL date/time format tokens including ISO week dates, Julian dates, and various case variations
+
+## Simplified Source
+
+```c
+static int
+DCH_datetime_type(FormatNode *node)
+{
+    FormatNode *n;
+    int flags = 0;
+
+    // Scan through format nodes to determine component types
+    for (n = node; n->type != NODE_TYPE_END; n++) {
+        if (n->type != NODE_TYPE_ACTION)
+            continue;
+
+        switch (n->key->id) {
+            case DCH_FX:
+                // Fill mode - doesn't affect component type
+                break;
+
+            // Time components
+            case DCH_A_M: case DCH_P_M: case DCH_a_m: case DCH_p_m:
+            case DCH_AM: case DCH_PM: case DCH_am: case DCH_pm:
+            case DCH_HH: case DCH_HH12: case DCH_HH24:
+            case DCH_MI: case DCH_SS:
+            case DCH_MS: case DCH_US:  // millisecond, microsecond
+            case DCH_FF1: case DCH_FF2: case DCH_FF3:
+            case DCH_FF4: case DCH_FF5: case DCH_FF6:
+            case DCH_SSSS:
+                flags |= DCH_TIMED;
+                break;
+
+            // Timezone components
+            case DCH_tz: case DCH_TZ: case DCH_OF:
+            case DCH_TZH: case DCH_TZM:
+                flags |= DCH_ZONED;
+                break;
+
+            // Date components
+            case DCH_A_D: case DCH_B_C: case DCH_a_d: case DCH_b_c:
+            case DCH_AD: case DCH_BC: case DCH_ad: case DCH_bc:
+            case DCH_MONTH: case DCH_Month: case DCH_month:
+            case DCH_MON: case DCH_Mon: case DCH_mon:
+            case DCH_MM:
+            case DCH_DAY: case DCH_Day: case DCH_day:
+            case DCH_DY: case DCH_Dy: case DCH_dy:
+            case DCH_DDD: case DCH_IDDD: case DCH_DD: case DCH_D: case DCH_ID:
+            case DCH_WW: case DCH_Q: case DCH_CC:
+            case DCH_Y_YYY: case DCH_YYYY: case DCH_IYYY:
+            case DCH_YYY: case DCH_IYY: case DCH_YY: case DCH_IY:
+            case DCH_Y: case DCH_I:
+            case DCH_RM: case DCH_rm: case DCH_W: case DCH_J:
+                flags |= DCH_DATED;
+                break;
+        }
+    }
+
+    return flags;
+}
+```

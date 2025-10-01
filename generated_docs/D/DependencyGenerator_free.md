@@ -34,3 +34,15 @@ The function follows PostgreSQL's memory management conventions using pfree() fo
 - Should be the final operation performed on a DependencyGenerator instance
 - The order of freeing is important: dependencies array first, then the state structure
 - Located at src/backend/statistics/dependencies.c:196-203
+
+## Simplified Source
+
+```c
+static void DependencyGenerator_free(DependencyGenerator state) {
+    // Free the dependencies array
+    pfree(state->dependencies);
+
+    // Free the generator state structure
+    pfree(state);
+}
+```

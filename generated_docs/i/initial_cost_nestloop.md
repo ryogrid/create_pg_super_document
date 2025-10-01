@@ -58,3 +58,56 @@ The function deliberately excludes CPU-cost considerations and detailed join qua
 - The function produces conservative lower-bound estimates to enable quick path pruning
 - Workspace structure preserves intermediate data for use by final_cost_nestloop
 - The division of labor between initial and final costing represents a speed vs. accuracy tradeoff
+
+## Simplified Source
+
+```c
+void
+initial_cost_nestloop(PlannerInfo *root, JoinCostWorkspace *workspace,
+                      JoinType jointype,
+                      Path *outer_path, Path *inner_path,
+                      JoinPathExtraData *extra)
+{
+    Cost startup_cost = 0;
+    Cost run_cost = 0;
+    double outer_path_rows = outer_path->rows;
+    Cost inner_rescan_start_cost;
+    Cost inner_rescan_total_cost;
+    Cost inner_run_cost;
+    Cost inner_rescan_run_cost;
+
+    // Calculate cost to rescan inner relation
+    cost_rescan(root, inner_path, &inner_rescan_start_cost, &inner_rescan_total_cost);
+
+    // Startup costs: both outer and inner paths must be initialized
+    startup_cost += outer_path->startup_cost + inner_path->startup_cost;
+
+    // Run costs: outer path plus rescan startup for each additional outer row
+    run_cost += outer_path->total_cost - outer_path->startup_cost;
+    if (outer_path_rows > 1)
+        run_cost += (outer_path_rows - 1) * inner_rescan_start_cost;
+
+    inner_run_cost = inner_path->total_cost - inner_path->startup_cost;
+    inner_rescan_run_cost = inner_rescan_total_cost - inner_rescan_start_cost;
+
+    if (jointype == JOIN_SEMI || jointype == JOIN_ANTI || extra->inner_unique)
+    {
+        // SEMI/ANTI joins or unique inner: defer detailed cost calculations
+        // Executor stops after first match, needs join qual inspection
+        workspace->inner_run_cost = inner_run_cost;
+        workspace->inner_rescan_run_cost = inner_rescan_run_cost;
+    }
+    else
+    {
+        // Normal case: scan whole inner relation for each outer row
+        run_cost += inner_run_cost;
+        if (outer_path_rows > 1)
+            run_cost += (outer_path_rows - 1) * inner_rescan_run_cost;
+    }
+
+    // Store results for final_cost_nestloop
+    workspace->startup_cost = startup_cost;
+    workspace->total_cost = startup_cost + run_cost;
+    workspace->run_cost = run_cost;
+}
+```

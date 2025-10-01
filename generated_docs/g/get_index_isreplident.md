@@ -38,3 +38,27 @@ When a table is configured for logical replication, PostgreSQL needs a way to un
 - The replica identity index must be unique and cannot be a partial index
 - Only one index per table can have indisreplident set to true
 - Related to ALTER TABLE ... REPLICA IDENTITY commands
+
+## Simplified Source
+
+```c
+bool
+get_index_isreplident(Oid index_oid)
+{
+    HeapTuple tuple;
+    Form_pg_index rd_index;
+    bool result;
+
+    // Look up the index in pg_index catalog
+    tuple = SearchSysCache1(INDEXRELID, ObjectIdGetDatum(index_oid));
+    if (!HeapTupleIsValid(tuple))
+        return false;
+
+    // Extract the indisreplident flag
+    rd_index = (Form_pg_index) GETSTRUCT(tuple);
+    result = rd_index->indisreplident;
+    ReleaseSysCache(tuple);
+
+    return result;
+}
+```

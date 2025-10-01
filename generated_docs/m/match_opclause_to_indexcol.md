@@ -65,3 +65,86 @@ When standard operator matching fails, the function falls back to planner suppor
 - Part of the comprehensive index optimization system in PostgreSQL's query planner
 - Located in `src/backend/optimizer/path/indxpath.c:2392-2510`
 - Returns non-lossy IndexClause nodes for standard operator matching cases
+
+## Simplified Source
+
+```c
+static IndexClause *
+match_opclause_to_indexcol(PlannerInfo *root,
+                           RestrictInfo *rinfo,
+                           int indexcol,
+                           IndexOptInfo *index)
+{
+    IndexClause *iclause;
+    OpExpr *clause = (OpExpr *) rinfo->clause;
+    Node *leftop, *rightop;
+    Oid expr_op, expr_coll;
+    Index index_relid = index->rel->relid;
+    Oid opfamily = index->opfamily[indexcol];
+    Oid idxcollation = index->indexcollations[indexcol];
+
+    // Only binary operators are supported
+    if (list_length(clause->args) != 2)
+        return NULL;
+
+    leftop = (Node *) linitial(clause->args);
+    rightop = (Node *) lsecond(clause->args);
+    expr_op = clause->opno;
+    expr_coll = clause->inputcollid;
+
+    // Case 1: (indexkey operator constant)
+    if (match_index_to_operand(leftop, indexcol, index) &&
+        !bms_is_member(index_relid, rinfo->right_relids) &&
+        !contain_volatile_functions(rightop))
+    {
+        // Try direct operator family membership
+        if (IndexCollMatchesExprColl(idxcollation, expr_coll) &&
+            op_in_opfamily(expr_op, opfamily))
+        {
+            iclause = makeNode(IndexClause);
+            iclause->rinfo = rinfo;
+            iclause->indexquals = list_make1(rinfo);
+            iclause->lossy = false;
+            iclause->indexcol = indexcol;
+            iclause->indexcols = NIL;
+            return iclause;
+        }
+
+        // Fallback to support function
+        set_opfuncid(clause);
+        return get_index_clause_from_support(root, rinfo, clause->opfuncid,
+                                            0, indexcol, index);
+    }
+
+    // Case 2: (constant operator indexkey) - needs commutation
+    if (match_index_to_operand(rightop, indexcol, index) &&
+        !bms_is_member(index_relid, rinfo->left_relids) &&
+        !contain_volatile_functions(leftop))
+    {
+        if (IndexCollMatchesExprColl(idxcollation, expr_coll))
+        {
+            Oid comm_op = get_commutator(expr_op);
+
+            if (OidIsValid(comm_op) && op_in_opfamily(comm_op, opfamily))
+            {
+                RestrictInfo *commrinfo = commute_restrictinfo(rinfo, comm_op);
+
+                iclause = makeNode(IndexClause);
+                iclause->rinfo = rinfo;
+                iclause->indexquals = list_make1(commrinfo);
+                iclause->lossy = false;
+                iclause->indexcol = indexcol;
+                iclause->indexcols = NIL;
+                return iclause;
+            }
+        }
+
+        // Fallback to support function
+        set_opfuncid(clause);
+        return get_index_clause_from_support(root, rinfo, clause->opfuncid,
+                                            1, indexcol, index);
+    }
+
+    return NULL;
+}
+```

@@ -47,3 +47,40 @@ Unlike add_path_precheck, this function always compares pathkeys since partial_p
 - Uses fuzzy cost comparison (STD_FUZZ_FACTOR) to avoid rejecting paths with very similar costs
 - Designed to work efficiently with short partial_pathlist, making pathkey comparison always worthwhile
 - Helps avoid the overhead of creating Path nodes for obviously inferior alternatives
+
+## Simplified Source
+
+```c
+bool
+add_partial_path_precheck(RelOptInfo *parent_rel, Cost total_cost, List *pathkeys)
+{
+    ListCell *p1;
+
+    // Phase 1: Compare against existing partial paths
+    foreach(p1, parent_rel->partial_pathlist)
+    {
+        Path *old_path = (Path *) lfirst(p1);
+        PathKeysComparison keyscmp = compare_pathkeys(pathkeys, old_path->pathkeys);
+
+        if (keyscmp != PATHKEYS_DIFFERENT)
+        {
+            // Reject if new path is significantly more expensive and not better ordered
+            if (total_cost > old_path->total_cost * STD_FUZZ_FACTOR &&
+                keyscmp != PATHKEYS_BETTER1)
+                return false;
+
+            // Accept if new path is significantly cheaper and not worse ordered
+            if (old_path->total_cost > total_cost * STD_FUZZ_FACTOR &&
+                keyscmp != PATHKEYS_BETTER2)
+                return true;
+        }
+    }
+
+    // Phase 2: Compare against non-parallel paths
+    // Use total_cost twice since startup cost irrelevant for partial paths
+    if (!add_path_precheck(parent_rel, total_cost, total_cost, pathkeys, NULL))
+        return false;
+
+    return true;
+}
+```

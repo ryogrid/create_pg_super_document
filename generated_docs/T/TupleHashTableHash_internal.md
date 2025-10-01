@@ -48,3 +48,48 @@ The hash computation process involves:
 - Memory context must be properly set by caller as the function doesn't change CurrentMemoryContext
 - The stored tuple mode is documented as never occurring in current usage patterns
 - Critical for performance of grouping, aggregation, and set operations in PostgreSQL's executor
+
+## Simplified Source
+
+```c
+static uint32 TupleHashTableHash_internal(struct tuplehash_hash *tb, const MinimalTuple tuple) {
+    TupleHashTable hashtable = (TupleHashTable) tb->private_data;
+    int numCols = hashtable->numCols;
+    AttrNumber *keyColIdx = hashtable->keyColIdx;
+    uint32 hashkey = hashtable->hash_iv;
+    TupleTableSlot *slot;
+    FmgrInfo *hashfunctions;
+
+    // Choose input source: current input slot or stored tuple
+    if (tuple == NULL) {
+        slot = hashtable->inputslot;
+        hashfunctions = hashtable->in_hash_funcs;
+    } else {
+        slot = hashtable->tableslot;
+        ExecStoreMinimalTuple(tuple, slot, false);
+        hashfunctions = hashtable->tab_hash_funcs;
+    }
+
+    // Hash each key column and combine with rotation
+    for (int i = 0; i < numCols; i++) {
+        AttrNumber att = keyColIdx[i];
+        bool isNull;
+
+        // Rotate hash for better distribution
+        hashkey = pg_rotate_left32(hashkey, 1);
+
+        Datum attr = slot_getattr(slot, att, &isNull);
+
+        // NULL values contribute 0 to hash
+        if (!isNull) {
+            uint32 hkey = DatumGetUInt32(FunctionCall1Coll(&hashfunctions[i],
+                                                           hashtable->tab_collations[i],
+                                                           attr));
+            hashkey ^= hkey;
+        }
+    }
+
+    // Final hash perturbation for optimal distribution
+    return murmurhash32(hashkey);
+}
+```

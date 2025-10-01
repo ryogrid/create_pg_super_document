@@ -52,3 +52,58 @@ The function assumes that baserel->pages and baserel->tuples have already been a
 - Does not charge for internal sampling method computations
 - Target list costs apply per output row, not per sampled tuple
 - Part of PostgreSQL's statistical sampling functionality for large table analysis
+
+## Simplified Source
+
+```c
+void
+cost_samplescan(Path *path, PlannerInfo *root, RelOptInfo *baserel, ParamPathInfo *param_info)
+{
+    Cost startup_cost = 0;
+    Cost run_cost = 0;
+    RangeTblEntry *rte;
+    TableSampleClause *tsc;
+    TsmRoutine *tsm;
+    double spc_seq_page_cost, spc_random_page_cost, spc_page_cost;
+    QualCost qpqual_cost;
+    Cost cpu_per_tuple;
+
+    // Validate base relation with tablesample clause
+    Assert(baserel->relid > 0);
+    rte = planner_rt_fetch(baserel->relid, root);
+    Assert(rte->rtekind == RTE_RELATION);
+    tsc = rte->tablesample;
+    Assert(tsc != NULL);
+    tsm = GetTsmRoutine(tsc->tsmhandler);
+
+    // Set row estimate
+    if (param_info)
+        path->rows = param_info->ppi_rows;
+    else
+        path->rows = baserel->rows;
+
+    // Get tablespace page costs
+    get_tablespace_page_costs(baserel->reltablespace,
+                             &spc_random_page_cost, &spc_seq_page_cost);
+
+    // Choose page access pattern based on sampling method
+    spc_page_cost = (tsm->NextSampleBlock != NULL) ?
+        spc_random_page_cost : spc_seq_page_cost;
+
+    // Disk I/O costs (baserel->pages already adjusted for sampling)
+    run_cost += spc_page_cost * baserel->pages;
+
+    // CPU costs for tuple processing and qualification
+    get_restriction_qual_cost(root, baserel, param_info, &qpqual_cost);
+    startup_cost += qpqual_cost.startup;
+    cpu_per_tuple = cpu_tuple_cost + qpqual_cost.per_tuple;
+    run_cost += cpu_per_tuple * baserel->tuples;
+
+    // Target list evaluation costs
+    startup_cost += path->pathtarget->cost.startup;
+    run_cost += path->pathtarget->cost.per_tuple * path->rows;
+
+    path->startup_cost = startup_cost;
+    path->total_cost = startup_cost + run_cost;
+}
+```

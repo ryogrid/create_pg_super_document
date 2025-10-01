@@ -54,3 +54,48 @@ The function maintains the innerwiths list in CteState to track which CTEs are v
 - The innerwiths stack mechanism allows for proper nesting of WITH clauses
 - The function uses raw_expression_tree_walker to ensure all sub-expressions are visited for dependency analysis
 - Proper stack management (push/pop) is essential to maintain correct visibility scopes across nested WITH clauses
+
+## Simplified Source
+
+```c
+static void
+WalkInnerWith(Node *stmt, WithClause *withClause, CteState *cstate)
+{
+    if (withClause->recursive) {
+        // Recursive WITH: all CTEs visible to all items and main query
+        cstate->innerwiths = lcons(withClause->ctes, cstate->innerwiths);
+
+        // Process all CTE queries
+        foreach(lc, withClause->ctes) {
+            CommonTableExpr *cte = (CommonTableExpr *) lfirst(lc);
+            makeDependencyGraphWalker(cte->ctequery, cstate);
+        }
+
+        // Process main statement
+        raw_expression_tree_walker(stmt, makeDependencyGraphWalker, cstate);
+
+        // Clean up visibility stack
+        cstate->innerwiths = list_delete_first(cstate->innerwiths);
+    } else {
+        // Non-recursive WITH: sequential visibility (later CTEs see earlier ones)
+        cstate->innerwiths = lcons(NIL, cstate->innerwiths);
+
+        foreach(lc, withClause->ctes) {
+            CommonTableExpr *cte = (CommonTableExpr *) lfirst(lc);
+
+            // Process CTE query first
+            makeDependencyGraphWalker(cte->ctequery, cstate);
+
+            // Add this CTE to visibility list for subsequent CTEs
+            ListCell *cell1 = list_head(cstate->innerwiths);
+            lfirst(cell1) = lappend((List *) lfirst(cell1), cte);
+        }
+
+        // Process main statement
+        raw_expression_tree_walker(stmt, makeDependencyGraphWalker, cstate);
+
+        // Clean up visibility stack
+        cstate->innerwiths = list_delete_first(cstate->innerwiths);
+    }
+}
+```

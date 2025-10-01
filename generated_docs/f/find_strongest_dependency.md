@@ -44,3 +44,45 @@ The function performs cheap checks first (attribute count comparisons) before ex
 - Performs optimization by checking cheaper criteria (attribute counts, degrees) before expensive matching operations
 - The selection strategy directly impacts the accuracy of selectivity estimates in query planning
 - Dependencies with more attributes are always preferred regardless of their degree of validity
+
+## Simplified Source
+
+```c
+static MVDependency *
+find_strongest_dependency(MVDependencies **dependencies, int ndependencies,
+                          Bitmapset *attnums)
+{
+    int i, j;
+    MVDependency *strongest = NULL;
+    int nattnums = bms_num_members(attnums);
+
+    // Iterate through all dependency collections
+    for (i = 0; i < ndependencies; i++) {
+        for (j = 0; j < dependencies[i]->ndeps; j++) {
+            MVDependency *dependency = dependencies[i]->deps[j];
+
+            // Skip if dependency has more attributes than available clauses
+            if (dependency->nattributes > nattnums)
+                continue;
+
+            // Compare with current strongest dependency
+            if (strongest) {
+                // Prefer dependencies with more attributes
+                if (dependency->nattributes < strongest->nattributes)
+                    continue;
+
+                // For same attribute count, prefer higher degree
+                if (strongest->nattributes == dependency->nattributes &&
+                    strongest->degree > dependency->degree)
+                    continue;
+            }
+
+            // Check if dependency is fully matched (expensive check last)
+            if (dependency_is_fully_matched(dependency, attnums))
+                strongest = dependency;
+        }
+    }
+
+    return strongest;
+}
+```

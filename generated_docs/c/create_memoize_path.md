@@ -44,3 +44,49 @@ The function initializes the MemoizePath structure with caching-specific propert
 - The memoize path preserves the pathkeys and parallelization properties of its subpath
 - Binary mode affects how cache key comparisons are performed for efficiency
 - The singlerow flag can enable optimizations when the subpath is known to return at most one tuple
+
+## Simplified Source
+
+```c
+MemoizePath *
+create_memoize_path(PlannerInfo *root, RelOptInfo *rel, Path *subpath,
+                    List *param_exprs, List *hash_operators,
+                    bool singlerow, bool binary_mode, double calls)
+{
+    MemoizePath *pathnode = makeNode(MemoizePath);
+
+    Assert(subpath->parent == rel);
+
+    // Initialize basic path properties
+    pathnode->path.pathtype = T_Memoize;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = rel->reltarget;
+    pathnode->path.param_info = subpath->param_info;
+
+    // Set parallel execution properties
+    pathnode->path.parallel_aware = false;  // Memoize is never parallel_aware
+    pathnode->path.parallel_safe = rel->consider_parallel && subpath->parallel_safe;
+    pathnode->path.parallel_workers = subpath->parallel_workers;
+
+    // Preserve ordering from subpath
+    pathnode->path.pathkeys = subpath->pathkeys;
+
+    // Store memoization-specific properties
+    pathnode->subpath = subpath;
+    pathnode->hash_operators = hash_operators;
+    pathnode->param_exprs = param_exprs;
+    pathnode->singlerow = singlerow;
+    pathnode->binary_mode = binary_mode;
+    pathnode->calls = clamp_row_est(calls);
+
+    // Let cost_memoize_rescan() determine cache entries estimate
+    pathnode->est_entries = 0;
+
+    // Add small overhead for caching first entry
+    pathnode->path.startup_cost = subpath->startup_cost + cpu_tuple_cost;
+    pathnode->path.total_cost = subpath->total_cost + cpu_tuple_cost;
+    pathnode->path.rows = subpath->rows;
+
+    return pathnode;
+}
+```

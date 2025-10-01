@@ -46,3 +46,71 @@ The function also establishes the scan infrastructure by calling standard execut
 - Initializes curr_idx to -1 to indicate no current row initially
 - The function ensures VALUES scans have no child plans (outerPlan/innerPlan must be NULL)
 - Uses virtual tuple slots for efficiency since VALUES generate synthetic tuples rather than reading from storage
+
+## Simplified Source
+
+```c
+ValuesScanState *
+ExecInitValuesScan(ValuesScan *node, EState *estate, int eflags)
+{
+    ValuesScanState *scanstate;
+    TupleDesc tupdesc;
+    ListCell *vtl;
+    int i;
+    PlanState *planstate;
+
+    // VALUES scans should have no child plans
+    Assert(outerPlan(node) == NULL && innerPlan(node) == NULL);
+
+    // Create and initialize scan state
+    scanstate = makeNode(ValuesScanState);
+    scanstate->ss.ps.plan = (Plan *) node;
+    scanstate->ss.ps.state = estate;
+    scanstate->ss.ps.ExecProcNode = ExecValuesScan;
+
+    planstate = &scanstate->ss.ps;
+
+    // Create dual expression contexts: one for per-row, one for scanning
+    ExecAssignExprContext(estate, planstate);
+    scanstate->rowcontext = planstate->ps_ExprContext;
+    ExecAssignExprContext(estate, planstate);
+
+    // Build tuple descriptor from first VALUES row
+    tupdesc = ExecTypeFromExprList((List *) linitial(node->values_lists));
+    ExecInitScanTupleSlot(estate, &scanstate->ss, tupdesc, &TTSOpsVirtual);
+
+    // Initialize result type and projection
+    ExecInitResultTypeTL(&scanstate->ss.ps);
+    ExecAssignScanProjectionInfo(&scanstate->ss);
+
+    // Initialize qualification expressions
+    scanstate->ss.ps.qual = ExecInitQual(node->scan.plan.qual, (PlanState *) scanstate);
+
+    // Initialize scan state variables
+    scanstate->curr_idx = -1;
+    scanstate->array_len = list_length(node->values_lists);
+
+    // Convert expression lists to arrays for runtime access
+    scanstate->exprlists = (List **) palloc(scanstate->array_len * sizeof(List *));
+    scanstate->exprstatelists = (List **) palloc0(scanstate->array_len * sizeof(List *));
+
+    i = 0;
+    foreach(vtl, node->values_lists) {
+        List *exprs = lfirst_node(List, vtl);
+        scanstate->exprlists[i] = exprs;
+
+        // Pre-initialize expressions containing SubPlans (disable JIT for efficiency)
+        if (estate->es_subplanstates && contain_subplans((Node *) exprs)) {
+            int saved_jit_flags = estate->es_jit_flags;
+            estate->es_jit_flags = PGJIT_NONE;
+
+            scanstate->exprstatelists[i] = ExecInitExprList(exprs, &scanstate->ss.ps);
+
+            estate->es_jit_flags = saved_jit_flags;
+        }
+        i++;
+    }
+
+    return scanstate;
+}
+```

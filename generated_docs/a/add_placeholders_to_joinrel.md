@@ -46,3 +46,45 @@ The function only adds placeholders that weren't already computed in either inpu
 - The caller build_join_rel() cleans up by removing the join's own relids from direct_lateral_relids
 - Newly created PlaceHolderVars start with empty phnullingrels, which may be updated by higher-level joins
 - The function uses clamp_width_est (referenced processed symbol) to prevent tuple width overflow
+
+## Simplified Source
+
+```c
+void add_placeholders_to_joinrel(PlannerInfo *root, RelOptInfo *joinrel,
+                                RelOptInfo *outer_rel, RelOptInfo *inner_rel,
+                                SpecialJoinInfo *sjinfo) {
+    Relids relids = joinrel->relids;
+    int64 tuple_width = joinrel->reltarget->width;
+
+    // Process each placeholder in the global list
+    foreach(lc, root->placeholder_list) {
+        PlaceHolderInfo *phinfo = (PlaceHolderInfo *) lfirst(lc);
+
+        // Check if placeholder can be computed at this join level
+        if (bms_is_subset(phinfo->ph_eval_at, relids)) {
+
+            // Add to target list if still needed above and not computed in inputs
+            if (bms_nonempty_difference(phinfo->ph_needed, relids) &&
+                !bms_is_subset(phinfo->ph_eval_at, outer_rel->relids) &&
+                !bms_is_subset(phinfo->ph_eval_at, inner_rel->relids)) {
+
+                PlaceHolderVar *phv = copyObject(phinfo->ph_var);
+                QualCost cost;
+
+                // Add placeholder to target list and update costs
+                joinrel->reltarget->exprs = lappend(joinrel->reltarget->exprs, phv);
+                cost_qual_eval_node(&cost, (Node *) phv->phexpr, root);
+                joinrel->reltarget->cost.startup += cost.startup;
+                joinrel->reltarget->cost.per_tuple += cost.per_tuple;
+                tuple_width += phinfo->ph_width;
+            }
+
+            // Update lateral dependencies for all computable placeholders
+            joinrel->direct_lateral_relids =
+                bms_add_members(joinrel->direct_lateral_relids, phinfo->ph_lateral);
+        }
+    }
+
+    joinrel->reltarget->width = clamp_width_est(tuple_width);
+}
+```

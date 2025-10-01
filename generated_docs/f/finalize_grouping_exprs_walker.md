@@ -54,3 +54,107 @@ This function is a recursive tree walker that processes expression trees to fina
 - The function uses the standard PostgreSQL tree walker pattern with context passing
 - Error messages provide specific location information for debugging invalid GROUPING usage
 - The function handles both variable and non-variable grouping expressions through different code paths
+
+## Simplified Source
+
+```c
+static bool
+finalize_grouping_exprs_walker(Node *node, check_ungrouped_columns_context *context)
+{
+    if (node == NULL)
+        return false;
+
+    // Constants and parameters are acceptable
+    if (IsA(node, Const) || IsA(node, Param))
+        return false;
+
+    // Handle aggregate functions
+    if (IsA(node, Aggref)) {
+        Aggref *agg = (Aggref *) node;
+
+        if ((int) agg->agglevelsup == context->sublevels_up) {
+            // Check only direct arguments, not normal args/ORDER BY/filter
+            bool result;
+            context->in_agg_direct_args = true;
+            result = finalize_grouping_exprs_walker((Node *) agg->aggdirectargs, context);
+            context->in_agg_direct_args = false;
+            return result;
+        }
+
+        // Skip higher level aggregates
+        if ((int) agg->agglevelsup > context->sublevels_up)
+            return false;
+    }
+
+    // Process GROUPING functions
+    if (IsA(node, GroupingFunc)) {
+        GroupingFunc *grp = (GroupingFunc *) node;
+
+        if ((int) grp->agglevelsup == context->sublevels_up) {
+            List *ref_list = NIL;
+
+            // Validate each argument matches a grouping expression
+            foreach(lc, grp->args) {
+                Node *expr = lfirst(lc);
+                Index ref = 0;
+
+                if (context->hasJoinRTEs)
+                    expr = flatten_join_alias_vars(NULL, context->qry, expr);
+
+                // Check for variable match
+                if (IsA(expr, Var)) {
+                    Var *var = (Var *) expr;
+                    if (var->varlevelsup == context->sublevels_up) {
+                        foreach(gl, context->groupClauses) {
+                            TargetEntry *tle = lfirst(gl);
+                            Var *gvar = (Var *) tle->expr;
+
+                            if (IsA(gvar, Var) &&
+                                gvar->varno == var->varno &&
+                                gvar->varattno == var->varattno &&
+                                gvar->varlevelsup == 0) {
+                                ref = tle->ressortgroupref;
+                                break;
+                            }
+                        }
+                    }
+                }
+                // Check for non-variable expression match
+                else if (context->have_non_var_grouping && context->sublevels_up == 0) {
+                    foreach(gl, context->groupClauses) {
+                        TargetEntry *tle = lfirst(gl);
+                        if (equal(expr, tle->expr)) {
+                            ref = tle->ressortgroupref;
+                            break;
+                        }
+                    }
+                }
+
+                // Error if no matching grouping expression found
+                if (ref == 0)
+                    ereport(ERROR, (errcode(ERRCODE_GROUPING_ERROR),
+                        errmsg("arguments to GROUPING must be grouping expressions of the associated query level")));
+
+                ref_list = lappend_int(ref_list, ref);
+            }
+
+            grp->refs = ref_list;
+        }
+
+        if ((int) grp->agglevelsup > context->sublevels_up)
+            return false;
+    }
+
+    // Handle subqueries
+    if (IsA(node, Query)) {
+        bool result;
+        context->sublevels_up++;
+        result = query_tree_walker((Query *) node, finalize_grouping_exprs_walker,
+                                 (void *) context, 0);
+        context->sublevels_up--;
+        return result;
+    }
+
+    return expression_tree_walker(node, finalize_grouping_exprs_walker, (void *) context);
+}
+```

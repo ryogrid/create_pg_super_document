@@ -41,3 +41,42 @@ The distinction between nullable and non-nullable partition keys is crucial for 
 - Returns the zero-based ordinal position of the matched partition key, enabling caller to verify that both sides of a join condition reference the same partition key position
 - The nullable vs non-nullable distinction is essential for maintaining correctness in outer join scenarios where NULL values may be introduced
 - Used exclusively in the context of partitionwise join optimization to validate that join conditions properly align with partition boundaries
+
+## Simplified Source
+
+```c
+static int
+match_expr_to_partition_keys(Expr *expr, RelOptInfo *rel, bool strict_op)
+{
+    int cnt;
+
+    // Strip type coercion decorations
+    while (IsA(expr, RelabelType))
+        expr = (Expr *) (castNode(RelabelType, expr))->arg;
+
+    // Search each partition key position
+    for (cnt = 0; cnt < rel->part_scheme->partnatts; cnt++)
+    {
+        ListCell *lc;
+
+        // Always check non-nullable partition expressions
+        foreach(lc, rel->partexprs[cnt])
+        {
+            if (equal(lfirst(lc), expr))
+                return cnt;  // Found match at position cnt
+        }
+
+        // For strict operators, also check nullable partition expressions
+        if (strict_op)
+        {
+            foreach(lc, rel->nullable_partexprs[cnt])
+            {
+                if (equal(lfirst(lc), expr))
+                    return cnt;  // Found match at position cnt
+            }
+        }
+    }
+
+    return -1;  // No match found
+}
+```

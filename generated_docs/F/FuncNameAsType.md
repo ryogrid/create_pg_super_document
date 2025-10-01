@@ -39,3 +39,38 @@ The function uses  in the type lookup to maintain security contracts when writin
 - The function is static, meaning it's only used within the same translation unit (parse_func.c)
 - Performs proper cleanup by releasing the system cache tuple after use
 - Checks both that the type is defined () and that it's not a composite type (via  validation)
+
+## Simplified Source
+
+```c
+static Oid FuncNameAsType(List *funcname) {
+    // Lookup the type using the function name
+    // temp_ok=false for SECURITY DEFINER function safety
+    Type type_tuple = LookupTypeNameExtended(NULL,
+                                            makeTypeNameFromNameList(funcname),
+                                            NULL, false, false);
+
+    if (type_tuple == NULL)
+        return InvalidOid;
+
+    // Check if type is fully defined and not a composite type
+    Form_pg_type type_form = (Form_pg_type) GETSTRUCT(type_tuple);
+    Oid result = InvalidOid;
+
+    if (type_form->typisdefined && !OidIsValid(typeTypeRelid(type_tuple))) {
+        // Valid simple type - return its OID
+        result = typeTypeId(type_tuple);
+    }
+
+    ReleaseSysCache(type_tuple);
+    return result;
+}
+```
+
+**Simplification Notes:**
+- Added descriptive comments explaining the security parameter and type validation
+- Simplified variable declarations while maintaining clarity
+- Preserved the essential algorithm: lookup type, validate it's a simple defined type, return OID
+- Maintained proper memory management with ReleaseSysCache
+- Made the conditions clearer with explicit checks for defined and non-composite types
+- Reduced from ~20 lines to ~16 lines while preserving all functionality

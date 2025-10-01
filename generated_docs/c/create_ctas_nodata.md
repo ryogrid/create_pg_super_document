@@ -43,3 +43,60 @@ Once the column definitions are prepared, it delegates to  for the actual relati
 - Filters out junk entries from the target list (typically used for sorting/grouping)
 - Generates appropriate error messages when column name count mismatches occur
 - Acts as a preprocessing step before calling the main relation creation logic
+
+## Simplified Source
+
+```c
+static ObjectAddress
+create_ctas_nodata(List *tlist, IntoClause *into)
+{
+    List *attrList = NIL;
+    ListCell *lc = list_head(into->colNames);
+
+    // Build column definitions from target list entries
+    foreach(t, tlist)
+    {
+        TargetEntry *tle = (TargetEntry *) lfirst(t);
+
+        // Skip junk entries (used for sorting/grouping)
+        if (!tle->resjunk)
+        {
+            ColumnDef *col;
+            char *colname;
+
+            // Use explicit column name if provided, otherwise use query's name
+            if (lc)
+            {
+                colname = strVal(lfirst(lc));
+                lc = lnext(into->colNames, lc);
+            }
+            else
+                colname = tle->resname;
+
+            // Create column definition with type info from expression
+            col = makeColumnDef(colname,
+                               exprType((Node *) tle->expr),
+                               exprTypmod((Node *) tle->expr),
+                               exprCollation((Node *) tle->expr));
+
+            // Validate collation for collatable types
+            if (!OidIsValid(col->collOid) && type_is_collatable(col->typeName->typeOid))
+                ereport(ERROR,
+                        (errcode(ERRCODE_INDETERMINATE_COLLATION),
+                         errmsg("no collation was derived for column \"%s\"", col->colname),
+                         errhint("Use the COLLATE clause to set the collation explicitly.")));
+
+            attrList = lappend(attrList, col);
+        }
+    }
+
+    // Error if too many column names specified
+    if (lc != NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_SYNTAX_ERROR),
+                 errmsg("too many column names were specified")));
+
+    // Create the actual relation using the column definitions
+    return create_ctas_internal(attrList, into);
+}
+```

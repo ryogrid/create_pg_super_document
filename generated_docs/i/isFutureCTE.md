@@ -33,3 +33,26 @@ This static function searches through the p_future_ctes lists in the parsing sta
 - Not related to valid SQL semantics but crucial for user-friendly error messages
 - Part of PostgreSQL's enhanced error reporting system for WITH clause references
 - Helps distinguish between truly non-existent relations and incorrectly scoped CTE references
+
+## Simplified Source
+
+```c
+static bool
+isFutureCTE(ParseState *pstate, const char *refname)
+{
+    // Search through parse state hierarchy for future CTEs
+    for (; pstate != NULL; pstate = pstate->parentParseState) {
+        ListCell *lc;
+
+        // Check each future CTE in current parse state
+        foreach(lc, pstate->p_future_ctes) {
+            CommonTableExpr *cte = (CommonTableExpr *) lfirst(lc);
+
+            if (strcmp(cte->ctename, refname) == 0)
+                return true; // Found matching future CTE
+        }
+    }
+
+    return false; // No matching future CTE found
+}
+```

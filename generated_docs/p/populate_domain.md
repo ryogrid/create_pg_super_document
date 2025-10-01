@@ -54,3 +54,33 @@ The function follows PostgreSQL's type system hierarchy where domains add constr
 - Supports all domain constraint types including CHECK constraints and NOT NULL constraints
 - The base type conversion is performed through populate_record_field() which handles the appropriate delegation to scalar, composite, or other population functions
 - Memory context management is delegated to the underlying population and constraint checking functions
+
+## Simplified Source
+
+```c
+static Datum populate_domain(DomainIOData *io, Oid typid,
+                            const char *colname, MemoryContext mcxt,
+                            JsValue *jsv, bool *isnull, Node *escontext,
+                            bool omit_quotes) {
+    Datum result;
+
+    if (*isnull) {
+        result = (Datum) 0;
+    } else {
+        // Convert JSON/JsonB to base type
+        result = populate_record_field(io->base_io, io->base_typid, io->base_typmod,
+                                      colname, mcxt, PointerGetDatum(NULL),
+                                      jsv, isnull, escontext, omit_quotes);
+        Assert(!*isnull || SOFT_ERROR_OCCURRED(escontext));
+    }
+
+    // Apply domain constraints
+    if (!domain_check_safe(result, *isnull, typid, &io->domain_info,
+                          mcxt, escontext)) {
+        *isnull = true;
+        return (Datum) 0;
+    }
+
+    return result;
+}
+```

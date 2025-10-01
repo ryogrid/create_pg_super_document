@@ -41,3 +41,44 @@ If all validations pass, it calls  to actually record the leap second informatio
 - The function handles both positive (+1 second) and negative (-1 second) leap second corrections
 - Input validation is strict - any malformed leap second entry will result in an error and compilation failure
 - The rolling/stationary field determines how the leap second affects time zone transitions
+
+## Simplified Source
+
+```c
+static void
+inleap(char **fields, int nfields)
+{
+    // Validate field count
+    if (nfields != LEAP_FIELDS) {
+        error(_("wrong number of fields on Leap line"));
+        return;
+    }
+
+    // Parse leap second datetime
+    zic_t t = getleapdatetime(fields, nfields, false);
+    if (t < 0)
+        return;  // Invalid datetime
+
+    // Validate rolling/stationary field
+    struct lookup const *lp = byword(fields[LP_ROLL], leap_types);
+    if (!lp) {
+        error(_("invalid Rolling/Stationary field on Leap line"));
+        return;
+    }
+
+    // Parse correction direction (+1 or -1 second)
+    int correction = 0;
+    if (!fields[LP_CORR][0])           // Empty field means -1
+        correction = -1;
+    else if (strcmp(fields[LP_CORR], "+") == 0)
+        correction = 1;
+    else {
+        error(_("invalid CORRECTION field on Leap line"));
+        return;
+    }
+
+    // Add the leap second if correction is valid
+    if (correction)
+        leapadd(t, correction, lp->l_value);
+}
+```

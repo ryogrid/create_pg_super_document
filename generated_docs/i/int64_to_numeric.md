@@ -41,3 +41,28 @@ The conversion process ensures that the integer value is accurately represented 
 - It's widely used throughout the system for converting various integer types to Numeric, including currency calculations, date/time extractions, and aggregate functions
 - The function performs memory management by initializing and freeing temporary NumericVar structures
 - Used as a building block for other integer-to-numeric conversion functions like int4_numeric, int8_numeric, and int2_numeric
+
+## Simplified Source
+
+```c
+Numeric
+int64_to_numeric(int64 val)
+{
+    Numeric res;
+    NumericVar result;
+
+    // Initialize working variable
+    init_var(&result);
+
+    // Convert int64 to NumericVar representation
+    int64_to_numericvar(val, &result);
+
+    // Create final Numeric result
+    res = make_result(&result);
+
+    // Clean up temporary variable
+    free_var(&result);
+
+    return res;
+}
+```

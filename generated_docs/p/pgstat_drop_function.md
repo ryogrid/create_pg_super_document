@@ -31,3 +31,14 @@ This function unregisters a function from PostgreSQL's statistics tracking subsy
 - Depends on coordination with pgstat_init_function_usage for reliable operation
 - Located in src/backend/utils/activity/pgstat_function.c:60-71
 - Part of PostgreSQL's transactional statistics management ensuring consistency between catalog and statistics data
+
+## Simplified Source
+
+```c
+void pgstat_drop_function(Oid proid) {
+    // Drop function statistics transactionally
+    pgstat_drop_transactional(PGSTAT_KIND_FUNCTION,
+                              MyDatabaseId,
+                              proid);
+}
+```

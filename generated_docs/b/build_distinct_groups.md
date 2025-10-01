@@ -39,3 +39,45 @@ This function processes a sorted array of SortItem objects to identify distinct 
 - Uses assertions to verify sorting assumptions and validate output
 - The final result is sorted by count in descending order to prioritize most frequent values
 - Part of PostgreSQL's extended statistics system for MCV list generation
+
+## Simplified Source
+
+```c
+static SortItem *
+build_distinct_groups(int numrows, SortItem *items, MultiSortSupport mss,
+                     int *ndistinct)
+{
+    int i, j;
+    int ngroups = count_distinct_groups(numrows, items, mss);
+
+    // Allocate array for distinct groups
+    SortItem *groups = (SortItem *) palloc(ngroups * sizeof(SortItem));
+
+    // Initialize first group
+    j = 0;
+    groups[0] = items[0];
+    groups[0].count = 1;
+
+    // Process remaining items to identify distinct groups
+    for (i = 1; i < numrows; i++)
+    {
+        // Check if this item differs from previous one
+        if (multi_sort_compare(&items[i], &items[i - 1], mss) != 0)
+        {
+            // New distinct group detected
+            groups[++j] = items[i];
+            groups[j].count = 0;
+        }
+
+        // Increment count for current group
+        groups[j].count++;
+    }
+
+    // Sort groups by frequency (descending order)
+    qsort_interruptible(groups, ngroups, sizeof(SortItem),
+                      compare_sort_item_count, NULL);
+
+    *ndistinct = ngroups;
+    return groups;
+}
+```

@@ -45,3 +45,56 @@ The algorithm walks through the digit array, converting each NumericDigit into i
 - Used as the foundation for all numeric-to-string conversions in PostgreSQL
 - Handles very large and very small numbers through the weight/dscale mechanism
 - The algorithm is optimized for the internal numeric representation used by PostgreSQL
+
+## Simplified Source
+
+```c
+static char *get_str_from_var(const NumericVar *var) {
+    int dscale = var->dscale;
+    char *str, *cp;
+    int i, d;
+    NumericDigit digit;
+
+    // Allocate memory for result string (sign + digits + decimal + null terminator)
+    i = (var->weight + 1) * DEC_DIGITS;
+    if (i <= 0) i = 1;
+    str = palloc(i + dscale + DEC_DIGITS + 2);
+    cp = str;
+
+    // Add negative sign if needed
+    if (var->sign == NUMERIC_NEG)
+        *cp++ = '-';
+
+    // Output digits before decimal point
+    if (var->weight < 0) {
+        *cp++ = '0';  // Leading zero for numbers < 1
+        d = var->weight + 1;
+    } else {
+        // Process each digit group, suppressing leading zeros
+        for (d = 0; d <= var->weight; d++) {
+            digit = (d < var->ndigits) ? var->digits[d] : 0;
+
+            // Convert digit group to individual decimal digits
+            // (Implementation varies by DEC_DIGITS: 1, 2, or 4 digits per group)
+            // Suppress leading zeros in first digit group only
+            format_digit_group_to_string(&cp, digit, d > 0);
+        }
+    }
+
+    // Output decimal point and fractional digits if needed
+    if (dscale > 0) {
+        *cp++ = '.';
+        char *end_pos = cp + dscale;
+
+        // Output digit groups after decimal point
+        for (i = 0; i < dscale; d++, i += DEC_DIGITS) {
+            digit = (d >= 0 && d < var->ndigits) ? var->digits[d] : 0;
+            format_digit_group_to_string(&cp, digit, true);
+        }
+        cp = end_pos;  // Truncate to exact dscale digits
+    }
+
+    *cp = '\0';
+    return str;
+}
+```

@@ -58,3 +58,14 @@ The returned Datum represents a TOAST pointer that can be used to access and mod
 - The counterpart function EOHPGetRODatum provides access to the read-only TOAST pointer
 - This function is commonly used in array and record manipulation functions where write access to the expanded object is required
 - The returned Datum maintains the same lifespan as the underlying ExpandedObjectHeader's memory context
+
+## Simplified Source
+
+```c
+static inline Datum
+EOHPGetRWDatum(const struct ExpandedObjectHeader *eohptr)
+{
+    // Return read-write TOAST pointer as Datum
+    return PointerGetDatum(eohptr->eoh_rw_ptr);
+}
+```

@@ -35,3 +35,18 @@ This function serves as a wrapper around the lower-level get_rel_name() function
 - Used primarily in SQL rule generation and formatting contexts
 - The returned string is allocated by the underlying get_rel_name() function
 - Part of PostgreSQL's defensive programming practices for system catalog lookups
+
+## Simplified Source
+
+```c
+static char *
+get_relation_name(Oid relid)
+{
+    char *relname = get_rel_name(relid);
+
+    if (!relname)
+        elog(ERROR, "cache lookup failed for relation %u", relid);
+
+    return relname;
+}
+```

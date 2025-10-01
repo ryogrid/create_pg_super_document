@@ -72,3 +72,82 @@ The algorithm maintains partition maps to track relationships and generates list
 - Returns NULL if partitioned join is not feasible (partition matching multiple partitions)
 - Critical component for query optimizer's partitioned join planning for list partitions
 - Memory management includes cleanup section to free temporary structures
+
+## Simplified Source
+
+```c
+static PartitionBoundInfo merge_list_bounds(FmgrInfo *partsupfunc, Oid *partcollation,
+                                          RelOptInfo *outer_rel, RelOptInfo *inner_rel,
+                                          JoinType jointype,
+                                          List **outer_parts, List **inner_parts) {
+    PartitionBoundInfo outer_bi = outer_rel->boundinfo;
+    PartitionBoundInfo inner_bi = inner_rel->boundinfo;
+    PartitionMap outer_map, inner_map;
+    List *merged_datums = NIL;
+    List *merged_indexes = NIL;
+    int next_index = 0;
+
+    // Initialize partition mapping structures
+    init_partition_map(outer_rel, &outer_map);
+    init_partition_map(inner_rel, &inner_map);
+
+    // Merge partitions using merge-join algorithm
+    int outer_pos = 0, inner_pos = 0;
+    while (outer_pos < outer_bi->ndatums || inner_pos < inner_bi->ndatums) {
+        // Skip empty/dummy partitions
+        if (outer_pos < outer_bi->ndatums &&
+            is_dummy_partition(outer_rel, outer_bi->indexes[outer_pos])) {
+            outer_pos++;
+            continue;
+        }
+        if (inner_pos < inner_bi->ndatums &&
+            is_dummy_partition(inner_rel, inner_bi->indexes[inner_pos])) {
+            inner_pos++;
+            continue;
+        }
+
+        // Compare list values (similar to merge join)
+        int cmpval = compare_partition_values(outer_pos, inner_pos,
+                                            outer_bi, inner_bi, partsupfunc, partcollation);
+
+        if (cmpval == 0) {
+            // Exact match - merge partitions
+            int merged_idx = merge_matching_partitions(&outer_map, &inner_map,
+                                                     outer_bi->indexes[outer_pos],
+                                                     inner_bi->indexes[inner_pos],
+                                                     &next_index);
+            if (merged_idx >= 0) {
+                merged_datums = lappend(merged_datums, outer_bi->datums[outer_pos]);
+                merged_indexes = lappend_int(merged_indexes, merged_idx);
+            }
+            outer_pos++;
+            inner_pos++;
+        } else if (cmpval < 0) {
+            // Handle outer partition with no inner match
+            handle_unmatched_outer_partition(&outer_map, &inner_map, outer_pos, jointype);
+            outer_pos++;
+        } else {
+            // Handle inner partition with no outer match
+            handle_unmatched_inner_partition(&outer_map, &inner_map, inner_pos, jointype);
+            inner_pos++;
+        }
+    }
+
+    // Handle NULL and default partitions
+    merge_special_partitions(&outer_map, &inner_map, jointype, &next_index);
+
+    // Generate final result if successful
+    PartitionBoundInfo result = NULL;
+    if (next_index > 0) {
+        generate_matching_part_pairs(outer_rel, inner_rel, &outer_map, &inner_map,
+                                   next_index, outer_parts, inner_parts);
+        result = build_merged_partition_bounds(outer_bi->strategy, merged_datums,
+                                             NIL, merged_indexes, -1, -1);
+    }
+
+    // Cleanup
+    free_partition_map(&outer_map);
+    free_partition_map(&inner_map);
+    return result;
+}
+```

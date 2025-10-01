@@ -38,3 +38,18 @@ This approach ensures compatibility across different C standard library implemen
 - The fallback method (`HUGE_VAL * HUGE_VAL`) is a common technique for generating infinity on older systems
 - Used extensively throughout PostgreSQL for handling special floating-point values in mathematical computations, geometric operations, and statistical functions
 - Critical for proper handling of overflow conditions and infinite values in SQL operations
+
+## Simplified Source
+
+```c
+static double get_float8_infinity(void)
+{
+    // Use C99 INFINITY if available, otherwise compute it
+#ifdef INFINITY
+    return (double) INFINITY;
+#else
+    // Fallback: HUGE_VAL * HUGE_VAL = positive infinity
+    return (double) (HUGE_VAL * HUGE_VAL);
+#endif
+}
+```

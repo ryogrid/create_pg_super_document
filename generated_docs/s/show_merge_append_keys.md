@@ -36,3 +36,19 @@ This function displays the sort keys used by a MergeAppend plan node during EXPL
 - The function is used when explaining queries that involve partitioned tables or UNION ALL operations where child results are already sorted
 - This is a static function, only accessible within the explain.c compilation unit
 - The sort keys shown represent the merge criteria that maintain the sorted order when combining multiple sorted input streams
+
+## Simplified Source
+
+```c
+static void
+show_merge_append_keys(MergeAppendState *mstate, List *ancestors, ExplainState *es)
+{
+    MergeAppend *plan = (MergeAppend *) mstate->ps.plan;
+
+    // Display sort keys used for merging sorted child results
+    show_sort_group_keys((PlanState *) mstate, "Sort Key",
+                         plan->numCols, 0, plan->sortColIdx,
+                         plan->sortOperators, plan->collations,
+                         plan->nullsFirst, ancestors, es);
+}
+```

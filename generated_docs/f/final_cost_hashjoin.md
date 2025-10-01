@@ -54,3 +54,96 @@ The function uses the most conservative (smallest) bucket size estimates across 
 - Applies different cost models for matched vs unmatched outer rows in SEMI/ANTI joins
 - For parallel paths, scales row estimates using parallel divisor before final cost calculation
 - Adds disable_cost penalty if enable_hashjoin is disabled
+
+## Simplified Source
+
+```c
+void
+final_cost_hashjoin(PlannerInfo *root, HashPath *path,
+                   JoinCostWorkspace *workspace, JoinPathExtraData *extra)
+{
+    Path *outer_path = path->jpath.outerjoinpath;
+    Path *inner_path = path->jpath.innerjoinpath;
+    double outer_path_rows = outer_path->rows;
+    double inner_path_rows = inner_path->rows;
+    Cost startup_cost = workspace->startup_cost;
+    Cost run_cost = workspace->run_cost;
+    double virtualbuckets = workspace->numbuckets * workspace->numbatches;
+
+    // Set basic path properties
+    path->jpath.path.rows = (path->jpath.path.param_info) ?
+        path->jpath.path.param_info->ppi_rows : path->jpath.path.parent->rows;
+
+    // Handle parallel execution scaling
+    if (path->jpath.path.parallel_workers > 0)
+        path->jpath.path.rows /= get_parallel_divisor(&path->jpath.path);
+
+    // Apply disable cost if hash joins are disabled
+    if (!enable_hashjoin)
+        startup_cost += disable_cost;
+
+    // Determine hash bucket statistics for inner relation
+    Selectivity innerbucketsize, innermcvfreq;
+    if (IsA(inner_path, UniquePath))
+    {
+        // Unique paths have perfect distribution
+        innerbucketsize = 1.0 / virtualbuckets;
+        innermcvfreq = 0.0;
+    }
+    else
+    {
+        // Find smallest bucket size across all hash clauses
+        innerbucketsize = 1.0;
+        innermcvfreq = 1.0;
+        foreach_hash_clause()
+        {
+            estimate_bucket_stats_and_cache();
+            innerbucketsize = Min(innerbucketsize, this_bucketsize);
+            innermcvfreq = Min(innermcvfreq, this_mcvfreq);
+        }
+    }
+
+    // Apply memory pressure penalty if MCV bucket exceeds hash_mem
+    if (mcv_bucket_size > get_hash_memory_limit())
+        startup_cost += disable_cost;
+
+    // Calculate join costs based on join type
+    QualCost hash_qual_cost, qp_qual_cost;
+    cost_qual_eval(&hash_qual_cost, path->path_hashclauses, root);
+    cost_qual_eval(&qp_qual_cost, path->jpath.joinrestrictinfo, root);
+
+    double hashjointuples;
+    if (is_semi_anti_or_unique_join())
+    {
+        // SEMI/ANTI joins stop at first match
+        double outer_matched_rows = outer_path_rows * extra->semifactors.outer_match_frac;
+        double inner_scan_frac = 2.0 / (extra->semifactors.match_count + 1.0);
+
+        // Cost for matched rows (early termination)
+        run_cost += hash_qual_cost.per_tuple * outer_matched_rows *
+                   inner_path_rows * innerbucketsize * inner_scan_frac * 0.5;
+
+        // Cost for unmatched rows (average bucket scan)
+        run_cost += hash_qual_cost.per_tuple * (outer_path_rows - outer_matched_rows) *
+                   (inner_path_rows / virtualbuckets) * 0.05;
+
+        hashjointuples = (path->jpath.jointype == JOIN_ANTI) ?
+            outer_path_rows - outer_matched_rows : outer_matched_rows;
+    }
+    else
+    {
+        // Regular joins scan full buckets
+        run_cost += hash_qual_cost.per_tuple * outer_path_rows *
+                   inner_path_rows * innerbucketsize * 0.5;
+        hashjointuples = approx_tuple_count(root, &path->jpath, hashclauses);
+    }
+
+    // Add costs for additional quals and target list evaluation
+    run_cost += (cpu_tuple_cost + qp_qual_cost.per_tuple) * hashjointuples;
+    run_cost += path->jpath.path.pathtarget->cost.per_tuple * path->jpath.path.rows;
+
+    // Set final costs
+    path->jpath.path.startup_cost = startup_cost;
+    path->jpath.path.total_cost = startup_cost + run_cost;
+}
+```

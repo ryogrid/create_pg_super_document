@@ -49,3 +49,30 @@ The function performs the following operations:
 - Error handling includes checking for timestamp values that are out of range
 - The conversion process involves timezone-aware timestamp decomposition followed by time-only reconstruction
 - Located in src/backend/utils/adt/date.c:1935-1965
+
+## Simplified Source
+
+```c
+Datum timestamptz_time(PG_FUNCTION_ARGS) {
+    TimestampTz timestamp = PG_GETARG_TIMESTAMP(0);
+    TimeADT result;
+    struct pg_tm tm;
+    int tz;
+    fsec_t fsec;
+
+    // Return NULL for infinite timestamps
+    if (TIMESTAMP_NOT_FINITE(timestamp))
+        PG_RETURN_NULL();
+
+    // Convert timestamp with timezone to time components
+    if (timestamp2tm(timestamp, &tz, &tm, &fsec, NULL, NULL) != 0)
+        ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                       errmsg("timestamp out of range")));
+
+    // Calculate time in microseconds since midnight
+    result = ((((tm.tm_hour * MINS_PER_HOUR + tm.tm_min) * SECS_PER_MINUTE) + tm.tm_sec) *
+              USECS_PER_SEC) + fsec;
+
+    PG_RETURN_TIMEADT(result);
+}
+```

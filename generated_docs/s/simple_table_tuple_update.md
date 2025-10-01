@@ -55,3 +55,38 @@ All possible return values from  are handled:
 - All failure cases result in ERROR-level messages, making this unsuitable for cases where graceful handling of update conflicts is needed
 - The function automatically increments the command ID, indicating it expects to be called for write operations
 - Located in the table access method layer, providing a high-level interface to the storage engine
+
+## Simplified Source
+
+```c
+void simple_table_tuple_update(Relation rel, ItemPointer otid,
+                               TupleTableSlot *slot, Snapshot snapshot,
+                               TU_UpdateIndexes *update_indexes) {
+    TM_Result result;
+    TM_FailureData tmfd;
+    LockTupleMode lockmode;
+
+    // Attempt to update the tuple with default parameters
+    result = table_tuple_update(rel, otid, slot, GetCurrentCommandId(true),
+                               snapshot, InvalidSnapshot, true /* wait for commit */,
+                               &tmfd, &lockmode, update_indexes);
+
+    // Handle results - only TM_Ok is acceptable, all others are errors
+    switch (result) {
+        case TM_SelfModified:
+            elog(ERROR, "tuple already updated by self");
+            break;
+        case TM_Ok:
+            /* Success - done */
+            break;
+        case TM_Updated:
+            elog(ERROR, "tuple concurrently updated");
+            break;
+        case TM_Deleted:
+            elog(ERROR, "tuple concurrently deleted");
+            break;
+        default:
+            elog(ERROR, "unrecognized table_tuple_update status: %u", result);
+    }
+}
+```

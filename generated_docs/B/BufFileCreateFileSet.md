@@ -39,3 +39,29 @@ The function initializes the BufFile with a single segment (segment 0) and sets 
 - Names should be descriptive to help administrators identify which subsystem is generating temporary files
 - The SharedFileSet infrastructure ensures proper cleanup and uniqueness across different PostgreSQL processes
 - This function is essential for implementing shared temporary storage across multiple backends
+
+## Simplified Source
+
+```c
+BufFile *
+BufFileCreateFileSet(FileSet *fileset, const char *name)
+{
+    BufFile *file;
+
+    // Create basic BufFile structure with 1 file
+    file = makeBufFileCommon(1);
+
+    // Configure for fileset operation
+    file->fileset = fileset;
+    file->name = pstrdup(name);  // Make copy of name
+
+    // Allocate array for file handles and create first segment
+    file->files = (File *) palloc(sizeof(File));
+    file->files[0] = MakeNewFileSetSegment(file, 0);
+
+    // Set as read-write mode
+    file->readOnly = false;
+
+    return file;
+}
+```

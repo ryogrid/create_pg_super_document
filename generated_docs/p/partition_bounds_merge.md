@@ -59,3 +59,54 @@ If any partition on one side matches multiple partitions on the other side, the 
 - Returns NULL if partitioned join is not feasible
 - Output partition lists contain matching pairs at corresponding positions
 - Critical for query optimizer's partitioned join planning
+
+## Simplified Source
+
+```c
+PartitionBoundInfo
+partition_bounds_merge(int partnatts,
+                       FmgrInfo *partsupfunc, Oid *partcollation,
+                       RelOptInfo *outer_rel, RelOptInfo *inner_rel,
+                       JoinType jointype,
+                       List **outer_parts, List **inner_parts)
+{
+    // Validate join type and partitioning strategy compatibility
+    Assert(jointype == JOIN_INNER || jointype == JOIN_LEFT ||
+           jointype == JOIN_FULL || jointype == JOIN_SEMI ||
+           jointype == JOIN_ANTI);
+
+    Assert(outer_rel->boundinfo->strategy == inner_rel->boundinfo->strategy);
+
+    *outer_parts = *inner_parts = NIL;
+
+    // Dispatch to strategy-specific merge implementation
+    switch (outer_rel->boundinfo->strategy)
+    {
+        case PARTITION_STRATEGY_HASH:
+            // Hash partitioning not supported for partitioned joins
+            // due to complexity of handling different moduli
+            return NULL;
+
+        case PARTITION_STRATEGY_LIST:
+            return merge_list_bounds(partsupfunc,
+                                     partcollation,
+                                     outer_rel,
+                                     inner_rel,
+                                     jointype,
+                                     outer_parts,
+                                     inner_parts);
+
+        case PARTITION_STRATEGY_RANGE:
+            return merge_range_bounds(partnatts,
+                                      partsupfunc,
+                                      partcollation,
+                                      outer_rel,
+                                      inner_rel,
+                                      jointype,
+                                      outer_parts,
+                                      inner_parts);
+    }
+
+    return NULL;
+}
+```

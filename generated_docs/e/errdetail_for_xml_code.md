@@ -41,3 +41,40 @@ This function is designed to be called within ereport() or errsave() invocations
   - XML_ERR_MISSING_ENCODING: Missing encoding in text declaration
   - XML_ERR_XMLDECL_NOT_FINISHED: Incomplete XML declaration
 - This is a static function only used within the xml.c module
+
+## Simplified Source
+
+```c
+static int
+errdetail_for_xml_code(int code)
+{
+    const char *det;
+
+    switch (code)
+    {
+        case XML_ERR_INVALID_CHAR:
+            det = gettext_noop("Invalid character value.");
+            break;
+        case XML_ERR_SPACE_REQUIRED:
+            det = gettext_noop("Space required.");
+            break;
+        case XML_ERR_STANDALONE_VALUE:
+            det = gettext_noop("standalone accepts only 'yes' or 'no'.");
+            break;
+        case XML_ERR_VERSION_MISSING:
+            det = gettext_noop("Malformed declaration: missing version.");
+            break;
+        case XML_ERR_MISSING_ENCODING:
+            det = gettext_noop("Missing encoding in text declaration.");
+            break;
+        case XML_ERR_XMLDECL_NOT_FINISHED:
+            det = gettext_noop("Parsing XML declaration: '?>' expected.");
+            break;
+        default:
+            det = gettext_noop("Unrecognized libxml error code: %d.");
+            break;
+    }
+
+    return errdetail(det, code);
+}
+```

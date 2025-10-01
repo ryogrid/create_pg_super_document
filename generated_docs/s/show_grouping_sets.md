@@ -45,3 +45,39 @@ This function displays comprehensive information about grouping sets, which are 
 - The function displays both the main grouping set and any chained aggregation levels with their associated sort operations
 - Grouping sets are a PostgreSQL extension to standard SQL GROUP BY functionality
 - This is a static function, only accessible within the explain.c compilation unit
+
+## Simplified Source
+
+```c
+static void
+show_grouping_sets(PlanState *planstate, Agg *agg,
+                   List *ancestors, ExplainState *es)
+{
+    List *context;
+    bool useprefix;
+    ListCell *lc;
+
+    // Set up deparsing context for column name resolution
+    context = set_deparse_context_plan(es->deparse_cxt, planstate->plan, ancestors);
+    useprefix = (list_length(es->rtable) > 1 || es->verbose);
+
+    // Open the grouping sets section in explain output
+    ExplainOpenGroup("Grouping Sets", "Grouping Sets", false, es);
+
+    // Show the main grouping set keys
+    show_grouping_set_keys(planstate, agg, NULL, context, useprefix, ancestors, es);
+
+    // Show keys for each chained aggregation level
+    foreach(lc, agg->chain)
+    {
+        Agg *aggnode = lfirst(lc);
+        Sort *sortnode = (Sort *) aggnode->plan.lefttree;
+
+        show_grouping_set_keys(planstate, aggnode, sortnode,
+                               context, useprefix, ancestors, es);
+    }
+
+    // Close the grouping sets section
+    ExplainCloseGroup("Grouping Sets", "Grouping Sets", false, es);
+}
+```

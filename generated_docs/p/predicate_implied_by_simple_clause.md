@@ -48,3 +48,67 @@ The function supports both "weak" and "strong" implication modes, where strong i
 - Only processes IS_NOT_NULL null tests for implication (IS_NULL tests are handled elsewhere)
 - The argisrow check ensures row-level null tests are excluded from simple processing
 - Function assumes that expressions contain only immutable functions, which should be verified by the caller
+
+## Simplified Source
+
+```c
+static bool predicate_implied_by_simple_clause(Expr *predicate, Node *clause, bool weak) {
+    // Allow interrupting long proof attempts
+    CHECK_FOR_INTERRUPTS();
+
+    // Basic rule: any clause implies itself
+    if (equal((Node *) predicate, clause))
+        return true;
+
+    // Handle specific clause types
+    switch (nodeTag(clause)) {
+        case T_OpExpr: {
+            OpExpr *op = (OpExpr *) clause;
+
+            // Handle boolean equality: "x = TRUE" implies "x", "x = FALSE" implies "NOT x"
+            if (op->opno == BooleanEqualOperator) {
+                Assert(list_length(op->args) == 2);
+                Node *right_operand = lsecond(op->args);
+
+                if (right_operand && IsA(right_operand, Const) && !((Const *) right_operand)->constisnull) {
+                    Node *left_operand = linitial(op->args);
+
+                    if (DatumGetBool(((Const *) right_operand)->constvalue)) {
+                        // "X = true" implies "X"
+                        if (equal(predicate, left_operand))
+                            return true;
+                    } else {
+                        // "X = false" implies "NOT X"
+                        if (is_notclause(predicate) && equal(get_notclausearg(predicate), left_operand))
+                            return true;
+                    }
+                }
+            }
+            break;
+        }
+        default:
+            break;
+    }
+
+    // Handle specific predicate types
+    switch (nodeTag(predicate)) {
+        case T_NullTest: {
+            NullTest *null_test = (NullTest *) predicate;
+
+            if (null_test->nulltesttype == IS_NOT_NULL) {
+                // For "foo IS NOT NULL": if clause is strict for foo,
+                // then clause being true means foo cannot be NULL
+                if (!weak && !null_test->argisrow &&
+                    clause_is_strict_for(clause, (Node *) null_test->arg, true))
+                    return true;
+            }
+            break;
+        }
+        default:
+            break;
+    }
+
+    // Try operator-based proof rules for binary operators
+    return operator_predicate_proof(predicate, clause, false, weak);
+}
+```

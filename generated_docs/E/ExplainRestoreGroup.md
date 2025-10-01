@@ -44,3 +44,30 @@ This enables the completion of the deferred output workflow: ExplainOpenSetAside
 - The function restores state without emitting output - actual content emission happens separately
 - Used in worker process output handling where content needs to be formatted and buffered before being merged into the main output
 - Located in src/backend/commands/explain.c:5042-5068
+
+## Simplified Source
+
+```c
+static void
+ExplainRestoreGroup(ExplainState *es, int depth, int *state_save)
+{
+    switch (es->format)
+    {
+        case EXPLAIN_FORMAT_TEXT:
+            // Text format requires no state restoration
+            break;
+
+        case EXPLAIN_FORMAT_XML:
+            // XML only needs indentation restoration
+            es->indent += depth;
+            break;
+
+        case EXPLAIN_FORMAT_JSON:
+        case EXPLAIN_FORMAT_YAML:
+            // JSON/YAML require full state restoration
+            es->grouping_stack = lcons_int(*state_save, es->grouping_stack);
+            es->indent += depth;
+            break;
+    }
+}
+```

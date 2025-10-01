@@ -52,3 +52,37 @@ Space information includes both the type (memory vs. disk) and the amount used i
 - Memory usage tracking has limitations once tuples are being returned to the caller due to untracked pfree operations
 - The function provides the basis for sort statistics shown in EXPLAIN ANALYZE output
 - Distinguishes between different sort algorithms to help users understand query performance characteristics
+
+## Simplified Source
+
+```c
+void tuplesort_get_stats(Tuplesortstate *state, TuplesortInstrumentation *stats) {
+    // Update max space tracking before reporting
+    tuplesort_updatemax(state);
+
+    // Set space type (memory vs disk) and amount used
+    if (state->isMaxSpaceDisk)
+        stats->spaceType = SORT_SPACE_TYPE_DISK;
+    else
+        stats->spaceType = SORT_SPACE_TYPE_MEMORY;
+    stats->spaceUsed = (state->maxSpace + 1023) / 1024;  // Convert to KB
+
+    // Determine sort method based on maximum space status reached
+    switch (state->maxSpaceStatus) {
+        case TSS_SORTEDINMEM:
+            // In-memory sort: top-N heap or quicksort
+            stats->sortMethod = state->boundUsed ?
+                              SORT_TYPE_TOP_N_HEAPSORT : SORT_TYPE_QUICKSORT;
+            break;
+        case TSS_SORTEDONTAPE:
+            stats->sortMethod = SORT_TYPE_EXTERNAL_SORT;
+            break;
+        case TSS_FINALMERGE:
+            stats->sortMethod = SORT_TYPE_EXTERNAL_MERGE;
+            break;
+        default:
+            stats->sortMethod = SORT_TYPE_STILL_IN_PROGRESS;
+            break;
+    }
+}
+```

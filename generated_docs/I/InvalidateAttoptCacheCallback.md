@@ -41,3 +41,26 @@ The function iterates through all entries in the global AttoptCacheHash using ha
 - Includes hash table corruption detection with ERROR logging
 - Part of PostgreSQL's attribute options caching subsystem located in src/backend/utils/cache/attoptcache.c
 - The conservative invalidation approach is justified by the non-critical performance requirements of attribute options
+
+## Simplified Source
+
+```c
+static void InvalidateAttoptCacheCallback(Datum arg, int cacheid, uint32 hashvalue) {
+    HASH_SEQ_STATUS status;
+    AttoptCacheEntry *attopt;
+
+    // Iterate through all cached attribute option entries
+    hash_seq_init(&status, AttoptCacheHash);
+    while ((attopt = (AttoptCacheEntry *) hash_seq_search(&status)) != NULL) {
+        // Free allocated memory for cached options
+        if (attopt->opts) {
+            pfree(attopt->opts);
+        }
+
+        // Remove entry from hash table with error checking
+        if (hash_search(AttoptCacheHash, &attopt->key, HASH_REMOVE, NULL) == NULL) {
+            elog(ERROR, "hash table corrupted");
+        }
+    }
+}
+```

@@ -37,3 +37,17 @@ This function enforces timezone requirements when converting between temporal da
 - Provides user-friendly error messages suggesting the use of *_tz() functions
 - Critical for maintaining temporal data integrity in timezone-sensitive operations
 - Uses ERRCODE_FEATURE_NOT_SUPPORTED to indicate unsupported operations without timezone context
+
+## Simplified Source
+
+```c
+static void checkTimezoneIsUsedForCast(bool useTz, const char *type1, const char *type2) {
+    // Ensure timezone is used for timezone-sensitive casts
+    if (!useTz)
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("cannot convert value from %s to %s without time zone usage",
+                        type1, type2),
+                 errhint("Use *_tz() function for time zone support.")));
+}
+```

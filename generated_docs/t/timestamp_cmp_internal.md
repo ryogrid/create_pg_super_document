@@ -43,3 +43,12 @@ timestamp_cmp_internal is the core comparison function for PostgreSQL timestamp 
 - Returns standard three-way comparison semantics: negative, zero, or positive integer
 - Performance-critical function as it's used extensively in sorting, indexing, and conditional operations
 - The implementation assumes that Timestamp values are properly normalized and finite
+
+## Simplified Source
+
+```c
+int timestamp_cmp_internal(Timestamp dt1, Timestamp dt2) {
+    // Three-way comparison: -1 if dt1 < dt2, 0 if equal, 1 if dt1 > dt2
+    return (dt1 < dt2) ? -1 : ((dt1 > dt2) ? 1 : 0);
+}
+```

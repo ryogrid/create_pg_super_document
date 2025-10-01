@@ -69,3 +69,100 @@ The function supports both standard and non-standard parsing modes, implements s
 - Includes extensive validation for all datetime components and timezone specifications
 - Memory management is carefully handled with proper cleanup in both success and failure paths
 - The function's complexity reflects the rich variety of datetime formats supported by PostgreSQL
+
+## Simplified Source
+
+```c
+static bool do_to_timestamp(text *date_txt, text *fmt, Oid collid, bool std,
+                           struct pg_tm *tm, fsec_t *fsec, struct fmt_tz *tz,
+                           int *fprec, uint32 *flags, Node *escontext) {
+    FormatNode *format = NULL;
+    TmFromChar tmfc;
+    char *date_str = text_to_cstring(date_txt);
+
+    // Initialize output structures
+    ZERO_tmfc(&tmfc);
+    ZERO_tm(tm);
+    *fsec = 0;
+    tz->has_tz = false;
+
+    // Parse format string into nodes
+    if (VARSIZE_ANY_EXHDR(fmt) > 0) {
+        char *fmt_str = text_to_cstring(fmt);
+
+        // Use cache or allocate format nodes based on size
+        if (fmt_len > DCH_CACHE_SIZE) {
+            format = palloc((fmt_len + 1) * sizeof(FormatNode));
+            parse_format(format, fmt_str, DCH_keywords, DCH_suff, DCH_index,
+                        DCH_FLAG | (std ? STD_FLAG : 0), NULL);
+        } else {
+            DCHCacheEntry *ent = DCH_cache_fetch(fmt_str, std);
+            format = ent->format;
+        }
+
+        // Parse input string according to format
+        DCH_from_char(format, date_str, &tmfc, collid, std, escontext);
+        if (SOFT_ERROR_OCCURRED(escontext)) goto fail;
+    }
+
+    // Convert parsed fields to standard tm structure
+    // Handle time components (hours, minutes, seconds)
+    if (tmfc.ssss) {
+        tm->tm_hour = tmfc.ssss / SECS_PER_HOUR;
+        tm->tm_min = (tmfc.ssss % SECS_PER_HOUR) / SECS_PER_MINUTE;
+        tm->tm_sec = tmfc.ssss % SECS_PER_MINUTE;
+    }
+    if (tmfc.hh) tm->tm_hour = tmfc.hh;
+    if (tmfc.mi) tm->tm_min = tmfc.mi;
+    if (tmfc.ss) tm->tm_sec = tmfc.ss;
+
+    // Handle 12-hour clock conversion
+    if (tmfc.clock == CLOCK_12_HOUR) {
+        if (tmfc.pm && tm->tm_hour < 12) tm->tm_hour += 12;
+        else if (!tmfc.pm && tm->tm_hour == 12) tm->tm_hour = 0;
+    }
+
+    // Handle year/century calculations
+    if (tmfc.year) {
+        tm->tm_year = tmfc.year;
+        if (tmfc.bc) tm->tm_year = -tm->tm_year + 1;
+    }
+
+    // Handle various date formats (Julian, ISO week, day-of-year)
+    if (tmfc.j) {
+        j2date(tmfc.j, &tm->tm_year, &tm->tm_mon, &tm->tm_mday);
+    } else if (tmfc.ww && tmfc.mode == FROM_CHAR_DATE_ISOWEEK) {
+        if (tmfc.d)
+            isoweekdate2date(tmfc.ww, tmfc.d, &tm->tm_year, &tm->tm_mon, &tm->tm_mday);
+        else
+            isoweek2date(tmfc.ww, &tm->tm_year, &tm->tm_mon, &tm->tm_mday);
+    } else {
+        if (tmfc.dd) tm->tm_mday = tmfc.dd;
+        if (tmfc.mm) tm->tm_mon = tmfc.mm;
+    }
+
+    // Handle fractional seconds
+    if (tmfc.ms) *fsec += tmfc.ms * 1000;
+    if (tmfc.us) *fsec += tmfc.us;
+
+    // Handle timezone information
+    if (tmfc.tzsign) {
+        tz->has_tz = true;
+        tz->gmtoffset = (tmfc.tzh * MINS_PER_HOUR + tmfc.tzm) * SECS_PER_MINUTE;
+        if (tmfc.tzsign > 0) tz->gmtoffset = -tz->gmtoffset;
+    }
+
+    // Validate all components
+    if (ValidateDate(fmask, true, false, false, tm) != 0) {
+        DateTimeParseError(DTERR_FIELD_OVERFLOW, NULL, date_str, "timestamp", escontext);
+        goto fail;
+    }
+
+    pfree(date_str);
+    return true;
+
+fail:
+    pfree(date_str);
+    return false;
+}
+```

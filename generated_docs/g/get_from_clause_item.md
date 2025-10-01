@@ -56,3 +56,162 @@ Special handling is provided for:
 - Special optimization logic exists for UNNEST functions to collapse multiple UNNEST calls back to standard syntax
 - Handles both pretty-printed and compact output formats based on context settings
 - Critical for PostgreSQL's ability to display query plans and rules in human-readable SQL format
+
+## Simplified Source
+
+```c
+static void
+get_from_clause_item(Node *jtnode, Query *query, deparse_context *context)
+{
+    StringInfo buf = context->buf;
+    deparse_namespace *dpns = (deparse_namespace *) linitial(context->namespaces);
+
+    if (IsA(jtnode, RangeTblRef))
+    {
+        int varno = ((RangeTblRef *) jtnode)->rtindex;
+        RangeTblEntry *rte = rt_fetch(varno, query->rtable);
+        deparse_columns *colinfo = deparse_columns_fetch(varno, dpns);
+
+        // Handle LATERAL keyword
+        if (rte->lateral)
+            appendStringInfoString(buf, "LATERAL ");
+
+        // Generate SQL based on RTE type
+        switch (rte->rtekind)
+        {
+            case RTE_RELATION:
+                // Regular table: [ONLY] table_name
+                appendStringInfo(buf, "%s%s",
+                                only_marker(rte),
+                                generate_relation_name(rte->relid, context->namespaces));
+                break;
+
+            case RTE_SUBQUERY:
+                // Subquery: (SELECT ...)
+                appendStringInfoChar(buf, '(');
+                get_query_def(rte->subquery, buf, context->namespaces, NULL,
+                              true, context->prettyFlags, context->wrapColumn,
+                              context->indentLevel);
+                appendStringInfoChar(buf, ')');
+                break;
+
+            case RTE_FUNCTION:
+                // Function call or ROWS FROM(...)
+                // Simplified: just handle basic function calls
+                get_rule_expr_funccall(((RangeTblFunction *) linitial(rte->functions))->funcexpr,
+                                       context, true);
+                if (rte->funcordinality)
+                    appendStringInfoString(buf, " WITH ORDINALITY");
+                break;
+
+            case RTE_TABLEFUNC:
+                get_tablefunc(rte->tablefunc, context, true);
+                break;
+
+            case RTE_VALUES:
+                // VALUES clause: (VALUES (...), (...))
+                appendStringInfoChar(buf, '(');
+                get_values_def(rte->values_lists, context);
+                appendStringInfoChar(buf, ')');
+                break;
+
+            case RTE_CTE:
+                // Common Table Expression
+                appendStringInfoString(buf, quote_identifier(rte->ctename));
+                break;
+
+            default:
+                elog(ERROR, "unrecognized RTE kind: %d", (int) rte->rtekind);
+                break;
+        }
+
+        // Add alias and column definitions
+        get_rte_alias(rte, varno, false, context);
+        get_column_alias_list(colinfo, context);
+
+        // Add tablesample clause if present
+        if (rte->rtekind == RTE_RELATION && rte->tablesample)
+            get_tablesample_def(rte->tablesample, context);
+    }
+    else if (IsA(jtnode, JoinExpr))
+    {
+        JoinExpr *j = (JoinExpr *) jtnode;
+        deparse_columns *colinfo = deparse_columns_fetch(j->rtindex, dpns);
+
+        // Add parentheses if needed
+        if (!PRETTY_PAREN(context) || j->alias != NULL)
+            appendStringInfoChar(buf, '(');
+
+        // Process left side of join
+        get_from_clause_item(j->larg, query, context);
+
+        // Add appropriate join keyword
+        switch (j->jointype)
+        {
+            case JOIN_INNER:
+                if (j->quals)
+                    appendContextKeyword(context, " JOIN ", -PRETTYINDENT_STD,
+                                        PRETTYINDENT_STD, PRETTYINDENT_JOIN);
+                else
+                    appendContextKeyword(context, " CROSS JOIN ", -PRETTYINDENT_STD,
+                                        PRETTYINDENT_STD, PRETTYINDENT_JOIN);
+                break;
+            case JOIN_LEFT:
+                appendContextKeyword(context, " LEFT JOIN ", -PRETTYINDENT_STD,
+                                    PRETTYINDENT_STD, PRETTYINDENT_JOIN);
+                break;
+            case JOIN_FULL:
+                appendContextKeyword(context, " FULL JOIN ", -PRETTYINDENT_STD,
+                                    PRETTYINDENT_STD, PRETTYINDENT_JOIN);
+                break;
+            case JOIN_RIGHT:
+                appendContextKeyword(context, " RIGHT JOIN ", -PRETTYINDENT_STD,
+                                    PRETTYINDENT_STD, PRETTYINDENT_JOIN);
+                break;
+            default:
+                elog(ERROR, "unrecognized join type: %d", (int) j->jointype);
+        }
+
+        // Process right side of join
+        get_from_clause_item(j->rarg, query, context);
+
+        // Add join conditions
+        if (j->usingClause)
+        {
+            // USING clause
+            appendStringInfoString(buf, " USING (");
+            // Add column names from usingNames
+            get_column_list_from_using(colinfo->usingNames, buf);
+            appendStringInfoChar(buf, ')');
+
+            if (j->join_using_alias)
+                appendStringInfo(buf, " AS %s",
+                                quote_identifier(j->join_using_alias->aliasname));
+        }
+        else if (j->quals)
+        {
+            // ON clause
+            appendStringInfoString(buf, " ON ");
+            get_rule_expr(j->quals, context, false);
+        }
+        else if (j->jointype != JOIN_INNER)
+        {
+            // Natural join or similar - add ON TRUE
+            appendStringInfoString(buf, " ON TRUE");
+        }
+
+        // Close parentheses and add alias
+        if (!PRETTY_PAREN(context) || j->alias != NULL)
+            appendStringInfoChar(buf, ')');
+
+        if (j->alias != NULL)
+        {
+            appendStringInfo(buf, " %s",
+                            quote_identifier(get_rtable_name(j->rtindex, context)));
+            get_column_alias_list(colinfo, context);
+        }
+    }
+    else
+        elog(ERROR, "unrecognized node type: %d", (int) nodeTag(jtnode));
+}
+```

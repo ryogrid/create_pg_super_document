@@ -34,3 +34,14 @@ This function is designed to perform any necessary cleanup operations on a TextP
 - Called by various text manipulation functions when they finish using a TextPositionState
 - The empty implementation suggests that TextPositionState uses only stack-allocated or externally-managed memory
 - Provides a placeholder for potential future cleanup needs if the TextPositionState implementation changes to require resource management
+
+## Simplified Source
+
+```c
+static void
+text_position_cleanup(TextPositionState *state)
+{
+    // Currently no cleanup operations are needed
+    // TextPositionState doesn't allocate dynamic memory
+}
+```

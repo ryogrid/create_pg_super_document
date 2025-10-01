@@ -37,3 +37,15 @@ Window functions (such as ROW_NUMBER(), RANK(), LAG(), LEAD(), etc.) have specia
 - Part of PostgreSQL's query rewrite and analysis infrastructure
 - Critical for enforcing window function placement rules and optimization decisions
 - Window functions have different execution semantics than regular aggregates, requiring separate detection logic
+
+## Simplified Source
+
+```c
+bool contain_windowfuncs(Node *node) {
+    // Walk expression tree to detect window functions at current query level
+    return query_or_expression_tree_walker(node,
+                                         contain_windowfuncs_walker,
+                                         NULL,
+                                         0);
+}
+```

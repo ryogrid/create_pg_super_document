@@ -59,3 +59,58 @@ For ANTI joins, it filters out "pushed down" clauses that won't affect match log
 - For outer joins, temporarily builds a filtered joinquals list excluding pushed-down clauses
 - The match_count is clamped to a minimum of 1.0 to ensure reasonable estimates
 - Used in src/backend/optimizer/path/costsize.c:5007-5103
+
+## Simplified Source
+
+```c
+void compute_semi_anti_join_factors(PlannerInfo *root, RelOptInfo *joinrel,
+                                   RelOptInfo *outerrel, RelOptInfo *innerrel,
+                                   JoinType jointype, SpecialJoinInfo *sjinfo,
+                                   List *restrictlist,
+                                   SemiAntiJoinFactors *semifactors) {
+    List *joinquals;
+
+    // Filter clauses based on join type
+    if (IS_OUTER_JOIN(jointype)) {
+        // For ANTI joins, exclude pushed-down clauses
+        joinquals = NIL;
+        foreach(l, restrictlist) {
+            RestrictInfo *rinfo = lfirst_node(RestrictInfo, l);
+            if (!RINFO_IS_PUSHED_DOWN(rinfo, joinrel->relids))
+                joinquals = lappend(joinquals, rinfo);
+        }
+    } else {
+        // For SEMI joins, use all restrictinfo clauses
+        joinquals = restrictlist;
+    }
+
+    // Get SEMI/ANTI selectivity
+    Selectivity jselec = clauselist_selectivity(root, joinquals, 0,
+                                               (jointype == JOIN_ANTI) ? JOIN_ANTI : JOIN_SEMI,
+                                               sjinfo);
+
+    // Get normal inner-join selectivity for comparison
+    SpecialJoinInfo norm_sjinfo;
+    init_dummy_sjinfo(&norm_sjinfo, outerrel->relids, innerrel->relids);
+
+    Selectivity nselec = clauselist_selectivity(root, joinquals, 0,
+                                               JOIN_INNER, &norm_sjinfo);
+
+    // Cleanup temporary list
+    if (IS_OUTER_JOIN(jointype))
+        list_free(joinquals);
+
+    // Calculate average matches per outer row that has matches
+    Selectivity avgmatch;
+    if (jselec > 0) {
+        avgmatch = nselec * innerrel->rows / jselec;
+        avgmatch = Max(1.0, avgmatch);  // Clamp to reasonable minimum
+    } else {
+        avgmatch = 1.0;
+    }
+
+    // Store results
+    semifactors->outer_match_frac = jselec;
+    semifactors->match_count = avgmatch;
+}
+```

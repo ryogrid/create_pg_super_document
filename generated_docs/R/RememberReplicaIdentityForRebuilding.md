@@ -38,3 +38,22 @@ The replica identity index is crucial for logical replication as it provides a w
 - Prevents data corruption by ensuring table has at most one replica identity index
 - The stored index name will be used later to restore the replica identity setting after table rebuild
 - Essential for maintaining logical replication consistency during schema changes
+
+## Simplified Source
+
+```c
+static void
+RememberReplicaIdentityForRebuilding(Oid indoid, AlteredTableInfo *tab)
+{
+    // Skip if index is not a replica identity
+    if (!get_index_isreplident(indoid))
+        return;
+
+    // Ensure only one replica identity index per table
+    if (tab->replicaIdentityIndex)
+        elog(ERROR, "relation %u has multiple indexes marked as replica identity", tab->relid);
+
+    // Store the replica identity index name for later restoration
+    tab->replicaIdentityIndex = get_rel_name(indoid);
+}
+```

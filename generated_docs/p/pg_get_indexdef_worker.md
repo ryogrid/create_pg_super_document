@@ -58,3 +58,151 @@ The implementation follows a systematic approach: it first retrieves catalog inf
 - Error handling includes both immediate errors and graceful failure via missing_ok parameter
 - The prettyFlags parameter controls SQL formatting for readability
 - Supports both complete CREATE INDEX statements and partial definitions for specialized use cases
+
+## Simplified Source
+
+```c
+static char *
+pg_get_indexdef_worker(Oid indexrelid, int colno, const Oid *excludeOps,
+                      bool attrsOnly, bool keysOnly, bool showTblSpc,
+                      bool inherits, int prettyFlags, bool missing_ok)
+{
+    bool isConstraint = (excludeOps != NULL);
+    HeapTuple ht_idx, ht_idxrel, ht_am;
+    Form_pg_index idxrec;
+    Form_pg_class idxrelrec;
+    Form_pg_am amrec;
+    List *indexprs;
+    StringInfoData buf;
+    char *sep;
+
+    // Fetch pg_index tuple
+    ht_idx = SearchSysCache1(INDEXRELID, ObjectIdGetDatum(indexrelid));
+    if (!HeapTupleIsValid(ht_idx))
+    {
+        if (missing_ok)
+            return NULL;
+        elog(ERROR, "cache lookup failed for index %u", indexrelid);
+    }
+    idxrec = (Form_pg_index) GETSTRUCT(ht_idx);
+
+    // Get index metadata from catalogs
+    ht_idxrel = SearchSysCache1(RELOID, ObjectIdGetDatum(indexrelid));
+    ht_am = SearchSysCache1(AMOID, ObjectIdGetDatum(idxrelrec->relam));
+    idxrelrec = (Form_pg_class) GETSTRUCT(ht_idxrel);
+    amrec = (Form_pg_am) GETSTRUCT(ht_am);
+
+    // Get index expressions if any
+    if (!heap_attisnull(ht_idx, Anum_pg_index_indexprs, NULL))
+    {
+        Datum exprsDatum = SysCacheGetAttrNotNull(INDEXRELID, ht_idx, Anum_pg_index_indexprs);
+        char *exprsString = TextDatumGetCString(exprsDatum);
+        indexprs = (List *) stringToNode(exprsString);
+        pfree(exprsString);
+    }
+    else
+        indexprs = NIL;
+
+    initStringInfo(&buf);
+
+    // Generate CREATE INDEX statement header
+    if (!attrsOnly)
+    {
+        if (!isConstraint)
+            appendStringInfo(&buf, "CREATE %sINDEX %s ON %s USING %s (",
+                           idxrec->indisunique ? "UNIQUE " : "",
+                           quote_identifier(NameStr(idxrelrec->relname)),
+                           generate_relation_name(indrelid, NIL),
+                           quote_identifier(NameStr(amrec->amname)));
+        else
+            appendStringInfo(&buf, "EXCLUDE USING %s (",
+                           quote_identifier(NameStr(amrec->amname)));
+    }
+
+    // Process index attributes
+    sep = "";
+    for (int keyno = 0; keyno < idxrec->indnatts; keyno++)
+    {
+        AttrNumber attnum = idxrec->indkey.values[keyno];
+
+        // Skip non-key attributes if keysOnly
+        if (keysOnly && keyno >= idxrec->indnkeyatts)
+            break;
+
+        // Add INCLUDE clause separator for non-key columns
+        if (!colno && keyno == idxrec->indnkeyatts)
+        {
+            appendStringInfoString(&buf, ") INCLUDE (");
+            sep = "";
+        }
+
+        if (!colno)
+            appendStringInfoString(&buf, sep);
+        sep = ", ";
+
+        if (attnum != 0)
+        {
+            // Simple column reference
+            char *attname = get_attname(indrelid, attnum, false);
+            if (!colno || colno == keyno + 1)
+                appendStringInfoString(&buf, quote_identifier(attname));
+        }
+        else
+        {
+            // Expression index
+            Node *indexkey = (Node *) lfirst(list_head(indexprs));
+            indexprs = list_delete_first(indexprs);
+
+            char *expr_str = deparse_expression_pretty(indexkey, context,
+                                                     false, false, prettyFlags, 0);
+            if (!colno || colno == keyno + 1)
+            {
+                if (looks_like_function(indexkey))
+                    appendStringInfoString(&buf, expr_str);
+                else
+                    appendStringInfo(&buf, "(%s)", expr_str);
+            }
+        }
+
+        // Add index options (collation, opclass, ordering, etc.)
+        if (!attrsOnly && keyno < idxrec->indnkeyatts && (!colno || colno == keyno + 1))
+        {
+            // Add collation, operator class, DESC/NULLS options, exclusion operators
+            // (Simplified - actual code has detailed option handling)
+        }
+    }
+
+    if (!attrsOnly)
+    {
+        appendStringInfoChar(&buf, ')');
+
+        // Add index options, tablespace, and WHERE clause
+        if (showTblSpc)
+        {
+            Oid tblspc = get_rel_tablespace(indexrelid);
+            if (OidIsValid(tblspc))
+                appendStringInfo(&buf, " TABLESPACE %s",
+                               quote_identifier(get_tablespace_name(tblspc)));
+        }
+
+        // Add partial index predicate
+        if (!heap_attisnull(ht_idx, Anum_pg_index_indpred, NULL))
+        {
+            Datum predDatum = SysCacheGetAttrNotNull(INDEXRELID, ht_idx, Anum_pg_index_indpred);
+            char *predString = TextDatumGetCString(predDatum);
+            Node *node = (Node *) stringToNode(predString);
+
+            char *pred_str = deparse_expression_pretty(node, context,
+                                                     false, false, prettyFlags, 0);
+            appendStringInfo(&buf, " WHERE %s", pred_str);
+        }
+    }
+
+    // Cleanup
+    ReleaseSysCache(ht_idx);
+    ReleaseSysCache(ht_idxrel);
+    ReleaseSysCache(ht_am);
+
+    return buf.data;
+}
+```

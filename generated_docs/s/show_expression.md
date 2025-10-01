@@ -40,3 +40,25 @@ This function is a key component of PostgreSQL's query plan visualization system
 - The deparsing context setup is crucial for correctly resolving column and table references
 - The useprefix parameter helps control the verbosity of column references in the output
 - Part of PostgreSQL's broader EXPLAIN infrastructure for query plan analysis
+
+## Simplified Source
+
+```c
+static void
+show_expression(Node *node, const char *qlabel,
+                PlanState *planstate, List *ancestors,
+                bool useprefix, ExplainState *es)
+{
+    List *context;
+    char *exprstr;
+
+    // Set up context for converting expression to text
+    context = set_deparse_context_plan(es->deparse_cxt, planstate->plan, ancestors);
+
+    // Convert expression node to readable SQL text
+    exprstr = deparse_expression(node, context, useprefix, false);
+
+    // Add the formatted expression to EXPLAIN output
+    ExplainPropertyText(qlabel, exprstr, es);
+}
+```

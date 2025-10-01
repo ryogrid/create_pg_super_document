@@ -38,3 +38,34 @@ This function implements a lexicographic comparison for multi-dimensional sortin
 - Uses ApplySortComparator which handles NULL value comparisons according to the configured null ordering
 - Critical component for multi-variate statistical analysis in PostgreSQL's ANALYZE process
 - The function assumes SortItem structures have been properly initialized with values and null indicators
+
+## Simplified Source
+
+```c
+int
+multi_sort_compare(const void *a, const void *b, void *arg)
+{
+    MultiSortSupport mss = (MultiSortSupport) arg;
+    SortItem *ia = (SortItem *) a;
+    SortItem *ib = (SortItem *) b;
+    int i;
+
+    // Compare each dimension in order
+    for (i = 0; i < mss->ndims; i++)
+    {
+        int compare;
+
+        // Apply comparison function for this dimension
+        compare = ApplySortComparator(ia->values[i], ia->isnull[i],
+                                    ib->values[i], ib->isnull[i],
+                                    &mss->ssup[i]);
+
+        // Return first non-zero comparison result
+        if (compare != 0)
+            return compare;
+    }
+
+    // All dimensions are equal
+    return 0;
+}
+```

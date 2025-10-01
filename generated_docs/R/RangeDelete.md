@@ -46,3 +46,35 @@ This function is typically called as part of the DROP TYPE command processing fo
 - The function acquires RowExclusiveLock on the pg_range table to ensure exclusive access during deletion
 - This is part of the cleanup process when dropping range types and ensures catalog consistency
 - The dependency system should ensure that dependent objects are handled appropriately before this function is called
+
+## Simplified Source
+
+```c
+void RangeDelete(Oid rangeTypeOid) {
+    Relation pg_range;
+    ScanKeyData key[1];
+    SysScanDesc scan;
+    HeapTuple tup;
+
+    // Open pg_range catalog for modification
+    pg_range = table_open(RangeRelationId, RowExclusiveLock);
+
+    // Set up scan key to find entries for this range type
+    ScanKeyInit(&key[0], Anum_pg_range_rngtypid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(rangeTypeOid));
+
+    // Begin indexed scan using RangeTypidIndexId
+    scan = systable_beginscan(pg_range, RangeTypidIndexId, true,
+                             NULL, 1, key);
+
+    // Delete all matching entries (typically just one)
+    while (HeapTupleIsValid(tup = systable_getnext(scan))) {
+        CatalogTupleDelete(pg_range, &tup->t_self);
+    }
+
+    // Clean up scan and close catalog
+    systable_endscan(scan);
+    table_close(pg_range, RowExclusiveLock);
+}
+```

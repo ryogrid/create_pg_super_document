@@ -42,6 +42,32 @@ This conversion is essential for bridging the gap between SPI's simplified param
 - Returns NULL if nargs is 0 (no parameters)
 - Sets pflags to PARAM_FLAG_CONST for all parameters indicating constant values
 - Uses SPI's null encoding convention where 'n' in Nulls array indicates null value
-- Creates a complete ParamListInfo structure suitable for planner and executor consumption  
+- Creates a complete ParamListInfo structure suitable for planner and executor consumption
 - Handles the impedance mismatch between SPI's array-based parameters and internal parameter structures
 - Memory for the returned ParamListInfo is allocated in the current memory context
+
+## Simplified Source
+
+```c
+static ParamListInfo _SPI_convert_params(int nargs, Oid *argtypes,
+                                        Datum *Values, const char *Nulls) {
+    // No parameters case
+    if (nargs <= 0)
+        return NULL;
+
+    // Create parameter list structure
+    ParamListInfo paramLI = makeParamList(nargs);
+
+    // Fill in each parameter
+    for (int i = 0; i < nargs; i++) {
+        ParamExternData *prm = &paramLI->params[i];
+
+        prm->value = Values[i];
+        prm->isnull = (Nulls && Nulls[i] == 'n');  // SPI null encoding
+        prm->pflags = PARAM_FLAG_CONST;            // Mark as constant
+        prm->ptype = argtypes[i];                  // Parameter type
+    }
+
+    return paramLI;
+}
+```

@@ -60,3 +60,73 @@ The function implements a special rule for EquivalenceClass clauses: since claus
 - The special handling of EquivalenceClass clauses prevents redundant clause application while maintaining correctness
 - Records processed relids in considered_relids to enable efficient duplicate detection across the entire planning process
 - Delegates actual path creation to get_index_paths(), maintaining separation of concerns between clause collection and path generation
+
+## Simplified Source
+
+```c
+static void get_join_index_paths(PlannerInfo *root, RelOptInfo *rel,
+                                IndexOptInfo *index,
+                                IndexClauseSet *rclauseset,
+                                IndexClauseSet *jclauseset,
+                                IndexClauseSet *eclauseset,
+                                List **bitindexpaths,
+                                Relids relids,
+                                List **considered_relids)
+{
+    IndexClauseSet clauseset;
+    int indexcol;
+
+    // Skip if already processed this relids set
+    if (list_member(*considered_relids, relids))
+        return;
+
+    // Initialize clause collection
+    MemSet(&clauseset, 0, sizeof(clauseset));
+
+    // Collect clauses for each index column
+    for (indexcol = 0; indexcol < index->nkeycolumns; indexcol++)
+    {
+        ListCell *lc;
+
+        // Add applicable simple join clauses
+        foreach(lc, jclauseset->indexclauses[indexcol])
+        {
+            IndexClause *iclause = (IndexClause *) lfirst(lc);
+
+            if (bms_is_subset(iclause->rinfo->clause_relids, relids))
+                clauseset.indexclauses[indexcol] =
+                    lappend(clauseset.indexclauses[indexcol], iclause);
+        }
+
+        // Add one EquivalenceClass clause (they're redundant)
+        foreach(lc, eclauseset->indexclauses[indexcol])
+        {
+            IndexClause *iclause = (IndexClause *) lfirst(lc);
+
+            if (bms_is_subset(iclause->rinfo->clause_relids, relids))
+            {
+                clauseset.indexclauses[indexcol] =
+                    lappend(clauseset.indexclauses[indexcol], iclause);
+                break; // Only need one per column
+            }
+        }
+
+        // Add all restriction clauses
+        clauseset.indexclauses[indexcol] =
+            list_concat(clauseset.indexclauses[indexcol],
+                       rclauseset->indexclauses[indexcol]);
+
+        if (clauseset.indexclauses[indexcol] != NIL)
+            clauseset.nonempty = true;
+    }
+
+    // Should have found applicable clauses
+    Assert(clauseset.nonempty);
+
+    // Generate index paths with collected clauses
+    get_index_paths(root, rel, index, &clauseset, bitindexpaths);
+
+    // Remember we processed this relids set
+    *considered_relids = lappend(*considered_relids, relids);
+}
+```

@@ -36,3 +36,17 @@ The `appendToBuffer` function is a higher-level convenience function that combin
 - The function automatically handles offset calculation by using the return value from reserveFromBuffer
 - Provides better code readability compared to manually calling reserveFromBuffer followed by copyToBuffer
 - Used extensively in JSONB conversion functions for appending various types of data (scalars, array elements, object members)
+
+## Simplified Source
+
+```c
+static void
+appendToBuffer(StringInfo buffer, const char *data, int len)
+{
+    // Reserve space at end of buffer
+    int offset = reserveFromBuffer(buffer, len);
+
+    // Copy data to the reserved space
+    copyToBuffer(buffer, offset, data, len);
+}
+```

@@ -46,3 +46,25 @@ The function includes an optimization where it automatically sets the REG_NOSUB 
 - Returns boolean result: true for match, false for no match
 - Handles both pattern compilation and execution errors through the underlying functions
 - Widely used throughout PostgreSQL for various regex operations including SQL operators and JSON path expressions
+
+## Simplified Source
+
+```c
+bool
+RE_compile_and_execute(text *text_re, char *dat, int dat_len,
+                      int cflags, Oid collation,
+                      int nmatch, regmatch_t *pmatch)
+{
+    regex_t *re;
+
+    // Optimize for cases where submatches aren't needed
+    if (nmatch < 2)
+        cflags |= REG_NOSUB;
+
+    // Compile pattern (with caching)
+    re = RE_compile_and_cache(text_re, cflags, collation);
+
+    // Execute pattern against data
+    return RE_execute(re, dat, dat_len, nmatch, pmatch);
+}
+```

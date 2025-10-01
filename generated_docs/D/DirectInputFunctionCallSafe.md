@@ -43,3 +43,46 @@ This function provides safe input function calling when you have a direct pointe
 - Primarily used for built-in PostgreSQL data types where the C function is known at compile time
 - Used extensively in reg* type functions (regproc, regclass, etc.) and JSON processing
 - Part of PostgreSQL's optimized path for direct function calls without catalog lookups
+
+## Simplified Source
+
+```c
+bool
+DirectInputFunctionCallSafe(PGFunction func, char *str,
+                           Oid typioparam, int32 typmod,
+                           fmNodePtr escontext,
+                           Datum *result)
+{
+    LOCAL_FCINFO(fcinfo, 3);
+
+    // Handle NULL input
+    if (str == NULL) {
+        *result = (Datum) 0;
+        return true;
+    }
+
+    // Initialize function call info with 3 arguments
+    InitFunctionCallInfoData(*fcinfo, NULL, 3, InvalidOid, escontext, NULL);
+
+    // Set up function arguments
+    fcinfo->args[0].value = CStringGetDatum(str);
+    fcinfo->args[0].isnull = false;
+    fcinfo->args[1].value = ObjectIdGetDatum(typioparam);
+    fcinfo->args[1].isnull = false;
+    fcinfo->args[2].value = Int32GetDatum(typmod);
+    fcinfo->args[2].isnull = false;
+
+    // Call the function directly
+    *result = (*func) (fcinfo);
+
+    // Check for soft errors
+    if (SOFT_ERROR_OCCURRED(escontext))
+        return false;
+
+    // Function should not return NULL for non-NULL input
+    if (fcinfo->isnull)
+        elog(ERROR, "input function %p returned NULL", (void *) func);
+
+    return true;
+}
+```

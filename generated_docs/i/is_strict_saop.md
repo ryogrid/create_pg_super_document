@@ -49,3 +49,40 @@ The falseOK parameter controls the strictness requirements: when true, returning
 - The distinction between ANY and ALL operations is important for strictness analysis
 - Empty arrays have special semantics that affect NULL propagation behavior
 - The function is part of PostgreSQL's query optimization framework for handling NULL-aware operations
+
+## Simplified Source
+
+```c
+static bool is_strict_saop(ScalarArrayOpExpr *expr, bool falseOK) {
+    // Check if the contained operator is strict
+    set_sa_opfuncid(expr);
+    if (!func_strict(expr->opfuncid))
+        return false;
+
+    // For ANY with falseOK, operator strictness is sufficient
+    if (expr->useOr && falseOK)
+        return true;
+
+    // For ALL (or ANY without falseOK), array must be provably non-empty
+    Node *rightop = (Node *) lsecond(expr->args);
+
+    // Check array constants
+    if (rightop && IsA(rightop, Const)) {
+        Const *constnode = (Const *) rightop;
+        if (constnode->constisnull)
+            return false;
+
+        ArrayType *arrayval = DatumGetArrayTypeP(constnode->constvalue);
+        int nitems = ArrayGetNItems(ARR_NDIM(arrayval), ARR_DIMS(arrayval));
+        return (nitems > 0);
+    }
+
+    // Check ARRAY[] constructs
+    if (rightop && IsA(rightop, ArrayExpr)) {
+        ArrayExpr *arrayexpr = (ArrayExpr *) rightop;
+        return (arrayexpr->elements != NIL && !arrayexpr->multidims);
+    }
+
+    return false;
+}
+```

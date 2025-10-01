@@ -43,3 +43,37 @@ The core logic involves parsing the format string into FormatNode structures usi
 - Part of PostgreSQL's datetime formatting system's format analysis utilities
 - The caching mechanism improves performance for frequently used format strings
 - Returns true if any timezone specifier (like TZ, OF, etc.) is found in the format string
+
+## Simplified Source
+
+```c
+bool datetime_format_has_tz(const char *fmt_str) {
+    bool use_cache;
+    int fmt_len = strlen(fmt_str);
+    int analysis_result;
+    FormatNode *format;
+
+    // Determine whether to use cache or allocate new memory
+    if (fmt_len > DCH_CACHE_SIZE) {
+        // Large format string: allocate memory and parse directly
+        use_cache = false;
+        format = (FormatNode *) palloc((fmt_len + 1) * sizeof(FormatNode));
+        parse_format(format, fmt_str, DCH_keywords, DCH_suff, DCH_index, DCH_FLAG, NULL);
+    } else {
+        // Small format string: use cached entry
+        DCHCacheEntry *cache_entry = DCH_cache_fetch(fmt_str, false);
+        use_cache = true;
+        format = cache_entry->format;
+    }
+
+    // Analyze the format to determine what datetime components are present
+    analysis_result = DCH_datetime_type(format);
+
+    // Clean up memory if we allocated it (not cached)
+    if (!use_cache)
+        pfree(format);
+
+    // Return true if timezone components are present
+    return analysis_result & DCH_ZONED;
+}
+```

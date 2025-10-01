@@ -42,3 +42,39 @@ For each Var node encountered, it checks if the column's attribute number (adjus
 - Recursively processes the entire expression tree using expression_tree_walker
 - Specifically processes Var nodes while ignoring other node types during traversal
 - Located in src/backend/commands/publicationcmds.c:219-257
+
+## Simplified Source
+
+```c
+static bool
+contain_invalid_rfcolumn_walker(Node *node, rf_context *context)
+{
+    if (node == NULL)
+        return false;
+
+    if (IsA(node, Var))
+    {
+        Var *var = (Var *) node;
+        AttrNumber attnum = var->varattno;
+
+        // Handle column mapping for partitioned tables
+        if (context->pubviaroot)
+        {
+            // Get column name from parent table
+            char *colname = get_attname(context->parentid, attnum, false);
+
+            // Find corresponding column number in child table
+            attnum = get_attnum(context->relid, colname);
+        }
+
+        // Check if column is part of replica identity
+        if (!bms_is_member(attnum - FirstLowInvalidHeapAttributeNumber,
+                          context->bms_replident))
+            return true;  // Invalid column found
+    }
+
+    // Recursively check child nodes
+    return expression_tree_walker(node, contain_invalid_rfcolumn_walker,
+                                 (void *) context);
+}
+```

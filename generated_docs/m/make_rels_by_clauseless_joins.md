@@ -41,3 +41,28 @@ This function serves as a fallback mechanism in PostgreSQL's join planning when 
 - Results are automatically added to  through the  function
 - Static function scope restricts direct usage to within the same source file
 - Often used in conjunction with  in a preference hierarchy (clause-based joins preferred, Cartesian products as fallback)
+
+## Simplified Source
+
+```c
+static void
+make_rels_by_clauseless_joins(PlannerInfo *root,
+                              RelOptInfo *old_rel,
+                              List *other_rels)
+{
+    ListCell *l;
+
+    // Iterate through each candidate relation
+    foreach(l, other_rels)
+    {
+        RelOptInfo *other_rel = (RelOptInfo *) lfirst(l);
+
+        // Only join if relations don't share any base relations
+        if (!bms_overlap(other_rel->relids, old_rel->relids))
+        {
+            // Create a Cartesian product join
+            (void) make_join_rel(root, old_rel, other_rel);
+        }
+    }
+}
+```

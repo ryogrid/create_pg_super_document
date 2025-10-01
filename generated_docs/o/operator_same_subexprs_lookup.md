@@ -29,3 +29,20 @@ This is a simple wrapper function that calls lookup_proof_cache to get the cache
 
 ## Notes and Other Information
 This function serves as an abstraction layer over the cache lookup mechanism, simplifying access to cached proof results for the common case of same-subexpression operator relationships.
+
+## Simplified Source
+
+```c
+static bool
+operator_same_subexprs_lookup(Oid pred_op, Oid clause_op, bool refute_it)
+{
+    OprProofCacheEntry *cache_entry;
+
+    cache_entry = lookup_proof_cache(pred_op, clause_op, refute_it);
+
+    if (refute_it)
+        return cache_entry->same_subexprs_refutes;
+    else
+        return cache_entry->same_subexprs_implies;
+}
+```

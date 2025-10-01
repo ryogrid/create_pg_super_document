@@ -48,3 +48,55 @@ This function constructs a HashPath node representing a hash join execution plan
 
 ## Notes and Other Information
 Hash joins never have pathkeys since output ordering is unpredictable due to possible batching. The code includes extensive comments about potential optimizations for small inner relations that could preserve outer relation ordering, but these are not currently implemented due to risks of bad size estimates. The num_batches field is filled in later by final_cost_hashjoin.
+
+## Simplified Source
+
+```c
+HashPath *create_hashjoin_path(PlannerInfo *root,
+                              RelOptInfo *joinrel,
+                              JoinType jointype,
+                              JoinCostWorkspace *workspace,
+                              JoinPathExtraData *extra,
+                              Path *outer_path,
+                              Path *inner_path,
+                              bool parallel_hash,
+                              List *restrict_clauses,
+                              Relids required_outer,
+                              List *hashclauses) {
+    // Create new HashPath node
+    HashPath *pathnode = makeNode(HashPath);
+
+    // Configure basic path properties
+    pathnode->jpath.path.pathtype = T_HashJoin;
+    pathnode->jpath.path.parent = joinrel;
+    pathnode->jpath.path.pathtarget = joinrel->reltarget;
+
+    // Set up parameterization info
+    pathnode->jpath.path.param_info = get_joinrel_parampathinfo(root, joinrel,
+                                                              outer_path, inner_path,
+                                                              extra->sjinfo, required_outer,
+                                                              &restrict_clauses);
+
+    // Configure parallelism properties
+    pathnode->jpath.path.parallel_aware = joinrel->consider_parallel && parallel_hash;
+    pathnode->jpath.path.parallel_safe = joinrel->consider_parallel &&
+                                        outer_path->parallel_safe && inner_path->parallel_safe;
+    pathnode->jpath.path.parallel_workers = outer_path->parallel_workers;
+
+    // Hash joins have no ordering guarantee due to batching
+    pathnode->jpath.path.pathkeys = NIL;
+
+    // Set join-specific properties
+    pathnode->jpath.jointype = jointype;
+    pathnode->jpath.inner_unique = extra->inner_unique;
+    pathnode->jpath.outerjoinpath = outer_path;
+    pathnode->jpath.innerjoinpath = inner_path;
+    pathnode->jpath.joinrestrictinfo = restrict_clauses;
+    pathnode->path_hashclauses = hashclauses;
+
+    // Calculate final costs (fills in num_batches and other details)
+    final_cost_hashjoin(root, pathnode, workspace, extra);
+
+    return pathnode;
+}
+```

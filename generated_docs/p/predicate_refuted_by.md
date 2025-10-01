@@ -42,3 +42,40 @@ This is distinct from !(predicate_implied_by) though similar in technique. The f
 - Strong refutation requires proving the predicate yields false, not just not-true
 - Weak refutation is more permissive and useful for detecting contradictory conditions
 - Does not currently support CHECK-vs-CHECK constraint refutation or WHERE-vs-CHECK refutation
+
+## Simplified Source
+
+This simplified version removes extensive comments and focuses on the core logical flow:
+
+```c
+bool predicate_refuted_by(List *predicate_list, List *clause_list, bool weak)
+{
+    Node *p, *c;
+
+    // Early returns for empty inputs
+    if (predicate_list == NIL)
+        return false;  /* no predicate: no refutation possible */
+    if (clause_list == NIL)
+        return false;  /* no restriction: refutation must fail */
+
+    // Unwrap single-element lists to avoid unnecessary AND-recursion
+    if (list_length(predicate_list) == 1)
+        p = (Node *) linitial(predicate_list);
+    else
+        p = (Node *) predicate_list;
+
+    if (list_length(clause_list) == 1)
+        c = (Node *) linitial(clause_list);
+    else
+        c = (Node *) clause_list;
+
+    // Delegate to recursive helper function
+    return predicate_refuted_by_recurse(c, p, weak);
+}
+```
+
+**Key simplifications made:**
+- Removed extensive block comment explaining refutation theory
+- Kept essential boundary condition checks
+- Preserved list optimization logic
+- Maintained clear variable names and flow structure

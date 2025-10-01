@@ -39,3 +39,61 @@ This function implements the guts of ALTER TABLE DROP COLUMN by actually marking
 - Removes statistical entries via RemoveStatistics
 - Triggers relcache flush automatically when pg_attribute is updated
 - Works in conjunction with dependency.c for complete column removal
+
+## Simplified Source
+
+```c
+void
+RemoveAttributeById(Oid relid, AttrNumber attnum)
+{
+    Relation rel, attr_rel;
+    HeapTuple tuple;
+    Form_pg_attribute attStruct;
+    char newattname[NAMEDATALEN];
+    Datum valuesAtt[Natts_pg_attribute] = {0};
+    bool nullsAtt[Natts_pg_attribute] = {0};
+    bool replacesAtt[Natts_pg_attribute] = {0};
+
+    // Lock the target relation exclusively until transaction end
+    rel = relation_open(relid, AccessExclusiveLock);
+    attr_rel = table_open(AttributeRelationId, RowExclusiveLock);
+
+    // Get the attribute tuple to modify
+    tuple = SearchSysCacheCopy2(ATTNUM, ObjectIdGetDatum(relid), Int16GetDatum(attnum));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for attribute %d of relation %u", attnum, relid);
+
+    attStruct = (Form_pg_attribute) GETSTRUCT(tuple);
+
+    // Mark attribute as dropped and clear critical fields
+    attStruct->attisdropped = true;
+    attStruct->atttypid = InvalidOid;  // Invalidate type link
+    attStruct->attnotnull = false;     // Remove not-null constraint
+    attStruct->attgenerated = '\0';    // Clear generation info
+
+    // Rename column to avoid conflicts
+    snprintf(newattname, sizeof(newattname), "........pg.dropped.%d........", attnum);
+    namestrcpy(&(attStruct->attname), newattname);
+
+    // Clear optional fields to save space
+    attStruct->atthasmissing = false;
+    nullsAtt[Anum_pg_attribute_attmissingval - 1] = true;
+    replacesAtt[Anum_pg_attribute_attmissingval - 1] = true;
+    nullsAtt[Anum_pg_attribute_attstattarget - 1] = true;
+    replacesAtt[Anum_pg_attribute_attstattarget - 1] = true;
+    nullsAtt[Anum_pg_attribute_attacl - 1] = true;
+    replacesAtt[Anum_pg_attribute_attacl - 1] = true;
+    nullsAtt[Anum_pg_attribute_attoptions - 1] = true;
+    replacesAtt[Anum_pg_attribute_attoptions - 1] = true;
+    nullsAtt[Anum_pg_attribute_attfdwoptions - 1] = true;
+    replacesAtt[Anum_pg_attribute_attfdwoptions - 1] = true;
+
+    // Update the catalog and remove statistics
+    tuple = heap_modify_tuple(tuple, RelationGetDescr(attr_rel), valuesAtt, nullsAtt, replacesAtt);
+    CatalogTupleUpdate(attr_rel, &tuple->t_self, tuple);
+
+    table_close(attr_rel, RowExclusiveLock);
+    RemoveStatistics(relid, attnum);
+    relation_close(rel, NoLock);
+}
+```

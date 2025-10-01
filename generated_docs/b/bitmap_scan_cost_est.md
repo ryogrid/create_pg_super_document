@@ -39,3 +39,33 @@ The function explicitly disables parallelism (sets parallel_workers to 0) to get
 - Uses the rel->reltarget as the path target and inherits param_info from the input index path
 - Returns only the total_cost field from the calculated BitmapHeapPath
 - Part of PostgreSQL's cost-based optimization system for bitmap index scans
+
+## Simplified Source
+
+```c
+static Cost
+bitmap_scan_cost_est(PlannerInfo *root, RelOptInfo *rel, Path *ipath)
+{
+    BitmapHeapPath bpath;
+
+    // Set up a dummy BitmapHeapPath for cost calculation
+    bpath.path.type = T_BitmapHeapPath;
+    bpath.path.pathtype = T_BitmapHeapScan;
+    bpath.path.parent = rel;
+    bpath.path.pathtarget = rel->reltarget;
+    bpath.path.param_info = ipath->param_info;
+    bpath.path.pathkeys = NIL;
+    bpath.bitmapqual = ipath;
+
+    // Disable parallelism for base cost calculation
+    bpath.path.parallel_workers = 0;
+
+    // Calculate the cost using standard bitmap heap scan costing
+    cost_bitmap_heap_scan(&bpath.path, root, rel,
+                          bpath.path.param_info,
+                          ipath,
+                          get_loop_count(root, rel->relid, PATH_REQ_OUTER(ipath)));
+
+    return bpath.path.total_cost;
+}
+```

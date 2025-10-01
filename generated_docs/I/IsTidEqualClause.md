@@ -30,3 +30,21 @@ This function determines if a RestrictInfo represents an equality clause of the 
 
 ## Notes and Other Information
 The function uses a layered approach: first calling IsBinaryTidClause to ensure the basic structure is correct (CTID variable with pseudoconstant), then verifying that the specific operator is equality. This design promotes code reuse and maintains clear separation of concerns between general binary TID clause validation and specific operator checking.
+
+## Simplified Source
+
+```c
+static bool
+IsTidEqualClause(RestrictInfo *rinfo, RelOptInfo *rel)
+{
+    // First check if it's a valid binary TID clause structure
+    if (!IsBinaryTidClause(rinfo, rel))
+        return false;
+
+    // Then verify it's specifically an equality operator
+    if (((OpExpr *) rinfo->clause)->opno == TIDEqualOperator)
+        return true;
+
+    return false;
+}
+```

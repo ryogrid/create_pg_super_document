@@ -51,3 +51,52 @@ The output format is: `(column1 type1, column2 type2 COLLATE collation, ...)`
 - Uses forfour macro to efficiently iterate over parallel lists of column attributes
 - Assumes no dropped columns exist in the function column lists
 - Essential for maintaining SQL standard compliance in function call deparsing
+
+## Simplified Source
+
+```c
+static void get_from_clause_coldeflist(RangeTblFunction *rtfunc,
+                                      deparse_columns *colinfo,
+                                      deparse_context *context) {
+    StringInfo buf = context->buf;
+    int i = 0;
+
+    appendStringInfoChar(buf, '(');
+
+    // Iterate through function column attributes in parallel
+    forfour(l1, rtfunc->funccoltypes,
+            l2, rtfunc->funccoltypmods,
+            l3, rtfunc->funccolcollations,
+            l4, rtfunc->funccolnames) {
+
+        Oid atttypid = lfirst_oid(l1);
+        int32 atttypmod = lfirst_int(l2);
+        Oid attcollation = lfirst_oid(l3);
+
+        // Choose column name source based on mode
+        char *attname;
+        if (colinfo)
+            attname = colinfo->colnames[i];  // Use deparse column names
+        else
+            attname = strVal(lfirst(l4));    // Use original function names
+
+        // Add comma separator for subsequent columns
+        if (i > 0)
+            appendStringInfoString(buf, ", ");
+
+        // Format as: column_name data_type
+        appendStringInfo(buf, "%s %s",
+                        quote_identifier(attname),
+                        format_type_with_typemod(atttypid, atttypmod));
+
+        // Add COLLATE clause if different from type default
+        if (OidIsValid(attcollation) &&
+            attcollation != get_typcollation(atttypid))
+            appendStringInfo(buf, " COLLATE %s",
+                           generate_collation_name(attcollation));
+        i++;
+    }
+
+    appendStringInfoChar(buf, ')');
+}
+```

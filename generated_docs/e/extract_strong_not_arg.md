@@ -44,3 +44,33 @@ This distinction is important in PostgreSQL's three-valued logic system where NU
 - Excludes IS_NOT_TRUE and IS_UNKNOWN tests which can be satisfied by NULL values
 - Used in contexts where three-valued logic distinctions matter for correctness
 - Assumes well-formed NOT expressions with exactly one argument (accessed via linitial)
+
+## Simplified Source
+
+```c
+static Node *
+extract_strong_not_arg(Node *clause)
+{
+    if (clause == NULL)
+        return NULL;
+
+    if (IsA(clause, BoolExpr))
+    {
+        BoolExpr *bexpr = (BoolExpr *) clause;
+
+        // Handle explicit NOT expressions
+        if (bexpr->boolop == NOT_EXPR)
+            return (Node *) linitial(bexpr->args);
+    }
+    else if (IsA(clause, BooleanTest))
+    {
+        BooleanTest *btest = (BooleanTest *) clause;
+
+        // Handle only IS FALSE (strong negation)
+        if (btest->booltesttype == IS_FALSE)
+            return (Node *) btest->arg;
+    }
+
+    return NULL;
+}
+```

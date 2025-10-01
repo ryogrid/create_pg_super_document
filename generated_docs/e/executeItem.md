@@ -46,3 +46,14 @@ The function delegates the actual execution to `executeItemOptUnwrapTarget` whil
 - Located in src/backend/utils/adt/jsonpath_exec.c:735-746
 - Serves as an intermediate layer in the JSONPath execution hierarchy
 - Essential for maintaining consistent unwrapping semantics across different execution paths
+
+## Simplified Source
+
+```c
+static JsonPathExecResult executeItem(JsonPathExecContext *cxt, JsonPathItem *jsp,
+                                     JsonbValue *jb, JsonValueList *found) {
+    // Wrapper that executes JSONPath item with automatic unwrapping
+    // based on current execution context's lax mode setting
+    return executeItemOptUnwrapTarget(cxt, jsp, jb, found, jspAutoUnwrap(cxt));
+}
+```

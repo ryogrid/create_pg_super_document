@@ -33,3 +33,68 @@ parse_object_field handles the parsing of individual JSON object fields followin
 
 ## Notes and Other Information
 The function follows JSON object field syntax strictly, requiring string field names followed by colon separators. Field names are extracted and preserved for callback functions when object field semantic actions are provided. The function determines null status by checking if the field value is a JSON_TOKEN_NULL before invoking callbacks. It recursively handles complex field values by delegating to appropriate parsing functions based on the value's leading token. The semantic callbacks receive consistent field name and null status information for both start and end events.
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+parse_object_field(JsonLexContext *lex, JsonSemAction *sem)
+{
+    char *fname = NULL;
+    bool isnull;
+    JsonTokenType tok;
+    JsonParseErrorType result;
+
+    // Expect field name (string token)
+    if (lex_peek(lex) != JSON_TOKEN_STRING)
+        return report_parse_error(JSON_PARSE_STRING, lex);
+
+    // Extract field name for callbacks
+    if ((sem->object_field_start != NULL || sem->object_field_end != NULL) && lex->strval != NULL)
+        fname = pstrdup(lex->strval->data);
+
+    result = json_lex(lex);
+    if (result != JSON_SUCCESS)
+        return result;
+
+    // Expect colon separator
+    result = lex_expect(JSON_PARSE_OBJECT_LABEL, lex, JSON_TOKEN_COLON);
+    if (result != JSON_SUCCESS)
+        return result;
+
+    // Check if value is null
+    tok = lex_peek(lex);
+    isnull = (tok == JSON_TOKEN_NULL);
+
+    // Call field start callback
+    if (sem->object_field_start != NULL) {
+        result = (*sem->object_field_start)(sem->semstate, fname, isnull);
+        if (result != JSON_SUCCESS)
+            return result;
+    }
+
+    // Parse field value based on type
+    switch (tok) {
+        case JSON_TOKEN_OBJECT_START:
+            result = parse_object(lex, sem);
+            break;
+        case JSON_TOKEN_ARRAY_START:
+            result = parse_array(lex, sem);
+            break;
+        default:
+            result = parse_scalar(lex, sem);
+    }
+
+    if (result != JSON_SUCCESS)
+        return result;
+
+    // Call field end callback
+    if (sem->object_field_end != NULL) {
+        result = (*sem->object_field_end)(sem->semstate, fname, isnull);
+        if (result != JSON_SUCCESS)
+            return result;
+    }
+
+    return JSON_SUCCESS;
+}
+```

@@ -36,3 +36,20 @@ If a join relation hash table exists, the function also inserts the join relatio
 - Maintains both list and hash table data structures for different access patterns
 - [Hash](../H/Hash.md) table insertion is conditional based on whether the hash table exists
 - Located in src/backend/optimizer/util/relnode.c:627-664
+
+## Simplified Source
+
+```c
+static void add_join_rel(PlannerInfo *root, RelOptInfo *joinrel) {
+    // Add join relation to the end of the list (required by GEQO)
+    root->join_rel_list = lappend(root->join_rel_list, joinrel);
+
+    // Also store in hash table if one exists for fast lookup
+    if (root->join_rel_hash) {
+        JoinHashEntry *entry = hash_search(root->join_rel_hash,
+                                          &(joinrel->relids),
+                                          HASH_ENTER, NULL);
+        entry->join_rel = joinrel;
+    }
+}
+```

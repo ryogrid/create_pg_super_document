@@ -41,3 +41,30 @@ The function uses PostgreSQL's memory chunk system (CHUNKHDRSZ) to account for m
 - The calculation helps the query planner decide whether to use hash-based or sort-based aggregation
 - Memory chunks are used to manage the different components separately, allowing for efficient memory allocation and deallocation
 - The function accounts for alignment requirements through MAXALIGN to ensure proper memory access performance
+
+## Simplified Source
+
+```c
+Size
+hash_agg_entry_size(int numTrans, Size tupleWidth, Size transitionSpace)
+{
+    // Calculate tuple storage size (header + data)
+    Size tupleSize = MAXALIGN(SizeofMinimalTupleHeader) + tupleWidth;
+    Size tupleChunkSize = CHUNKHDRSZ + tupleSize;
+
+    // Calculate per-group state size for aggregate functions
+    Size pergroupSize = numTrans * sizeof(AggStatePerGroupData);
+    Size pergroupChunkSize = (pergroupSize > 0) ?
+                            CHUNKHDRSZ + pergroupSize : 0;
+
+    // Calculate transition space for intermediate results
+    Size transitionChunkSize = (transitionSpace > 0) ?
+                              CHUNKHDRSZ + transitionSpace : 0;
+
+    // Return total entry size: base entry + tuple + per-group + transition
+    return sizeof(TupleHashEntryData) +
+           tupleChunkSize +
+           pergroupChunkSize +
+           transitionChunkSize;
+}
+```

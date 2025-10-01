@@ -32,3 +32,26 @@ This function determines if a RestrictInfo represents a range comparison clause 
 
 ## Notes and Other Information
 The function supports four range operators for TID comparisons: less than, less than or equal, greater than, and greater than or equal. Like IsTidEqualClause, it uses a layered approach by first calling IsBinaryTidClause to ensure proper structure, then checking for specific range operators. This enables the query optimizer to consider TID range scans when appropriate range conditions are present.
+
+## Simplified Source
+
+```c
+static bool
+IsTidRangeClause(RestrictInfo *rinfo, RelOptInfo *rel)
+{
+    Oid opno;
+
+    // First check if it's a valid binary TID clause
+    if (!IsBinaryTidClause(rinfo, rel))
+        return false;
+
+    opno = ((OpExpr *) rinfo->clause)->opno;
+
+    // Check if operator is a TID range operator (<, <=, >, >=)
+    if (opno == TIDLessOperator || opno == TIDLessEqOperator ||
+        opno == TIDGreaterOperator || opno == TIDGreaterEqOperator)
+        return true;
+
+    return false;
+}
+```

@@ -43,3 +43,46 @@ When all keys are provided, the function computes the partition hash using the s
 
 ## Notes and Other Information
 Hash partitioning requires all partition key values to perform effective pruning - partial key information results in scanning all partitions. The function uses the greatest_modulus (total number of partition indexes) to compute the final partition offset. Unlike range and list partitioning, hash partitioning does not support special null or default partitions, so scan_null and scan_default are always set to false. The hash computation considers both explicit values and NULL indicators to ensure consistent partition assignment.
+
+## Simplified Source
+
+```c
+static PruneStepResult *
+get_matching_hash_bounds(PartitionPruneContext *context,
+                         StrategyNumber opstrategy, Datum *values, int nvalues,
+                         FmgrInfo *partsupfunc, Bitmapset *nullkeys)
+{
+    PruneStepResult *result = (PruneStepResult *) palloc0(sizeof(PruneStepResult));
+    PartitionBoundInfo boundinfo = context->boundinfo;
+    int partnatts = context->partnatts;
+
+    // Hash partitioning can only prune with complete key information
+    if (nvalues + bms_num_members(nullkeys) == partnatts) {
+        // Build null indicator array
+        bool isnull[PARTITION_MAX_KEYS];
+        for (int i = 0; i < partnatts; i++)
+            isnull[i] = bms_is_member(i, nullkeys);
+
+        // Compute hash value for the complete key
+        uint64 rowHash = compute_partition_hash_value(partnatts, partsupfunc,
+                                                      context->partcollation,
+                                                      values, isnull);
+
+        // Find target partition using modulo arithmetic
+        int greatest_modulus = boundinfo->nindexes;
+        int target_index = rowHash % greatest_modulus;
+
+        if (boundinfo->indexes[target_index] >= 0)
+            result->bound_offsets = bms_make_singleton(target_index);
+    } else {
+        // Incomplete key information - must scan all partitions
+        result->bound_offsets = bms_add_range(NULL, 0, boundinfo->nindexes - 1);
+    }
+
+    // Hash partitioning has no special null or default partitions
+    result->scan_null = false;
+    result->scan_default = false;
+
+    return result;
+}
+```

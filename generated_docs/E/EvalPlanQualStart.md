@@ -51,3 +51,83 @@ This setup allows EPQ to re-execute portions of a query plan with specific tuple
 - All subplans from the parent planned statement are initialized even if not all will be used
 - The function operates within the es_query_cxt memory context of the newly created EState
 - EPQ is primarily used in ModifyTable and LockRows operations to handle concurrent tuple modifications
+
+## Simplified Source
+
+```c
+static void EvalPlanQualStart(EPQState *epqstate, Plan *planTree) {
+    EState *parentestate = epqstate->parentestate;
+    Index rtsize = parentestate->es_range_table_size;
+
+    // Create new executor state for EPQ recheck
+    EState *rcestate = CreateExecutorState();
+    epqstate->recheckestate = rcestate;
+
+    MemoryContext oldcontext = MemoryContextSwitchTo(rcestate->es_query_cxt);
+
+    // Mark this as an EPQ EState
+    rcestate->es_epq_active = epqstate;
+
+    // Copy shared unchanging state from parent
+    rcestate->es_direction = ForwardScanDirection;
+    rcestate->es_snapshot = parentestate->es_snapshot;
+    rcestate->es_crosscheck_snapshot = parentestate->es_crosscheck_snapshot;
+    rcestate->es_range_table = parentestate->es_range_table;
+    rcestate->es_range_table_size = parentestate->es_range_table_size;
+    rcestate->es_relations = parentestate->es_relations;
+    rcestate->es_rowmarks = parentestate->es_rowmarks;
+    rcestate->es_plannedstmt = parentestate->es_plannedstmt;
+    rcestate->es_param_list_info = parentestate->es_param_list_info;
+
+    // Initialize local EPQ state
+    rcestate->es_result_relations = NULL;
+
+    // Set up parameter execution values if needed
+    if (parentestate->es_plannedstmt->paramExecTypes != NIL) {
+        // Force evaluation of InitPlan outputs
+        ExecSetParamPlanMulti(planTree->extParam,
+                             GetPerTupleExprContext(parentestate));
+
+        // Create local parameter workspace and copy values
+        int param_count = list_length(parentestate->es_plannedstmt->paramExecTypes);
+        rcestate->es_param_exec_vals = palloc0(param_count * sizeof(ParamExecData));
+
+        for (int i = 0; i < param_count; i++) {
+            rcestate->es_param_exec_vals[i].value =
+                parentestate->es_param_exec_vals[i].value;
+            rcestate->es_param_exec_vals[i].isnull =
+                parentestate->es_param_exec_vals[i].isnull;
+        }
+    }
+
+    // Initialize all subplans from parent
+    foreach(ListCell *l, parentestate->es_plannedstmt->subplans) {
+        Plan *subplan = (Plan *) lfirst(l);
+        PlanState *subplanstate = ExecInitNode(subplan, rcestate, 0);
+        rcestate->es_subplanstates = lappend(rcestate->es_subplanstates, subplanstate);
+    }
+
+    // Build RTI-indexed array of rowmarks for efficient access
+    epqstate->relsubs_rowmark = palloc0(rtsize * sizeof(ExecAuxRowMark *));
+    foreach(ListCell *l, epqstate->arowMarks) {
+        ExecAuxRowMark *earm = (ExecAuxRowMark *) lfirst(l);
+        epqstate->relsubs_rowmark[earm->rowmark->rti - 1] = earm;
+    }
+
+    // Initialize per-relation EPQ tuple states
+    epqstate->relsubs_done = palloc_array(bool, rtsize);
+    epqstate->relsubs_blocked = palloc0_array(bool, rtsize);
+
+    // Mark result relations as blocked
+    foreach(ListCell *l, epqstate->resultRelations) {
+        int rtindex = lfirst_int(l);
+        epqstate->relsubs_blocked[rtindex - 1] = true;
+    }
+    memcpy(epqstate->relsubs_done, epqstate->relsubs_blocked, rtsize * sizeof(bool));
+
+    // Initialize the plan tree for execution
+    epqstate->recheckplanstate = ExecInitNode(planTree, rcestate, 0);
+
+    MemoryContextSwitchTo(oldcontext);
+}
+```

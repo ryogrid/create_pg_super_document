@@ -35,3 +35,14 @@ The  function is a low-level memory copy utility specifically designed for JSONB
 - No bounds checking is performed - the caller is responsible for ensuring the offset and length are valid
 - Used primarily in JSONB serialization operations where precise placement of data within the buffer is required
 - The function provides a simple abstraction over memcpy for buffer operations in JSONB processing context
+
+## Simplified Source
+
+```c
+static void
+copyToBuffer(StringInfo buffer, int offset, const char *data, int len)
+{
+    // Direct memory copy to buffer at specified offset
+    memcpy(buffer->data + offset, data, len);
+}
+```

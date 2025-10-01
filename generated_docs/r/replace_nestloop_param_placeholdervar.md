@@ -50,3 +50,40 @@ A key difference from the Var version is that type information must be extracted
 - The paramval in NestLoopParam is cast to Var* but actually stores the PlaceHolderVar copy
 - Critical for handling complex expressions that span multiple join levels in nested loop joins
 - PlaceHolderVars often arise from subquery flattening and join reordering optimizations
+
+## Simplified Source
+
+```c
+Param *replace_nestloop_param_placeholdervar(PlannerInfo *root, PlaceHolderVar *phv) {
+    // Check if this PlaceHolderVar is already parameterized
+    ListCell *lc;
+    foreach(lc, root->curOuterParams) {
+        NestLoopParam *nlp = (NestLoopParam *) lfirst(lc);
+        if (equal(phv, nlp->paramval)) {
+            // Reuse existing parameter slot
+            Param *param = makeNode(Param);
+            param->paramkind = PARAM_EXEC;
+            param->paramid = nlp->paramno;
+            param->paramtype = exprType((Node *) phv->phexpr);
+            param->paramtypmod = exprTypmod((Node *) phv->phexpr);
+            param->paramcollid = exprCollation((Node *) phv->phexpr);
+            param->location = -1;
+            return param;
+        }
+    }
+
+    // Create new execution parameter
+    Param *param = generate_new_exec_param(root,
+                                         exprType((Node *) phv->phexpr),
+                                         exprTypmod((Node *) phv->phexpr),
+                                         exprCollation((Node *) phv->phexpr));
+
+    // Add new NestLoopParam to track this parameterization
+    NestLoopParam *nlp = makeNode(NestLoopParam);
+    nlp->paramno = param->paramid;
+    nlp->paramval = (Var *) copyObject(phv);
+    root->curOuterParams = lappend(root->curOuterParams, nlp);
+
+    return param;
+}
+```

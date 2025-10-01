@@ -49,3 +49,47 @@ The function considers whether spilling is expected based on input size estimate
 - Both memory and group limits are important because transition values may grow substantially beyond their initial size
 - Buffer memory reservation accounts for one read buffer and one write buffer per partition for spill operations
 - The group limit calculation ensures at least one group can always be processed to prevent degenerate cases
+
+## Simplified Source
+
+```c
+void
+hash_agg_set_limits(double hashentrysize, double input_groups, int used_bits,
+                    Size *mem_limit, uint64 *ngroups_limit,
+                    int *num_partitions)
+{
+    Size hash_mem_limit = get_hash_memory_limit();
+
+    // Check if spilling is expected based on input size
+    if (input_groups * hashentrysize <= hash_mem_limit) {
+        // No spilling expected - use full memory
+        if (num_partitions != NULL)
+            *num_partitions = 0;
+        *mem_limit = hash_mem_limit;
+        *ngroups_limit = hash_mem_limit / hashentrysize;
+        return;
+    }
+
+    // Calculate partitions needed for spilling
+    int npartitions = hash_choose_num_partitions(input_groups, hashentrysize,
+                                                 used_bits, NULL);
+    if (num_partitions != NULL)
+        *num_partitions = npartitions;
+
+    // Reserve memory for tape buffers during spilling
+    Size partition_mem = HASHAGG_READ_BUFFER_SIZE +
+                        HASHAGG_WRITE_BUFFER_SIZE * npartitions;
+
+    // Set memory limit with safety margin (minimum 75% of hash_mem)
+    if (hash_mem_limit > 4 * partition_mem)
+        *mem_limit = hash_mem_limit - partition_mem;
+    else
+        *mem_limit = hash_mem_limit * 0.75;
+
+    // Calculate group limit based on available memory
+    if (*mem_limit > hashentrysize)
+        *ngroups_limit = *mem_limit / hashentrysize;
+    else
+        *ngroups_limit = 1;  // Always allow at least one group
+}
+```

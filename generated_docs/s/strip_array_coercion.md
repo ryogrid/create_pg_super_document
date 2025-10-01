@@ -45,3 +45,30 @@ This preprocessing is crucial for accurate selectivity estimation because statis
 - Essential for accurate statistical analysis of array expressions in query optimization
 - The function is conservative - it only strips coercions it can positively identify as binary-compatible
 - Used primarily in scalar array selectivity estimation and array length estimation functions
+
+## Simplified Source
+
+```c
+static Node *strip_array_coercion(Node *node)
+{
+    for (;;) {
+        if (node && IsA(node, ArrayCoerceExpr)) {
+            ArrayCoerceExpr *acoerce = (ArrayCoerceExpr *) node;
+
+            // Check for binary-compatible relabeling pattern
+            if (IsA(acoerce->elemexpr, RelabelType) &&
+                IsA(((RelabelType *) acoerce->elemexpr)->arg, CaseTestExpr))
+                node = (Node *) acoerce->arg;
+            else
+                break;
+        }
+        else if (node && IsA(node, RelabelType)) {
+            // Handle simple relabeling
+            node = (Node *) ((RelabelType *) node)->arg;
+        }
+        else
+            break;
+    }
+    return node;
+}
+```

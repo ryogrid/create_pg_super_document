@@ -35,3 +35,16 @@ The function implements the bottom-up cleanup pattern used in the JSONB iterator
 - Part of the automatic memory management system that prevents memory leaks during deep JSONB traversal
 - Called when JBI_ARRAY_ELEM or JBI_OBJECT_KEY states detect all elements have been processed
 - Essential component of the iterator cleanup mechanism described in JsonbIteratorNext documentation
+
+## Simplified Source
+
+```c
+static JsonbIterator *
+freeAndGetParent(JsonbIterator *it)
+{
+    JsonbIterator *parent = it->parent;
+
+    pfree(it);
+    return parent;
+}
+```

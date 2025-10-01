@@ -34,3 +34,20 @@ The function performs the same availability check as pqGetnchar but only advance
 - Maintains the same error checking as data-reading functions for consistency
 - Advances the input cursor position by exactly the specified number of bytes
 - Commonly used in protocol message parsing where certain fields can be ignored
+
+## Simplified Source
+
+```c
+int
+pqSkipnchar(size_t len, PGconn *conn)
+{
+    // Check if enough data is available
+    if (len > (size_t) (conn->inEnd - conn->inCursor))
+        return EOF;
+
+    // Advance cursor without copying data
+    conn->inCursor += len;
+
+    return 0;
+}
+```

@@ -47,3 +47,53 @@ Key aspects of the serialization:
 - The serialized format must match exactly with what statext_ndistinct_deserialize expects
 - Part of PostgreSQL's persistent storage mechanism for multivariate statistics
 - Ensures platform-independent storage by using explicit data type sizes
+
+## Simplified Source
+
+```c
+bytea *statext_ndistinct_serialize(MVNDistinct *ndistinct) {
+    bytea *output;
+    char *tmp;
+    Size len;
+    int i;
+
+    // Validate input structure
+    Assert(ndistinct->magic == STATS_NDISTINCT_MAGIC);
+    Assert(ndistinct->type == STATS_NDISTINCT_TYPE_BASIC);
+
+    // Calculate total space needed: header + all items
+    len = VARHDRSZ + SizeOfHeader;
+    for (i = 0; i < ndistinct->nitems; i++) {
+        int nmembers = ndistinct->items[i].nattributes;
+        len += SizeOfItem(nmembers);
+    }
+
+    // Allocate output buffer
+    output = (bytea *) palloc(len);
+    SET_VARSIZE(output, len);
+    tmp = VARDATA(output);
+
+    // Store header: magic, type, number of items
+    memcpy(tmp, &ndistinct->magic, sizeof(uint32));
+    tmp += sizeof(uint32);
+    memcpy(tmp, &ndistinct->type, sizeof(uint32));
+    tmp += sizeof(uint32);
+    memcpy(tmp, &ndistinct->nitems, sizeof(uint32));
+    tmp += sizeof(uint32);
+
+    // Store each ndistinct item: value, attribute count, attributes
+    for (i = 0; i < ndistinct->nitems; i++) {
+        MVNDistinctItem item = ndistinct->items[i];
+        int nmembers = item.nattributes;
+
+        memcpy(tmp, &item.ndistinct, sizeof(double));
+        tmp += sizeof(double);
+        memcpy(tmp, &nmembers, sizeof(int));
+        tmp += sizeof(int);
+        memcpy(tmp, item.attributes, sizeof(AttrNumber) * nmembers);
+        tmp += nmembers * sizeof(AttrNumber);
+    }
+
+    return output;
+}
+```

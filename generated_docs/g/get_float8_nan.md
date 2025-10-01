@@ -42,3 +42,18 @@ The specific NetBSD/MIPS exclusion addresses a historical bug where the `NAN` ma
 - Used extensively throughout PostgreSQL for handling invalid mathematical operations, undefined results, and error conditions in numerical computations
 - Critical for proper SQL NULL handling and mathematical edge cases
 - The NetBSD/MIPS workaround demonstrates PostgreSQL's commitment to broad platform compatibility
+
+## Simplified Source
+
+```c
+static double get_float8_nan(void)
+{
+    // Use C99 NAN if available, but avoid NetBSD/MIPS bug
+#if defined(NAN) && !(defined(__NetBSD__) && defined(__mips__))
+    return (double) NAN;
+#else
+    // Fallback: 0.0 / 0.0 = NaN per IEEE 754
+    return (double) (0.0 / 0.0);
+#endif
+}
+```

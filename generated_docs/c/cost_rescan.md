@@ -49,3 +49,79 @@ The function accounts for spilling to disk when materialized results exceed work
 - Spill-to-disk calculations use work_mem threshold and BLCKSZ page size
 - Default case returns original path costs for plan types without special rescan optimizations
 - Critical for nested loop join cost estimation where inner paths are rescanned multiple times
+
+## Simplified Source
+
+```c
+static void cost_rescan(PlannerInfo *root, Path *path,
+                       Cost *rescan_startup_cost,
+                       Cost *rescan_total_cost) {
+    switch (path->pathtype) {
+        case T_FunctionScan:
+            // Function results cached in tuplestore - no startup cost on rescan
+            *rescan_startup_cost = 0;
+            *rescan_total_cost = path->total_cost - path->startup_cost;
+            break;
+
+        case T_HashJoin:
+            // Single-batch joins don't rebuild hash table on rescan
+            if (((HashPath *) path)->num_batches == 1) {
+                *rescan_startup_cost = 0;
+                *rescan_total_cost = path->total_cost - path->startup_cost;
+            } else {
+                // Multi-batch: no special treatment
+                *rescan_startup_cost = path->startup_cost;
+                *rescan_total_cost = path->total_cost;
+            }
+            break;
+
+        case T_CteScan:
+        case T_WorkTableScan:
+            {
+                // Materialized results: only tuple retrieval cost
+                Cost run_cost = cpu_tuple_cost * path->rows;
+                double nbytes = relation_byte_size(path->rows, path->pathtarget->width);
+                long work_mem_bytes = work_mem * 1024L;
+
+                // Add disk read cost if spilled to disk
+                if (nbytes > work_mem_bytes) {
+                    double npages = ceil(nbytes / BLCKSZ);
+                    run_cost += seq_page_cost * npages;
+                }
+                *rescan_startup_cost = 0;
+                *rescan_total_cost = run_cost;
+            }
+            break;
+
+        case T_Material:
+        case T_Sort:
+            {
+                // Cheapest rescans: only operator cost per tuple
+                Cost run_cost = cpu_operator_cost * path->rows;
+                double nbytes = relation_byte_size(path->rows, path->pathtarget->width);
+                long work_mem_bytes = work_mem * 1024L;
+
+                // Add disk read cost if spilled to disk
+                if (nbytes > work_mem_bytes) {
+                    double npages = ceil(nbytes / BLCKSZ);
+                    run_cost += seq_page_cost * npages;
+                }
+                *rescan_startup_cost = 0;
+                *rescan_total_cost = run_cost;
+            }
+            break;
+
+        case T_Memoize:
+            // Delegate to specialized memoize rescan costing
+            cost_memoize_rescan(root, (MemoizePath *) path,
+                               rescan_startup_cost, rescan_total_cost);
+            break;
+
+        default:
+            // No special rescan optimization
+            *rescan_startup_cost = path->startup_cost;
+            *rescan_total_cost = path->total_cost;
+            break;
+    }
+}
+```

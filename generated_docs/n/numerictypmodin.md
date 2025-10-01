@@ -42,3 +42,43 @@ This function is part of PostgreSQL's type modifier input system for the NUMERIC
 - Validates scale must be between NUMERIC_MIN_SCALE and NUMERIC_MAX_SCALE
 - Part of the type system's input/output machinery for custom types
 - Located in src/backend/utils/adt/numeric.c:1322-1366
+
+## Simplified Source
+
+```c
+Datum
+numerictypmodin(PG_FUNCTION_ARGS)
+{
+    ArrayType *ta = PG_GETARG_ARRAYTYPE_P(0);
+    int32 *tl;
+    int n;
+    int32 typmod;
+
+    // Extract integer values from type modifier array
+    tl = ArrayGetIntegerTypmods(ta, &n);
+
+    if (n == 2) {
+        // NUMERIC(precision, scale) format
+        if (tl[0] < 1 || tl[0] > NUMERIC_MAX_PRECISION)
+            ereport(ERROR, "NUMERIC precision %d must be between 1 and %d");
+        if (tl[1] < NUMERIC_MIN_SCALE || tl[1] > NUMERIC_MAX_SCALE)
+            ereport(ERROR, "NUMERIC scale %d must be between %d and %d");
+
+        typmod = make_numeric_typmod(tl[0], tl[1]);
+    }
+    else if (n == 1) {
+        // NUMERIC(precision) format - scale defaults to 0
+        if (tl[0] < 1 || tl[0] > NUMERIC_MAX_PRECISION)
+            ereport(ERROR, "NUMERIC precision %d must be between 1 and %d");
+
+        typmod = make_numeric_typmod(tl[0], 0);
+    }
+    else {
+        // Invalid number of type modifiers
+        ereport(ERROR, "invalid NUMERIC type modifier");
+        typmod = 0;  // keep compiler quiet
+    }
+
+    PG_RETURN_INT32(typmod);
+}
+```

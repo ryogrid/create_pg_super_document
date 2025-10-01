@@ -48,3 +48,37 @@ The function creates a local FunctionCallInfoData structure with space for 4 arg
 - Used primarily for specialized index operations in BRIN and GIN access methods, as well as selectivity estimation functions
 - Represents the maximum number of direct parameters supported by the FunctionCallNColl family
 - Located in src/backend/utils/fmgr/fmgr.c:1196-1222
+
+## Simplified Source
+
+```c
+Datum
+FunctionCall4Coll(FmgrInfo *flinfo, Oid collation, Datum arg1, Datum arg2,
+                  Datum arg3, Datum arg4)
+{
+    LOCAL_FCINFO(fcinfo, 4);
+    Datum result;
+
+    // Initialize function call context with 4 arguments and collation
+    InitFunctionCallInfoData(*fcinfo, flinfo, 4, collation, NULL, NULL);
+
+    // Set all 4 arguments as non-null
+    fcinfo->args[0].value = arg1;
+    fcinfo->args[0].isnull = false;
+    fcinfo->args[1].value = arg2;
+    fcinfo->args[1].isnull = false;
+    fcinfo->args[2].value = arg3;
+    fcinfo->args[2].isnull = false;
+    fcinfo->args[3].value = arg4;
+    fcinfo->args[3].isnull = false;
+
+    // Invoke the function
+    result = FunctionCallInvoke(fcinfo);
+
+    // Ensure result is not NULL (caller expects non-null)
+    if (fcinfo->isnull)
+        elog(ERROR, "function %u returned NULL", flinfo->fn_oid);
+
+    return result;
+}
+```

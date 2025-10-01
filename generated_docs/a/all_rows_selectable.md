@@ -49,3 +49,109 @@ The function handles complex scenarios like partitioned tables where it must wal
 - System attributes (negative attribute numbers) are treated specially and mapped consistently across inheritance hierarchies
 - This function is exported for use by other estimation functions that need to determine data access permissions
 - The userid determination handles both direct table access and access through views, using the appropriate user context for permission checks
+
+## Simplified Source
+
+```c
+bool
+all_rows_selectable(PlannerInfo *root, Index varno, Bitmapset *varattnos)
+{
+    RelOptInfo *rel = find_base_rel_noerr(root, varno);
+    RangeTblEntry *rte = planner_rt_fetch(varno, root);
+    Oid userid;
+    int varattno;
+
+    Assert(rte->rtekind == RTE_RELATION);
+
+    // Determine the user ID for privilege checks (current user or view owner)
+    if (rel)
+        userid = rel->userid;
+    else {
+        RTEPermissionInfo *perminfo = getRTEPermissionInfo(root->parse->rteperminfos, rte);
+        userid = perminfo->checkAsUser;
+    }
+    if (!OidIsValid(userid))
+        userid = GetUserId();
+
+    // Handle inheritance hierarchies - navigate to root parent
+    if (root->append_rel_array != NULL) {
+        AppendRelInfo *appinfo = root->append_rel_array[varno];
+
+        // Walk up inheritance hierarchy to root parent
+        while (appinfo &&
+               planner_rt_fetch(appinfo->parent_relid, root)->rtekind == RTE_RELATION) {
+            Bitmapset *parent_varattnos = NULL;
+
+            // Map child attributes to parent attributes
+            varattno = -1;
+            while ((varattno = bms_next_member(varattnos, varattno)) >= 0) {
+                AttrNumber attno = varattno + FirstLowInvalidHeapAttributeNumber;
+                AttrNumber parent_attno;
+
+                if (attno == InvalidAttrNumber) {
+                    // Whole-row reference - map all columns
+                    for (attno = 1; attno <= appinfo->num_child_cols; attno++) {
+                        parent_attno = appinfo->parent_colnos[attno - 1];
+                        if (parent_attno == 0)
+                            return false;  // local to child
+                        parent_varattnos = bms_add_member(parent_varattnos,
+                                         parent_attno - FirstLowInvalidHeapAttributeNumber);
+                    }
+                } else {
+                    // Regular or system attribute
+                    if (attno < 0) {
+                        parent_attno = attno;  // system attributes same everywhere
+                    } else {
+                        if (attno > appinfo->num_child_cols)
+                            return false;
+                        parent_attno = appinfo->parent_colnos[attno - 1];
+                        if (parent_attno == 0)
+                            return false;  // local to child
+                    }
+                    parent_varattnos = bms_add_member(parent_varattnos,
+                                     parent_attno - FirstLowInvalidHeapAttributeNumber);
+                }
+            }
+
+            // Continue up the hierarchy
+            varno = appinfo->parent_relid;
+            varattnos = parent_varattnos;
+            appinfo = root->append_rel_array[varno];
+        }
+
+        rte = planner_rt_fetch(varno, root);
+        Assert(rte->rtekind == RTE_RELATION);
+    }
+
+    // Check for security qualifiers (RLS policies, security barrier views)
+    if (rte->securityQuals != NIL)
+        return false;
+
+    // Check table-level SELECT privilege
+    if (pg_class_aclcheck(rte->relid, userid, ACL_SELECT) == ACLCHECK_OK)
+        return true;
+
+    if (varattnos == NULL)
+        return false;  // whole-table access requested but denied
+
+    // Check column-level privileges
+    varattno = -1;
+    while ((varattno = bms_next_member(varattnos, varattno)) >= 0) {
+        AttrNumber attno = varattno + FirstLowInvalidHeapAttributeNumber;
+
+        if (attno == InvalidAttrNumber) {
+            // Whole-row reference - check all columns
+            if (pg_attribute_aclcheck_all(rte->relid, userid, ACL_SELECT,
+                                         ACLMASK_ALL) != ACLCHECK_OK)
+                return false;
+        } else {
+            // Check specific column
+            if (pg_attribute_aclcheck(rte->relid, attno, userid,
+                                     ACL_SELECT) != ACLCHECK_OK)
+                return false;
+        }
+    }
+
+    return true;  // All required permissions verified
+}
+```

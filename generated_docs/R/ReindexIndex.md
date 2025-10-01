@@ -46,3 +46,52 @@ The function handles lock acquisition carefully to avoid deadlocks by using a ca
 - The callback mechanism prevents deadlocks by ensuring the table lock is acquired before the index lock
 - Handles three distinct index types with appropriate specialized functions
 - The lock level used must match what reindex_index() expects to avoid lock conflicts
+
+## Simplified Source
+
+```c
+static void
+ReindexIndex(const ReindexStmt *stmt, const ReindexParams *params, bool isTopLevel)
+{
+    const RangeVar *indexRelation = stmt->relation;
+    struct ReindexIndexCallbackState state;
+    Oid indOid;
+    char persistence;
+    char relkind;
+
+    // Acquire appropriate lock on index (ShareUpdateExclusive for concurrent, AccessExclusive otherwise)
+    // Use callback to lock table first to avoid deadlocks
+    state.params = *params;
+    state.locked_table_oid = InvalidOid;
+    indOid = RangeVarGetRelidExtended(indexRelation,
+                                     (params->options & REINDEXOPT_CONCURRENTLY) != 0 ?
+                                     ShareUpdateExclusiveLock : AccessExclusiveLock,
+                                     0,
+                                     RangeVarCallbackForReindexIndex,
+                                     &state);
+
+    // Get index characteristics
+    persistence = get_rel_persistence(indOid);
+    relkind = get_rel_relkind(indOid);
+
+    // Choose reindex strategy based on index type and options
+    if (relkind == RELKIND_PARTITIONED_INDEX)
+    {
+        // Handle partitioned indexes
+        ReindexPartitions(stmt, indOid, params, isTopLevel);
+    }
+    else if ((params->options & REINDEXOPT_CONCURRENTLY) != 0 &&
+             persistence != RELPERSISTENCE_TEMP)
+    {
+        // Concurrent reindex for non-temporary indexes
+        ReindexRelationConcurrently(stmt, indOid, params);
+    }
+    else
+    {
+        // Regular reindex (including temporary indexes)
+        ReindexParams newparams = *params;
+        newparams.options |= REINDEXOPT_REPORT_PROGRESS;
+        reindex_index(stmt, indOid, false, persistence, &newparams);
+    }
+}
+```

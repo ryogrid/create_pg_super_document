@@ -58,3 +58,72 @@ This function provides true content equality checking, making it suitable for ca
 - The function will throw an ERROR for invalid typLen values outside the expected range
 - This is the preferred function when exact content matching is required, especially for TOAST-able data types
 - Memory-efficient approach: early size comparison for varlena types avoids unnecessary detoasting when sizes differ
+
+## Simplified Source
+
+```c
+bool
+datum_image_eq(Datum value1, Datum value2, bool typByVal, int typLen)
+{
+    Size len1, len2;
+    bool result = true;
+
+    if (typByVal)
+    {
+        // Pass-by-value: direct comparison
+        result = (value1 == value2);
+    }
+    else if (typLen > 0)
+    {
+        // Fixed-length pass-by-reference: direct memory comparison
+        result = (memcmp(DatumGetPointer(value1),
+                        DatumGetPointer(value2),
+                        typLen) == 0);
+    }
+    else if (typLen == -1)
+    {
+        // Variable-length (varlena) type with TOAST handling
+        len1 = toast_raw_datum_size(value1);
+        len2 = toast_raw_datum_size(value2);
+
+        if (len1 != len2)
+            result = false;  // Different sizes, can't be equal
+        else
+        {
+            struct varlena *arg1val;
+            struct varlena *arg2val;
+
+            // Detoast both datums for comparison
+            arg1val = PG_DETOAST_DATUM_PACKED(value1);
+            arg2val = PG_DETOAST_DATUM_PACKED(value2);
+
+            // Compare only the data portion (excluding headers)
+            result = (memcmp(VARDATA_ANY(arg1val),
+                           VARDATA_ANY(arg2val),
+                           len1 - VARHDRSZ) == 0);
+
+            // Free any temporary detoasted copies
+            if ((Pointer) arg1val != (Pointer) value1)
+                pfree(arg1val);
+            if ((Pointer) arg2val != (Pointer) value2)
+                pfree(arg2val);
+        }
+    }
+    else if (typLen == -2)
+    {
+        // C-string type
+        char *s1 = DatumGetCString(value1);
+        char *s2 = DatumGetCString(value2);
+        len1 = strlen(s1) + 1;
+        len2 = strlen(s2) + 1;
+
+        if (len1 != len2)
+            return false;
+        result = (memcmp(s1, s2, len1) == 0);
+    }
+    else
+        elog(ERROR, "unexpected typLen: %d", typLen);
+
+    return result;
+}
+```

@@ -45,3 +45,41 @@ The function utilizes either LockTupleTuplock for blocking operations or Conditi
 - The function implements a safety check by immediately returning true if the lock is already held
 - Error reporting uses the standard PostgreSQL ereport mechanism with ERRCODE_LOCK_NOT_AVAILABLE
 - The heavyweight tuple lock serves as a prerequisite for the lighter-weight Xmax-based tuple locking mechanism
+
+## Simplified Source
+
+```c
+static bool heap_acquire_tuplock(Relation relation, ItemPointer tid, LockTupleMode mode,
+                                 LockWaitPolicy wait_policy, bool *have_tuple_lock) {
+    // Skip if lock already acquired
+    if (*have_tuple_lock)
+        return true;
+
+    // Acquire heavyweight lock based on wait policy
+    switch (wait_policy) {
+        case LockWaitBlock:
+            // Block until lock is available
+            LockTupleTuplock(relation, tid, mode);
+            break;
+
+        case LockWaitSkip:
+            // Try to acquire, skip if unavailable
+            if (!ConditionalLockTupleTuplock(relation, tid, mode))
+                return false;
+            break;
+
+        case LockWaitError:
+            // Try to acquire, error if unavailable
+            if (!ConditionalLockTupleTuplock(relation, tid, mode))
+                ereport(ERROR,
+                       (errcode(ERRCODE_LOCK_NOT_AVAILABLE),
+                        errmsg("could not obtain lock on row in relation \"%s\"",
+                               RelationGetRelationName(relation))));
+            break;
+    }
+
+    // Mark lock as acquired
+    *have_tuple_lock = true;
+    return true;
+}
+```

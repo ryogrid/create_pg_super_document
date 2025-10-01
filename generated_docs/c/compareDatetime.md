@@ -49,3 +49,97 @@ The  function implements comprehensive datetime comparison logic for SQL/JSON pa
 - Throws explicit errors for unrecognized datetime type OIDs
 - Handles timezone casting automatically when comparing TIME and TIMETZ types
 - Part of the JSON path execution engine in PostgreSQL's JSON functionality
+
+## Simplified Source
+
+```c
+static int
+compareDatetime(Datum val1, Oid typid1, Datum val2, Oid typid2,
+                bool useTz, bool *cast_error)
+{
+    PGFunction cmpfunc;
+    *cast_error = false;
+
+    // Handle DATE type comparisons
+    if (typid1 == DATEOID) {
+        switch (typid2) {
+            case DATEOID:
+                return DatumGetInt32(DirectFunctionCall2(date_cmp, val1, val2));
+            case TIMESTAMPOID:
+                return cmpDateToTimestamp(DatumGetDateADT(val1),
+                                        DatumGetTimestamp(val2), useTz);
+            case TIMESTAMPTZOID:
+                return cmpDateToTimestampTz(DatumGetDateADT(val1),
+                                          DatumGetTimestampTz(val2), useTz);
+            default:
+                *cast_error = true; // TIME types incompatible with DATE
+                return 0;
+        }
+    }
+
+    // Handle TIME type comparisons
+    if (typid1 == TIMEOID) {
+        if (typid2 == TIMEOID)
+            cmpfunc = time_cmp;
+        else if (typid2 == TIMETZOID) {
+            val1 = castTimeToTimeTz(val1, useTz);
+            cmpfunc = timetz_cmp;
+        } else {
+            *cast_error = true; // DATE/TIMESTAMP types incompatible
+            return 0;
+        }
+    }
+
+    // Handle TIMETZ type comparisons
+    else if (typid1 == TIMETZOID) {
+        if (typid2 == TIMEOID) {
+            val2 = castTimeToTimeTz(val2, useTz);
+            cmpfunc = timetz_cmp;
+        } else if (typid2 == TIMETZOID)
+            cmpfunc = timetz_cmp;
+        else {
+            *cast_error = true;
+            return 0;
+        }
+    }
+
+    // Handle TIMESTAMP type comparisons
+    else if (typid1 == TIMESTAMPOID) {
+        switch (typid2) {
+            case DATEOID:
+                return -cmpDateToTimestamp(DatumGetDateADT(val2),
+                                         DatumGetTimestamp(val1), useTz);
+            case TIMESTAMPOID:
+                cmpfunc = timestamp_cmp;
+                break;
+            case TIMESTAMPTZOID:
+                return cmpTimestampToTimestampTz(DatumGetTimestamp(val1),
+                                               DatumGetTimestampTz(val2), useTz);
+            default:
+                *cast_error = true;
+                return 0;
+        }
+    }
+
+    // Handle TIMESTAMPTZ type comparisons
+    else if (typid1 == TIMESTAMPTZOID) {
+        switch (typid2) {
+            case DATEOID:
+                return -cmpDateToTimestampTz(DatumGetDateADT(val2),
+                                           DatumGetTimestampTz(val1), useTz);
+            case TIMESTAMPOID:
+                return -cmpTimestampToTimestampTz(DatumGetTimestamp(val2),
+                                                DatumGetTimestampTz(val1), useTz);
+            case TIMESTAMPTZOID:
+                cmpfunc = timestamp_cmp;
+                break;
+            default:
+                *cast_error = true;
+                return 0;
+        }
+    }
+
+    // Perform the actual comparison using the selected function
+    return DatumGetInt32(DirectFunctionCall2(cmpfunc, val1, val2));
+}
+```

@@ -45,3 +45,33 @@ Key behaviors include:
 - Commonly used for explicit data like INSERT ... VALUES, VALUES clauses in FROM, and Common Table Expressions (CTEs)
 - Cost calculation considers the number of rows and columns in the VALUES list, as well as expression evaluation costs
 - VALUES data is materialized at execution time from the literal values specified in the query
+
+## Simplified Source
+
+```c
+Path *
+create_valuesscan_path(PlannerInfo *root, RelOptInfo *rel,
+                      Relids required_outer)
+{
+    Path *pathnode = makeNode(Path);
+
+    // Set basic path properties
+    pathnode->pathtype = T_ValuesScan;
+    pathnode->parent = rel;
+    pathnode->pathtarget = rel->reltarget;
+    pathnode->param_info = get_baserel_parampathinfo(root, rel, required_outer);
+
+    // Configure parallelism (not supported)
+    pathnode->parallel_aware = false;
+    pathnode->parallel_safe = rel->consider_parallel;
+    pathnode->parallel_workers = 0;
+
+    // VALUES always produce unordered results
+    pathnode->pathkeys = NIL;
+
+    // Calculate costs
+    cost_valuesscan(pathnode, root, rel, pathnode->param_info);
+
+    return pathnode;
+}
+```

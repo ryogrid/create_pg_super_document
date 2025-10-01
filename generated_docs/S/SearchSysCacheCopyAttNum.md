@@ -36,3 +36,22 @@ The returned copy is independent of the system cache and can be modified or reta
 - The returned tuple is a complete copy, including all attribute data and metadata
 - Memory management is handled properly - the original cached tuple is released after copying
 - Part of PostgreSQL's system cache infrastructure optimized for scenarios requiring tuple modification or extended retention
+
+## Simplified Source
+
+```c
+HeapTuple SearchSysCacheCopyAttNum(Oid relid, int16 attnum) {
+    // Find the attribute tuple (ignores dropped attributes)
+    HeapTuple tuple = SearchSysCacheAttNum(relid, attnum);
+
+    // Return NULL if not found
+    if (!HeapTupleIsValid(tuple))
+        return NULL;
+
+    // Create a copy and release the original cached tuple
+    HeapTuple newtuple = heap_copytuple(tuple);
+    ReleaseSysCache(tuple);
+
+    return newtuple;
+}
+```

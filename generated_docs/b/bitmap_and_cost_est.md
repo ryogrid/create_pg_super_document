@@ -36,3 +36,20 @@ The function chooses to create an actual BitmapAndPath rather than just performi
 - Delegates the actual cost calculation to bitmap_scan_cost_est after creating the BitmapAndPath
 - Part of PostgreSQL's cost-based optimization for bitmap index scans with AND operations
 - The comment indicates that the cost calculation is complex enough that avoiding duplication of logic justifies the overhead of creating the actual path structure
+
+## Simplified Source
+
+```c
+static Cost
+bitmap_and_cost_est(PlannerInfo *root, RelOptInfo *rel, List *paths)
+{
+    BitmapAndPath *apath;
+
+    // Create a real BitmapAndPath for cost calculation
+    // (too complex to duplicate the cost logic inline)
+    apath = create_bitmap_and_path(root, rel, paths);
+
+    // Delegate to the general bitmap scan cost estimator
+    return bitmap_scan_cost_est(root, rel, (Path *) apath);
+}
+```

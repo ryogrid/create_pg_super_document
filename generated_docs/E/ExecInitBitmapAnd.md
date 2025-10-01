@@ -40,3 +40,42 @@ Unlike many other executor nodes, BitmapAnd nodes do not require expression cont
 - The initialized node will later be executed via MultiExecBitmapAnd, not through the standard ExecProcNode interface
 - Validates execution flags to ensure only supported operations are attempted
 - Located in src/backend/executor/nodeBitmapAnd.c:55-109
+
+## Simplified Source
+
+```c
+BitmapAndState *
+ExecInitBitmapAnd(BitmapAnd *node, EState *estate, int eflags)
+{
+    BitmapAndState *bitmapandstate;
+    PlanState **bitmapplanstates;
+    int nplans;
+
+    // Validation
+    Assert(!(eflags & (EXEC_FLAG_BACKWARD | EXEC_FLAG_MARK)));
+
+    // Create and initialize state structure
+    bitmapandstate = makeNode(BitmapAndState);
+    bitmapandstate->ps.plan = (Plan *) node;
+    bitmapandstate->ps.state = estate;
+    bitmapandstate->ps.ExecProcNode = ExecBitmapAnd;
+
+    // Setup subplan array
+    nplans = list_length(node->bitmapplans);
+    bitmapplanstates = palloc0(nplans * sizeof(PlanState *));
+
+    bitmapandstate->bitmapplans = bitmapplanstates;
+    bitmapandstate->nplans = nplans;
+
+    // Initialize each subplan
+    int i = 0;
+    ListCell *l;
+    foreach(l, node->bitmapplans) {
+        Plan *initNode = (Plan *) lfirst(l);
+        bitmapplanstates[i] = ExecInitNode(initNode, estate, eflags);
+        i++;
+    }
+
+    return bitmapandstate;
+}
+```

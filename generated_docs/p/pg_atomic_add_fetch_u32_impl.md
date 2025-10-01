@@ -32,3 +32,14 @@ This is a generic implementation of atomic add-and-fetch operation that combines
 - The implementation relies on spinlock-based synchronization in the underlying fetch_add function
 - This function is part of PostgreSQL's portable atomic operations abstraction layer
 - Located in src/include/port/atomics/generic.h as part of the generic atomic operations implementation
+
+## Simplified Source
+
+```c
+static inline uint32
+pg_atomic_add_fetch_u32_impl(volatile pg_atomic_uint32 *ptr, int32 add_)
+{
+    // Perform atomic fetch-add and return the new value
+    return pg_atomic_fetch_add_u32_impl(ptr, add_) + add_;
+}
+```

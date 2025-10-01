@@ -38,3 +38,18 @@ The function always re-establishes the callbacks even if they were previously se
 - The LibxmlContext is created as a child of TopMemoryContext with default allocation set sizes
 - The function is part of PostgreSQL's custom memory management integration with libxml
 - Only relevant in special debug builds as noted in the file comments
+
+## Simplified Source
+
+```c
+static void xml_memory_init(void) {
+    // Create libxml memory context if it doesn't exist
+    if (LibxmlContext == NULL)
+        LibxmlContext = AllocSetContextCreate(TopMemoryContext,
+                                             "Libxml context",
+                                             ALLOCSET_DEFAULT_SIZES);
+
+    // Setup custom memory callbacks for libxml integration
+    xmlMemSetup(xml_pfree, xml_palloc, xml_repalloc, xml_pstrdup);
+}
+```

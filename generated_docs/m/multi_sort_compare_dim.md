@@ -36,3 +36,17 @@ This function performs a comparison between two SortItem structures but only eva
 - Primarily used in dependency analysis where column-specific ordering relationships need to be evaluated
 - The function assumes the dimension index is valid within the bounds of the SortItem arrays
 - Essential for determining statistical dependencies between columns in PostgreSQL's extended statistics
+
+## Simplified Source
+
+```c
+int
+multi_sort_compare_dim(int dim, const SortItem *a, const SortItem *b,
+                       MultiSortSupport mss)
+{
+    // Compare the specified dimension only
+    return ApplySortComparator(a->values[dim], a->isnull[dim],
+                               b->values[dim], b->isnull[dim],
+                               &mss->ssup[dim]);
+}
+```

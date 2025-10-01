@@ -42,3 +42,39 @@ The perfect hash approach in the backend provides optimal performance for databa
 - The frontend version searches UnicodeDecompMain using binary search
 - The hash function uses network byte order (big-endian) for consistent results across platforms
 - Perfect hash eliminates collisions, requiring only a single codepoint comparison for verification
+
+## Simplified Source
+
+```c
+static const pg_unicode_decomposition *
+get_code_entry(pg_wchar code)
+{
+#ifndef FRONTEND
+    // Backend: Use perfect hash for O(1) lookup
+    int h;
+    uint32 hashkey;
+    pg_unicode_decompinfo decompinfo = UnicodeDecompInfo;
+
+    // Compute hash from codepoint (network byte order)
+    hashkey = pg_hton32(code);
+    h = decompinfo.hash(&hashkey);
+
+    // Check if hash result is valid
+    if (h < 0 || h >= decompinfo.num_decomps)
+        return NULL;
+
+    // Verify the codepoint matches (perfect hash guarantee)
+    if (code != decompinfo.decomps[h].codepoint)
+        return NULL;
+
+    return &decompinfo.decomps[h];
+#else
+    // Frontend: Use binary search for O(log n) lookup
+    return bsearch(&(code),
+                   UnicodeDecompMain,
+                   lengthof(UnicodeDecompMain),
+                   sizeof(pg_unicode_decomposition),
+                   conv_compare);
+#endif
+}
+```

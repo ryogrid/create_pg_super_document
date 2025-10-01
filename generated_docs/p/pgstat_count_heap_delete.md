@@ -34,4 +34,21 @@ The statistics are maintained at the transaction level and are later aggregated 
 - This function is part of PostgreSQL's statistics collection framework
 - Statistics are tracked at the transaction level to support proper rollback behavior
 - Only relations that should have statistics collected (as determined by ) will have their deletion counts incremented
-- The actual statistics are stored in 
+- The actual statistics are stored in trans->tuples_deleted
+
+## Simplified Source
+
+```c
+void pgstat_count_heap_delete(Relation rel) {
+    // Only count statistics for relations that should be tracked
+    if (pgstat_should_count_relation(rel)) {
+        PgStat_TableStatus *pgstat_info = rel->pgstat_info;
+
+        // Ensure transaction-level statistics structure is initialized
+        ensure_tabstat_xact_level(pgstat_info);
+
+        // Increment the deletion counter
+        pgstat_info->trans->tuples_deleted++;
+    }
+}
+``` 

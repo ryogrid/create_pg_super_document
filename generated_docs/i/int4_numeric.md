@@ -34,3 +34,14 @@ This is a thin wrapper function that provides the SQL interface for the int4 to 
 - Part of PostgreSQL's comprehensive type conversion system
 - Uses int64_to_numeric internally by casting the int32 value to int64, leveraging the existing 64-bit conversion infrastructure
 - Accessible from SQL as an implicit or explicit cast operation
+
+## Simplified Source
+
+```c
+Datum int4_numeric(PG_FUNCTION_ARGS) {
+    int32 val = PG_GETARG_INT32(0);
+
+    // Convert through int64_to_numeric (safe widening conversion)
+    PG_RETURN_NUMERIC(int64_to_numeric(val));
+}
+```

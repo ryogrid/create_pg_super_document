@@ -42,3 +42,29 @@ The function performs integer arithmetic to extract each time component by succe
 - Fractional seconds are returned in microseconds for maximum precision
 - The function performs no validation - it assumes the input TIMETZ value is valid
 - Part of the core time/date ADT implementation and widely used throughout PostgreSQL's datetime handling
+
+## Simplified Source
+
+```c
+int timetz2tm(TimeTzADT *time, struct pg_tm *tm, fsec_t *fsec, int *tzp) {
+    TimeOffset remaining_time = time->time;
+
+    // Extract hours from time portion
+    tm->tm_hour = remaining_time / USECS_PER_HOUR;
+    remaining_time -= tm->tm_hour * USECS_PER_HOUR;
+
+    // Extract minutes from remaining time
+    tm->tm_min = remaining_time / USECS_PER_MINUTE;
+    remaining_time -= tm->tm_min * USECS_PER_MINUTE;
+
+    // Extract seconds from remaining time
+    tm->tm_sec = remaining_time / USECS_PER_SEC;
+    *fsec = remaining_time - tm->tm_sec * USECS_PER_SEC;
+
+    // Set timezone offset if requested
+    if (tzp != NULL)
+        *tzp = time->zone;
+
+    return 0;  // Always successful
+}
+```

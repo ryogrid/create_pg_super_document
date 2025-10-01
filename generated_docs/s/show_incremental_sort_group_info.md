@@ -51,3 +51,99 @@ Key features include:
 - The function properly handles cases where no disk space was used (disk-based sorting not required)
 - Text format output includes careful formatting for readability, including proper comma separation for multiple sort methods
 - The structured format creates nested groups for different types of space usage statistics
+
+## Simplified Source
+
+```c
+static void
+show_incremental_sort_group_info(IncrementalSortGroupInfo *groupInfo,
+                                  const char *groupLabel, bool indent, ExplainState *es)
+{
+    List *methodNames = NIL;
+
+    // Build list of sort methods used
+    for (int bit = 0; bit < NUM_TUPLESORTMETHODS; bit++)
+    {
+        TuplesortMethod sortMethod = (1 << bit);
+        if (groupInfo->sortMethods & sortMethod)
+        {
+            const char *methodName = tuplesort_method_name(sortMethod);
+            methodNames = lappend(methodNames, unconstify(char *, methodName));
+        }
+    }
+
+    if (es->format == EXPLAIN_FORMAT_TEXT)
+    {
+        // Text format output
+        if (indent)
+            appendStringInfoSpaces(es->str, es->indent * 2);
+
+        appendStringInfo(es->str, "%s Groups: " INT64_FORMAT "  Sort Method",
+                         groupLabel, groupInfo->groupCount);
+
+        // Handle singular/plural for methods
+        if (list_length(methodNames) > 1)
+            appendStringInfoString(es->str, "s: ");
+        else
+            appendStringInfoString(es->str, ": ");
+
+        // List sort methods
+        ListCell *methodCell;
+        foreach(methodCell, methodNames)
+        {
+            appendStringInfoString(es->str, (char *) methodCell->ptr_value);
+            if (foreach_current_index(methodCell) < list_length(methodNames) - 1)
+                appendStringInfoString(es->str, ", ");
+        }
+
+        // Show memory usage if applicable
+        if (groupInfo->maxMemorySpaceUsed > 0)
+        {
+            int64 avgSpace = groupInfo->totalMemorySpaceUsed / groupInfo->groupCount;
+            const char *spaceTypeName = tuplesort_space_type_name(SORT_SPACE_TYPE_MEMORY);
+            appendStringInfo(es->str, "  Average %s: " INT64_FORMAT "kB  Peak %s: " INT64_FORMAT "kB",
+                             spaceTypeName, avgSpace, spaceTypeName, groupInfo->maxMemorySpaceUsed);
+        }
+
+        // Show disk usage if applicable
+        if (groupInfo->maxDiskSpaceUsed > 0)
+        {
+            int64 avgSpace = groupInfo->totalDiskSpaceUsed / groupInfo->groupCount;
+            const char *spaceTypeName = tuplesort_space_type_name(SORT_SPACE_TYPE_DISK);
+            appendStringInfo(es->str, "  Average %s: " INT64_FORMAT "kB  Peak %s: " INT64_FORMAT "kB",
+                             spaceTypeName, avgSpace, spaceTypeName, groupInfo->maxDiskSpaceUsed);
+        }
+    }
+    else
+    {
+        // Structured format output (JSON/XML/YAML)
+        StringInfoData groupName;
+        initStringInfo(&groupName);
+        appendStringInfo(&groupName, "%s Groups", groupLabel);
+
+        ExplainOpenGroup("Incremental Sort Groups", groupName.data, true, es);
+        ExplainPropertyInteger("Group Count", NULL, groupInfo->groupCount, es);
+        ExplainPropertyList("Sort Methods Used", methodNames, es);
+
+        // Memory space reporting
+        if (groupInfo->maxMemorySpaceUsed > 0)
+        {
+            int64 avgSpace = groupInfo->totalMemorySpaceUsed / groupInfo->groupCount;
+            // Create nested group for memory space details
+            ExplainPropertyInteger("Average Sort Space Used", "kB", avgSpace, es);
+            ExplainPropertyInteger("Peak Sort Space Used", "kB", groupInfo->maxMemorySpaceUsed, es);
+        }
+
+        // Disk space reporting
+        if (groupInfo->maxDiskSpaceUsed > 0)
+        {
+            int64 avgSpace = groupInfo->totalDiskSpaceUsed / groupInfo->groupCount;
+            // Create nested group for disk space details
+            ExplainPropertyInteger("Average Sort Space Used", "kB", avgSpace, es);
+            ExplainPropertyInteger("Peak Sort Space Used", "kB", groupInfo->maxDiskSpaceUsed, es);
+        }
+
+        ExplainCloseGroup("Incremental Sort Groups", groupName.data, true, es);
+    }
+}
+```

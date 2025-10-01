@@ -42,3 +42,49 @@ The function iterates through each entry in the array, extracts the parameter na
 - Properly frees memory for extracted parameter strings using pfree()
 - Creates a new array rather than modifying the input array in-place
 - Used in role-based configuration management where different users have different modification privileges
+
+## Simplified Source
+
+```c
+ArrayType *GUCArrayReset(ArrayType *array) {
+    ArrayType *newarray = NULL;
+    int index = 1;
+
+    // Return NULL if input array is NULL
+    if (!array)
+        return NULL;
+
+    // Superusers can delete everything - return NULL for complete reset
+    if (superuser())
+        return NULL;
+
+    // For regular users, preserve only settings they can't modify
+    for (int i = 1; i <= ARR_DIMS(array)[0]; i++) {
+        bool isnull;
+        Datum d = array_ref(array, 1, &i, -1, -1, false, TYPALIGN_INT, &isnull);
+
+        if (!isnull) {
+            char *val = TextDatumGetCString(d);
+            char *eqsgn = strchr(val, '=');
+            *eqsgn = '\0';  // Temporarily null-terminate to extract parameter name
+
+            // Skip entries the user has permission to delete
+            if (validate_option_array_item(val, NULL, true)) {
+                pfree(val);
+                continue;
+            }
+
+            // Preserve entries the user cannot modify
+            if (newarray)
+                newarray = array_set(newarray, 1, &index, d, false, -1, -1, false, TYPALIGN_INT);
+            else
+                newarray = construct_array_builtin(&d, 1, TEXTOID);
+
+            index++;
+            pfree(val);
+        }
+    }
+
+    return newarray;
+}
+```

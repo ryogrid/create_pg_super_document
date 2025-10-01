@@ -52,3 +52,105 @@ The function performs several key operations:
 - For single-column statistics (expression statistics), type specification is unnecessary
 - Properly handles the stxkind array to determine which statistics types are enabled
 - Uses deparse context to ensure proper name resolution for expressions
+
+## Simplified Source
+
+```c
+static char *
+pg_get_statisticsobj_worker(Oid statextid, bool columns_only, bool missing_ok)
+{
+    Form_pg_statistic_ext statextrec;
+    HeapTuple        statexttup;
+    StringInfoData   buf;
+    List            *exprs = NIL;
+    bool            has_exprs;
+
+    // Lookup statistics object
+    statexttup = SearchSysCache1(STATEXTOID, ObjectIdGetDatum(statextid));
+    if (!HeapTupleIsValid(statexttup)) {
+        if (missing_ok)
+            return NULL;
+        elog(ERROR, "cache lookup failed for statistics object %u", statextid);
+    }
+
+    statextrec = (Form_pg_statistic_ext) GETSTRUCT(statexttup);
+    has_exprs = !heap_attisnull(statexttup, Anum_pg_statistic_ext_stxexprs, NULL);
+
+    // Extract expressions if present
+    if (has_exprs) {
+        char *exprsString = TextDatumGetCString(/* stxexprs field */);
+        exprs = (List *) stringToNode(exprsString);
+    }
+
+    initStringInfo(&buf);
+
+    // Generate CREATE STATISTICS command if not columns_only
+    if (!columns_only) {
+        char *nsp = get_namespace_name_or_temp(statextrec->stxnamespace);
+        appendStringInfo(&buf, "CREATE STATISTICS %s",
+                        quote_qualified_identifier(nsp, NameStr(statextrec->stxname)));
+
+        // Parse enabled statistics types and add types clause if needed
+        ArrayType *arr = DatumGetArrayTypeP(/* stxkind field */);
+        char *enabled = (char *) ARR_DATA_PTR(arr);
+
+        bool ndistinct_enabled = false;
+        bool dependencies_enabled = false;
+        bool mcv_enabled = false;
+
+        for (int i = 0; i < ARR_DIMS(arr)[0]; i++) {
+            if (enabled[i] == STATS_EXT_NDISTINCT)
+                ndistinct_enabled = true;
+            else if (enabled[i] == STATS_EXT_DEPENDENCIES)
+                dependencies_enabled = true;
+            else if (enabled[i] == STATS_EXT_MCV)
+                mcv_enabled = true;
+        }
+
+        // Add types clause if not all types enabled and multi-column
+        if ((!ndistinct_enabled || !dependencies_enabled || !mcv_enabled) &&
+            (/* ncolumns > 1 */)) {
+            appendStringInfoString(&buf, " (");
+            /* append enabled type names */
+            appendStringInfoChar(&buf, ')');
+        }
+
+        appendStringInfoString(&buf, " ON ");
+    }
+
+    // Output column references
+    for (int colno = 0; colno < statextrec->stxkeys.dim1; colno++) {
+        if (colno > 0)
+            appendStringInfoString(&buf, ", ");
+
+        AttrNumber attnum = statextrec->stxkeys.values[colno];
+        char *attname = get_attname(statextrec->stxrelid, attnum, false);
+        appendStringInfoString(&buf, quote_identifier(attname));
+    }
+
+    // Output expressions
+    List *context = deparse_context_for(/* relation info */);
+    foreach(lc, exprs) {
+        Node *expr = (Node *) lfirst(lc);
+        char *str = deparse_expression_pretty(expr, context, false, false,
+                                            PRETTYFLAG_PAREN, 0);
+
+        if (colno > 0)
+            appendStringInfoString(&buf, ", ");
+
+        if (looks_like_function(expr))
+            appendStringInfoString(&buf, str);
+        else
+            appendStringInfo(&buf, "(%s)", str);
+        colno++;
+    }
+
+    // Add FROM clause if full command
+    if (!columns_only)
+        appendStringInfo(&buf, " FROM %s",
+                        generate_relation_name(statextrec->stxrelid, NIL));
+
+    ReleaseSysCache(statexttup);
+    return buf.data;
+}
+```

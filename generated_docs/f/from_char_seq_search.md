@@ -52,3 +52,40 @@ The function workflow:
 - Primarily used in PostgreSQL's date/time parsing functionality
 - Returns true on successful match, false on failure (when using error contexts)
 - Error messages include the field name from the FormatNode for better user feedback
+
+## Simplified Source
+
+```c
+static bool
+from_char_seq_search(int *dest, const char **src, const char *const *array,
+                     char **localized_array, Oid collid, FormatNode *node, Node *escontext)
+{
+    int len;
+
+    // Choose search method based on array type
+    if (localized_array == NULL)
+        *dest = seq_search_ascii(*src, array, &len);
+    else
+        *dest = seq_search_localized(*src, localized_array, &len, collid);
+
+    if (len <= 0) {
+        // No match found - create error message
+        char *copy = pstrdup(*src);
+        char *c;
+
+        // Truncate at first whitespace for cleaner error message
+        for (c = copy; *c; c++) {
+            if (scanner_isspace(*c)) {
+                *c = '\0';
+                break;
+            }
+        }
+
+        ereturn(escontext, false, /* error: invalid value for field */);
+    }
+
+    // Match found - advance source pointer and return success
+    *src += len;
+    return true;
+}
+```

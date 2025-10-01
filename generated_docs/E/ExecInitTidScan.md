@@ -43,3 +43,51 @@ ExecInitTidScan performs comprehensive initialization of a TID scan node for exe
 - TID expression list creation is crucial for evaluating TID qualification conditions
 - Follows the standard PostgreSQL executor initialization pattern with proper resource setup
 - Returns a fully initialized TidScanState ready for execution by ExecTidScan
+
+## Simplified Source
+
+```c
+TidScanState *
+ExecInitTidScan(TidScan *node, EState *estate, int eflags)
+{
+    TidScanState *tidstate;
+    Relation currentRelation;
+
+    // Create and initialize state structure
+    tidstate = makeNode(TidScanState);
+    tidstate->ss.ps.plan = (Plan *) node;
+    tidstate->ss.ps.state = estate;
+    tidstate->ss.ps.ExecProcNode = ExecTidScan;
+
+    // Set up expression context
+    ExecAssignExprContext(estate, &tidstate->ss.ps);
+
+    // Initialize TID list state - not computed yet
+    tidstate->tss_TidList = NULL;
+    tidstate->tss_NumTids = 0;
+    tidstate->tss_TidPtr = -1;
+
+    // Open the relation to be scanned
+    currentRelation = ExecOpenScanRelation(estate, node->scan.scanrelid, eflags);
+    tidstate->ss.ss_currentRelation = currentRelation;
+    tidstate->ss.ss_currentScanDesc = NULL; // No heap scan descriptor needed
+
+    // Initialize scan tuple slot with relation descriptor
+    ExecInitScanTupleSlot(estate, &tidstate->ss,
+                         RelationGetDescr(currentRelation),
+                         table_slot_callbacks(currentRelation));
+
+    // Initialize result type and projection
+    ExecInitResultTypeTL(&tidstate->ss.ps);
+    ExecAssignScanProjectionInfo(&tidstate->ss);
+
+    // Initialize qualification expressions
+    tidstate->ss.ps.qual =
+        ExecInitQual(node->scan.plan.qual, (PlanState *) tidstate);
+
+    // Create TID expression list for evaluation
+    TidExprListCreate(tidstate);
+
+    return tidstate;
+}
+```

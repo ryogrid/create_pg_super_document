@@ -42,3 +42,26 @@ For lock-only transactions (those that only acquired tuple locks without modifyi
 - Hint bits optimization: avoids future CLOG lookups by caching transaction status
 - The function guarantees that XMAX_INVALID will be set for aborted transactions
 - May not immediately set XMAX_COMMITTED for asynchronously committed transactions
+
+## Simplified Source
+
+```c
+static void UpdateXmaxHintBits(HeapTupleHeader tuple, Buffer buffer, TransactionId xid) {
+    // Validate xid matches tuple's xmax and it's not a multixact
+    Assert(TransactionIdEquals(HeapTupleHeaderGetRawXmax(tuple), xid));
+    Assert(!(tuple->t_infomask & HEAP_XMAX_IS_MULTI));
+
+    // Only update if hint bits aren't already set
+    if (!(tuple->t_infomask & (HEAP_XMAX_COMMITTED | HEAP_XMAX_INVALID))) {
+        if (!HEAP_XMAX_IS_LOCKED_ONLY(tuple->t_infomask) &&
+            TransactionIdDidCommit(xid)) {
+            // Non-lock-only transaction committed
+            HeapTupleSetHintBits(tuple, buffer, HEAP_XMAX_COMMITTED, xid);
+        } else {
+            // Transaction aborted OR it was lock-only
+            HeapTupleSetHintBits(tuple, buffer, HEAP_XMAX_INVALID,
+                               InvalidTransactionId);
+        }
+    }
+}
+```

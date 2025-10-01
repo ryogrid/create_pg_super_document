@@ -40,3 +40,40 @@ The function distinguishes between these cases using the  flag in the range tabl
 - The recursive multiplier is adjustable to accommodate different query fan-out patterns
 - Should only be applied to base relations with RTE_CTE range table entry type
 - Self-referencing logic specifically addresses the unique sizing challenges of recursive queries
+
+## Simplified Source
+
+This function handles CTE size estimation with special logic for recursive cases:
+
+```c
+void set_cte_size_estimates(PlannerInfo *root, RelOptInfo *rel, double cte_rows)
+{
+    RangeTblEntry *rte;
+
+    // Validate this is a CTE relation
+    Assert(rel->relid > 0);
+    rte = planner_rt_fetch(rel->relid, root);
+    Assert(rte->rtekind == RTE_CTE);
+
+    // Set tuple count based on CTE type
+    if (rte->self_reference)
+    {
+        // For recursive CTEs: apply multiplier to account for iteration
+        rel->tuples = clamp_row_est(recursive_worktable_factor * cte_rows);
+    }
+    else
+    {
+        // For regular CTEs: use provided estimate directly
+        rel->tuples = cte_rows;
+    }
+
+    // Calculate remaining size estimates (selectivity, width, etc.)
+    set_baserel_size_estimates(root, rel);
+}
+```
+
+**Key simplifications made:**
+- Condensed the explanatory comments while preserving the key distinction
+- Maintained the recursive vs non-recursive logic clearly
+- Preserved essential validation and delegation to base estimation function
+- Reduced from ~38 lines to ~20 lines while keeping all functionality

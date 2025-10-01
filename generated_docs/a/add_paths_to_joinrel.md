@@ -62,3 +62,100 @@ The function supports special JoinTypes JOIN_UNIQUE_OUTER and JOIN_UNIQUE_INNER 
 The function includes logic to handle partitioned tables by using top_parent_relids for RELOPT_OTHER_JOINREL relations. It also considers LATERAL subquery dependencies when determining parameterization constraints.
 
 For full outer joins, the function overrides disabled join methods (merge join, hash join) since they may be the only feasible implementation approach.
+
+## Simplified Source
+
+```c
+void
+add_paths_to_joinrel(PlannerInfo *root,
+                     RelOptInfo *joinrel,
+                     RelOptInfo *outerrel,
+                     RelOptInfo *innerrel,
+                     JoinType jointype,
+                     SpecialJoinInfo *sjinfo,
+                     List *restrictlist)
+{
+    JoinPathExtraData extra;
+    bool mergejoin_allowed = true;
+    Relids joinrelids;
+
+    // Setup join relation identifiers for partitioned tables
+    if (joinrel->reloptkind == RELOPT_OTHER_JOINREL)
+        joinrelids = joinrel->top_parent_relids;
+    else
+        joinrelids = joinrel->relids;
+
+    // Initialize extra data for path generation
+    extra.restrictlist = restrictlist;
+    extra.mergeclause_list = NIL;
+    extra.sjinfo = sjinfo;
+    extra.param_source_rels = NULL;
+
+    // Determine if inner relation is unique for this join
+    switch (jointype)
+    {
+        case JOIN_SEMI:
+        case JOIN_ANTI:
+            extra.inner_unique = false; // Not proven for these types
+            break;
+        case JOIN_UNIQUE_INNER:
+            extra.inner_unique = bms_is_subset(sjinfo->min_lefthand, outerrel->relids);
+            break;
+        case JOIN_UNIQUE_OUTER:
+            extra.inner_unique = innerrel_is_unique(root, joinrel->relids, outerrel->relids,
+                                                   innerrel, JOIN_INNER, restrictlist, false);
+            break;
+        default:
+            extra.inner_unique = innerrel_is_unique(root, joinrel->relids, outerrel->relids,
+                                                   innerrel, jointype, restrictlist, false);
+            break;
+    }
+
+    // Find mergejoin clauses if merge joins are enabled
+    if (enable_mergejoin || jointype == JOIN_FULL)
+        extra.mergeclause_list = select_mergejoin_clauses(root, joinrel, outerrel, innerrel,
+                                                         restrictlist, jointype, &mergejoin_allowed);
+
+    // Compute cost factors for semi/anti joins
+    if (jointype == JOIN_SEMI || jointype == JOIN_ANTI || extra.inner_unique)
+        compute_semi_anti_join_factors(root, joinrel, outerrel, innerrel,
+                                      jointype, sjinfo, restrictlist, &extra.semifactors);
+
+    // Determine parameterization constraints from join ordering restrictions
+    foreach(lc, root->join_info_list)
+    {
+        SpecialJoinInfo *sjinfo2 = (SpecialJoinInfo *) lfirst(lc);
+
+        // Add constraints for joins that overlap with this join's RHS
+        if (bms_overlap(joinrelids, sjinfo2->min_righthand) &&
+            !bms_overlap(joinrelids, sjinfo2->min_lefthand))
+            extra.param_source_rels = bms_join(extra.param_source_rels,
+                                              bms_difference(root->all_baserels, sjinfo2->min_righthand));
+    }
+
+    // Add lateral dependencies to parameterization
+    extra.param_source_rels = bms_add_members(extra.param_source_rels, joinrel->lateral_relids);
+
+    // Generate different types of join paths:
+
+    // 1. Mergejoin paths where both relations are sorted
+    if (mergejoin_allowed)
+        sort_inner_and_outer(root, joinrel, outerrel, innerrel, jointype, &extra);
+
+    // 2. Nested loop and mergejoin paths with unsorted outer relation
+    if (mergejoin_allowed)
+        match_unsorted_outer(root, joinrel, outerrel, innerrel, jointype, &extra);
+
+    // 3. Hash join paths
+    if (enable_hashjoin || jointype == JOIN_FULL)
+        hash_inner_and_outer(root, joinrel, outerrel, innerrel, jointype, &extra);
+
+    // 4. Foreign table join paths (if applicable)
+    if (joinrel->fdwroutine && joinrel->fdwroutine->GetForeignJoinPaths)
+        joinrel->fdwroutine->GetForeignJoinPaths(root, joinrel, outerrel, innerrel, jointype, &extra);
+
+    // 5. Extension-provided paths
+    if (set_join_pathlist_hook)
+        set_join_pathlist_hook(root, joinrel, outerrel, innerrel, jointype, &extra);
+}
+```

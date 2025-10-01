@@ -41,3 +41,35 @@ This function looks up the average width of values stored in a specific column b
 - Width estimates help determine buffer sizes and join algorithm selection
 - Part of the statistics cache system for optimizing repeated lookups
 - Located in `src/backend/utils/cache/lsyscache.c:3158-3233`
+
+## Simplified Source
+
+```c
+int32
+get_attavgwidth(Oid relid, AttrNumber attnum)
+{
+    int32 stawidth;
+
+    // Check if extension hook provides width estimate
+    if (get_attavgwidth_hook) {
+        stawidth = (*get_attavgwidth_hook)(relid, attnum);
+        if (stawidth > 0)
+            return stawidth;
+    }
+
+    // Look up statistics in pg_statistic catalog
+    HeapTuple tp = SearchSysCache3(STATRELATTINH,
+                                   ObjectIdGetDatum(relid),
+                                   Int16GetDatum(attnum),
+                                   BoolGetDatum(false));
+
+    if (HeapTupleIsValid(tp)) {
+        stawidth = ((Form_pg_statistic) GETSTRUCT(tp))->stawidth;
+        ReleaseSysCache(tp);
+        if (stawidth > 0)
+            return stawidth;
+    }
+
+    return 0;  // No statistics available
+}
+```

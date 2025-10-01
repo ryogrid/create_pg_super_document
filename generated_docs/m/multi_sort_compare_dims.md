@@ -39,3 +39,25 @@ This function performs a lexicographic comparison between two SortItem structure
 - Primarily used in dependency analysis algorithms that need to examine subsets of column combinations
 - Essential for determining partial dependencies in PostgreSQL's extended statistics system
 - More efficient than multi_sort_compare when only a subset of dimensions needs comparison
+
+## Simplified Source
+
+```c
+int
+multi_sort_compare_dims(int start, int end,
+                        const SortItem *a, const SortItem *b,
+                        MultiSortSupport mss)
+{
+    // Compare dimensions from start to end (inclusive)
+    for (int dim = start; dim <= end; dim++)
+    {
+        int r = ApplySortComparator(a->values[dim], a->isnull[dim],
+                                    b->values[dim], b->isnull[dim],
+                                    &mss->ssup[dim]);
+        if (r != 0)
+            return r;
+    }
+
+    return 0;  // All dimensions in range are equal
+}
+```

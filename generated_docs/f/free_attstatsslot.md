@@ -44,3 +44,22 @@ The free_attstatsslot function is responsible for properly deallocating memory t
 - Handles detoasted array objects (values_arr and numbers_arr) that may have been created during statistics processing
 - This function is critical for preventing memory leaks when working with column statistics in PostgreSQL
 - Used extensively throughout the selectivity estimation and cost calculation subsystems
+
+## Simplified Source
+
+```c
+void free_attstatsslot(AttStatsSlot *sslot)
+{
+    // Free the values array (allocated by deconstruct_array)
+    if (sslot->values)
+        pfree(sslot->values);
+
+    // Free detoasted array objects if present
+    if (sslot->values_arr)
+        pfree(sslot->values_arr);
+    if (sslot->numbers_arr)
+        pfree(sslot->numbers_arr);
+
+    // Note: numbers[] array points into numbers_arr, don't free it directly
+}
+```

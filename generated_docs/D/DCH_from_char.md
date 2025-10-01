@@ -58,3 +58,127 @@ The function workflow:
 - Returns true on successful parsing, false on failure (when using error contexts)
 - Supports parsing of both absolute timestamps and intervals depending on context
 - Includes special handling for edge cases like leap years, timezone boundaries, etc.
+
+## Simplified Source
+
+```c
+static void DCH_from_char(FormatNode *node, const char *in, TmFromChar *out,
+                         Oid collid, bool std, Node *escontext) {
+    FormatNode *n;
+    const char *s;
+    int len, value;
+    bool fx_mode = std;
+    int extra_skip = 0;
+
+    // Cache localized time data for international parsing
+    cache_locale_time();
+
+    // Process each format node against input string
+    for (n = node, s = in; n->type != NODE_TYPE_END && *s != '\0'; n++) {
+        // Skip whitespace in non-FX mode
+        if (!fx_mode && should_skip_whitespace(n)) {
+            while (*s != '\0' && isspace(*s)) {
+                s++;
+                extra_skip++;
+            }
+        }
+
+        // Handle separators and spaces
+        if (n->type == NODE_TYPE_SPACE || n->type == NODE_TYPE_SEPARATOR) {
+            handle_separator(n, &s, std, fx_mode, &extra_skip, escontext);
+            continue;
+        }
+
+        // Handle literal text characters
+        else if (n->type != NODE_TYPE_ACTION) {
+            handle_literal_char(n, &s, std, fx_mode, &extra_skip, escontext);
+            continue;
+        }
+
+        // Set parsing mode for this field
+        if (!from_char_set_mode(out, n->key->date_mode, escontext))
+            return;
+
+        // Parse specific format codes
+        switch (n->key->id) {
+            case DCH_FX:
+                fx_mode = true;
+                break;
+
+            // AM/PM indicators
+            case DCH_A_M: case DCH_P_M: case DCH_a_m: case DCH_p_m:
+            case DCH_AM: case DCH_PM: case DCH_am: case DCH_pm:
+                parse_ampm_indicator(n, &s, out, escontext);
+                break;
+
+            // Hour formats
+            case DCH_HH: case DCH_HH12:
+                parse_hour_12(&out->hh, &s, n, escontext);
+                out->clock = CLOCK_12_HOUR;
+                break;
+            case DCH_HH24:
+                parse_hour_24(&out->hh, &s, n, escontext);
+                break;
+
+            // Minutes and seconds
+            case DCH_MI:
+                parse_minutes(&out->mi, &s, n, escontext);
+                break;
+            case DCH_SS:
+                parse_seconds(&out->ss, &s, n, escontext);
+                break;
+
+            // Fractional seconds
+            case DCH_MS:
+                parse_milliseconds(&out->ms, &s, n, escontext);
+                break;
+            case DCH_US: case DCH_FF1: case DCH_FF2: case DCH_FF3:
+            case DCH_FF4: case DCH_FF5: case DCH_FF6:
+                parse_microseconds(&out->us, &s, n, escontext);
+                break;
+
+            // Timezone handling
+            case DCH_tz: case DCH_TZ: case DCH_OF:
+                parse_timezone(n, &s, out, escontext);
+                break;
+
+            // Date components
+            case DCH_YYYY: case DCH_IYYY:
+                parse_year_4digit(&out->year, &s, n, escontext);
+                out->yysz = 4;
+                break;
+            case DCH_YY: case DCH_IY:
+                parse_year_2digit(&out->year, &s, n, escontext);
+                out->yysz = 2;
+                break;
+            case DCH_MM:
+                parse_month_numeric(&out->mm, &s, n, escontext);
+                break;
+            case DCH_MONTH: case DCH_Month: case DCH_month:
+                parse_month_name(&out->mm, &s, n, collid, escontext);
+                break;
+            case DCH_DD:
+                parse_day(&out->dd, &s, n, escontext);
+                break;
+            case DCH_DAY: case DCH_Day: case DCH_day:
+                parse_day_name(&out->d, &s, n, collid, escontext);
+                break;
+
+            // Other formats...
+            default:
+                parse_other_formats(n, &s, out, escontext);
+                break;
+        }
+
+        // Skip trailing spaces after fields in non-FX mode
+        if (!fx_mode) {
+            skip_trailing_spaces(&s, &extra_skip);
+        }
+    }
+
+    // Validate complete parsing in standard mode
+    if (std) {
+        validate_complete_parsing(n, s, escontext);
+    }
+}
+```

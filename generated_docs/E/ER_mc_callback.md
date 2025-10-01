@@ -39,3 +39,24 @@ This callback ensures that tuple descriptors are properly released even if the e
 - Provides automatic cleanup independent of ResourceOwner management
 - Critical for preventing memory leaks in PostgreSQL's expanded object system
 - The "just for luck" comment indicates defensive programming to avoid dangling pointers
+
+## Simplified Source
+
+```c
+static void ER_mc_callback(void *arg) {
+    ExpandedRecordHeader *erh = (ExpandedRecordHeader *) arg;
+    TupleDesc tupdesc = erh->er_tupdesc;
+
+    // Release tuple descriptor reference if it exists
+    if (tupdesc) {
+        erh->er_tupdesc = NULL;  // Clear pointer for safety
+
+        // Decrement reference count and free if last reference
+        if (tupdesc->tdrefcount > 0) {
+            if (--tupdesc->tdrefcount == 0) {
+                FreeTupleDesc(tupdesc);
+            }
+        }
+    }
+}
+```

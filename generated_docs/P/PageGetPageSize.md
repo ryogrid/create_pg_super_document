@@ -36,3 +36,14 @@ PageGetPageSize extracts the page size from a formatted page by reading the pd_p
 - Requires the page to be properly formatted with a valid PageHeader
 - Used extensively in btree, GIN, and hash index operations for page management
 - Part of the core page layout infrastructure in PostgreSQL storage system
+
+## Simplified Source
+
+```c
+static inline Size
+PageGetPageSize(Page page)
+{
+    // Extract page size from upper 8 bits of pd_pagesize_version field
+    return (Size) (((PageHeader) page)->pd_pagesize_version & (uint16) 0xFF00);
+}
+```

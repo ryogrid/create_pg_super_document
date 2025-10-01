@@ -33,3 +33,22 @@ This function is a tree walker that implements the core logic for detecting wind
 - Returns true immediately upon finding the first WindowFunc node, making it an efficient short-circuit search
 - Part of the query rewrite system's expression analysis capabilities
 - The context parameter is not used but maintained for compatibility with the walker function signature pattern
+
+## Simplified Source
+
+```c
+static bool
+contain_windowfuncs_walker(Node *node, void *context)
+{
+    // Null check
+    if (node == NULL)
+        return false;
+
+    // Found a window function - return true immediately
+    if (IsA(node, WindowFunc))
+        return true;
+
+    // Continue recursive traversal of expression tree
+    return expression_tree_walker(node, contain_windowfuncs_walker, context);
+}
+```

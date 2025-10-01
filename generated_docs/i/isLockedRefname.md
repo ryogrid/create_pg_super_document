@@ -35,3 +35,40 @@ This function checks if a given table reference name is subject to row-level loc
 - Used during relation opening to determine appropriate lock levels before full transformation
 - Part of the early locking analysis phase of query processing
 - Located in src/backend/parser/parse_relation.c:2575-2618
+
+## Simplified Source
+
+```c
+bool
+isLockedRefname(ParseState *pstate, const char *refname)
+{
+    ListCell *l;
+
+    // If parent query has locked this subquery, inherit that locking
+    if (pstate->p_locked_from_parent)
+        return true;
+
+    foreach(l, pstate->p_locking_clause)
+    {
+        LockingClause *lc = lfirst(l);
+
+        if (lc->lockedRels == NIL)
+        {
+            // Global locking clause - lock all tables
+            return true;
+        }
+        else if (refname != NULL)
+        {
+            // Check if this specific table name is in the locking list
+            ListCell *l2;
+            foreach(l2, lc->lockedRels)
+            {
+                RangeVar *thisrel = lfirst(l2);
+                if (strcmp(refname, thisrel->relname) == 0)
+                    return true;
+            }
+        }
+    }
+    return false;
+}
+```

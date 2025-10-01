@@ -35,3 +35,51 @@ The cache lookup is based on four key pathkey characteristics: operator family, 
 - The cache key consists of opfamily, collation, strategy, and nulls_first from the pathkey
 - Returns selectivity estimates for both start and end positions on left and right sides
 - Helps optimize planning performance by avoiding redundant selectivity calculations for similar merge operations
+
+## Simplified Source
+
+```c
+static MergeScanSelCache *cached_scansel(PlannerInfo *root, RestrictInfo *rinfo, PathKey *pathkey) {
+    MergeScanSelCache *cache;
+    ListCell *lc;
+
+    // Check if we already have cached results for this pathkey
+    foreach(lc, rinfo->scansel_cache) {
+        cache = (MergeScanSelCache *) lfirst(lc);
+        if (cache->opfamily == pathkey->pk_opfamily &&
+            cache->collation == pathkey->pk_eclass->ec_collation &&
+            cache->strategy == pathkey->pk_strategy &&
+            cache->nulls_first == pathkey->pk_nulls_first)
+            return cache;
+    }
+
+    // Not cached, compute selectivity estimates
+    Selectivity leftstartsel, leftendsel, rightstartsel, rightendsel;
+    mergejoinscansel(root,
+                     (Node *) rinfo->clause,
+                     pathkey->pk_opfamily,
+                     pathkey->pk_strategy,
+                     pathkey->pk_nulls_first,
+                     &leftstartsel, &leftendsel,
+                     &rightstartsel, &rightendsel);
+
+    // Create and populate cache entry in planner context
+    MemoryContext oldcontext = MemoryContextSwitchTo(root->planner_cxt);
+
+    cache = (MergeScanSelCache *) palloc(sizeof(MergeScanSelCache));
+    cache->opfamily = pathkey->pk_opfamily;
+    cache->collation = pathkey->pk_eclass->ec_collation;
+    cache->strategy = pathkey->pk_strategy;
+    cache->nulls_first = pathkey->pk_nulls_first;
+    cache->leftstartsel = leftstartsel;
+    cache->leftendsel = leftendsel;
+    cache->rightstartsel = rightstartsel;
+    cache->rightendsel = rightendsel;
+
+    // Add to cache and restore memory context
+    rinfo->scansel_cache = lappend(rinfo->scansel_cache, cache);
+    MemoryContextSwitchTo(oldcontext);
+
+    return cache;
+}
+```

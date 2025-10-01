@@ -37,3 +37,18 @@ Set operations typically require data to be sorted in a specific order to effici
 - Returns the count of useful leading pathkeys that match setop requirements
 - The function is static and used internally within the pathkeys.c module
 - Set operations can benefit significantly from pre-sorted data, making this optimization important for query performance
+
+## Simplified Source
+
+```c
+static int
+pathkeys_useful_for_setop(PlannerInfo *root, List *pathkeys)
+{
+    int n_common_pathkeys;
+
+    // Count how many leading pathkeys match the setop ordering requirements
+    pathkeys_count_contained_in(root->setop_pathkeys, pathkeys, &n_common_pathkeys);
+
+    return n_common_pathkeys;
+}
+```

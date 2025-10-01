@@ -44,3 +44,83 @@ Key behaviors:
 - The scale selection algorithm ensures appropriate precision for division results
 - Used internally by higher-level division functions and timestamp arithmetic
 - Error handling mechanism allows for more robust numeric computations in complex expressions
+
+## Simplified Source
+
+```c
+Numeric
+numeric_div_opt_error(Numeric num1, Numeric num2, bool *have_error)
+{
+    NumericVar arg1, arg2, result;
+    Numeric res;
+    int rscale;
+
+    if (have_error)
+        *have_error = false;
+
+    // Handle special values (NaN, infinity)
+    if (NUMERIC_IS_SPECIAL(num1) || NUMERIC_IS_SPECIAL(num2)) {
+        // NaN propagates
+        if (NUMERIC_IS_NAN(num1) || NUMERIC_IS_NAN(num2))
+            return make_result(&const_nan);
+
+        // Handle infinity division
+        if (NUMERIC_IS_PINF(num1)) {
+            if (NUMERIC_IS_SPECIAL(num2))
+                return make_result(&const_nan);  // Inf / Inf = NaN
+
+            // Check divisor sign for +Inf / finite
+            int sign = numeric_sign_internal(num2);
+            if (sign == 0) {  // Division by zero
+                if (have_error) {
+                    *have_error = true;
+                    return NULL;
+                }
+                // Throw division by zero error
+            }
+            return (sign > 0) ? make_result(&const_pinf) : make_result(&const_ninf);
+        }
+
+        if (NUMERIC_IS_NINF(num1)) {
+            if (NUMERIC_IS_SPECIAL(num2))
+                return make_result(&const_nan);  // -Inf / Inf = NaN
+
+            // Check divisor sign for -Inf / finite
+            int sign = numeric_sign_internal(num2);
+            if (sign == 0) {  // Division by zero
+                if (have_error) {
+                    *have_error = true;
+                    return NULL;
+                }
+                // Throw division by zero error
+            }
+            return (sign > 0) ? make_result(&const_ninf) : make_result(&const_pinf);
+        }
+
+        // finite / infinity = 0
+        return make_result(&const_zero);
+    }
+
+    // Normal division: convert to internal format
+    init_var_from_num(num1, &arg1);
+    init_var_from_num(num2, &arg2);
+    init_var(&result);
+
+    // Select appropriate scale for result precision
+    rscale = select_div_scale(&arg1, &arg2);
+
+    // Check for division by zero if error handling enabled
+    if (have_error && (arg2.ndigits == 0 || arg2.digits[0] == 0)) {
+        *have_error = true;
+        return NULL;
+    }
+
+    // Perform the division
+    div_var(&arg1, &arg2, &result, rscale, true);
+
+    res = make_result_opt_error(&result, have_error);
+    free_var(&result);
+
+    return res;
+}
+```

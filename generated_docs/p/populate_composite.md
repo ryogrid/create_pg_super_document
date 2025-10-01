@@ -60,3 +60,53 @@ The function supports both NULL handling and soft error reporting through the Er
 - The colname parameter exists for consistency with other populate functions but is not currently used in error reporting
 - Domain constraint checking is skipped for RECORDOID to avoid unnecessary overhead for anonymous records
 - Supports recursive population for nested composite structures
+
+## Simplified Source
+
+```c
+static Datum populate_composite(CompositeIOData *io, Oid typid,
+                               const char *colname, MemoryContext mcxt,
+                               HeapTupleHeader defaultval, JsValue *jsv,
+                               bool *isnull, Node *escontext) {
+    Datum result;
+
+    // Update cached tuple descriptor
+    update_cached_tupdesc(io, mcxt);
+
+    if (*isnull) {
+        result = (Datum) 0;
+    } else {
+        HeapTupleHeader tuple;
+        JsObject jso;
+
+        // Convert JSON/JsonB value to object
+        if (!JsValueToJsObject(jsv, &jso, escontext)) {
+            *isnull = true;
+            return (Datum) 0;
+        }
+
+        // Populate record tuple from JSON object
+        tuple = populate_record(io->tupdesc, &io->record_io,
+                               defaultval, mcxt, &jso, escontext);
+
+        if (SOFT_ERROR_OCCURRED(escontext)) {
+            *isnull = true;
+            return (Datum) 0;
+        }
+
+        result = HeapTupleHeaderGetDatum(tuple);
+        JsObjectFree(&jso);
+    }
+
+    // Apply domain constraints if this is a domain over composite
+    if (typid != io->base_typid && typid != RECORDOID) {
+        if (!domain_check_safe(result, *isnull, typid, &io->domain_info,
+                              mcxt, escontext)) {
+            *isnull = true;
+            return (Datum) 0;
+        }
+    }
+
+    return result;
+}
+```

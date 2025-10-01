@@ -50,3 +50,36 @@ ScanKeyEntryInitialize is the most comprehensive function for initializing ScanK
 - When SK_SEARCHNULL or SK_SEARCHNOTNULL flags are set, the procedure parameter can be invalid (InvalidOid)
 - This is the most flexible initialization function, suitable for cases requiring full control over scan parameters
 - Located at src/backend/access/common/scankey.c:32-75
+
+## Simplified Source
+
+```c
+void
+ScanKeyEntryInitialize(ScanKey entry,
+                       int flags,
+                       AttrNumber attributeNumber,
+                       StrategyNumber strategy,
+                       Oid subtype,
+                       Oid collation,
+                       RegProcedure procedure,
+                       Datum argument)
+{
+    // Set basic scan key fields
+    entry->sk_flags = flags;
+    entry->sk_attno = attributeNumber;
+    entry->sk_strategy = strategy;
+    entry->sk_subtype = subtype;
+    entry->sk_collation = collation;
+    entry->sk_argument = argument;
+
+    // Set up function info for comparison procedure
+    if (RegProcedureIsValid(procedure)) {
+        // Normal case: initialize function manager info
+        fmgr_info(procedure, &entry->sk_func);
+    } else {
+        // Special case: null search operations don't need a procedure
+        Assert(flags & (SK_SEARCHNULL | SK_SEARCHNOTNULL));
+        MemSet(&entry->sk_func, 0, sizeof(entry->sk_func));
+    }
+}
+```

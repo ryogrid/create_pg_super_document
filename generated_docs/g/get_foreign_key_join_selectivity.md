@@ -64,3 +64,135 @@ The function performs several key operations:
 - Assumes FK constraints apply uniformly across inheritance hierarchies
 - Returns 1.0 when no applicable FK constraints are found, allowing normal selectivity estimation to proceed
 - The function modifies the input restrictlist by removing FK-matched clauses
+
+## Simplified Source
+
+```c
+static Selectivity
+get_foreign_key_join_selectivity(PlannerInfo *root,
+                                 Relids outer_relids, Relids inner_relids,
+                                 SpecialJoinInfo *sjinfo, List **restrictlist)
+{
+    Selectivity fkselec = 1.0;
+    JoinType jointype = sjinfo->jointype;
+    List *worklist = *restrictlist;
+    ListCell *lc;
+
+    // Examine each FK constraint that might apply to this join
+    foreach(lc, root->fkey_list)
+    {
+        ForeignKeyOptInfo *fkinfo = (ForeignKeyOptInfo *) lfirst(lc);
+        bool ref_is_outer;
+        List *removedlist;
+        ListCell *cell;
+
+        // Check if FK connects one side of join to the other
+        if (bms_is_member(fkinfo->con_relid, outer_relids) &&
+            bms_is_member(fkinfo->ref_relid, inner_relids))
+            ref_is_outer = false;
+        else if (bms_is_member(fkinfo->ref_relid, outer_relids) &&
+                 bms_is_member(fkinfo->con_relid, inner_relids))
+            ref_is_outer = true;
+        else
+            continue;  // FK not relevant to this join
+
+        // Skip semi/anti joins where FK knowledge doesn't help
+        if ((jointype == JOIN_SEMI || jointype == JOIN_ANTI) &&
+            (ref_is_outer || bms_membership(inner_relids) != BMS_SINGLETON))
+            continue;
+
+        // Copy restrictlist on first modification
+        if (worklist == *restrictlist)
+            worklist = list_copy(worklist);
+
+        // Find and remove clauses that match FK columns
+        removedlist = NIL;
+        foreach(cell, worklist)
+        {
+            RestrictInfo *rinfo = (RestrictInfo *) lfirst(cell);
+            bool remove_it = false;
+
+            // Check each FK column for matching clause
+            for (int i = 0; i < fkinfo->nkeys; i++)
+            {
+                if (rinfo->parent_ec)
+                {
+                    // EC-derived clause: match by equivalence class
+                    if (fkinfo->eclass[i] == rinfo->parent_ec)
+                    {
+                        remove_it = true;
+                        break;
+                    }
+                }
+                else
+                {
+                    // Loose clause: check if previously matched to FK
+                    if (list_member_ptr(fkinfo->rinfos[i], rinfo))
+                    {
+                        remove_it = true;
+                        break;
+                    }
+                }
+            }
+
+            if (remove_it)
+            {
+                worklist = foreach_delete_current(worklist, cell);
+                removedlist = lappend(removedlist, rinfo);
+            }
+        }
+
+        // Validate we found expected number of matching clauses
+        if (removedlist == NIL ||
+            list_length(removedlist) !=
+            (fkinfo->nmatched_ec - fkinfo->nconst_ec + fkinfo->nmatched_ri))
+        {
+            // Failed validation - restore clauses and skip this FK
+            worklist = list_concat(worklist, removedlist);
+            continue;
+        }
+
+        // Calculate selectivity based on FK semantics
+        if (jointype == JOIN_SEMI || jointype == JOIN_ANTI)
+        {
+            // Selectivity = fraction of referenced table rows that pass filters
+            RelOptInfo *ref_rel = find_base_rel(root, fkinfo->ref_relid);
+            double ref_tuples = Max(ref_rel->tuples, 1.0);
+            fkselec *= ref_rel->rows / ref_tuples;
+        }
+        else
+        {
+            // Regular join: selectivity = 1 / referenced_table_size
+            RelOptInfo *ref_rel = find_base_rel(root, fkinfo->ref_relid);
+            double ref_tuples = Max(ref_rel->tuples, 1.0);
+            fkselec *= 1.0 / ref_tuples;
+        }
+
+        // Correct for constant constraints that reduce selectivity
+        if (fkinfo->nconst_ec > 0)
+        {
+            for (int i = 0; i < fkinfo->nkeys; i++)
+            {
+                EquivalenceClass *ec = fkinfo->eclass[i];
+                if (ec && ec->ec_has_const)
+                {
+                    EquivalenceMember *em = fkinfo->fk_eclass_member[i];
+                    RestrictInfo *rinfo = find_derived_clause_for_ec_member(ec, em);
+
+                    if (rinfo)
+                    {
+                        Selectivity s0 = clause_selectivity(root, (Node *) rinfo,
+                                                           0, jointype, sjinfo);
+                        if (s0 > 0)
+                            fkselec /= s0;  // Avoid double-counting
+                    }
+                }
+            }
+        }
+    }
+
+    *restrictlist = worklist;
+    CLAMP_PROBABILITY(fkselec);
+    return fkselec;
+}
+```

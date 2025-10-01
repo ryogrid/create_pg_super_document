@@ -53,3 +53,101 @@ This function implements a sophisticated selectivity estimation algorithm using 
 
 ## Notes and Other Information
 The function uses a two-phase approach: first, it preprocesses clauses to extract attribute numbers and expressions, then it iteratively applies the best available statistics. For OR clauses, it implements the complex inclusion-exclusion formula P(A OR B) = P(A) + P(B) - P(A AND B) iteratively. The algorithm prioritizes simple single-column clauses by using traditional selectivity estimates for them while leveraging multi-column statistics for complex clauses. The greedy selection ensures that statistics with the most coverage are applied first, maximizing the benefit of extended statistics while falling back to traditional methods for uncovered clauses.
+
+## Simplified Source
+
+```c
+static Selectivity
+statext_mcv_clauselist_selectivity(PlannerInfo *root, List *clauses, int varRelid,
+                                   JoinType jointype, SpecialJoinInfo *sjinfo,
+                                   RelOptInfo *rel, Bitmapset **estimatedclauses,
+                                   bool is_or)
+{
+    Selectivity sel = (is_or) ? 0.0 : 1.0;
+
+    // Check if we have MCV statistics available
+    if (!has_stats_of_kind(rel->statlist, STATS_EXT_MCV))
+        return sel;
+
+    // Extract attributes and expressions from each clause
+    int num_clauses = list_length(clauses);
+    Bitmapset **clause_attrs = (Bitmapset **) palloc(sizeof(Bitmapset *) * num_clauses);
+    List **clause_exprs = (List **) palloc(sizeof(Node *) * num_clauses);
+
+    // Preprocess clauses to identify compatible ones
+    int idx = 0;
+    foreach(cell, clauses) {
+        Node *clause = (Node *) lfirst(cell);
+        if (!bms_is_member(idx, *estimatedclauses) &&
+            statext_is_compatible_clause(root, clause, rel->relid,
+                                         &clause_attrs[idx], &clause_exprs[idx])) {
+            // Keep this clause for processing
+        } else {
+            clause_attrs[idx] = NULL;
+            clause_exprs[idx] = NIL;
+        }
+        idx++;
+    }
+
+    // Iteratively apply best available statistics
+    while (true) {
+        // Find best statistics object for remaining clauses
+        StatisticExtInfo *stat = choose_best_statistics(rel->statlist, STATS_EXT_MCV,
+                                                       rte->inh, clause_attrs, clause_exprs,
+                                                       num_clauses);
+        if (!stat)
+            break;
+
+        // Build list of clauses covered by this statistic
+        List *stat_clauses = NIL;
+        Bitmapset *simple_clauses = NULL;
+
+        idx = 0;
+        foreach(cell, clauses) {
+            if (!clause_attrs[idx] && !clause_exprs[idx])
+                continue; // Already processed or incompatible
+
+            // Check if this statistic covers the clause
+            if (bms_is_subset(clause_attrs[idx], stat->keys) &&
+                stat_covers_expressions(stat, clause_exprs[idx], NULL)) {
+
+                stat_clauses = lappend(stat_clauses, lfirst(cell));
+                *estimatedclauses = bms_add_member(*estimatedclauses, idx);
+
+                // Mark simple clauses (single column/expression)
+                if (is_simple_clause(clause_attrs[idx], clause_exprs[idx]))
+                    simple_clauses = bms_add_member(simple_clauses, list_length(stat_clauses) - 1);
+
+                // Clean up for next iteration
+                clause_attrs[idx] = NULL;
+                clause_exprs[idx] = NULL;
+            }
+            idx++;
+        }
+
+        // Apply this statistic to estimate selectivity
+        if (is_or) {
+            // OR logic: P(A OR B) = P(A) + P(B) - P(A AND B)
+            Selectivity stat_sel = estimate_or_selectivity(root, stat, stat_clauses,
+                                                          simple_clauses, varRelid,
+                                                          jointype, sjinfo, rel);
+            sel = sel + stat_sel - sel * stat_sel;
+        } else {
+            // AND logic: multiply selectivities
+            Selectivity simple_sel = clauselist_selectivity_ext(root, stat_clauses,
+                                                               varRelid, jointype,
+                                                               sjinfo, false);
+            Selectivity mcv_sel, mcv_basesel, mcv_totalsel;
+            mcv_sel = mcv_clauselist_selectivity(root, stat, stat_clauses,
+                                                varRelid, jointype, sjinfo, rel,
+                                                &mcv_basesel, &mcv_totalsel);
+
+            Selectivity stat_sel = mcv_combine_selectivities(simple_sel, mcv_sel,
+                                                            mcv_basesel, mcv_totalsel);
+            sel *= stat_sel;
+        }
+    }
+
+    return sel;
+}
+```

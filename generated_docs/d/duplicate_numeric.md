@@ -48,3 +48,17 @@ The function uses PostgreSQL's memory management system (palloc) and relies on t
 - Uses PostgreSQL's variable-length structure system, where VARSIZE includes the header information
 - Commonly used when numeric operations need to return a modified copy without altering the original value
 - The returned Numeric value is allocated in the current memory context and will be freed when that context is destroyed
+
+## Simplified Source
+
+```c
+static Numeric duplicate_numeric(Numeric num) {
+    // Allocate memory for the copy using the original's size
+    Numeric result = (Numeric) palloc(VARSIZE(num));
+
+    // Perform byte-for-byte copy of the entire numeric value
+    memcpy(result, num, VARSIZE(num));
+
+    return result;
+}
+```

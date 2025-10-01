@@ -36,3 +36,50 @@ array_to_json_internal serves as the main entry point for converting PostgreSQL 
 
 ## Notes and Other Information
 The function optimizes for empty arrays by immediately returning "[]" without further processing. It properly handles PostgreSQL's array storage format by deconstructing the array using the element type's storage characteristics (length, by-value flag, alignment). Memory management is handled carefully with pfree calls to avoid leaks from the temporary element and nulls arrays created by deconstruct_array.
+
+## Simplified Source
+
+```c
+static void array_to_json_internal(Datum array, StringInfo result, bool use_line_feeds) {
+    ArrayType *v = DatumGetArrayTypeP(array);
+    Oid element_type = ARR_ELEMTYPE(v);
+    int *dim;
+    int ndim;
+    int nitems;
+    int count = 0;
+    Datum *elements;
+    bool *nulls;
+    int16 typlen;
+    bool typbyval;
+    char typalign;
+    JsonTypeCategory tcategory;
+    Oid outfuncoid;
+
+    // Extract array metadata
+    ndim = ARR_NDIM(v);
+    dim = ARR_DIMS(v);
+    nitems = ArrayGetNItems(ndim, dim);
+
+    // Handle empty arrays
+    if (nitems <= 0) {
+        appendStringInfoString(result, "[]");
+        return;
+    }
+
+    // Get element type information
+    get_typlenbyvalalign(element_type, &typlen, &typbyval, &typalign);
+    json_categorize_type(element_type, false, &tcategory, &outfuncoid);
+
+    // Deconstruct array into individual elements
+    deconstruct_array(v, element_type, typlen, typbyval, typalign,
+                     &elements, &nulls, &nitems);
+
+    // Recursively process array dimensions
+    array_dim_to_json(result, 0, ndim, dim, elements, nulls, &count,
+                     tcategory, outfuncoid, use_line_feeds);
+
+    // Clean up temporary arrays
+    pfree(elements);
+    pfree(nulls);
+}
+```

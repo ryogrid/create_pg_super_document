@@ -43,3 +43,30 @@ This function is part of PostgreSQL's multivariate distinct statistics system, s
 - Memory management is handled by the caller (generate_combinations function)
 - The recursive depth equals k (combination size), making it suitable for small to moderate k values
 - Critical for multivariate distinct value estimation in complex query planning
+
+## Simplified Source
+
+```c
+static void
+generate_combinations_recurse(CombinationGenerator *state,
+                              int index, int start, int *current)
+{
+    // If more positions to fill, continue recursively
+    if (index < state->k)
+    {
+        // Generate elements in ascending order to avoid duplicates
+        for (int i = start; i < state->n; i++)
+        {
+            current[index] = i;
+            generate_combinations_recurse(state, (index + 1), (i + 1), current);
+        }
+    }
+    else
+    {
+        // Complete combination found - store it
+        memcpy(&state->combinations[(state->k * state->current)],
+               current, state->k * sizeof(int));
+        state->current++;
+    }
+}
+```

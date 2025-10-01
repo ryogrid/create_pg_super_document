@@ -60,3 +60,64 @@ The algorithm processes digits from most significant to least significant, using
 - The weight field determines how many digits appear before the decimal point
 - Properly manages memory for the temporary rounded variable
 - Supports conversion of very large numeric values that fit within int64 range
+
+## Simplified Source
+
+```c
+static bool numericvar_to_int64(const NumericVar *var, int64 *result) {
+    NumericDigit *digits;
+    int ndigits, weight, i;
+    int64 val;
+    bool neg;
+    NumericVar rounded;
+
+    // Round to nearest integer
+    init_var(&rounded);
+    set_var_from_var(var, &rounded);
+    round_var(&rounded, 0);
+
+    // Handle zero case
+    strip_var(&rounded);
+    ndigits = rounded.ndigits;
+    if (ndigits == 0) {
+        *result = 0;
+        free_var(&rounded);
+        return true;
+    }
+
+    // Process digits from most to least significant
+    weight = rounded.weight;
+    digits = rounded.digits;
+    neg = (rounded.sign == NUMERIC_NEG);
+
+    // Accumulate as negative to handle INT64_MIN correctly
+    val = -digits[0];
+    for (i = 1; i <= weight; i++) {
+        // Multiply by base with overflow check
+        if (unlikely(pg_mul_s64_overflow(val, NBASE, &val))) {
+            free_var(&rounded);
+            return false;
+        }
+
+        // Subtract next digit if it exists
+        if (i < ndigits) {
+            if (unlikely(pg_sub_s64_overflow(val, digits[i], &val))) {
+                free_var(&rounded);
+                return false;
+            }
+        }
+    }
+
+    free_var(&rounded);
+
+    // Convert back to positive if needed, checking for INT64_MIN
+    if (!neg) {
+        if (unlikely(val == PG_INT64_MIN))
+            return false;
+        val = -val;
+    }
+
+    *result = val;
+    return true;
+}
+```

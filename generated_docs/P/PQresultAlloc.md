@@ -30,3 +30,18 @@ PQresultAlloc is a public API function that provides a safe interface for alloca
 - Returns NULL if the input PGresult is NULL or represents an OOM_result
 - This is the public interface that client applications should use for PGresult memory allocation
 - Located at src/interfaces/libpq/fe-exec.c:543-562
+
+## Simplified Source
+
+```c
+void *
+PQresultAlloc(PGresult *res, size_t nBytes)
+{
+    // Safety check: fail if argument is NULL or OOM_result
+    if (!res || (const PGresult *) res == &OOM_result)
+        return NULL;
+
+    // Delegate to internal allocation with max alignment
+    return pqResultAlloc(res, nBytes, true);
+}
+```

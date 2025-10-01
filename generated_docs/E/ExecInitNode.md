@@ -49,3 +49,94 @@ The initialization process ensures that all necessary data structures, memory co
 - The function sets up both the execution state and the execution procedure for each node
 - [Instrumentation](../I/Instrumentation.md) is conditionally initialized based on estate->es_instrument setting
 - Stack depth is checked to prevent stack overflow during initialization of deep plan trees
+
+## Simplified Source
+
+```c
+PlanState *ExecInitNode(Plan *node, EState *estate, int eflags) {
+    PlanState *result;
+    List *subps;
+    ListCell *l;
+
+    // Handle leaf nodes
+    if (node == NULL)
+        return NULL;
+
+    // Prevent stack overflow during deep plan tree initialization
+    check_stack_depth();
+
+    // Dispatch to appropriate initialization function based on node type
+    switch (nodeTag(node)) {
+        // Control nodes
+        case T_Result:
+            result = (PlanState *) ExecInitResult((Result *) node, estate, eflags);
+            break;
+        case T_ModifyTable:
+            result = (PlanState *) ExecInitModifyTable((ModifyTable *) node, estate, eflags);
+            break;
+        case T_Append:
+            result = (PlanState *) ExecInitAppend((Append *) node, estate, eflags);
+            break;
+
+        // Scan nodes
+        case T_SeqScan:
+            result = (PlanState *) ExecInitSeqScan((SeqScan *) node, estate, eflags);
+            break;
+        case T_IndexScan:
+            result = (PlanState *) ExecInitIndexScan((IndexScan *) node, estate, eflags);
+            break;
+        case T_BitmapHeapScan:
+            result = (PlanState *) ExecInitBitmapHeapScan((BitmapHeapScan *) node, estate, eflags);
+            break;
+
+        // Join nodes
+        case T_NestLoop:
+            result = (PlanState *) ExecInitNestLoop((NestLoop *) node, estate, eflags);
+            break;
+        case T_MergeJoin:
+            result = (PlanState *) ExecInitMergeJoin((MergeJoin *) node, estate, eflags);
+            break;
+        case T_HashJoin:
+            result = (PlanState *) ExecInitHashJoin((HashJoin *) node, estate, eflags);
+            break;
+
+        // Materialization nodes
+        case T_Sort:
+            result = (PlanState *) ExecInitSort((Sort *) node, estate, eflags);
+            break;
+        case T_Agg:
+            result = (PlanState *) ExecInitAgg((Agg *) node, estate, eflags);
+            break;
+        case T_Group:
+            result = (PlanState *) ExecInitGroup((Group *) node, estate, eflags);
+            break;
+
+        // ... (other node types handled similarly)
+
+        default:
+            elog(ERROR, "unrecognized node type: %d", (int) nodeTag(node));
+            result = NULL;
+            break;
+    }
+
+    // Set up the execution procedure for this node
+    ExecSetExecProcNode(result, result->ExecProcNode);
+
+    // Initialize any subplans associated with this node
+    subps = NIL;
+    foreach(l, node->initPlan) {
+        SubPlan *subplan = (SubPlan *) lfirst(l);
+        SubPlanState *sstate;
+
+        sstate = ExecInitSubPlan(subplan, result);
+        subps = lappend(subps, sstate);
+    }
+    result->initPlan = subps;
+
+    // Set up performance instrumentation if enabled
+    if (estate->es_instrument)
+        result->instrument = InstrAlloc(1, estate->es_instrument, result->async_capable);
+
+    return result;
+}
+```

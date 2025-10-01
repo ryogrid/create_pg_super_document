@@ -36,3 +36,14 @@ The function writes the string representation directly to the provided buffer an
 - Implementation leverages existing 32-bit conversion logic for code reuse and maintainability
 - Used primarily for PostgreSQL's int2 (smallint) data type output functions
 - Also utilized in internal sort/tape management operations for numeric identifiers
+
+## Simplified Source
+
+```c
+int
+pg_itoa(int16 i, char *a)
+{
+    // Simple wrapper - cast to int32 and use existing implementation
+    return pg_ltoa((int32) i, a);
+}
+```

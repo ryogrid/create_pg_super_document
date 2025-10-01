@@ -37,3 +37,41 @@ The function initializes all necessary fields of the MaterialPath structure, cop
 - The parallel_workers count is inherited from the subpath
 - The pathkeys (sort ordering) are preserved from the subpath since materialization doesn't change the order
 - Cost calculation includes both the cost of reading the subpath and the overhead of materializing the results
+
+## Simplified Source
+
+```c
+MaterialPath *
+create_material_path(RelOptInfo *rel, Path *subpath)
+{
+    MaterialPath *pathnode = makeNode(MaterialPath);
+
+    Assert(subpath->parent == rel);
+
+    // Initialize basic path properties
+    pathnode->path.pathtype = T_Material;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = rel->reltarget;
+    pathnode->path.param_info = subpath->param_info;
+
+    // Set parallel execution properties
+    pathnode->path.parallel_aware = false;  // Material is never parallel_aware
+    pathnode->path.parallel_safe = rel->consider_parallel && subpath->parallel_safe;
+    pathnode->path.parallel_workers = subpath->parallel_workers;
+
+    // Preserve ordering from subpath
+    pathnode->path.pathkeys = subpath->pathkeys;
+
+    // Store reference to input path
+    pathnode->subpath = subpath;
+
+    // Calculate materialization costs
+    cost_material(&pathnode->path,
+                  subpath->startup_cost,
+                  subpath->total_cost,
+                  subpath->rows,
+                  subpath->pathtarget->width);
+
+    return pathnode;
+}
+```

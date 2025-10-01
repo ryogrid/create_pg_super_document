@@ -44,3 +44,61 @@ This function is a core component of PostgreSQL's date/time parsing infrastructu
 - Performs range validation ensuring values fit within INT_MIN to INT_MAX
 - Integrates with from_char_set_int for conflict detection during field assignment
 - Critical for robust parsing of numeric date/time components like days, months, years, etc.
+
+## Simplified Source
+
+```c
+static int
+from_char_parse_int_len(int *dest, const char **src, const int len, FormatNode *node, Node *escontext)
+{
+    long result;
+    char copy[DCH_MAX_ITEM_SIZ + 1];
+    const char *init = *src;
+    int used;
+
+    // Skip leading whitespace
+    *src += strspace_len(*src);
+
+    // Copy up to 'len' characters for parsing
+    used = (int) strlcpy(copy, *src, len + 1);
+
+    if (S_FM(node->suffix) || is_next_separator(node)) {
+        // Fill Mode: parse as many digits as available
+        char *endptr;
+        errno = 0;
+        result = strtol(init, &endptr, 10);
+        *src = endptr;
+    } else {
+        // Fixed-width mode: parse exactly 'len' characters
+        char *last;
+
+        if (used < len)
+            ereturn(escontext, -1, /* error: source too short */);
+
+        errno = 0;
+        result = strtol(copy, &last, 10);
+        used = last - copy;
+
+        if (used > 0 && used < len)
+            ereturn(escontext, -1, /* error: partial parse */);
+
+        *src += used;
+    }
+
+    // Validate that we parsed something
+    if (*src == init)
+        ereturn(escontext, -1, /* error: no digits found */);
+
+    // Range check
+    if (errno == ERANGE || result < INT_MIN || result > INT_MAX)
+        ereturn(escontext, -1, /* error: value out of range */);
+
+    // Store result if destination provided
+    if (dest != NULL) {
+        if (!from_char_set_int(dest, (int) result, node, escontext))
+            return -1;
+    }
+
+    return *src - init;
+}
+```

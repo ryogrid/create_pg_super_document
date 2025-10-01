@@ -43,3 +43,31 @@ The function is designed to be called recursively through the expression_tree_mu
 - Parameter IDs are 1-based (as seen in SQL with $1, $2, etc.) but arrays are 0-based
 - Does not copy nodes during substitution - copying is deferred to later stages
 - Located in src/backend/optimizer/util/clauses.c at lines 4920-4948
+
+## Simplified Source
+
+```c
+static Node *substitute_actual_parameters_mutator(Node *node,
+                                                 substitute_actual_parameters_context *context) {
+    if (node == NULL)
+        return NULL;
+
+    // Handle parameter nodes - replace with actual arguments
+    if (IsA(node, Param)) {
+        Param *param = (Param *) node;
+
+        // Validate parameter type and ID range
+        if (param->paramkind != PARAM_EXTERN)
+            elog(ERROR, "unexpected paramkind: %d", (int) param->paramkind);
+        if (param->paramid <= 0 || param->paramid > context->nargs)
+            elog(ERROR, "invalid paramid: %d", param->paramid);
+
+        // Track parameter usage and return corresponding argument
+        context->usecounts[param->paramid - 1]++;
+        return list_nth(context->args, param->paramid - 1);
+    }
+
+    // Recursively process other node types
+    return expression_tree_mutator(node, substitute_actual_parameters_mutator, context);
+}
+```

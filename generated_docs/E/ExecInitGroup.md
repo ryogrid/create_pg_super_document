@@ -59,3 +59,45 @@ The function also validates that unsupported execution flags (backward scan, mar
 - The eqfunction field stores compiled comparison logic for the grouping columns
 - Child node initialization happens before parent node setup to establish proper dependencies
 - Expression contexts are essential for qual and projection evaluation during execution
+
+## Simplified Source
+
+```c
+GroupState *
+ExecInitGroup(Group *node, EState *estate, int eflags)
+{
+    // Create and initialize the Group state structure
+    GroupState *grpstate = makeNode(GroupState);
+    grpstate->ss.ps.plan = (Plan *) node;
+    grpstate->ss.ps.state = estate;
+    grpstate->ss.ps.ExecProcNode = ExecGroup;
+    grpstate->grp_done = false;
+
+    // Create expression context
+    ExecAssignExprContext(estate, &grpstate->ss.ps);
+
+    // Initialize the outer child plan
+    outerPlanState(grpstate) = ExecInitNode(outerPlan(node), estate, eflags);
+
+    // Initialize scan slot from outer plan
+    const TupleTableSlotOps *tts_ops = ExecGetResultSlotOps(outerPlanState(&grpstate->ss), NULL);
+    ExecCreateScanSlotFromOuterPlan(estate, &grpstate->ss, tts_ops);
+
+    // Initialize result slot and projection
+    ExecInitResultTupleSlotTL(&grpstate->ss.ps, &TTSOpsVirtual);
+    ExecAssignProjectionInfo(&grpstate->ss.ps, NULL);
+
+    // Initialize qualification expressions
+    grpstate->ss.ps.qual = ExecInitQual(node->plan.qual, (PlanState *) grpstate);
+
+    // Precompute tuple comparison functions for group detection
+    grpstate->eqfunction = execTuplesMatchPrepare(ExecGetResultType(outerPlanState(grpstate)),
+                                                 node->numCols,
+                                                 node->grpColIdx,
+                                                 node->grpOperators,
+                                                 node->grpCollations,
+                                                 &grpstate->ss.ps);
+
+    return grpstate;
+}
+```

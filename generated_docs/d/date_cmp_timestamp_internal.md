@@ -49,3 +49,24 @@ Special handling for overflow cases:
 - Part of PostgreSQL's crosstype comparison system that enables operations between different temporal data types
 - Located in src/backend/utils/adt/date.c:743-759
 - The assertion `Assert(overflow == 0)` indicates that negative overflow (underflow) should never occur in practice
+
+## Simplified Source
+
+```c
+int32 date_cmp_timestamp_internal(DateADT dateVal, Timestamp dt2) {
+    Timestamp dt1;
+    int overflow;
+
+    // Convert date to timestamp, checking for overflow
+    dt1 = date2timestamp_opt_overflow(dateVal, &overflow);
+
+    if (overflow > 0) {
+        // Date exceeds finite timestamp range
+        // Compare with infinity timestamp appropriately
+        return TIMESTAMP_IS_NOEND(dt2) ? -1 : +1;
+    }
+
+    // Normal case: use standard timestamp comparison
+    return timestamp_cmp_internal(dt1, dt2);
+}
+```

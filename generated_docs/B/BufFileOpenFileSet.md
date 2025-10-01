@@ -49,3 +49,63 @@ The function starts with an initial capacity for file handles and expands it as 
 - Requires the creating backend to have called BufFileClose() or BufFileExportFileSet() first
 - Essential for inter-backend file sharing in PostgreSQL's temporary file system
 - Uses CHECK_FOR_INTERRUPTS to remain responsive during segment discovery
+
+## Simplified Source
+
+```c
+BufFile *
+BufFileOpenFileSet(FileSet *fileset, const char *name, int mode,
+                   bool missing_ok)
+{
+    BufFile *file;
+    char segment_name[MAXPGPATH];
+    Size capacity = 16;
+    File *files;
+    int nfiles = 0;
+
+    // Start with initial capacity for file handles
+    files = palloc(sizeof(File) * capacity);
+
+    // Discover all segments by probing filesystem
+    for (;;)
+    {
+        // Expand array if needed
+        if (nfiles + 1 > capacity)
+        {
+            capacity *= 2;
+            files = repalloc(files, sizeof(File) * capacity);
+        }
+
+        // Try to open next segment
+        FileSetSegmentName(segment_name, name, nfiles);
+        files[nfiles] = FileSetOpen(fileset, segment_name, mode);
+        if (files[nfiles] <= 0)
+            break;  // No more segments
+        ++nfiles;
+
+        CHECK_FOR_INTERRUPTS();
+    }
+
+    // Handle case where no segments found
+    if (nfiles == 0)
+    {
+        pfree(files);
+        if (missing_ok)
+            return NULL;
+
+        ereport(ERROR,
+                (errcode_for_file_access(),
+                 errmsg("could not open temporary file \"%s\" from BufFile \"%s\": %m",
+                        segment_name, name)));
+    }
+
+    // Create BufFile with discovered segments
+    file = makeBufFileCommon(nfiles);
+    file->files = files;
+    file->readOnly = (mode == O_RDONLY);
+    file->fileset = fileset;
+    file->name = pstrdup(name);
+
+    return file;
+}
+```

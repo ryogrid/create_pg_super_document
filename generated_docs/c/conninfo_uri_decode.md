@@ -50,3 +50,52 @@ The function provides comprehensive error handling for malformed percent-encoded
 - Validates that percent signs are followed by exactly two hex digits
 - Memory allocation uses strlen() + 1 since decoded string is never longer than original
 - Provides detailed error messages for debugging malformed URI components
+
+## Simplified Source
+
+```c
+static char *conninfo_uri_decode(const char *str, PQExpBuffer errorMessage) {
+    // Allocate buffer for decoded string (never longer than original)
+    char *buf = malloc(strlen(str) + 1);
+    if (!buf) {
+        libpq_append_error(errorMessage, "out of memory");
+        return NULL;
+    }
+
+    char *p = buf;
+    const char *q = str;
+
+    // Process each character
+    for (;;) {
+        if (*q != '%') {
+            // Copy regular character and check for end of string
+            if (!(*(p++) = *(q++)))
+                break;
+        } else {
+            // Handle percent-encoded sequence %xy
+            ++q;  // Skip '%'
+
+            int hi, lo;
+            if (!(get_hexdigit(*q++, &hi) && get_hexdigit(*q++, &lo))) {
+                libpq_append_error(errorMessage, "invalid percent-encoded token: \"%s\"", str);
+                free(buf);
+                return NULL;
+            }
+
+            // Combine hex digits to form decoded byte
+            int c = (hi << 4) | lo;
+
+            // Forbid null bytes for security
+            if (c == 0) {
+                libpq_append_error(errorMessage, "forbidden value %%00 in percent-encoded value: \"%s\"", str);
+                free(buf);
+                return NULL;
+            }
+
+            *(p++) = c;
+        }
+    }
+
+    return buf;
+}
+```

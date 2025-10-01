@@ -60,3 +60,63 @@ Key validation steps include verifying the relation is a materialized view, chec
 - Row counts are tracked for pg_stat_statements but not displayed in command completion tags
 - Indexes are rebuilt after data population for optimal performance (bulk loading followed by index creation)
 - The function supports both populated and unpopulated final states based on the skipData parameter
+
+## Simplified Source
+
+```c
+ObjectAddress
+RefreshMatViewByOid(Oid matviewOid, bool skipData, bool concurrent,
+                    const char *queryString, ParamListInfo params,
+                    QueryCompletion *qc)
+{
+    Relation matviewRel;
+    Query *dataQuery;
+    Oid OIDNewHeap;
+    DestReceiver *dest;
+    uint64 processed = 0;
+    ObjectAddress address;
+
+    // Open materialized view and switch to owner's security context
+    matviewRel = table_open(matviewOid, NoLock);
+    setup_security_context(matviewRel->rd_rel->relowner);
+
+    // Validate materialized view and refresh options
+    validate_matview_refresh(matviewRel, concurrent, skipData);
+
+    // Extract the underlying query from the view's rewrite rule
+    dataQuery = get_matview_query(matviewRel);
+
+    // Ensure no active scans on the materialized view
+    CheckTableNotInUse(matviewRel, "REFRESH MATERIALIZED VIEW");
+
+    // Mark view as populated or not (will rollback on failure)
+    SetMatViewPopulatedState(matviewRel, !skipData);
+
+    // Create transient table for new data
+    OIDNewHeap = make_new_heap(matviewOid, get_tablespace(concurrent),
+                               matviewRel->rd_rel->relam,
+                               get_persistence(concurrent), ExclusiveLock);
+    dest = CreateTransientRelDestReceiver(OIDNewHeap);
+
+    // Populate with fresh data if requested
+    if (!skipData)
+        processed = refresh_matview_datafill(dest, dataQuery, queryString);
+
+    // Replace old data with new data
+    if (concurrent)
+        refresh_by_match_merge(matviewOid, OIDNewHeap, relowner, save_sec_context);
+    else
+        refresh_by_heap_swap(matviewOid, OIDNewHeap, relpersistence);
+
+    // Cleanup and restore security context
+    table_close(matviewRel, NoLock);
+    restore_security_context();
+
+    // Report completion
+    ObjectAddressSet(address, RelationRelationId, matviewOid);
+    if (qc)
+        SetQueryCompletion(qc, CMDTAG_REFRESH_MATERIALIZED_VIEW, processed);
+
+    return address;
+}
+```

@@ -47,3 +47,55 @@ The function validates each column in the fksetcolsattnums array against the for
 - Error reporting includes the actual column name from the fksetcols list for user-friendly error messages
 - Returns the deduplicated count of columns, which may be less than the input numfksetcols if duplicates were found
 - Part of PostgreSQL's ALTER TABLE foreign key constraint validation infrastructure
+
+## Simplified Source
+
+```c
+static int
+validateFkOnDeleteSetColumns(int numfks, const int16 *fkattnums,
+                            int numfksetcols, int16 *fksetcolsattnums,
+                            List *fksetcols)
+{
+    int numcolsout = 0;
+
+    for (int i = 0; i < numfksetcols; i++)
+    {
+        int16 setcol_attnum = fksetcolsattnums[i];
+        bool seen = false;
+
+        // Verify column is part of foreign key
+        for (int j = 0; j < numfks; j++)
+        {
+            if (fkattnums[j] == setcol_attnum)
+            {
+                seen = true;
+                break;
+            }
+        }
+
+        if (!seen)
+        {
+            char *col = strVal(list_nth(fksetcols, i));
+            ereport(ERROR,
+                    (errcode(ERRCODE_INVALID_COLUMN_REFERENCE),
+                     errmsg("column \"%s\" referenced in ON DELETE SET action must be part of foreign key", col)));
+        }
+
+        // Check for duplicates and deduplicate
+        seen = false;
+        for (int j = 0; j < numcolsout; j++)
+        {
+            if (fksetcolsattnums[j] == setcol_attnum)
+            {
+                seen = true;
+                break;
+            }
+        }
+
+        if (!seen)
+            fksetcolsattnums[numcolsout++] = setcol_attnum;
+    }
+
+    return numcolsout;  // Return deduplicated count
+}
+```

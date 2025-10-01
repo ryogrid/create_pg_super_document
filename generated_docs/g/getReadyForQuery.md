@@ -39,3 +39,36 @@ This message is typically sent after the completion of a command cycle (after Co
   - Any other character: Unknown status
 - Critical for maintaining accurate connection state for transaction management
 - Simple but essential function for protocol state tracking
+
+## Simplified Source
+
+```c
+static int
+getReadyForQuery(PGconn *conn)
+{
+    char transaction_status;
+
+    // Read transaction status character from server
+    if (pqGetc(&transaction_status, conn))
+        return EOF;
+
+    // Update connection's transaction status based on server response
+    switch (transaction_status)
+    {
+        case 'I':
+            conn->xactStatus = PQTRANS_IDLE;        // Not in transaction
+            break;
+        case 'T':
+            conn->xactStatus = PQTRANS_INTRANS;     // In transaction block
+            break;
+        case 'E':
+            conn->xactStatus = PQTRANS_INERROR;     // In failed transaction
+            break;
+        default:
+            conn->xactStatus = PQTRANS_UNKNOWN;     // Unknown status
+            break;
+    }
+
+    return 0;
+}
+```

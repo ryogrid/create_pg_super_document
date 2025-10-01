@@ -41,3 +41,36 @@ Note that this function is called before EquivalenceClass merging is complete, s
 - The EquivalenceClasses created may be the same (for true equivalence clauses) or different
 - Links established here are not necessarily canonical and require later updating via `update_mergeclause_eclasses`
 - Essential for enabling merge join optimizations and understanding expression equivalences in query planning
+
+## Simplified Source
+
+```c
+void initialize_mergeclause_eclasses(PlannerInfo *root, RestrictInfo *restrictinfo) {
+    Expr *clause = restrictinfo->clause;
+    Oid lefttype, righttype;
+
+    // Validate this is a mergeclause with unset EC links
+    Assert(restrictinfo->mergeopfamilies != NIL);
+    Assert(restrictinfo->left_ec == NULL);
+    Assert(restrictinfo->right_ec == NULL);
+
+    // Get the input types for the merge operator
+    op_input_types(((OpExpr *) clause)->opno, &lefttype, &righttype);
+
+    // Find or create EquivalenceClass for left operand
+    restrictinfo->left_ec = get_eclass_for_sort_expr(root,
+                                                    (Expr *) get_leftop(clause),
+                                                    restrictinfo->mergeopfamilies,
+                                                    lefttype,
+                                                    ((OpExpr *) clause)->inputcollid,
+                                                    0, NULL, true);
+
+    // Find or create EquivalenceClass for right operand
+    restrictinfo->right_ec = get_eclass_for_sort_expr(root,
+                                                     (Expr *) get_rightop(clause),
+                                                     restrictinfo->mergeopfamilies,
+                                                     righttype,
+                                                     ((OpExpr *) clause)->inputcollid,
+                                                     0, NULL, true);
+}
+```

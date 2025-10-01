@@ -55,3 +55,70 @@ This function performs recursive traversal of JSONB array structures to populate
 - Returns false on any error condition, supporting PostgreSQL's error-safe processing paradigm
 - Coordinates closely with populate_array_assign_ndims() for dynamic dimension discovery
 - Part of PostgreSQL's JSONB-to-array conversion infrastructure, supporting complex multi-dimensional array structures
+
+## Simplified Source
+
+```c
+static bool populate_array_dim_jsonb(PopulateArrayContext *ctx, JsonbValue *jbv, int ndim)
+{
+    JsonbContainer *jbc = jbv->val.binary.data;
+    JsonbIterator *it;
+    JsonbIteratorToken tok;
+    JsonbValue val;
+    JsValue jsv;
+
+    check_stack_depth();
+
+    // Validate input is a JSONB array (not scalar or other type)
+    if (jbv->type != jbvBinary || !JsonContainerIsArray(jbc) || JsonContainerIsScalar(jbc))
+    {
+        populate_array_report_expected_array(ctx, ndim - 1);
+        return false;  // Error reported softly
+    }
+
+    // Initialize JSONB iterator and start processing
+    it = JsonbIteratorInit(jbc);
+    tok = JsonbIteratorNext(&it, &val, true);  // WJB_BEGIN_ARRAY
+    tok = JsonbIteratorNext(&it, &val, true);  // First element or WJB_END_ARRAY
+
+    // Determine array dimensions if not yet known
+    if (ctx->ndims <= 0 &&
+        (tok == WJB_END_ARRAY ||
+         (tok == WJB_ELEM && (val.type != jbvBinary || !JsonContainerIsArray(val.val.binary.data)))))
+    {
+        if (!populate_array_assign_ndims(ctx, ndim))
+            return false;
+    }
+
+    jsv.is_json = false;
+    jsv.val.jsonb = &val;
+
+    // Process all array elements
+    while (tok == WJB_ELEM)
+    {
+        if (ctx->ndims > 0 && ndim >= ctx->ndims)
+        {
+            // Process leaf element
+            if (!populate_array_element(ctx, ndim, &jsv))
+                return false;
+        }
+        else
+        {
+            // Recursively process sub-array
+            if (!populate_array_dim_jsonb(ctx, &val, ndim + 1))
+                return false;
+
+            // Validate dimension consistency
+            if (!populate_array_check_dimension(ctx, ndim))
+                return false;
+        }
+
+        tok = JsonbIteratorNext(&it, &val, true);
+    }
+
+    // Clean up iterator (iterate until WJB_DONE)
+    tok = JsonbIteratorNext(&it, &val, true);
+
+    return true;
+}
+```

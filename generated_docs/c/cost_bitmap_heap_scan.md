@@ -50,3 +50,79 @@ The function uses a nonlinear interpolation formula to determine page access cos
 - Includes disable_cost penalty when enable_bitmapscan is false
 - Handles parallel execution by dividing CPU costs among workers
 - Located in src/backend/optimizer/path/costsize.c:1013-1113
+
+## Simplified Source
+
+```c
+void
+cost_bitmap_heap_scan(Path *path, PlannerInfo *root, RelOptInfo *baserel,
+                     ParamPathInfo *param_info, Path *bitmapqual, double loop_count)
+{
+    Cost startup_cost = 0;
+    Cost run_cost = 0;
+    Cost indexTotalCost;
+    QualCost qpqual_cost;
+    Cost cpu_per_tuple;
+    Cost cost_per_page;
+    double tuples_fetched;
+    double pages_fetched;
+    double spc_seq_page_cost, spc_random_page_cost;
+    double T;
+
+    // Validate this is a base relation
+    Assert(IsA(baserel, RelOptInfo));
+    Assert(baserel->relid > 0);
+    Assert(baserel->rtekind == RTE_RELATION);
+
+    // Set row estimate
+    if (param_info)
+        path->rows = param_info->ppi_rows;
+    else
+        path->rows = baserel->rows;
+
+    // Add disable cost if bitmap scans are disabled
+    if (!enable_bitmapscan)
+        startup_cost += disable_cost;
+
+    // Compute bitmap pages and index costs
+    pages_fetched = compute_bitmap_pages(root, baserel, bitmapqual,
+                                        loop_count, &indexTotalCost, &tuples_fetched);
+
+    startup_cost += indexTotalCost;
+    T = (baserel->pages > 1) ? (double) baserel->pages : 1.0;
+
+    // Get tablespace page costs
+    get_tablespace_page_costs(baserel->reltablespace,
+                             &spc_random_page_cost, &spc_seq_page_cost);
+
+    // Calculate cost per page using nonlinear interpolation
+    if (pages_fetched >= 2.0)
+        cost_per_page = spc_random_page_cost -
+            (spc_random_page_cost - spc_seq_page_cost) * sqrt(pages_fetched / T);
+    else
+        cost_per_page = spc_random_page_cost;
+
+    run_cost += pages_fetched * cost_per_page;
+
+    // Calculate CPU costs for tuple processing
+    get_restriction_qual_cost(root, baserel, param_info, &qpqual_cost);
+    startup_cost += qpqual_cost.startup;
+    cpu_per_tuple = cpu_tuple_cost + qpqual_cost.per_tuple;
+
+    // Adjust for parallelism if workers are used
+    if (path->parallel_workers > 0) {
+        double parallel_divisor = get_parallel_divisor(path);
+        cpu_per_tuple /= parallel_divisor;
+        path->rows = clamp_row_est(path->rows / parallel_divisor);
+    }
+
+    run_cost += cpu_per_tuple * tuples_fetched;
+
+    // Add target list evaluation costs
+    startup_cost += path->pathtarget->cost.startup;
+    run_cost += path->pathtarget->cost.per_tuple * path->rows;
+
+    path->startup_cost = startup_cost;
+    path->total_cost = startup_cost + run_cost;
+}
+```

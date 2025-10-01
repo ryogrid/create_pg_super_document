@@ -41,3 +41,50 @@ The function determines whether the leader process should participate in scannin
 - A funnel_slot is created specifically for collecting tuples from worker processes using minimal tuple operations for efficiency
 - [Gather](../G/Gather.md) nodes do not support qual conditions as it's more efficient to apply filtering in child nodes
 - The need_to_scan_locally flag determines whether the leader process participates in actual data scanning alongside coordinating workers
+
+## Simplified Source
+
+```c
+GatherState *
+ExecInitGather(Gather *node, EState *estate, int eflags)
+{
+    // Create and initialize the Gather state structure
+    GatherState *gatherstate = makeNode(GatherState);
+    gatherstate->ps.plan = (Plan *) node;
+    gatherstate->ps.state = estate;
+    gatherstate->ps.ExecProcNode = ExecGather;
+
+    // Initialize Gather-specific state
+    gatherstate->initialized = false;
+    gatherstate->need_to_scan_locally = !node->single_copy && parallel_leader_participation;
+    gatherstate->tuples_needed = -1;
+
+    // Create expression context
+    ExecAssignExprContext(estate, &gatherstate->ps);
+
+    // Initialize the outer plan
+    Plan *outerNode = outerPlan(node);
+    outerPlanState(gatherstate) = ExecInitNode(outerNode, estate, eflags);
+    TupleDesc tupDesc = ExecGetResultType(outerPlanState(gatherstate));
+
+    // Set up slot operations for mixed tuple sources
+    gatherstate->ps.outeropsset = true;
+    gatherstate->ps.outeropsfixed = false;
+
+    // Initialize result type and projection
+    ExecInitResultTypeTL(&gatherstate->ps);
+    ExecConditionalAssignProjectionInfo(&gatherstate->ps, tupDesc, OUTER_VAR);
+
+    // Handle result operations when no projection
+    if (gatherstate->ps.ps_ProjInfo == NULL)
+    {
+        gatherstate->ps.resultopsset = true;
+        gatherstate->ps.resultopsfixed = false;
+    }
+
+    // Create funnel slot for collecting tuples from workers
+    gatherstate->funnel_slot = ExecInitExtraTupleSlot(estate, tupDesc, &TTSOpsMinimalTuple);
+
+    return gatherstate;
+}
+```

@@ -53,3 +53,63 @@ The function includes several safety checks to prevent simplification when inapp
 - In estimation mode, stable functions can be evaluated in addition to immutable ones
 - The function builds a temporary FuncExpr node before calling evaluate_expr to perform the actual evaluation
 - Located in src/backend/optimizer/util/clauses.c at lines 4425-4550
+
+## Simplified Source
+
+```c
+static Expr *
+evaluate_function(Oid funcid, Oid result_type, int32 result_typmod,
+                  Oid result_collid, Oid input_collid, List *args,
+                  bool funcvariadic, HeapTuple func_tuple,
+                  eval_const_expressions_context *context)
+{
+    Form_pg_proc funcform = (Form_pg_proc) GETSTRUCT(func_tuple);
+    bool has_nonconst_input = false;
+    bool has_null_input = false;
+    ListCell *arg;
+    FuncExpr *newexpr;
+
+    // Can't simplify functions that return sets or RECORD type
+    if (funcform->proretset || funcform->prorettype == RECORDOID)
+        return NULL;
+
+    // Check all arguments for constants and NULLs
+    foreach(arg, args)
+    {
+        if (IsA(lfirst(arg), Const))
+            has_null_input |= ((Const *) lfirst(arg))->constisnull;
+        else
+            has_nonconst_input = true;
+    }
+
+    // Strict function with NULL input always returns NULL
+    if (funcform->proisstrict && has_null_input)
+        return (Expr *) makeNullConst(result_type, result_typmod, result_collid);
+
+    // Need all constant inputs to proceed
+    if (has_nonconst_input)
+        return NULL;
+
+    // Only evaluate immutable functions (or stable in estimation mode)
+    if (funcform->provolatile == PROVOLATILE_IMMUTABLE ||
+        (context->estimate && funcform->provolatile == PROVOLATILE_STABLE))
+    {
+        // Build FuncExpr node with simplified arguments
+        newexpr = makeNode(FuncExpr);
+        newexpr->funcid = funcid;
+        newexpr->funcresulttype = result_type;
+        newexpr->funcretset = false;
+        newexpr->funcvariadic = funcvariadic;
+        newexpr->funcformat = COERCE_EXPLICIT_CALL;
+        newexpr->funccollid = result_collid;
+        newexpr->inputcollid = input_collid;
+        newexpr->args = args;
+        newexpr->location = -1;
+
+        // Actually evaluate the function call
+        return evaluate_expr((Expr *) newexpr, result_type, result_typmod, result_collid);
+    }
+
+    return NULL;
+}
+```

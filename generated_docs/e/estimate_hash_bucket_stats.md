@@ -50,3 +50,72 @@ When statistics are unavailable, it defaults to 0.1 to discourage hash joins on 
 - The caller should verify that the mcv_freq doesn't indicate a single value that would create an impractically large bucket
 - Uses PostgreSQL's statistics system (pg_statistic) to obtain MCV and ndistinct information
 - Adjusts ndistinct based on estimated selectivity when relation statistics are available
+
+## Simplified Source
+
+```c
+void estimate_hash_bucket_stats(PlannerInfo *root, Node *hashkey, double nbuckets,
+                               Selectivity *mcv_freq,
+                               Selectivity *bucketsize_frac) {
+    VariableStatData vardata;
+    double estfract, ndistinct, stanullfrac, avgfreq;
+    bool isdefault;
+    AttStatsSlot sslot;
+
+    // Examine the hash key expression to get statistics
+    examine_variable(root, hashkey, 0, &vardata);
+
+    // Initialize MCV frequency to 0
+    *mcv_freq = 0.0;
+
+    // Get most common value frequency if available
+    if (HeapTupleIsValid(vardata.statsTuple)) {
+        if (get_attstatsslot(&sslot, vardata.statsTuple,
+                            STATISTIC_KIND_MCV, InvalidOid,
+                            ATTSTATSSLOT_NUMBERS)) {
+            if (sslot.nnumbers > 0)
+                *mcv_freq = sslot.numbers[0];  // First MCV stat
+            free_attstatsslot(&sslot);
+        }
+    }
+
+    // Get number of distinct values
+    ndistinct = get_variable_numdistinct(&vardata, &isdefault);
+
+    // If no real ndistinct available, use conservative estimate
+    if (isdefault) {
+        *bucketsize_frac = (Selectivity) Max(0.1, *mcv_freq);
+        ReleaseVariableStats(vardata);
+        return;
+    }
+
+    // Get null fraction and calculate average frequency
+    stanullfrac = get_null_fraction(&vardata);
+    avgfreq = (1.0 - stanullfrac) / ndistinct;
+
+    // Adjust ndistinct for restriction clauses
+    if (vardata.rel && vardata.rel->tuples > 0) {
+        ndistinct *= vardata.rel->rows / vardata.rel->tuples;
+        ndistinct = clamp_row_est(ndistinct);
+    }
+
+    // Calculate initial bucketsize estimate
+    if (ndistinct > nbuckets)
+        estfract = 1.0 / nbuckets;
+    else
+        estfract = 1.0 / ndistinct;
+
+    // Adjust for skewed distribution using MCV frequency
+    if (avgfreq > 0.0 && *mcv_freq > avgfreq)
+        estfract *= *mcv_freq / avgfreq;
+
+    // Clamp to reasonable range
+    if (estfract < 1.0e-6)
+        estfract = 1.0e-6;
+    else if (estfract > 1.0)
+        estfract = 1.0;
+
+    *bucketsize_frac = (Selectivity) estfract;
+    ReleaseVariableStats(vardata);
+}
+```

@@ -43,3 +43,23 @@ If an unknown or invalid TuplesortMethod value is passed, the function returns "
 - Used extensively in PostgreSQL's query execution reporting infrastructure
 - The returned strings are designed to be user-friendly and informative for database administrators and developers analyzing query performance
 - Falls back to "unknown" for any unrecognized TuplesortMethod values, providing graceful degradation
+
+## Simplified Source
+
+```c
+const char *tuplesort_method_name(TuplesortMethod m) {
+    switch (m) {
+        case SORT_TYPE_STILL_IN_PROGRESS:
+            return "still in progress";
+        case SORT_TYPE_TOP_N_HEAPSORT:
+            return "top-N heapsort";
+        case SORT_TYPE_QUICKSORT:
+            return "quicksort";
+        case SORT_TYPE_EXTERNAL_SORT:
+            return "external sort";
+        case SORT_TYPE_EXTERNAL_MERGE:
+            return "external merge";
+    }
+    return "unknown";
+}
+```

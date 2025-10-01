@@ -52,3 +52,71 @@ The function handles partial indexes carefully by:
 - The  flag prevents matching predOK indexes to OR arms unnecessarily
 - Results are intended for bitmap OR tree construction, not regular index scans
 - All generated paths use  scan type exclusively
+
+## Simplified Source
+
+```c
+static List *
+build_paths_for_OR(PlannerInfo *root, RelOptInfo *rel,
+                   List *clauses, List *other_clauses)
+{
+    List *result = NIL;
+    List *all_clauses = NIL; // computed when needed
+    ListCell *lc;
+
+    foreach(lc, rel->indexlist)
+    {
+        IndexOptInfo *index = (IndexOptInfo *) lfirst(lc);
+        IndexClauseSet clauseset;
+        List *indexpaths;
+        bool useful_predicate;
+
+        // Skip indexes that don't support bitmap scans
+        if (!index->amhasgetbitmap)
+            continue;
+
+        // Handle partial index predicates
+        useful_predicate = false;
+        if (index->indpred != NIL)
+        {
+            if (index->predOK)
+            {
+                // Index is usable but don't set useful_predicate
+            }
+            else
+            {
+                // Check if clauses satisfy the predicate
+                if (all_clauses == NIL)
+                    all_clauses = list_concat_copy(clauses, other_clauses);
+
+                if (!predicate_implied_by(index->indpred, all_clauses, false))
+                    continue; // can't use this index
+
+                if (!predicate_implied_by(index->indpred, other_clauses, false))
+                    useful_predicate = true;
+            }
+        }
+
+        // Match current clauses to the index
+        MemSet(&clauseset, 0, sizeof(clauseset));
+        match_clauses_to_index(root, clauses, index, &clauseset);
+
+        // Skip if no matches and predicate isn't useful
+        if (!clauseset.nonempty && !useful_predicate)
+            continue;
+
+        // Add "other" restriction clauses to the clauseset
+        match_clauses_to_index(root, other_clauses, index, &clauseset);
+
+        // Build index paths for bitmap scanning
+        indexpaths = build_index_paths(root, rel,
+                                      index, &clauseset,
+                                      useful_predicate,
+                                      ST_BITMAPSCAN,
+                                      NULL);
+        result = list_concat(result, indexpaths);
+    }
+
+    return result;
+}
+```

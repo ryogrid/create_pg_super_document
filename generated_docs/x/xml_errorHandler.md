@@ -49,3 +49,119 @@ The handler implements sophisticated logic to handle differences between libxml2
 - Errors are buffered rather than immediately reported to avoid leaving libxml2 in inconsistent state
 - Warnings and notices are reported immediately since they don't cause longjmp() out of libxml2
 - Forces backend exit (FATAL) if called with invalid context to prevent undefined behavior
+
+## Simplified Source
+
+```c
+static void
+xml_errorHandler(void *data, PgXmlErrorPtr error)
+{
+    PgXmlErrorContext *xmlerrcxt = (PgXmlErrorContext *) data;
+    xmlParserCtxtPtr ctxt = (xmlParserCtxtPtr) error->ctxt;
+    xmlParserInputPtr input = (ctxt != NULL) ? ctxt->input : NULL;
+    xmlNodePtr node = error->node;
+    const xmlChar *name = (node != NULL && node->type == XML_ELEMENT_NODE) ? node->name : NULL;
+    int domain = error->domain;
+    int level = error->level;
+    StringInfo errorBuf;
+
+    // Validate context structure
+    if (xmlerrcxt->magic != ERRCXT_MAGIC)
+        elog(FATAL, "xml_errorHandler called with invalid PgXmlErrorContext");
+
+    // Handle libxml version compatibility issues
+    switch (error->code)
+    {
+        case XML_WAR_NS_URI:
+            level = XML_ERR_ERROR;
+            domain = XML_FROM_NAMESPACE;
+            break;
+        case XML_ERR_NS_DECL_ERROR:
+        case XML_WAR_NS_URI_RELATIVE:
+        case XML_WAR_NS_COLUMN:
+        case XML_NS_ERR_XML_NAMESPACE:
+        case XML_NS_ERR_UNDEFINED_NAMESPACE:
+        case XML_NS_ERR_QNAME:
+        case XML_NS_ERR_ATTRIBUTE_REDEFINED:
+        case XML_NS_ERR_EMPTY:
+            domain = XML_FROM_NAMESPACE;
+            break;
+    }
+
+    // Filter errors based on domain and strictness
+    switch (domain)
+    {
+        case XML_FROM_PARSER:
+            // Suppress redundant NOT_WELL_BALANCED errors
+            if (error->code == XML_ERR_NOT_WELL_BALANCED && xmlerrcxt->err_occurred)
+                return;
+            // fall through
+        case XML_FROM_NONE:
+        case XML_FROM_MEMORY:
+        case XML_FROM_IO:
+            // Suppress undeclared entity warnings
+            if (error->code == XML_WAR_UNDECLARED_ENTITY)
+                return;
+            break;
+        default:
+            // Ignore non-parser errors in well-formedness mode
+            if (xmlerrcxt->strictness == PG_XML_STRICTNESS_WELLFORMED)
+                return;
+            break;
+    }
+
+    // Build error message with context
+    errorBuf = makeStringInfo();
+
+    if (error->line > 0)
+        appendStringInfo(errorBuf, "line %d: ", error->line);
+    if (name != NULL)
+        appendStringInfo(errorBuf, "element %s: ", name);
+    if (error->message != NULL)
+        appendStringInfoString(errorBuf, error->message);
+    else
+        appendStringInfoString(errorBuf, "(no message provided)");
+
+    // Add file context using libxml's formatter
+    if (input != NULL)
+    {
+        xmlGenericErrorFunc errFuncSaved = xmlGenericError;
+        void *errCtxSaved = xmlGenericErrorContext;
+
+        xmlSetGenericErrorFunc((void *) errorBuf, (xmlGenericErrorFunc) appendStringInfo);
+        appendStringInfoLineSeparator(errorBuf);
+        xmlParserPrintFileContext(input);
+        xmlSetGenericErrorFunc(errCtxSaved, errFuncSaved);
+    }
+
+    chopStringInfoNewlines(errorBuf);
+
+    // Handle legacy mode
+    if (xmlerrcxt->strictness == PG_XML_STRICTNESS_LEGACY)
+    {
+        appendStringInfoLineSeparator(&xmlerrcxt->err_buf);
+        appendBinaryStringInfo(&xmlerrcxt->err_buf, errorBuf->data, errorBuf->len);
+        destroyStringInfo(errorBuf);
+        return;
+    }
+
+    // Report based on severity level
+    if (level >= XML_ERR_ERROR)
+    {
+        // Buffer errors for later reporting
+        appendStringInfoLineSeparator(&xmlerrcxt->err_buf);
+        appendBinaryStringInfo(&xmlerrcxt->err_buf, errorBuf->data, errorBuf->len);
+        xmlerrcxt->err_occurred = true;
+    }
+    else if (level >= XML_ERR_WARNING)
+    {
+        ereport(WARNING, (errmsg_internal("%s", errorBuf->data)));
+    }
+    else
+    {
+        ereport(NOTICE, (errmsg_internal("%s", errorBuf->data)));
+    }
+
+    destroyStringInfo(errorBuf);
+}
+```

@@ -39,3 +39,20 @@ This function is used for complex operations that require four parameters, such 
 - Represents the maximum arity in the OidFunctionCall*Coll family
 - Primarily used in query optimization and complex analytical operations
 - Part of a family including OidFunctionCall0Coll through OidFunctionCall3Coll for different argument counts
+
+## Simplified Source
+
+```c
+Datum
+OidFunctionCall4Coll(Oid functionId, Oid collation, Datum arg1, Datum arg2,
+                     Datum arg3, Datum arg4)
+{
+    FmgrInfo flinfo;
+
+    // Setup function manager info from function OID
+    fmgr_info(functionId, &flinfo);
+
+    // Call function with 4 arguments and collation
+    return FunctionCall4Coll(&flinfo, collation, arg1, arg2, arg3, arg4);
+}
+```

@@ -38,3 +38,12 @@ The function is defined as a static inline function in the header file, meaning 
 - The function is used throughout PostgreSQL's time processing, JSON operations, and statistical analysis
 - Located in src/include/utils/date.h, making it available to all components that include this header file
 - Works in conjunction with TimeADTGetDatum for bidirectional conversion between Datum and TimeADT types
+
+## Simplified Source
+
+```c
+static inline TimeADT DatumGetTimeADT(Datum X)
+{
+    return (TimeADT) DatumGetInt64(X);
+}
+```

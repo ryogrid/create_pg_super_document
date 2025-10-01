@@ -57,3 +57,64 @@ The function works by iterating through the provided key columns, finding the co
 - Handles presorted keys separately, displaying them under a "Presorted Key" label
 - Error handling includes checking that target entries exist for all specified key column numbers
 - The function is designed to be reusable across different types of plan nodes that use keys for sorting or grouping
+
+## Simplified Source
+
+```c
+static void
+show_sort_group_keys(PlanState *planstate, const char *qlabel,
+                     int nkeys, int nPresortedKeys, AttrNumber *keycols,
+                     Oid *sortOperators, Oid *collations, bool *nullsFirst,
+                     List *ancestors, ExplainState *es)
+{
+    Plan *plan = planstate->plan;
+    List *context;
+    List *result = NIL;
+    List *resultPresorted = NIL;
+    StringInfoData sortkeybuf;
+    bool useprefix;
+    int keyno;
+
+    // Return early if no keys to display
+    if (nkeys <= 0)
+        return;
+
+    initStringInfo(&sortkeybuf);
+
+    // Set up deparsing context and determine prefix usage
+    context = set_deparse_context_plan(es->deparse_cxt, plan, ancestors);
+    useprefix = (list_length(es->rtable) > 1 || es->verbose);
+
+    // Process each key
+    for (keyno = 0; keyno < nkeys; keyno++)
+    {
+        // Find the target entry for this key
+        AttrNumber keyresno = keycols[keyno];
+        TargetEntry *target = get_tle_by_resno(plan->targetlist, keyresno);
+        char *exprstr;
+
+        if (!target)
+            elog(ERROR, "no tlist entry for key %d", keyresno);
+
+        // Deparse the expression to readable text
+        exprstr = deparse_expression((Node *) target->expr, context, useprefix, true);
+        resetStringInfo(&sortkeybuf);
+        appendStringInfoString(&sortkeybuf, exprstr);
+
+        // Add sort order information if this is a sort key
+        if (sortOperators != NULL)
+            show_sortorder_options(&sortkeybuf, (Node *) target->expr,
+                                   sortOperators[keyno], collations[keyno], nullsFirst[keyno]);
+
+        // Add to result lists
+        result = lappend(result, pstrdup(sortkeybuf.data));
+        if (keyno < nPresortedKeys)
+            resultPresorted = lappend(resultPresorted, exprstr);
+    }
+
+    // Output the formatted key lists
+    ExplainPropertyList(qlabel, result, es);
+    if (nPresortedKeys > 0)
+        ExplainPropertyList("Presorted Key", resultPresorted, es);
+}
+```

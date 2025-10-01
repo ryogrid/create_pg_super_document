@@ -29,3 +29,52 @@ report_json_context creates detailed context information for JSON error reportin
 
 ## Notes and Other Information
 This function is essential for providing user-friendly JSON error messages by showing the exact location and context where parsing failed. The implementation carefully handles multibyte characters to avoid corrupting the display of non-ASCII text, and uses intelligent truncation to keep error messages readable while providing sufficient context. The function's static scope indicates it's an internal utility specifically designed to support the JSON error reporting infrastructure. The context formatting follows PostgreSQL's standard error message conventions, making JSON errors consistent with other database error types.
+
+## Simplified Source
+
+```c
+static int
+report_json_context(JsonLexContext *lex)
+{
+    const char *context_start;
+    const char *context_end;
+    const char *line_start;
+    char *ctxt;
+    int ctxtlen;
+    const char *prefix;
+    const char *suffix;
+
+    // Determine context boundaries around the error location
+    line_start = lex->line_start;
+    context_start = line_start;
+    context_end = lex->token_terminator;
+
+    // Limit context to 50 characters, respecting multibyte boundaries
+    while (context_end - context_start >= 50) {
+        if (IS_HIGHBIT_SET(*context_start))
+            context_start += pg_mblen(context_start);
+        else
+            context_start++;
+    }
+
+    // Show whole line if within 3 characters of start
+    if (context_start - line_start <= 3)
+        context_start = line_start;
+
+    // Extract context string
+    ctxtlen = context_end - context_start;
+    ctxt = palloc(ctxtlen + 1);
+    memcpy(ctxt, context_start, ctxtlen);
+    ctxt[ctxtlen] = '\0';
+
+    // Add ellipsis indicators if context is truncated
+    prefix = (context_start > line_start) ? "..." : "";
+    suffix = (lex->token_type != JSON_TOKEN_END &&
+              context_end - lex->input < lex->input_length &&
+              *context_end != '\n' && *context_end != '\r') ? "..." : "";
+
+    // Report the context line with line number
+    return errcontext("JSON data, line %d: %s%s%s",
+                      lex->line_number, prefix, ctxt, suffix);
+}
+```

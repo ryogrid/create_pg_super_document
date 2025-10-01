@@ -58,3 +58,55 @@ The function serves as the foundation for JSONB's binary format by properly enco
 - The function includes error handling for invalid scalar types
 - Critical for JSONB's efficient binary storage format where type information is encoded in JEntry headers
 - Static function used internally within the JSONB conversion system
+
+## Simplified Source
+
+```c
+static void
+convertJsonbScalar(StringInfo buffer, JEntry *header, JsonbValue *scalarVal)
+{
+    switch (scalarVal->type) {
+        case jbvNull:
+            // Null values: only set flag, no data stored
+            *header = JENTRY_ISNULL;
+            break;
+
+        case jbvString:
+            // String values: append data and store length
+            appendToBuffer(buffer, scalarVal->val.string.val, scalarVal->val.string.len);
+            *header = scalarVal->val.string.len;
+            break;
+
+        case jbvNumeric:
+            // Numeric values: align buffer and include padding in length
+            int numlen = VARSIZE_ANY(scalarVal->val.numeric);
+            short padlen = padBufferToInt(buffer);
+
+            appendToBuffer(buffer, (char *) scalarVal->val.numeric, numlen);
+            *header = JENTRY_ISNUMERIC | (padlen + numlen);
+            break;
+
+        case jbvBool:
+            // Boolean values: only set flag, no data stored
+            *header = (scalarVal->val.boolean) ?
+                JENTRY_ISBOOL_TRUE : JENTRY_ISBOOL_FALSE;
+            break;
+
+        case jbvDatetime:
+            // Datetime values: convert to string representation
+            char buf[MAXDATELEN + 1];
+            JsonEncodeDateTime(buf,
+                             scalarVal->val.datetime.value,
+                             scalarVal->val.datetime.typid,
+                             &scalarVal->val.datetime.tz);
+
+            size_t len = strlen(buf);
+            appendToBuffer(buffer, buf, len);
+            *header = len;
+            break;
+
+        default:
+            elog(ERROR, "invalid jsonb scalar type");
+    }
+}
+```

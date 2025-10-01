@@ -62,3 +62,67 @@ The function implements both combination logic (trying clauses together) and ind
 - Handles both EquivalenceClass-derived clauses and regular join clauses uniformly
 - The subset check (bms_subset_compare) is a quick redundancy filter; get_join_index_paths performs more thorough duplicate detection
 - Always tries each clause's relation set individually, even when combination limits are exceeded
+
+## Simplified Source
+
+```c
+static void
+consider_index_join_outer_rels(PlannerInfo *root, RelOptInfo *rel,
+                               IndexOptInfo *index,
+                               IndexClauseSet *rclauseset,
+                               IndexClauseSet *jclauseset,
+                               IndexClauseSet *eclauseset,
+                               List **bitindexpaths,
+                               List *indexjoinclauses,
+                               int considered_clauses,
+                               List **considered_relids)
+{
+    ListCell *lc;
+
+    // Process each join clause in the list
+    foreach(lc, indexjoinclauses)
+    {
+        IndexClause *iclause = (IndexClause *) lfirst(lc);
+        Relids clause_relids = iclause->rinfo->clause_relids;
+        EquivalenceClass *parent_ec = iclause->rinfo->parent_ec;
+        int num_considered_relids;
+
+        // Skip if we already tried this relids set
+        if (list_member(*considered_relids, clause_relids))
+            continue;
+
+        // Generate combinations with previously-tried sets
+        num_considered_relids = list_length(*considered_relids);
+        for (int pos = 0; pos < num_considered_relids; pos++)
+        {
+            Relids oldrelids = (Relids) list_nth(*considered_relids, pos);
+
+            // Skip if one is subset of the other (no new info)
+            if (bms_subset_compare(clause_relids, oldrelids) != BMS_DIFFERENT)
+                continue;
+
+            // Skip if equivalence class already used with oldrelids
+            if (parent_ec && eclass_already_used(parent_ec, oldrelids, indexjoinclauses))
+                continue;
+
+            // Apply heuristic limit to prevent exponential growth
+            if (list_length(*considered_relids) >= 10 * considered_clauses)
+                break;
+
+            // Try the union of current and old relids
+            get_join_index_paths(root, rel, index,
+                                rclauseset, jclauseset, eclauseset,
+                                bitindexpaths,
+                                bms_union(clause_relids, oldrelids),
+                                considered_relids);
+        }
+
+        // Also try this clause's relids by itself
+        get_join_index_paths(root, rel, index,
+                            rclauseset, jclauseset, eclauseset,
+                            bitindexpaths,
+                            clause_relids,
+                            considered_relids);
+    }
+}
+```

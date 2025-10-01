@@ -47,3 +47,28 @@ The function first handles memory management by freeing any existing buffer in t
 - The destination becomes completely independent of the source after copying
 - Used extensively in numeric operations that need to preserve intermediate results
 - Essential for operations that require temporary copies or backup values
+
+## Simplified Source
+
+```c
+static void set_var_from_var(const NumericVar *value, NumericVar *dest) {
+    // Allocate new buffer with extra digit for rounding
+    NumericDigit *newbuf = digitbuf_alloc(value->ndigits + 1);
+    newbuf[0] = 0;  // Initialize spare digit for rounding
+
+    // Copy source digits if any exist
+    if (value->ndigits > 0) {
+        memcpy(newbuf + 1, value->digits, value->ndigits * sizeof(NumericDigit));
+    }
+
+    // Free old destination buffer
+    digitbuf_free(dest->buf);
+
+    // Copy entire structure
+    memmove(dest, value, sizeof(NumericVar));
+
+    // Update destination pointers to new buffer
+    dest->buf = newbuf;
+    dest->digits = newbuf + 1;  // Point past spare digit
+}
+```

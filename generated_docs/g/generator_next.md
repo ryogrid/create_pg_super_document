@@ -32,3 +32,18 @@ This function iterates through the pre-generated combinations stored in a Combin
 - No bounds checking beyond the end-of-combinations check, relying on proper generator initialization
 - Located in src/backend/statistics/mvdistinct.c, used for multivariate distinct value statistics
 - Designed for simple iteration pattern: call repeatedly until NULL is returned
+
+## Simplified Source
+
+```c
+static int *
+generator_next(CombinationGenerator *state)
+{
+    // Check if we've exhausted all combinations
+    if (state->current == state->ncombinations)
+        return NULL;
+
+    // Return pointer to current combination and advance to next
+    return &state->combinations[state->k * state->current++];
+}
+```

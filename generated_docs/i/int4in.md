@@ -34,3 +34,15 @@ This function serves as the text input handler for PostgreSQL's int4 data type, 
 - Uses pg_strtoint32_safe for robust parsing with comprehensive error handling
 - Commonly used throughout PostgreSQL for converting text to integer values
 - Essential function for SQL parsing, data import, and user input processing
+
+## Simplified Source
+
+```c
+Datum
+int4in(PG_FUNCTION_ARGS)
+{
+    char *num = PG_GETARG_CSTRING(0);
+
+    PG_RETURN_INT32(pg_strtoint32_safe(num, fcinfo->context));
+}
+```

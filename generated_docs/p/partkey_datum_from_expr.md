@@ -44,3 +44,26 @@ The function ensures that non-constant expressions are only evaluated when a val
 - When planstate is valid, exprcontext must be the same as planstate->ps_ExprContext
 - [Const](../C/Const.md) expressions are handled efficiently without expression evaluation overhead
 - Located in src/backend/partitioning/partprune.c:3760-3792
+
+## Simplified Source
+
+```c
+static void
+partkey_datum_from_expr(PartitionPruneContext *context,
+                        Expr *expr, int stateidx,
+                        Datum *value, bool *isnull)
+{
+    if (IsA(expr, Const)) {
+        // Handle constant expressions directly
+        Const *con = (Const *) expr;
+        *value = con->constvalue;
+        *isnull = con->constisnull;
+    } else {
+        // Evaluate non-constant expressions using ExprContext
+        ExprState *exprstate = context->exprstates[stateidx];
+        ExprContext *ectx = context->exprcontext;
+
+        *value = ExecEvalExprSwitchContext(exprstate, ectx, isnull);
+    }
+}
+```

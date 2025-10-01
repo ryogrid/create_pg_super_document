@@ -36,3 +36,15 @@ The function promotes a timestamp (without timezone information) to a timestampt
 - Part of PostgreSQL's layered approach to timestamp conversion, offering both error-throwing and overflow-handling variants
 - Located in src/backend/utils/adt/timestamp.c:6356-6364
 - Commonly used in timestamp construction and SQL function implementations where overflow should be treated as an error
+
+## Simplified Source
+
+```c
+static TimestampTz
+timestamp2timestamptz(Timestamp timestamp)
+{
+    // Delegate to overflow-handling version with NULL overflow parameter
+    // This causes errors to be thrown rather than gracefully handled
+    return timestamp2timestamptz_opt_overflow(timestamp, NULL);
+}
+```

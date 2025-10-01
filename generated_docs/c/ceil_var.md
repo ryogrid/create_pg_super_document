@@ -43,3 +43,27 @@ The algorithm:
 - The function handles the sign correctly - negative numbers are truncated toward zero
 - Uses temporary variable management to avoid modifying the input parameter
 - Part of PostgreSQL's high-precision arithmetic system that avoids floating-point limitations
+
+## Simplified Source
+
+```c
+static void ceil_var(const NumericVar *var, NumericVar *result)
+{
+    NumericVar tmp;
+
+    // Initialize temporary variable and copy input
+    init_var(&tmp);
+    set_var_from_var(var, &tmp);
+
+    // Truncate to remove fractional part
+    trunc_var(&tmp, 0);
+
+    // If positive and had fractional part, add 1
+    if (var->sign == NUMERIC_POS && cmp_var(var, &tmp) != 0)
+        add_var(&tmp, &const_one, &tmp);
+
+    // Store result and cleanup
+    set_var_from_var(&tmp, result);
+    free_var(&tmp);
+}
+```

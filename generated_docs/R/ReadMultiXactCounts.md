@@ -38,3 +38,35 @@ The counts are calculated by taking the difference between the next and oldest v
 - Calculates counts as simple differences between next and oldest values
 - Critical for determining freeze thresholds and system resource usage
 - Function is located at src/backend/access/transam/multixact.c:2918-2969
+
+## Simplified Source
+
+```c
+static bool
+ReadMultiXactCounts(uint32 *multixacts, MultiXactOffset *members)
+{
+    MultiXactOffset nextOffset;
+    MultiXactOffset oldestOffset;
+    MultiXactId oldestMultiXactId;
+    MultiXactId nextMultiXactId;
+    bool oldestOffsetKnown;
+
+    // Read current state from shared memory under lock
+    LWLockAcquire(MultiXactGenLock, LW_SHARED);
+    nextOffset = MultiXactState->nextOffset;
+    oldestMultiXactId = MultiXactState->oldestMultiXactId;
+    nextMultiXactId = MultiXactState->nextMXact;
+    oldestOffset = MultiXactState->oldestOffset;
+    oldestOffsetKnown = MultiXactState->oldestOffsetKnown;
+    LWLockRelease(MultiXactGenLock);
+
+    // Can't calculate without known oldest offset
+    if (!oldestOffsetKnown)
+        return false;
+
+    // Calculate counts as differences between next and oldest values
+    *members = nextOffset - oldestOffset;
+    *multixacts = nextMultiXactId - oldestMultiXactId;
+    return true;
+}
+```

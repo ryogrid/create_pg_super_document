@@ -52,3 +52,78 @@ Additionally, the function maintains cached copies of several critical parameter
 - Memory allocation failure is handled gracefully - the function continues even if malloc fails
 - Parameter names and values are copied, not referenced, ensuring the connection owns the data
 - The function supports various PostgreSQL configuration parameters including encoding settings, version info, transaction settings, and authentication parameters
+
+## Simplified Source
+
+```c
+void
+pqSaveParameterStatus(PGconn *conn, const char *name, const char *value)
+{
+    pgParameterStatus *pstatus;
+    pgParameterStatus *prev;
+
+    // Remove any existing entry for this parameter
+    for (pstatus = conn->pstatus, prev = NULL; pstatus != NULL; prev = pstatus, pstatus = pstatus->next) {
+        if (strcmp(pstatus->name, name) == 0) {
+            if (prev)
+                prev->next = pstatus->next;
+            else
+                conn->pstatus = pstatus->next;
+            free(pstatus);
+            break;
+        }
+    }
+
+    // Allocate new entry (structure + name + value in single block)
+    pstatus = (pgParameterStatus *) malloc(sizeof(pgParameterStatus) + strlen(name) + strlen(value) + 2);
+    if (pstatus) {
+        char *ptr = ((char *) pstatus) + sizeof(pgParameterStatus);
+        pstatus->name = ptr;
+        strcpy(ptr, name);
+        ptr += strlen(name) + 1;
+        pstatus->value = ptr;
+        strcpy(ptr, value);
+        pstatus->next = conn->pstatus;
+        conn->pstatus = pstatus;
+    }
+
+    // Update cached copies of critical parameters
+    if (strcmp(name, "client_encoding") == 0) {
+        conn->client_encoding = pg_char_to_encoding(value);
+        if (conn->client_encoding < 0)
+            conn->client_encoding = PG_SQL_ASCII;
+        static_client_encoding = conn->client_encoding;
+    }
+    else if (strcmp(name, "standard_conforming_strings") == 0) {
+        conn->std_strings = (strcmp(value, "on") == 0);
+        static_std_strings = conn->std_strings;
+    }
+    else if (strcmp(name, "server_version") == 0) {
+        // Parse version string into numeric form
+        int vmaj, vmin, vrev;
+        int cnt = sscanf(value, "%d.%d.%d", &vmaj, &vmin, &vrev);
+
+        if (cnt == 3) {
+            conn->sversion = (100 * vmaj + vmin) * 100 + vrev;  // old format: 9.6.1
+        } else if (cnt == 2) {
+            if (vmaj >= 10)
+                conn->sversion = 100 * 100 * vmaj + vmin;  // new format: 10.1
+            else
+                conn->sversion = (100 * vmaj + vmin) * 100;  // old format: 9.6
+        } else if (cnt == 1) {
+            conn->sversion = 100 * 100 * vmaj;  // new format: 10
+        } else {
+            conn->sversion = 0;
+        }
+    }
+    else if (strcmp(name, "default_transaction_read_only") == 0) {
+        conn->default_transaction_read_only = (strcmp(value, "on") == 0) ? PG_BOOL_YES : PG_BOOL_NO;
+    }
+    else if (strcmp(name, "in_hot_standby") == 0) {
+        conn->in_hot_standby = (strcmp(value, "on") == 0) ? PG_BOOL_YES : PG_BOOL_NO;
+    }
+    else if (strcmp(name, "scram_iterations") == 0) {
+        conn->scram_sha_256_iterations = atoi(value);
+    }
+}
+```

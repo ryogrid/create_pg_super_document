@@ -41,3 +41,36 @@ The  function normalizes a NumericVar by removing unnecessary leading and traili
 - Does not allocate or free memory - only adjusts pointers and counts
 - Preserves the original digit buffer while potentially changing the active digit range
 - Part of the fundamental numeric value maintenance infrastructure in PostgreSQL
+
+## Simplified Source
+
+```c
+static void
+strip_var(NumericVar *var)
+{
+    NumericDigit *digits = var->digits;
+    int ndigits = var->ndigits;
+
+    // Remove leading zeros by advancing the digits pointer
+    while (ndigits > 0 && *digits == 0) {
+        digits++;
+        var->weight--;  // Adjust weight as we skip leading digits
+        ndigits--;
+    }
+
+    // Remove trailing zeros by reducing digit count
+    while (ndigits > 0 && digits[ndigits - 1] == 0) {
+        ndigits--;
+    }
+
+    // Special case: if all digits were zeros, normalize to canonical zero
+    if (ndigits == 0) {
+        var->sign = NUMERIC_POS;
+        var->weight = 0;
+    }
+
+    // Update the NumericVar with cleaned values
+    var->digits = digits;
+    var->ndigits = ndigits;
+}
+```

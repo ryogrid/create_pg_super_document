@@ -35,3 +35,39 @@ The transformRangeSubselect function handles the transformation of subqueries th
 - Lock checking is performed using isLockedRefname, considering whether the subquery has an explicit alias
 - The function validates that the parsed subquery is indeed a SELECT command, as other command types should be impossible in FROM clause context
 - State restoration (p_lateral_active = false, p_expr_kind = EXPR_KIND_NONE) ensures clean parsing context for subsequent operations
+
+## Simplified Source
+
+```c
+static ParseNamespaceItem *transformRangeSubselect(ParseState *pstate, RangeSubselect *r)
+{
+    Query *query;
+
+    // Set expression kind to indicate subselect parsing
+    Assert(pstate->p_expr_kind == EXPR_KIND_NONE);
+    pstate->p_expr_kind = EXPR_KIND_FROM_SUBSELECT;
+
+    // Enable lateral references if LATERAL is specified
+    Assert(!pstate->p_lateral_active);
+    pstate->p_lateral_active = r->lateral;
+
+    // Parse the subquery with proper locking context
+    query = parse_sub_analyze(r->subquery, pstate, NULL,
+                             isLockedRefname(pstate,
+                                           r->alias == NULL ? NULL :
+                                           r->alias->aliasname),
+                             true);
+
+    // Restore parsing state
+    pstate->p_lateral_active = false;
+    pstate->p_expr_kind = EXPR_KIND_NONE;
+
+    // Validate that we got a SELECT command
+    if (!IsA(query, Query) || query->commandType != CMD_SELECT)
+        elog(ERROR, "unexpected non-SELECT command in subquery in FROM");
+
+    // Create range table entry for the subquery
+    return addRangeTableEntryForSubquery(pstate, query, r->alias,
+                                        r->lateral, true);
+}
+```

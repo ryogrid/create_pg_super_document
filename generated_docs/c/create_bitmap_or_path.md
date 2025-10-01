@@ -41,3 +41,42 @@ The function automatically computes the required outer relations by taking the u
 - Used when multiple indexes with different conditions can be combined to capture more matching tuples
 - The selectivity of the OR operation follows the inclusion-exclusion principle: sel(A OR B) = sel(A) + sel(B) - sel(A AND B)
 - Particularly useful for queries with multiple OR conditions that can each be satisfied by different indexes
+
+## Simplified Source
+
+```c
+BitmapOrPath *
+create_bitmap_or_path(PlannerInfo *root,
+                      RelOptInfo *rel,
+                      List *bitmapquals)
+{
+    BitmapOrPath *pathnode = makeNode(BitmapOrPath);
+    Relids required_outer = NULL;
+    ListCell *lc;
+
+    pathnode->path.pathtype = T_BitmapOr;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = rel->reltarget;
+
+    // Compute required outer rels as union of child path dependencies
+    foreach(lc, bitmapquals)
+    {
+        Path *bitmapqual = (Path *) lfirst(lc);
+        required_outer = bms_add_members(required_outer, PATH_REQ_OUTER(bitmapqual));
+    }
+    pathnode->path.param_info = get_baserel_parampathinfo(root, rel, required_outer);
+
+    // Set parallel characteristics based on relation
+    pathnode->path.parallel_aware = false;
+    pathnode->path.parallel_safe = rel->consider_parallel;
+    pathnode->path.parallel_workers = 0;
+
+    pathnode->path.pathkeys = NIL; // always unordered
+    pathnode->bitmapquals = bitmapquals;
+
+    // Calculate costs and selectivity
+    cost_bitmap_or_node(pathnode, root);
+
+    return pathnode;
+}
+```

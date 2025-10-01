@@ -46,3 +46,18 @@ This static function converts selected bits from a tuple's infomask and infomask
 - Used in WAL records: xl_heap_delete, xl_heap_update, xl_heap_lock, xl_heap_lock_updated
 - Returns a uint8 containing the essential transaction state bits needed for WAL replay
 - The bit mapping ensures that WAL records contain sufficient information to restore proper tuple visibility and locking state during recovery
+
+## Simplified Source
+
+```c
+static uint8 compute_infobits(uint16 infomask, uint16 infomask2) {
+    // Extract essential bits for WAL records
+    return
+        ((infomask & HEAP_XMAX_IS_MULTI) != 0 ? XLHL_XMAX_IS_MULTI : 0) |
+        ((infomask & HEAP_XMAX_LOCK_ONLY) != 0 ? XLHL_XMAX_LOCK_ONLY : 0) |
+        ((infomask & HEAP_XMAX_EXCL_LOCK) != 0 ? XLHL_XMAX_EXCL_LOCK : 0) |
+        ((infomask & HEAP_XMAX_KEYSHR_LOCK) != 0 ? XLHL_XMAX_KEYSHR_LOCK : 0) |
+        ((infomask2 & HEAP_KEYS_UPDATED) != 0 ? XLHL_KEYS_UPDATED : 0);
+        // Note: HEAP_XMAX_SHR_LOCK is intentionally ignored
+}
+```

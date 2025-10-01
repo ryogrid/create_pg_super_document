@@ -48,3 +48,56 @@ The function performs several validation checks: it only accepts ANY clauses (no
 - Creates non-lossy IndexClause when successful since array operations have exact semantics  
 - Currently does not invoke planner support functions for ScalarArrayOpExpr, though this could be extended
 - Essential for optimizing IN clauses and ANY operations against indexed columns
+
+## Simplified Source
+
+```c
+static IndexClause *
+match_saopclause_to_indexcol(PlannerInfo *root,
+                             RestrictInfo *rinfo,
+                             int indexcol,
+                             IndexOptInfo *index)
+{
+    ScalarArrayOpExpr *saop = (ScalarArrayOpExpr *) rinfo->clause;
+    Node *leftop, *rightop;
+    Relids right_relids;
+    Oid expr_op, expr_coll;
+    Index index_relid = index->rel->relid;
+    Oid opfamily = index->opfamily[indexcol];
+    Oid idxcollation = index->indexcollations[indexcol];
+
+    // Only accept ANY clauses, not ALL clauses
+    if (!saop->useOr)
+        return NULL;
+
+    leftop = (Node *) linitial(saop->args);
+    rightop = (Node *) lsecond(saop->args);
+    right_relids = pull_varnos(root, rightop);
+    expr_op = saop->opno;
+    expr_coll = saop->inputcollid;
+
+    // Must have: indexkey = ANY(constant_array)
+    if (match_index_to_operand(leftop, indexcol, index) &&
+        !bms_is_member(index_relid, right_relids) &&
+        !contain_volatile_functions(rightop))
+    {
+        // Check operator compatibility
+        if (IndexCollMatchesExprColl(idxcollation, expr_coll) &&
+            op_in_opfamily(expr_op, opfamily))
+        {
+            IndexClause *iclause = makeNode(IndexClause);
+
+            iclause->rinfo = rinfo;
+            iclause->indexquals = list_make1(rinfo);
+            iclause->lossy = false;
+            iclause->indexcol = indexcol;
+            iclause->indexcols = NIL;
+            return iclause;
+        }
+
+        // Note: Currently no support function fallback for ScalarArrayOpExpr
+    }
+
+    return NULL;
+}
+```

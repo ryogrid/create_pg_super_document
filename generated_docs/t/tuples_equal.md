@@ -55,3 +55,57 @@ The function is optimized for replication workloads where the same tuple structu
 - Returns false immediately upon finding any non-equal attribute
 - Handles NULL values according to SQL semantics (NULL = NULL is true)
 - Will error if no equality operator exists for a given data type
+
+## Simplified Source
+
+```c
+static bool
+tuples_equal(TupleTableSlot *slot1, TupleTableSlot *slot2, TypeCacheEntry **eq)
+{
+    int attrnum;
+
+    Assert(slot1->tts_tupleDescriptor->natts == slot2->tts_tupleDescriptor->natts);
+
+    // Extract all attributes from both slots
+    slot_getallattrs(slot1);
+    slot_getallattrs(slot2);
+
+    // Compare each attribute
+    for (attrnum = 0; attrnum < slot1->tts_tupleDescriptor->natts; attrnum++) {
+        Form_pg_attribute att;
+        TypeCacheEntry *typentry;
+
+        att = TupleDescAttr(slot1->tts_tupleDescriptor, attrnum);
+
+        // Skip dropped and generated columns (not sent by publisher)
+        if (att->attisdropped || att->attgenerated)
+            continue;
+
+        // Handle NULL values: both NULL = equal, one NULL ≠ non-NULL
+        if (slot1->tts_isnull[attrnum] != slot2->tts_isnull[attrnum])
+            return false;
+        if (slot1->tts_isnull[attrnum] || slot2->tts_isnull[attrnum])
+            continue;
+
+        // Get or lookup equality operator for this type
+        typentry = eq[attrnum];
+        if (typentry == NULL) {
+            typentry = lookup_type_cache(att->atttypid, TYPECACHE_EQ_OPR_FINFO);
+            if (!OidIsValid(typentry->eq_opr_finfo.fn_oid))
+                ereport(ERROR, (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                               errmsg("could not identify an equality operator for type %s",
+                                      format_type_be(att->atttypid))));
+            eq[attrnum] = typentry;
+        }
+
+        // Compare values using cached equality operator
+        if (!DatumGetBool(FunctionCall2Coll(&typentry->eq_opr_finfo,
+                                          att->attcollation,
+                                          slot1->tts_values[attrnum],
+                                          slot2->tts_values[attrnum])))
+            return false;
+    }
+
+    return true;
+}
+```

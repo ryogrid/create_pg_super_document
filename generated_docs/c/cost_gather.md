@@ -38,3 +38,36 @@ The function sets the row estimate for the path based on the provided parameters
 
 ## Notes and Other Information
 The function adds two main components to the base subpath cost: parallel_setup_cost for the overhead of coordinating parallel workers, and parallel_tuple_cost multiplied by the number of rows for the per-tuple communication overhead. These costs reflect the real-world overhead of parallel query execution in PostgreSQL.
+
+## Simplified Source
+
+```c
+void
+cost_gather(GatherPath *path, PlannerInfo *root,
+            RelOptInfo *rel, ParamPathInfo *param_info,
+            double *rows)
+{
+    Cost startup_cost = 0;
+    Cost run_cost = 0;
+
+    // Determine row estimate with precedence: explicit rows > param_info > rel
+    if (rows)
+        path->path.rows = *rows;
+    else if (param_info)
+        path->path.rows = param_info->ppi_rows;
+    else
+        path->path.rows = rel->rows;
+
+    // Base costs from the underlying subpath
+    startup_cost = path->subpath->startup_cost;
+    run_cost = path->subpath->total_cost - path->subpath->startup_cost;
+
+    // Add parallel execution overhead
+    startup_cost += parallel_setup_cost;  // Worker coordination overhead
+    run_cost += parallel_tuple_cost * path->path.rows;  // Per-tuple communication cost
+
+    // Set final costs
+    path->path.startup_cost = startup_cost;
+    path->path.total_cost = startup_cost + run_cost;
+}
+```

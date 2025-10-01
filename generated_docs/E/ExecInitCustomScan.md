@@ -40,3 +40,61 @@ ExecInitCustomScan is the initialization function for custom scan nodes in Postg
 - Supports both relation-based scans (scanrelid > 0) and custom tuple sources (custom_scan_tlist)
 - Uses custom slot operations if provided by the scan provider, otherwise defaults to virtual slots
 - The provider's BeginCustomScan callback is responsible for final initialization specific to the custom scan implementation
+
+## Simplified Source
+
+```c
+CustomScanState *
+ExecInitCustomScan(CustomScan *cscan, EState *estate, int eflags)
+{
+    // Let the custom scan provider allocate the state object
+    CustomScanState *css = castNode(CustomScanState,
+                                   cscan->methods->CreateCustomScanState(cscan));
+
+    // Set up basic scan state fields
+    css->flags = cscan->flags;
+    css->ss.ps.plan = &cscan->scan.plan;
+    css->ss.ps.state = estate;
+    css->ss.ps.ExecProcNode = ExecCustomScan;
+
+    // Create expression context
+    ExecAssignExprContext(estate, &css->ss.ps);
+
+    // Open scan relation if needed
+    if (cscan->scan.scanrelid > 0)
+    {
+        Relation scan_rel = ExecOpenScanRelation(estate, cscan->scan.scanrelid, eflags);
+        css->ss.ss_currentRelation = scan_rel;
+    }
+
+    // Determine slot operations (custom or virtual)
+    const TupleTableSlotOps *slotOps = css->slotOps ? css->slotOps : &TTSOpsVirtual;
+
+    // Set up scan tuple slot based on custom targetlist or relation descriptor
+    int tlistvarno;
+    if (cscan->custom_scan_tlist != NIL || css->ss.ss_currentRelation == NULL)
+    {
+        TupleDesc scan_tupdesc = ExecTypeFromTL(cscan->custom_scan_tlist);
+        ExecInitScanTupleSlot(estate, &css->ss, scan_tupdesc, slotOps);
+        tlistvarno = INDEX_VAR;
+    }
+    else
+    {
+        ExecInitScanTupleSlot(estate, &css->ss,
+                             RelationGetDescr(css->ss.ss_currentRelation), slotOps);
+        tlistvarno = cscan->scan.scanrelid;
+    }
+
+    // Initialize result slot and projection
+    ExecInitResultTupleSlotTL(&css->ss.ps, &TTSOpsVirtual);
+    ExecAssignScanProjectionInfoWithVarno(&css->ss, tlistvarno);
+
+    // Initialize qualification expressions
+    css->ss.ps.qual = ExecInitQual(cscan->scan.plan.qual, (PlanState *) css);
+
+    // Let the custom scan provider finish initialization
+    css->methods->BeginCustomScan(css, estate, eflags);
+
+    return css;
+}
+```

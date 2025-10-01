@@ -44,3 +44,24 @@ This mechanism ensures grammatical correctness when reconstructing SQL from inte
 - Part of PostgreSQL's sophisticated rule deparsing system
 - Handles edge cases where expression types don't naturally fit expected grammatical contexts
 - Ensures reparseable output that maintains semantic equivalence with original queries
+
+## Simplified Source
+
+```c
+static void get_rule_expr_funccall(Node *node, deparse_context *context,
+                                  bool showimplicit) {
+    if (looks_like_function(node)) {
+        // Expression already looks function-like, use standard deparsing
+        get_rule_expr(node, context, showimplicit);
+    } else {
+        // Wrap non-function expressions in CAST() to satisfy grammar
+        StringInfo buf = context->buf;
+
+        appendStringInfoString(buf, "CAST(");
+        get_rule_expr(node, context, false);  // Don't show implicit casts
+        appendStringInfo(buf, " AS %s)",
+                        format_type_with_typemod(exprType(node),
+                                               exprTypmod(node)));
+    }
+}
+```

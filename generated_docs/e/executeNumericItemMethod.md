@@ -44,3 +44,41 @@ The `executeNumericItemMethod` function provides a generic implementation for nu
 - Creates new JsonbValue with result and continues path execution if more items exist
 - Part of PostgreSQL's JSON path expression evaluation system for numeric operations
 - Generic implementation allows reuse for multiple numeric methods (.abs, .floor, .ceil)
+
+## Simplified Source
+
+```c
+static JsonPathExecResult
+executeNumericItemMethod(JsonPathExecContext *cxt, JsonPathItem *jsp,
+                         JsonbValue *jb, bool unwrap, PGFunction func,
+                         JsonValueList *found)
+{
+    JsonPathItem next;
+    Datum datum;
+
+    // Handle array unwrapping if requested
+    if (unwrap && JsonbType(jb) == jbvArray)
+        return executeItemUnwrapTargetArray(cxt, jsp, jb, found, false);
+
+    // Validate input is numeric
+    if (!(jb = getScalar(jb, jbvNumeric)))
+        RETURN_ERROR(ereport(ERROR,
+                    (errcode(ERRCODE_NON_NUMERIC_SQL_JSON_ITEM),
+                     errmsg("jsonpath item method .%s() can only be applied to a numeric value",
+                            jspOperationName(jsp->type)))));
+
+    // Apply the numeric function
+    datum = DirectFunctionCall1(func, NumericGetDatum(jb->val.numeric));
+
+    // If no next item and not collecting results, we're done
+    if (!jspGetNext(jsp, &next) && !found)
+        return jperOk;
+
+    // Create result value and continue execution
+    jb = palloc(sizeof(*jb));
+    jb->type = jbvNumeric;
+    jb->val.numeric = DatumGetNumeric(datum);
+
+    return executeNextItem(cxt, jsp, &next, jb, found, false);
+}
+```

@@ -46,3 +46,21 @@ The function performs an assertion check to ensure the JsonPathItem type is one 
 - Returns a direct pointer to internal data - callers should not modify or free this memory
 - The returned string may not be null-terminated depending on the JsonPathItem's internal representation
 - Used extensively throughout the JSON path processing system for accessing string content from path items
+
+## Simplified Source
+
+```c
+char *jspGetString(JsonPathItem *v, int32 *len) {
+    // Validate that this item contains string data
+    Assert(v->type == jpiKey ||
+           v->type == jpiString ||
+           v->type == jpiVariable);
+
+    // Set the length if caller requested it
+    if (len)
+        *len = v->content.value.datalen;
+
+    // Return pointer to the string data
+    return v->content.value.data;
+}
+```

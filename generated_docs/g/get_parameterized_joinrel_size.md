@@ -41,3 +41,23 @@ As a safety measure, the result is clamped to not exceed the base relation's row
 - Handles the complexity of parameterized joins where cardinality depends on outer parameter values
 - Like other join size estimation functions, results may vary slightly depending on the input path pair provided
 - Critical for accurate costing of nested loop joins with parameterized inner paths
+
+## Simplified Source
+
+```c
+double get_parameterized_joinrel_size(PlannerInfo *root, RelOptInfo *rel,
+                                      Path *outer_path, Path *inner_path,
+                                      SpecialJoinInfo *sjinfo, List *restrict_clauses) {
+    // Calculate estimated rows using path sizes and clause selectivity
+    double nrows = calc_joinrel_size_estimate(root, rel,
+                                              outer_path->parent, inner_path->parent,
+                                              outer_path->rows, inner_path->rows,
+                                              sjinfo, restrict_clauses);
+
+    // Safety clamp: don't exceed base relation estimate
+    if (nrows > rel->rows)
+        nrows = rel->rows;
+
+    return nrows;
+}
+```

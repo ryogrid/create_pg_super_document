@@ -33,3 +33,22 @@ This function is a subroutine for ATExecAlterColumnType that manages extended st
 - Similar in structure and purpose to RememberIndexForRebuilding but specifically handles extended statistics objects
 - Part of PostgreSQL's extended statistics infrastructure that supports multivariate statistics like n-distinct, dependencies, and MCV lists
 - Critical for maintaining statistics during ALTER TABLE operations that change column types
+
+## Simplified Source
+
+```c
+static void
+RememberStatisticsForRebuilding(Oid stxoid, AlteredTableInfo *tab)
+{
+    // Prevent duplicate entries - critical for multiple column dependencies
+    if (!list_member_oid(tab->changedStatisticsOids, stxoid))
+    {
+        // Capture statistics definition before any changes
+        char *defstring = pg_get_statisticsobjdef_string(stxoid);
+
+        // Add to tracking lists
+        tab->changedStatisticsOids = lappend_oid(tab->changedStatisticsOids, stxoid);
+        tab->changedStatisticsDefs = lappend(tab->changedStatisticsDefs, defstring);
+    }
+}
+```

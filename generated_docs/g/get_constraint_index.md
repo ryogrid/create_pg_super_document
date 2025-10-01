@@ -43,3 +43,31 @@ The function performs a system catalog lookup using the constraint OID and retur
 - Foreign-key constraints and other constraint types return InvalidOid
 - The function uses the system cache (CONSTROID) for efficient constraint lookup
 - Part of the lsyscache utility functions for PostgreSQL system catalog access
+
+## Simplified Source
+
+```c
+Oid get_constraint_index(Oid conoid) {
+    // Look up constraint in system cache
+    HeapTuple tp = SearchSysCache1(CONSTROID, ObjectIdGetDatum(conoid));
+
+    if (HeapTupleIsValid(tp)) {
+        Form_pg_constraint constraint = (Form_pg_constraint) GETSTRUCT(tp);
+        Oid result;
+
+        // Return index OID only for constraints that own their indexes
+        if (constraint->contype == CONSTRAINT_UNIQUE ||
+            constraint->contype == CONSTRAINT_PRIMARY ||
+            constraint->contype == CONSTRAINT_EXCLUSION) {
+            result = constraint->conindid;
+        } else {
+            result = InvalidOid;
+        }
+
+        ReleaseSysCache(tp);
+        return result;
+    }
+
+    return InvalidOid;
+}
+```

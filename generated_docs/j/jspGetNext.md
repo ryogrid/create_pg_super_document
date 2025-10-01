@@ -38,3 +38,40 @@ The jspGetNext function is a core navigation utility in PostgreSQL's JSON path i
 - The function is designed to work with PostgreSQL's internal JSON path buffer format
 - Part of the JSON path execution engine used for JSON querying and manipulation
 - The 'a' parameter can be NULL if the caller only wants to check for the existence of a next item without retrieving it
+
+## Simplified Source
+
+```c
+bool jspGetNext(JsonPathItem *v, JsonPathItem *a) {
+    // Check if there is a next item in the sequence
+    if (jspHasNext(v)) {
+        // Validate that the current item type supports having a next item
+        Assert(v->type == jpiNull || v->type == jpiString || v->type == jpiNumeric ||
+               v->type == jpiBool || v->type == jpiAnd || v->type == jpiOr ||
+               v->type == jpiNot || v->type == jpiIsUnknown || v->type == jpiEqual ||
+               v->type == jpiNotEqual || v->type == jpiLess || v->type == jpiGreater ||
+               v->type == jpiLessOrEqual || v->type == jpiGreaterOrEqual ||
+               v->type == jpiAdd || v->type == jpiSub || v->type == jpiMul ||
+               v->type == jpiDiv || v->type == jpiMod || v->type == jpiPlus ||
+               v->type == jpiMinus || v->type == jpiAnyArray || v->type == jpiAnyKey ||
+               v->type == jpiIndexArray || v->type == jpiAny || v->type == jpiKey ||
+               v->type == jpiCurrent || v->type == jpiRoot || v->type == jpiVariable ||
+               v->type == jpiFilter || v->type == jpiExists || v->type == jpiType ||
+               v->type == jpiSize || v->type == jpiAbs || v->type == jpiFloor ||
+               v->type == jpiCeiling || v->type == jpiDouble || v->type == jpiDatetime ||
+               v->type == jpiKeyValue || v->type == jpiLast || v->type == jpiStartsWith ||
+               v->type == jpiLikeRegex || v->type == jpiBigint || v->type == jpiBoolean ||
+               v->type == jpiDate || v->type == jpiDecimal || v->type == jpiInteger ||
+               v->type == jpiNumber || v->type == jpiStringFunc || v->type == jpiTime ||
+               v->type == jpiTimeTz || v->type == jpiTimestamp || v->type == jpiTimestampTz);
+
+        // Initialize the next item if caller provided a destination
+        if (a)
+            jspInitByBuffer(a, v->base, v->nextPos);
+
+        return true;
+    }
+
+    return false;  // No next item available
+}
+```

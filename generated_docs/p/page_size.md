@@ -33,3 +33,12 @@ This function calculates how many database pages are needed to store a specified
 - Critical for memory and I/O cost estimation in query planning
 - Works in conjunction with relation_byte_size to provide page-level storage estimates
 - Used primarily in hash join costing where page-level estimates are important for memory allocation decisions
+
+## Simplified Source
+
+```c
+static double page_size(double tuples, int width) {
+    // Calculate total bytes needed for all tuples, then convert to pages
+    return ceil(relation_byte_size(tuples, width) / BLCKSZ);
+}
+```

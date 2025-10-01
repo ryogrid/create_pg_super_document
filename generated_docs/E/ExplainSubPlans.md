@@ -39,3 +39,36 @@ The function is designed to handle cases where the same physical subplan might b
 - Temporarily adds each SubPlan node to the ancestors list while explaining it, allowing ruleutils.c to find referents of subplan parameters
 - The deduplication logic is crucial for preventing redundant output in complex plans with shared subplans
 - File location: src/backend/commands/explain.c:4416-4458
+
+## Simplified Source
+
+```c
+static void
+ExplainSubPlans(List *plans, List *ancestors,
+                const char *relationship, ExplainState *es)
+{
+    ListCell *lst;
+
+    foreach(lst, plans)
+    {
+        SubPlanState *sps = (SubPlanState *) lfirst(lst);
+        SubPlan *sp = sps->subplan;
+
+        // Skip subplans that were already printed to avoid duplicates
+        if (bms_is_member(sp->plan_id, es->printed_subplans))
+            continue;
+
+        // Mark this subplan as printed
+        es->printed_subplans = bms_add_member(es->printed_subplans, sp->plan_id);
+
+        // Add SubPlan to ancestors for parameter reference resolution
+        ancestors = lcons(sp, ancestors);
+
+        // Explain the subplan node
+        ExplainNode(sps->planstate, ancestors, relationship, sp->plan_name, es);
+
+        // Remove SubPlan from ancestors
+        ancestors = list_delete_first(ancestors);
+    }
+}
+```

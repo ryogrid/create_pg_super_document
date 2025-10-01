@@ -55,4 +55,120 @@ The implementation considers all indexes returned by , including those not yet r
 - Handles concurrent index operations by detecting changes and restarting computation
 - Differentiates between key and non-key columns in covering indexes
 - Summarizing indexes don't block HOT updates but still need to be updated when column values change
-- The returned bitmap is allocated in the caller's memory context and should be freed with 
+- The returned bitmap is allocated in the caller's memory context and should be freed with bms_free
+
+## Simplified Source
+
+```c
+Bitmapset *
+RelationGetIndexAttrBitmap(Relation relation, IndexAttrBitmapKind attrKind)
+{
+    Bitmapset *uindexattrs = NULL;     /* unique index columns */
+    Bitmapset *pkindexattrs = NULL;    /* primary key columns */
+    Bitmapset *idindexattrs = NULL;    /* replica identity columns */
+    Bitmapset *hotblockingattrs = NULL; /* HOT blocking columns */
+    Bitmapset *summarizedattrs = NULL;  /* summarized index columns */
+    List *indexoidlist;
+    Oid relpkindex, relreplindex;
+
+    // Return cached result if available
+    if (relation->rd_attrsvalid) {
+        switch (attrKind) {
+            case INDEX_ATTR_BITMAP_KEY:
+                return bms_copy(relation->rd_keyattr);
+            case INDEX_ATTR_BITMAP_PRIMARY_KEY:
+                return bms_copy(relation->rd_pkattr);
+            case INDEX_ATTR_BITMAP_IDENTITY_KEY:
+                return bms_copy(relation->rd_idattr);
+            case INDEX_ATTR_BITMAP_HOT_BLOCKING:
+                return bms_copy(relation->rd_hotblockingattr);
+            case INDEX_ATTR_BITMAP_SUMMARIZED:
+                return bms_copy(relation->rd_summarizedattr);
+        }
+    }
+
+    // Fast path if no indexes
+    if (!RelationGetForm(relation)->relhasindex)
+        return NULL;
+
+restart:
+    // Get list of index OIDs
+    indexoidlist = RelationGetIndexList(relation);
+    if (indexoidlist == NIL)
+        return NULL;
+
+    // Cache key index OIDs before processing
+    relpkindex = relation->rd_pkindex;
+    relreplindex = relation->rd_replidindex;
+
+    // Process each index
+    foreach(ListCell *l, indexoidlist) {
+        Oid indexOid = lfirst_oid(l);
+        Relation indexDesc = index_open(indexOid, AccessShareLock);
+
+        // Determine index characteristics
+        bool isKey = indexDesc->rd_index->indisunique &&
+                     /* no expressions */ && /* no predicate */;
+        bool isPK = (indexOid == relpkindex);
+        bool isIDKey = (indexOid == relreplindex);
+
+        // Choose target bitmap based on index type
+        Bitmapset **attrs = indexDesc->rd_indam->amsummarizing ?
+                           &summarizedattrs : &hotblockingattrs;
+
+        // Collect attribute numbers from index
+        for (int i = 0; i < indexDesc->rd_index->indnatts; i++) {
+            int attrnum = indexDesc->rd_index->indkey.values[i];
+            if (attrnum != 0) {
+                // Add to appropriate bitmaps
+                *attrs = bms_add_member(*attrs,
+                    attrnum - FirstLowInvalidHeapAttributeNumber);
+
+                if (isKey && i < indexDesc->rd_index->indnkeyatts)
+                    uindexattrs = bms_add_member(uindexattrs,
+                        attrnum - FirstLowInvalidHeapAttributeNumber);
+                if (isPK && i < indexDesc->rd_index->indnkeyatts)
+                    pkindexattrs = bms_add_member(pkindexattrs,
+                        attrnum - FirstLowInvalidHeapAttributeNumber);
+                if (isIDKey && i < indexDesc->rd_index->indnkeyatts)
+                    idindexattrs = bms_add_member(idindexattrs,
+                        attrnum - FirstLowInvalidHeapAttributeNumber);
+            }
+        }
+
+        // Collect attributes from expressions and predicates
+        pull_varattnos(indexExpressions, 1, attrs);
+        pull_varattnos(indexPredicate, 1, attrs);
+
+        index_close(indexDesc, AccessShareLock);
+    }
+
+    // Check for concurrent changes and restart if needed
+    if (index_list_changed()) {
+        // Cleanup and restart
+        goto restart;
+    }
+
+    // Cache results in relation
+    relation->rd_keyattr = bms_copy(uindexattrs);
+    relation->rd_pkattr = bms_copy(pkindexattrs);
+    relation->rd_idattr = bms_copy(idindexattrs);
+    relation->rd_hotblockingattr = bms_copy(hotblockingattrs);
+    relation->rd_summarizedattr = bms_copy(summarizedattrs);
+    relation->rd_attrsvalid = true;
+
+    // Return requested bitmap type
+    switch (attrKind) {
+        case INDEX_ATTR_BITMAP_KEY:
+            return uindexattrs;
+        case INDEX_ATTR_BITMAP_PRIMARY_KEY:
+            return pkindexattrs;
+        case INDEX_ATTR_BITMAP_IDENTITY_KEY:
+            return idindexattrs;
+        case INDEX_ATTR_BITMAP_HOT_BLOCKING:
+            return hotblockingattrs;
+        case INDEX_ATTR_BITMAP_SUMMARIZED:
+            return summarizedattrs;
+    }
+}
+``` 

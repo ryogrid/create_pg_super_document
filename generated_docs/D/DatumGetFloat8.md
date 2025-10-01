@@ -50,3 +50,25 @@ This conditional compilation abstracts away the platform-specific details of flo
 - Essential for extracting float8 values from function arguments and stored data across different architectures
 - Part of PostgreSQL's type conversion system that ensures consistent handling of 64-bit floating point values
 - Located in src/include/postgres.h:494-518
+
+## Simplified Source
+
+```c
+static inline float8
+DatumGetFloat8(Datum X)
+{
+#ifdef USE_FLOAT8_BYVAL
+    // On 64-bit platforms: reinterpret int64 as float8
+    union {
+        int64   value;
+        float8  retval;
+    } myunion;
+
+    myunion.value = DatumGetInt64(X);
+    return myunion.retval;
+#else
+    // On 32-bit platforms: dereference pointer to float8
+    return *((float8 *) DatumGetPointer(X));
+#endif
+}
+```

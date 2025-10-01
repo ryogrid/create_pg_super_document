@@ -35,3 +35,20 @@ The security model works by assigning security levels to different types of clau
 - Leakproof functions are those certified to not reveal information about their inputs when they return false or raise an error
 - This mechanism is essential for row-level security (RLS) implementations where policy clauses must be evaluated before user clauses to prevent information disclosure attacks
 - The security level comparison ensures that security policies are applied before potentially information-leaking user-defined conditions
+
+## Simplified Source
+
+```c
+bool
+restriction_is_securely_promotable(RestrictInfo *restrictinfo, RelOptInfo *rel)
+{
+    // Allow promotion if either:
+    // 1. Security level is low enough (at or below minimum required), OR
+    // 2. Function is marked as leakproof (certified safe)
+    if (restrictinfo->security_level <= rel->baserestrict_min_security ||
+        restrictinfo->leakproof)
+        return true;
+    else
+        return false;
+}
+```

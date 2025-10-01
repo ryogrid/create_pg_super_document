@@ -42,3 +42,36 @@ The function handles both regular arrays/objects and scalar containers, with spe
 - Establishes parent-child iterator relationships for proper memory management
 - Sets initial state to JBI_ARRAY_START or JBI_OBJECT_START based on container type
 - Critical for creating child iterators during recursive descent in JsonbIteratorNext
+
+## Simplified Source
+
+```c
+static JsonbIterator *
+iteratorFromContainer(JsonbContainer *container, JsonbIterator *parent)
+{
+    JsonbIterator *it;
+
+    // Allocate and initialize iterator
+    it = palloc0(sizeof(JsonbIterator));
+    it->container = container;
+    it->parent = parent;
+    it->nElems = JsonContainerSize(container);
+    it->children = container->children;
+
+    // Setup iterator based on container type
+    if (container->header & JB_FARRAY) {
+        // Array: data follows JEntry array
+        it->dataProper = (char *) it->children + it->nElems * sizeof(JEntry);
+        it->isScalar = JsonContainerIsScalar(container);
+        it->state = JBI_ARRAY_START;
+    } else if (container->header & JB_FOBJECT) {
+        // Object: data follows double JEntry array (keys + values)
+        it->dataProper = (char *) it->children + it->nElems * sizeof(JEntry) * 2;
+        it->state = JBI_OBJECT_START;
+    } else {
+        elog(ERROR, "unknown type of jsonb container");
+    }
+
+    return it;
+}
+```

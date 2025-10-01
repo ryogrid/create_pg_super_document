@@ -56,3 +56,51 @@ This function handles the execution of AFTER ROW UPDATE triggers and transition 
 - Handles cases where either old tuple or new tuple may be NULL during partition key updates
 - Uses LockTupleExclusive when retrieving old tuples to ensure consistency
 - Clears oldslot when neither tupleid nor fdw_trigtuple is provided
+
+## Simplified Source
+
+```c
+void ExecARUpdateTriggers(EState *estate, ResultRelInfo *relinfo,
+                         ResultRelInfo *src_partinfo, ResultRelInfo *dst_partinfo,
+                         ItemPointer tupleid, HeapTuple fdw_trigtuple,
+                         TupleTableSlot *newslot, List *recheckIndexes,
+                         TransitionCaptureState *transition_capture,
+                         bool is_crosspart_update) {
+    TriggerDesc *trigdesc = relinfo->ri_TrigDesc;
+
+    // Error check: foreign tables can't capture transition tuples from children
+    if (relinfo->ri_FdwRoutine && transition_capture &&
+        (transition_capture->tcs_update_old_table ||
+         transition_capture->tcs_update_new_table)) {
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("cannot collect transition tuples from child foreign tables")));
+    }
+
+    // Check if we need to execute AFTER triggers or capture transition data
+    if ((trigdesc && trigdesc->trig_update_after_row) ||
+        (transition_capture &&
+         (transition_capture->tcs_update_old_table ||
+          transition_capture->tcs_update_new_table))) {
+
+        // Determine source relation and get old tuple slot
+        ResultRelInfo *tupsrc = src_partinfo ? src_partinfo : relinfo;
+        TupleTableSlot *oldslot = ExecGetTriggerOldSlot(estate, tupsrc);
+
+        // Get the old tuple data
+        if (fdw_trigtuple == NULL && ItemPointerIsValid(tupleid)) {
+            GetTupleForTrigger(estate, NULL, tupsrc, tupleid,
+                              LockTupleExclusive, oldslot, false, NULL, NULL, NULL);
+        } else if (fdw_trigtuple != NULL) {
+            ExecForceStoreHeapTuple(fdw_trigtuple, oldslot, false);
+        } else {
+            ExecClearTuple(oldslot);
+        }
+
+        // Queue the trigger event for deferred execution
+        AfterTriggerSaveEvent(estate, relinfo, src_partinfo, dst_partinfo,
+                             TRIGGER_EVENT_UPDATE, true, oldslot, newslot,
+                             recheckIndexes, ExecGetAllUpdatedCols(relinfo, estate),
+                             transition_capture, is_crosspart_update);
+    }
+}
+```

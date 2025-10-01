@@ -44,3 +44,35 @@ This function is part of PostgreSQL's query optimization strategy for handling a
 - **Special Case Handling**: Accounts for anti-joins converted from semi-joins where ojrelid might be zero
 
 The function plays a crucial role in maintaining accurate cardinality estimates for the cost-based optimizer, especially in queries with complex anti-join patterns.
+
+## Simplified Source
+
+```c
+static bool check_redundant_nullability_qual(PlannerInfo *root, Node *clause) {
+    Var *forced_null_var;
+    ListCell *lc;
+
+    // Check if this is an IS NULL clause and get the variable
+    forced_null_var = find_forced_null_var(clause);
+    if (forced_null_var == NULL)
+        return false;
+
+    // If variable isn't nulled by any join, no redundancy possible
+    if (forced_null_var->varnullingrels == NULL)
+        return false;
+
+    // Search for anti-joins that null this variable
+    foreach(lc, root->join_info_list) {
+        SpecialJoinInfo *sjinfo = (SpecialJoinInfo *) lfirst(lc);
+
+        // Check if this anti-join nulls our variable
+        if (sjinfo->jointype == JOIN_ANTI &&
+            sjinfo->ojrelid != 0 &&
+            bms_is_member(sjinfo->ojrelid, forced_null_var->varnullingrels)) {
+            return true; // Redundant IS NULL found
+        }
+    }
+
+    return false;
+}
+```

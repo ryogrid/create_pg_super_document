@@ -53,3 +53,78 @@ The function also ensures that each mergejoin clause can be associated with non-
 - Equivalence class validation ensures that merge clauses can be properly associated with canonical pathkey lists
 - The RestrictInfo markings applied by this function are transient and only valid for the current add_paths_to_joinrel() call
 - The function can return an empty list while still allowing mergejoin (for clauseless mergejoins) - the mergejoin_allowed flag provides the definitive safety indication
+
+## Simplified Source
+
+```c
+static List *select_mergejoin_clauses(PlannerInfo *root,
+                                     RelOptInfo *joinrel,
+                                     RelOptInfo *outerrel,
+                                     RelOptInfo *innerrel,
+                                     List *restrictlist,
+                                     JoinType jointype,
+                                     bool *mergejoin_allowed)
+{
+    List *result_list = NIL;
+    bool isouterjoin = IS_OUTER_JOIN(jointype);
+    bool have_nonmergeable_joinclause = false;
+    ListCell *l;
+
+    // Examine each restriction clause
+    foreach(l, restrictlist)
+    {
+        RestrictInfo *restrictinfo = (RestrictInfo *) lfirst(l);
+
+        // For outer joins, skip pushed-down clauses
+        if (isouterjoin && RINFO_IS_PUSHED_DOWN(restrictinfo, joinrel->relids))
+            continue;
+
+        // Check if clause is mergejoinable
+        if (!restrictinfo->can_join || restrictinfo->mergeopfamilies == NIL)
+        {
+            // Constants are allowed for right/right-anti/full joins (e.g., FULL JOIN ON FALSE)
+            if (!restrictinfo->clause || !IsA(restrictinfo->clause, Const))
+                have_nonmergeable_joinclause = true;
+            continue;
+        }
+
+        // Check if clause matches join sides (outer op inner or inner op outer)
+        if (!clause_sides_match_join(restrictinfo, outerrel, innerrel))
+        {
+            have_nonmergeable_joinclause = true;
+            continue;
+        }
+
+        // Update and validate equivalence classes
+        update_mergeclause_eclasses(root, restrictinfo);
+
+        // Reject clauses with redundant equivalence classes
+        if (EC_MUST_BE_REDUNDANT(restrictinfo->left_ec) ||
+            EC_MUST_BE_REDUNDANT(restrictinfo->right_ec))
+        {
+            have_nonmergeable_joinclause = true;
+            continue;
+        }
+
+        // This clause is suitable for mergejoin
+        result_list = lappend(result_list, restrictinfo);
+    }
+
+    // Determine if mergejoin is allowed for this join type
+    switch (jointype)
+    {
+        case JOIN_RIGHT:
+        case JOIN_RIGHT_ANTI:
+        case JOIN_FULL:
+            // These join types require all clauses to be mergejoinable
+            *mergejoin_allowed = !have_nonmergeable_joinclause;
+            break;
+        default:
+            // Other join types always allow mergejoin
+            *mergejoin_allowed = true;
+            break;
+    }
+
+    return result_list;
+}
+```

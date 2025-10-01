@@ -40,3 +40,21 @@ The equality test is performed by calling the comprehensive `cmp_numerics` funct
 - Follows PostgreSQL's V1 calling convention and memory management practices
 - Can be called directly from SQL expressions or from internal C code
 - Part of the complete set of numeric comparison operators in PostgreSQL
+
+## Simplified Source
+
+```c
+Datum numeric_eq(PG_FUNCTION_ARGS) {
+    Numeric num1 = PG_GETARG_NUMERIC(0);
+    Numeric num2 = PG_GETARG_NUMERIC(1);
+
+    // Compare numerics and check for equality (result == 0)
+    bool result = cmp_numerics(num1, num2) == 0;
+
+    // Clean up copied values
+    PG_FREE_IF_COPY(num1, 0);
+    PG_FREE_IF_COPY(num2, 1);
+
+    PG_RETURN_BOOL(result);
+}
+```

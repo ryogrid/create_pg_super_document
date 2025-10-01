@@ -40,5 +40,22 @@ Error handling is minimal by design - if mutex operations fail, the function onl
 - Operates on the global  mutex array
 - The  and  parameters are provided by OpenSSL for debugging but are unused
 - This is a static function internal to the OpenSSL secure connection implementation
-- Located in 
+- Located in
 - Part of the legacy threading support that becomes unnecessary with modern OpenSSL versions
+
+## Simplified Source
+
+```c
+static void
+pq_lockingcallback(int mode, int n, const char *file, int line)
+{
+    // Lock or unlock the mutex based on mode flag
+    if (mode & CRYPTO_LOCK) {
+        if (pthread_mutex_lock(&pq_lockarray[n]))
+            Assert(false);  // Assert failure in debug builds
+    } else {
+        if (pthread_mutex_unlock(&pq_lockarray[n]))
+            Assert(false);  // Assert failure in debug builds
+    }
+}
+```

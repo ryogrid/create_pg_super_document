@@ -38,3 +38,22 @@ The function validates the input character and returns false for any character t
 - Does not modify the value parameter if conversion fails
 - Essential component for URI percent-decoding (%xy sequences)
 - Simple and efficient character-to-integer conversion without external dependencies
+
+## Simplified Source
+
+```c
+static bool
+get_hexdigit(char digit, int *value)
+{
+    if ('0' <= digit && digit <= '9')
+        *value = digit - '0';
+    else if ('A' <= digit && digit <= 'F')
+        *value = digit - 'A' + 10;
+    else if ('a' <= digit && digit <= 'f')
+        *value = digit - 'a' + 10;
+    else
+        return false;
+
+    return true;
+}
+```

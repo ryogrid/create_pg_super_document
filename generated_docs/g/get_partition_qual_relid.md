@@ -46,3 +46,35 @@ Key features:
 - Maintains AccessShareLock through return to allow caller to safely deparse the result
 - Used primarily by rule/constraint display functions in the SQL interface
 - More robust than RelationGetPartitionQual for external/SQL callable functions
+
+## Simplified Source
+
+```c
+Expr *
+get_partition_qual_relid(Oid relid)
+{
+    Expr *result = NULL;
+
+    // Check if relation exists and is a partition
+    if (get_rel_relispartition(relid)) {
+        Relation rel = relation_open(relid, AccessShareLock);
+        List *and_args;
+
+        // Generate partition constraints for this relation
+        and_args = generate_partition_qual(rel);
+
+        // Convert list format to proper boolean expression
+        if (and_args == NIL)
+            result = NULL;                    // No constraints
+        else if (list_length(and_args) > 1)
+            result = makeBoolExpr(AND_EXPR, and_args, -1);  // Multiple constraints
+        else
+            result = linitial(and_args);      // Single constraint
+
+        // Close relation but keep the lock for caller safety
+        relation_close(rel, NoLock);
+    }
+
+    return result;
+}
+```

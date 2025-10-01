@@ -41,3 +41,22 @@ The function is designed to always succeed and currently has no failure cases, w
 - Essential for proper memory management and preventing memory leaks in SPI operations
 - The memory context reset ensures that temporary allocations made during SPI execution are properly cleaned up
 - Always paired with _SPI_begin_call to provide proper bracketing of SPI operations
+
+## Simplified Source
+
+```c
+static int _SPI_end_call(bool use_exec) {
+    if (use_exec) {
+        // Switch back to procedure memory context
+        _SPI_procmem();
+
+        // Mark executor context as no longer in use
+        _SPI_current->execSubid = InvalidSubTransactionId;
+
+        // Free executor memory
+        MemoryContextReset(_SPI_current->execCxt);
+    }
+
+    return 0;
+}
+```

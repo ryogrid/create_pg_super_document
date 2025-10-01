@@ -72,3 +72,121 @@ The function protects against zero row counts and uses clamp_row_est to ensure r
 - The function assumes cost_sort is efficient enough for use in preliminary estimation
 - Inner input cost considerations (rescanning, materialization) are partially deferred
 - Workspace structure preserves intermediate data for final costing phase
+
+## Simplified Source
+
+```c
+void
+initial_cost_mergejoin(PlannerInfo *root, JoinCostWorkspace *workspace,
+                      JoinType jointype, List *mergeclauses,
+                      Path *outer_path, Path *inner_path,
+                      List *outersortkeys, List *innersortkeys,
+                      JoinPathExtraData *extra)
+{
+    Cost startup_cost = 0;
+    Cost run_cost = 0;
+    double outer_path_rows = outer_path->rows;
+    double inner_path_rows = inner_path->rows;
+    Cost inner_run_cost;
+    double outer_rows, inner_rows, outer_skip_rows, inner_skip_rows;
+    Selectivity outerstartsel, outerendsel, innerstartsel, innerendsel;
+
+    // Ensure non-zero row counts for calculations
+    if (outer_path_rows <= 0) outer_path_rows = 1;
+    if (inner_path_rows <= 0) inner_path_rows = 1;
+
+    // Calculate selectivity estimates from merge clauses
+    if (mergeclauses && jointype != JOIN_FULL) {
+        RestrictInfo *firstclause = (RestrictInfo *) linitial(mergeclauses);
+        List *opathkeys = outersortkeys ? outersortkeys : outer_path->pathkeys;
+        List *ipathkeys = innersortkeys ? innersortkeys : inner_path->pathkeys;
+        PathKey *opathkey = (PathKey *) linitial(opathkeys);
+        PathKey *ipathkey = (PathKey *) linitial(ipathkeys);
+
+        // Get cached selectivity estimates
+        MergeScanSelCache *cache = cached_scansel(root, firstclause, opathkey);
+
+        // Determine which side is outer/inner based on relation membership
+        if (bms_is_subset(firstclause->left_relids, outer_path->parent->relids)) {
+            // Left side is outer
+            outerstartsel = cache->leftstartsel;
+            outerendsel = cache->leftendsel;
+            innerstartsel = cache->rightstartsel;
+            innerendsel = cache->rightendsel;
+        } else {
+            // Left side is inner
+            outerstartsel = cache->rightstartsel;
+            outerendsel = cache->rightendsel;
+            innerstartsel = cache->leftstartsel;
+            innerendsel = cache->leftendsel;
+        }
+
+        // Adjust for join type constraints
+        if (jointype == JOIN_LEFT || jointype == JOIN_ANTI) {
+            outerstartsel = 0.0;
+            outerendsel = 1.0;
+        } else if (jointype == JOIN_RIGHT || jointype == JOIN_RIGHT_ANTI) {
+            innerstartsel = 0.0;
+            innerendsel = 1.0;
+        }
+    } else {
+        // Default for clauseless or full joins
+        outerstartsel = innerstartsel = 0.0;
+        outerendsel = innerendsel = 1.0;
+    }
+
+    // Convert selectivities to row estimates
+    outer_skip_rows = rint(outer_path_rows * outerstartsel);
+    inner_skip_rows = rint(inner_path_rows * innerstartsel);
+    outer_rows = clamp_row_est(outer_path_rows * outerendsel);
+    inner_rows = clamp_row_est(inner_path_rows * innerendsel);
+
+    // Readjust selectivities after rounding
+    outerstartsel = outer_skip_rows / outer_path_rows;
+    innerstartsel = inner_skip_rows / inner_path_rows;
+    outerendsel = outer_rows / outer_path_rows;
+    innerendsel = inner_rows / inner_path_rows;
+
+    // Calculate outer path costs
+    if (outersortkeys) {
+        // Need to sort outer input
+        Path sort_path;
+        cost_sort(&sort_path, root, outersortkeys, outer_path->total_cost,
+                 outer_path_rows, outer_path->pathtarget->width, 0.0, work_mem, -1.0);
+        startup_cost += sort_path.startup_cost;
+        startup_cost += (sort_path.total_cost - sort_path.startup_cost) * outerstartsel;
+        run_cost += (sort_path.total_cost - sort_path.startup_cost) * (outerendsel - outerstartsel);
+    } else {
+        // Outer input already sorted
+        startup_cost += outer_path->startup_cost;
+        startup_cost += (outer_path->total_cost - outer_path->startup_cost) * outerstartsel;
+        run_cost += (outer_path->total_cost - outer_path->startup_cost) * (outerendsel - outerstartsel);
+    }
+
+    // Calculate inner path costs
+    if (innersortkeys) {
+        // Need to sort inner input
+        Path sort_path;
+        cost_sort(&sort_path, root, innersortkeys, inner_path->total_cost,
+                 inner_path_rows, inner_path->pathtarget->width, 0.0, work_mem, -1.0);
+        startup_cost += sort_path.startup_cost;
+        startup_cost += (sort_path.total_cost - sort_path.startup_cost) * innerstartsel;
+        inner_run_cost = (sort_path.total_cost - sort_path.startup_cost) * (innerendsel - innerstartsel);
+    } else {
+        // Inner input already sorted
+        startup_cost += inner_path->startup_cost;
+        startup_cost += (inner_path->total_cost - inner_path->startup_cost) * innerstartsel;
+        inner_run_cost = (inner_path->total_cost - inner_path->startup_cost) * (innerendsel - innerstartsel);
+    }
+
+    // Store results in workspace for final_cost_mergejoin
+    workspace->startup_cost = startup_cost;
+    workspace->total_cost = startup_cost + run_cost + inner_run_cost;
+    workspace->run_cost = run_cost;
+    workspace->inner_run_cost = inner_run_cost;
+    workspace->outer_rows = outer_rows;
+    workspace->inner_rows = inner_rows;
+    workspace->outer_skip_rows = outer_skip_rows;
+    workspace->inner_skip_rows = inner_skip_rows;
+}
+```

@@ -49,3 +49,106 @@ The function uses sophisticated logic to determine whether expressions need Plac
 - Optimizes PlaceHolderVar usage by analyzing expression strictness and variable membership
 - Preserves nulling relations from original variables and propagates them appropriately in replacement expressions
 - Handles varlevelsup adjustments when the replaced variable is within nested subqueries
+
+## Simplified Source
+
+```c
+static Node *
+pullup_replace_vars_callback(Var *var, replace_rte_variables_context *context)
+{
+    pullup_replace_vars_context *rcon = (pullup_replace_vars_context *) context->callback_arg;
+    int varattno = var->varattno;
+    Node *newnode;
+
+    // Determine if PlaceHolderVar wrapping is needed
+    bool need_phv = (var->varnullingrels != NULL) || rcon->wrap_non_vars;
+
+    // Check cache first if PHV needed
+    if (need_phv && varattno >= InvalidAttrNumber &&
+        varattno <= list_length(rcon->targetlist) &&
+        rcon->rv_cache[varattno] != NULL) {
+        newnode = copyObject(rcon->rv_cache[varattno]);
+    }
+    else if (varattno == InvalidAttrNumber) {
+        // Whole-tuple reference: expand into RowExpr
+        List *colnames, *fields;
+        expandRTE(rcon->target_rte, var->varno, 0, var->location,
+                  (var->vartype != RECORDOID), &colnames, &fields);
+
+        // Process the expanded fields
+        fields = (List *) replace_rte_variables_mutator((Node *) fields, context);
+
+        RowExpr *rowexpr = makeNode(RowExpr);
+        rowexpr->args = fields;
+        rowexpr->row_typeid = var->vartype;
+        rowexpr->row_format = COERCE_IMPLICIT_CAST;
+        rowexpr->colnames = (var->vartype == RECORDOID) ? colnames : NIL;
+        rowexpr->location = var->location;
+        newnode = (Node *) rowexpr;
+
+        // Wrap in PlaceHolderVar if needed
+        if (need_phv) {
+            newnode = (Node *) make_placeholder_expr(rcon->root, (Expr *) newnode,
+                                                   bms_make_singleton(rcon->varno));
+            rcon->rv_cache[InvalidAttrNumber] = copyObject(newnode);
+        }
+    }
+    else {
+        // Normal attribute reference
+        TargetEntry *tle = get_tle_by_resno(rcon->targetlist, varattno);
+        if (tle == NULL)
+            elog(ERROR, "could not find attribute %d in subquery targetlist", varattno);
+
+        newnode = (Node *) copyObject(tle->expr);
+
+        // Decide whether to wrap in PlaceHolderVar
+        if (need_phv) {
+            bool wrap = true;
+
+            // Simple Vars and PHVs may not need wrapping in some cases
+            if (IsA(newnode, Var) || IsA(newnode, PlaceHolderVar)) {
+                // Check lateral reference conditions
+                if (rcon->target_rte->lateral) {
+                    // Complex lateral reference logic...
+                    wrap = true; // Simplified
+                } else {
+                    wrap = false;
+                }
+            } else if (!rcon->wrap_non_vars) {
+                // Check if expression contains vars and is strict
+                if (contain_vars_of_level(newnode, 0) &&
+                    !contain_nonstrict_functions(newnode)) {
+                    wrap = false;
+                }
+            }
+
+            if (wrap) {
+                newnode = (Node *) make_placeholder_expr(rcon->root, (Expr *) newnode,
+                                                       bms_make_singleton(rcon->varno));
+                if (varattno > InvalidAttrNumber && varattno <= list_length(rcon->targetlist))
+                    rcon->rv_cache[varattno] = copyObject(newnode);
+            }
+        }
+    }
+
+    // Propagate nulling relations
+    if (var->varnullingrels != NULL) {
+        if (IsA(newnode, Var)) {
+            ((Var *) newnode)->varnullingrels =
+                bms_add_members(((Var *) newnode)->varnullingrels, var->varnullingrels);
+        } else if (IsA(newnode, PlaceHolderVar)) {
+            ((PlaceHolderVar *) newnode)->phnullingrels =
+                bms_add_members(((PlaceHolderVar *) newnode)->phnullingrels, var->varnullingrels);
+        } else {
+            // Add nulling relations to contained vars
+            newnode = add_nulling_relids(newnode, rcon->relids, var->varnullingrels);
+        }
+    }
+
+    // Adjust variable levels if needed
+    if (var->varlevelsup > 0)
+        IncrementVarSublevelsUp(newnode, var->varlevelsup, 0);
+
+    return newnode;
+}
+```

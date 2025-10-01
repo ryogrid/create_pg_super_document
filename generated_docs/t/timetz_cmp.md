@@ -41,3 +41,14 @@ This function serves as the foundation for all other timetz comparison operation
 - Returns a PostgreSQL Datum containing a signed 32-bit integer
 - Located in src/backend/utils/adt/date.c:2524-2532
 - Essential for B-tree indexing and ORDER BY operations on timetz columns
+
+## Simplified Source
+
+```c
+Datum timetz_cmp(PG_FUNCTION_ARGS) {
+    TimeTzADT *time1 = PG_GETARG_TIMETZADT_P(0);
+    TimeTzADT *time2 = PG_GETARG_TIMETZADT_P(1);
+
+    PG_RETURN_INT32(timetz_cmp_internal(time1, time2));
+}
+```

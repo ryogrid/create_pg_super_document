@@ -44,3 +44,35 @@ The function performs a system cache lookup on the pg_class catalog using the re
 - Helps distinguish between partitioned tables (parents) and partitions (children)
 - Critical for partition pruning and constraint exclusion optimizations
 - Located in src/backend/utils/cache/lsyscache.c:2027-2053
+
+## Simplified Source
+
+```c
+// Simplified version of get_rel_relispartition
+bool get_rel_relispartition(Oid relid) {
+    HeapTuple tp;
+
+    // Look up relation information in system cache
+    tp = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+
+    if (HeapTupleIsValid(tp)) {
+        // Extract relation tuple and get partition flag
+        Form_pg_class reltup = (Form_pg_class) GETSTRUCT(tp);
+        bool result = reltup->relispartition;
+
+        ReleaseSysCache(tp);
+        return result;
+    }
+    else {
+        // Return false if relation doesn't exist
+        return false;
+    }
+}
+```
+
+Key simplifications made:
+- Simplified the conditional structure for better readability
+- Added clear comments explaining the main logic steps
+- Focused on the core algorithm: lookup relation → check if valid → extract flag → return
+- Preserved the important behavior of returning false for non-existent relations
+- Maintained proper cache cleanup with ReleaseSysCache

@@ -44,3 +44,39 @@ The function uses the LOCAL_FCINFO macro to create a local FunctionCallInfo stru
 - The LOCAL_FCINFO macro provides stack-based allocation for better performance in frequently called scenarios
 - Collation support is essential for proper string comparison and sorting operations in multi-language databases
 - Located in src/backend/utils/fmgr/fmgr.c:1223-1251
+
+## Simplified Source
+
+```c
+Datum
+FunctionCall5Coll(FmgrInfo *flinfo, Oid collation, Datum arg1, Datum arg2,
+                  Datum arg3, Datum arg4, Datum arg5)
+{
+    LOCAL_FCINFO(fcinfo, 5);
+    Datum result;
+
+    // Initialize function call context with 5 arguments and collation
+    InitFunctionCallInfoData(*fcinfo, flinfo, 5, collation, NULL, NULL);
+
+    // Set all 5 arguments as non-null
+    fcinfo->args[0].value = arg1;
+    fcinfo->args[0].isnull = false;
+    fcinfo->args[1].value = arg2;
+    fcinfo->args[1].isnull = false;
+    fcinfo->args[2].value = arg3;
+    fcinfo->args[2].isnull = false;
+    fcinfo->args[3].value = arg4;
+    fcinfo->args[3].isnull = false;
+    fcinfo->args[4].value = arg5;
+    fcinfo->args[4].isnull = false;
+
+    // Invoke the function
+    result = FunctionCallInvoke(fcinfo);
+
+    // Ensure result is not NULL (caller expects non-null)
+    if (fcinfo->isnull)
+        elog(ERROR, "function %u returned NULL", flinfo->fn_oid);
+
+    return result;
+}
+```

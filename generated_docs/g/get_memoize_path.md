@@ -55,3 +55,83 @@ This function is static and used internally within joinpath.c. It implements sop
 The function includes a detailed analysis of when memoization scope is limited for unique joins, noting that incomplete parameterization can prevent proper cache management. It also handles partitioned tables by considering top_parent relations when determining hash operations.
 
 The memoization optimization is particularly effective for star-schema queries where dimension tables are repeatedly accessed with the same parameter values from fact table scans.
+
+## Simplified Source
+
+```c
+static Path *get_memoize_path(PlannerInfo *root, RelOptInfo *innerrel,
+                              RelOptInfo *outerrel, Path *inner_path,
+                              Path *outer_path, JoinType jointype,
+                              JoinPathExtraData *extra)
+{
+    // Basic prerequisites check
+    if (!enable_memoize)
+        return NULL;
+
+    // Need multiple outer rows to benefit from caching
+    if (outer_path->parent->rows < 2)
+        return NULL;
+
+    // Must have cache keys (parameterized clauses or lateral vars)
+    if ((inner_path->param_info == NULL ||
+         inner_path->param_info->ppi_clauses == NIL) &&
+        innerrel->lateral_vars == NIL)
+        return NULL;
+
+    // SEMI/ANTI joins need inner_unique to work correctly
+    if (!extra->inner_unique && (jointype == JOIN_SEMI || jointype == JOIN_ANTI))
+        return NULL;
+
+    // For unique joins, need complete parameterization for cache completeness
+    if (extra->inner_unique &&
+        (inner_path->param_info == NULL ||
+         bms_num_members(inner_path->param_info->ppi_serials) <
+         list_length(extra->restrictlist)))
+        return NULL;
+
+    // Check for volatile functions that make caching unsafe
+    if (contain_volatile_functions((Node *) innerrel->reltarget))
+        return NULL;
+
+    // Check base restrictions for volatile functions
+    foreach(lc, innerrel->baserestrictinfo)
+    {
+        RestrictInfo *rinfo = (RestrictInfo *) lfirst(lc);
+        if (contain_volatile_functions((Node *) rinfo))
+            return NULL;
+    }
+
+    // Check parameterized restrictions for volatile functions
+    if (inner_path->param_info != NULL)
+    {
+        foreach(lc, inner_path->param_info->ppi_clauses)
+        {
+            RestrictInfo *rinfo = (RestrictInfo *) lfirst(lc);
+            if (contain_volatile_functions((Node *) rinfo))
+                return NULL;
+        }
+    }
+
+    // Get hash operators for parameters
+    List *param_exprs;
+    List *hash_operators;
+    bool binary_mode;
+
+    if (paraminfo_get_equal_hashops(root,
+                                   inner_path->param_info,
+                                   outerrel->top_parent ? outerrel->top_parent : outerrel,
+                                   innerrel,
+                                   &param_exprs,
+                                   &hash_operators,
+                                   &binary_mode))
+    {
+        // Create memoize path with collected parameters
+        return (Path *) create_memoize_path(root, innerrel, inner_path,
+                                           param_exprs, hash_operators,
+                                           extra->inner_unique, binary_mode,
+                                           outer_path->rows);
+    }
+
+    return NULL;
+}
+```

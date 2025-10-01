@@ -37,3 +37,50 @@ The function maintains the binary flag of the result - if any column uses text f
 - Performs deep copy of attribute names to ensure proper memory management
 - Automatically determines binary format based on individual column formats
 - Uses result's memory context for all allocations to ensure proper cleanup
+
+## Simplified Source
+
+```c
+int
+PQsetResultAttrs(PGresult *res, int numAttributes, PGresAttDesc *attDescs)
+{
+    // Validate parameters
+    if (!res || (const PGresult *) res == &OOM_result)
+        return false;
+
+    // Cannot overwrite existing attributes
+    if (res->numAttributes > 0)
+        return false;
+
+    // Handle no-op request
+    if (numAttributes <= 0 || !attDescs)
+        return true;
+
+    // Allocate memory for attribute descriptors
+    res->attDescs = (PGresAttDesc *) PQresultAlloc(res, numAttributes * sizeof(PGresAttDesc));
+    if (!res->attDescs)
+        return false;
+
+    res->numAttributes = numAttributes;
+    memcpy(res->attDescs, attDescs, numAttributes * sizeof(PGresAttDesc));
+
+    // Deep-copy attribute names and determine format
+    res->binary = 1;  // Assume binary until we find text format
+    for (int i = 0; i < res->numAttributes; i++)
+    {
+        if (res->attDescs[i].name)
+            res->attDescs[i].name = pqResultStrdup(res, res->attDescs[i].name);
+        else
+            res->attDescs[i].name = res->null_field;
+
+        if (!res->attDescs[i].name)
+            return false;
+
+        // If any column uses text format, mark entire result as non-binary
+        if (res->attDescs[i].format == 0)
+            res->binary = 0;
+    }
+
+    return true;
+}
+```

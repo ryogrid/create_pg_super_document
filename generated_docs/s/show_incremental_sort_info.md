@@ -50,3 +50,68 @@ The function implements intelligent filtering logic - it only shows prefix sort 
 - Parallel execution statistics are properly nested within worker-specific sections
 - The function respects the verbose flag when determining indentation for worker output
 - Early return when es->analyze is false ensures no overhead during regular EXPLAIN (without ANALYZE)
+
+## Simplified Source
+
+```c
+static void
+show_incremental_sort_info(IncrementalSortState *incrsortstate, ExplainState *es)
+{
+    IncrementalSortGroupInfo *fullsortGroupInfo;
+    IncrementalSortGroupInfo *prefixsortGroupInfo;
+
+    if (!es->analyze)
+        return;
+
+    fullsortGroupInfo = &incrsortstate->incsort_info.fullsortGroupInfo;
+
+    // Show stats for leader process if it did any full sorting
+    if (fullsortGroupInfo->groupCount > 0)
+    {
+        show_incremental_sort_group_info(fullsortGroupInfo, "Full-sort", true, es);
+
+        prefixsortGroupInfo = &incrsortstate->incsort_info.prefixsortGroupInfo;
+        if (prefixsortGroupInfo->groupCount > 0)
+        {
+            if (es->format == EXPLAIN_FORMAT_TEXT)
+                appendStringInfoChar(es->str, '\n');
+            show_incremental_sort_group_info(prefixsortGroupInfo, "Pre-sorted", true, es);
+        }
+        if (es->format == EXPLAIN_FORMAT_TEXT)
+            appendStringInfoChar(es->str, '\n');
+    }
+
+    // Show stats for parallel workers that contributed
+    if (incrsortstate->shared_info != NULL)
+    {
+        for (int n = 0; n < incrsortstate->shared_info->num_workers; n++)
+        {
+            IncrementalSortInfo *incsort_info = &incrsortstate->shared_info->sinfo[n];
+            fullsortGroupInfo = &incsort_info->fullsortGroupInfo;
+
+            // Skip workers that didn't process any groups
+            if (fullsortGroupInfo->groupCount == 0)
+                continue;
+
+            if (es->workers_state)
+                ExplainOpenWorker(n, es);
+
+            bool indent_first_line = es->workers_state == NULL || es->verbose;
+            show_incremental_sort_group_info(fullsortGroupInfo, "Full-sort", indent_first_line, es);
+
+            prefixsortGroupInfo = &incsort_info->prefixsortGroupInfo;
+            if (prefixsortGroupInfo->groupCount > 0)
+            {
+                if (es->format == EXPLAIN_FORMAT_TEXT)
+                    appendStringInfoChar(es->str, '\n');
+                show_incremental_sort_group_info(prefixsortGroupInfo, "Pre-sorted", true, es);
+            }
+            if (es->format == EXPLAIN_FORMAT_TEXT)
+                appendStringInfoChar(es->str, '\n');
+
+            if (es->workers_state)
+                ExplainCloseWorker(n, es);
+        }
+    }
+}
+```

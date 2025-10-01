@@ -43,3 +43,38 @@ This function is a simpler variant of generate_relation_name() that unconditiona
 - Used when unambiguous naming is required, such as in system catalog references or when exporting definitions
 - The returned string is palloc'd and must be freed by the caller
 - Complements generate_relation_name() by providing a simpler interface when qualification is always desired
+
+## Simplified Source
+
+```c
+static char *
+generate_qualified_relation_name(Oid relid)
+{
+    HeapTuple tp;
+    Form_pg_class reltup;
+    char *relname;
+    char *nspname;
+    char *result;
+
+    // Look up relation in system cache
+    tp = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for relation %u", relid);
+
+    // Extract relation name from tuple
+    reltup = (Form_pg_class) GETSTRUCT(tp);
+    relname = NameStr(reltup->relname);
+
+    // Get namespace name (schema)
+    nspname = get_namespace_name_or_temp(reltup->relnamespace);
+    if (!nspname)
+        elog(ERROR, "cache lookup failed for namespace %u",
+             reltup->relnamespace);
+
+    // Create schema-qualified identifier
+    result = quote_qualified_identifier(nspname, relname);
+
+    ReleaseSysCache(tp);
+    return result;
+}
+```

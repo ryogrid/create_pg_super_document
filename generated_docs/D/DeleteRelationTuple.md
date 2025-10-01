@@ -51,3 +51,28 @@ This function is intentionally designed to be shared between relation deletion (
 - Error handling ensures that attempts to delete non-existent relations are caught and reported
 - The function is part of the core catalog maintenance infrastructure and is called after other cleanup operations have been performed
 - This operation is typically one of the final steps in relation deletion, after dependencies have been handled and other catalog entries have been cleaned up
+
+## Simplified Source
+
+```c
+void DeleteRelationTuple(Oid relid)
+{
+    Relation pg_class_desc;
+    HeapTuple tup;
+
+    // Open pg_class catalog with exclusive lock
+    pg_class_desc = table_open(RelationRelationId, RowExclusiveLock);
+
+    // Look up the relation tuple using system cache
+    tup = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for relation %u", relid);
+
+    // Delete the relation tuple from pg_class
+    CatalogTupleDelete(pg_class_desc, &tup->t_self);
+
+    // Clean up cache and close catalog
+    ReleaseSysCache(tup);
+    table_close(pg_class_desc, RowExclusiveLock);
+}
+```

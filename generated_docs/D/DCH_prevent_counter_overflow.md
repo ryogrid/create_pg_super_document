@@ -38,3 +38,21 @@ This function takes no parameters and operates on global cache state:
 - The bit shift operation (`>>= 1`) efficiently divides by 2 while preserving integer values
 - This mechanism ensures the cache can operate indefinitely without counter overflow
 - The algorithm maintains cache effectiveness by preserving relative age relationships between entries
+
+## Simplified Source
+
+```c
+static inline void
+DCH_prevent_counter_overflow(void)
+{
+    if (DCHCounter >= (INT_MAX - 1))
+    {
+        // Halve all cache entry ages to prevent overflow
+        for (int i = 0; i < n_DCHCache; i++)
+            DCHCache[i]->age >>= 1;
+
+        // Halve the counter itself
+        DCHCounter >>= 1;
+    }
+}
+```

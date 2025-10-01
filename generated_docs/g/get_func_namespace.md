@@ -33,3 +33,28 @@ This function retrieves the namespace (schema) OID for a specified function by l
 - Uses system cache for efficient repeated lookups
 - Returns InvalidOid for non-existent functions rather than throwing an error
 - The namespace OID can be used to determine the schema name via additional catalog lookups
+
+## Simplified Source
+
+```c
+Oid
+get_func_namespace(Oid funcid)
+{
+    HeapTuple tp;
+
+    // Look up function in system cache
+    tp = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcid));
+
+    if (HeapTupleIsValid(tp))
+    {
+        // Extract namespace from function tuple
+        Form_pg_proc functup = (Form_pg_proc) GETSTRUCT(tp);
+        Oid result = functup->pronamespace;
+
+        ReleaseSysCache(tp);
+        return result;
+    }
+    else
+        return InvalidOid; // Function not found
+}
+```

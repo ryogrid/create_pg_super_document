@@ -44,3 +44,23 @@ Only the rows field is set by this function. The reltarget field is handled sepa
 - The function only sets the rows estimate; other relation properties are handled elsewhere
 - Design acknowledges potential inconsistencies in multi-way joins but accepts them as a practical compromise
 - Located in the cost estimation module of the PostgreSQL optimizer
+
+## Simplified Source
+
+```c
+void set_joinrel_size_estimates(PlannerInfo *root, RelOptInfo *rel,
+                               RelOptInfo *outer_rel,
+                               RelOptInfo *inner_rel,
+                               SpecialJoinInfo *sjinfo,
+                               List *restrictlist) {
+    // Calculate and set the estimated number of rows for the join
+    rel->rows = calc_joinrel_size_estimate(root,
+                                          rel,
+                                          outer_rel,
+                                          inner_rel,
+                                          outer_rel->rows,
+                                          inner_rel->rows,
+                                          sjinfo,
+                                          restrictlist);
+}
+```

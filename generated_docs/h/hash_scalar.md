@@ -46,3 +46,27 @@ The function enforces the constraint that only JSON objects can be converted to 
 - The saved scalar value is later retrieved by hash_object_field_end for storage in the hash table
 - Error messages include the calling function name for better debugging context
 - The token parameter contains the string representation of the scalar value, regardless of its actual type
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+hash_scalar(void *state, char *token, JsonTokenType tokentype) {
+    JHashState *_state = (JHashState *) state;
+
+    // Error if top-level JSON is a scalar (scalars can't be hash tables)
+    if (_state->lex->lex_level == 0)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("cannot call %s on a scalar", _state->function_name)));
+
+    // Save scalar value for top-level object fields
+    if (_state->lex->lex_level == 1) {
+        _state->saved_scalar = token;
+        // Verify token type matches what was saved earlier
+        Assert(_state->saved_token_type == tokentype);
+    }
+
+    return JSON_SUCCESS;
+}
+```

@@ -40,3 +40,24 @@ This function releases a session-level lock on a shared database object. It is t
 - The function is located in src/backend/storage/lmgr/lmgr.c:1177-1198
 - Does not return a value (void function)
 - Used in database operations that require cross-transaction resource management
+
+## Simplified Source
+
+```c
+void
+UnlockSharedObjectForSession(Oid classid, Oid objid, uint16 objsubid,
+                            LOCKMODE lockmode)
+{
+    LOCKTAG tag;
+
+    // Construct lock tag for the shared object
+    SET_LOCKTAG_OBJECT(tag,
+                      InvalidOid,
+                      classid,
+                      objid,
+                      objsubid);
+
+    // Release the session-level lock
+    LockRelease(&tag, lockmode, true);
+}
+```

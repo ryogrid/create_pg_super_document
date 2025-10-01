@@ -67,3 +67,19 @@ The function serves as a wrapper around the table access method's tuple_lock imp
 - Proper relation locking is the caller's responsibility
 - Lock modes and wait policies must be chosen carefully based on the specific concurrency requirements
 - Update chain following flags enable complex locking scenarios for MVCC environments
+
+## Simplified Source
+
+```c
+static inline TM_Result
+table_tuple_lock(Relation rel, ItemPointer tid, Snapshot snapshot,
+                 TupleTableSlot *slot, CommandId cid, LockTupleMode mode,
+                 LockWaitPolicy wait_policy, uint8 flags,
+                 TM_FailureData *tmfd)
+{
+    // Delegate to table access method's lock implementation
+    return rel->rd_tableam->tuple_lock(rel, tid, snapshot, slot,
+                                     cid, mode, wait_policy,
+                                     flags, tmfd);
+}
+```

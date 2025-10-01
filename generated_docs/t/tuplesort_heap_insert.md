@@ -47,3 +47,37 @@ The function is designed to work with both min-heaps and max-heaps, depending on
 - The sift-up algorithm has O(log n) time complexity
 - Includes interrupt checking to allow query cancellation during long operations
 - Follows Knuth's algorithms but adapted for 0-based indexing instead of 1-based
+
+## Simplified Source
+
+```c
+static void
+tuplesort_heap_insert(Tuplesortstate *state, SortTuple *tuple)
+{
+    SortTuple *memtuples;
+    int j;
+
+    memtuples = state->memtuples;
+    Assert(state->memtupcount < state->memtupsize);
+
+    CHECK_FOR_INTERRUPTS();
+
+    // Sift-up algorithm: start at end and bubble up to correct position
+    j = state->memtupcount++;
+    while (j > 0)
+    {
+        int i = (j - 1) >> 1;  // Parent index = (child - 1) / 2
+
+        // If tuple is >= parent, we're done (heap property satisfied)
+        if (COMPARETUP(state, tuple, &memtuples[i]) >= 0)
+            break;
+
+        // Move parent down and continue up the tree
+        memtuples[j] = memtuples[i];
+        j = i;
+    }
+
+    // Insert tuple at final position
+    memtuples[j] = *tuple;
+}
+```

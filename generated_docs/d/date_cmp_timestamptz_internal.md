@@ -42,3 +42,27 @@ This internal function implements the core comparison logic for DATE vs TIMESTAM
 - Returns standard comparison result: negative, zero, or positive integer
 - Properly handles PostgreSQL's special timestamp values (infinity, -infinity)
 - The overflow handling ensures correct comparison semantics even at the boundaries of the timestamp range
+
+## Simplified Source
+
+```c
+int32 date_cmp_timestamptz_internal(DateADT dateVal, TimestampTz dt2) {
+    TimestampTz dt1;
+    int overflow;
+
+    // Convert date to timestamptz, checking for overflow conditions
+    dt1 = date2timestamptz_opt_overflow(dateVal, &overflow);
+
+    if (overflow > 0) {
+        // Date exceeds finite timestamp range (positive overflow)
+        return TIMESTAMP_IS_NOEND(dt2) ? -1 : +1;
+    }
+    if (overflow < 0) {
+        // Date is below finite timestamp range (negative overflow)
+        return TIMESTAMP_IS_NOBEGIN(dt2) ? +1 : -1;
+    }
+
+    // Normal case: use standard timestamptz comparison
+    return timestamptz_cmp_internal(dt1, dt2);
+}
+```

@@ -46,3 +46,69 @@ The algorithm assumes that if A functionally determines B, then for any group of
 - A score of 1.0 indicates a perfect functional dependency
 - Currently assumes all statistics entries point to the same tuple descriptor
 - Part of PostgreSQL's extended statistics framework for multivariate analysis
+
+## Simplified Source
+
+```c
+static double dependency_degree(StatsBuildData *data, int k, AttrNumber *dependency) {
+    int nitems;
+    MultiSortSupport mss;
+    SortItem *items;
+    AttrNumber *attnums_dep;
+    int group_size = 0;
+    int n_violations = 0;
+    int n_supporting_rows = 0;
+
+    // Validate inputs and setup multi-sort support
+    Assert(k >= 2);
+    mss = multi_sort_init(k);
+
+    // Translate dependency indexes to attribute numbers
+    attnums_dep = (AttrNumber *) palloc(k * sizeof(AttrNumber));
+    for (int i = 0; i < k; i++)
+        attnums_dep[i] = data->attnums[dependency[i]];
+
+    // Setup sort dimensions for all k columns
+    for (int i = 0; i < k; i++) {
+        VacAttrStats *colstat = data->stats[dependency[i]];
+        TypeCacheEntry *type = lookup_type_cache(colstat->attrtypid, TYPECACHE_LT_OPR);
+
+        if (type->lt_opr == InvalidOid)
+            elog(ERROR, "cache lookup failed for ordering operator for type %u",
+                 colstat->attrtypid);
+
+        multi_sort_add_dimension(mss, i, type->lt_opr, colstat->attrcollid);
+    }
+
+    // Build sorted array of data items
+    items = build_sorted_items(data, &nitems, mss, k, attnums_dep);
+
+    // Walk through sorted data, grouping by first (k-1) columns
+    group_size = 1;
+
+    for (int i = 1; i <= nitems; i++) {
+        // Check if group ended (reached end or different first k-1 values)
+        if (i == nitems ||
+            multi_sort_compare_dims(0, k - 2, &items[i - 1], &items[i], mss) != 0) {
+
+            // If no violations in group, count as supporting dependency
+            if (n_violations == 0)
+                n_supporting_rows += group_size;
+
+            // Reset for next group
+            n_violations = 0;
+            group_size = 1;
+            continue;
+        }
+        // Check if last column differs (violation of dependency)
+        else if (multi_sort_compare_dim(k - 1, &items[i - 1], &items[i], mss) != 0) {
+            n_violations++;
+        }
+
+        group_size++;
+    }
+
+    // Return confidence score (supporting rows / total rows)
+    return (n_supporting_rows * 1.0 / data->numrows);
+}
+```

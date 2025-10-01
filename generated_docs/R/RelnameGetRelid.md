@@ -36,3 +36,30 @@ This is the fundamental mechanism that allows PostgreSQL users to reference tabl
 - Relies on recomputeNamespacePath() to ensure the search path reflects current session settings
 - This is a building block function used by higher-level relation resolution functions
 - Does not perform any locking or permission checking - purely a name-to-OID resolution service
+
+## Simplified Source
+
+```c
+Oid
+RelnameGetRelid(const char *relname)
+{
+    Oid relid;
+    ListCell *l;
+
+    // Ensure search path is current
+    recomputeNamespacePath();
+
+    // Search through each namespace in the active search path
+    foreach(l, activeSearchPath) {
+        Oid namespaceId = lfirst_oid(l);
+
+        // Check if relation exists in this namespace
+        relid = get_relname_relid(relname, namespaceId);
+        if (OidIsValid(relid))
+            return relid;
+    }
+
+    // Not found in any namespace
+    return InvalidOid;
+}
+```

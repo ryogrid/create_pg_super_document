@@ -47,3 +47,38 @@ The algorithm works by repeatedly dividing the search space in half:
 - This function is part of PostgreSQL's portability layer, providing consistent behavior across different platforms
 - The implementation is based on the BSD bsearch algorithm with modifications to support the additional argument parameter
 - Used primarily in PostgreSQL for searches that require context-sensitive comparisons, such as in statistics collection and BRIN index operations
+
+## Simplified Source
+
+```c
+void *bsearch_arg(const void *key, const void *base0,
+                  size_t nmemb, size_t size,
+                  int (*compar)(const void *, const void *, void *),
+                  void *arg) {
+    const char *base = (const char *) base0;
+    size_t lim;
+    int cmp;
+    const void *p;
+
+    // Binary search loop - halve search space each iteration
+    for (lim = nmemb; lim != 0; lim >>= 1) {
+        // Calculate middle element
+        p = base + (lim >> 1) * size;
+
+        // Compare key with middle element
+        cmp = (*compar)(key, p, arg);
+
+        if (cmp == 0)
+            return (void *) p;  // Found exact match
+
+        if (cmp > 0) {
+            // key > p: search right half
+            base = (const char *) p + size;
+            lim--;
+        }
+        // Otherwise search left half (lim already halved by >>= 1)
+    }
+
+    return NULL;  // Not found
+}
+```

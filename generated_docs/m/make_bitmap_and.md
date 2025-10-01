@@ -32,3 +32,25 @@ This function constructs a BitmapAnd plan node, which is used to combine multipl
 - [BitmapAnd](../B/BitmapAnd.md) nodes are typically followed by BitmapHeapScan nodes that use the resulting bitmap to efficiently fetch the actual tuples
 - This node type is crucial for PostgreSQL's bitmap index scan optimization, allowing efficient execution of queries with multiple WHERE conditions that can each use different indexes
 - The resulting bitmap represents the intersection of all input bitmaps, containing only rows that satisfy all the combined index conditions
+
+## Simplified Source
+
+```c
+static BitmapAnd *
+make_bitmap_and(List *bitmapplans)
+{
+    BitmapAnd *node = makeNode(BitmapAnd);
+    Plan *plan = &node->plan;
+
+    // Initialize plan fields - no targetlist or quals needed for bitmap operations
+    plan->targetlist = NIL;
+    plan->qual = NIL;
+    plan->lefttree = NULL;
+    plan->righttree = NULL;
+
+    // Store child bitmap plans for AND operation
+    node->bitmapplans = bitmapplans;
+
+    return node;
+}
+```

@@ -49,3 +49,34 @@ The function delegates cost calculation to , which accounts for the reduced I/O 
 - Cost calculation considers the sampling percentage and method overhead
 - Sample scans are typically much cheaper than full table scans for large relations
 - The function creates a basic Path node rather than a specialized sampling-specific subclass
+
+## Simplified Source
+
+```c
+Path *
+create_samplescan_path(PlannerInfo *root, RelOptInfo *rel, Relids required_outer)
+{
+    Path *pathnode = makeNode(Path);
+
+    // Set basic path properties for sample scan
+    pathnode->pathtype = T_SampleScan;
+    pathnode->parent = rel;
+    pathnode->pathtarget = rel->reltarget;
+
+    // Set up parameterization info
+    pathnode->param_info = get_baserel_parampathinfo(root, rel, required_outer);
+
+    // Configure parallelization settings
+    pathnode->parallel_aware = false;   // Sample scans are not parallel-aware
+    pathnode->parallel_safe = rel->consider_parallel;
+    pathnode->parallel_workers = 0;     // No parallel workers
+
+    // Sample scans produce unordered output
+    pathnode->pathkeys = NIL;
+
+    // Calculate execution costs for sampling
+    cost_samplescan(pathnode, root, rel, pathnode->param_info);
+
+    return pathnode;
+}
+```

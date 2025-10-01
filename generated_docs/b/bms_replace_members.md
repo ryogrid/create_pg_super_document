@@ -44,3 +44,43 @@ This function effectively performs a complete assignment operation () while tryi
 - Useful for algorithms that need to reset a working bitmapset to new contents
 - Maintains memory locality better than allocation/deallocation patterns
 - Less commonly used than other bitmapset operations, primarily in specialized algorithms
+
+## Simplified Source
+
+```c
+Bitmapset *bms_replace_members(Bitmapset *a, const Bitmapset *b)
+{
+    int i;
+
+    Assert(bms_is_valid_set(a));
+    Assert(bms_is_valid_set(b));
+
+    // Handle NULL cases
+    if (a == NULL)
+        return bms_copy(b);
+    if (b == NULL) {
+        pfree(a);
+        return NULL;
+    }
+
+    // Expand 'a' if it's too small to hold 'b'
+    if (a->nwords < b->nwords)
+        a = (Bitmapset *) repalloc(a, BITMAPSET_SIZE(b->nwords));
+
+    // Copy all words from 'b' to 'a'
+    i = 0;
+    do {
+        a->words[i] = b->words[i];
+    } while (++i < b->nwords);
+
+    // Update word count to match source
+    a->nwords = b->nwords;
+
+#ifdef REALLOCATE_BITMAPSETS
+    // Copy and free for memory safety when flag is enabled
+    a = bms_copy_and_free(a);
+#endif
+
+    return a;
+}
+```

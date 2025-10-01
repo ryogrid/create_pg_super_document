@@ -43,3 +43,27 @@ Common use cases include query optimization scenarios where reordering operands 
 - Does not modify opresulttype, opretset, opcollid, or inputcollid as these remain valid after commutation
 - Invalidates opfuncid to force function lookup with the new operator
 - Used primarily in query optimization for generating equivalent but potentially more efficient expressions
+
+## Simplified Source
+
+```c
+void CommuteOpExpr(OpExpr *clause) {
+    // Validate this is a binary operator expression
+    if (!is_opclause(clause) || list_length(clause->args) != 2)
+        elog(ERROR, "cannot commute non-binary-operator clause");
+
+    // Find the commutator operator
+    Oid commutator_opoid = get_commutator(clause->opno);
+    if (!OidIsValid(commutator_opoid))
+        elog(ERROR, "could not find commutator for operator %u", clause->opno);
+
+    // Replace operator with its commutator (modifies clause in-place)
+    clause->opno = commutator_opoid;
+    clause->opfuncid = InvalidOid;  // Force function lookup with new operator
+
+    // Swap the two arguments
+    Node *temp = linitial(clause->args);
+    linitial(clause->args) = lsecond(clause->args);
+    lsecond(clause->args) = temp;
+}
+```

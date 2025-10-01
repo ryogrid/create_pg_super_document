@@ -35,3 +35,28 @@ The returned names are intentionally "raw" (unquoted) to allow the caller to app
 - Names returned are unquoted/raw to allow proper formatting in different output formats (TEXT, JSON, XML, YAML)
 - Raises an ERROR if the index OID cannot be resolved to a name, indicating a potential catalog corruption or timing issue
 - This function is part of PostgreSQL's extensible EXPLAIN infrastructure
+
+## Simplified Source
+
+```c
+static const char *explain_get_index_name(Oid indexId) {
+    const char *result;
+
+    // Try plugin hook first (for hypothetical indexes)
+    if (explain_get_index_name_hook) {
+        result = (*explain_get_index_name_hook)(indexId);
+    } else {
+        result = NULL;
+    }
+
+    // Fall back to standard catalog lookup
+    if (result == NULL) {
+        result = get_rel_name(indexId);
+        if (result == NULL) {
+            elog(ERROR, "cache lookup failed for index %u", indexId);
+        }
+    }
+
+    return result;
+}
+```

@@ -42,3 +42,47 @@ ExecInitWorkTableScan performs the initialization phase for WorkTableScan plan n
 - Initializes result type as not yet fixed, allowing later type assignment
 - The rustate field is set to NULL initially and populated during first execution
 - Qualification expressions are fully initialized during this phase
+
+## Simplified Source
+
+```c
+WorkTableScanState *
+ExecInitWorkTableScan(WorkTableScan *node, EState *estate, int eflags)
+{
+    WorkTableScanState *scanstate;
+
+    // Check for unsupported execution flags
+    Assert(!(eflags & (EXEC_FLAG_BACKWARD | EXEC_FLAG_MARK)));
+
+    // WorkTableScan should have no child plans
+    Assert(outerPlan(node) == NULL && innerPlan(node) == NULL);
+
+    // Create and initialize state structure
+    scanstate = makeNode(WorkTableScanState);
+    scanstate->ss.ps.plan = (Plan *) node;
+    scanstate->ss.ps.state = estate;
+    scanstate->ss.ps.ExecProcNode = ExecWorkTableScan;
+    scanstate->rustate = NULL; // Set later during execution
+
+    // Set up expression context
+    ExecAssignExprContext(estate, &scanstate->ss.ps);
+
+    // Initialize result tuple type from target list
+    ExecInitResultTypeTL(&scanstate->ss.ps);
+
+    // Mark result type as not yet fixed (allows later type assignment)
+    scanstate->ss.ps.resultopsset = true;
+    scanstate->ss.ps.resultopsfixed = false;
+
+    // Initialize scan tuple slot (NULL descriptor initially)
+    ExecInitScanTupleSlot(estate, &scanstate->ss, NULL, &TTSOpsMinimalTuple);
+
+    // Initialize qualification expressions
+    scanstate->ss.ps.qual = ExecInitQual(node->scan.plan.qual, (PlanState *) scanstate);
+
+    // Note: Projection info initialization is deferred to handle
+    // RecursiveUnion timing dependencies - done in ExecWorkTableScan
+
+    return scanstate;
+}
+```

@@ -55,3 +55,85 @@ The function includes sophisticated memory management that automatically frees c
 - Critical for memory management in nested structures - automatically frees child iterators
 - Early termination scenarios may require manual cleanup of ancestral iterator chain
 - Used extensively throughout PostgreSQL's JSONB implementation for all traversal operations
+
+## Simplified Source
+
+```c
+JsonbIteratorToken
+JsonbIteratorNext(JsonbIterator **it, JsonbValue *val, bool skipNested)
+{
+    if (*it == NULL) {
+        val->type = jbvNull;
+        return WJB_DONE;
+    }
+
+recurse:
+    switch ((*it)->state) {
+        case JBI_ARRAY_START:
+            // Begin array iteration
+            val->type = jbvArray;
+            val->val.array.nElems = (*it)->nElems;
+            (*it)->curIndex = 0;
+            (*it)->state = JBI_ARRAY_ELEM;
+            return WJB_BEGIN_ARRAY;
+
+        case JBI_ARRAY_ELEM:
+            // Process array elements
+            if ((*it)->curIndex >= (*it)->nElems) {
+                *it = freeAndGetParent(*it);
+                val->type = jbvNull;
+                return WJB_END_ARRAY;
+            }
+
+            fillJsonbValue((*it)->container, (*it)->curIndex,
+                          (*it)->dataProper, (*it)->curDataOffset, val);
+            (*it)->curIndex++;
+
+            // Recurse into nested containers if needed
+            if (!IsAJsonbScalar(val) && !skipNested) {
+                *it = iteratorFromContainer(val->val.binary.data, *it);
+                goto recurse;
+            }
+            return WJB_ELEM;
+
+        case JBI_OBJECT_START:
+            // Begin object iteration
+            val->type = jbvObject;
+            val->val.object.nPairs = (*it)->nElems;
+            (*it)->curIndex = 0;
+            (*it)->state = JBI_OBJECT_KEY;
+            return WJB_BEGIN_OBJECT;
+
+        case JBI_OBJECT_KEY:
+            // Process object keys
+            if ((*it)->curIndex >= (*it)->nElems) {
+                *it = freeAndGetParent(*it);
+                val->type = jbvNull;
+                return WJB_END_OBJECT;
+            }
+
+            fillJsonbValue((*it)->container, (*it)->curIndex,
+                          (*it)->dataProper, (*it)->curDataOffset, val);
+            (*it)->state = JBI_OBJECT_VALUE;
+            return WJB_KEY;
+
+        case JBI_OBJECT_VALUE:
+            // Process object values
+            (*it)->state = JBI_OBJECT_KEY;
+            fillJsonbValue((*it)->container, (*it)->curIndex + (*it)->nElems,
+                          (*it)->dataProper, (*it)->curValueOffset, val);
+            (*it)->curIndex++;
+
+            // Recurse into nested containers if needed
+            if (!IsAJsonbScalar(val) && !skipNested) {
+                *it = iteratorFromContainer(val->val.binary.data, *it);
+                goto recurse;
+            }
+            return WJB_VALUE;
+    }
+
+    // Should never reach here
+    val->type = jbvNull;
+    return WJB_DONE;
+}
+```

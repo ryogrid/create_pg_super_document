@@ -50,3 +50,36 @@ Key characteristics of the created path:
 - Parallel safety is determined by the relation's consider_parallel property
 - The function creates a basic Path node (not a specialized subclass like IndexPath)
 - Cost calculation is delegated to cost_seqscan which considers factors like table size, selectivity, and parallel execution overhead
+
+## Simplified Source
+
+```c
+Path *
+create_seqscan_path(PlannerInfo *root, RelOptInfo *rel,
+                    Relids required_outer, int parallel_workers)
+{
+    // Create new Path node for sequential scan
+    Path *pathnode = makeNode(Path);
+
+    // Set basic path properties
+    pathnode->pathtype = T_SeqScan;
+    pathnode->parent = rel;
+    pathnode->pathtarget = rel->reltarget;
+
+    // Handle parameterization if needed
+    pathnode->param_info = get_baserel_parampathinfo(root, rel, required_outer);
+
+    // Configure parallel execution
+    pathnode->parallel_aware = (parallel_workers > 0);
+    pathnode->parallel_safe = rel->consider_parallel;
+    pathnode->parallel_workers = parallel_workers;
+
+    // Sequential scans produce unordered results
+    pathnode->pathkeys = NIL;
+
+    // Calculate costs for this scan method
+    cost_seqscan(pathnode, root, rel, pathnode->param_info);
+
+    return pathnode;
+}
+```

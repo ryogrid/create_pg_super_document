@@ -46,3 +46,36 @@ The function works by determining the appropriate pathkeys (ordering) for the re
 - The function specifically handles parallel execution scenarios by working with partial paths from the outer relation
 - The merge join strategy requires both relations to be ordered on the join keys, which is handled through the pathkeys mechanism
 - The function sets the parallel flag to true when calling generate_mergejoin_paths, indicating that the resulting paths should be parallel-aware
+
+## Simplified Source
+
+```c
+static void
+consider_parallel_mergejoin(PlannerInfo *root,
+                            RelOptInfo *joinrel,
+                            RelOptInfo *outerrel,
+                            RelOptInfo *innerrel,
+                            JoinType jointype,
+                            JoinPathExtraData *extra,
+                            Path *inner_cheapest_total)
+{
+    ListCell *lc1;
+
+    // Generate merge join paths for each partial outer path
+    foreach(lc1, outerrel->partial_pathlist)
+    {
+        Path *outerpath = (Path *) lfirst(lc1);
+        List *merge_pathkeys;
+
+        // Determine the ordering for the resulting join paths
+        merge_pathkeys = build_join_pathkeys(root, joinrel, jointype,
+                                             outerpath->pathkeys);
+
+        // Create parallel merge join paths using partial outer path
+        // and complete inner path
+        generate_mergejoin_paths(root, joinrel, innerrel, outerpath, jointype,
+                                 extra, false, inner_cheapest_total,
+                                 merge_pathkeys, true);  // parallel=true
+    }
+}
+```

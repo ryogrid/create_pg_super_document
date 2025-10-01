@@ -37,3 +37,37 @@ This function is a critical subroutine for ATExecAlterColumnType that manages in
 - The function prioritizes constraint rebuilding over index rebuilding when an index belongs to a constraint
 - Special index properties (replica identity, clustering) are preserved through dedicated helper functions
 - Part of the broader ALTER TABLE infrastructure for handling type changes that require index rebuilds
+
+## Simplified Source
+
+```c
+static void
+RememberIndexForRebuilding(Oid indoid, AlteredTableInfo *tab)
+{
+    // Prevent duplicate entries - critical for multiple column dependencies
+    if (!list_member_oid(tab->changedIndexOids, indoid))
+    {
+        // Check if index belongs to a constraint - prioritize constraint rebuilding
+        Oid conoid = get_index_constraint(indoid);
+
+        if (OidIsValid(conoid))
+        {
+            // Delegate to constraint rebuilding instead
+            RememberConstraintForRebuilding(conoid, tab);
+        }
+        else
+        {
+            // Handle as regular index
+            char *defstring = pg_get_indexdef_string(indoid);
+
+            // Add to tracking lists
+            tab->changedIndexOids = lappend_oid(tab->changedIndexOids, indoid);
+            tab->changedIndexDefs = lappend(tab->changedIndexDefs, defstring);
+
+            // Preserve special index properties
+            RememberReplicaIdentityForRebuilding(indoid, tab);
+            RememberClusterOnForRebuilding(indoid, tab);
+        }
+    }
+}
+```

@@ -40,3 +40,20 @@ pqTraceOutputByte1 is a low-level utility function used internally by libpq's pr
 - Essential for tracing message terminators (null bytes) in ErrorResponse and NoticeResponse messages
 - Part of the comprehensive protocol message tracing infrastructure
 - Enables precise analysis of binary protocol data in human-readable format
+
+## Simplified Source
+
+```c
+static void pqTraceOutputByte1(FILE *pfdebug, const char *data, int *cursor)
+{
+    const char *v = data + *cursor;
+
+    // Format non-printable chars as hex, printable chars as-is
+    if (!isprint((unsigned char) *v))
+        fprintf(pfdebug, " \\x%02x", *v);
+    else
+        fprintf(pfdebug, " %c", *v);
+
+    *cursor += 1;
+}
+```

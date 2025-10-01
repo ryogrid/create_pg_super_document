@@ -44,3 +44,24 @@ The newly created step is added to the context's steps list and returned for use
 - INTERSECT operations are used when processing AND clauses or combining multiple WHERE conditions
 - The step becomes part of the overall pruning step sequence and is executed after its source steps
 - Memory allocation uses makeNode which allocates in the current memory context
+
+## Simplified Source
+
+```c
+static PartitionPruneStep *gen_prune_step_combine(GeneratePruningStepsContext *context,
+                                                 List *source_stepids,
+                                                 PartitionPruneCombineOp combineOp) {
+    // Create new combine step node
+    PartitionPruneStepCombine *cstep = makeNode(PartitionPruneStepCombine);
+
+    // Initialize step with unique ID and parameters
+    cstep->step.step_id = context->next_step_id++;
+    cstep->combineOp = combineOp;  // UNION or INTERSECT
+    cstep->source_stepids = source_stepids;
+
+    // Add to context's step list
+    context->steps = lappend(context->steps, cstep);
+
+    return (PartitionPruneStep *) cstep;
+}
+```

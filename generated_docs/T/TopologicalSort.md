@@ -49,3 +49,46 @@ The algorithm ensures that the final arrangement allows each CTE to be evaluated
 - The dependency tracking uses bitmaps (Bitmapset) for efficient set operations
 - Error reporting includes the parse location of the problematic CTE for better user diagnostics
 - This function modifies the items array in-place, reordering the CteItem structures
+
+## Simplified Source
+
+```c
+static void
+TopologicalSort(ParseState *pstate, CteItem *items, int numitems)
+{
+    int i, j;
+
+    // For each position in the sorted sequence
+    for (i = 0; i < numitems; i++)
+    {
+        // Find an item with no remaining dependencies
+        for (j = i; j < numitems; j++)
+        {
+            if (bms_is_empty(items[j].depends_on))
+                break;
+        }
+
+        // Check for circular dependencies
+        if (j >= numitems)
+            ereport(ERROR,
+                    (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                     errmsg("mutual recursion between WITH items is not implemented"),
+                     parser_errposition(pstate, items[i].cte->location)));
+
+        // Move the dependency-free item to position i
+        if (i != j)
+        {
+            CteItem tmp = items[i];
+            items[i] = items[j];
+            items[j] = tmp;
+        }
+
+        // Remove this item from all remaining items' dependencies
+        for (j = i + 1; j < numitems; j++)
+        {
+            items[j].depends_on = bms_del_member(items[j].depends_on,
+                                                 items[i].id);
+        }
+    }
+}
+```

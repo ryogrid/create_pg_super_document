@@ -54,3 +54,100 @@ The function integrates with the broader JSON_TABLE execution framework by creat
 - Nested columns (JTC_NESTED) are skipped in the main loop and processed separately through transformJsonTableNestedColumns
 - Error handling includes validation for multiple FOR ORDINALITY columns and unknown column types
 - The resulting JsonTablePathScan integrates with PostgreSQL's execution planning system
+
+## Simplified Source
+
+```c
+static JsonTablePlan *transformJsonTableColumns(JsonTableParseContext *cxt,
+                                               List *columns, List *passingArgs,
+                                               JsonTablePathSpec *pathspec) {
+    ParseState *pstate = cxt->pstate;
+    TableFunc *tf = cxt->tf;
+    bool ordinality_found = false;
+    bool errorOnError = cxt->jt->on_error && cxt->jt->on_error->btype == JSON_BEHAVIOR_ERROR;
+    Oid contextItemTypid = exprType(tf->docexpr);
+    int colMin = list_length(tf->colvalexprs);
+
+    // Process each column specification
+    foreach(col, columns) {
+        JsonTableColumn *rawc = castNode(JsonTableColumn, lfirst(col));
+        Oid typid;
+        int32 typmod;
+        Oid typcoll = InvalidOid;
+        Node *colexpr;
+
+        // Add column name for non-nested columns
+        if (rawc->coltype != JTC_NESTED) {
+            tf->colnames = lappend(tf->colnames, makeString(pstrdup(rawc->name)));
+        }
+
+        // Handle different column types
+        switch (rawc->coltype) {
+            case JTC_FOR_ORDINALITY:
+                // Only one ordinality column allowed
+                if (ordinality_found)
+                    ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                                   errmsg("only one FOR ORDINALITY column is allowed")));
+                ordinality_found = true;
+                colexpr = NULL;
+                typid = INT4OID;
+                typmod = -1;
+                break;
+
+            case JTC_REGULAR:
+                typenameTypeIdAndMod(pstate, rawc->typeName, &typid, &typmod);
+
+                // Promote to FORMATTED for composite types or special options
+                if (isCompositeType(typid) || rawc->quotes != JS_QUOTES_UNSPEC ||
+                    rawc->wrapper != JSW_UNSPEC)
+                    rawc->coltype = JTC_FORMATTED;
+                // FALLTHROUGH
+
+            case JTC_FORMATTED:
+            case JTC_EXISTS:
+                {
+                    // Create JSON extraction expression
+                    CaseTestExpr *param = makeNode(CaseTestExpr);
+                    param->typeId = contextItemTypid;
+                    param->typeMod = -1;
+
+                    JsonFuncExpr *jfe = transformJsonTableColumn(rawc, (Node *) param,
+                                                                passingArgs);
+                    colexpr = transformExpr(pstate, (Node *) jfe, EXPR_KIND_FROM_FUNCTION);
+                    assign_expr_collations(pstate, colexpr);
+
+                    typid = exprType(colexpr);
+                    typmod = exprTypmod(colexpr);
+                    typcoll = exprCollation(colexpr);
+                    break;
+                }
+
+            case JTC_NESTED:
+                continue;  // Skip nested columns in main loop
+
+            default:
+                elog(ERROR, "unknown JSON_TABLE column type: %d", (int) rawc->coltype);
+        }
+
+        // Store column metadata in TableFunc
+        tf->coltypes = lappend_oid(tf->coltypes, typid);
+        tf->coltypmods = lappend_int(tf->coltypmods, typmod);
+        tf->colcollations = lappend_oid(tf->colcollations, typcoll);
+        tf->colvalexprs = lappend(tf->colvalexprs, colexpr);
+    }
+
+    // Determine column range for this scan level
+    int colMax;
+    if (list_length(tf->colvalexprs) == colMin) {
+        colMax = colMin = -1;  // No columns besides nested ones
+    } else {
+        colMax = list_length(tf->colvalexprs) - 1;
+    }
+
+    // Process nested columns recursively
+    JsonTablePlan *childplan = transformJsonTableNestedColumns(cxt, passingArgs, columns);
+
+    // Create scan plan for this level
+    return makeJsonTablePathScan(pathspec, errorOnError, colMin, colMax, childplan);
+}
+```

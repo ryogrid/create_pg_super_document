@@ -51,3 +51,25 @@ This function is designed for scan types that evaluate all qualifications "the h
 - Handles parameterized paths by including costs of pushed-down join clauses
 - Provides a uniform interface for qualification cost calculation across multiple scan types
 - Essential for accurate cost estimation in scan nodes that perform full qualification evaluation
+
+## Simplified Source
+
+```c
+static void
+get_restriction_qual_cost(PlannerInfo *root, RelOptInfo *baserel,
+                          ParamPathInfo *param_info,
+                          QualCost *qpqual_cost)
+{
+    if (param_info) {
+        // Calculate costs for pushed-down join clauses
+        cost_qual_eval(qpqual_cost, param_info->ppi_clauses, root);
+
+        // Add base relation restriction costs
+        qpqual_cost->startup += baserel->baserestrictcost.startup;
+        qpqual_cost->per_tuple += baserel->baserestrictcost.per_tuple;
+    } else {
+        // Just use pre-computed base restriction costs
+        *qpqual_cost = baserel->baserestrictcost;
+    }
+}
+```

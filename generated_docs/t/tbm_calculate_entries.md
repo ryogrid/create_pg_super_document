@@ -35,3 +35,24 @@ This function calculates the maximum number of hash table entries that can be ac
 - Applies conservative memory accounting including iteration overhead
 - Ensures reasonable bounds with minimum 16 entries and INT_MAX - 1 maximum
 - Key component for managing memory usage in bitmap index scans and parallel operations
+
+## Simplified Source
+
+```c
+long
+tbm_calculate_entries(double maxbytes)
+{
+    long nbuckets;
+
+    // Calculate hashtable entries based on memory overhead per entry
+    // Account for PagetableEntry + two Pointer arrays for iteration
+    nbuckets = maxbytes /
+        (sizeof(PagetableEntry) + sizeof(Pointer) + sizeof(Pointer));
+
+    // Apply safety and sanity limits
+    nbuckets = Min(nbuckets, INT_MAX - 1);  // Prevent overflow
+    nbuckets = Max(nbuckets, 16);           // Minimum functionality
+
+    return nbuckets;
+}
+```

@@ -37,3 +37,24 @@ This function takes no parameters and operates on global SPI state.
 - The processed count comparison ensures that the reported results match the actual stored results
 - This validation helps detect internal SPI implementation bugs and ensures data integrity
 - Used as a safety check after SPI operations complete to verify internal consistency
+
+## Simplified Source
+
+```c
+static bool
+_SPI_checktuples(void)
+{
+    uint64 processed = _SPI_current->processed;
+    SPITupleTable *tuptable = _SPI_current->tuptable;
+    bool failed = false;
+
+    // Check if tuple table setup was called
+    if (tuptable == NULL)
+        failed = true;
+    // Check if processed count matches actual tuple count
+    else if (processed != tuptable->numvals)
+        failed = true;
+
+    return failed;
+}
+```

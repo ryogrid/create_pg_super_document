@@ -32,3 +32,32 @@ The function uses PostgreSQL's  to perform the actual datum comparison using the
 
 ## Notes and Other Information
 This function is specifically designed for use with  and follows the standard comparator function interface. The equality tracking mechanism via  is a performance optimization that reduces the computational complexity of subsequent statistical calculations by avoiding redundant datum comparisons for values already known to be equal.
+
+## Simplified Source
+
+```c
+static int
+compare_scalars(const void *a, const void *b, void *arg)
+{
+    // Extract datum values and tuple numbers from ScalarItems
+    Datum da = ((const ScalarItem *) a)->value;
+    int ta = ((const ScalarItem *) a)->tupno;
+    Datum db = ((const ScalarItem *) b)->value;
+    int tb = ((const ScalarItem *) b)->tupno;
+    CompareScalarsContext *cxt = (CompareScalarsContext *) arg;
+
+    // Compare the datums using the sort operator
+    int compare = ApplySortComparator(da, false, db, false, cxt->ssup);
+    if (compare != 0)
+        return compare;
+
+    // For equal datums, update the equality tracking links
+    if (cxt->tupnoLink[ta] < tb)
+        cxt->tupnoLink[ta] = tb;
+    if (cxt->tupnoLink[tb] < ta)
+        cxt->tupnoLink[tb] = ta;
+
+    // Sort equal datums by tuple number for deterministic ordering
+    return ta - tb;
+}
+```

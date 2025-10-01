@@ -53,3 +53,38 @@ For variable-length data, it relies on caller-provided offset calculations for p
 - No memory allocation: fills caller-provided JsonbValue structure
 - Type safety: asserts string length is non-negative
 - Pointer-based access: strings and containers reference data in-place rather than copying
+
+## Simplified Source
+
+```c
+static void
+fillJsonbValue(JsonbContainer *container, int index,
+               char *base_addr, uint32 offset,
+               JsonbValue *result)
+{
+    JEntry entry = container->children[index];
+
+    // Determine type from JEntry flags and set JsonbValue accordingly
+    if (JBE_ISNULL(entry)) {
+        result->type = jbvNull;
+    } else if (JBE_ISSTRING(entry)) {
+        result->type = jbvString;
+        result->val.string.val = base_addr + offset;
+        result->val.string.len = getJsonbLength(container, index);
+    } else if (JBE_ISNUMERIC(entry)) {
+        result->type = jbvNumeric;
+        result->val.numeric = (Numeric) (base_addr + INTALIGN(offset));
+    } else if (JBE_ISBOOL_TRUE(entry)) {
+        result->type = jbvBool;
+        result->val.boolean = true;
+    } else if (JBE_ISBOOL_FALSE(entry)) {
+        result->type = jbvBool;
+        result->val.boolean = false;
+    } else {
+        // Nested container (array/object) - return as binary
+        result->type = jbvBinary;
+        result->val.binary.data = (JsonbContainer *) (base_addr + INTALIGN(offset));
+        result->val.binary.len = getJsonbLength(container, index) - (INTALIGN(offset) - offset);
+    }
+}
+```

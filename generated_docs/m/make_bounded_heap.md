@@ -51,3 +51,39 @@ This approach is particularly efficient for queries like "SELECT * FROM table OR
 - The reversed direction means the heap maintains the largest valid tuple at root for efficient comparisons
 - Memory efficiency: discards tuples that don't qualify for the final result set early
 - Implements a classic "top-K" algorithm optimized for database query processing
+
+## Simplified Source
+
+```c
+static void make_bounded_heap(Tuplesortstate *state) {
+    int tupcount = state->memtupcount;
+    int i;
+
+    // Reverse sort direction so largest entry stays at root for efficient replacement
+    reversedirection(state);
+
+    // Build bounded heap by processing all tuples
+    state->memtupcount = 0;  // Start with empty heap
+
+    for (i = 0; i < tupcount; i++) {
+        if (state->memtupcount < state->bound) {
+            // Heap not full yet - insert tuple directly
+            SortTuple stup = state->memtuples[i];
+            tuplesort_heap_insert(state, &stup);
+        } else {
+            // Heap is full - compare with largest (root) tuple
+            if (COMPARETUP(state, &state->memtuples[i], &state->memtuples[0]) <= 0) {
+                // New tuple is larger than root - discard it
+                free_sort_tuple(state, &state->memtuples[i]);
+                CHECK_FOR_INTERRUPTS();
+            } else {
+                // New tuple is smaller - replace root with it
+                tuplesort_heap_replace_top(state, &state->memtuples[i]);
+            }
+        }
+    }
+
+    // Heap now contains exactly the bound number of smallest tuples
+    state->status = TSS_BOUNDED;
+}
+```

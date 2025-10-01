@@ -42,3 +42,26 @@ The time2tm function performs the inverse operation of tm2time, converting Postg
 - Uses successive division and subtraction to break down the total microseconds
 - Complementary function to tm2time for time conversion operations
 - Part of PostgreSQL's date/time handling infrastructure in src/backend/utils/adt/date.c
+
+## Simplified Source
+
+```c
+int time2tm(TimeADT time, struct pg_tm *tm, fsec_t *fsec) {
+    // Extract hours (and remaining microseconds)
+    tm->tm_hour = time / USECS_PER_HOUR;
+    time -= tm->tm_hour * USECS_PER_HOUR;
+
+    // Extract minutes (and remaining microseconds)
+    tm->tm_min = time / USECS_PER_MINUTE;
+    time -= tm->tm_min * USECS_PER_MINUTE;
+
+    // Extract seconds (and remaining microseconds)
+    tm->tm_sec = time / USECS_PER_SEC;
+    time -= tm->tm_sec * USECS_PER_SEC;
+
+    // Remaining microseconds are fractional seconds
+    *fsec = time;
+
+    return 0;  // Always successful
+}
+```

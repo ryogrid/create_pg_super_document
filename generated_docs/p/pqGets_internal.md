@@ -43,3 +43,37 @@ This function is used as a building block for higher-level string reading functi
 - If resetbuffer is true, any existing content in the buffer is cleared before adding the new string
 - Part of the protocol message parsing infrastructure
 - Memory allocation for the buffer is handled by the PQExpBuffer functions
+
+## Simplified Source
+
+```c
+static int
+pqGets_internal(PQExpBuffer buf, PGconn *conn, bool resetbuffer)
+{
+    // Copy connection buffer info for faster search
+    char *inBuffer = conn->inBuffer;
+    int inCursor = conn->inCursor;
+    int inEnd = conn->inEnd;
+
+    // Find null terminator in buffer
+    while (inCursor < inEnd && inBuffer[inCursor])
+        inCursor++;
+
+    // Check if complete string found
+    if (inCursor >= inEnd)
+        return EOF;
+
+    // Calculate string length and copy to buffer
+    int slen = inCursor - conn->inCursor;
+
+    if (resetbuffer)
+        resetPQExpBuffer(buf);
+
+    appendBinaryPQExpBuffer(buf, inBuffer + conn->inCursor, slen);
+
+    // Move cursor past the null terminator
+    conn->inCursor = ++inCursor;
+
+    return 0;
+}
+```

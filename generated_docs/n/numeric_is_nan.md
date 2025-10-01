@@ -39,3 +39,13 @@ NaN values in PostgreSQL's numeric type represent undefined or invalid mathemati
 - Used extensively in JSON operations and LSN arithmetic where NaN values need special handling
 - Part of PostgreSQL's comprehensive support for IEEE 754-style special numeric values
 - The function is inline-friendly and very lightweight, essentially just a macro call
+
+## Simplified Source
+
+```c
+bool
+numeric_is_nan(Numeric num)
+{
+    return NUMERIC_IS_NAN(num);
+}
+```

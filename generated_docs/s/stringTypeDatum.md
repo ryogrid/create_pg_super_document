@@ -43,3 +43,23 @@ The function can handle NULL input strings, though the behavior depends on wheth
 - The function may raise errors if the string cannot be parsed according to the type's rules
 - This function is part of the parser subsystem's type handling utilities
 - The returned Datum may need to be freed depending on the type (for pass-by-reference types)
+
+## Simplified Source
+
+```c
+Datum stringTypeDatum(Type tp, char *string, int32 atttypmod) {
+    // Extract type information from the type structure
+    Form_pg_type typform = (Form_pg_type) GETSTRUCT(tp);
+    Oid typinput = typform->typinput;
+    Oid typioparam = getTypeIOParam(tp);
+
+    // Call the type's input function to convert string to internal format
+    return OidInputFunctionCall(typinput, string, typioparam, atttypmod);
+}
+```
+
+**Simplification Notes:**
+- Added descriptive comments explaining the two main steps
+- Preserved the essential logic: extract type info and call input function
+- Function is already quite concise, so minimal simplification was needed
+- Core algorithm: get type's input function, then call it with provided parameters

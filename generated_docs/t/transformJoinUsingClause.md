@@ -55,3 +55,44 @@ The function employs a "cheating" approach by building an untransformed operator
 - Creates deep copies of Var nodes to avoid sharing issues
 - The result is guaranteed to be properly typed and coerced to boolean
 - Essential for converting the more user-friendly USING syntax into the internal ON clause representation
+
+## Simplified Source
+
+```c
+static Node *transformJoinUsingClause(ParseState *pstate, List *leftVars, List *rightVars)
+{
+    Node *result;
+    List *andargs = NIL;
+
+    // Create equality conditions for each corresponding column pair
+    forboth(lvars, leftVars, rvars, rightVars)
+    {
+        Var *lvar = (Var *) lfirst(lvars);
+        Var *rvar = (Var *) lfirst(rvars);
+        A_Expr *e;
+
+        // Mark variables as needing SELECT privilege
+        markVarForSelectPriv(pstate, lvar);
+        markVarForSelectPriv(pstate, rvar);
+
+        // Create lvar = rvar equality expression
+        e = makeSimpleA_Expr(AEXPR_OP, "=",
+                            (Node *) copyObject(lvar), (Node *) copyObject(rvar),
+                            -1);
+
+        andargs = lappend(andargs, e);
+    }
+
+    // Combine multiple conditions with AND, or use single condition
+    if (list_length(andargs) == 1)
+        result = (Node *) linitial(andargs);
+    else
+        result = (Node *) makeBoolExpr(AND_EXPR, andargs, -1);
+
+    // Transform operators and ensure boolean type
+    result = transformExpr(pstate, result, EXPR_KIND_JOIN_USING);
+    result = coerce_to_boolean(pstate, result, "JOIN/USING");
+
+    return result;
+}
+```

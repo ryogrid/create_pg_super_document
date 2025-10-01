@@ -38,3 +38,18 @@ This function is part of PostgreSQL's type system infrastructure that provides a
 - The function works in conjunction with DatumGetFloat8() for the reverse conversion
 - Shares the same compilation control as Int64GetDatum to maintain consistency for timestamp representations
 - Widely used in mathematical, statistical, and geometric operations within PostgreSQL
+
+## Simplified Source
+
+```c
+Datum
+Float8GetDatum(float8 X)
+{
+    // Allocate memory for the float8 value
+    float8 *retval = (float8 *) palloc(sizeof(float8));
+
+    // Store the value and return as Datum pointer
+    *retval = X;
+    return PointerGetDatum(retval);
+}
+```

@@ -44,3 +44,99 @@ This function is the heart of JSONB to string conversion in PostgreSQL. It uses 
 - Efficiently handles both object key-value pairs and array elements
 - The function is designed to be memory-efficient and can work with very large JSONB structures
 - Returns the data pointer from the StringInfo buffer, making the caller responsible for memory management when out was NULL
+
+## Simplified Source
+
+```c
+static char *JsonbToCStringWorker(StringInfo out, JsonbContainer *in, int estimated_len, bool indent) {
+    bool first = true;
+    JsonbIterator *it;
+    JsonbValue v;
+    JsonbIteratorToken type;
+    int level = 0;
+    bool raw_scalar = false;
+    bool last_was_key = false;
+
+    // Initialize output buffer
+    if (out == NULL)
+        out = makeStringInfo();
+    enlargeStringInfo(out, (estimated_len >= 0) ? estimated_len : 64);
+
+    // Initialize iterator for JSONB traversal
+    it = JsonbIteratorInit(in);
+
+    // Main processing loop
+    while ((type = JsonbIteratorNext(&it, &v, false)) != WJB_DONE) {
+        switch (type) {
+            case WJB_BEGIN_ARRAY:
+                if (!first) appendBinaryStringInfo(out, ", ", indent ? 1 : 2);
+
+                if (!v.val.array.rawScalar) {
+                    add_indent(out, indent && !last_was_key, level);
+                    appendStringInfoCharMacro(out, '[');
+                } else {
+                    raw_scalar = true;  // Top-level scalar wrapped in array
+                }
+                first = true;
+                level++;
+                break;
+
+            case WJB_BEGIN_OBJECT:
+                if (!first) appendBinaryStringInfo(out, ", ", indent ? 1 : 2);
+                add_indent(out, indent && !last_was_key, level);
+                appendStringInfoCharMacro(out, '{');
+                first = true;
+                level++;
+                break;
+
+            case WJB_KEY:
+                if (!first) appendBinaryStringInfo(out, ", ", indent ? 1 : 2);
+                first = true;
+                add_indent(out, indent, level);
+
+                // Output key and get corresponding value
+                jsonb_put_escaped_value(out, &v);
+                appendBinaryStringInfo(out, ": ", 2);
+
+                type = JsonbIteratorNext(&it, &v, false);
+                if (type == WJB_VALUE) {
+                    first = false;
+                    jsonb_put_escaped_value(out, &v);
+                } else {
+                    // Value is a nested container, will be handled in next iteration
+                    continue;
+                }
+                break;
+
+            case WJB_ELEM:
+                if (!first) appendBinaryStringInfo(out, ", ", indent ? 1 : 2);
+                first = false;
+                if (!raw_scalar) add_indent(out, indent, level);
+                jsonb_put_escaped_value(out, &v);
+                break;
+
+            case WJB_END_ARRAY:
+                level--;
+                if (!raw_scalar) {
+                    add_indent(out, indent, level);
+                    appendStringInfoCharMacro(out, ']');
+                }
+                first = false;
+                break;
+
+            case WJB_END_OBJECT:
+                level--;
+                add_indent(out, indent, level);
+                appendStringInfoCharMacro(out, '}');
+                first = false;
+                break;
+
+            default:
+                elog(ERROR, "unknown jsonb iterator token type");
+        }
+        last_was_key = (type == WJB_KEY);
+    }
+
+    return out->data;
+}
+```

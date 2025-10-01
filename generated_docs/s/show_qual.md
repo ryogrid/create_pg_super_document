@@ -39,3 +39,21 @@ The function serves as a specialized wrapper around `show_expression` that handl
 - The conversion from implicit AND list to explicit AND tree is crucial for proper display formatting
 - This function bridges the gap between PostgreSQL's internal list-based representation and user-friendly tree-based display
 - Part of the hierarchical structure of EXPLAIN formatting functions, with show_qual being more specialized than show_expression
+
+## Simplified Source
+
+```c
+static void show_qual(List *qual, const char *qlabel,
+                     PlanState *planstate, List *ancestors,
+                     bool useprefix, ExplainState *es) {
+    // Early return if no qualifications to display
+    if (qual == NIL)
+        return;
+
+    // Convert implicit AND list to explicit AND expression
+    Node *node = (Node *) make_ands_explicit(qual);
+
+    // Display the formatted expression
+    show_expression(node, qlabel, planstate, ancestors, useprefix, es);
+}
+```

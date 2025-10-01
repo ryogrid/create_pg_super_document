@@ -46,3 +46,47 @@ The serialized format is compact and maintains all essential information needed 
 - Memory layout is platform-dependent due to direct structure copying
 - Part of PostgreSQL's extended statistics persistence mechanism
 - The total size calculation includes both fixed header size and variable-length dependency data
+
+## Simplified Source
+
+```c
+bytea *statext_dependencies_serialize(MVDependencies *dependencies) {
+    bytea *output;
+    char *tmp;
+    Size len;
+    int i;
+
+    // Calculate total space needed: header + dependency data
+    len = VARHDRSZ + SizeOfHeader;
+    for (i = 0; i < dependencies->ndeps; i++) {
+        len += SizeOfItem(dependencies->deps[i]->nattributes);
+    }
+
+    // Allocate and initialize output buffer
+    output = (bytea *) palloc0(len);
+    SET_VARSIZE(output, len);
+    tmp = VARDATA(output);
+
+    // Store header: magic, type, number of dependencies
+    memcpy(tmp, &dependencies->magic, sizeof(uint32));
+    tmp += sizeof(uint32);
+    memcpy(tmp, &dependencies->type, sizeof(uint32));
+    tmp += sizeof(uint32);
+    memcpy(tmp, &dependencies->ndeps, sizeof(uint32));
+    tmp += sizeof(uint32);
+
+    // Store each dependency: degree, attribute count, attributes
+    for (i = 0; i < dependencies->ndeps; i++) {
+        MVDependency *d = dependencies->deps[i];
+
+        memcpy(tmp, &d->degree, sizeof(double));
+        tmp += sizeof(double);
+        memcpy(tmp, &d->nattributes, sizeof(AttrNumber));
+        tmp += sizeof(AttrNumber);
+        memcpy(tmp, d->attributes, sizeof(AttrNumber) * d->nattributes);
+        tmp += sizeof(AttrNumber) * d->nattributes;
+    }
+
+    return output;
+}
+```

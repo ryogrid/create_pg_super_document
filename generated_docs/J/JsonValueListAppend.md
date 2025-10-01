@@ -35,3 +35,24 @@ The JsonValueListAppend function adds a JsonbValue to a JsonValueList structure 
 - Part of the result accumulation system used throughout JSONPath execution
 - The singleton optimization reduces memory overhead for the common case where JSONPath expressions yield single results
 - Essential component of the JsonValueList data structure used for collecting JSONPath execution results
+
+## Simplified Source
+
+```c
+static void JsonValueListAppend(JsonValueList *jvl, JsonbValue *jbv) {
+    // Handle transition from empty -> singleton -> list
+    if (jvl->singleton) {
+        // Convert singleton to two-element list
+        jvl->list = list_make2(jvl->singleton, jbv);
+        jvl->singleton = NULL;
+    }
+    else if (!jvl->list) {
+        // Store first value as singleton for efficiency
+        jvl->singleton = jbv;
+    }
+    else {
+        // Append to existing list
+        jvl->list = lappend(jvl->list, jbv);
+    }
+}
+```

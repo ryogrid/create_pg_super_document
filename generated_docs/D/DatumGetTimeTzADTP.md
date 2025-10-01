@@ -39,3 +39,12 @@ The function is defined as a static inline function in the header file, meaning 
 - Located in src/include/utils/date.h, making it available to all components that include this header file
 - Works in conjunction with TimeTzADTPGetDatum for bidirectional conversion between Datum and TimeTzADT* types
 - The 'P' suffix in the function name indicates it returns a pointer, following PostgreSQL's naming conventions
+
+## Simplified Source
+
+```c
+static inline TimeTzADT *DatumGetTimeTzADTP(Datum X)
+{
+    return (TimeTzADT *) DatumGetPointer(X);
+}
+```

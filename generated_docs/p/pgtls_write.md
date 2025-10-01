@@ -51,3 +51,95 @@ For SSL_ERROR_WANT_READ conditions (when SSL needs to read during a write operat
 - All error conditions result in detailed error messages being appended to conn->errorMessage
 - Part of the non-blocking I/O framework where partial writes are expected and handled
 - Location: src/interfaces/libpq/fe-secure-openssl.c:262-361
+
+## Simplified Source
+
+```c
+ssize_t pgtls_write(PGconn *conn, const void *ptr, size_t len)
+{
+    ssize_t n;
+    int result_errno = 0;
+    char sebuf[PG_STRERROR_R_BUFLEN];
+    int err;
+    unsigned long ecode;
+
+    // Clear OpenSSL error state and perform write
+    SOCK_ERRNO_SET(0);
+    ERR_clear_error();
+    n = SSL_write(conn->ssl, ptr, len);
+    err = SSL_get_error(conn->ssl, n);
+    ecode = (err != SSL_ERROR_NONE || n < 0) ? ERR_get_error() : 0;
+
+    // Handle different SSL error conditions
+    switch (err) {
+        case SSL_ERROR_NONE:
+            if (n < 0) {
+                // Unexpected error condition
+                appendPQExpBufferStr(&conn->errorMessage,
+                                   "SSL_write failed but did not provide error information\n");
+                result_errno = ECONNRESET;
+            }
+            break;
+
+        case SSL_ERROR_WANT_READ:
+            // SSL needs to read during write (renegotiation)
+            // Return 0 to indicate retry needed (not ideal but best we can do)
+            n = 0;
+            break;
+
+        case SSL_ERROR_WANT_WRITE:
+            // Need to retry write operation
+            n = 0;
+            break;
+
+        case SSL_ERROR_SYSCALL:
+            // System call error or EOF
+            if (n < 0 && SOCK_ERRNO != 0) {
+                result_errno = SOCK_ERRNO;
+                if (result_errno == EPIPE || result_errno == ECONNRESET)
+                    libpq_append_conn_error(conn, "server closed the connection unexpectedly\n"
+                                          "\tThis probably means the server terminated abnormally\n"
+                                          "\tbefore or while processing the request.");
+                else
+                    libpq_append_conn_error(conn, "SSL SYSCALL error: %s",
+                                          SOCK_STRERROR(result_errno, sebuf, sizeof(sebuf)));
+            } else {
+                // EOF detected
+                libpq_append_conn_error(conn, "SSL SYSCALL error: EOF detected");
+                result_errno = ECONNRESET;
+                n = -1;
+            }
+            break;
+
+        case SSL_ERROR_SSL:
+            // SSL protocol error
+            {
+                char *errm = SSLerrmessage(ecode);
+                libpq_append_conn_error(conn, "SSL error: %s", errm);
+                SSLerrfree(errm);
+                result_errno = ECONNRESET;
+                n = -1;
+                break;
+            }
+
+        case SSL_ERROR_ZERO_RETURN:
+            // Clean connection closure
+            libpq_append_conn_error(conn, "SSL connection has been closed unexpectedly");
+            result_errno = ECONNRESET;
+            n = -1;
+            break;
+
+        default:
+            // Unrecognized error
+            libpq_append_conn_error(conn, "unrecognized SSL error code: %d", err);
+            result_errno = ECONNRESET;
+            n = -1;
+            break;
+    }
+
+    // Set errno for caller
+    SOCK_ERRNO_SET(result_errno);
+
+    return n;
+}
+```

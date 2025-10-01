@@ -36,3 +36,27 @@ The function iterates through all timezone type entries in the timezone state an
 - The function examines the ttis array in the timezone's state structure
 - Compares tt_utoff (UTC offset) field of each ttinfo entry
 - Located in src/timezone/localtime.c:1851-1874
+
+## Simplified Source
+
+```c
+bool pg_get_timezone_offset(const pg_tz *tz, long int *gmtoff)
+{
+    const struct state *sp;
+    int i;
+
+    // Get timezone state structure
+    sp = &tz->state;
+
+    // Check if all timezone types have the same UTC offset
+    for (i = 1; i < sp->typecnt; i++)
+    {
+        if (sp->ttis[i].tt_utoff != sp->ttis[0].tt_utoff)
+            return false;  // Different offsets found
+    }
+
+    // All offsets are the same, return the common offset
+    *gmtoff = sp->ttis[0].tt_utoff;
+    return true;
+}
+```

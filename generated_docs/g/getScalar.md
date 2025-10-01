@@ -37,3 +37,12 @@ This function performs type checking for scalar JsonbValue objects. It verifies 
 - Simple but crucial function for type safety in JSON path operations
 - Used extensively in arithmetic, string, and other type-specific operations
 - The function provides a clean interface for conditional type checking without throwing errors
+
+## Simplified Source
+
+```c
+static JsonbValue *getScalar(JsonbValue *scalar, enum jbvType type) {
+    // Return scalar if type matches, NULL if mismatch
+    return scalar->type == type ? scalar : NULL;
+}
+```

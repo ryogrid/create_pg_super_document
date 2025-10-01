@@ -37,3 +37,31 @@ This function is a key component of PostgreSQL's TOAST (The Oversized-Attribute 
 - The  parameter is passed through to  to handle speculative operations properly
 - This function works at the tuple level, processing all potentially TOASTed attributes in a single pass
 - It's part of the TOAST helper functions that provide a clean interface for TOAST operations across different table access methods
+
+## Simplified Source
+
+```c
+void
+toast_delete_external(Relation rel, const Datum *values, const bool *isnull,
+                      bool is_speculative)
+{
+    TupleDesc tupleDesc = rel->rd_att;
+    int numAttrs = tupleDesc->natts;
+
+    // Check each attribute for external TOAST values
+    for (int i = 0; i < numAttrs; i++) {
+        // Only process variable-length attributes (TOAST candidates)
+        if (TupleDescAttr(tupleDesc, i)->attlen == -1) {
+            Datum value = values[i];
+
+            // Skip null values - no external storage to delete
+            if (isnull[i])
+                continue;
+
+            // Delete externally stored TOAST chunks
+            if (VARATT_IS_EXTERNAL_ONDISK(value))
+                toast_delete_datum(rel, value, is_speculative);
+        }
+    }
+}
+```

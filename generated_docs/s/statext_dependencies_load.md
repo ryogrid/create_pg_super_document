@@ -39,3 +39,40 @@ The function follows PostgreSQL's standard pattern for loading statistics data: 
 - Part of PostgreSQL's extended statistics framework introduced to handle multi-column dependencies
 - Works with the ANALYZE command's dependency collection mechanism
 - The  parameter supports table inheritance hierarchies in PostgreSQL
+
+## Simplified Source
+
+```c
+MVDependencies *
+statext_dependencies_load(Oid mvoid, bool inh)
+{
+    MVDependencies *result;
+    bool isnull;
+    Datum deps;
+    HeapTuple htup;
+
+    // Look up statistics object in system cache
+    htup = SearchSysCache2(STATEXTDATASTXOID,
+                           ObjectIdGetDatum(mvoid),
+                           BoolGetDatum(inh));
+
+    if (!HeapTupleIsValid(htup))
+        elog(ERROR, "cache lookup failed for statistics object %u", mvoid);
+
+    // Extract dependency data from cached tuple
+    deps = SysCacheGetAttr(STATEXTDATASTXOID, htup,
+                           Anum_pg_statistic_ext_data_stxddependencies, &isnull);
+
+    if (isnull)
+        elog(ERROR,
+             "requested statistics kind \"%c\" is not yet built for statistics object %u",
+             STATS_EXT_DEPENDENCIES, mvoid);
+
+    // Deserialize binary data into MVDependencies structure
+    result = statext_dependencies_deserialize(DatumGetByteaPP(deps));
+
+    ReleaseSysCache(htup);
+
+    return result;
+}
+```

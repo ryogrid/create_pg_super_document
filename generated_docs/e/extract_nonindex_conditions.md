@@ -33,3 +33,31 @@ The function filters out pseudoconstant conditions (which can be dropped) and co
 
 ## Notes and Other Information
 This function performs only basic redundancy checking for efficiency reasons, as it's called during cost estimation where performance is critical. The more comprehensive redundancy elimination happens later in create_indexscan_plan() during actual plan construction. The function is essential for separating index-level filtering from tuple-level filtering, which have different cost characteristics in PostgreSQL's cost model.
+
+## Simplified Source
+
+```c
+static List *
+extract_nonindex_conditions(List *qual_clauses, List *indexclauses)
+{
+    List *result = NIL;
+    ListCell *lc;
+
+    foreach(lc, qual_clauses) {
+        RestrictInfo *rinfo = lfirst_node(RestrictInfo, lc);
+
+        // Skip pseudoconstant clauses
+        if (rinfo->pseudoconstant)
+            continue;
+
+        // Skip clauses redundant with index conditions
+        if (is_redundant_with_indexclauses(rinfo, indexclauses))
+            continue;
+
+        // Add non-redundant clause to result
+        result = lappend(result, rinfo);
+    }
+
+    return result;
+}
+```

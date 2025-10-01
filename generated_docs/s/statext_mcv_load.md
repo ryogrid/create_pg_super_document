@@ -40,3 +40,33 @@ This function retrieves MCV statistics data from the pg_statistic_ext_data syste
 - The inheritance flag supports partitioned table statistics
 - Returns a fully deserialized MCVList ready for selectivity estimation
 - Caller is responsible for managing the returned MCVList memory
+
+## Simplified Source
+
+```c
+MCVList *statext_mcv_load(Oid mvoid, bool inh) {
+    // Look up statistics object in system catalog
+    HeapTuple htup = SearchSysCache2(STATEXTDATASTXOID,
+                                    ObjectIdGetDatum(mvoid),
+                                    BoolGetDatum(inh));
+
+    // Validate statistics object exists
+    if (!HeapTupleIsValid(htup))
+        elog(ERROR, "cache lookup failed for statistics object %u", mvoid);
+
+    // Extract MCV data from tuple
+    bool isnull;
+    Datum mcvlist = SysCacheGetAttr(STATEXTDATASTXOID, htup,
+                                   Anum_pg_statistic_ext_data_stxdmcv, &isnull);
+
+    // Ensure MCV statistics have been built
+    if (isnull)
+        elog(ERROR, "MCV statistics not built for object %u", mvoid);
+
+    // Deserialize bytea data into MCVList structure
+    MCVList *result = statext_mcv_deserialize(DatumGetByteaP(mcvlist));
+
+    ReleaseSysCache(htup);
+    return result;
+}
+```

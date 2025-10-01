@@ -40,3 +40,41 @@ This function implements the core deletion logic for PostgreSQL extensions. It p
 - The safety check against CurrentExtensionObject prevents recursive deletion scenarios that could occur through dependency cascades
 - Assumes at most one matching tuple exists for the given extension OID
 - Part of the broader dependency management framework, designed to be called from doDeletion() in dependency.c
+
+## Simplified Source
+
+```c
+void
+RemoveExtensionById(Oid extId)
+{
+    Relation rel;
+    SysScanDesc scandesc;
+    HeapTuple tuple;
+    ScanKeyData entry[1];
+
+    // Safety check: prevent deletion of extension being modified
+    if (extId == CurrentExtensionObject)
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("cannot drop extension \"%s\" because it is being modified",
+                        get_extension_name(extId))));
+
+    // Open extension catalog
+    rel = table_open(ExtensionRelationId, RowExclusiveLock);
+
+    // Find the extension tuple by OID
+    ScanKeyInit(&entry[0], Anum_pg_extension_oid, BTEqualStrategyNumber,
+                F_OIDEQ, ObjectIdGetDatum(extId));
+    scandesc = systable_beginscan(rel, ExtensionOidIndexId, true, NULL, 1, entry);
+
+    tuple = systable_getnext(scandesc);
+
+    // Delete the extension tuple if found
+    if (HeapTupleIsValid(tuple))
+        CatalogTupleDelete(rel, &tuple->t_self);
+
+    // Clean up
+    systable_endscan(scandesc);
+    table_close(rel, RowExclusiveLock);
+}
+```

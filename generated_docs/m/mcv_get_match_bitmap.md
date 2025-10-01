@@ -45,3 +45,87 @@ This function is the core evaluation engine for MCV-based selectivity estimation
 - The function is recursive and can handle nested boolean expressions
 - Critical component of PostgreSQL's extended statistics system for improved selectivity estimation
 - Located in src/backend/statistics/mcv.c:1599-2005
+
+## Simplified Source
+
+```c
+static bool *
+mcv_get_match_bitmap(PlannerInfo *root, List *clauses,
+                     Bitmapset *keys, List *exprs,
+                     MCVList *mcvlist, bool is_or)
+{
+    ListCell *l;
+    bool *matches;
+
+    Assert(clauses != NIL);
+    Assert(mcvlist != NULL);
+    Assert(mcvlist->nitems > 0);
+
+    // Initialize match bitmap - start with true for AND, false for OR
+    matches = palloc(sizeof(bool) * mcvlist->nitems);
+    memset(matches, !is_or, sizeof(bool) * mcvlist->nitems);
+
+    // Process each clause in the list
+    foreach(l, clauses) {
+        Node *clause = (Node *) lfirst(l);
+
+        // Extract bare clause from RestrictInfo wrapper
+        if (IsA(clause, RestrictInfo))
+            clause = (Node *) ((RestrictInfo *) clause)->clause;
+
+        // Handle different clause types
+        if (is_opclause(clause)) {
+            // Handle OpExpr: (Var/Expr op Const)
+            OpExpr *expr = (OpExpr *) clause;
+            // ... evaluate each MCV item against the operator condition
+            // Set matches[i] = RESULT_MERGE(matches[i], is_or, match_result)
+
+        } else if (IsA(clause, ScalarArrayOpExpr)) {
+            // Handle ScalarArrayOpExpr: (Var/Expr op ANY/ALL (array))
+            ScalarArrayOpExpr *expr = (ScalarArrayOpExpr *) clause;
+            // ... evaluate each MCV item against array elements
+            // Apply ANY (OR-like) or ALL (AND-like) logic
+
+        } else if (IsA(clause, NullTest)) {
+            // Handle NULL tests: IS NULL / IS NOT NULL
+            NullTest *expr = (NullTest *) clause;
+            // ... check MCV item null flags
+            // Set matches based on null test type
+
+        } else if (is_orclause(clause) || is_andclause(clause)) {
+            // Handle boolean expressions recursively
+            BoolExpr *bool_clause = (BoolExpr *) clause;
+            bool *bool_matches = mcv_get_match_bitmap(root, bool_clause->args,
+                                                     keys, exprs, mcvlist,
+                                                     is_orclause(clause));
+            // Merge recursive results with current bitmap
+            for (int i = 0; i < mcvlist->nitems; i++)
+                matches[i] = RESULT_MERGE(matches[i], is_or, bool_matches[i]);
+            pfree(bool_matches);
+
+        } else if (is_notclause(clause)) {
+            // Handle NOT expressions by inverting results
+            BoolExpr *not_clause = (BoolExpr *) clause;
+            bool *not_matches = mcv_get_match_bitmap(root, not_clause->args,
+                                                    keys, exprs, mcvlist, false);
+            // Merge inverted results
+            for (int i = 0; i < mcvlist->nitems; i++)
+                matches[i] = RESULT_MERGE(matches[i], is_or, !not_matches[i]);
+            pfree(not_matches);
+
+        } else if (IsA(clause, Var)) {
+            // Handle boolean Var directly
+            Var *var = (Var *) clause;
+            int idx = bms_member_index(keys, var->varattno);
+            // Check boolean value in MCV items
+
+        } else {
+            // Handle general boolean expressions
+            int idx = mcv_match_expression(clause, keys, exprs, NULL);
+            // Evaluate expression truth value
+        }
+    }
+
+    return matches;
+}
+```

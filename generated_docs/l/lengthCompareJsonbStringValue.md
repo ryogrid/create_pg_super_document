@@ -44,3 +44,21 @@ This comparator is specifically optimized for sorting JSONB object keys where th
 - Length-first comparison often provides better cache locality and performance than lexical comparison
 - The function is static and only used internally within the JSONB system
 - Essential for JSONB object key sorting and deduplication operations
+
+## Simplified Source
+
+```c
+static int
+lengthCompareJsonbStringValue(const void *a, const void *b)
+{
+    const JsonbValue *va = (const JsonbValue *) a;
+    const JsonbValue *vb = (const JsonbValue *) b;
+
+    Assert(va->type == jbvString);
+    Assert(vb->type == jbvString);
+
+    // Delegate to the string comparison function
+    return lengthCompareJsonbString(va->val.string.val, va->val.string.len,
+                                   vb->val.string.val, vb->val.string.len);
+}
+```

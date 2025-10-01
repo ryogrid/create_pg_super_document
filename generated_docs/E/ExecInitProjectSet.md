@@ -46,3 +46,70 @@ The function includes specialized logic for detecting and properly initializing 
 - The argcontext memory context has ALLOCSET_DEFAULT_SIZES and is specifically for tSRF function arguments
 - Does not support any qualification conditions (qual must be NIL)
 - Returns a fully initialized ProjectSetState ready for execution
+
+## Simplified Source
+
+```c
+ProjectSetState *
+ExecInitProjectSet(ProjectSet *node, EState *estate, int eflags)
+{
+    ProjectSetState *state;
+    ListCell *lc;
+    int off;
+
+    // Validate execution flags
+    Assert(!(eflags & (EXEC_FLAG_MARK | EXEC_FLAG_BACKWARD)));
+
+    // Create and initialize state structure
+    state = makeNode(ProjectSetState);
+    state->ps.plan = (Plan *) node;
+    state->ps.state = estate;
+    state->ps.ExecProcNode = ExecProjectSet;
+    state->pending_srf_tuples = false;
+
+    // Create expression context and initialize child node
+    ExecAssignExprContext(estate, &state->ps);
+    outerPlanState(state) = ExecInitNode(outerPlan(node), estate, eflags);
+    Assert(innerPlan(node) == NULL);
+
+    // Initialize result tuple slot
+    ExecInitResultTupleSlotTL(&state->ps, &TTSOpsVirtual);
+
+    // Allocate workspace for target list expressions
+    state->nelems = list_length(node->plan.targetlist);
+    state->elems = (Node **) palloc(sizeof(Node *) * state->nelems);
+    state->elemdone = (ExprDoneCond *) palloc(sizeof(ExprDoneCond) * state->nelems);
+
+    // Build expressions for each target list element
+    off = 0;
+    foreach(lc, node->plan.targetlist)
+    {
+        TargetEntry *te = (TargetEntry *) lfirst(lc);
+        Expr *expr = te->expr;
+
+        // Handle set-returning functions specially
+        if ((IsA(expr, FuncExpr) && ((FuncExpr *) expr)->funcretset) ||
+            (IsA(expr, OpExpr) && ((OpExpr *) expr)->opretset))
+        {
+            state->elems[off] = (Node *)
+                ExecInitFunctionResultSet(expr, state->ps.ps_ExprContext, &state->ps);
+        }
+        else
+        {
+            Assert(!expression_returns_set((Node *) expr));
+            state->elems[off] = (Node *) ExecInitExpr(expr, &state->ps);
+        }
+        off++;
+    }
+
+    // Validate no qualification conditions
+    Assert(node->plan.qual == NIL);
+
+    // Create memory context for SRF function arguments
+    state->argcontext = AllocSetContextCreate(CurrentMemoryContext,
+                                            "tSRF function arguments",
+                                            ALLOCSET_DEFAULT_SIZES);
+
+    return state;
+}
+```

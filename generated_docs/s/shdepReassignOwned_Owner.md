@@ -53,3 +53,74 @@ Some object types like default ACLs and user mappings are explicitly ignored as 
 - Explicitly ignores DefaultAclRelationId and UserMappingRelationId objects
 - Part of the ownership reassignment infrastructure called during REASSIGN OWNED operations
 - Centralizes object type-specific ownership change logic in one location
+
+## Simplified Source
+
+```c
+static void
+shdepReassignOwned_Owner(Form_pg_shdepend sdepForm, Oid newrole)
+{
+    // Dispatch to appropriate ALTER OWNER function based on object class
+    switch (sdepForm->classid) {
+        case TypeRelationId:
+            AlterTypeOwner_oid(sdepForm->objid, newrole, true);
+            break;
+
+        case NamespaceRelationId:
+            AlterSchemaOwner_oid(sdepForm->objid, newrole);
+            break;
+
+        case RelationRelationId:
+            // Use recursing=true to handle dependent objects (indexes, sequences)
+            ATExecChangeOwner(sdepForm->objid, newrole, true, AccessExclusiveLock);
+            break;
+
+        case DefaultAclRelationId:
+        case UserMappingRelationId:
+            // Skip - handled by DROP OWNED, not REASSIGN OWNED
+            break;
+
+        case ForeignServerRelationId:
+            AlterForeignServerOwner_oid(sdepForm->objid, newrole);
+            break;
+
+        case ForeignDataWrapperRelationId:
+            AlterForeignDataWrapperOwner_oid(sdepForm->objid, newrole);
+            break;
+
+        case EventTriggerRelationId:
+            AlterEventTriggerOwner_oid(sdepForm->objid, newrole);
+            break;
+
+        case PublicationRelationId:
+            AlterPublicationOwner_oid(sdepForm->objid, newrole);
+            break;
+
+        case SubscriptionRelationId:
+            AlterSubscriptionOwner_oid(sdepForm->objid, newrole);
+            break;
+
+        // Generic cases for multiple object types
+        case CollationRelationId:
+        case ConversionRelationId:
+        case OperatorRelationId:
+        case ProcedureRelationId:
+        case LanguageRelationId:
+        case LargeObjectRelationId:
+        case OperatorFamilyRelationId:
+        case OperatorClassRelationId:
+        case ExtensionRelationId:
+        case StatisticExtRelationId:
+        case TableSpaceRelationId:
+        case DatabaseRelationId:
+        case TSConfigRelationId:
+        case TSDictionaryRelationId:
+            AlterObjectOwner_internal(sdepForm->classid, sdepForm->objid, newrole);
+            break;
+
+        default:
+            elog(ERROR, "unexpected classid %u", sdepForm->classid);
+            break;
+    }
+}
+```

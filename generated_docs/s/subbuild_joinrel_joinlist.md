@@ -39,3 +39,27 @@ The function is specifically designed to work with join relations (RELOPT_JOINRE
 - Duplicate elimination uses pointer equality since RestrictInfo nodes are multiply-linked
 - The function operates at lines 1418-1469 in src/backend/optimizer/util/relnode.c
 - This function is the counterpart to subbuild_joinrel_restrictlist, handling the join clauses while the other handles restriction clauses
+
+## Simplified Source
+
+```c
+static List *subbuild_joinrel_joinlist(RelOptInfo *joinrel,
+                                      List *joininfo_list,
+                                      List *new_joininfo) {
+    // Process each clause in the input joininfo list
+    foreach(l, joininfo_list) {
+        RestrictInfo *rinfo = (RestrictInfo *) lfirst(l);
+
+        // Check if clause refers only to relations within this joinrel
+        if (bms_is_subset(rinfo->required_relids, joinrel->relids)) {
+            // Clause becomes restriction clause - ignore it here
+            continue;
+        } else {
+            // Clause still references outside relations - keep as join clause
+            new_joininfo = list_append_unique_ptr(new_joininfo, rinfo);
+        }
+    }
+
+    return new_joininfo;
+}
+```

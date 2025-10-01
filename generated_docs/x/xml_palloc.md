@@ -30,3 +30,11 @@ This function serves as a custom memory allocation callback for the libxml libra
 - Serves as a callback function registered with libxml via xmlMemSetup
 - Part of PostgreSQL's integration with libxml for consistent memory management
 - All memory allocated through this function will be automatically freed when LibxmlContext is destroyed
+
+## Simplified Source
+
+```c
+static void *xml_palloc(size_t size) {
+    return MemoryContextAlloc(LibxmlContext, size);
+}
+```

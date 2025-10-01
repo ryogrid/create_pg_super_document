@@ -32,3 +32,31 @@ This static function evaluates whether a statistics object contains all the expr
 
 ## Notes and Other Information
 This function is part of the extended statistics infrastructure in PostgreSQL and is used to determine if a particular statistics object can provide useful information for a set of expressions. It's typically called during query planning to identify which statistics objects are applicable for selectivity estimation.
+
+## Simplified Source
+
+```c
+static bool
+stat_covers_expressions(StatisticExtInfo *stat, List *exprs,
+                        Bitmapset **expr_idxs)
+{
+    ListCell *lc;
+
+    foreach(lc, exprs) {
+        Node *expr = (Node *) lfirst(lc);
+        int expr_idx;
+
+        // Check if this expression is covered by the statistic
+        expr_idx = stat_find_expression(stat, expr);
+        if (expr_idx == -1)
+            return false;
+
+        // Optionally record the expression index
+        if (expr_idxs != NULL)
+            *expr_idxs = bms_add_member(*expr_idxs, expr_idx);
+    }
+
+    // All expressions are covered
+    return true;
+}
+```

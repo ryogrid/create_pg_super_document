@@ -39,3 +39,26 @@ The walker returns false to indicate that traversal should continue, which is th
 - PARAM_EXEC parameters represent values that are computed during query execution and may affect partition pruning
 - The recursive nature ensures all nested expressions are properly analyzed
 - Returns false to continue tree traversal, which is the standard pattern for collection walkers
+
+## Simplified Source
+
+```c
+static bool pull_exec_paramids_walker(Node *node, Bitmapset **context) {
+    if (node == NULL)
+        return false;
+
+    // Check if this is an execution parameter
+    if (IsA(node, Param)) {
+        Param *param = (Param *) node;
+
+        // Add PARAM_EXEC parameters to the result set
+        if (param->paramkind == PARAM_EXEC)
+            *context = bms_add_member(*context, param->paramid);
+
+        return false;  // Continue traversal
+    }
+
+    // Recursively process child nodes
+    return expression_tree_walker(node, pull_exec_paramids_walker, context);
+}
+```

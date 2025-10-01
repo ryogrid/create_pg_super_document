@@ -62,3 +62,92 @@ The function handles complex scenarios like indexed join qualifications where un
 - Protects against zero row count assumptions that could cause division errors
 - Accounts for parallel execution by scaling row estimates appropriately
 - Target list evaluation costs are applied per output row, not per processed tuple
+
+## Simplified Source
+
+```c
+void final_cost_nestloop(PlannerInfo *root, NestPath *path,
+                        JoinCostWorkspace *workspace,
+                        JoinPathExtraData *extra) {
+    Path *outer_path = path->jpath.outerjoinpath;
+    Path *inner_path = path->jpath.innerjoinpath;
+    double outer_rows = outer_path->rows;
+    double inner_rows = inner_path->rows;
+    Cost startup_cost = workspace->startup_cost;
+    Cost run_cost = workspace->run_cost;
+    Cost cpu_per_tuple;
+    QualCost restrict_qual_cost;
+    double ntuples;
+
+    // Protect against zero row estimates
+    if (outer_rows <= 0) outer_rows = 1;
+    if (inner_rows <= 0) inner_rows = 1;
+
+    // Set final row estimate
+    if (path->jpath.path.param_info)
+        path->jpath.path.rows = path->jpath.path.param_info->ppi_rows;
+    else
+        path->jpath.path.rows = path->jpath.path.parent->rows;
+
+    // Scale for parallel execution
+    if (path->jpath.path.parallel_workers > 0) {
+        double parallel_divisor = get_parallel_divisor(&path->jpath.path);
+        path->jpath.path.rows = clamp_row_est(path->jpath.path.rows / parallel_divisor);
+    }
+
+    // Add disable cost if necessary
+    if (!enable_nestloop)
+        startup_cost += disable_cost;
+
+    // Handle special join types (SEMI/ANTI/unique inner)
+    if (path->jpath.jointype == JOIN_SEMI || path->jpath.jointype == JOIN_ANTI ||
+        extra->inner_unique) {
+
+        // Calculate early termination benefits
+        double outer_matched_rows = rint(outer_rows * extra->semifactors.outer_match_frac);
+        double outer_unmatched_rows = outer_rows - outer_matched_rows;
+        double inner_scan_frac = 2.0 / (extra->semifactors.match_count + 1.0);
+
+        ntuples = outer_matched_rows * inner_rows * inner_scan_frac;
+
+        if (has_indexed_join_quals(path)) {
+            // Indexed joins: cheap unmatched row handling
+            run_cost += workspace->inner_run_cost * inner_scan_frac;
+            if (outer_matched_rows > 1)
+                run_cost += (outer_matched_rows - 1) * workspace->inner_rescan_run_cost * inner_scan_frac;
+            run_cost += outer_unmatched_rows * workspace->inner_rescan_run_cost / inner_rows;
+        } else {
+            // Non-indexed: full scan costs
+            ntuples += outer_unmatched_rows * inner_rows;
+            run_cost += workspace->inner_run_cost;
+
+            if (outer_unmatched_rows >= 1)
+                outer_unmatched_rows -= 1;
+            else
+                outer_matched_rows -= 1;
+
+            if (outer_matched_rows > 0)
+                run_cost += outer_matched_rows * workspace->inner_rescan_run_cost * inner_scan_frac;
+            if (outer_unmatched_rows > 0)
+                run_cost += outer_unmatched_rows * workspace->inner_rescan_run_cost;
+        }
+    } else {
+        // Regular join: process all tuple combinations
+        ntuples = outer_rows * inner_rows;
+    }
+
+    // Add CPU costs for join qualification and tuple processing
+    cost_qual_eval(&restrict_qual_cost, path->jpath.joinrestrictinfo, root);
+    startup_cost += restrict_qual_cost.startup;
+    cpu_per_tuple = cpu_tuple_cost + restrict_qual_cost.per_tuple;
+    run_cost += cpu_per_tuple * ntuples;
+
+    // Add target list evaluation costs (per output row)
+    startup_cost += path->jpath.path.pathtarget->cost.startup;
+    run_cost += path->jpath.path.pathtarget->cost.per_tuple * path->jpath.path.rows;
+
+    // Set final costs
+    path->jpath.path.startup_cost = startup_cost;
+    path->jpath.path.total_cost = startup_cost + run_cost;
+}
+```

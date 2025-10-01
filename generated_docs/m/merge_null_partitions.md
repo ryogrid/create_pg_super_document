@@ -50,3 +50,54 @@ The function analyzes which NULL partitions need consideration (haven't been mer
 - The function assumes strict join operators, which is guaranteed by the mergejoinable requirement in partitioned joins
 - Only processes NULL partitions that haven't been merged yet (merged_indexes[partition] == -1)
 - The resulting merged partition retains NULL-only key values and is treated as the NULL partition of the join relation
+
+## Simplified Source
+
+```c
+static void
+merge_null_partitions(PartitionMap *outer_map, PartitionMap *inner_map,
+                     bool outer_has_null, bool inner_has_null,
+                     int outer_null, int inner_null, JoinType jointype,
+                     int *next_index, int *null_index)
+{
+    bool consider_outer_null = false;
+    bool consider_inner_null = false;
+
+    // Check if NULL partitions need merging (haven't been merged yet)
+    if (outer_has_null && outer_map->merged_indexes[outer_null] == -1)
+        consider_outer_null = true;
+    if (inner_has_null && inner_map->merged_indexes[inner_null] == -1)
+        consider_inner_null = true;
+
+    // If no NULL partitions need merging, we're done
+    if (!consider_outer_null && !consider_inner_null)
+        return;
+
+    if (consider_outer_null && !consider_inner_null)
+    {
+        // Only outer NULL partition needs merging
+        // For outer joins, merge with dummy partition
+        if (IS_OUTER_JOIN(jointype))
+            *null_index = merge_partition_with_dummy(outer_map, outer_null, next_index);
+    }
+    else if (!consider_outer_null && consider_inner_null)
+    {
+        // Only inner NULL partition needs merging
+        // For FULL joins, merge with dummy partition
+        if (jointype == JOIN_FULL)
+            *null_index = merge_partition_with_dummy(inner_map, inner_null, next_index);
+    }
+    else
+    {
+        // Both NULL partitions need merging
+        // For outer joins, merge them together
+        // For inner/semi joins, NULL partitions are eliminated (no merge needed)
+        if (IS_OUTER_JOIN(jointype))
+        {
+            *null_index = merge_matching_partitions(outer_map, inner_map,
+                                                   outer_null, inner_null,
+                                                   next_index);
+        }
+    }
+}
+```

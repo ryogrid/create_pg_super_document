@@ -53,3 +53,39 @@ The  function performs equality comparison between two datums using a straightfo
 - TOAST handling is explicitly avoided to prevent issues in aborted transactions
 - This function is primarily used for system-level comparisons rather than user-visible equality operations
 - Different logical representations of the same value (like different encodings) will be considered unequal
+
+## Simplified Source
+
+```c
+bool datumIsEqual(Datum value1, Datum value2, bool typByVal, int typLen) {
+    if (typByVal) {
+        // Pass-by-value types: direct comparison
+        // Assumes datatypes consistently fill padding bits
+        return (value1 == value2);
+    }
+    else {
+        // Pass-by-reference types: compare pointed-to memory
+
+        // First check if sizes match
+        Size size1 = datumGetSize(value1, typByVal, typLen);
+        Size size2 = datumGetSize(value2, typByVal, typLen);
+
+        if (size1 != size2)
+            return false;
+
+        // Compare memory contents byte-by-byte
+        char *data1 = (char *) DatumGetPointer(value1);
+        char *data2 = (char *) DatumGetPointer(value2);
+
+        return (memcmp(data1, data2, size1) == 0);
+    }
+}
+```
+
+**Simplification Notes:**
+- Preserved the two-path logic for by-value vs by-reference types
+- Added clear comments explaining the approach for each type
+- Simplified variable declarations and flow while maintaining functionality
+- Retained the essential algorithm: direct comparison for by-value, size-then-memcmp for by-reference
+- Maintained the intentional simplicity to work in error contexts
+- Reduced from ~30 lines to ~18 lines while preserving all logic

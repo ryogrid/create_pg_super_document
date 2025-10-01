@@ -40,3 +40,42 @@ The  function implements decimal truncation for PostgreSQL's numeric type by sim
 - When di <= 0, all digits are eliminated and the result is set to positive zero
 - Uses modular arithmetic for within-digit truncation when DEC_DIGITS > 1
 - The dscale field is immediately set to the target rscale value
+
+## Simplified Source
+
+```c
+static void trunc_var(NumericVar *var, int rscale) {
+    int di, ndigits;
+
+    // Set target scale
+    var->dscale = rscale;
+
+    // Calculate decimal digits wanted (weight+1 * DEC_DIGITS + rscale)
+    di = (var->weight + 1) * DEC_DIGITS + rscale;
+
+    // If no digits wanted, set to zero
+    if (di <= 0) {
+        var->ndigits = 0;
+        var->weight = 0;
+        var->sign = NUMERIC_POS;
+        return;
+    }
+
+    // Calculate NBASE digits needed
+    ndigits = (di + DEC_DIGITS - 1) / DEC_DIGITS;
+
+    if (ndigits <= var->ndigits) {
+        var->ndigits = ndigits;
+
+        // Handle within-digit truncation for DEC_DIGITS > 1
+        di %= DEC_DIGITS;
+        if (di > 0) {
+            // Truncate within the last NBASE digit
+            NumericDigit *digits = var->digits;
+            int pow10 = round_powers[di];  // Power of 10 for truncation
+            int extra = digits[ndigits - 1] % pow10;
+            digits[ndigits - 1] -= extra;  // Remove fractional part
+        }
+    }
+}
+```

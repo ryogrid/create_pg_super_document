@@ -43,3 +43,36 @@ The function operates within the current query depth context and ensures proper 
 - Ignores existing structures marked as "closed" to maintain proper trigger state isolation
 - Part of PostgreSQL's trigger infrastructure for managing per-table, per-command trigger data during query execution
 - The returned structure is used to track statement-level trigger firing state and associated tuple data
+
+## Simplified Source
+
+```c
+static AfterTriggersTableData *
+GetAfterTriggersTableData(Oid relid, CmdType cmdType)
+{
+    AfterTriggersTableData *table;
+    AfterTriggersQueryData *query_data;
+    ListCell *cell;
+
+    // Get current query's data from trigger stack
+    query_data = &afterTriggers.query_stack[afterTriggers.query_depth];
+
+    // Search for existing table data that matches relation and command type
+    foreach(cell, query_data->tables)
+    {
+        table = (AfterTriggersTableData *) lfirst(cell);
+        if (table->relid == relid && table->cmdType == cmdType && !table->closed)
+            return table;
+    }
+
+    // Create new table data structure in transaction context
+    MemoryContextSwitchTo(CurTransactionContext);
+    table = palloc0(sizeof(AfterTriggersTableData));
+    table->relid = relid;
+    table->cmdType = cmdType;
+    query_data->tables = lappend(query_data->tables, table);
+    MemoryContextSwitchTo(oldcxt);
+
+    return table;
+}
+```

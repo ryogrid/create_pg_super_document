@@ -53,3 +53,63 @@ The function carefully manages memory by creating copies of the upper_nullingrel
 - SEMI and ANTI joins are treated like LEFT joins for nulling purposes
 - The function validates join types and node types, raising errors for unrecognized types
 - Results are stored directly in the info structure's nullingrels array using 1-based indexing
+
+## Simplified Source
+
+```c
+static void get_nullingrels_recurse(Node *jtnode, Relids upper_nullingrels, nullingrel_info *info)
+{
+    if (jtnode == NULL)
+        return;
+
+    if (IsA(jtnode, RangeTblRef)) {
+        // Leaf relation: store accumulated nullingrels
+        int varno = ((RangeTblRef *) jtnode)->rtindex;
+        info->nullingrels[varno] = upper_nullingrels;
+    }
+    else if (IsA(jtnode, FromExpr)) {
+        // Relation list: propagate to all children
+        FromExpr *f = (FromExpr *) jtnode;
+
+        foreach(l, f->fromlist) {
+            get_nullingrels_recurse(lfirst(l), upper_nullingrels, info);
+        }
+    }
+    else if (IsA(jtnode, JoinExpr)) {
+        // Join: apply join-type-specific nulling rules
+        JoinExpr *j = (JoinExpr *) jtnode;
+        Relids local_nullingrels;
+
+        switch (j->jointype) {
+            case JOIN_INNER:
+                // No new nulls introduced
+                get_nullingrels_recurse(j->larg, upper_nullingrels, info);
+                get_nullingrels_recurse(j->rarg, upper_nullingrels, info);
+                break;
+
+            case JOIN_LEFT:
+            case JOIN_SEMI:
+            case JOIN_ANTI:
+                // Right side can be nulled by this join
+                local_nullingrels = bms_add_member(bms_copy(upper_nullingrels), j->rtindex);
+                get_nullingrels_recurse(j->larg, upper_nullingrels, info);
+                get_nullingrels_recurse(j->rarg, local_nullingrels, info);
+                break;
+
+            case JOIN_RIGHT:
+                // Left side can be nulled by this join
+                local_nullingrels = bms_add_member(bms_copy(upper_nullingrels), j->rtindex);
+                get_nullingrels_recurse(j->larg, local_nullingrels, info);
+                get_nullingrels_recurse(j->rarg, upper_nullingrels, info);
+                break;
+
+            case JOIN_FULL:
+                // Both sides can be nulled by this join
+                local_nullingrels = bms_add_member(bms_copy(upper_nullingrels), j->rtindex);
+                get_nullingrels_recurse(j->larg, local_nullingrels, info);
+                get_nullingrels_recurse(j->rarg, local_nullingrels, info);
+                break;
+        }
+    }
+}
+```

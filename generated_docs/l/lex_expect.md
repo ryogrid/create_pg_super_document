@@ -34,3 +34,17 @@ The lex_expect function implements conditional token consumption in the JSON par
 
 ## Notes and Other Information
 This function encapsulates the common pattern of checking for an expected token and either consuming it or reporting an error. It is a key building block for implementing the JSON grammar rules and ensures consistent error handling throughout the parser. The function returns JsonParseErrorType to indicate success or the specific type of parsing error encountered.
+
+## Simplified Source
+
+```c
+static inline JsonParseErrorType
+lex_expect(JsonParseContext ctx, JsonLexContext *lex, JsonTokenType token)
+{
+    // Check if current token matches expected token
+    if (lex_peek(lex) == token)
+        return json_lex(lex);  // Advance lexer if match
+    else
+        return report_parse_error(ctx, lex);  // Report error if no match
+}
+```

@@ -34,3 +34,32 @@ This function is responsible for checking and maintaining dimensional consistenc
 - Critical for maintaining array structure integrity during JSON-to-array conversion
 - Handles both dimension assignment for unknown dimensions and validation for known dimensions
 - Part of the JSON array population subsystem in PostgreSQL's JSON handling utilities
+
+## Simplified Source
+
+```c
+static bool
+populate_array_check_dimension(PopulateArrayContext *ctx, int ndim)
+{
+    int dim = ctx->sizes[ndim]; // current dimension counter
+
+    // Set dimension if unknown, or validate if known
+    if (ctx->dims[ndim] == -1)
+        ctx->dims[ndim] = dim;
+    else if (ctx->dims[ndim] != dim)
+        ereturn(ctx->escontext, false,
+                (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                 errmsg("malformed JSON array"),
+                 errdetail("Multidimensional arrays must have "
+                          "sub-arrays with matching dimensions.")));
+
+    // Reset current dimension counter
+    ctx->sizes[ndim] = 0;
+
+    // Increment parent dimension counter for nested arrays
+    if (ndim > 0)
+        ctx->sizes[ndim - 1]++;
+
+    return true;
+}
+```

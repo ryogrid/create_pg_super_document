@@ -40,3 +40,14 @@ The estimates provided by this function are used by PostgreSQL's query planner t
 - The allvisfrac parameter relates to visibility map optimization in PostgreSQL
 - Different access methods may use different algorithms and metadata for size estimation
 - Located in src/include/access/tableam.h:1938-1961
+
+## Simplified Source
+
+```c
+static inline void table_relation_estimate_size(Relation rel, int32 *attr_widths,
+                                                BlockNumber *pages, double *tuples,
+                                                double *allvisfrac) {
+    // Delegate to the table access method's size estimation function
+    rel->rd_tableam->relation_estimate_size(rel, attr_widths, pages, tuples, allvisfrac);
+}
+```

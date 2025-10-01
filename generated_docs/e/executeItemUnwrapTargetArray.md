@@ -43,3 +43,27 @@ The  function is a specialized JSONPath execution function that operates on arra
 - The function performs strict type validation, expecting jbvBinary type and explicitly asserting that jbvArray type should not occur
 - The function delegates to executeAnyItem with parameters (1, 1, 1, false, unwrapElements) which configure specific execution behavior for array unwrapping
 - Error handling includes an elog(ERROR) call for invalid jsonb array value types
+
+## Simplified Source
+
+```c
+static JsonPathExecResult
+executeItemUnwrapTargetArray(JsonPathExecContext *cxt, JsonPathItem *jsp,
+                             JsonbValue *jb, JsonValueList *found,
+                             bool unwrapElements)
+{
+    // Validate input is binary array
+    if (jb->type != jbvBinary)
+    {
+        Assert(jb->type != jbvArray);
+        elog(ERROR, "invalid jsonb array value type: %d", jb->type);
+    }
+
+    // Delegate to executeAnyItem with array-specific parameters:
+    // - level=1, first=1, last=1: process only immediate array elements
+    // - ignoreStructuralErrors=false: strict error handling
+    // - unwrapNext=unwrapElements: control element unwrapping
+    return executeAnyItem(cxt, jsp, jb->val.binary.data, found, 1, 1, 1,
+                         false, unwrapElements);
+}
+```

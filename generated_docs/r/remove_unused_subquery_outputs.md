@@ -54,3 +54,66 @@ The function performs several safety checks to ensure semantic correctness, avoi
 - Whole-row references (attribute 0) prevent any column removal
 - The optimization is skipped for set operations (UNION/INTERSECT/EXCEPT) to avoid complexity
 - Regular DISTINCT operations require all columns, but DISTINCT ON allows selective removal
+
+## Simplified Source
+
+```c
+static void
+remove_unused_subquery_outputs(Query *subquery, RelOptInfo *rel,
+                              Bitmapset *extra_used_attrs)
+{
+    Bitmapset *attrs_used = extra_used_attrs;
+    ListCell *lc;
+
+    // Skip optimization for set operations
+    if (subquery->setOperations)
+        return;
+
+    // Skip if regular DISTINCT (not DISTINCT ON)
+    if (subquery->distinctClause && !subquery->hasDistinctOn)
+        return;
+
+    // Collect all output columns used by upper query
+    pull_varattnos((Node *) rel->reltarget->exprs, rel->relid, &attrs_used);
+
+    // Add attributes used by restriction clauses
+    foreach(lc, rel->baserestrictinfo)
+    {
+        RestrictInfo *rinfo = (RestrictInfo *) lfirst(lc);
+        pull_varattnos((Node *) rinfo->clause, rel->relid, &attrs_used);
+    }
+
+    // Cannot remove anything if whole-row reference exists
+    if (bms_is_member(0 - FirstLowInvalidHeapAttributeNumber, attrs_used))
+        return;
+
+    // Process each targetlist entry
+    foreach(lc, subquery->targetList)
+    {
+        TargetEntry *tle = (TargetEntry *) lfirst(lc);
+        Node *texpr = (Node *) tle->expr;
+
+        // Keep sort/group columns and resjunk columns
+        if (tle->ressortgroupref || tle->resjunk)
+            continue;
+
+        // Keep if used by upper query
+        if (bms_is_member(tle->resno - FirstLowInvalidHeapAttributeNumber,
+                         attrs_used))
+            continue;
+
+        // Keep set-returning functions (affect row count)
+        if (subquery->hasTargetSRFs && expression_returns_set(texpr))
+            continue;
+
+        // Keep volatile functions (preserve side effects)
+        if (contain_volatile_functions(texpr))
+            continue;
+
+        // Replace unused expression with NULL constant
+        tle->expr = (Expr *) makeNullConst(exprType(texpr),
+                                         exprTypmod(texpr),
+                                         exprCollation(texpr));
+    }
+}
+```

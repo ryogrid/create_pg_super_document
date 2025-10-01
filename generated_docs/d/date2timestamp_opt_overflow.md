@@ -40,3 +40,42 @@ The  function promotes a PostgreSQL date to a timestamp with sophisticated overf
 - Converts dates (days since 2000-01-01) to timestamps (microseconds since same epoch) via multiplication
 - Provides flexible error handling strategy through optional overflow parameter
 - Critical function for date-timestamp interoperability in PostgreSQL type system
+
+## Simplified Source
+
+```c
+Timestamp
+date2timestamp_opt_overflow(DateADT dateVal, int *overflow)
+{
+    Timestamp result;
+
+    if (overflow)
+        *overflow = 0;
+
+    // Handle infinite date values
+    if (DATE_IS_NOBEGIN(dateVal))
+        TIMESTAMP_NOBEGIN(result);
+    else if (DATE_IS_NOEND(dateVal))
+        TIMESTAMP_NOEND(result);
+    else {
+        // Check for upper boundary overflow only
+        // (lower bounds are the same for both types)
+        if (dateVal >= (TIMESTAMP_END_JULIAN - POSTGRES_EPOCH_JDATE)) {
+            if (overflow) {
+                *overflow = 1;
+                TIMESTAMP_NOEND(result);
+                return result;
+            } else {
+                ereport(ERROR,
+                        (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                         errmsg("date out of range for timestamp")));
+            }
+        }
+
+        // Convert date (days since epoch) to timestamp (microseconds since epoch)
+        result = dateVal * USECS_PER_DAY;
+    }
+
+    return result;
+}
+```

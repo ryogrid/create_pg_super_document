@@ -37,3 +37,38 @@ The function ensures proper formatting by wrapping all worker output in "Workers
 - Memory cleanup is comprehensive, freeing worker_inited array, worker_str array, worker_state_save array, and the main wstate structure
 - The function maintains proper nesting of explanation groups to ensure valid XML/JSON output formatting
 - Only outputs information for workers that have been initialized (worker_inited[i] == true)
+
+## Simplified Source
+
+```c
+static void
+ExplainFlushWorkersState(ExplainState *es)
+{
+    ExplainWorkersState *wstate = es->workers_state;
+
+    // Begin workers output group
+    ExplainOpenGroup("Workers", "Workers", false, es);
+
+    // Output each initialized worker's data
+    for (int i = 0; i < wstate->num_workers; i++) {
+        if (wstate->worker_inited[i]) {
+            // Open worker group and output collected data
+            ExplainOpenGroup("Worker", NULL, true, es);
+            appendStringInfoString(es->str, wstate->worker_str[i].data);
+            ExplainCloseGroup("Worker", NULL, true, es);
+
+            // Free worker's string buffer
+            pfree(wstate->worker_str[i].data);
+        }
+    }
+
+    // Close workers group
+    ExplainCloseGroup("Workers", "Workers", false, es);
+
+    // Clean up all allocated memory
+    pfree(wstate->worker_inited);
+    pfree(wstate->worker_str);
+    pfree(wstate->worker_state_save);
+    pfree(wstate);
+}
+```

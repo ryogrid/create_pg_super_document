@@ -46,3 +46,32 @@ Column range parameters (colMin/colMax) define which columns in the global colum
 - Error handling behavior is configurable per scan to support different ON ERROR clauses
 - Column range tracking enables efficient execution planning for complex nested structures
 - The plan node supports hierarchical child plans for nested JSON table operations
+
+## Simplified Source
+
+```c
+static JsonTablePlan *
+makeJsonTablePathScan(JsonTablePathSpec *pathspec, bool errorOnError,
+                      int colMin, int colMax, JsonTablePlan *childplan)
+{
+    JsonTablePathScan *scan = makeNode(JsonTablePathScan);
+
+    // Compile JSONPath expression at parse time
+    char *pathstring = castNode(A_Const, pathspec->string)->val.sval.sval;
+    Const *value = makeConst(JSONPATHOID, -1, InvalidOid, -1,
+                           DirectFunctionCall1(jsonpath_in, CStringGetDatum(pathstring)),
+                           false, false);
+
+    // Set up scan plan properties
+    scan->plan.type = T_JsonTablePathScan;
+    scan->path = makeJsonTablePath(value, pathspec->name);
+    scan->errorOnError = errorOnError;
+    scan->child = childplan;
+
+    // Set column range for this scan (-1 if all nested)
+    scan->colMin = colMin;
+    scan->colMax = colMax;
+
+    return (JsonTablePlan *) scan;
+}
+```

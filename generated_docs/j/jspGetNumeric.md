@@ -36,3 +36,15 @@ The jspGetNumeric function is a type-specific accessor function that extracts nu
 - Used extensively in JSON path arithmetic operations and numeric comparisons
 - The returned Numeric value can be used with PostgreSQL's numeric manipulation functions
 - Essential for JSON path expression evaluation involving numeric literals and computed values
+
+## Simplified Source
+
+```c
+Numeric
+jspGetNumeric(JsonPathItem *v)
+{
+    Assert(v->type == jpiNumeric);
+
+    return (Numeric) v->content.value.data;
+}
+```

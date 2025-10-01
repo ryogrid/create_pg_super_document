@@ -54,3 +54,88 @@ The function modifies the restrict_clauses parameter by adding clauses that shou
 - [ParamPathInfo](../P/ParamPathInfo.md) structures are cached but clause lists are input-pair dependent
 - Special handling for dropped EquivalenceClass clauses ensures no constraint enforcement gaps
 - The function is located in src/backend/optimizer/util/relnode.c:1671-1867
+
+## Simplified Source
+
+```c
+ParamPathInfo *
+get_joinrel_parampathinfo(PlannerInfo *root, RelOptInfo *joinrel,
+                         Path *outer_path, Path *inner_path,
+                         SpecialJoinInfo *sjinfo, Relids required_outer,
+                         List **restrict_clauses)
+{
+    ParamPathInfo *ppi;
+    List *pclauses = NIL;
+
+    // Unparameterized paths don't need ParamPathInfo
+    if (bms_is_empty(required_outer))
+        return NULL;
+
+    // Calculate which relations each path can accept parameters from
+    Relids join_and_req = bms_union(joinrel->relids, required_outer);
+    Relids outer_and_req = outer_path->param_info ?
+        bms_union(outer_path->parent->relids, PATH_REQ_OUTER(outer_path)) : NULL;
+    Relids inner_and_req = inner_path->param_info ?
+        bms_union(inner_path->parent->relids, PATH_REQ_OUTER(inner_path)) : NULL;
+
+    // Find clauses movable to this join but not to either input
+    foreach_joininfo_clause()
+    {
+        if (join_clause_is_movable_into(rinfo, joinrel->relids, join_and_req) &&
+            !join_clause_is_movable_into(rinfo, outer_path->parent->relids, outer_and_req) &&
+            !join_clause_is_movable_into(rinfo, inner_path->parent->relids, inner_and_req))
+        {
+            pclauses = lappend(pclauses, rinfo);
+        }
+    }
+
+    // Handle EquivalenceClass-generated clauses
+    List *eclauses = generate_join_implied_equalities(root, join_and_req,
+                                                     required_outer, joinrel, NULL);
+    List *dropped_ecs = NIL;
+    foreach_eclause()
+    {
+        if (movable_into_outer)
+            continue;  // Skip if can go to outer
+        if (movable_into_inner)
+        {
+            dropped_ecs = lappend(dropped_ecs, rinfo->left_ec);
+            continue;  // Skip but remember EC
+        }
+        pclauses = lappend(pclauses, rinfo);
+    }
+
+    // Handle dropped ECs to ensure constraint enforcement
+    if (dropped_ecs)
+    {
+        List *additional_clauses = generate_join_implied_equalities_for_ecs(
+            root, dropped_ecs, outer_path->parent->relids + required_outer,
+            required_outer, outer_path->parent);
+        foreach_additional_clause()
+        {
+            if (!movable_into_outer_path)
+                pclauses = lappend(pclauses, rinfo);
+        }
+    }
+
+    // Add movable clauses to caller's restrict_clauses
+    *restrict_clauses = list_concat(pclauses, *restrict_clauses);
+
+    // Return existing PPI if we have one
+    if ((ppi = find_param_path_info(joinrel, required_outer)))
+        return ppi;
+
+    // Create new ParamPathInfo
+    double rows = get_parameterized_joinrel_size(root, joinrel, outer_path,
+                                               inner_path, sjinfo, *restrict_clauses);
+
+    ppi = makeNode(ParamPathInfo);
+    ppi->ppi_req_outer = required_outer;
+    ppi->ppi_rows = rows;
+    ppi->ppi_clauses = NIL;
+    ppi->ppi_serials = NULL;
+    joinrel->ppilist = lappend(joinrel->ppilist, ppi);
+
+    return ppi;
+}
+```

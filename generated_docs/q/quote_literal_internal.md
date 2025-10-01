@@ -35,3 +35,41 @@ The `quote_literal_internal` function is a low-level utility that converts a sou
 - Returns the number of characters written to the destination buffer
 - Part of PostgreSQL's quote utility functions located in `src/backend/utils/adt/quote.c`
 - Critical for SQL injection prevention and proper string literal formatting
+
+## Simplified Source
+
+```c
+static size_t
+quote_literal_internal(char *dst, const char *src, size_t len)
+{
+    const char *s;
+    char *savedst = dst;
+
+    // Check if string contains backslashes (needs escape syntax)
+    for (s = src; s < src + len; s++)
+    {
+        if (*s == '\\')
+        {
+            *dst++ = ESCAPE_STRING_SYNTAX;
+            break;
+        }
+    }
+
+    // Start with opening quote
+    *dst++ = '\'';
+
+    // Process each character, doubling quotes as needed
+    while (len-- > 0)
+    {
+        // Double quotes and other special characters
+        if (SQL_STR_DOUBLE(*src, true))
+            *dst++ = *src;
+        *dst++ = *src++;
+    }
+
+    // End with closing quote
+    *dst++ = '\'';
+
+    return dst - savedst;
+}
+```

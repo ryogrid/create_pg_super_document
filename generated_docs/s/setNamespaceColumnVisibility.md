@@ -32,3 +32,20 @@ This function is a utility routine used within the PostgreSQL parser to modify t
 - The function is primarily used to manage column visibility during FROM clause processing
 - Column visibility control is essential for proper SQL name resolution and preventing ambiguous column references
 - The function modifies the namespace items in-place rather than creating new copies
+
+## Simplified Source
+
+```c
+static void
+setNamespaceColumnVisibility(List *namespace, bool cols_visible)
+{
+    ListCell *lc;
+
+    // Update visibility flag for all namespace items
+    foreach(lc, namespace)
+    {
+        ParseNamespaceItem *nsitem = (ParseNamespaceItem *) lfirst(lc);
+        nsitem->p_cols_visible = cols_visible;
+    }
+}
+```

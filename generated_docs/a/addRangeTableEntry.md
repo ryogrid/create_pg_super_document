@@ -57,3 +57,58 @@ The function ensures proper relation access control and maintains referential in
 - The returned ParseNamespaceItem is not automatically added to the parser state's namespace - caller must handle this appropriately
 - Lock mode determination uses RowShareLock for relations in FOR UPDATE/SHARE, AccessShareLock otherwise
 - This is typically the first access to a relation in a statement, establishing proper locking protocol
+
+## Simplified Source
+
+```c
+ParseNamespaceItem *
+addRangeTableEntry(ParseState *pstate,
+                   RangeVar *relation,
+                   Alias *alias,
+                   bool inh,
+                   bool inFromCl)
+{
+    RangeTblEntry *rte = makeNode(RangeTblEntry);
+    RTEPermissionInfo *perminfo;
+    char *refname = alias ? alias->aliasname : relation->relname;
+    LOCKMODE lockmode;
+    Relation rel;
+    ParseNamespaceItem *nsitem;
+
+    rte->rtekind = RTE_RELATION;
+    rte->alias = alias;
+
+    // Determine lock mode (RowShare for FOR UPDATE/SHARE, AccessShare otherwise)
+    lockmode = isLockedRefname(pstate, refname) ? RowShareLock : AccessShareLock;
+
+    // Open relation with proper locks and get metadata
+    rel = parserOpenTable(pstate, relation, lockmode);
+    rte->relid = RelationGetRelid(rel);
+    rte->inh = inh;
+    rte->relkind = rel->rd_rel->relkind;
+    rte->rellockmode = lockmode;
+
+    // Build column aliases using user-supplied aliases or actual column names
+    rte->eref = makeAlias(refname, NIL);
+    buildRelationAliases(rel->rd_att, alias, rte->eref);
+
+    // Set flags and initialize access permissions (default: SELECT)
+    rte->lateral = false;
+    rte->inFromCl = inFromCl;
+
+    perminfo = addRTEPermissionInfo(&pstate->p_rteperminfos, rte);
+    perminfo->requiredPerms = ACL_SELECT;
+
+    // Add RTE to range table
+    pstate->p_rtable = lappend(pstate->p_rtable, rte);
+
+    // Build namespace item
+    nsitem = buildNSItemFromTupleDesc(rte, list_length(pstate->p_rtable),
+                                      perminfo, rel->rd_att);
+
+    // Close relation but keep lock until end of transaction
+    table_close(rel, NoLock);
+
+    return nsitem;
+}
+```

@@ -67,3 +67,109 @@ The function builds a linked sequence of FormatNode structures, each representin
 - Integrates error reporting for invalid datetime format separators in standard mode
 - Multi-byte character aware for international character support
 - Central component of PostgreSQL's format string processing system
+
+## Simplified Source
+
+```c
+static void
+parse_format(FormatNode *node, const char *str, const KeyWord *kw,
+             const KeySuffix *suf, const int *index, uint32 flags, NUMDesc *Num)
+{
+    FormatNode *n = node;
+
+    while (*str) {
+        int suffix = 0;
+        const KeySuffix *s;
+
+        // Look for prefix
+        if ((flags & DCH_FLAG) &&
+            (s = suff_search(str, suf, SUFFTYPE_PREFIX)) != NULL) {
+            suffix |= s->id;
+            if (s->len)
+                str += s->len;
+        }
+
+        // Look for keyword
+        if (*str && (n->key = index_seq_search(str, kw, index)) != NULL) {
+            n->type = NODE_TYPE_ACTION;
+            n->suffix = suffix;
+            if (n->key->len)
+                str += n->key->len;
+
+            // Prepare numeric description if needed
+            if (flags & NUM_FLAG)
+                NUMDesc_prepare(Num, n);
+
+            // Look for postfix
+            if ((flags & DCH_FLAG) && *str &&
+                (s = suff_search(str, suf, SUFFTYPE_POSTFIX)) != NULL) {
+                n->suffix |= s->id;
+                if (s->len)
+                    str += s->len;
+            }
+            n++;
+        } else if (*str) {
+            int chlen;
+
+            if ((flags & STD_FLAG) && *str != '"') {
+                // Standard mode: validate separator characters
+                if (strchr("-./,':; ", *str) == NULL)
+                    ereport(ERROR, (errcode(ERRCODE_INVALID_DATETIME_FORMAT),
+                                   errmsg("invalid datetime format separator: \"%s\"",
+                                          pnstrdup(str, pg_mblen(str)))));
+
+                n->type = (*str == ' ') ? NODE_TYPE_SPACE : NODE_TYPE_SEPARATOR;
+                n->character[0] = *str;
+                n->character[1] = '\0';
+                n->key = NULL;
+                n->suffix = 0;
+                n++;
+                str++;
+            } else if (*str == '"') {
+                // Process quoted string
+                str++;
+                while (*str) {
+                    if (*str == '"') {
+                        str++;
+                        break;
+                    }
+                    // Handle backslash escapes
+                    if (*str == '\\' && *(str + 1))
+                        str++;
+                    chlen = pg_mblen(str);
+                    n->type = NODE_TYPE_CHAR;
+                    memcpy(n->character, str, chlen);
+                    n->character[chlen] = '\0';
+                    n->key = NULL;
+                    n->suffix = 0;
+                    n++;
+                    str += chlen;
+                }
+            } else {
+                // Regular character
+                if (*str == '\\' && *(str + 1) == '"')
+                    str++;
+                chlen = pg_mblen(str);
+
+                if ((flags & DCH_FLAG) && is_separator_char(str))
+                    n->type = NODE_TYPE_SEPARATOR;
+                else if (isspace((unsigned char) *str))
+                    n->type = NODE_TYPE_SPACE;
+                else
+                    n->type = NODE_TYPE_CHAR;
+
+                memcpy(n->character, str, chlen);
+                n->character[chlen] = '\0';
+                n->key = NULL;
+                n->suffix = 0;
+                n++;
+                str += chlen;
+            }
+        }
+    }
+
+    // Terminate the format node array
+    n->type = NODE_TYPE_END;
+    n->suffix = 0;
+}
+```

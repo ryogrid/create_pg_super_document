@@ -33,3 +33,25 @@ This utility function determines the size of a JSONB array by examining the Json
 - Part of the JSON path execution support infrastructure
 - Used for array size determination during JSON path operations
 - The assertion suggests this function expects preprocessed JSONB values in binary format
+
+## Simplified Source
+
+```c
+static int
+JsonbArraySize(JsonbValue *jb)
+{
+    // Function expects binary representation, not already-processed arrays
+    Assert(jb->type != jbvArray);
+
+    if (jb->type == jbvBinary) {
+        JsonbContainer *container = jb->val.binary.data;
+
+        // Check if it's an array (but not a scalar)
+        if (JsonContainerIsArray(container) && !JsonContainerIsScalar(container))
+            return JsonContainerSize(container);
+    }
+
+    // Not an array or invalid type
+    return -1;
+}
+```

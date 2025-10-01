@@ -47,3 +47,110 @@ This function creates a sorted array of SortItem structures from statistical sam
 - Includes comprehensive memory layout management with pointer arithmetic to organize SortItem array, Datum values, and null flags
 - Uses qsort_interruptible to allow query cancellation during sorting of large datasets
 - Located in src/backend/statistics/extended_stats.c:986-1117
+
+## Simplified Source
+
+```c
+SortItem *
+build_sorted_items(StatsBuildData *data, int *nitems,
+                   MultiSortSupport mss,
+                   int numattrs, AttrNumber *attnums)
+{
+    int i, j, len, nrows;
+    int nvalues = data->numrows * numattrs;
+    SortItem *items;
+    Datum *values;
+    bool *isnull;
+    char *ptr;
+    int *typlen;
+
+    // Calculate total memory needed
+    len = data->numrows * sizeof(SortItem) +
+          nvalues * (sizeof(Datum) + sizeof(bool));
+
+    // Allocate and organize memory layout
+    ptr = palloc0(len);
+    items = (SortItem *) ptr;
+    ptr += data->numrows * sizeof(SortItem);
+    values = (Datum *) ptr;
+    ptr += nvalues * sizeof(Datum);
+    isnull = (bool *) ptr;
+
+    // Set up item pointers
+    nrows = 0;
+    for (i = 0; i < data->numrows; i++)
+    {
+        items[nrows].values = &values[nrows * numattrs];
+        items[nrows].isnull = &isnull[nrows * numattrs];
+        nrows++;
+    }
+
+    // Cache type lengths for efficiency
+    typlen = (int *) palloc(sizeof(int) * data->nattnums);
+    for (i = 0; i < data->nattnums; i++)
+        typlen[i] = get_typlen(data->stats[i]->attrtypid);
+
+    // Process sample rows
+    nrows = 0;
+    for (i = 0; i < data->numrows; i++)
+    {
+        bool toowide = false;
+
+        // Load values for each attribute
+        for (j = 0; j < numattrs; j++)
+        {
+            Datum value;
+            bool isnull_val;
+            int attlen;
+            AttrNumber attnum = attnums[j];
+            int idx;
+
+            // Find attribute index in data
+            for (idx = 0; idx < data->nattnums; idx++)
+            {
+                if (attnum == data->attnums[idx])
+                    break;
+            }
+
+            value = data->values[idx][i];
+            isnull_val = data->nulls[idx][i];
+            attlen = typlen[idx];
+
+            // Handle variable-length values
+            if ((!isnull_val) && (attlen == -1))
+            {
+                if (toast_raw_datum_size(value) > WIDTH_THRESHOLD)
+                {
+                    toowide = true;
+                    break;
+                }
+                value = PointerGetDatum(PG_DETOAST_DATUM(value));
+            }
+
+            items[nrows].values[j] = value;
+            items[nrows].isnull[j] = isnull_val;
+        }
+
+        // Skip rows with values that are too wide
+        if (toowide)
+            continue;
+
+        nrows++;
+    }
+
+    *nitems = nrows;
+
+    // Return NULL if no valid items
+    if (nrows == 0)
+    {
+        pfree(items);
+        return NULL;
+    }
+
+    // Sort the items
+    qsort_interruptible(items, nrows, sizeof(SortItem),
+                      multi_sort_compare, mss);
+
+    return items;
+}
+```

@@ -120,3 +120,93 @@ The allow_false parameter provides flexibility for top-level boolean contexts wh
 - Special handling for ScalarArrayOpExpr considers empty array edge cases where ANY returns false and ALL returns true
 - The function is self-recursive, building up strictness proofs through expression trees
 - Returns false for safety if inputs are NULL or unrecognized expression types
+
+## Simplified Source
+
+```c
+static bool
+clause_is_strict_for(Node *clause, Node *subexpr, bool allow_false)
+{
+    // Safety checks
+    if (clause == NULL || subexpr == NULL)
+        return false;
+
+    // Look through RelabelType nodes
+    if (IsA(clause, RelabelType))
+        clause = (Node *) ((RelabelType *) clause)->arg;
+    if (IsA(subexpr, RelabelType))
+        subexpr = (Node *) ((RelabelType *) subexpr)->arg;
+
+    // Base case: expressions are equal
+    if (equal(clause, subexpr))
+        return true;
+
+    // Check strict operators
+    if (is_opclause(clause) && op_strict(((OpExpr *) clause)->opno)) {
+        foreach(lc, ((OpExpr *) clause)->args) {
+            if (clause_is_strict_for((Node *) lfirst(lc), subexpr, false))
+                return true;
+        }
+        return false;
+    }
+
+    // Check strict functions
+    if (is_funcclause(clause) && func_strict(((FuncExpr *) clause)->funcid)) {
+        foreach(lc, ((FuncExpr *) clause)->args) {
+            if (clause_is_strict_for((Node *) lfirst(lc), subexpr, false))
+                return true;
+        }
+        return false;
+    }
+
+    // Handle various coercion types (all strict)
+    if (IsA(clause, CoerceViaIO))
+        return clause_is_strict_for((Node *) ((CoerceViaIO *) clause)->arg, subexpr, false);
+    if (IsA(clause, ArrayCoerceExpr))
+        return clause_is_strict_for((Node *) ((ArrayCoerceExpr *) clause)->arg, subexpr, false);
+    if (IsA(clause, ConvertRowtypeExpr))
+        return clause_is_strict_for((Node *) ((ConvertRowtypeExpr *) clause)->arg, subexpr, false);
+    if (IsA(clause, CoerceToDomain))
+        return clause_is_strict_for((Node *) ((CoerceToDomain *) clause)->arg, subexpr, false);
+
+    // Special handling for ScalarArrayOpExpr
+    if (IsA(clause, ScalarArrayOpExpr)) {
+        ScalarArrayOpExpr *saop = (ScalarArrayOpExpr *) clause;
+        Node *scalarnode = (Node *) linitial(saop->args);
+        Node *arraynode = (Node *) lsecond(saop->args);
+
+        // Check if scalar is strict and operator is strict
+        if (clause_is_strict_for(scalarnode, subexpr, false) && op_strict(saop->opno)) {
+            // For ANY with allow_false, empty arrays are OK
+            if (allow_false && saop->useOr)
+                return true;
+
+            // Check if we can prove array is non-empty
+            int nelems = 0;
+            if (arraynode && IsA(arraynode, Const)) {
+                Const *arrayconst = (Const *) arraynode;
+                if (arrayconst->constisnull)
+                    return true;
+                // Count elements in constant array
+                ArrayType *arrval = DatumGetArrayTypeP(arrayconst->constvalue);
+                nelems = ArrayGetNItems(ARR_NDIM(arrval), ARR_DIMS(arrval));
+            } else if (arraynode && IsA(arraynode, ArrayExpr) &&
+                       !((ArrayExpr *) arraynode)->multidims) {
+                nelems = list_length(((ArrayExpr *) arraynode)->elements);
+            }
+
+            if (nelems > 0)
+                return true;
+        }
+
+        // Check if array itself is strict
+        return clause_is_strict_for(arraynode, subexpr, false);
+    }
+
+    // NULL constants are always strict
+    if (IsA(clause, Const))
+        return ((Const *) clause)->constisnull;
+
+    return false;
+}
+```

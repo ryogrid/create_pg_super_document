@@ -43,3 +43,23 @@ This ensures that all path specifications have valid, unique names for internal 
 - Generated names follow a predictable pattern: json_table_path_0, json_table_path_1, etc.
 - The generated name is added to pathNames list to participate in duplicate detection
 - Memory for the returned string is allocated using pstrdup for proper memory management
+
+## Simplified Source
+
+```c
+static char *
+generateJsonTablePathName(JsonTableParseContext *cxt)
+{
+    char namebuf[32];
+    char *name;
+
+    // Generate unique name using sequential counter
+    snprintf(namebuf, sizeof(namebuf), "json_table_path_%d", cxt->pathNameId++);
+
+    // Make permanent copy and add to tracking list
+    name = pstrdup(namebuf);
+    cxt->pathNames = lappend(cxt->pathNames, name);
+
+    return name;
+}
+```

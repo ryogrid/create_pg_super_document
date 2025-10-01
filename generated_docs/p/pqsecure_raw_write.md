@@ -50,3 +50,95 @@ The function also handles SIGPIPE prevention through MSG_NOSIGNAL flags and sign
 - The unique error handling strategy is specifically designed to work well with OpenSSL and other encryption layers
 - Error messages are stored with internationalization support using `libpq_gettext`
 - Used as the foundation for all PostgreSQL connection writing, whether encrypted or not
+
+## Simplified Source
+
+```c
+ssize_t pqsecure_raw_write(PGconn *conn, const void *ptr, size_t len)
+{
+    ssize_t n;
+    int flags = 0;
+    int result_errno = 0;
+    char msgbuf[1024];
+    char sebuf[PG_STRERROR_R_BUFLEN];
+
+    DECLARE_SIGPIPE_INFO(spinfo);
+
+    // If previous write failed, discard all data to maintain sync
+    if (conn->write_failed)
+        return len;
+
+#ifdef MSG_NOSIGNAL
+    if (conn->sigpipe_flag)
+        flags |= MSG_NOSIGNAL;
+
+retry_masked:
+#endif
+
+    // Disable SIGPIPE and perform the write
+    DISABLE_SIGPIPE(conn, spinfo, return -1);
+
+    n = send(conn->sock, ptr, len, flags);
+
+    if (n < 0) {
+        result_errno = SOCK_ERRNO;
+
+        // Retry without MSG_NOSIGNAL if EINVAL (unsupported on this system)
+#ifdef MSG_NOSIGNAL
+        if (flags != 0 && result_errno == EINVAL) {
+            conn->sigpipe_flag = false;
+            flags = 0;
+            goto retry_masked;
+        }
+#endif
+
+        // Handle different error conditions
+        switch (result_errno) {
+#ifdef EAGAIN
+            case EAGAIN:
+#endif
+#if defined(EWOULDBLOCK) && (!defined(EAGAIN) || (EWOULDBLOCK != EAGAIN))
+            case EWOULDBLOCK:
+#endif
+            case EINTR:
+                // Retryable errors - let caller retry
+                break;
+
+            case EPIPE:
+                // Set EPIPE flag for tracking
+                REMEMBER_EPIPE(spinfo, true);
+                // Fall through to connection error handling
+
+            case ECONNRESET:
+                // Connection lost - store error but claim success
+                conn->write_failed = true;
+                snprintf(msgbuf, sizeof(msgbuf),
+                        libpq_gettext("server closed the connection unexpectedly\n"
+                                    "\tThis probably means the server terminated abnormally\n"
+                                    "\tbefore or while processing the request."));
+                strlcat(msgbuf, "\n", sizeof(msgbuf));
+                conn->write_err_msg = strdup(msgbuf);
+                n = len;  // Claim success to prioritize server error messages
+                break;
+
+            default:
+                // Other errors - store error but claim success
+                conn->write_failed = true;
+                snprintf(msgbuf, sizeof(msgbuf),
+                        libpq_gettext("could not send data to server: %s"),
+                        SOCK_STRERROR(result_errno, sebuf, sizeof(sebuf)));
+                strlcat(msgbuf, "\n", sizeof(msgbuf));
+                conn->write_err_msg = strdup(msgbuf);
+                n = len;  // Claim success to prioritize server error messages
+                break;
+        }
+    }
+
+    RESTORE_SIGPIPE(conn, spinfo);
+
+    // Set errno for caller
+    SOCK_ERRNO_SET(result_errno);
+
+    return n;
+}
+```

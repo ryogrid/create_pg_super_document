@@ -59,3 +59,100 @@ The function intentionally avoids parameterized input paths (except cheapest-tot
 - Part of PostgreSQL's mergejoin path generation infrastructure
 - The function balances thoroughness with planning time by limiting the number of orderings considered
 - Cannot handle certain join types (JOIN_FULL, JOIN_RIGHT, JOIN_RIGHT_ANTI) in parallel mode due to potential false null extended rows
+
+## Simplified Source
+
+```c
+static void sort_inner_and_outer(PlannerInfo *root,
+                                RelOptInfo *joinrel,
+                                RelOptInfo *outerrel,
+                                RelOptInfo *innerrel,
+                                JoinType jointype,
+                                JoinPathExtraData *extra)
+{
+    JoinType save_jointype = jointype;
+    Path *outer_path = outerrel->cheapest_total_path;
+    Path *inner_path = innerrel->cheapest_total_path;
+    Path *cheapest_partial_outer = NULL;
+    Path *cheapest_safe_inner = NULL;
+    List *all_pathkeys;
+    ListCell *l;
+
+    // Can't use mergejoin if paths are parameterized by each other
+    if (PATH_PARAM_BY_REL(outer_path, innerrel) ||
+        PATH_PARAM_BY_REL(inner_path, outerrel))
+        return;
+
+    // Handle unique join types
+    if (jointype == JOIN_UNIQUE_OUTER)
+    {
+        outer_path = create_unique_path(root, outerrel, outer_path, extra->sjinfo);
+        jointype = JOIN_INNER;
+    }
+    else if (jointype == JOIN_UNIQUE_INNER)
+    {
+        inner_path = create_unique_path(root, innerrel, inner_path, extra->sjinfo);
+        jointype = JOIN_INNER;
+    }
+
+    // Set up for parallel execution if conditions allow
+    if (joinrel->consider_parallel &&
+        save_jointype != JOIN_UNIQUE_OUTER &&
+        save_jointype != JOIN_FULL &&
+        save_jointype != JOIN_RIGHT &&
+        save_jointype != JOIN_RIGHT_ANTI &&
+        outerrel->partial_pathlist != NIL &&
+        bms_is_empty(joinrel->lateral_relids))
+    {
+        cheapest_partial_outer = linitial(outerrel->partial_pathlist);
+
+        if (inner_path->parallel_safe)
+            cheapest_safe_inner = inner_path;
+        else if (save_jointype != JOIN_UNIQUE_INNER)
+            cheapest_safe_inner = get_cheapest_parallel_safe_total_inner(innerrel->pathlist);
+    }
+
+    // Get all possible pathkey orderings for merge
+    all_pathkeys = select_outer_pathkeys_for_merge(root, extra->mergeclause_list, joinrel);
+
+    // Try each pathkey ordering
+    foreach(l, all_pathkeys)
+    {
+        PathKey *front_pathkey = lfirst(l);
+        List *outerkeys;
+        List *cur_mergeclauses;
+        List *innerkeys;
+        List *merge_pathkeys;
+
+        // Create pathkey list with current pathkey first
+        if (l != list_head(all_pathkeys))
+            outerkeys = lcons(front_pathkey,
+                            list_delete_nth_cell(list_copy(all_pathkeys),
+                                               foreach_current_index(l)));
+        else
+            outerkeys = all_pathkeys;
+
+        // Sort mergeclauses to match outer pathkey ordering
+        cur_mergeclauses = find_mergeclauses_for_outer_pathkeys(root, outerkeys,
+                                                              extra->mergeclause_list);
+
+        // Build corresponding inner pathkeys
+        innerkeys = make_inner_pathkeys_for_merge(root, cur_mergeclauses, outerkeys);
+
+        // Build pathkeys for result ordering
+        merge_pathkeys = build_join_pathkeys(root, joinrel, jointype, outerkeys);
+
+        // Try sequential mergejoin
+        try_mergejoin_path(root, joinrel, outer_path, inner_path,
+                         merge_pathkeys, cur_mergeclauses, outerkeys, innerkeys,
+                         jointype, extra, false);
+
+        // Try parallel mergejoin if possible
+        if (cheapest_partial_outer && cheapest_safe_inner)
+            try_partial_mergejoin_path(root, joinrel,
+                                     cheapest_partial_outer, cheapest_safe_inner,
+                                     merge_pathkeys, cur_mergeclauses,
+                                     outerkeys, innerkeys, jointype, extra);
+    }
+}
+```

@@ -51,3 +51,40 @@ The function preserves the subquery's hasAggs and hasSubLinks flags since pushdo
 - Intelligent clause placement based on subquery structure (WHERE vs HAVING)
 - Preserves query flags to maintain optimizer state consistency
 - Located in src/backend/optimizer/path/allpaths.c:3956-4002
+
+## Simplified Source
+
+```c
+static void
+subquery_push_qual(Query *subquery, RangeTblEntry *rte, Index rti, Node *qual)
+{
+    if (subquery->setOperations != NULL)
+    {
+        // For set operations: recursively push to each component query
+        recurse_push_qual(subquery->setOperations, subquery,
+                         rte, rti, qual);
+    }
+    else
+    {
+        // Replace Vars in qual with subquery's targetlist expressions
+        qual = ReplaceVarsFromTargetList(qual, rti, 0, rte,
+                                       subquery->targetList,
+                                       REPLACEVARS_REPORT_ERROR, 0,
+                                       &subquery->hasSubLinks);
+
+        // Place qual in appropriate location
+        if (subquery->hasAggs || subquery->groupClause ||
+            subquery->groupingSets || subquery->havingQual)
+        {
+            // Add to HAVING clause for aggregated queries
+            subquery->havingQual = make_and_qual(subquery->havingQual, qual);
+        }
+        else
+        {
+            // Add to WHERE clause for simple queries
+            subquery->jointree->quals =
+                make_and_qual(subquery->jointree->quals, qual);
+        }
+    }
+}
+```

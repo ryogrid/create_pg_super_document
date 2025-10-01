@@ -43,3 +43,33 @@ Key behaviors include:
 - The parallel_safe property depends on the relation's consider_parallel setting, which is determined by function properties
 - Commonly used for table-valued functions, set-returning functions, and LATERAL function references
 - Cost calculation is delegated to cost_functionscan which considers function execution complexity and result set size
+
+## Simplified Source
+
+```c
+Path *
+create_functionscan_path(PlannerInfo *root, RelOptInfo *rel,
+                        List *pathkeys, Relids required_outer)
+{
+    Path *pathnode = makeNode(Path);
+
+    // Set basic path properties
+    pathnode->pathtype = T_FunctionScan;
+    pathnode->parent = rel;
+    pathnode->pathtarget = rel->reltarget;
+    pathnode->param_info = get_baserel_parampathinfo(root, rel, required_outer);
+
+    // Configure parallelism (not supported for function scans)
+    pathnode->parallel_aware = false;
+    pathnode->parallel_safe = rel->consider_parallel;
+    pathnode->parallel_workers = 0;
+
+    // Set ordering
+    pathnode->pathkeys = pathkeys;
+
+    // Calculate costs
+    cost_functionscan(pathnode, root, rel, pathnode->param_info);
+
+    return pathnode;
+}
+```

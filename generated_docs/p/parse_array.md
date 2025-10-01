@@ -51,3 +51,62 @@ The function includes stack depth checking in non-frontend builds to prevent sta
 - Error handling preserves parse context for meaningful error reporting
 - Enables recursive parsing through parse_array_element, supporting arbitrarily nested arrays
 - Part of PostgreSQL's common JSON parsing infrastructure used across multiple modules
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+parse_array(JsonLexContext *lex, JsonSemAction *sem)
+{
+    json_struct_action astart = sem->array_start;
+    json_struct_action aend = sem->array_end;
+    JsonParseErrorType result;
+
+    // Call array start semantic action
+    if (astart != NULL) {
+        result = (*astart)(sem->semstate);
+        if (result != JSON_SUCCESS)
+            return result;
+    }
+
+    // Increment nesting level
+    lex->lex_level++;
+
+    // Expect opening bracket
+    result = lex_expect(JSON_PARSE_ARRAY_START, lex, JSON_TOKEN_ARRAY_START);
+    if (result != JSON_SUCCESS)
+        return result;
+
+    // Parse array elements if not empty
+    if (lex_peek(lex) != JSON_TOKEN_ARRAY_END) {
+        result = parse_array_element(lex, sem);
+
+        // Parse additional elements separated by commas
+        while (result == JSON_SUCCESS && lex_peek(lex) == JSON_TOKEN_COMMA) {
+            result = json_lex(lex);  // consume comma
+            if (result != JSON_SUCCESS)
+                break;
+            result = parse_array_element(lex, sem);
+        }
+    }
+    if (result != JSON_SUCCESS)
+        return result;
+
+    // Expect closing bracket
+    result = lex_expect(JSON_PARSE_ARRAY_NEXT, lex, JSON_TOKEN_ARRAY_END);
+    if (result != JSON_SUCCESS)
+        return result;
+
+    // Decrement nesting level
+    lex->lex_level--;
+
+    // Call array end semantic action
+    if (aend != NULL) {
+        result = (*aend)(sem->semstate);
+        if (result != JSON_SUCCESS)
+            return result;
+    }
+
+    return JSON_SUCCESS;
+}
+```

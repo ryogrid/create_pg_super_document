@@ -55,3 +55,70 @@ The function handles the mathematical combination of MCV and histogram selectivi
 - Falls back to DEFAULT_INEQ_SEL (0.3333) when no statistics are available
 - Results are always clamped to valid probability range [0.0, 1.0]
 - The caller must ensure the clause is commuted so the variable is on the left side
+
+## Simplified Source
+
+```c
+static double scalarineqsel(PlannerInfo *root, Oid operator, bool isgt, bool iseq,
+                           Oid collation, VariableStatData *vardata,
+                           Datum constval, Oid consttype) {
+    Form_pg_statistic stats;
+    FmgrInfo opproc;
+    double mcv_selec, hist_selec, sumcommon, selec;
+
+    // No statistics available
+    if (!HeapTupleIsValid(vardata->statsTuple)) {
+        // Special case: CTID comparison using table physical layout
+        if (vardata->var && IsA(vardata->var, Var) &&
+            ((Var *) vardata->var)->varattno == SelfItemPointerAttributeNumber) {
+
+            if (vardata->rel->pages == 0) return 1.0;
+
+            ItemPointer itemptr = (ItemPointer) DatumGetPointer(constval);
+            double block = ItemPointerGetBlockNumberNoCheck(itemptr);
+            double density = vardata->rel->tuples / (vardata->rel->pages - 0.5);
+
+            // Adjust for position within page
+            if (block >= vardata->rel->pages - 1) density *= 0.5;
+            if (density > 0.0) {
+                OffsetNumber offset = ItemPointerGetOffsetNumberNoCheck(itemptr);
+                block += Min(offset / density, 1.0);
+            }
+
+            // Convert to selectivity
+            selec = block / (vardata->rel->pages - 0.5);
+            if (iseq == isgt && vardata->rel->tuples >= 1.0)
+                selec -= (1.0 / vardata->rel->tuples);
+            if (isgt) selec = 1.0 - selec;
+
+            CLAMP_PROBABILITY(selec);
+            return selec;
+        }
+        return DEFAULT_INEQ_SEL;
+    }
+
+    stats = (Form_pg_statistic) GETSTRUCT(vardata->statsTuple);
+    fmgr_info(get_opcode(operator), &opproc);
+
+    // Get selectivity from most-common-values
+    mcv_selec = mcv_selectivity(vardata, &opproc, collation, constval, true, &sumcommon);
+
+    // Get selectivity from histogram
+    hist_selec = ineq_histogram_selectivity(root, vardata, operator, &opproc,
+                                           isgt, iseq, collation, constval, consttype);
+
+    // Combine MCV and histogram results
+    // Histogram covers non-null values not in MCV
+    selec = 1.0 - stats->stanullfrac - sumcommon;
+
+    if (hist_selec >= 0.0)
+        selec *= hist_selec;
+    else
+        selec *= 0.5;  // No histogram: assume half of non-MCV values match
+
+    selec += mcv_selec;
+
+    CLAMP_PROBABILITY(selec);
+    return selec;
+}
+```

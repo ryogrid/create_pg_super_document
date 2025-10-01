@@ -42,3 +42,35 @@ The function serves PostgreSQL's expanded record infrastructure by providing a w
 - Throws ERRCODE_WRONG_OBJECT_TYPE error if a non-composite type OID is provided
 - Part of PostgreSQL's expanded record system for efficient record type handling
 - Identifiers are guaranteed unique only within the current backend process lifetime
+
+## Simplified Source
+
+```c
+uint64 assign_record_type_identifier(Oid type_id, int32 typmod) {
+    if (type_id != RECORDOID) {
+        // Named composite type - use type cache
+        TypeCacheEntry *typentry;
+
+        typentry = lookup_type_cache(type_id, TYPECACHE_TUPDESC);
+        if (typentry->tupDesc == NULL) {
+            ereport(ERROR,
+                    (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                     errmsg("type %s is not composite",
+                            format_type_be(type_id))));
+        }
+
+        // Return stable identifier that changes with type definition
+        return typentry->tupDesc_identifier;
+    } else {
+        // RECORD type - check if it's registered
+        if (typmod >= 0 && typmod < RecordCacheArrayLen &&
+            RecordCacheArray[typmod].tupdesc != NULL) {
+            // Registered RECORD type - return stable identifier
+            return RecordCacheArray[typmod].id;
+        }
+
+        // Anonymous RECORD type - generate new identifier each time
+        return ++tupledesc_id_counter;
+    }
+}
+```

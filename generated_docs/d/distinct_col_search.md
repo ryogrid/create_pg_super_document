@@ -38,3 +38,22 @@ This is used during distinctness analysis to check if columns from DISTINCT clau
 - The colnos and opids lists must be of equal length and maintain parallel correspondence
 - Returns InvalidOid when the target column is not found, which callers use to detect missing columns
 - Part of the distinctness analysis infrastructure that helps optimize queries by eliminating unnecessary joins
+
+## Simplified Source
+
+```c
+static Oid
+distinct_col_search(int colno, List *colnos, List *opids)
+{
+    ListCell *lc1, *lc2;
+
+    // Search for colno in parallel lists
+    forboth(lc1, colnos, lc2, opids)
+    {
+        if (colno == lfirst_int(lc1))
+            return lfirst_oid(lc2);
+    }
+
+    return InvalidOid;
+}
+```

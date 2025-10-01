@@ -66,3 +66,129 @@ The function includes sophisticated handling of the "name" data type optimizatio
 - Proper lock mode management ensures consistency with the overall transaction isolation level
 - The function handles both index qualification and ORDER BY expressions as scan keys
 - Memory allocation uses palloc for PostgreSQL's memory context management
+
+## Simplified Source
+
+```c
+IndexOnlyScanState *
+ExecInitIndexOnlyScan(IndexOnlyScan *node, EState *estate, int eflags)
+{
+    IndexOnlyScanState *indexstate;
+    Relation currentRelation;
+    Relation indexRelation;
+    LOCKMODE lockmode;
+    TupleDesc tupDesc;
+
+    // Create and initialize state structure
+    indexstate = makeNode(IndexOnlyScanState);
+    indexstate->ss.ps.plan = (Plan *) node;
+    indexstate->ss.ps.state = estate;
+    indexstate->ss.ps.ExecProcNode = ExecIndexOnlyScan;
+
+    // Set up expression context
+    ExecAssignExprContext(estate, &indexstate->ss.ps);
+
+    // Open the base relation being scanned
+    currentRelation = ExecOpenScanRelation(estate, node->scan.scanrelid, eflags);
+    indexstate->ss.ss_currentRelation = currentRelation;
+    indexstate->ss.ss_currentScanDesc = NULL; // No heap scan needed
+
+    // Build tuple descriptor from index target list (not physical index descriptor)
+    tupDesc = ExecTypeFromTL(node->indextlist);
+    ExecInitScanTupleSlot(estate, &indexstate->ss, tupDesc, &TTSOpsVirtual);
+
+    // Create additional table slot for visibility rechecking
+    indexstate->ioss_TableSlot =
+        ExecAllocTableSlot(&estate->es_tupleTable,
+                          RelationGetDescr(currentRelation),
+                          table_slot_callbacks(currentRelation));
+
+    // Initialize result type and projection (INDEX_VAR references)
+    ExecInitResultTypeTL(&indexstate->ss.ps);
+    ExecAssignScanProjectionInfoWithVarno(&indexstate->ss, INDEX_VAR);
+
+    // Initialize qualification expressions
+    indexstate->ss.ps.qual = ExecInitQual(node->scan.plan.qual, (PlanState *) indexstate);
+    indexstate->recheckqual = ExecInitQual(node->recheckqual, (PlanState *) indexstate);
+
+    // Early exit for EXPLAIN-only operations
+    if (eflags & EXEC_FLAG_EXPLAIN_ONLY)
+        return indexstate;
+
+    // Open the index relation
+    lockmode = exec_rt_fetch(node->scan.scanrelid, estate)->rellockmode;
+    indexRelation = index_open(node->indexid, lockmode);
+    indexstate->ioss_RelationDesc = indexRelation;
+
+    // Initialize scan state
+    indexstate->ioss_RuntimeKeysReady = false;
+    indexstate->ioss_RuntimeKeys = NULL;
+    indexstate->ioss_NumRuntimeKeys = 0;
+
+    // Build scan keys from index qualifications
+    ExecIndexBuildScanKeys((PlanState *) indexstate, indexRelation,
+                          node->indexqual, false,
+                          &indexstate->ioss_ScanKeys,
+                          &indexstate->ioss_NumScanKeys,
+                          &indexstate->ioss_RuntimeKeys,
+                          &indexstate->ioss_NumRuntimeKeys,
+                          NULL, NULL);
+
+    // Build ORDER BY scan keys
+    ExecIndexBuildScanKeys((PlanState *) indexstate, indexRelation,
+                          node->indexorderby, true,
+                          &indexstate->ioss_OrderByKeys,
+                          &indexstate->ioss_NumOrderByKeys,
+                          &indexstate->ioss_RuntimeKeys,
+                          &indexstate->ioss_NumRuntimeKeys,
+                          NULL, NULL);
+
+    // Set up runtime context for runtime keys if needed
+    if (indexstate->ioss_NumRuntimeKeys != 0)
+    {
+        ExprContext *stdecontext = indexstate->ss.ps.ps_ExprContext;
+        ExecAssignExprContext(estate, &indexstate->ss.ps);
+        indexstate->ioss_RuntimeContext = indexstate->ss.ps.ps_ExprContext;
+        indexstate->ss.ps.ps_ExprContext = stdecontext;
+    }
+    else
+    {
+        indexstate->ioss_RuntimeContext = NULL;
+    }
+
+    // Handle name type optimization (cstring storage in btree indexes)
+    int namecount = 0;
+    int indnkeyatts = indexRelation->rd_index->indnkeyatts;
+
+    // Count name attributes stored as cstrings
+    for (int attnum = 0; attnum < indnkeyatts; attnum++)
+    {
+        if (indexRelation->rd_att->attrs[attnum].atttypid == CSTRINGOID &&
+            indexRelation->rd_opcintype[attnum] == NAMEOID)
+            namecount++;
+    }
+
+    // Create array for name attribute numbers if needed
+    if (namecount > 0)
+    {
+        indexstate->ioss_NameCStringAttNums = (AttrNumber *)
+            palloc(sizeof(AttrNumber) * namecount);
+
+        int idx = 0;
+        for (int attnum = 0; attnum < indnkeyatts; attnum++)
+        {
+            if (indexRelation->rd_att->attrs[attnum].atttypid == CSTRINGOID &&
+                indexRelation->rd_opcintype[attnum] == NAMEOID)
+                indexstate->ioss_NameCStringAttNums[idx++] = (AttrNumber) attnum;
+        }
+    }
+    else
+    {
+        indexstate->ioss_NameCStringAttNums = NULL;
+    }
+
+    indexstate->ioss_NameCStringCount = namecount;
+
+    return indexstate;
+}
+```

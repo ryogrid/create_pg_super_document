@@ -40,3 +40,42 @@ The function iterates through each attribute position and compares the correspon
 - Static function only used within indexcmds.c
 - Essential for determining index compatibility during ALTER TABLE operations
 - Located in src/backend/commands/indexcmds.c:360-432
+
+## Simplified Source
+
+```c
+static bool
+CompareOpclassOptions(const Datum *opts1, const Datum *opts2, int natts)
+{
+    // Both arrays NULL - they're equal
+    if (!opts1 && !opts2)
+        return true;
+
+    // Initialize array equality function
+    FmgrInfo fm;
+    fmgr_info(F_ARRAY_EQ, &fm);
+
+    // Compare each attribute's options
+    for (int i = 0; i < natts; i++)
+    {
+        Datum opt1 = opts1 ? opts1[i] : (Datum) 0;
+        Datum opt2 = opts2 ? opts2[i] : (Datum) 0;
+
+        // Handle NULL cases
+        if (opt1 == (Datum) 0)
+        {
+            if (opt2 != (Datum) 0)
+                return false;
+            continue;
+        }
+        else if (opt2 == (Datum) 0)
+            return false;
+
+        // Compare non-NULL arrays using binary equivalence
+        if (!DatumGetBool(FunctionCall2Coll(&fm, C_COLLATION_OID, opt1, opt2)))
+            return false;
+    }
+
+    return true;
+}
+```

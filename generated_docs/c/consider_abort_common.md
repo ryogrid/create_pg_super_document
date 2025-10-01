@@ -49,3 +49,35 @@ This adaptive approach ensures that the system automatically falls back to stand
 - The abbreviation abort decision is made per-opclass and can consider factors like cardinality, distribution, and compression effectiveness
 - Once aborted, abbreviation cannot be re-enabled for the current sort operation
 - Part of PostgreSQLs sophisticated cost-based optimization system for sorting operations
+
+## Simplified Source
+
+```c
+static bool consider_abort_common(Tuplesortstate *state) {
+    // Only evaluate during initial memory-based sorting phase
+    if (state->status == TSS_INITIAL &&
+        state->memtupcount >= state->abbrevNext) {
+
+        // Double the checkpoint interval for next evaluation
+        state->abbrevNext *= 2;
+
+        // Ask opclass if abbreviation should continue
+        if (!state->base.sortKeys->abbrev_abort(state->memtupcount,
+                                              state->base.sortKeys))
+            return false;  // Keep using abbreviation
+
+        // Abbreviation is ineffective - switch back to full comparator
+        state->base.sortKeys[0].comparator =
+            state->base.sortKeys[0].abbrev_full_comparator;
+        state->base.sortKeys[0].abbrev_converter = NULL;
+
+        // Clean up abbreviation function pointers
+        state->base.sortKeys[0].abbrev_abort = NULL;
+        state->base.sortKeys[0].abbrev_full_comparator = NULL;
+
+        return true;  // Signal abbreviation abort
+    }
+
+    return false;  // Continue with current strategy
+}
+```

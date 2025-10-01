@@ -38,3 +38,29 @@ The jspGetLeftArg function is designed to extract the left operand from binary J
 - Works in conjunction with jspGetRightArg to access both operands of binary operations
 - Essential for JSON path expression evaluation and manipulation in PostgreSQL's JSON processing engine
 - The function assumes the caller has already verified that the item has binary arguments
+
+## Simplified Source
+
+```c
+void jspGetLeftArg(JsonPathItem *v, JsonPathItem *a) {
+    // Validate that this is a binary operation type
+    Assert(v->type == jpiAnd ||
+           v->type == jpiOr ||
+           v->type == jpiEqual ||
+           v->type == jpiNotEqual ||
+           v->type == jpiLess ||
+           v->type == jpiGreater ||
+           v->type == jpiLessOrEqual ||
+           v->type == jpiGreaterOrEqual ||
+           v->type == jpiAdd ||
+           v->type == jpiSub ||
+           v->type == jpiMul ||
+           v->type == jpiDiv ||
+           v->type == jpiMod ||
+           v->type == jpiStartsWith ||
+           v->type == jpiDecimal);
+
+    // Initialize the left argument JsonPathItem from the buffer
+    jspInitByBuffer(a, v->base, v->content.args.left);
+}
+```

@@ -33,3 +33,11 @@ This function serves as a wrapper around PostgreSQL's ApplySortComparator functi
 - Used primarily in extended statistics processing where simplified comparison is needed
 - Returns standard comparison result: negative for a < b, zero for a = b, positive for a > b
 - Located in src/backend/statistics/extended_stats.c:927-940
+
+## Simplified Source
+```c
+int compare_datums_simple(Datum a, Datum b, SortSupport ssup) {
+    // Compare datums assuming both are non-null
+    return ApplySortComparator(a, false, b, false, ssup);
+}
+```

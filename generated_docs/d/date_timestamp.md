@@ -37,5 +37,19 @@ The conversion is performed by calling the internal helper function , which hand
 - This function is part of PostgreSQL's date/time type conversion system
 - The conversion always sets the time component to 00:00:00 (start of day)
 - Overflow checking is performed by the underlying  function
-- Located in 
+- Located in
 - Used primarily in SQL contexts where implicit or explicit conversion from date to timestamp is needed
+
+## Simplified Source
+
+```c
+Datum date_timestamp(PG_FUNCTION_ARGS) {
+    DateADT dateVal = PG_GETARG_DATEADT(0);
+    Timestamp result;
+
+    // Convert date to timestamp (adds 00:00:00 time)
+    result = date2timestamp(dateVal);
+
+    PG_RETURN_TIMESTAMP(result);
+}
+```

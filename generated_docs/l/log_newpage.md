@@ -45,3 +45,27 @@ log_newpage creates a WAL record with a complete full-page image of the provided
 - Avoids setting LSN on uninitialized pages to prevent corruption
 - Uses XLOG_FPI WAL record type for full page images
 - For buffer-based operations, use log_newpage_buffer instead
+
+## Simplified Source
+
+```c
+XLogRecPtr log_newpage(RelFileLocator *rlocator, ForkNumber forknum, BlockNumber blkno,
+                       Page page, bool page_std) {
+    // Set up WAL record flags - always force full page image
+    int flags = REGBUF_FORCE_IMAGE;
+    if (page_std)
+        flags |= REGBUF_STANDARD;  // Optimize standard page layout
+
+    // Begin WAL record construction
+    XLogBeginInsert();
+    XLogRegisterBlock(0, rlocator, forknum, blkno, page, flags);
+    XLogRecPtr recptr = XLogInsert(RM_XLOG_ID, XLOG_FPI);
+
+    // Set LSN on the page if it's initialized
+    if (!PageIsNew(page)) {
+        PageSetLSN(page, recptr);
+    }
+
+    return recptr;
+}
+```

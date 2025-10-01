@@ -35,3 +35,28 @@ The function assumes that the relation's targetlist and restrictinfo list have a
 - Must be called after the relation's targetlist and restrictinfo list are constructed
 - Serves as a specialized wrapper around the more general `set_baserel_size_estimates` function
 - Part of the PostgreSQL query optimizer's cost estimation subsystem
+
+## Simplified Source
+
+This function provides straightforward size estimation for result relations:
+
+```c
+void set_result_size_estimates(PlannerInfo *root, RelOptInfo *rel)
+{
+    // Validate this is an RTE_RESULT relation
+    Assert(rel->relid > 0);
+    Assert(planner_rt_fetch(rel->relid, root)->rtekind == RTE_RESULT);
+
+    // RTE_RESULT always produces exactly one row
+    rel->tuples = 1;
+
+    // Calculate remaining size estimates
+    set_baserel_size_estimates(root, rel);
+}
+```
+
+**Key simplifications made:**
+- Condensed validation comments while preserving the key constraint
+- Maintained the critical insight that RTE_RESULT relations always produce one row
+- Preserved delegation to the general base relation estimation function
+- Function is inherently simple due to the deterministic nature of result relations

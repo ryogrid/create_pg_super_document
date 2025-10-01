@@ -45,3 +45,63 @@ The bank locking mechanism minimizes contention by only holding locks on relevan
 - Ensures data consistency by writing out dirty pages before deletion
 - Part of PostgreSQL's SLRU subsystem used for transaction logs like CLOG, subtrans, etc.
 - The function is designed to be safe even when concurrent operations might be accessing the SLRU
+
+## Simplified Source
+
+```c
+void SlruDeleteSegment(SlruCtl ctl, int64 segno) {
+    SlruShared shared = ctl->shared;
+    int prevbank = SlotGetBankNumber(0);
+    bool did_write;
+
+    // Lock the first bank and scan all slots
+    LWLockAcquire(&shared->bank_locks[prevbank].lock, LW_EXCLUSIVE);
+
+restart:
+    did_write = false;
+    for (int slotno = 0; slotno < shared->num_slots; slotno++) {
+        int64 pagesegno;
+        int curbank = SlotGetBankNumber(slotno);
+
+        // Switch bank locks if needed
+        if (curbank != prevbank) {
+            LWLockRelease(&shared->bank_locks[prevbank].lock);
+            LWLockAcquire(&shared->bank_locks[curbank].lock, LW_EXCLUSIVE);
+            prevbank = curbank;
+        }
+
+        // Skip empty slots
+        if (shared->page_status[slotno] == SLRU_PAGE_EMPTY)
+            continue;
+
+        // Check if this page belongs to our target segment
+        pagesegno = shared->page_number[slotno] / SLRU_PAGES_PER_SEGMENT;
+        if (pagesegno != segno)
+            continue;
+
+        // Handle clean pages - just mark as empty
+        if (shared->page_status[slotno] == SLRU_PAGE_VALID &&
+            !shared->page_dirty[slotno]) {
+            shared->page_status[slotno] = SLRU_PAGE_EMPTY;
+            continue;
+        }
+
+        // Handle dirty pages - write them out first
+        if (shared->page_status[slotno] == SLRU_PAGE_VALID)
+            SlruInternalWritePage(ctl, slotno, NULL);
+        else
+            SimpleLruWaitIO(ctl, slotno);
+
+        did_write = true;
+    }
+
+    // Restart if we did any I/O (new pages might have been loaded)
+    if (did_write)
+        goto restart;
+
+    // Actually delete the segment file
+    SlruInternalDeleteSegment(ctl, segno);
+
+    LWLockRelease(&shared->bank_locks[prevbank].lock);
+}
+```

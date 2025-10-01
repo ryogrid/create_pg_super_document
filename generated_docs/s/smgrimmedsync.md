@@ -34,3 +34,12 @@ The function delegates to the appropriate storage manager's immediate sync imple
 - Sufficient for crash recovery but not for PITR or replication (requires WAL entries)
 - Used primarily for index builds and other bulk relation creation operations
 - Provides synchronous I/O completion, making it more expensive than deferred sync operations
+
+## Simplified Source
+
+```c
+void smgrimmedsync(SMgrRelation reln, ForkNumber forknum) {
+    // Delegate to storage manager's immediate sync implementation
+    smgrsw[reln->smgr_which].smgr_immedsync(reln, forknum);
+}
+```

@@ -37,3 +37,34 @@ This function constructs a Path node specifically for work table scan operations
 - Reuses cost_ctescan for cost calculation since work tables have similar cost characteristics to regular CTEs
 - Essential for implementing recursive CTEs where the CTE definition references itself
 - Work tables act as temporary storage for intermediate results during recursive evaluation
+
+## Simplified Source
+
+```c
+Path *
+create_worktablescan_path(PlannerInfo *root, RelOptInfo *rel,
+                         Relids required_outer)
+{
+    Path *pathnode = makeNode(Path);
+
+    // Configure path for work table scan
+    pathnode->pathtype = T_WorkTableScan;
+    pathnode->parent = rel;
+    pathnode->pathtarget = rel->reltarget;
+    pathnode->param_info = get_baserel_parampathinfo(root, rel,
+                                                   required_outer);
+
+    // Set parallel execution properties
+    pathnode->parallel_aware = false;
+    pathnode->parallel_safe = rel->consider_parallel;
+    pathnode->parallel_workers = 0;
+
+    // Work table results are always unordered
+    pathnode->pathkeys = NIL;
+
+    // Use CTE scan costing model
+    cost_ctescan(pathnode, root, rel, pathnode->param_info);
+
+    return pathnode;
+}
+```

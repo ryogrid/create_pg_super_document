@@ -46,3 +46,22 @@ This function is part of PostgreSQL's careful buffer management protocol where b
 - Buffer remains pinned after this call - unpinning requires a separate _bt_relbuf call
 - Critical for maintaining B-tree concurrency control and preventing buffer access races
 - The function assumes the buffer is already both pinned and locked by the calling backend
+
+## Simplified Source
+
+```c
+void
+_bt_unlockbuf(Relation rel, Buffer buf)
+{
+    // Validate that buffer memory is properly defined before unlocking
+    VALGRIND_CHECK_MEM_IS_DEFINED(BufferGetPage(buf), BLCKSZ);
+
+    // Unlock the buffer
+    LockBuffer(buf, BUFFER_LOCK_UNLOCK);
+
+    // Mark buffer memory as inaccessible for shared buffers to catch use-after-unlock
+    if (!RelationUsesLocalBuffers(rel)) {
+        VALGRIND_MAKE_MEM_NOACCESS(BufferGetPage(buf), BLCKSZ);
+    }
+}
+```

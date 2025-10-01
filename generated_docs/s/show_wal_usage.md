@@ -48,3 +48,33 @@ This information helps database administrators and developers understand the WAL
 - FPI (Full Page Images) represent complete page copies written to WAL during the first modification after a checkpoint
 - Part of PostgreSQL's comprehensive EXPLAIN infrastructure for performance analysis
 - WAL usage information is valuable for understanding query impact on transaction log size and write performance
+
+## Simplified Source
+
+```c
+static void
+show_wal_usage(ExplainState *es, const WalUsage *usage)
+{
+    if (es->format == EXPLAIN_FORMAT_TEXT) {
+        // Show only positive values in compact format
+        if (usage->wal_records > 0 || usage->wal_fpi > 0 || usage->wal_bytes > 0) {
+            ExplainIndentText(es);
+            appendStringInfoString(es->str, "WAL:");
+
+            if (usage->wal_records > 0)
+                appendStringInfo(es->str, " records=%lld", (long long) usage->wal_records);
+            if (usage->wal_fpi > 0)
+                appendStringInfo(es->str, " fpi=%lld", (long long) usage->wal_fpi);
+            if (usage->wal_bytes > 0)
+                appendStringInfo(es->str, " bytes=" UINT64_FORMAT, usage->wal_bytes);
+
+            appendStringInfoChar(es->str, '\n');
+        }
+    } else {
+        // Structured output format (JSON/XML/YAML)
+        ExplainPropertyInteger("WAL Records", NULL, usage->wal_records, es);
+        ExplainPropertyInteger("WAL FPI", NULL, usage->wal_fpi, es);
+        ExplainPropertyUInteger("WAL Bytes", NULL, usage->wal_bytes, es);
+    }
+}
+```

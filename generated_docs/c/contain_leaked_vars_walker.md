@@ -50,3 +50,88 @@ The function is recursive and uses `expression_tree_walker` to continue traversa
 - [CurrentOfExpr](../C/CurrentOfExpr.md) is explicitly treated as non-leaky since TID scans must always be generated
 - Part of PostgreSQL's comprehensive security infrastructure for preventing data leakage
 - Located in src/backend/optimizer/util/clauses.c:1275-1455
+
+## Simplified Source
+
+```c
+static bool
+contain_leaked_vars_walker(Node *node, void *context)
+{
+    if (node == NULL)
+        return false;
+
+    switch (nodeTag(node))
+    {
+        // Safe node types - check children
+        case T_Var:
+        case T_Const:
+        case T_Param:
+        case T_BoolExpr:
+        case T_CaseExpr:
+        case T_List:
+            // These don't contain function calls
+            break;
+
+        // Function-calling nodes - check if leaky
+        case T_FuncExpr:
+        case T_OpExpr:
+        case T_DistinctExpr:
+        case T_ScalarArrayOpExpr:
+            // If node contains leaky function AND has Vars, reject
+            if (check_functions_in_node(node, contain_leaked_vars_checker,
+                                      context) &&
+                contain_var_clause(node))
+                return true;
+            break;
+
+        case T_SubscriptingRef:
+            {
+                SubscriptingRef *sbsref = (SubscriptingRef *) node;
+                const SubscriptRoutines *sbsroutines;
+
+                // Check if subscripting operations are leakproof
+                sbsroutines = getSubscriptingRoutines(sbsref->refcontainertype,
+                                                    NULL);
+                if (!sbsroutines ||
+                    !(sbsref->refassgnexpr != NULL ?
+                      sbsroutines->store_leakproof :
+                      sbsroutines->fetch_leakproof))
+                {
+                    if (contain_var_clause(node))
+                        return true;
+                }
+            }
+            break;
+
+        case T_RowCompareExpr:
+            {
+                // Check each comparison operator for leakproof
+                RowCompareExpr *rcexpr = (RowCompareExpr *) node;
+                ListCell *opid, *larg, *rarg;
+
+                forthree(opid, rcexpr->opnos,
+                        larg, rcexpr->largs,
+                        rarg, rcexpr->rargs)
+                {
+                    Oid funcid = get_opcode(lfirst_oid(opid));
+
+                    if (!get_func_leakproof(funcid) &&
+                        (contain_var_clause((Node *) lfirst(larg)) ||
+                         contain_var_clause((Node *) lfirst(rarg))))
+                        return true;
+                }
+            }
+            break;
+
+        case T_CurrentOfExpr:
+            // Always safe - TID scans must be generated
+            return false;
+
+        default:
+            // Unknown node types assumed potentially leaky
+            return true;
+    }
+
+    return expression_tree_walker(node, contain_leaked_vars_walker, context);
+}
+```

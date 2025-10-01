@@ -53,3 +53,48 @@ The function ensures that the resulting merged partition properly inherits the d
 - When both sides have defaults, the merge is guaranteed to succeed because the processing logic ensures neither default has been merged yet
 - The resulting default partition retains the property of containing all rows that don't match explicit partition constraints
 - This function is part of the broader partitionwise join optimization that enables PostgreSQL to process joins more efficiently by operating on individual partitions rather than entire tables
+
+## Simplified Source
+
+```c
+static void
+merge_default_partitions(PartitionMap *outer_map, PartitionMap *inner_map,
+                        bool outer_has_default, bool inner_has_default,
+                        int outer_default, int inner_default, JoinType jointype,
+                        int *next_index, int *default_index)
+{
+    // Get merged indexes for default partitions if they exist
+    int outer_merged_idx = outer_has_default ? outer_map->merged_indexes[outer_default] : -1;
+    int inner_merged_idx = inner_has_default ? inner_map->merged_indexes[inner_default] : -1;
+
+    if (outer_has_default && !inner_has_default)
+    {
+        // Only outer has default - for outer joins, merge with dummy
+        if (IS_OUTER_JOIN(jointype) && jointype != JOIN_RIGHT)
+        {
+            if (outer_merged_idx == -1)
+                *default_index = merge_partition_with_dummy(outer_map, outer_default, next_index);
+            // else default_index already set correctly
+        }
+        // For inner joins, no default partition needed
+    }
+    else if (!outer_has_default && inner_has_default)
+    {
+        // Only inner has default - for full joins, merge with dummy
+        if (jointype == JOIN_FULL)
+        {
+            if (inner_merged_idx == -1)
+                *default_index = merge_partition_with_dummy(inner_map, inner_default, next_index);
+            // else default_index already set correctly
+        }
+        // For other join types, no default partition needed
+    }
+    else  // Both sides have default partitions
+    {
+        // Default partitions must be joined together
+        *default_index = merge_matching_partitions(outer_map, inner_map,
+                                                  outer_default, inner_default,
+                                                  next_index);
+    }
+}
+```

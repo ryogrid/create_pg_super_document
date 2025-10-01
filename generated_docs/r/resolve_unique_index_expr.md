@@ -59,3 +59,60 @@ The resulting list of InferenceElem structures contains the transformed expressi
 - For simple column references, manually constructs ColumnRef nodes since the grammar doesn't create raw expressions for plain column names
 - Sets location information for error reporting to approximately match the inference specification location
 - Collation and operator class resolution uses InvalidOid when not specified, allowing the system to use defaults
+
+## Simplified Source
+
+```c
+static List *
+resolve_unique_index_expr(ParseState *pstate, InferClause *infer, Relation heapRel)
+{
+    List *result = NIL;
+    ListCell *l;
+
+    foreach(l, infer->indexElems) {
+        IndexElem *ielem = (IndexElem *) lfirst(l);
+        InferenceElem *pInfer = makeNode(InferenceElem);
+        Node *parse;
+
+        // Reject ordering specifications (not meaningful for conflict detection)
+        if (ielem->ordering != SORTBY_DEFAULT)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_COLUMN_REFERENCE),
+                errmsg("ASC/DESC is not allowed in ON CONFLICT clause")));
+
+        if (ielem->nulls_ordering != SORTBY_NULLS_DEFAULT)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_COLUMN_REFERENCE),
+                errmsg("NULLS FIRST/LAST is not allowed in ON CONFLICT clause")));
+
+        if (!ielem->expr) {
+            // Simple column reference - create ColumnRef node
+            ColumnRef *n = makeNode(ColumnRef);
+            n->fields = list_make1(makeString(ielem->name));
+            n->location = infer->location;
+            parse = (Node *) n;
+        } else {
+            // Complex expression
+            parse = (Node *) ielem->expr;
+        }
+
+        // Transform expression (rejects subqueries, aggregates, etc.)
+        pInfer->expr = transformExpr(pstate, parse, EXPR_KIND_INDEX_EXPRESSION);
+
+        // Resolve collation and operator class
+        if (!ielem->collation)
+            pInfer->infercollid = InvalidOid;
+        else
+            pInfer->infercollid = LookupCollation(pstate, ielem->collation,
+                                                 exprLocation(pInfer->expr));
+
+        if (!ielem->opclass)
+            pInfer->inferopclass = InvalidOid;
+        else
+            pInfer->inferopclass = get_opclass_oid(BTREE_AM_OID,
+                                                  ielem->opclass, false);
+
+        result = lappend(result, pInfer);
+    }
+
+    return result;
+}
+```

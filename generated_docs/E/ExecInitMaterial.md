@@ -47,3 +47,50 @@ The function intelligently shields the child node from complex execution flags (
 - [Material](../M/Material.md) nodes don't need ExprContext since they don't perform qualification or projection
 - Uses minimal tuple slots for efficient memory usage in the materialized relation
 - Handles the semantic difference between executor BACKWARD flag and tuplestore BACKWARD support by adding REWIND when BACKWARD is requested
+
+## Simplified Source
+
+```c
+MaterialState *
+ExecInitMaterial(Material *node, EState *estate, int eflags)
+{
+    MaterialState *matstate;
+    Plan *outerPlan;
+
+    // Create and initialize state structure
+    matstate = makeNode(MaterialState);
+    matstate->ss.ps.plan = (Plan *) node;
+    matstate->ss.ps.state = estate;
+    matstate->ss.ps.ExecProcNode = ExecMaterial;
+
+    // Determine if tuplestore buffering is needed based on execution flags
+    matstate->eflags = (eflags & (EXEC_FLAG_REWIND |
+                                  EXEC_FLAG_BACKWARD |
+                                  EXEC_FLAG_MARK));
+
+    // Handle tuplestore flag semantics: BACKWARD requires REWIND to prevent
+    // premature trimming of stored tuples
+    if (eflags & EXEC_FLAG_BACKWARD)
+        matstate->eflags |= EXEC_FLAG_REWIND;
+
+    // Initialize tuplestore state
+    matstate->eof_underlying = false;
+    matstate->tuplestorestate = NULL;
+
+    // Initialize child node with simplified flags
+    // Shield child from complex execution requirements that Material handles
+    eflags &= ~(EXEC_FLAG_REWIND | EXEC_FLAG_BACKWARD | EXEC_FLAG_MARK);
+
+    outerPlan = outerPlan(node);
+    outerPlanState(matstate) = ExecInitNode(outerPlan, estate, eflags);
+
+    // Initialize result tuple slot using minimal tuple operations
+    ExecInitResultTupleSlotTL(&matstate->ss.ps, &TTSOpsMinimalTuple);
+    matstate->ss.ps.ps_ProjInfo = NULL; // No projection needed
+
+    // Create scan slot from outer plan
+    ExecCreateScanSlotFromOuterPlan(estate, &matstate->ss, &TTSOpsMinimalTuple);
+
+    return matstate;
+}
+```

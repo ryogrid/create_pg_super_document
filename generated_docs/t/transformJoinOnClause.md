@@ -47,3 +47,31 @@ This careful namespace management ensures that JOIN ON clauses can only referenc
 - Uses the same underlying transformation logic as WHERE clauses via transformWhereClause()
 - Critical for maintaining the correct scope and visibility rules in complex JOIN expressions
 - The temporary namespace includes exactly the two JOIN subtrees plus outer references
+
+## Simplified Source
+
+```c
+static Node *transformJoinOnClause(ParseState *pstate, JoinExpr *j, List *namespace)
+{
+    Node *result;
+    List *save_namespace;
+
+    // Set up namespace for JOIN ON clause:
+    // - Only the two JOIN subtrees are visible
+    // - Plus any outer references from upper levels
+    // - All items marked visible regardless of LATERAL state
+    setNamespaceLateralState(namespace, false, true);
+
+    // Temporarily replace namespace
+    save_namespace = pstate->p_namespace;
+    pstate->p_namespace = namespace;
+
+    // Transform the ON clause conditions using WHERE clause logic
+    result = transformWhereClause(pstate, j->quals, EXPR_KIND_JOIN_ON, "JOIN/ON");
+
+    // Restore original namespace
+    pstate->p_namespace = save_namespace;
+
+    return result;
+}
+```

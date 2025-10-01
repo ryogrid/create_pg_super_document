@@ -42,3 +42,23 @@ The function performs a direct memory copy of the digit array from the source Nu
 - Memory allocation is handled by alloc_var() which may fail if insufficient memory
 - The digit array is copied using memcpy for efficiency
 - This function is fundamental to numeric operations as it converts from storage format to computation format
+
+## Simplified Source
+
+```c
+static void set_var_from_num(Numeric num, NumericVar *dest) {
+    // Get number of digits in the packed numeric
+    int ndigits = NUMERIC_NDIGITS(num);
+
+    // Allocate memory for the variable representation
+    alloc_var(dest, ndigits);
+
+    // Copy metadata from packed format
+    dest->weight = NUMERIC_WEIGHT(num);
+    dest->sign = NUMERIC_SIGN(num);
+    dest->dscale = NUMERIC_DSCALE(num);
+
+    // Copy the digits array from packed to variable format
+    memcpy(dest->digits, NUMERIC_DIGITS(num), ndigits * sizeof(NumericDigit));
+}
+```

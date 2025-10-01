@@ -35,3 +35,27 @@ For SELECT operations, it calls the FDW's ExplainForeignScan routine. For modifi
 - Different FDW implementations can provide vastly different explain output depending on their specific functionality
 - This extensibility mechanism allows PostgreSQL to support various foreign data sources while providing meaningful explain information
 - The function distinguishes between read operations (SELECT) and write operations (direct modify) to call the appropriate FDW explain routine
+
+## Simplified Source
+
+```c
+static void
+show_foreignscan_info(ForeignScanState *fsstate, ExplainState *es)
+{
+    FdwRoutine *fdwroutine = fsstate->fdwroutine;
+
+    // Check if this is a modification operation (INSERT/UPDATE/DELETE)
+    if (((ForeignScan *) fsstate->ss.ps.plan)->operation != CMD_SELECT)
+    {
+        // Call FDW's direct modification explain function if available
+        if (fdwroutine->ExplainDirectModify != NULL)
+            fdwroutine->ExplainDirectModify(fsstate, es);
+    }
+    else
+    {
+        // Call FDW's foreign scan explain function for SELECT operations
+        if (fdwroutine->ExplainForeignScan != NULL)
+            fdwroutine->ExplainForeignScan(fsstate, es);
+    }
+}
+```

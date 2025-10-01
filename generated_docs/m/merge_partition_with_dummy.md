@@ -41,3 +41,27 @@ The function assigns the partition a new merged index and increments the next av
 - This is a key building block used by higher-level partition merging functions when handling asymmetric join scenarios
 - The "dummy" partition is conceptual - no actual dummy partition structure is created; instead, the function simply assigns the partition to a new slot in the merged partition space
 - This function enables partitionwise join optimization to handle cases where partitions don't have exact matches on both sides, which is essential for complete join processing
+
+## Simplified Source
+
+```c
+static int merge_partition_with_dummy(PartitionMap *map, int index, int *next_index) {
+    int merged_index = *next_index;
+
+    // Validate input parameters
+    Assert(index >= 0 && index < map->nparts);
+    Assert(map->merged_indexes[index] == -1);  // Not already merged
+    Assert(!map->merged[index]);               // Not marked as merged
+
+    // Assign this partition to the next available merged partition slot
+    map->merged_indexes[index] = merged_index;
+
+    // Intentionally leave the merged flag unset to allow future adjustments
+    // if a real matching partition is found later
+
+    // Advance to next available index
+    *next_index = *next_index + 1;
+
+    return merged_index;
+}
+```

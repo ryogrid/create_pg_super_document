@@ -34,3 +34,41 @@ This function calculates the ordinal position of member `x` within the bitmap se
 
 ## Notes and Other Information
 This function is primarily used in PostgreSQL's extended statistics system where the order of attributes or expressions within a bitmap needs to be determined for statistical calculations. The 0-based indexing makes it suitable for array indexing operations. The function is optimized to avoid unnecessary computation by first checking membership and by skipping population counts for zero words. The masking operation in the final word ensures that only bits preceding the target bit are counted, maintaining the correct 0-based index semantics.
+
+## Simplified Source
+
+```c
+int
+bms_member_index(Bitmapset *a, int x)
+{
+    int i;
+    int bitnum;
+    int wordnum;
+    int result = 0;
+    bitmapword mask;
+
+    Assert(bms_is_valid_set(a));
+
+    // Return -1 if x is not a member of the bitmap
+    if (!bms_is_member(x, a))
+        return -1;
+
+    // Calculate which word and bit position x occupies
+    wordnum = WORDNUM(x);
+    bitnum = BITNUM(x);
+
+    // Count all set bits in words before the target word
+    for (i = 0; i < wordnum; i++) {
+        bitmapword w = a->words[i];
+        if (w != 0)
+            result += bmw_popcount(w);  // Count set bits efficiently
+    }
+
+    // Count set bits in the target word that come before position x
+    // Create mask with 1s for all bits before target position
+    mask = ((bitmapword) 1 << bitnum) - 1;
+    result += bmw_popcount(a->words[wordnum] & mask);
+
+    return result;
+}
+```

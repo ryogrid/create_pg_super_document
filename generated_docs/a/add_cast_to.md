@@ -37,3 +37,31 @@ The generated cast uses fully-qualified type names (schema.typename) to ensure r
 - Ensures default typmod (-1) by explicit type name construction
 - Critical for types like CHARACTER and BIT where SQL-standard syntax can cause problems
 - Part of the internal SQL generation system where precision is essential
+
+## Simplified Source
+
+```c
+static void add_cast_to(StringInfo buf, Oid typid) {
+    HeapTuple typetup;
+    Form_pg_type typform;
+    char *typname;
+    char *nspname;
+
+    // Look up type in system cache
+    typetup = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typid));
+    if (!HeapTupleIsValid(typetup)) {
+        elog(ERROR, "cache lookup failed for type %u", typid);
+    }
+    typform = (Form_pg_type) GETSTRUCT(typetup);
+
+    // Extract type and namespace names
+    typname = NameStr(typform->typname);
+    nspname = get_namespace_name_or_temp(typform->typnamespace);
+
+    // Append cast in format ::schema.typename
+    appendStringInfo(buf, "::%s.%s",
+                     quote_identifier(nspname), quote_identifier(typname));
+
+    ReleaseSysCache(typetup);
+}
+```

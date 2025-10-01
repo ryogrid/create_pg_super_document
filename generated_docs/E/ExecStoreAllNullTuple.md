@@ -45,3 +45,28 @@ This is particularly useful for outer joins, bitmap heap scans with no matching 
 - Follows the standard virtual tuple creation protocol, making it compatible with all slot operations
 - Different from an empty slot - this represents an actual tuple with NULL values rather than the absence of a tuple
 - Useful for table rewriting operations where default NULL values need to be represented explicitly
+
+## Simplified Source
+
+```c
+TupleTableSlot *
+ExecStoreAllNullTuple(TupleTableSlot *slot)
+{
+    Assert(slot != NULL);
+    Assert(slot->tts_tupleDescriptor != NULL);
+
+    // Clear any existing content
+    ExecClearTuple(slot);
+
+    // Set all values to 0 (NULL Datum values)
+    MemSet(slot->tts_values, 0,
+           slot->tts_tupleDescriptor->natts * sizeof(Datum));
+
+    // Mark all columns as NULL
+    memset(slot->tts_isnull, true,
+           slot->tts_tupleDescriptor->natts * sizeof(bool));
+
+    // Store as virtual tuple
+    return ExecStoreVirtualTuple(slot);
+}
+```

@@ -44,3 +44,34 @@ The comparison logic follows these steps:
 - Handles system columns (OIDs) separately from regular table columns
 - May be overly strict as multiple binary representations can exist for the same logical value
 - Part of PostgreSQL's heap access method implementation for determining column changes
+
+## Simplified Source
+
+```c
+static bool heap_attr_equals(TupleDesc tupdesc, int attrnum, Datum value1, Datum value2,
+                            bool isnull1, bool isnull2)
+{
+    Form_pg_attribute att;
+
+    // Handle NULL value comparisons first
+    if (isnull1 != isnull2)
+        return false;  // One NULL, one not NULL
+
+    if (isnull1)
+        return true;   // Both are NULL
+
+    // Compare actual values based on column type
+    if (attrnum <= 0)
+    {
+        // System columns: treat as OIDs
+        return (DatumGetObjectId(value1) == DatumGetObjectId(value2));
+    }
+    else
+    {
+        // Regular columns: use binary comparison
+        Assert(attrnum <= tupdesc->natts);
+        att = TupleDescAttr(tupdesc, attrnum - 1);
+        return datumIsEqual(value1, value2, att->attbyval, att->attlen);
+    }
+}
+```

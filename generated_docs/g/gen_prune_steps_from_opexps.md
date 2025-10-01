@@ -60,3 +60,110 @@ For LIST and RANGE partitioning, the function implements sophisticated prefix lo
 - Validates operator strategies and discovers them dynamically when needed
 - Memory management relies on the current memory context for temporary allocations
 - The prefix logic ensures that generated steps respect partition key ordering requirements
+
+## Simplified Source
+
+```c
+static List *gen_prune_steps_from_opexps(GeneratePruningStepsContext *context,
+                                        List **keyclauses, Bitmapset *nullkeys) {
+    PartitionScheme part_scheme = context->rel->part_scheme;
+    List *opsteps = NIL;
+    List *btree_clauses[BTMaxStrategyNumber + 1];
+    List *hash_clauses[HTMaxStrategyNumber + 1];
+
+    // Initialize clause arrays
+    memset(btree_clauses, 0, sizeof(btree_clauses));
+    memset(hash_clauses, 0, sizeof(hash_clauses));
+
+    // Phase 1: Organize clauses by strategy and validate constraints
+    for (int i = 0; i < part_scheme->partnatts; i++) {
+        List *clauselist = keyclauses[i];
+
+        // Range partitioning: stop if no clauses for current key
+        if (part_scheme->strategy == PARTITION_STRATEGY_RANGE && clauselist == NIL)
+            break;
+
+        // Hash partitioning: require equality or null clauses for all keys
+        if (part_scheme->strategy == PARTITION_STRATEGY_HASH &&
+            clauselist == NIL && !bms_is_member(i, nullkeys))
+            return NIL;
+
+        // Categorize clauses by strategy
+        foreach(lc, clauselist) {
+            PartClauseInfo *pc = (PartClauseInfo *) lfirst(lc);
+
+            // Discover operator strategy if needed
+            if (pc->op_strategy == InvalidStrategy)
+                get_op_opfamily_properties(pc->opno, part_scheme->partopfamily[i],
+                                         false, &pc->op_strategy, &lefttype, &righttype);
+
+            // Add to appropriate strategy array
+            switch (part_scheme->strategy) {
+                case PARTITION_STRATEGY_LIST:
+                case PARTITION_STRATEGY_RANGE:
+                    btree_clauses[pc->op_strategy] = lappend(btree_clauses[pc->op_strategy], pc);
+                    break;
+                case PARTITION_STRATEGY_HASH:
+                    if (pc->op_strategy != HTEqualStrategyNumber)
+                        elog(ERROR, "invalid clause for hash partitioning");
+                    hash_clauses[pc->op_strategy] = lappend(hash_clauses[pc->op_strategy], pc);
+                    break;
+            }
+        }
+    }
+
+    // Phase 2: Generate steps based on partitioning strategy
+    switch (part_scheme->strategy) {
+        case PARTITION_STRATEGY_LIST:
+        case PARTITION_STRATEGY_RANGE:
+            // Process each btree strategy (=, <=, >=, <, >)
+            for (int strat = 1; strat <= BTMaxStrategyNumber; strat++) {
+                foreach(lc, btree_clauses[strat]) {
+                    PartClauseInfo *pc = lfirst(lc);
+
+                    // Build prefix from earlier keys and generate steps
+                    if (pc->keyno == 0) {
+                        // First key - no prefix needed
+                        List *pc_steps = get_steps_using_prefix(context, strat,
+                                                              pc->op_is_ne, pc->expr,
+                                                              pc->cmpfn, NULL, NIL);
+                        opsteps = list_concat(opsteps, pc_steps);
+                    } else {
+                        // Build prefix and generate steps if valid
+                        List *prefix = build_prefix_for_strategy(btree_clauses, pc, strat);
+                        if (prefix_is_valid(prefix, pc->keyno)) {
+                            List *pc_steps = get_steps_using_prefix(context, strat,
+                                                                  pc->op_is_ne, pc->expr,
+                                                                  pc->cmpfn, NULL, prefix);
+                            opsteps = list_concat(opsteps, pc_steps);
+                        }
+                    }
+                }
+            }
+            break;
+
+        case PARTITION_STRATEGY_HASH:
+            // Hash partitioning - only equality strategy
+            List *eq_clauses = hash_clauses[HTEqualStrategyNumber];
+            if (eq_clauses != NIL) {
+                // Find clauses for last key and build prefix from earlier keys
+                PartClauseInfo *last_pc = llast(eq_clauses);
+                List *prefix = build_hash_prefix(eq_clauses, last_pc->keyno);
+
+                // Generate steps for each clause of the last key
+                foreach(lc, eq_clauses) {
+                    PartClauseInfo *pc = lfirst(lc);
+                    if (pc->keyno == last_pc->keyno) {
+                        List *pc_steps = get_steps_using_prefix(context, HTEqualStrategyNumber,
+                                                              false, pc->expr, pc->cmpfn,
+                                                              nullkeys, prefix);
+                        opsteps = list_concat(opsteps, pc_steps);
+                    }
+                }
+            }
+            break;
+    }
+
+    return opsteps;
+}
+```

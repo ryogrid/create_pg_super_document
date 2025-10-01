@@ -45,3 +45,50 @@ The function appends results to the provided lists, allowing multiple calls to a
 - Raises ERROR for unrecognized node types to ensure all expected path types are handled
 - Results are safe to modify destructively since list cells are freshly allocated
 - Essential for path analysis and comparison operations in bitmap index planning
+
+## Simplified Source
+
+```c
+static void find_indexpath_quals(Path *bitmapqual, List **quals, List **preds)
+{
+    if (IsA(bitmapqual, BitmapAndPath))
+    {
+        BitmapAndPath *apath = (BitmapAndPath *) bitmapqual;
+        ListCell *l;
+
+        // Recursively process all AND'ed bitmap paths
+        foreach(l, apath->bitmapquals)
+        {
+            find_indexpath_quals((Path *) lfirst(l), quals, preds);
+        }
+    }
+    else if (IsA(bitmapqual, BitmapOrPath))
+    {
+        BitmapOrPath *opath = (BitmapOrPath *) bitmapqual;
+        ListCell *l;
+
+        // Recursively process all OR'ed bitmap paths
+        foreach(l, opath->bitmapquals)
+        {
+            find_indexpath_quals((Path *) lfirst(l), quals, preds);
+        }
+    }
+    else if (IsA(bitmapqual, IndexPath))
+    {
+        IndexPath *ipath = (IndexPath *) bitmapqual;
+        ListCell *l;
+
+        // Extract index clauses from leaf IndexPath
+        foreach(l, ipath->indexclauses)
+        {
+            IndexClause *iclause = (IndexClause *) lfirst(l);
+            *quals = lappend(*quals, iclause->rinfo->clause);
+        }
+
+        // Add index predicates
+        *preds = list_concat(*preds, ipath->indexinfo->indpred);
+    }
+    else
+        elog(ERROR, "unrecognized node type: %d", nodeTag(bitmapqual));
+}
+```

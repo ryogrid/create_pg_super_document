@@ -45,3 +45,29 @@ Join selectivity is used for conditions like "table1.column op table2.column" wh
 - This function is crucial for cost-based query optimization, particularly for choosing optimal join orders in multi-table queries
 - [Join](../J/Join.md) selectivity estimation is more complex than restriction selectivity as it involves relationships between multiple tables
 - If no specific join selectivity function is provided, PostgreSQL uses default estimation methods based on the operator type and available statistics
+
+## Simplified Source
+
+```c
+RegProcedure
+get_oprjoin(Oid opno)
+{
+    HeapTuple tp;
+
+    // Look up operator in system catalog
+    tp = SearchSysCache1(OPEROID, ObjectIdGetDatum(opno));
+
+    if (HeapTupleIsValid(tp)) {
+        // Extract operator tuple and get join selectivity function OID
+        Form_pg_operator optup = (Form_pg_operator) GETSTRUCT(tp);
+        RegProcedure result = optup->oprjoin;
+
+        ReleaseSysCache(tp);
+        return result;
+    }
+    else {
+        // Operator not found
+        return (RegProcedure) InvalidOid;
+    }
+}
+```

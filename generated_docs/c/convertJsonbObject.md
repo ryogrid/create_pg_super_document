@@ -61,3 +61,79 @@ The two-phase processing (keys first, then values) ensures that JSONB objects ha
 - Reserves space for exactly  JEntry records (one for each key and value)
 - The function is static and only used internally within the JSONB conversion system
 - Essential for maintaining JSONB's efficient binary search capabilities on object keys
+
+## Simplified Source
+
+```c
+static void
+convertJsonbObject(StringInfo buffer, JEntry *header, JsonbValue *val, int level)
+{
+    int base_offset = buffer->len;
+    int nPairs = val->val.object.nPairs;
+
+    // Align buffer to 4-byte boundary
+    padBufferToInt(buffer);
+
+    // Create container header with pair count and object flag
+    uint32 containerheader = nPairs | JB_FOBJECT;
+    appendToBuffer(buffer, (char *) &containerheader, sizeof(uint32));
+
+    // Reserve space for metadata (2 entries per pair: key + value)
+    int jentry_offset = reserveFromBuffer(buffer, sizeof(JEntry) * nPairs * 2);
+
+    int totallen = 0;
+
+    // Process all keys first (required JSONB layout)
+    for (int i = 0; i < nPairs; i++) {
+        JsonbPair *pair = &val->val.object.pairs[i];
+        JEntry meta;
+
+        // Convert key (always a string scalar)
+        convertJsonbScalar(buffer, &meta, &pair->key);
+
+        int len = JBE_OFFLENFLD(meta);
+        totallen += len;
+
+        // Check size limit
+        if (totallen > JENTRY_OFFLENMASK) {
+            ereport(ERROR, "jsonb object elements exceed maximum size");
+        }
+
+        // Store offset every JB_OFFSET_STRIDE elements
+        if ((i % JB_OFFSET_STRIDE) == 0) {
+            meta = (meta & JENTRY_TYPEMASK) | totallen | JENTRY_HAS_OFF;
+        }
+
+        copyToBuffer(buffer, jentry_offset, (char *) &meta, sizeof(JEntry));
+        jentry_offset += sizeof(JEntry);
+    }
+
+    // Process all values second
+    for (int i = 0; i < nPairs; i++) {
+        JsonbPair *pair = &val->val.object.pairs[i];
+        JEntry meta;
+
+        // Convert value (can be any JSON type)
+        convertJsonbValue(buffer, &meta, &pair->value, level + 1);
+
+        int len = JBE_OFFLENFLD(meta);
+        totallen += len;
+
+        // Check size limit
+        if (totallen > JENTRY_OFFLENMASK) {
+            ereport(ERROR, "jsonb object elements exceed maximum size");
+        }
+
+        // Store offset accounting for key entries already processed
+        if (((i + nPairs) % JB_OFFSET_STRIDE) == 0) {
+            meta = (meta & JENTRY_TYPEMASK) | totallen | JENTRY_HAS_OFF;
+        }
+
+        copyToBuffer(buffer, jentry_offset, (char *) &meta, sizeof(JEntry));
+        jentry_offset += sizeof(JEntry);
+    }
+
+    // Set final header with total size
+    *header = JENTRY_ISCONTAINER | (buffer->len - base_offset);
+}
+```

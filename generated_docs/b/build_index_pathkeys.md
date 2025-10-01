@@ -45,3 +45,58 @@ The resulting pathkeys list is canonical, meaning redundant pathkeys are removed
 - The caller should use truncate_useless_pathkeys() to potentially remove additional unnecessary pathkeys
 - Part of the NEW PATHKEY FORMATION infrastructure in PostgreSQL's query planner
 - Supports both forward and backward index scans with appropriate sort order reversal
+
+## Simplified Source
+
+```c
+List *
+build_index_pathkeys(PlannerInfo *root, IndexOptInfo *index, ScanDirection scandir)
+{
+    List *pathkeys = NIL;
+    int i = 0;
+
+    // Return NIL for non-orderable indexes
+    if (index->sortopfamily == NULL)
+        return NIL;
+
+    // Process each key column (skip INCLUDE columns)
+    foreach(lc, index->indextlist)
+    {
+        TargetEntry *indextle = (TargetEntry *) lfirst(lc);
+
+        if (i >= index->nkeycolumns)
+            break;  // Skip INCLUDE columns
+
+        // Determine sort order based on scan direction
+        bool reverse_sort = ScanDirectionIsBackward(scandir) ?
+                           !index->reverse_sort[i] : index->reverse_sort[i];
+        bool nulls_first = ScanDirectionIsBackward(scandir) ?
+                          !index->nulls_first[i] : index->nulls_first[i];
+
+        // Try to create a pathkey for this index column
+        PathKey *pathkey = make_pathkey_from_sortinfo(root, indextle->expr,
+                                                     index->sortopfamily[i],
+                                                     index->opcintype[i],
+                                                     index->indexcollations[i],
+                                                     reverse_sort, nulls_first,
+                                                     0, index->rel->relids, false);
+
+        if (pathkey)
+        {
+            // Add pathkey if it's not redundant
+            if (!pathkey_is_redundant(pathkey, pathkeys))
+                pathkeys = lappend(pathkeys, pathkey);
+        }
+        else
+        {
+            // Stop unless this is a boolean constant column
+            if (!indexcol_is_bool_constant_for_query(root, index, i))
+                break;
+        }
+
+        i++;
+    }
+
+    return pathkeys;
+}
+```

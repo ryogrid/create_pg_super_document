@@ -34,3 +34,38 @@ This static function is responsible for resolving variable references during JSO
 - Supports base object functionality for complex variable scenarios
 - Will throw an ERRCODE_UNDEFINED_OBJECT error if the variable is not found
 - Part of PostgreSQL's JSON path variable resolution infrastructure
+
+## Simplified Source
+
+```c
+static void getJsonPathVariable(JsonPathExecContext *cxt, JsonPathItem *variable,
+                               JsonbValue *value)
+{
+    char *varName;
+    int varNameLength;
+    JsonbValue baseObject;
+    int baseObjectId;
+    JsonbValue *v;
+
+    // Extract variable name from the JsonPathItem
+    Assert(variable->type == jpiVariable);
+    varName = jspGetString(variable, &varNameLength);
+
+    // Look up the variable in the execution context
+    if (cxt->vars == NULL ||
+        (v = cxt->getVar(cxt->vars, varName, varNameLength,
+                        &baseObject, &baseObjectId)) == NULL) {
+        // Variable not found - report error
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("could not find jsonpath variable \"%s\"",
+                        pnstrdup(varName, varNameLength))));
+    }
+
+    // Set up the value and base object if needed
+    if (baseObjectId > 0) {
+        *value = *v;
+        setBaseObject(cxt, &baseObject, baseObjectId);
+    }
+}
+```

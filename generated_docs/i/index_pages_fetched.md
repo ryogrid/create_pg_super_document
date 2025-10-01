@@ -39,3 +39,53 @@ The function applies different formulas depending on whether the table fits enti
 
 ## Notes and Other Information
 The function implements the seminal Mackert and Lohman I/O model from their 1989 ACM Transactions paper, which remains a foundational algorithm in database query optimization. The model accounts for LRU buffer replacement and provides three different formulas based on the relationship between table size, cache size, and scan selectivity. The pro-rating of cache space across multiple relations reflects the reality of concurrent access patterns in complex queries, though it necessarily makes simplifying assumptions about actual memory competition.
+
+## Simplified Source
+
+```c
+double
+index_pages_fetched(double tuples_fetched, BlockNumber pages, double index_pages, PlannerInfo *root)
+{
+    double pages_fetched;
+    double total_pages;
+    double T, b;
+
+    // T = number of pages in table (ensure >= 1)
+    T = (pages > 1) ? (double) pages : 1.0;
+
+    // Calculate total competing pages and pro-rate cache
+    total_pages = root->total_table_pages + index_pages;
+    total_pages = Max(total_pages, 1.0);
+    b = (double) effective_cache_size * T / total_pages;
+
+    // Force cache size to be positive and integral
+    if (b <= 1.0)
+        b = 1.0;
+    else
+        b = ceil(b);
+
+    // Apply Mackert and Lohman formula
+    if (T <= b) {
+        // Table fits in cache
+        pages_fetched = (2.0 * T * tuples_fetched) / (2.0 * T + tuples_fetched);
+        if (pages_fetched >= T)
+            pages_fetched = T;
+        else
+            pages_fetched = ceil(pages_fetched);
+    }
+    else {
+        // Table larger than cache
+        double lim = (2.0 * T * b) / (2.0 * T - b);
+
+        if (tuples_fetched <= lim) {
+            pages_fetched = (2.0 * T * tuples_fetched) / (2.0 * T + tuples_fetched);
+        }
+        else {
+            pages_fetched = b + (tuples_fetched - lim) * (T - b) / T;
+        }
+        pages_fetched = ceil(pages_fetched);
+    }
+
+    return pages_fetched;
+}
+```

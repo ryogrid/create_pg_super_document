@@ -45,3 +45,28 @@ The function creates a local FunctionCallInfoData structure with space for 1 arg
 - The collation parameter allows for locale-sensitive operations in functions that support collation
 - Widely used throughout PostgreSQL for hash functions, BRIN index operations, GiST operations, and various data type operations
 - Located in src/backend/utils/fmgr/fmgr.c:1129-1148
+
+## Simplified Source
+
+```c
+Datum FunctionCall1Coll(FmgrInfo *flinfo, Oid collation, Datum arg1) {
+    LOCAL_FCINFO(fcinfo, 1);  // Create local function call info for 1 arg
+    Datum result;
+
+    // Initialize function call information with collation
+    InitFunctionCallInfoData(*fcinfo, flinfo, 1, collation, NULL, NULL);
+
+    // Set the single argument
+    fcinfo->args[0].value = arg1;
+    fcinfo->args[0].isnull = false;
+
+    // Invoke the function
+    result = FunctionCallInvoke(fcinfo);
+
+    // Check for unexpected NULL result
+    if (fcinfo->isnull)
+        elog(ERROR, "function %u returned NULL", flinfo->fn_oid);
+
+    return result;
+}
+```

@@ -34,3 +34,14 @@ The new storage location may not have any associated storage files before this f
 - Used primarily for tablespace movement operations
 - The function is an inline wrapper that delegates to the table access method implementation
 - Performance can be significant for large relations as all data must be copied
+
+## Simplified Source
+
+```c
+static inline void
+table_relation_copy_data(Relation rel, const RelFileLocator *newrlocator)
+{
+    // Delegate to table access method's copy implementation
+    rel->rd_tableam->relation_copy_data(rel, newrlocator);
+}
+```

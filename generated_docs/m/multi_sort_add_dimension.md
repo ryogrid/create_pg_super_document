@@ -37,3 +37,22 @@ This function initializes a single dimension of a multi-dimensional sort operati
 - Uses CurrentMemoryContext for memory allocation context
 - Part of PostgreSQL's extended statistics infrastructure used for multi-variate statistical analysis
 - The function assumes the MultiSortSupport structure has been properly allocated with sufficient dimensions
+
+## Simplified Source
+
+```c
+void
+multi_sort_add_dimension(MultiSortSupport mss, int sortdim,
+                         Oid oper, Oid collation)
+{
+    SortSupport ssup = &mss->ssup[sortdim];
+
+    // Configure sort support for this dimension
+    ssup->ssup_cxt = CurrentMemoryContext;
+    ssup->ssup_collation = collation;
+    ssup->ssup_nulls_first = false;
+
+    // Prepare the comparison function for the ordering operator
+    PrepareSortSupportFromOrderingOp(oper, ssup);
+}
+```

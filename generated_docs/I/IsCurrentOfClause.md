@@ -36,3 +36,25 @@ The function performs two key validations:
 - CURRENT OF clauses are used with cursors to reference the current row position
 - The function returns false if the clause is not a CurrentOfExpr or doesn't reference the specified relation
 - Part of PostgreSQL's TID scan optimization infrastructure for direct tuple access
+
+## Simplified Source
+
+```c
+static bool
+IsCurrentOfClause(RestrictInfo *rinfo, RelOptInfo *rel)
+{
+    CurrentOfExpr *node;
+
+    // Check if clause is a CurrentOfExpr
+    if (!(rinfo->clause && IsA(rinfo->clause, CurrentOfExpr)))
+        return false;
+
+    node = (CurrentOfExpr *) rinfo->clause;
+
+    // Check if it references this relation
+    if (node->cvarno == rel->relid)
+        return true;
+
+    return false;
+}
+```

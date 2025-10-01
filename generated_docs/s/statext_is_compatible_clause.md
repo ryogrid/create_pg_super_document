@@ -40,3 +40,71 @@ This function serves as the public interface for clause compatibility checking w
 
 ## Notes and Other Information
 The function implements important security measures by checking column-level permissions when non-leakproof operators are present, preventing information leakage through statistics. It handles the impedance mismatch between different attribute numbering schemes used internally. Special handling for AND clauses is necessary because the restrictinfo machinery doesn't create RestrictInfos for top-level AND operations. The permission checking is particularly important for inheritance hierarchies where parent table permissions don't guarantee child table column access.
+
+## Simplified Source
+
+```c
+static bool
+statext_is_compatible_clause(PlannerInfo *root, Node *clause, Index relid,
+                             Bitmapset **attnums, List **exprs)
+{
+    RestrictInfo *rinfo;
+    int clause_relid;
+    bool leakproof;
+
+    // Handle bare BoolExpr AND clauses specially
+    if (is_andclause(clause)) {
+        BoolExpr *expr = (BoolExpr *) clause;
+        ListCell *lc;
+
+        // Check each sub-clause recursively
+        foreach(lc, expr->args) {
+            if (!statext_is_compatible_clause(root, (Node *) lfirst(lc),
+                                              relid, attnums, exprs))
+                return false;
+        }
+        return true;
+    }
+
+    // Must be a RestrictInfo
+    if (!IsA(clause, RestrictInfo))
+        return false;
+    rinfo = (RestrictInfo *) clause;
+
+    // Skip pseudoconstants and clauses referencing other relations
+    if (rinfo->pseudoconstant)
+        return false;
+    if (!bms_get_singleton_member(rinfo->clause_relids, &clause_relid) ||
+        clause_relid != relid)
+        return false;
+
+    // Check clause compatibility and collect attributes/expressions
+    leakproof = true;
+    if (!statext_is_compatible_clause_internal(root, (Node *) rinfo->clause,
+                                               relid, attnums, exprs,
+                                               &leakproof))
+        return false;
+
+    // Perform permission checks for non-leakproof operators
+    if (!leakproof) {
+        Bitmapset *clause_attnums = NULL;
+        int attnum = -1;
+
+        // Convert attnums to offset style for pull_varattnos
+        while ((attnum = bms_next_member(*attnums, attnum)) >= 0) {
+            clause_attnums = bms_add_member(clause_attnums,
+                                            attnum - FirstLowInvalidHeapAttributeNumber);
+        }
+
+        // Add attnums from expressions
+        if (*exprs != NIL)
+            pull_varattnos((Node *) *exprs, relid, &clause_attnums);
+
+        // Check row-level permissions
+        if (!all_rows_selectable(root, relid, clause_attnums))
+            return false;
+    }
+
+    return true;
+}
+```

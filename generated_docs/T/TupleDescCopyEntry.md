@@ -38,3 +38,34 @@ This function copies a single attribute definition from a source tuple descripto
 - Clears constraint-related flags (attnotnull, atthasdef, atthasmissing, attidentity, attgenerated)
 - Optimized to avoid O(N^2) penalty by not resetting cache offsets of following columns
 - Used primarily in scenarios where individual attributes need to be copied between different tuple descriptors
+
+## Simplified Source
+
+```c
+void
+TupleDescCopyEntry(TupleDesc dst, AttrNumber dstAttno,
+                   TupleDesc src, AttrNumber srcAttno)
+{
+    Form_pg_attribute dstAtt = TupleDescAttr(dst, dstAttno - 1);
+    Form_pg_attribute srcAtt = TupleDescAttr(src, srcAttno - 1);
+
+    // Basic parameter validation
+    Assert(PointerIsValid(src) && PointerIsValid(dst));
+    Assert(srcAttno >= 1 && srcAttno <= src->natts);
+    Assert(dstAttno >= 1 && dstAttno <= dst->natts);
+
+    // Copy the fixed-size attribute structure
+    memcpy(dstAtt, srcAtt, ATTRIBUTE_FIXED_PART_SIZE);
+
+    // Update destination-specific fields
+    dstAtt->attnum = dstAttno;
+    dstAtt->attcacheoff = -1;  // Reset cache offset
+
+    // Clear constraint-related flags (constraints not copied)
+    dstAtt->attnotnull = false;
+    dstAtt->atthasdef = false;
+    dstAtt->atthasmissing = false;
+    dstAtt->attidentity = '\0';
+    dstAtt->attgenerated = '\0';
+}
+```

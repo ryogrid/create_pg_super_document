@@ -43,3 +43,24 @@ The  function serves as a wrapper around  that provides error suppression capabi
 - Critical for boolean and predicate evaluations where errors should be converted to failure results rather than thrown as exceptions
 - The function preserves the exact return value from executeItemOptUnwrapResult, allowing callers to distinguish between different execution results
 - Used in contexts where JSONPath execution should fail gracefully without interrupting the broader operation
+
+## Simplified Source
+
+```c
+static JsonPathExecResult
+executeItemOptUnwrapResultNoThrow(JsonPathExecContext *cxt,
+                                  JsonPathItem *jsp,
+                                  JsonbValue *jb, bool unwrap,
+                                  JsonValueList *found) {
+    // Save current error handling state
+    bool throwErrors = cxt->throwErrors;
+
+    // Disable error throwing temporarily
+    cxt->throwErrors = false;
+    JsonPathExecResult res = executeItemOptUnwrapResult(cxt, jsp, jb, unwrap, found);
+
+    // Restore original error handling state
+    cxt->throwErrors = throwErrors;
+    return res;
+}
+```

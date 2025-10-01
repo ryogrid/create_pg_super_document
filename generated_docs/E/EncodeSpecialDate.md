@@ -38,3 +38,19 @@ The `EncodeSpecialDate` function handles the conversion of PostgreSQL's special 
 - The function assumes the output buffer has sufficient space for the string constants
 - Used primarily in date-to-string conversion routines and JSON serialization
 - Part of PostgreSQL's comprehensive support for infinite date/time values
+
+## Simplified Source
+
+```c
+void EncodeSpecialDate(DateADT dt, char *str) {
+    // Check for negative infinity date
+    if (DATE_IS_NOBEGIN(dt))
+        strcpy(str, EARLY);  // "-infinity"
+    // Check for positive infinity date
+    else if (DATE_IS_NOEND(dt))
+        strcpy(str, LATE);   // "infinity"
+    // Error for invalid special date values
+    else
+        elog(ERROR, "invalid argument for EncodeSpecialDate");
+}
+```

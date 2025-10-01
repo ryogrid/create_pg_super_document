@@ -65,3 +65,79 @@ The function can return different safety levels: completely safe, unsafe, or saf
 - Does not handle lateral references (would require converting to outer references)
 - UNSAFE_NOTIN_PARTITIONBY_CLAUSE is specifically allowed for window clause run conditions
 - Located in src/backend/optimizer/path/allpaths.c:3855-3955
+
+## Simplified Source
+
+```c
+static pushdown_safe_type
+qual_is_pushdown_safe(Query *subquery, Index rti, RestrictInfo *rinfo,
+                     pushdown_safety_info *safetyInfo)
+{
+    pushdown_safe_type safe = PUSHDOWN_SAFE;
+    Node *qual = (Node *) rinfo->clause;
+    List *vars;
+    ListCell *vl;
+
+    // Reject clauses with SubPlans
+    if (contain_subplans(qual))
+        return PUSHDOWN_UNSAFE;
+
+    // Reject volatile functions if marked unsafe
+    if (safetyInfo->unsafeVolatile &&
+        contain_volatile_functions((Node *) rinfo))
+        return PUSHDOWN_UNSAFE;
+
+    // Reject leaky functions if marked unsafe
+    if (safetyInfo->unsafeLeaky &&
+        contain_leaked_vars(qual))
+        return PUSHDOWN_UNSAFE;
+
+    // Check all Vars in the clause
+    vars = pull_var_clause(qual, PVC_INCLUDE_PLACEHOLDERS);
+    foreach(vl, vars)
+    {
+        Var *var = (Var *) lfirst(vl);
+
+        // Reject PlaceHolderVars
+        if (!IsA(var, Var))
+        {
+            safe = PUSHDOWN_UNSAFE;
+            break;
+        }
+
+        // Reject lateral references
+        if (var->varno != rti)
+        {
+            safe = PUSHDOWN_UNSAFE;
+            break;
+        }
+
+        // Reject whole-row references
+        if (var->varattno == 0)
+        {
+            safe = PUSHDOWN_UNSAFE;
+            break;
+        }
+
+        // Check column-specific safety flags
+        if (safetyInfo->unsafeFlags[var->varattno] != 0)
+        {
+            if (safetyInfo->unsafeFlags[var->varattno] &
+                (UNSAFE_HAS_VOLATILE_FUNC | UNSAFE_HAS_SET_FUNC |
+                 UNSAFE_NOTIN_DISTINCTON_CLAUSE | UNSAFE_TYPE_MISMATCH))
+            {
+                safe = PUSHDOWN_UNSAFE;
+                break;
+            }
+            else
+            {
+                // UNSAFE_NOTIN_PARTITIONBY_CLAUSE allows window run conditions
+                safe = PUSHDOWN_WINDOWCLAUSE_RUNCOND;
+            }
+        }
+    }
+
+    list_free(vars);
+    return safe;
+}
+```

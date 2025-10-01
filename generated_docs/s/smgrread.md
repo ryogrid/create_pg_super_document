@@ -32,7 +32,18 @@ The function is defined as a static inline function in the header file, which me
   - 
 
 ## Notes and Other Information
-- This function is implemented as a static inline wrapper around 
+- This function is implemented as a static inline wrapper around
 - The buffer must be pre-allocated and large enough to hold a full database block
 - This is part of PostgreSQL's storage manager interface, providing abstraction over different storage implementations
 - The function maintains the same error handling and behavior as the underlying  function
+
+## Simplified Source
+
+```c
+static inline void
+smgrread(SMgrRelation reln, ForkNumber forknum, BlockNumber blocknum, void *buffer)
+{
+    // Simple wrapper that reads one block using vectorized interface
+    smgrreadv(reln, forknum, blocknum, &buffer, 1);
+}
+```

@@ -77,3 +77,101 @@ For MERGE operations, the function skips EPQ rechecking and delegates additional
 - Uses ExecGetTriggerOldSlot for consistent slot management across trigger operations
 - Concurrent update detection returns updated tuple to caller when epqslot parameter is provided
 - MERGE operations skip EPQ rechecking, delegating additional validation to the caller
+
+## Simplified Source
+
+```c
+bool
+ExecBRDeleteTriggersNew(EState *estate, EPQState *epqstate,
+                        ResultRelInfo *relinfo,
+                        ItemPointer tupleid,
+                        HeapTuple fdw_trigtuple,
+                        TupleTableSlot **epqslot,
+                        TM_Result *tmresult,
+                        TM_FailureData *tmfd,
+                        bool is_merge_delete)
+{
+    TupleTableSlot *slot = ExecGetTriggerOldSlot(estate, relinfo);
+    TriggerDesc *trigdesc = relinfo->ri_TrigDesc;
+    bool result = true;
+    TriggerData LocTriggerData = {0};
+    HeapTuple trigtuple;
+    bool should_free = false;
+
+    // Get the tuple to be deleted
+    if (fdw_trigtuple == NULL) {
+        // Regular table: fetch from disk with EPQ handling
+        TupleTableSlot *epqslot_candidate = NULL;
+
+        if (!GetTupleForTrigger(estate, epqstate, relinfo, tupleid,
+                               LockTupleExclusive, slot, !is_merge_delete,
+                               &epqslot_candidate, tmresult, tmfd)) {
+            return false;
+        }
+
+        // Handle concurrent updates
+        if (epqslot_candidate != NULL && epqslot != NULL) {
+            *epqslot = epqslot_candidate;
+            return false;
+        }
+
+        trigtuple = ExecFetchSlotHeapTuple(slot, true, &should_free);
+    } else {
+        // Foreign table: use provided tuple
+        trigtuple = fdw_trigtuple;
+        ExecForceStoreHeapTuple(trigtuple, slot, false);
+    }
+
+    // Set up trigger data
+    LocTriggerData.type = T_TriggerData;
+    LocTriggerData.tg_event = TRIGGER_EVENT_DELETE |
+                              TRIGGER_EVENT_ROW |
+                              TRIGGER_EVENT_BEFORE;
+    LocTriggerData.tg_relation = relinfo->ri_RelationDesc;
+
+    // Execute all matching BEFORE DELETE triggers
+    for (int i = 0; i < trigdesc->numtriggers; i++) {
+        Trigger *trigger = &trigdesc->triggers[i];
+
+        // Check if this trigger matches our event
+        if (!TRIGGER_TYPE_MATCHES(trigger->tgtype,
+                                 TRIGGER_TYPE_ROW,
+                                 TRIGGER_TYPE_BEFORE,
+                                 TRIGGER_TYPE_DELETE)) {
+            continue;
+        }
+
+        // Check if trigger is enabled
+        if (!TriggerEnabled(estate, relinfo, trigger, LocTriggerData.tg_event,
+                           NULL, slot, NULL)) {
+            continue;
+        }
+
+        // Set trigger-specific data and execute
+        LocTriggerData.tg_trigslot = slot;
+        LocTriggerData.tg_trigtuple = trigtuple;
+        LocTriggerData.tg_trigger = trigger;
+
+        HeapTuple newtuple = ExecCallTriggerFunc(&LocTriggerData, i,
+                                                relinfo->ri_TrigFunctions,
+                                                relinfo->ri_TrigInstrument,
+                                                GetPerTupleMemoryContext(estate));
+
+        if (newtuple == NULL) {
+            // Trigger cancelled the delete
+            result = false;
+            break;
+        }
+
+        if (newtuple != trigtuple) {
+            heap_freetuple(newtuple);
+        }
+    }
+
+    if (should_free) {
+        heap_freetuple(trigtuple);
+    }
+
+    return result;
+}
+```

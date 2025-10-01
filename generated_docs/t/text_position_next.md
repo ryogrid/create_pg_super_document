@@ -41,3 +41,53 @@ The  function is the core iteration component of PostgreSQL's substring search s
 - Uses goto retry mechanism for false positive handling in multibyte scenarios
 - Maintains reference position tracking to efficiently validate multibyte boundaries
 - Critical component for all PostgreSQL string search operations requiring multiple matches
+
+## Simplified Source
+
+```c
+static bool
+text_position_next(TextPositionState *state)
+{
+    int needle_len = state->len2;
+    char *start_ptr;
+    char *matchptr;
+
+    // Empty pattern always fails
+    if (needle_len <= 0)
+        return false;
+
+    // Start search after previous match, or at beginning
+    if (state->last_match)
+        start_ptr = state->last_match + needle_len;
+    else
+        start_ptr = state->str1;
+
+retry:
+    // Use Boyer-Moore-Horspool algorithm to find next match
+    matchptr = text_position_next_internal(start_ptr, state);
+
+    if (!matchptr)
+        return false;
+
+    // For multibyte encodings, verify match is at character boundary
+    if (state->is_multibyte_char_in_char)
+    {
+        // Walk character by character to validate boundaries
+        while (state->refpoint < matchptr)
+        {
+            state->refpoint += pg_mblen(state->refpoint);
+            state->refpos++;
+
+            // If we stepped over the match, it's a false positive
+            if (state->refpoint > matchptr)
+            {
+                start_ptr = state->refpoint;
+                goto retry;
+            }
+        }
+    }
+
+    state->last_match = matchptr;
+    return true;
+}
+```

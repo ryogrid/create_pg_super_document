@@ -55,3 +55,69 @@ The implementation includes sophisticated error handling with optional structura
 - The level-based filtering mechanism enables precise control over which nested levels are processed
 - Critical for implementing SQL/JSON path wildcard functionality
 - The function can operate in both result-collection mode and existence-check mode depending on the `found` parameter
+
+## Simplified Source
+
+```c
+static JsonPathExecResult
+executeAnyItem(JsonPathExecContext *cxt, JsonPathItem *jsp, JsonbContainer *jbc,
+               JsonValueList *found, uint32 level, uint32 first, uint32 last,
+               bool ignoreStructuralErrors, bool unwrapNext)
+{
+    JsonPathExecResult res = jperNotFound;
+    JsonbIterator *it;
+    int32 r;
+    JsonbValue v;
+
+    check_stack_depth();
+
+    // Check level bounds
+    if (level > last)
+        return res;
+
+    it = JsonbIteratorInit(jbc);
+
+    // Recursively iterate over JSON objects/arrays
+    while ((r = JsonbIteratorNext(&it, &v, true)) != WJB_DONE)
+    {
+        // Skip keys, process values and elements
+        if (r == WJB_KEY)
+        {
+            r = JsonbIteratorNext(&it, &v, true);
+            Assert(r == WJB_VALUE);
+        }
+
+        if (r == WJB_VALUE || r == WJB_ELEM)
+        {
+            // Check if current level should be processed
+            if (level >= first ||
+                (first == PG_UINT32_MAX && last == PG_UINT32_MAX && v.type != jbvBinary))
+            {
+                // Execute expression on current value
+                if (jsp)
+                {
+                    res = executeItemOptUnwrapTarget(cxt, jsp, &v, found, unwrapNext);
+                    if (jperIsError(res) || (res == jperOk && !found))
+                        break;
+                }
+                else if (found)
+                    JsonValueListAppend(found, copyJsonbValue(&v));
+                else
+                    return jperOk;
+            }
+
+            // Recurse into nested binary objects
+            if (level < last && v.type == jbvBinary)
+            {
+                res = executeAnyItem(cxt, jsp, v.val.binary.data, found,
+                                   level + 1, first, last,
+                                   ignoreStructuralErrors, unwrapNext);
+                if (jperIsError(res) || (res == jperOk && found == NULL))
+                    break;
+            }
+        }
+    }
+
+    return res;
+}
+```

@@ -40,3 +40,27 @@ The function automatically detects which encoding is used by checking the JBE_HA
 - Handles both length-only and offset+length JEntry encoding automatically
 - Essential for extracting variable-length data like strings and nested containers from JSONB
 - Located in src/backend/utils/adt/jsonb_util.c:159-190
+
+## Simplified Source
+
+```c
+uint32
+getJsonbLength(const JsonbContainer *jc, int index)
+{
+    uint32 off;
+    uint32 len;
+
+    // Check if JEntry stores offset or direct length
+    if (JBE_HAS_OFF(jc->children[index])) {
+        // Calculate length: end_offset - start_offset
+        off = getJsonbOffset(jc, index);
+        len = JBE_OFFLENFLD(jc->children[index]) - off;
+    }
+    else {
+        // Length stored directly in JEntry
+        len = JBE_OFFLENFLD(jc->children[index]);
+    }
+
+    return len;
+}
+```

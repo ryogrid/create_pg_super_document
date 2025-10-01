@@ -29,3 +29,12 @@ This function computes the total number of possible combinations for n elements,
 - The formula (2^n - (n + 1)) effectively excludes the empty set and all n single-element subsets
 - Located in src/backend/statistics/mvdistinct.c, indicating its use in multivariate distinct value statistics
 - The result represents combinations of size 2 or greater from n elements
+
+## Simplified Source
+
+```c
+static int num_combinations(int n) {
+    // Calculate total subsets (2^n) minus empty set and single-element sets
+    return (1 << n) - (n + 1);
+}
+```

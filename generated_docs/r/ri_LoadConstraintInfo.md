@@ -57,3 +57,77 @@ The function handles constraint inheritance by determining the root constraint I
 - Handles partitioned foreign key constraints by tracking constraint hierarchy
 - Returns a const pointer to prevent modification of cached data
 - Located in src/backend/utils/adt/ri_triggers.c:2112-2193
+
+## Simplified Source
+
+```c
+static const RI_ConstraintInfo *
+ri_LoadConstraintInfo(Oid constraintOid)
+{
+    RI_ConstraintInfo *riinfo;
+    bool found;
+    HeapTuple tup;
+    Form_pg_constraint conForm;
+
+    // Initialize hash table on first call
+    if (!ri_constraint_cache)
+        ri_InitHashTables();
+
+    // Find or create hash entry
+    riinfo = (RI_ConstraintInfo *) hash_search(ri_constraint_cache,
+                                              &constraintOid,
+                                              HASH_ENTER, &found);
+    if (!found)
+        riinfo->valid = false;
+    else if (riinfo->valid)
+        return riinfo;  // Already cached and valid
+
+    // Fetch constraint data from pg_constraint
+    tup = SearchSysCache1(CONSTROID, ObjectIdGetDatum(constraintOid));
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for constraint %u", constraintOid);
+    conForm = (Form_pg_constraint) GETSTRUCT(tup);
+
+    if (conForm->contype != CONSTRAINT_FOREIGN)
+        elog(ERROR, "constraint %u is not a foreign key constraint",
+             constraintOid);
+
+    // Fill in constraint info
+    Assert(riinfo->constraint_id == constraintOid);
+    if (OidIsValid(conForm->conparentid))
+        riinfo->constraint_root_id = get_ri_constraint_root(conForm->conparentid);
+    else
+        riinfo->constraint_root_id = constraintOid;
+
+    // Store hash values and basic info
+    riinfo->oidHashValue = GetSysCacheHashValue1(CONSTROID,
+                                                ObjectIdGetDatum(constraintOid));
+    riinfo->rootHashValue = GetSysCacheHashValue1(CONSTROID,
+                                                 ObjectIdGetDatum(riinfo->constraint_root_id));
+    memcpy(&riinfo->conname, &conForm->conname, sizeof(NameData));
+    riinfo->pk_relid = conForm->confrelid;
+    riinfo->fk_relid = conForm->conrelid;
+    riinfo->confupdtype = conForm->confupdtype;
+    riinfo->confdeltype = conForm->confdeltype;
+    riinfo->confmatchtype = conForm->confmatchtype;
+
+    // Extract column mappings and operators
+    DeconstructFkConstraintRow(tup,
+                              &riinfo->nkeys,
+                              riinfo->fk_attnums,
+                              riinfo->pk_attnums,
+                              riinfo->pf_eq_oprs,
+                              riinfo->pp_eq_oprs,
+                              riinfo->ff_eq_oprs,
+                              &riinfo->ndelsetcols,
+                              riinfo->confdelsetcols);
+
+    ReleaseSysCache(tup);
+
+    // Add to valid constraint list for efficient invalidation
+    dclist_push_tail(&ri_constraint_cache_valid_list, &riinfo->valid_link);
+
+    riinfo->valid = true;
+    return riinfo;
+}
+```

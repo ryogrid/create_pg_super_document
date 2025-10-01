@@ -35,3 +35,27 @@ This function serves as a JSON parsing event handler specifically for object sta
 - Uses soft error handling to allow graceful error recovery in appropriate contexts
 - Critical for maintaining type consistency in multi-dimensional array construction
 - Works in conjunction with other populate_array_* handlers to build valid PostgreSQL arrays
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+populate_array_object_start(void *_state)
+{
+    PopulateArrayState *state = (PopulateArrayState *) _state;
+    int ndim = state->lex->lex_level;
+
+    // Assign dimensions if not yet determined
+    if (state->ctx->ndims <= 0) {
+        if (!populate_array_assign_ndims(state->ctx, ndim))
+            return JSON_SEM_ACTION_FAILED;
+    }
+    // Validate object appears at correct nesting level
+    else if (ndim < state->ctx->ndims) {
+        populate_array_report_expected_array(state->ctx, ndim);
+        return JSON_SEM_ACTION_FAILED;
+    }
+
+    return JSON_SUCCESS;
+}
+```

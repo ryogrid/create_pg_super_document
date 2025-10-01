@@ -33,3 +33,22 @@ The function is used in subplan execution contexts where detecting completely NU
 - Uses 1-based attribute numbering (i = 1 to ncols) consistent with PostgreSQL's attribute indexing convention
 - Returns false immediately upon finding the first non-NULL attribute, optimizing for early termination
 - The function assumes the slot's tuple descriptor is valid and accessible
+
+## Simplified Source
+
+```c
+static bool
+slotAllNulls(TupleTableSlot *slot)
+{
+    int ncols = slot->tts_tupleDescriptor->natts;
+    int i;
+
+    // Check each attribute for NULL value
+    for (i = 1; i <= ncols; i++) {
+        if (!slot_attisnull(slot, i))
+            return false;  // Found non-NULL attribute
+    }
+
+    return true;  // All attributes are NULL
+}
+```

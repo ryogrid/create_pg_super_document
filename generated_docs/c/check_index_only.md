@@ -41,3 +41,50 @@ The function considers both the relation's target list and restriction clauses, 
 - The function uses bitmap sets to efficiently track and compare attribute requirements
 - Index-only scans are a significant performance optimization as they avoid heap access
 - The check considers inheritance child relations by examining the relation's target list directly rather than attr_needed data
+
+## Simplified Source
+
+```c
+static bool
+check_index_only(RelOptInfo *rel, IndexOptInfo *index)
+{
+    Bitmapset *attrs_used = NULL;
+    Bitmapset *index_canreturn_attrs = NULL;
+
+    // Index-only scans must be enabled
+    if (!enable_indexonlyscan)
+        return false;
+
+    // Collect all attributes needed for joins or final output
+    pull_varattnos((Node *) rel->reltarget->exprs, rel->relid, &attrs_used);
+
+    // Add attributes used by restriction clauses
+    foreach(lc, index->indrestrictinfo)
+    {
+        RestrictInfo *rinfo = (RestrictInfo *) lfirst(lc);
+        pull_varattnos((Node *) rinfo->clause, rel->relid, &attrs_used);
+    }
+
+    // Build bitmap of attributes the index can return
+    for (int i = 0; i < index->ncolumns; i++)
+    {
+        int attno = index->indexkeys[i];
+
+        // Skip index expressions for now
+        if (attno == 0)
+            continue;
+
+        if (index->canreturn[i])
+            index_canreturn_attrs = bms_add_member(index_canreturn_attrs,
+                                                  attno - FirstLowInvalidHeapAttributeNumber);
+    }
+
+    // Check if all needed attributes are available from index
+    bool result = bms_is_subset(attrs_used, index_canreturn_attrs);
+
+    bms_free(attrs_used);
+    bms_free(index_canreturn_attrs);
+
+    return result;
+}
+```

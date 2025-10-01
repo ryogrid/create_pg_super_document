@@ -45,3 +45,33 @@ Key behaviors include:
 - Commonly used for XMLTABLE, JSON_TABLE, and other structured data transformation operations
 - Cost calculation considers the complexity of data transformation and result set generation
 - Table functions differ from regular functions in that they process structured input to produce tabular output
+
+## Simplified Source
+
+```c
+Path *
+create_tablefuncscan_path(PlannerInfo *root, RelOptInfo *rel,
+                         Relids required_outer)
+{
+    Path *pathnode = makeNode(Path);
+
+    // Set basic path properties
+    pathnode->pathtype = T_TableFuncScan;
+    pathnode->parent = rel;
+    pathnode->pathtarget = rel->reltarget;
+    pathnode->param_info = get_baserel_parampathinfo(root, rel, required_outer);
+
+    // Configure parallelism (not supported)
+    pathnode->parallel_aware = false;
+    pathnode->parallel_safe = rel->consider_parallel;
+    pathnode->parallel_workers = 0;
+
+    // Table functions always produce unordered results
+    pathnode->pathkeys = NIL;
+
+    // Calculate costs
+    cost_tablefuncscan(pathnode, root, rel, pathnode->param_info);
+
+    return pathnode;
+}
+```

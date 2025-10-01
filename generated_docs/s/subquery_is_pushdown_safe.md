@@ -46,3 +46,53 @@ For leaf queries, it also checks output expressions for safety and marks unsafe 
 - Critical for maintaining SQL semantic correctness during optimization
 - Works in conjunction with qual_is_pushdown_safe() for final qual evaluation
 - Supports complex nested set operations through recursive safety checking
+
+## Simplified Source
+
+```c
+static bool
+subquery_is_pushdown_safe(Query *subquery, Query *topquery,
+                         pushdown_safety_info *safetyInfo)
+{
+    SetOperationStmt *topop;
+
+    // Check 1: Cannot push quals if LIMIT/OFFSET present
+    if (subquery->limitOffset != NULL || subquery->limitCount != NULL)
+        return false;
+
+    // Check 6: Cannot push quals if grouping sets present
+    if (subquery->groupClause && subquery->groupingSets)
+        return false;
+
+    // Check 3,4,5: Mark as volatile-unsafe if DISTINCT, window funcs, or SRFs
+    if (subquery->distinctClause ||
+        subquery->hasWindowFuncs ||
+        subquery->hasTargetSRFs)
+        safetyInfo->unsafeVolatile = true;
+
+    // For leaf queries, check output expressions for safety
+    if (subquery->setOperations == NULL)
+        check_output_expressions(subquery, safetyInfo);
+
+    // Handle top-level vs set operation component logic
+    if (subquery == topquery)
+    {
+        // Top level: recursively check set operation components
+        if (subquery->setOperations != NULL)
+            if (!recurse_pushdown_safe(subquery->setOperations, topquery,
+                                     safetyInfo))
+                return false;
+    }
+    else
+    {
+        // Set operation component: validate structure and types
+        if (subquery->setOperations != NULL)
+            return false;
+        topop = castNode(SetOperationStmt, topquery->setOperations);
+        compare_tlist_datatypes(subquery->targetList,
+                              topop->colTypes,
+                              safetyInfo);
+    }
+    return true;
+}
+```

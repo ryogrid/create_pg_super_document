@@ -61,3 +61,108 @@ The function handles complex scenarios like partial aggregation, aggregate split
 - Memory contexts are carefully designed for efficient cleanup at group boundaries
 - For hashed aggregation, skips hash table allocation during EXPLAIN ONLY operations
 - Handles both regular aggregates and ordered-set aggregates with different parameter handling
+
+## Simplified Source
+
+```c
+AggState *
+ExecInitAgg(Agg *node, EState *estate, int eflags)
+{
+    AggState *aggstate;
+    int numPhases, numHashes, numGroupingSets;
+    bool use_hashing;
+
+    // Basic validation and state creation
+    Assert(!(eflags & (EXEC_FLAG_BACKWARD | EXEC_FLAG_MARK)));
+
+    aggstate = makeNode(AggState);
+    aggstate->ss.ps.plan = (Plan *) node;
+    aggstate->ss.ps.state = estate;
+    aggstate->ss.ps.ExecProcNode = ExecAgg;
+
+    // Initialize basic fields
+    aggstate->aggstrategy = node->aggstrategy;
+    aggstate->aggsplit = node->aggsplit;
+    use_hashing = (node->aggstrategy == AGG_HASHED || node->aggstrategy == AGG_MIXED);
+
+    // Calculate phases and grouping sets
+    numPhases = (use_hashing ? 1 : 2);
+    numHashes = (use_hashing ? 1 : 0);
+    numGroupingSets = node->groupingSets ? list_length(node->groupingSets) : 1;
+
+    aggstate->maxsets = numGroupingSets;
+    aggstate->numphases = numPhases;
+
+    // Create expression contexts for different processing phases
+    ExecAssignExprContext(estate, &aggstate->ss.ps);
+    aggstate->tmpcontext = aggstate->ss.ps.ps_ExprContext;
+
+    aggstate->aggcontexts = palloc0(sizeof(ExprContext *) * numGroupingSets);
+    for (int i = 0; i < numGroupingSets; ++i) {
+        ExecAssignExprContext(estate, &aggstate->ss.ps);
+        aggstate->aggcontexts[i] = aggstate->ss.ps.ps_ExprContext;
+    }
+
+    if (use_hashing)
+        aggstate->hashcontext = CreateWorkExprContext(estate);
+
+    // Initialize child nodes and tuple slots
+    if (node->aggstrategy == AGG_HASHED)
+        eflags &= ~EXEC_FLAG_REWIND;
+    outerPlanState(aggstate) = ExecInitNode(outerPlan(node), estate, eflags);
+
+    ExecCreateScanSlotFromOuterPlan(estate, &aggstate->ss, aggstate->ss.ps.outerops);
+    ExecInitResultTupleSlotTL(&aggstate->ss.ps, &TTSOpsVirtual);
+    ExecAssignProjectionInfo(&aggstate->ss.ps, NULL);
+
+    // Initialize qualification expressions
+    aggstate->ss.ps.qual = ExecInitQual(node->plan.qual, (PlanState *) aggstate);
+
+    // Setup aggregate function information
+    int numaggs = 0, numtrans = 0;
+    foreach(l, aggstate->aggs) {
+        Aggref *aggref = (Aggref *) lfirst(l);
+        numaggs = Max(numaggs, aggref->aggno + 1);
+        numtrans = Max(numtrans, aggref->aggtransno + 1);
+    }
+
+    aggstate->numaggs = numaggs;
+    aggstate->numtrans = numtrans;
+
+    // Allocate per-aggregate storage
+    aggstate->peragg = palloc0(sizeof(AggStatePerAggData) * numaggs);
+    aggstate->pertrans = palloc0(sizeof(AggStatePerTransData) * numtrans);
+
+    // Setup hash tables if using hashed aggregation
+    if (use_hashing) {
+        aggstate->hash_metacxt = AllocSetContextCreate(estate->es_query_cxt,
+                                                       "HashAgg meta context",
+                                                       ALLOCSET_DEFAULT_SIZES);
+        if (!(eflags & EXEC_FLAG_EXPLAIN_ONLY)) {
+            hash_agg_set_limits(/* ... hash table setup ... */);
+            build_hash_tables(aggstate);
+        }
+    }
+
+    // Initialize current phase
+    if (node->aggstrategy == AGG_HASHED) {
+        aggstate->current_phase = 0;
+        initialize_phase(aggstate, 0);
+    } else {
+        aggstate->current_phase = 1;
+        initialize_phase(aggstate, 1);
+    }
+
+    // Build transition expressions for each phase
+    for (int phaseidx = 0; phaseidx < aggstate->numphases; phaseidx++) {
+        AggStatePerPhase phase = &aggstate->phases[phaseidx];
+        if (phase->aggnode) {
+            bool dohash = (phase->aggstrategy == AGG_HASHED);
+            bool dosort = (phase->aggstrategy == AGG_SORTED || phase->aggstrategy == AGG_PLAIN);
+            phase->evaltrans = ExecBuildAggTrans(aggstate, phase, dosort, dohash, false);
+        }
+    }
+
+    return aggstate;
+}
+```

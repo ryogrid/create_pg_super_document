@@ -39,3 +39,35 @@ For each key attribute, the function calls the exclusion operator using the inde
 - Uses the index's collation settings when calling comparison operators via OidFunctionCall2Coll
 - Part of PostgreSQL's exclusion constraint enforcement mechanism, specifically handling the detailed value comparison logic
 - The function performs short-circuit evaluation - if any attribute comparison returns false, the entire constraint check terminates early
+
+## Simplified Source
+
+```c
+static bool
+index_recheck_constraint(Relation index, const Oid *constr_procs,
+                        const Datum *existing_values, const bool *existing_isnull,
+                        const Datum *new_values)
+{
+    int indnkeyatts = IndexRelationGetNumberOfKeyAttributes(index);
+
+    // Check each key attribute for exclusion constraint violations
+    for (int i = 0; i < indnkeyatts; i++) {
+        // Exclusion operators are strict - NULL values don't conflict
+        if (existing_isnull[i])
+            return false;
+
+        // Call the exclusion operator to compare values
+        bool conflicts = DatumGetBool(OidFunctionCall2Coll(constr_procs[i],
+                                                           index->rd_indcollation[i],
+                                                           existing_values[i],
+                                                           new_values[i]));
+
+        // If any attribute doesn't conflict, there's no overall conflict
+        if (!conflicts)
+            return false;
+    }
+
+    // All attributes conflict - return true
+    return true;
+}
+```

@@ -44,3 +44,29 @@ This design choice trades memory usage for simplicity and performance predictabi
 - The initial dependencies array allocation may be too small and gets expanded by repalloc during generation
 - Memory allocated here must be freed later using DependencyGenerator_free
 - Located at src/backend/statistics/dependencies.c:173-195
+
+## Simplified Source
+
+```c
+static DependencyGenerator DependencyGenerator_init(int n, int k) {
+    DependencyGenerator state;
+
+    // Validate parameters
+    Assert((n >= k) && (k > 0));
+
+    // Allocate and initialize generator state
+    state = (DependencyGenerator) palloc0(sizeof(DependencyGeneratorData));
+    state->dependencies = (AttrNumber *) palloc(k * sizeof(AttrNumber));
+
+    // Initialize state variables
+    state->ndependencies = 0;
+    state->current = 0;
+    state->k = k;
+    state->n = n;
+
+    // Pre-generate all possible dependencies
+    generate_dependencies(state);
+
+    return state;
+}
+```

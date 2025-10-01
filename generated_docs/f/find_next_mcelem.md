@@ -37,3 +37,34 @@ The function updates the *index parameter to point to the position of the found 
 - Critical for PostgreSQL's array selectivity estimation functionality
 - Assumes mcelem array is pre-sorted and contains distinct elements
 - Part of the array statistics and query planning infrastructure
+
+## Simplified Source
+
+```c
+static bool find_next_mcelem(Datum *mcelem, int nmcelem, Datum value, int *index,
+                             TypeCacheEntry *typentry) {
+    // Initialize binary search bounds
+    int l = *index;
+    int r = nmcelem - 1;
+
+    // Standard binary search algorithm
+    while (l <= r) {
+        int i = (l + r) / 2;
+        int res = element_compare(&mcelem[i], &value, typentry);
+
+        if (res == 0) {
+            // Exact match found
+            *index = i;
+            return true;
+        } else if (res < 0) {
+            l = i + 1; // Search right half
+        } else {
+            r = i - 1; // Search left half
+        }
+    }
+
+    // Not found - return insertion position
+    *index = l;
+    return false;
+}
+```

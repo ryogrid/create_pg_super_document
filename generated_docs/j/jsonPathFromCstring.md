@@ -53,3 +53,37 @@ The parsing process involves lexical analysis, syntax parsing, semantic validati
 - The binary format includes version and mode information for future compatibility
 - Memory management follows PostgreSQL conventions with proper StringInfo usage
 - Critical for all JSON path parsing operations in PostgreSQL's JSON functionality
+
+## Simplified Source
+
+```c
+static Datum jsonPathFromCstring(char *in, int len, struct Node *escontext)
+{
+    // Parse the input string into an AST
+    JsonPathParseResult *parseResult = parsejsonpath(in, len, escontext);
+
+    // Handle parsing errors
+    if (SOFT_ERROR_OCCURRED(escontext) || !parseResult)
+        return (Datum) 0;
+
+    // Initialize buffer for binary representation
+    StringInfoData buffer;
+    initStringInfo(&buffer);
+    enlargeStringInfo(&buffer, 4 * len);  // Estimate needed space
+
+    // Reserve space for header and flatten AST to binary
+    appendStringInfoSpaces(&buffer, JSONPATH_HDRSZ);
+    if (!flattenJsonPathParseItem(&buffer, NULL, escontext,
+                                  parseResult->expr, 0, false))
+        return (Datum) 0;
+
+    // Create final JsonPath structure with header info
+    JsonPath *result = (JsonPath *) buffer.data;
+    SET_VARSIZE(result, buffer.len);
+    result->header = JSONPATH_VERSION;
+    if (parseResult->lax)
+        result->header |= JSONPATH_LAX;
+
+    PG_RETURN_JSONPATH_P(result);
+}
+```

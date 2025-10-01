@@ -39,3 +39,56 @@ The function assumes that parseInput has already read the message type and lengt
 - Allocates memory for attribute descriptors based on the number of fields
 - Properly handles signed/unsigned integer conversion for format codes
 - On failure, cleans up allocated resources before returning
+
+## Simplified Source
+
+```c
+static int
+getCopyStart(PGconn *conn, ExecStatusType copytype)
+{
+    // Create result structure for the COPY operation
+    PGresult *result = PQmakeEmptyPGresult(conn, copytype);
+    if (!result)
+        goto failure;
+
+    // Read binary/text format flag
+    if (pqGetc(&conn->copy_is_binary, conn))
+        goto failure;
+    result->binary = conn->copy_is_binary;
+
+    // Read number of fields
+    if (pqGetInt(&(result->numAttributes), 2, conn))
+        goto failure;
+    int nfields = result->numAttributes;
+
+    // Allocate space for attribute descriptors
+    if (nfields > 0)
+    {
+        result->attDescs = (PGresAttDesc *)
+            pqResultAlloc(result, nfields * sizeof(PGresAttDesc), true);
+        if (!result->attDescs)
+            goto failure;
+        MemSet(result->attDescs, 0, nfields * sizeof(PGresAttDesc));
+    }
+
+    // Read format code for each field
+    for (int i = 0; i < nfields; i++)
+    {
+        int format;
+        if (pqGetInt(&format, 2, conn))
+            goto failure;
+
+        // Convert unsigned to signed format
+        format = (int) ((int16) format);
+        result->attDescs[i].format = format;
+    }
+
+    // Success: store result and return
+    conn->result = result;
+    return 0;
+
+failure:
+    PQclear(result);
+    return EOF;
+}
+```

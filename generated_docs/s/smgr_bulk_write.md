@@ -40,3 +40,23 @@ The bulk write mechanism is designed to optimize storage performance by batching
 - **Automatic Flushing**: When the pending writes array is full, the function automatically calls smgr_bulk_flush() to perform the actual I/O
 - **Performance Optimization**: This function is part of PostgreSQL's bulk write optimization strategy, commonly used during index builds and table maintenance operations
 - **Memory Management**: The pending writes are stored in an array within the BulkWriteState structure, with automatic flushing preventing unbounded memory usage
+
+## Simplified Source
+
+```c
+void
+smgr_bulk_write(BulkWriteState *bulkstate, BlockNumber blocknum, BulkWriteBuffer buf, bool page_std)
+{
+    PendingWrite *w;
+
+    // Add new write to pending array
+    w = &bulkstate->pending_writes[bulkstate->npending++];
+    w->buf = buf;
+    w->blkno = blocknum;
+    w->page_std = page_std;
+
+    // Flush when array is full
+    if (bulkstate->npending == MAX_PENDING_WRITES)
+        smgr_bulk_flush(bulkstate);
+}
+```

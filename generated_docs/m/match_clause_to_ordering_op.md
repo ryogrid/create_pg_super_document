@@ -50,3 +50,75 @@ The function validates collation compatibility, checks for proper operand struct
 - Returns NULL if no match is found
 - Only handles binary operator clauses and rejects volatile functions in operands
 - File location: src/backend/optimizer/path/indxpath.c:3130-3243
+
+## Simplified Source
+
+```c
+static Expr *
+match_clause_to_ordering_op(IndexOptInfo *index,
+                           int indexcol,
+                           Expr *clause,
+                           Oid pk_opfamily)
+{
+    Oid opfamily = index->opfamily[indexcol];
+    Oid idxcollation = index->indexcollations[indexcol];
+    Node *leftop, *rightop;
+    Oid expr_op, expr_coll, sortfamily;
+    bool commuted;
+
+    // Must be a binary operator clause
+    if (!is_opclause(clause))
+        return NULL;
+
+    leftop = get_leftop(clause);
+    rightop = get_rightop(clause);
+    if (!leftop || !rightop)
+        return NULL;
+
+    expr_op = ((OpExpr *) clause)->opno;
+    expr_coll = ((OpExpr *) clause)->inputcollid;
+
+    // Check collation compatibility
+    if (!IndexCollMatchesExprColl(idxcollation, expr_coll))
+        return NULL;
+
+    // Check for (indexkey op constant) pattern
+    if (match_index_to_operand(leftop, indexcol, index) &&
+        !contain_var_clause(rightop) &&
+        !contain_volatile_functions(rightop))
+    {
+        commuted = false;
+    }
+    // Check for (constant op indexkey) pattern
+    else if (match_index_to_operand(rightop, indexcol, index) &&
+             !contain_var_clause(leftop) &&
+             !contain_volatile_functions(leftop))
+    {
+        // Need commuted operator
+        expr_op = get_commutator(expr_op);
+        if (expr_op == InvalidOid)
+            return NULL;
+        commuted = true;
+    }
+    else
+        return NULL;
+
+    // Verify operator produces correct sorting semantics
+    sortfamily = get_op_opfamily_sortfamily(expr_op, opfamily);
+    if (sortfamily != pk_opfamily)
+        return NULL;
+
+    // Return original or commuted clause
+    if (commuted)
+    {
+        OpExpr *newclause = makeNode(OpExpr);
+        memcpy(newclause, clause, sizeof(OpExpr));
+        newclause->opno = expr_op;
+        newclause->opfuncid = InvalidOid;
+        newclause->args = list_make2(rightop, leftop);
+        clause = (Expr *) newclause;
+    }
+
+    return clause;
+}
+```

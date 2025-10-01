@@ -52,3 +52,82 @@ Key features include:
 - Supports both strict parsing (when endptr_p is NULL) and partial parsing
 - Special handling for denormalized numbers that might incorrectly trigger ERANGE
 - Designed for reuse in composite types like point, box, etc. where floating-point values are parsed as substrings
+
+## Simplified Source
+
+```c
+float8
+float8in_internal(char *num, char **endptr_p, const char *type_name,
+                  const char *orig_string, struct Node *escontext)
+{
+    double val;
+    char *endptr;
+
+    // Skip leading whitespace
+    while (*num != '\0' && isspace((unsigned char) *num))
+        num++;
+
+    // Check for empty string
+    if (*num == '\0')
+        ereturn(escontext, 0, (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                errmsg("invalid input syntax for type %s: \"%s\"", type_name, orig_string)));
+
+    // Try standard parsing first
+    errno = 0;
+    val = strtod(num, &endptr);
+
+    // Handle parsing failures and special values
+    if (endptr == num || errno != 0)
+    {
+        // Check for special floating-point values
+        if (pg_strncasecmp(num, "NaN", 3) == 0)
+        {
+            val = get_float8_nan();
+            endptr = num + 3;
+        }
+        else if (pg_strncasecmp(num, "Infinity", 8) == 0)
+        {
+            val = get_float8_infinity();
+            endptr = num + 8;
+        }
+        else if (pg_strncasecmp(num, "+Infinity", 9) == 0)
+        {
+            val = get_float8_infinity();
+            endptr = num + 9;
+        }
+        else if (pg_strncasecmp(num, "-Infinity", 9) == 0)
+        {
+            val = -get_float8_infinity();
+            endptr = num + 9;
+        }
+        // Similar handling for "inf" variants...
+        else if (errno == ERANGE && (val == 0.0 || val >= HUGE_VAL || val <= -HUGE_VAL))
+        {
+            // Value is out of range
+            char *errnumber = pstrdup(num);
+            errnumber[endptr - num] = '\0';
+            ereturn(escontext, 0, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                    errmsg("\"%s\" is out of range for type double precision", errnumber)));
+        }
+        else
+        {
+            // Invalid syntax
+            ereturn(escontext, 0, (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                    errmsg("invalid input syntax for type %s: \"%s\"", type_name, orig_string)));
+        }
+    }
+
+    // Skip trailing whitespace
+    while (*endptr != '\0' && isspace((unsigned char) *endptr))
+        endptr++;
+
+    // Set end pointer or validate complete consumption
+    if (endptr_p)
+        *endptr_p = endptr;
+    else if (*endptr != '\0')
+        ereturn(escontext, 0, (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                errmsg("invalid input syntax for type %s: \"%s\"", type_name, orig_string)));
+
+    return val;
+}
+```

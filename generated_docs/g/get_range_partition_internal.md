@@ -51,3 +51,48 @@ The function handles the complex scenario where upper bounds of one partition ma
 - Position advancement logic handles both contiguous and non-contiguous partition arrangements
 - This function does not filter dummy partitions - that's handled by the wrapper `get_range_partition`
 - The function modifies the lb_pos parameter to track progress through the boundary arrays
+
+## Simplified Source
+
+```c
+static int get_range_partition_internal(PartitionBoundInfo bi,
+                                       int *lb_pos,
+                                       PartitionRangeBound *lb,
+                                       PartitionRangeBound *ub) {
+    // Check if we've exhausted all lower bounds
+    if (*lb_pos >= bi->ndatums)
+        return -1;
+
+    // Ensure there's at least one more bound after the current lower bound
+    Assert(*lb_pos + 1 < bi->ndatums);
+
+    // Set up the lower bound from current position
+    lb->index = bi->indexes[*lb_pos];
+    lb->datums = bi->datums[*lb_pos];
+    lb->kind = bi->kind[*lb_pos];
+    lb->lower = true;
+
+    // Set up the upper bound from next position
+    ub->index = bi->indexes[*lb_pos + 1];
+    ub->datums = bi->datums[*lb_pos + 1];
+    ub->kind = bi->kind[*lb_pos + 1];
+    ub->lower = false;
+
+    // Upper bound index must be valid
+    Assert(ub->index >= 0);
+
+    // Advance position to next lower bound
+    if (*lb_pos + 2 >= bi->ndatums) {
+        // No more bounds beyond upper bound - we're done
+        *lb_pos = bi->ndatums;
+    } else {
+        // Check if next boundary starts a new partition or continues current one
+        if (bi->indexes[*lb_pos + 2] < 0)
+            *lb_pos = *lb_pos + 2;  // New partition starts
+        else
+            *lb_pos = *lb_pos + 1;  // Upper bound becomes next lower bound
+    }
+
+    return ub->index;
+}
+```

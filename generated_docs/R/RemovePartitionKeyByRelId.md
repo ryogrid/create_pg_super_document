@@ -39,3 +39,28 @@ The function performs minimal error checking - if the partition key entry is not
 - This is typically called during table dropping or when converting a partitioned table to regular table
 - The function does not handle cascade deletion of related partition metadata - that's handled by dependency system
 - Complementary function to StorePartitionKey for partition key lifecycle management
+
+## Simplified Source
+
+```c
+void RemovePartitionKeyByRelId(Oid relid) {
+    Relation rel;
+    HeapTuple tuple;
+
+    // Open pg_partitioned_table catalog for modification
+    rel = table_open(PartitionedRelationId, RowExclusiveLock);
+
+    // Find the partition key entry using system cache
+    tuple = SearchSysCache1(PARTRELID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for partition key of relation %u",
+             relid);
+
+    // Delete the partition key entry
+    CatalogTupleDelete(rel, &tuple->t_self);
+
+    // Clean up cache reference and close catalog
+    ReleaseSysCache(tuple);
+    table_close(rel, RowExclusiveLock);
+}
+```

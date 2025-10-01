@@ -34,3 +34,17 @@ This function performs a conversion from a time with time zone data type to a pl
 - The function follows PostgreSQL's standard function interface using PG_FUNCTION_ARGS
 - Located in src/backend/utils/adt/date.c, which contains various date/time utility functions
 - The conversion is lossless for the time component but lossy for timezone information
+
+## Simplified Source
+
+```c
+Datum timetz_time(PG_FUNCTION_ARGS) {
+    TimeTzADT *timetz = PG_GETARG_TIMETZADT_P(0);
+    TimeADT result;
+
+    // Extract time portion, discard timezone info
+    result = timetz->time;
+
+    PG_RETURN_TIMEADT(result);
+}
+```

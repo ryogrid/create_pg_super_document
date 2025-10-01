@@ -47,3 +47,19 @@ This optimization saves memory allocation cycles and is suitable for read-only o
 - Suitable for read-only access or when the variable will be completely overwritten
 - Used extensively throughout numeric operations for performance optimization
 - The caller must ensure the source Numeric remains valid for the lifetime of the NumericVar
+
+## Simplified Source
+
+```c
+static void init_var_from_num(Numeric num, NumericVar *dest) {
+    // Copy numeric metadata from packed format
+    dest->ndigits = NUMERIC_NDIGITS(num);
+    dest->weight = NUMERIC_WEIGHT(num);
+    dest->sign = NUMERIC_SIGN(num);
+    dest->dscale = NUMERIC_DSCALE(num);
+
+    // Point directly to the original's digits array (no copy)
+    dest->digits = NUMERIC_DIGITS(num);
+    dest->buf = NULL;  // Indicates digits are not separately allocated
+}
+```

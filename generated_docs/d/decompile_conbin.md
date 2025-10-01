@@ -45,3 +45,30 @@ The function performs these steps:
 - The pg_get_expr function requires the relation OID (con->conrelid) to properly resolve column references in the expression
 - Will throw an ERROR if the conbin field is unexpectedly null, indicating a corrupted constraint entry
 - This function is primarily used during constraint comparison operations to determine if two constraints are equivalent
+
+## Simplified Source
+
+```c
+static char *
+decompile_conbin(HeapTuple contup, TupleDesc tupdesc)
+{
+    Form_pg_constraint con;
+    bool isnull;
+    Datum attr;
+    Datum expr;
+
+    // Extract constraint structure from the tuple
+    con = (Form_pg_constraint) GETSTRUCT(contup);
+
+    // Get the binary constraint expression from conbin column
+    attr = heap_getattr(contup, Anum_pg_constraint_conbin, tupdesc, &isnull);
+    if (isnull)
+        elog(ERROR, "null conbin for constraint %u", con->oid);
+
+    // Decompile binary expression to text using pg_get_expr
+    expr = DirectFunctionCall2(pg_get_expr, attr,
+                              ObjectIdGetDatum(con->conrelid));
+
+    return TextDatumGetCString(expr);
+}
+```

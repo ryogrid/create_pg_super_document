@@ -47,3 +47,116 @@ This function creates a RangeTblEntry of type RTE_CTE for handling Common Table 
 - Access permissions are not checked for CTE RTEs as they are treated like subqueries
 - Self-references are only allowed for recursive CTEs
 - Located in src/backend/parser/parse_relation.c:2314-2465
+
+## Simplified Source
+
+```c
+ParseNamespaceItem *
+addRangeTableEntryForCTE(ParseState *pstate,
+                         CommonTableExpr *cte,
+                         Index levelsup,
+                         RangeVar *rv,
+                         bool inFromCl)
+{
+    RangeTblEntry *rte = makeNode(RangeTblEntry);
+    Alias *alias = rv->alias;
+    char *refname = alias ? alias->aliasname : cte->ctename;
+    Alias *eref;
+    int numaliases, varattno;
+    ListCell *lc;
+    int n_dontexpand_columns = 0;
+    ParseNamespaceItem *psi;
+
+    // Set up basic RTE properties
+    rte->rtekind = RTE_CTE;
+    rte->ctename = cte->ctename;
+    rte->ctelevelsup = levelsup;
+
+    // Check for self-reference and update reference count
+    rte->self_reference = !IsA(cte->ctequery, Query);
+    if (!rte->self_reference)
+        cte->cterefcount++;
+
+    // Validate data-modifying CTEs have RETURNING clause
+    if (IsA(cte->ctequery, Query))
+    {
+        Query *ctequery = (Query *) cte->ctequery;
+        if (ctequery->commandType != CMD_SELECT && ctequery->returningList == NIL)
+            ereport(ERROR, "WITH query \"%s\" needs RETURNING clause", cte->ctename);
+    }
+
+    // Copy column type information from CTE definition
+    rte->coltypes = list_copy(cte->ctecoltypes);
+    rte->coltypmods = list_copy(cte->ctecoltypmods);
+    rte->colcollations = list_copy(cte->ctecolcollations);
+
+    // Set up column aliases
+    rte->alias = alias;
+    eref = alias ? copyObject(alias) : makeAlias(refname, NIL);
+    numaliases = list_length(eref->colnames);
+
+    // Fill in missing alias columns from CTE definition
+    varattno = 0;
+    foreach(lc, cte->ctecolnames)
+    {
+        varattno++;
+        if (varattno > numaliases)
+            eref->colnames = lappend(eref->colnames, lfirst(lc));
+    }
+
+    // Validate alias count
+    if (varattno < numaliases)
+        ereport(ERROR, "table \"%s\" has %d columns but %d aliases specified",
+                refname, varattno, numaliases);
+
+    rte->eref = eref;
+
+    // Handle SEARCH clause if present
+    if (cte->search_clause)
+    {
+        rte->eref->colnames = lappend(rte->eref->colnames,
+                                    makeString(cte->search_clause->search_seq_column));
+        rte->coltypes = lappend_oid(rte->coltypes,
+                                  cte->search_clause->search_breadth_first ? RECORDOID : RECORDARRAYOID);
+        rte->coltypmods = lappend_int(rte->coltypmods, -1);
+        rte->colcollations = lappend_oid(rte->colcollations, InvalidOid);
+        n_dontexpand_columns++;
+    }
+
+    // Handle CYCLE clause if present
+    if (cte->cycle_clause)
+    {
+        // Add cycle mark column
+        rte->eref->colnames = lappend(rte->eref->colnames,
+                                    makeString(cte->cycle_clause->cycle_mark_column));
+        rte->coltypes = lappend_oid(rte->coltypes, cte->cycle_clause->cycle_mark_type);
+        rte->coltypmods = lappend_int(rte->coltypmods, cte->cycle_clause->cycle_mark_typmod);
+        rte->colcollations = lappend_oid(rte->colcollations, cte->cycle_clause->cycle_mark_collation);
+
+        // Add cycle path column
+        rte->eref->colnames = lappend(rte->eref->colnames,
+                                    makeString(cte->cycle_clause->cycle_path_column));
+        rte->coltypes = lappend_oid(rte->coltypes, RECORDARRAYOID);
+        rte->coltypmods = lappend_int(rte->coltypmods, -1);
+        rte->colcollations = lappend_oid(rte->colcollations, InvalidOid);
+        n_dontexpand_columns += 2;
+    }
+
+    rte->lateral = false;
+    rte->inFromCl = inFromCl;
+
+    // Add RTE to range table
+    pstate->p_rtable = lappend(pstate->p_rtable, rte);
+
+    // Build namespace item
+    psi = buildNSItemFromLists(rte, list_length(pstate->p_rtable),
+                               rte->coltypes, rte->coltypmods, rte->colcollations);
+
+    // Mark SEARCH/CYCLE columns as non-expandable for nested queries
+    if (rte->ctelevelsup > 0)
+        for (int i = 0; i < n_dontexpand_columns; i++)
+            psi->p_nscolumns[list_length(psi->p_names->colnames) - 1 - i].p_dontexpand = true;
+
+    return psi;
+}
+```

@@ -41,3 +41,22 @@ If the input is not a writable expanded array (it could be a flat array, read-on
 - This is a public interface function (not static) used throughout PostgreSQL for array operations
 - The function handles the complexity of different array representations transparently to the caller
 - Used extensively in array manipulation functions where write access to array elements is needed
+
+## Simplified Source
+
+```c
+ExpandedArrayHeader *DatumGetExpandedArray(Datum d)
+{
+    // Check if it's already a writable expanded array
+    if (VARATT_IS_EXTERNAL_EXPANDED_RW(DatumGetPointer(d))) {
+        ExpandedArrayHeader *eah = (ExpandedArrayHeader *) DatumGetEOHP(d);
+
+        Assert(eah->ea_magic == EA_MAGIC);
+        return eah;
+    }
+
+    // Not expanded yet, so expand it in current memory context
+    d = expand_array(d, CurrentMemoryContext, NULL);
+    return (ExpandedArrayHeader *) DatumGetEOHP(d);
+}
+```

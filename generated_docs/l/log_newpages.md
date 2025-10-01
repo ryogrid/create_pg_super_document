@@ -47,3 +47,46 @@ log_newpages provides an efficient way to log multiple full-page images to WAL i
 - Avoids setting LSN on uninitialized pages to prevent corruption
 - Uses XLOG_FPI WAL record type for each batch of full page images
 - Optimizes WAL space when page_std is true by excluding unused page areas
+
+## Simplified Source
+
+```c
+void
+log_newpages(RelFileLocator *rlocator, ForkNumber forknum, int num_pages,
+             BlockNumber *blknos, Page *pages, bool page_std)
+{
+    int flags = REGBUF_FORCE_IMAGE;
+    if (page_std)
+        flags |= REGBUF_STANDARD;
+
+    // Ensure space for maximum batch size
+    XLogEnsureRecordSpace(XLR_MAX_BLOCK_ID - 1, 0);
+
+    // Process pages in batches of up to XLR_MAX_BLOCK_ID
+    int i = 0;
+    while (i < num_pages) {
+        int batch_start = i;
+        int nbatch;
+
+        XLogBeginInsert();
+
+        // Fill current batch
+        nbatch = 0;
+        while (nbatch < XLR_MAX_BLOCK_ID && i < num_pages) {
+            XLogRegisterBlock(nbatch, rlocator, forknum, blknos[i], pages[i], flags);
+            i++;
+            nbatch++;
+        }
+
+        // Write WAL record for this batch
+        XLogRecPtr recptr = XLogInsert(RM_XLOG_ID, XLOG_FPI);
+
+        // Set LSN on all non-uninitialized pages in this batch
+        for (int j = batch_start; j < i; j++) {
+            if (!PageIsNew(pages[j])) {
+                PageSetLSN(pages[j], recptr);
+            }
+        }
+    }
+}
+```

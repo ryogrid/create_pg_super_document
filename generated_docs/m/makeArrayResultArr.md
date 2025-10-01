@@ -45,3 +45,64 @@ The function performs bounds checking on the array dimensions, computes the requ
 - **Null bitmap**: Copies null bitmap if present, calculating proper overhead
 - Part of the three-function API: initArrayResultArr/accumArrayResultArr/makeArrayResultArr
 - The resulting array has N+1 dimensions where N is the dimensionality of the input sub-arrays
+
+## Simplified Source
+
+```c
+Datum
+makeArrayResultArr(ArrayBuildStateArr *astate, MemoryContext rcontext, bool release)
+{
+    ArrayType *result;
+    MemoryContext oldcontext;
+
+    // Switch to result context for array construction
+    oldcontext = MemoryContextSwitchTo(rcontext);
+
+    if (astate->ndims == 0) {
+        // No inputs - return empty array
+        result = construct_empty_array(astate->element_type);
+    } else {
+        int dataoffset, nbytes;
+
+        // Validate array dimensions don't overflow
+        ArrayGetNItems(astate->ndims, astate->dims);
+        ArrayCheckBounds(astate->ndims, astate->dims, astate->lbs);
+
+        // Calculate space needed including overhead for nulls
+        nbytes = astate->nbytes;
+        if (astate->nullbitmap != NULL) {
+            dataoffset = ARR_OVERHEAD_WITHNULLS(astate->ndims, astate->nitems);
+            nbytes += dataoffset;
+        } else {
+            dataoffset = 0;
+            nbytes += ARR_OVERHEAD_NONULLS(astate->ndims);
+        }
+
+        // Allocate and populate result array
+        result = (ArrayType *) palloc0(nbytes);
+        SET_VARSIZE(result, nbytes);
+        result->ndim = astate->ndims;
+        result->dataoffset = dataoffset;
+        result->elemtype = astate->element_type;
+
+        // Copy dimensions, bounds, and data
+        memcpy(ARR_DIMS(result), astate->dims, astate->ndims * sizeof(int));
+        memcpy(ARR_LBOUND(result), astate->lbs, astate->ndims * sizeof(int));
+        memcpy(ARR_DATA_PTR(result), astate->data, astate->nbytes);
+
+        // Copy null bitmap if present
+        if (astate->nullbitmap != NULL)
+            array_bitmap_copy(ARR_NULLBITMAP(result), 0, astate->nullbitmap, 0, astate->nitems);
+    }
+
+    MemoryContextSwitchTo(oldcontext);
+
+    // Clean up working state if requested
+    if (release) {
+        Assert(astate->private_cxt);
+        MemoryContextDelete(astate->mcontext);
+    }
+
+    return PointerGetDatum(result);
+}
+```

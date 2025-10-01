@@ -44,3 +44,85 @@ The function performs comprehensive validation of parameters and handles various
 - Uses result's memory context for all allocations to ensure cleanup
 - Validates field numbers and tuple numbers with appropriate error messages
 - Supports both text and binary data through the len parameter
+
+## Simplified Source
+
+```c
+int
+PQsetvalue(PGresult *res, int tup_num, int field_num, char *value, int len)
+{
+    PGresAttValue *attval;
+    const char *errmsg = NULL;
+
+    // Validate parameters
+    if (!res || (const PGresult *) res == &OOM_result)
+        return false;
+
+    if (!check_field_number(res, field_num))
+        return false;
+
+    if (tup_num < 0 || tup_num > res->ntups)
+    {
+        pqInternalNotice(&res->noticeHooks,
+                        "row number %d is out of range 0..%d",
+                        tup_num, res->ntups);
+        return false;
+    }
+
+    // Create new tuple if needed
+    if (tup_num == res->ntups)
+    {
+        PGresAttValue *tup = (PGresAttValue *)
+            pqResultAlloc(res, res->numAttributes * sizeof(PGresAttValue), true);
+
+        if (!tup)
+            goto fail;
+
+        // Initialize all fields to NULL
+        for (int i = 0; i < res->numAttributes; i++)
+        {
+            tup[i].len = NULL_LEN;
+            tup[i].value = res->null_field;
+        }
+
+        // Add tuple to result
+        if (!pqAddTuple(res, tup, &errmsg))
+            goto fail;
+    }
+
+    attval = &res->tuples[tup_num][field_num];
+
+    // Set field value
+    if (len == NULL_LEN || value == NULL)
+    {
+        // NULL value
+        attval->len = NULL_LEN;
+        attval->value = res->null_field;
+    }
+    else if (len <= 0)
+    {
+        // Empty string
+        attval->len = 0;
+        attval->value = res->null_field;
+    }
+    else
+    {
+        // Copy value data
+        attval->value = (char *) pqResultAlloc(res, len + 1, true);
+        if (!attval->value)
+            goto fail;
+
+        attval->len = len;
+        memcpy(attval->value, value, len);
+        attval->value[len] = '\0';  // Null-terminate
+    }
+
+    return true;
+
+fail:
+    if (!errmsg)
+        errmsg = libpq_gettext("out of memory");
+    pqInternalNotice(&res->noticeHooks, "%s", errmsg);
+    return false;
+}
+```

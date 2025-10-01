@@ -45,3 +45,66 @@ For indexes that support ordering operations (amcanorderbyop), the function buil
 - Essential for optimizing ORDER BY clauses using index scans instead of explicit sorting
 - Particularly important for nearest-neighbor and distance-based queries in spatial indexes
 - Enables significant performance improvements by eliminating separate sort operations
+
+## Simplified Source
+
+```c
+static void
+match_pathkeys_to_index(IndexOptInfo *index, List *pathkeys,
+                       List **orderby_clauses_p, List **clause_columns_p)
+{
+    *orderby_clauses_p = NIL;
+    *clause_columns_p = NIL;
+
+    // Only indexes supporting ordering operations are useful
+    if (!index->amcanorderbyop)
+        return;
+
+    foreach(lc1, pathkeys)
+    {
+        PathKey *pathkey = (PathKey *) lfirst(lc1);
+        bool found = false;
+
+        // Must be ascending sort with nulls last
+        if (pathkey->pk_strategy != BTLessStrategyNumber ||
+            pathkey->pk_nulls_first)
+            return;
+
+        // Skip volatile expressions
+        if (pathkey->pk_eclass->ec_has_volatile)
+            return;
+
+        // Try to match pathkey to index columns
+        foreach(lc2, pathkey->pk_eclass->ec_members)
+        {
+            EquivalenceMember *member = (EquivalenceMember *) lfirst(lc2);
+
+            // Skip if member references other relations
+            if (!bms_equal(member->em_relids, index->rel->relids))
+                continue;
+
+            // Check each index column for a match
+            for (int indexcol = 0; indexcol < index->nkeycolumns; indexcol++)
+            {
+                Expr *expr = match_clause_to_ordering_op(index, indexcol,
+                                                        member->em_expr,
+                                                        pathkey->pk_opfamily);
+                if (expr)
+                {
+                    *orderby_clauses_p = lappend(*orderby_clauses_p, expr);
+                    *clause_columns_p = lappend_int(*clause_columns_p, indexcol);
+                    found = true;
+                    break;
+                }
+            }
+
+            if (found)
+                break;
+        }
+
+        // Return partial matches if this pathkey couldn't be matched
+        if (!found)
+            return;
+    }
+}
+```

@@ -40,3 +40,38 @@ This function determines if a particular kind of extended statistics exists in a
 - Used by the query planner to determine which extended statistics are available for use
 - Maps statistics types to their corresponding pg_statistic_ext_data catalog columns
 - Part of the extended statistics infrastructure for multi-column statistics
+
+## Simplified Source
+
+```c
+bool
+statext_is_kind_built(HeapTuple htup, char type)
+{
+    AttrNumber attnum;
+
+    // Map statistics type to corresponding catalog column
+    switch (type) {
+        case STATS_EXT_NDISTINCT:
+            attnum = Anum_pg_statistic_ext_data_stxdndistinct;
+            break;
+
+        case STATS_EXT_DEPENDENCIES:
+            attnum = Anum_pg_statistic_ext_data_stxddependencies;
+            break;
+
+        case STATS_EXT_MCV:
+            attnum = Anum_pg_statistic_ext_data_stxdmcv;
+            break;
+
+        case STATS_EXT_EXPRESSIONS:
+            attnum = Anum_pg_statistic_ext_data_stxdexpr;
+            break;
+
+        default:
+            elog(ERROR, "unexpected statistics type requested: %d", type);
+    }
+
+    // Check if the attribute is non-NULL (statistics exist)
+    return !heap_attisnull(htup, attnum, NULL);
+}
+```

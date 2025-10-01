@@ -34,3 +34,28 @@ BufFileSize calculates the total logical size of a BufFile that is backed by a f
 - The size calculation accounts for PostgreSQL's file segmentation where individual files are limited to MAX_PHYSICAL_FILESIZE bytes
 - Used primarily by logical tape operations for determining tape sizes during import operations
 - The function provides the logical size that includes any sparse regions in the file
+
+## Simplified Source
+
+```c
+int64
+BufFileSize(BufFile *file)
+{
+    int64 lastFileSize;
+
+    Assert(file->fileset != NULL);
+
+    // Get size of the last segment file
+    lastFileSize = FileSize(file->files[file->numFiles - 1]);
+    if (lastFileSize < 0)
+        ereport(ERROR,
+                (errcode_for_file_access(),
+                 errmsg("could not determine size of temporary file \"%s\" from BufFile \"%s\": %m",
+                        FilePathName(file->files[file->numFiles - 1]),
+                        file->name)));
+
+    // Calculate total size: (complete segments * max size) + last segment size
+    return ((file->numFiles - 1) * (int64) MAX_PHYSICAL_FILESIZE) +
+           lastFileSize;
+}
+```

@@ -47,3 +47,76 @@ The function ensures proper memory allocation for container elements and maintai
 - Memory management is handled through PostgreSQL's memory context system
 - Error handling uses PostgreSQL's elog mechanism for unrecognized tokens
 - The function maintains the parse state stack structure crucial for nested container handling
+
+## Simplified Source
+
+```c
+static JsonbValue *pushJsonbValueScalar(JsonbParseState **pstate, JsonbIteratorToken seq,
+                                       JsonbValue *scalarVal) {
+    JsonbValue *result = NULL;
+
+    switch (seq) {
+        case WJB_BEGIN_ARRAY:
+            // Create new array container
+            *pstate = pushState(pstate);
+            result = &(*pstate)->contVal;
+            (*pstate)->contVal.type = jbvArray;
+            (*pstate)->contVal.val.array.nElems = 0;
+            (*pstate)->contVal.val.array.rawScalar = (scalarVal && scalarVal->val.array.rawScalar);
+
+            // Allocate initial storage for array elements
+            (*pstate)->size = (scalarVal && scalarVal->val.array.nElems > 0) ?
+                             scalarVal->val.array.nElems : 4;
+            (*pstate)->contVal.val.array.elems = palloc(sizeof(JsonbValue) * (*pstate)->size);
+            break;
+
+        case WJB_BEGIN_OBJECT:
+            // Create new object container
+            *pstate = pushState(pstate);
+            result = &(*pstate)->contVal;
+            (*pstate)->contVal.type = jbvObject;
+            (*pstate)->contVal.val.object.nPairs = 0;
+            (*pstate)->size = 4;
+            (*pstate)->contVal.val.object.pairs = palloc(sizeof(JsonbPair) * (*pstate)->size);
+            break;
+
+        case WJB_KEY:
+            // Add key to current object
+            appendKey(*pstate, scalarVal);
+            break;
+
+        case WJB_VALUE:
+            // Add value to current object
+            appendValue(*pstate, scalarVal);
+            break;
+
+        case WJB_ELEM:
+            // Add element to current array
+            appendElement(*pstate, scalarVal);
+            break;
+
+        case WJB_END_OBJECT:
+            // Finalize object (remove duplicate keys)
+            uniqueifyJsonbObject(&(*pstate)->contVal, (*pstate)->unique_keys, (*pstate)->skip_nulls);
+            // Fall through to WJB_END_ARRAY handling
+
+        case WJB_END_ARRAY:
+            // Pop completed container and add to parent if exists
+            result = &(*pstate)->contVal;
+            *pstate = (*pstate)->next;
+
+            if (*pstate) {
+                if ((*pstate)->contVal.type == jbvArray)
+                    appendElement(*pstate, result);
+                else
+                    appendValue(*pstate, result);
+            }
+            break;
+
+        default:
+            elog(ERROR, "unrecognized jsonb sequential processing token");
+    }
+
+    return result;
+}
+```

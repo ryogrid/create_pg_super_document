@@ -49,3 +49,39 @@ The approach is deliberately liberal regarding non-matching arguments - the supp
 - Enables advanced indexing strategies for specialized functions and operators
 - Located in `src/backend/optimizer/path/indxpath.c:2511-2556`
 - Returns IndexClause via support function or NULL if no indexable pattern is found
+
+## Simplified Source
+
+```c
+static IndexClause *
+match_funcclause_to_indexcol(PlannerInfo *root,
+                             RestrictInfo *rinfo,
+                             int indexcol,
+                             IndexOptInfo *index)
+{
+    FuncExpr *clause = (FuncExpr *) rinfo->clause;
+    int indexarg = 0;
+    ListCell *lc;
+
+    // Scan function arguments for index column matches
+    foreach(lc, clause->args)
+    {
+        Node *op = (Node *) lfirst(lc);
+
+        // If this argument matches the index column, try support function
+        if (match_index_to_operand(op, indexcol, index))
+        {
+            return get_index_clause_from_support(root,
+                                               rinfo,
+                                               clause->funcid,
+                                               indexarg,
+                                               indexcol,
+                                               index);
+        }
+
+        indexarg++;
+    }
+
+    return NULL;
+}
+```

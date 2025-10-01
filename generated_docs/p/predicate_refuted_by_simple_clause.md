@@ -46,3 +46,106 @@ The main motivation is supporting partition pruning with IS NULL/IS NOT NULL con
 - The function handles both directions of NULL test refutation (IS NULL refutes IS NOT NULL and vice versa)
 - Weak refutation allows broader proof cases using strictness properties
 - Early returns are used when NULL test processing determines the final result, avoiding unnecessary operator proof attempts
+
+## Simplified Source
+
+```c
+static bool
+predicate_refuted_by_simple_clause(Expr *predicate, Node *clause, bool weak)
+{
+    // Allow interrupting long proof attempts
+    CHECK_FOR_INTERRUPTS();
+
+    // Same clause can't refute itself
+    if ((Node *) predicate == clause)
+        return false;
+
+    // Handle clause-type-specific strategies
+    switch (nodeTag(clause))
+    {
+        case T_NullTest:
+            {
+                NullTest *clausentest = (NullTest *) clause;
+
+                // Skip row-level null tests
+                if (clausentest->argisrow)
+                    return false;
+
+                switch (clausentest->nulltesttype)
+                {
+                    case IS_NULL:
+                        {
+                            // Check if predicate is IS NOT NULL for same arg
+                            if (IsA(predicate, NullTest))
+                            {
+                                NullTest *predntest = (NullTest *) predicate;
+                                if (!predntest->argisrow &&
+                                    predntest->nulltesttype == IS_NOT_NULL &&
+                                    equal(predntest->arg, clausentest->arg))
+                                    return true;
+                            }
+
+                            // Weak refutation: foo IS NULL refutes strict predicates
+                            if (weak &&
+                                clause_is_strict_for((Node *) predicate,
+                                                   (Node *) clausentest->arg, true))
+                                return true;
+
+                            return false;
+                        }
+                        break;
+                    case IS_NOT_NULL:
+                        break;
+                }
+            }
+            break;
+        default:
+            break;
+    }
+
+    // Handle predicate-type-specific strategies
+    switch (nodeTag(predicate))
+    {
+        case T_NullTest:
+            {
+                NullTest *predntest = (NullTest *) predicate;
+
+                // Skip row-level null tests
+                if (predntest->argisrow)
+                    return false;
+
+                switch (predntest->nulltesttype)
+                {
+                    case IS_NULL:
+                        {
+                            // Check if clause is IS NOT NULL for same arg
+                            if (IsA(clause, NullTest))
+                            {
+                                NullTest *clausentest = (NullTest *) clause;
+                                if (!clausentest->argisrow &&
+                                    clausentest->nulltesttype == IS_NOT_NULL &&
+                                    equal(clausentest->arg, predntest->arg))
+                                    return true;
+                            }
+
+                            // foo IS NULL is refuted by strict clauses
+                            if (clause_is_strict_for(clause,
+                                                   (Node *) predntest->arg, true))
+                                return true;
+                        }
+                        break;
+                    case IS_NOT_NULL:
+                        break;
+                }
+
+                return false;
+            }
+            break;
+        default:
+            break;
+    }
+
+    // Try operator-based proof for binary expressions
+    return operator_predicate_proof(predicate, clause, true, weak);
+}
+```

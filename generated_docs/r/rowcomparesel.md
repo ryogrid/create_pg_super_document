@@ -42,3 +42,44 @@ The function determines whether the clause should be treated as a join clause or
 - When varRelid is non-zero, the function is forced into restriction mode (e.g., for inner indexscan qualifiers)
 - The approach trades accuracy for simplicity, acknowledging that better estimates would require complex multi-column statistics
 - Returns a Selectivity value (double between 0.0 and 1.0) representing the estimated fraction of rows that will satisfy the condition
+
+## Simplified Source
+
+```c
+Selectivity
+rowcomparesel(PlannerInfo *root, RowCompareExpr *clause,
+              int varRelid, JoinType jointype, SpecialJoinInfo *sjinfo)
+{
+    Selectivity s1;
+    Oid opno = linitial_oid(clause->opnos);
+    Oid inputcollid = linitial_oid(clause->inputcollids);
+    List *opargs;
+    bool is_join_clause;
+
+    // Build equivalent arg list for single operator (first column only)
+    opargs = list_make2(linitial(clause->largs), linitial(clause->rargs));
+
+    // Determine if this should be treated as join or restriction clause
+    if (varRelid != 0) {
+        // Forced restriction mode
+        is_join_clause = false;
+    } else if (sjinfo == NULL) {
+        // Scan-level evaluation
+        is_join_clause = false;
+    } else {
+        // Join-level: check if multiple relations involved
+        is_join_clause = (NumRelids(root, (Node *) opargs) > 1);
+    }
+
+    // Delegate to appropriate selectivity estimator
+    if (is_join_clause) {
+        s1 = join_selectivity(root, opno, opargs, inputcollid,
+                             jointype, sjinfo);
+    } else {
+        s1 = restriction_selectivity(root, opno, opargs, inputcollid,
+                                    varRelid);
+    }
+
+    return s1;
+}
+```

@@ -38,3 +38,21 @@ The function is designed to be used as a callback function for PostgreSQL's hash
 - The function signature follows PostgreSQL's hash table callback function interface
 - Part of the fast key uniqueness checking system that prevents duplicate keys in JSON objects during aggregation
 - The hash quality is important for performance, as poor distribution would lead to hash collisions and slower duplicate detection
+
+## Simplified Source
+
+```c
+static uint32
+json_unique_hash(const void *key, Size keysize)
+{
+    const JsonUniqueHashEntry *entry = (JsonUniqueHashEntry *) key;
+
+    // Hash the object ID
+    uint32 hash = hash_bytes_uint32(entry->object_id);
+
+    // Combine with hash of the key string using XOR
+    hash ^= hash_bytes((const unsigned char *) entry->key, entry->key_len);
+
+    return DatumGetUInt32(hash);
+}
+```

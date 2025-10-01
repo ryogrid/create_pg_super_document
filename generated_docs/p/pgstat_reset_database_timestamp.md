@@ -32,3 +32,19 @@ This function provides a mechanism to update only the reset timestamp of a datab
 - This is part of PostgreSQL's shared memory statistics system where multiple processes can safely access and modify statistics
 - The reset timestamp is commonly used by monitoring tools and administrative functions to understand when statistics were last reset
 - Unlike functions that clear statistics data, this function only updates metadata about when the reset conceptually occurred
+
+## Simplified Source
+
+```c
+void pgstat_reset_database_timestamp(Oid dboid, TimestampTz ts) {
+    // Get locked reference to database statistics entry
+    PgStat_EntryRef *dbref = pgstat_get_entry_ref_locked(PGSTAT_KIND_DATABASE, MyDatabaseId, InvalidOid, false);
+
+    // Update the reset timestamp in shared memory
+    PgStatShared_Database *dbentry = (PgStatShared_Database *) dbref->shared_stats;
+    dbentry->stats.stat_reset_timestamp = ts;
+
+    // Release the lock
+    pgstat_unlock_entry(dbref);
+}
+```

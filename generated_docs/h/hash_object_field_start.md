@@ -44,3 +44,30 @@ The function is part of the JSON-to-hash conversion mechanism used in PostgreSQL
 - The fname and isnull parameters are not utilized in the current implementation
 - Position tracking (save_json_start) is only performed for complex JSON structures (arrays and objects)
 - Always returns JSON_SUCCESS, indicating this callback doesn't perform validation that could fail
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+hash_object_field_start(void *state, char *fname, bool isnull) {
+    JHashState *_state = (JHashState *) state;
+
+    // Only process top-level fields
+    if (_state->lex->lex_level > 1)
+        return JSON_SUCCESS;
+
+    // Save token type for later processing
+    _state->saved_token_type = _state->lex->token_type;
+
+    if (_state->lex->token_type == JSON_TOKEN_ARRAY_START ||
+        _state->lex->token_type == JSON_TOKEN_OBJECT_START) {
+        // Track start position for complex values
+        _state->save_json_start = _state->lex->token_start;
+    } else {
+        // Scalar value - no position tracking needed
+        _state->save_json_start = NULL;
+    }
+
+    return JSON_SUCCESS;
+}
+```

@@ -56,3 +56,53 @@ The algorithm extracts digits by repeated division, building the result from the
 - Handles the zero case efficiently without digit extraction
 - Uses pointer arithmetic to minimize memory copying
 - The division-based digit extraction works with any NBASE value
+
+## Simplified Source
+
+```c
+static void
+int64_to_numericvar(int64 val, NumericVar *var)
+{
+    uint64 uval;
+    NumericDigit *ptr;
+    int ndigits;
+
+    // Allocate space for max 19 decimal digits (plus safety margin)
+    alloc_var(var, 20 / DEC_DIGITS);
+
+    // Handle sign and convert to unsigned
+    if (val < 0) {
+        var->sign = NUMERIC_NEG;
+        uval = -val;
+    } else {
+        var->sign = NUMERIC_POS;
+        uval = val;
+    }
+
+    var->dscale = 0;  // No fractional part for integers
+
+    // Special case: zero
+    if (val == 0) {
+        var->ndigits = 0;
+        var->weight = 0;
+        return;
+    }
+
+    // Extract digits by repeated division
+    ptr = var->digits + var->ndigits;
+    ndigits = 0;
+
+    do {
+        ptr--;
+        ndigits++;
+        uint64 next_val = uval / NBASE;
+        *ptr = uval - next_val * NBASE;  // Store remainder as digit
+        uval = next_val;
+    } while (uval);
+
+    // Set final numeric properties
+    var->digits = ptr;
+    var->ndigits = ndigits;
+    var->weight = ndigits - 1;  // Position of most significant digit
+}
+```

@@ -40,3 +40,35 @@ Anonymous windows (those with NULL names) are deliberately ignored since they ap
 - Uses PostgreSQL's pretty-printing system for proper indentation
 - Located at src/backend/utils/adt/ruleutils.c:6506-6537
 - Part of the query reconstruction infrastructure for views and rules
+
+## Simplified Source
+
+```c
+static void get_rule_windowclause(Query *query, deparse_context *context)
+{
+    StringInfo buf = context->buf;
+    const char *sep = NULL;
+
+    // Iterate through all window clauses in the query
+    foreach(l, query->windowClause)
+    {
+        WindowClause *wc = (WindowClause *) lfirst(l);
+
+        // Skip anonymous windows (handled inline with window functions)
+        if (wc->name == NULL)
+            continue;
+
+        // Add WINDOW keyword for first named window
+        if (sep == NULL)
+            appendContextKeyword(context, " WINDOW ", -PRETTYINDENT_STD, PRETTYINDENT_STD, 1);
+        else
+            appendStringInfoString(buf, sep);
+
+        // Output: window_name AS window_specification
+        appendStringInfo(buf, "%s AS ", quote_identifier(wc->name));
+        get_rule_windowspec(wc, query->targetList, context);
+
+        sep = ", ";  // Prepare comma separator for next window
+    }
+}
+```

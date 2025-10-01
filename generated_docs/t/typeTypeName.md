@@ -35,3 +35,22 @@ The type name returned is the internal PostgreSQL name for the type (e.g., "int4
 - Uses pstrdup to ensure the result can outlive the syscache entry, preventing potential use-after-free issues
 - The typname field in pg_type is of type Name, which is a fixed-length PostgreSQL internal type
 - This function is part of the parser subsystem's type handling utilities
+
+## Simplified Source
+
+```c
+char *typeTypeName(Type t) {
+    // Extract the type structure from the heap tuple
+    Form_pg_type typ = (Form_pg_type) GETSTRUCT(t);
+
+    // Return a copy of the type name that can outlive the syscache entry
+    // pstrdup ensures the result survives syscache invalidation
+    return pstrdup(NameStr(typ->typname));
+}
+```
+
+**Simplification Notes:**
+- Added explanatory comments about memory management necessity
+- Function is already concise, so only added documentation
+- Core logic: extract type structure, get name, and create a safe copy
+- Preserved the essential purpose: provide a stable copy of the type name

@@ -32,3 +32,22 @@ This function calculates the binomial coefficient "n choose k" (C(n,k)), which r
 - The algorithm avoids computing large factorials directly, instead computing the result iteratively
 - Located in src/backend/statistics/mvdistinct.c, suggesting it's used for multivariate distinct value statistics calculations
 - The symmetry optimization (using Min(k, n-k)) ensures the loop runs at most n/2 times
+
+## Simplified Source
+```c
+static int n_choose_k(int n, int k) {
+    Assert((k > 0) && (n >= k));
+
+    // Use symmetry: C(n,k) = C(n,n-k), choose smaller computation
+    k = Min(k, n - k);
+
+    // Calculate binomial coefficient iteratively to avoid overflow
+    int result = 1;
+    for (int d = 1; d <= k; ++d) {
+        result *= n--;  // Multiply by decreasing n
+        result /= d;    // Divide by increasing d
+    }
+
+    return result;
+}
+```

@@ -34,3 +34,23 @@ This function serves as a JSON parsing event handler for the start of array elem
 - Part of the JSON semantic action handler system for array population
 - Works in conjunction with populate_array_element_end to bracket element processing
 - Critical for maintaining parsing state during element extraction from JSON arrays
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+populate_array_element_start(void *_state, bool isnull)
+{
+    PopulateArrayState *state = (PopulateArrayState *) _state;
+    int ndim = state->lex->lex_level;
+
+    // Capture element info if at correct dimensional level
+    if (state->ctx->ndims <= 0 || ndim == state->ctx->ndims) {
+        state->element_start = state->lex->token_start;
+        state->element_type = state->lex->token_type;
+        state->element_scalar = NULL;
+    }
+
+    return JSON_SUCCESS;
+}
+```

@@ -63,3 +63,72 @@ Key features include checking if explicit sorting can be skipped when input path
 - Delegates to try_partial_mergejoin_path for partial execution modes to handle parallel-specific constraints
 - Implements the same two-phase cost optimization approach as other join path functions
 - Critical for generating efficient merge join execution plans, especially when input relations are pre-sorted
+
+## Simplified Source
+
+```c
+static void try_mergejoin_path(PlannerInfo *root,
+                              RelOptInfo *joinrel,
+                              Path *outer_path,
+                              Path *inner_path,
+                              List *pathkeys,
+                              List *mergeclauses,
+                              List *outersortkeys,
+                              List *innersortkeys,
+                              JoinType jointype,
+                              JoinPathExtraData *extra,
+                              bool is_partial)
+{
+    // Delegate to partial version if needed
+    if (is_partial)
+    {
+        try_partial_mergejoin_path(root, joinrel, outer_path, inner_path,
+                                  pathkeys, mergeclauses, outersortkeys,
+                                  innersortkeys, jointype, extra);
+        return;
+    }
+
+    // Validate outer join parameterization constraints
+    if (extra->sjinfo->ojrelid != 0 &&
+        (bms_is_member(extra->sjinfo->ojrelid, PATH_REQ_OUTER(inner_path)) ||
+         bms_is_member(extra->sjinfo->ojrelid, PATH_REQ_OUTER(outer_path))))
+        return;
+
+    // Check parameterization validity for non-nestloop joins
+    Relids required_outer = calc_non_nestloop_required_outer(outer_path, inner_path);
+    if (required_outer &&
+        !bms_overlap(required_outer, extra->param_source_rels))
+    {
+        bms_free(required_outer);
+        return;
+    }
+
+    // Optimize sorting - skip if paths are already ordered
+    if (outersortkeys &&
+        pathkeys_contained_in(outersortkeys, outer_path->pathkeys))
+        outersortkeys = NIL;
+    if (innersortkeys &&
+        pathkeys_contained_in(innersortkeys, inner_path->pathkeys))
+        innersortkeys = NIL;
+
+    // Get initial cost estimate
+    JoinCostWorkspace workspace;
+    initial_cost_mergejoin(root, &workspace, jointype, mergeclauses,
+                          outer_path, inner_path, outersortkeys, innersortkeys, extra);
+
+    // Only create full path if cost looks promising
+    if (add_path_precheck(joinrel, workspace.startup_cost, workspace.total_cost,
+                         pathkeys, required_outer))
+    {
+        add_path(joinrel, (Path *)
+                create_mergejoin_path(root, joinrel, jointype, &workspace, extra,
+                                     outer_path, inner_path, extra->restrictlist,
+                                     pathkeys, required_outer, mergeclauses,
+                                     outersortkeys, innersortkeys));
+    }
+    else
+    {
+        bms_free(required_outer);
+    }
+}
+```

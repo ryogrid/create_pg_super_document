@@ -37,3 +37,31 @@ This function creates and initializes a BulkWriteState structure for bulk write 
 - Memory context is saved to ensure all subsequent buffer allocations use the same context
 - The relation size is determined at initialization time by calling smgrnblocks
 - The npending counter is initialized to 0, tracking the number of pending write operations
+
+## Simplified Source
+
+```c
+BulkWriteState *
+smgr_bulk_start_smgr(SMgrRelation smgr, ForkNumber forknum, bool use_wal)
+{
+    BulkWriteState *state;
+
+    // Allocate and initialize bulk write state
+    state = palloc(sizeof(BulkWriteState));
+    state->smgr = smgr;
+    state->forknum = forknum;
+    state->use_wal = use_wal;
+
+    // Initialize counters and get current relation size
+    state->npending = 0;
+    state->relsize = smgrnblocks(smgr, forknum);
+
+    // Capture redo pointer for crash recovery consistency
+    state->start_RedoRecPtr = GetRedoRecPtr();
+
+    // Remember memory context for buffer allocations
+    state->memcxt = CurrentMemoryContext;
+
+    return state;
+}
+```

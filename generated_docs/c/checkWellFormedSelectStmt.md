@@ -57,3 +57,73 @@ This approach ensures that recursive references appear only in semantically vali
 - WITH clauses are intentionally not processed here since they require special handling by the parent walker function
 - The validation rules implemented here ensure that recursive CTEs produce deterministic and correct results according to SQL semantics
 - Set operation validation is critical for PostgreSQL's iterative recursive CTE implementation which relies on fixed-point computation
+
+## Simplified Source
+
+```c
+static void
+checkWellFormedSelectStmt(SelectStmt *stmt, CteState *cstate)
+{
+    RecursionContext save_context = cstate->context;
+
+    if (save_context != RECURSION_OK)
+    {
+        // In restricted context, just recurse without changing state
+        raw_expression_tree_walker((Node *) stmt,
+                                   checkWellFormedRecursionWalker,
+                                   (void *) cstate);
+    }
+    else
+    {
+        // Apply context-specific validation based on set operation
+        switch (stmt->op)
+        {
+            case SETOP_NONE:
+            case SETOP_UNION:
+                // UNION and simple SELECT allow recursive references
+                raw_expression_tree_walker((Node *) stmt,
+                                           checkWellFormedRecursionWalker,
+                                           (void *) cstate);
+                break;
+
+            case SETOP_INTERSECT:
+                // INTERSECT ALL is more restrictive for recursive references
+                if (stmt->all)
+                    cstate->context = RECURSION_INTERSECT;
+
+                // Check operands under restricted context
+                checkWellFormedRecursionWalker((Node *) stmt->larg, cstate);
+                checkWellFormedRecursionWalker((Node *) stmt->rarg, cstate);
+
+                // Restore context for clauses that don't affect recursion
+                cstate->context = save_context;
+                checkWellFormedRecursionWalker((Node *) stmt->sortClause, cstate);
+                checkWellFormedRecursionWalker((Node *) stmt->limitOffset, cstate);
+                checkWellFormedRecursionWalker((Node *) stmt->limitCount, cstate);
+                checkWellFormedRecursionWalker((Node *) stmt->lockingClause, cstate);
+                break;
+
+            case SETOP_EXCEPT:
+                // EXCEPT prohibits recursive references in both operands
+                if (stmt->all)
+                    cstate->context = RECURSION_EXCEPT;
+
+                checkWellFormedRecursionWalker((Node *) stmt->larg, cstate);
+
+                cstate->context = RECURSION_EXCEPT;
+                checkWellFormedRecursionWalker((Node *) stmt->rarg, cstate);
+
+                // Restore context for non-recursive clauses
+                cstate->context = save_context;
+                checkWellFormedRecursionWalker((Node *) stmt->sortClause, cstate);
+                checkWellFormedRecursionWalker((Node *) stmt->limitOffset, cstate);
+                checkWellFormedRecursionWalker((Node *) stmt->limitCount, cstate);
+                checkWellFormedRecursionWalker((Node *) stmt->lockingClause, cstate);
+                break;
+
+            default:
+                elog(ERROR, "unrecognized set op: %d", stmt->op);
+        }
+    }
+}
+```

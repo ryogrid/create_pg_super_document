@@ -41,3 +41,33 @@ This function is particularly useful for operations where transaction abort clea
 - Automatically resets the err_occurred flag after processing
 - Part of PostgreSQL's soft error handling infrastructure introduced for better error recovery
 - If escontext is not an ErrorSaveContext, behaves identically to xml_ereport with ERROR level
+
+## Simplified Source
+
+```c
+static void
+xml_errsave(Node *escontext, PgXmlErrorContext *errcxt,
+            int sqlcode, const char *msg)
+{
+    char *detail;
+
+    // Validate the error context structure
+    if (errcxt->magic != ERRCXT_MAGIC)
+        elog(ERROR, "xml_errsave called with invalid PgXmlErrorContext");
+
+    // Reset error flag
+    errcxt->err_occurred = false;
+
+    // Include libxml error details if available
+    if (errcxt->err_buf.len > 0)
+        detail = errcxt->err_buf.data;
+    else
+        detail = NULL;
+
+    // Save error to context or throw if no context
+    errsave(escontext,
+            (errcode(sqlcode),
+             errmsg_internal("%s", msg),
+             detail ? errdetail_internal("%s", detail) : 0));
+}
+```

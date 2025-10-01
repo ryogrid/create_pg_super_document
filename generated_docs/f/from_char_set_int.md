@@ -36,3 +36,20 @@ This function provides a safe mechanism to set integer values during PostgreSQL'
 - Provides descriptive error messages when conflicts are detected
 - Part of PostgreSQL's robust date/time parsing validation infrastructure
 - Critical for ensuring data integrity during complex formatting template processing
+
+## Simplified Source
+
+```c
+static bool
+from_char_set_int(int *dest, const int value, const FormatNode *node, Node *escontext)
+{
+    // Check for conflicting values (allow same value or zero->nonzero)
+    if (*dest != 0 && *dest != value) {
+        ereturn(escontext, false, /* error: conflicting values for field */);
+    }
+
+    // Set the value
+    *dest = value;
+    return true;
+}
+```

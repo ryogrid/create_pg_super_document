@@ -43,3 +43,111 @@ This function is the core initialization routine for JsonPathItem structures, re
 - Essential building block for all JSON path traversal and evaluation operations
 - Error handling for unrecognized node types prevents corruption from invalid data
 - The function directly manipulates buffer pointers to access variable-length data efficiently
+
+## Simplified Source
+
+```c
+void jspInitByBuffer(JsonPathItem *v, char *base, int32 pos) {
+    // Set base pointer for this item
+    v->base = base + pos;
+
+    // Read node type and align position
+    read_byte(v->type, base, pos);
+    pos = INTALIGN((uintptr_t) (base + pos)) - (uintptr_t) base;
+    read_int32(v->nextPos, base, pos);
+
+    // Process type-specific data
+    switch (v->type) {
+        // Simple node types with no additional data
+        case jpiNull:
+        case jpiRoot:
+        case jpiCurrent:
+        case jpiAnyArray:
+        case jpiAnyKey:
+        case jpiType:
+        case jpiSize:
+        case jpiAbs:
+        case jpiFloor:
+        case jpiCeiling:
+        case jpiDouble:
+        case jpiKeyValue:
+        case jpiLast:
+        case jpiBigint:
+        case jpiBoolean:
+        case jpiDate:
+        case jpiInteger:
+        case jpiNumber:
+        case jpiStringFunc:
+            break;
+
+        // String/key/variable types with length and data
+        case jpiString:
+        case jpiKey:
+        case jpiVariable:
+            read_int32(v->content.value.datalen, base, pos);
+            // Fall through to set data pointer
+        case jpiNumeric:
+        case jpiBool:
+            v->content.value.data = base + pos;
+            break;
+
+        // Binary operators with left and right arguments
+        case jpiAnd:
+        case jpiOr:
+        case jpiEqual:
+        case jpiNotEqual:
+        case jpiLess:
+        case jpiGreater:
+        case jpiLessOrEqual:
+        case jpiGreaterOrEqual:
+        case jpiAdd:
+        case jpiSub:
+        case jpiMul:
+        case jpiDiv:
+        case jpiMod:
+        case jpiStartsWith:
+        case jpiDecimal:
+            read_int32(v->content.args.left, base, pos);
+            read_int32(v->content.args.right, base, pos);
+            break;
+
+        // Unary operators with single argument
+        case jpiNot:
+        case jpiIsUnknown:
+        case jpiExists:
+        case jpiPlus:
+        case jpiMinus:
+        case jpiFilter:
+        case jpiDatetime:
+        case jpiTime:
+        case jpiTimeTz:
+        case jpiTimestamp:
+        case jpiTimestampTz:
+            read_int32(v->content.arg, base, pos);
+            break;
+
+        // Array indexing with element count and indices
+        case jpiIndexArray:
+            read_int32(v->content.array.nelems, base, pos);
+            read_int32_n(v->content.array.elems, base, pos, v->content.array.nelems * 2);
+            break;
+
+        // Range bounds for "any" expressions
+        case jpiAny:
+            read_int32(v->content.anybounds.first, base, pos);
+            read_int32(v->content.anybounds.last, base, pos);
+            break;
+
+        // Regular expression with flags, expression, and pattern
+        case jpiLikeRegex:
+            read_int32(v->content.like_regex.flags, base, pos);
+            read_int32(v->content.like_regex.expr, base, pos);
+            read_int32(v->content.like_regex.patternlen, base, pos);
+            v->content.like_regex.pattern = base + pos;
+            break;
+
+        default:
+            elog(ERROR, "unrecognized jsonpath item type: %d", v->type);
+    }
+}
+```

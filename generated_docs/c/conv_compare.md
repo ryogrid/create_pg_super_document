@@ -32,3 +32,16 @@ This function is essential for efficiently searching the decomposition lookup ta
 - The function follows the standard comparison function interface required by 
 - Returns 1 if p1 > p2, 0 if p1 == p2, and -1 if p1 < p2
 - The comparison is based on Unicode codepoint values, enabling binary search through the decomposition table
+
+## Simplified Source
+
+```c
+static int
+conv_compare(const void *p1, const void *p2)
+{
+    uint32 v1 = *(const uint32 *) p1;
+    uint32 v2 = ((const pg_unicode_decomposition *) p2)->codepoint;
+
+    return (v1 > v2) ? 1 : ((v1 == v2) ? 0 : -1);
+}
+```

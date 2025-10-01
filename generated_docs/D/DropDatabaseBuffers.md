@@ -40,3 +40,31 @@ The implementation performs an unlocked precheck on each buffer's database OID f
 - Uses an unlocked precheck optimization to avoid unnecessary locking when buffer database OIDs don't match
 - Implementation is similar to DropRelationBuffers() but operates at the database level rather than relation level
 - The function ensures proper locking protocol by re-checking the database OID after acquiring the buffer header lock
+
+## Simplified Source
+
+```c
+void
+DropDatabaseBuffers(Oid dbid)
+{
+    int i;
+
+    // Iterate through all buffers in the shared buffer pool
+    // (Local buffers not considered - target DB can't be our own)
+    for (i = 0; i < NBuffers; i++) {
+        BufferDesc *bufHdr = GetBufferDescriptor(i);
+        uint32 buf_state;
+
+        // Quick unlocked check for performance
+        if (bufHdr->tag.dbOid != dbid)
+            continue;
+
+        // Lock buffer and double-check database OID
+        buf_state = LockBufHdr(bufHdr);
+        if (bufHdr->tag.dbOid == dbid)
+            InvalidateBuffer(bufHdr);  // Releases spinlock
+        else
+            UnlockBufHdr(bufHdr, buf_state);
+    }
+}
+```

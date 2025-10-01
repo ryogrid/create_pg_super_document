@@ -36,3 +36,25 @@ The function first truncates List a to match the length of List b (since any ele
 - Elements in List a beyond the length of List b are automatically removed
 - This is used in PostgreSQL's query optimizer for analyzing variable nullability constraints
 - The intersection operation preserves only bits that are set in both corresponding Bitmapsets
+
+## Simplified Source
+
+```c
+List *mbms_int_members(List *a, const List *b) {
+    // Truncate list 'a' to match length of list 'b'
+    a = list_truncate(a, list_length(b));
+
+    // Intersect corresponding bitmapsets from both lists
+    ListCell *lca, *lcb;
+    forboth(lca, a, lcb, b) {
+        Bitmapset *bmsa = lfirst_node(Bitmapset, lca);
+        const Bitmapset *bmsb = lfirst_node(Bitmapset, lcb);
+
+        // Perform intersection on individual bitmapsets
+        bmsa = bms_int_members(bmsa, bmsb);
+        lfirst(lca) = bmsa;
+    }
+
+    return a;
+}
+```

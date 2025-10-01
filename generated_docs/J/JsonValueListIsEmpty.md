@@ -32,3 +32,12 @@ The function efficiently determines emptiness by checking the two fields that de
 - Used for error handling and conditional execution paths in JSON path operations
 - Part of the JSON path expression evaluation system in PostgreSQL
 - The function helps distinguish between empty results and results with actual values
+
+## Simplified Source
+
+```c
+static bool JsonValueListIsEmpty(JsonValueList *jvl) {
+    // Check if both singleton value and list are empty
+    return !jvl->singleton && (jvl->list == NIL);
+}
+```

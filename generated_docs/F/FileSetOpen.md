@@ -43,3 +43,22 @@ This function is essential for scenarios where temporary files need to survive a
 - The function assumes the file exists and the directory structure is already in place
 - No error handling for missing files is shown in this function - [error](../e/error.md) handling is delegated to PathNameOpenTemporaryFile
 - Essential for the FileSet's multi-access capability, allowing files to be closed and reopened as needed
+
+## Simplified Source
+
+```c
+File
+FileSetOpen(FileSet *fileset, const char *name, int mode)
+{
+    char path[MAXPGPATH];
+    File file;
+
+    // Construct full file path
+    FilePath(path, fileset, name);
+
+    // Open the temporary file at the constructed path
+    file = PathNameOpenTemporaryFile(path, mode);
+
+    return file;
+}
+```

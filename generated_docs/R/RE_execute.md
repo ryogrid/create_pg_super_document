@@ -40,3 +40,23 @@ The function manages memory allocation for the character conversion process, ens
 - Handles memory allocation and cleanup for the character conversion process
 - Returns boolean result: true for match, false for no match
 - The converted wide character data is automatically freed after matching
+
+## Simplified Source
+
+```c
+static bool
+RE_execute(regex_t *re, char *dat, int dat_len,
+           int nmatch, regmatch_t *pmatch)
+{
+    // Convert database encoding to wide characters for regex engine
+    pg_wchar *data = (pg_wchar *) palloc((dat_len + 1) * sizeof(pg_wchar));
+    int data_len = pg_mb2wchar_with_len(dat, data, dat_len);
+
+    // Execute the regex match using wide character engine
+    bool match = RE_wchar_execute(re, data, data_len, 0, nmatch, pmatch);
+
+    // Clean up allocated memory
+    pfree(data);
+    return match;
+}
+```

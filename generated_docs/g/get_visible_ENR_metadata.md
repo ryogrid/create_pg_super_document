@@ -31,3 +31,28 @@ This function searches for an ephemeral named relation with the specified name i
 - The function includes an assertion that refname must not be NULL
 - Returns a pointer to the metadata structure within the ENR, not a copy
 - This is a read-only operation that doesn't modify the query environment
+
+## Simplified Source
+
+```c
+EphemeralNamedRelationMetadata
+get_visible_ENR_metadata(QueryEnvironment *queryEnv, const char *refname)
+{
+    EphemeralNamedRelation enr;
+
+    Assert(refname != NULL);
+
+    // No query environment means no ENRs available
+    if (queryEnv == NULL)
+        return NULL;
+
+    // Look up the ENR by name
+    enr = get_ENR(queryEnv, refname);
+
+    // Return metadata if ENR exists, NULL otherwise
+    if (enr)
+        return &(enr->md);
+
+    return NULL;
+}
+```

@@ -46,3 +46,33 @@ Key features:
 - Essential for reconstructing queries with table sampling for query plan display and rule definitions
 - REPEATABLE clause ensures deterministic sampling results when the same seed is used
 - Must appear after table aliases in FROM clause syntax according to SQL standard
+
+## Simplified Source
+
+```c
+static void get_tablesample_def(TableSampleClause *tablesample, deparse_context *context) {
+    StringInfo buf = context->buf;
+    Oid argtypes[1] = {INTERNALOID};
+    int nargs = 0;
+
+    // Generate qualified function name for the sampling method
+    appendStringInfo(buf, " TABLESAMPLE %s (",
+                    generate_function_name(tablesample->tsmhandler, 1,
+                                          NIL, argtypes, false, NULL, false));
+
+    // Add sampling method arguments (e.g., percentage, row count)
+    foreach(l, tablesample->args) {
+        if (nargs++ > 0)
+            appendStringInfoString(buf, ", ");
+        get_rule_expr((Node *) lfirst(l), context, false);
+    }
+    appendStringInfoChar(buf, ')');
+
+    // Add optional REPEATABLE clause for deterministic sampling
+    if (tablesample->repeatable != NULL) {
+        appendStringInfoString(buf, " REPEATABLE (");
+        get_rule_expr((Node *) tablesample->repeatable, context, false);
+        appendStringInfoChar(buf, ')');
+    }
+}
+```

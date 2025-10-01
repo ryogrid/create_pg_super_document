@@ -56,3 +56,44 @@ For finite numbers, the function converts the input numerics to internal Numeric
 - Memory management is handled through NumericVar lifecycle functions
 - Location: 
 - Part of PostgreSQL's internal numeric arithmetic implementation with enhanced error control
+
+## Simplified Source
+
+```c
+Numeric
+numeric_sub_opt_error(Numeric num1, Numeric num2, bool *have_error)
+{
+    // Handle special values (NaN, infinity)
+    if (NUMERIC_IS_SPECIAL(num1) || NUMERIC_IS_SPECIAL(num2)) {
+        if (NUMERIC_IS_NAN(num1) || NUMERIC_IS_NAN(num2))
+            return make_result(&const_nan);
+
+        // Infinity subtraction rules
+        if (NUMERIC_IS_PINF(num1))
+            return NUMERIC_IS_PINF(num2) ? make_result(&const_nan) :  // Inf - Inf = NaN
+                                           make_result(&const_pinf);  // Inf - finite = Inf
+
+        if (NUMERIC_IS_NINF(num1))
+            return NUMERIC_IS_NINF(num2) ? make_result(&const_nan) :  // -Inf - (-Inf) = NaN
+                                           make_result(&const_ninf);  // -Inf - finite = -Inf
+
+        // finite - Inf = -Inf, finite - (-Inf) = Inf
+        return NUMERIC_IS_PINF(num2) ? make_result(&const_ninf) :
+                                       make_result(&const_pinf);
+    }
+
+    // Convert to internal format and perform subtraction
+    NumericVar arg1, arg2, result;
+    init_var_from_num(num1, &arg1);
+    init_var_from_num(num2, &arg2);
+    init_var(&result);
+
+    sub_var(&arg1, &arg2, &result);
+
+    // Convert back to external format
+    Numeric res = make_result_opt_error(&result, have_error);
+    free_var(&result);
+
+    return res;
+}
+```

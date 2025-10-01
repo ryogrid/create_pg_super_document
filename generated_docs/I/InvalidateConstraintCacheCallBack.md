@@ -45,3 +45,34 @@ The function is designed to handle high-traffic scenarios like pg_dump restores 
 - Marks entries invalid rather than deleting them to ensure thread safety with active references
 - Part of PostgreSQL's sophisticated cache management system for referential integrity
 - Located in src/backend/utils/adt/ri_triggers.c:2228-2268
+
+## Simplified Source
+
+```c
+static void
+InvalidateConstraintCacheCallBack(Datum arg, int cacheid, uint32 hashvalue)
+{
+    dlist_mutable_iter iter;
+
+    // Performance optimization: if too many valid entries, invalidate all
+    if (dclist_count(&ri_constraint_cache_valid_list) > 1000)
+        hashvalue = 0; // Force full cache reset
+
+    // Iterate through valid constraint cache entries
+    dclist_foreach_modify(iter, &ri_constraint_cache_valid_list)
+    {
+        RI_ConstraintInfo *riinfo = dclist_container(RI_ConstraintInfo,
+                                                     valid_link, iter.cur);
+
+        // Invalidate matching entries (direct match or child constraints)
+        if (hashvalue == 0 ||
+            riinfo->oidHashValue == hashvalue ||
+            riinfo->rootHashValue == hashvalue)
+        {
+            riinfo->valid = false;
+            // Remove from valid list for cleanup
+            dclist_delete_from(&ri_constraint_cache_valid_list, iter.cur);
+        }
+    }
+}
+```

@@ -66,3 +66,53 @@ The function is designed to handle complex scenarios including outer joins where
 - The result list is ordered to match the pathkeys as required for execution
 - Can handle non-canonical ordering of pathkeys for the inner side, which may occur in complex join scenarios
 - Designed to work with equivalence-class processing that removes redundant mergeclauses in simple inner-join cases
+
+## Simplified Source
+
+```c
+List *find_mergeclauses_for_outer_pathkeys(PlannerInfo *root,
+                                          List *pathkeys,
+                                          List *restrictinfos)
+{
+    List *mergeclauses = NIL;
+
+    // Ensure equivalence classes are cached in all clauses
+    foreach(i, restrictinfos)
+    {
+        RestrictInfo *rinfo = (RestrictInfo *) lfirst(i);
+        update_mergeclause_eclasses(root, rinfo);
+    }
+
+    // Process each pathkey to find matching mergeclauses
+    foreach(i, pathkeys)
+    {
+        PathKey *pathkey = (PathKey *) lfirst(i);
+        EquivalenceClass *pathkey_ec = pathkey->pk_eclass;
+        List *matched_restrictinfos = NIL;
+
+        // Find all clauses that match this pathkey's equivalence class
+        foreach(j, restrictinfos)
+        {
+            RestrictInfo *rinfo = (RestrictInfo *) lfirst(j);
+            EquivalenceClass *clause_ec;
+
+            // Get the outer side's equivalence class
+            clause_ec = rinfo->outer_is_left ?
+                rinfo->left_ec : rinfo->right_ec;
+
+            // Match clause EC with pathkey EC
+            if (clause_ec == pathkey_ec)
+                matched_restrictinfos = lappend(matched_restrictinfos, rinfo);
+        }
+
+        // Stop if no mergeclause found for this pathkey
+        if (matched_restrictinfos == NIL)
+            break;
+
+        // Add matched clauses to result list
+        mergeclauses = list_concat(mergeclauses, matched_restrictinfos);
+    }
+
+    return mergeclauses;
+}
+```

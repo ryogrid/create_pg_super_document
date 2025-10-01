@@ -39,3 +39,82 @@ This function constructs the essential column mapping infrastructure needed for 
 - Validates type and collation compatibility between matching parent-child columns
 - Creates a reverse-translation array with 1-based indexing (0 means no match)
 - Properly handles dropped columns by inserting NULL entries in the translation list
+
+## Simplified Source
+
+```c
+static void
+make_inh_translation_list(Relation oldrelation, Relation newrelation,
+                          Index newvarno, AppendRelInfo *appinfo)
+{
+    List *vars = NIL;
+    AttrNumber *pcolnos;
+    TupleDesc old_tupdesc = RelationGetDescr(oldrelation);
+    TupleDesc new_tupdesc = RelationGetDescr(newrelation);
+    Oid new_relid = RelationGetRelid(newrelation);
+    int oldnatts = old_tupdesc->natts;
+    int newnatts = new_tupdesc->natts;
+    int old_attno, new_attno = 0;
+
+    // Initialize reverse-translation array
+    appinfo->num_child_cols = newnatts;
+    appinfo->parent_colnos = pcolnos = (AttrNumber *) palloc0(newnatts * sizeof(AttrNumber));
+
+    // Process each parent column
+    for (old_attno = 0; old_attno < oldnatts; old_attno++) {
+        Form_pg_attribute att = TupleDescAttr(old_tupdesc, old_attno);
+
+        if (att->attisdropped) {
+            // Add NULL for dropped columns
+            vars = lappend(vars, NULL);
+            continue;
+        }
+
+        char *attname = NameStr(att->attname);
+        Oid atttypid = att->atttypid;
+        int32 atttypmod = att->atttypmod;
+        Oid attcollation = att->attcollation;
+
+        // Handle self-inheritance case
+        if (oldrelation == newrelation) {
+            vars = lappend(vars, makeVar(newvarno, (AttrNumber) (old_attno + 1),
+                                        atttypid, atttypmod, attcollation, 0));
+            pcolnos[old_attno] = old_attno + 1;
+            continue;
+        }
+
+        // Find matching column in child relation
+        if (new_attno >= newnatts ||
+            (att = TupleDescAttr(new_tupdesc, new_attno))->attisdropped ||
+            strcmp(attname, NameStr(att->attname)) != 0) {
+            // Look up by name in system catalog
+            HeapTuple newtup = SearchSysCacheAttName(new_relid, attname);
+            if (!HeapTupleIsValid(newtup)) {
+                elog(ERROR, "could not find inherited attribute \"%s\" of relation \"%s\"",
+                     attname, RelationGetRelationName(newrelation));
+            }
+            new_attno = ((Form_pg_attribute) GETSTRUCT(newtup))->attnum - 1;
+            ReleaseSysCache(newtup);
+            att = TupleDescAttr(new_tupdesc, new_attno);
+        }
+
+        // Validate type and collation compatibility
+        if (atttypid != att->atttypid || atttypmod != att->atttypmod) {
+            elog(ERROR, "attribute \"%s\" of relation \"%s\" does not match parent's type",
+                 attname, RelationGetRelationName(newrelation));
+        }
+        if (attcollation != att->attcollation) {
+            elog(ERROR, "attribute \"%s\" of relation \"%s\" does not match parent's collation",
+                 attname, RelationGetRelationName(newrelation));
+        }
+
+        // Create translation Var and update reverse mapping
+        vars = lappend(vars, makeVar(newvarno, (AttrNumber) (new_attno + 1),
+                                    atttypid, atttypmod, attcollation, 0));
+        pcolnos[new_attno] = old_attno + 1;
+        new_attno++;
+    }
+
+    appinfo->translated_vars = vars;
+}
+```

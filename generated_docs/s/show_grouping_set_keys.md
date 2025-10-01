@@ -52,3 +52,84 @@ This function displays the specific grouping keys for individual grouping sets w
 - Error handling is provided for cases where expected target list entries are missing
 - This is a static function, only accessible within the explain.c compilation unit
 - The function supports both text and structured output formats through the ExplainState formatting system
+
+## Simplified Source
+
+```c
+static void
+show_grouping_set_keys(PlanState *planstate,
+                       Agg *aggnode, Sort *sortnode,
+                       List *context, bool useprefix,
+                       List *ancestors, ExplainState *es)
+{
+    Plan *plan = planstate->plan;
+    char *exprstr;
+    ListCell *lc;
+    List *gsets = aggnode->groupingSets;
+    AttrNumber *keycols = aggnode->grpColIdx;
+
+    // Choose key names based on aggregation strategy
+    const char *keyname, *keysetname;
+    if (aggnode->aggstrategy == AGG_HASHED || aggnode->aggstrategy == AGG_MIXED)
+    {
+        keyname = "Hash Key";
+        keysetname = "Hash Keys";
+    }
+    else
+    {
+        keyname = "Group Key";
+        keysetname = "Group Keys";
+    }
+
+    ExplainOpenGroup("Grouping Set", NULL, true, es);
+
+    // Show sort keys if present
+    if (sortnode)
+    {
+        show_sort_group_keys(planstate, "Sort Key",
+                             sortnode->numCols, 0, sortnode->sortColIdx,
+                             sortnode->sortOperators, sortnode->collations,
+                             sortnode->nullsFirst, ancestors, es);
+        if (es->format == EXPLAIN_FORMAT_TEXT)
+            es->indent++;
+    }
+
+    ExplainOpenGroup(keysetname, keysetname, false, es);
+
+    // Process each grouping set
+    foreach(lc, gsets)
+    {
+        List *result = NIL;
+        ListCell *lc2;
+
+        // Build expression list for this grouping set
+        foreach(lc2, (List *) lfirst(lc))
+        {
+            Index i = lfirst_int(lc2);
+            AttrNumber keyresno = keycols[i];
+            TargetEntry *target = get_tle_by_resno(plan->targetlist, keyresno);
+
+            if (!target)
+                elog(ERROR, "no tlist entry for key %d", keyresno);
+
+            // Convert expression to string with top-level cast info
+            exprstr = deparse_expression((Node *) target->expr, context,
+                                         useprefix, true);
+            result = lappend(result, exprstr);
+        }
+
+        // Display the grouping set (empty sets show as "()")
+        if (!result && es->format == EXPLAIN_FORMAT_TEXT)
+            ExplainPropertyText(keyname, "()", es);
+        else
+            ExplainPropertyListNested(keyname, result, es);
+    }
+
+    ExplainCloseGroup(keysetname, keysetname, false, es);
+
+    if (sortnode && es->format == EXPLAIN_FORMAT_TEXT)
+        es->indent--;
+
+    ExplainCloseGroup("Grouping Set", NULL, true, es);
+}
+```

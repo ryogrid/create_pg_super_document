@@ -56,3 +56,90 @@ For each non-dropped attribute in the parent relation, the function:
 - Uses RowExclusiveLock on pg_attribute catalog for safe concurrent access
 - Future consideration mentioned for auto-creating missing columns like CREATE TABLE, but currently rejected as a 'foot-gun' for partitioned tables
 - All attribute modifications are transactional and will rollback if the operation fails later
+
+## Simplified Source
+
+```c
+static void
+MergeAttributesIntoExisting(Relation child_rel, Relation parent_rel, bool ispartition)
+{
+    Relation attrrel;
+    TupleDesc parent_desc;
+
+    attrrel = table_open(AttributeRelationId, RowExclusiveLock);
+    parent_desc = RelationGetDescr(parent_rel);
+
+    // Check each parent attribute exists in child with matching properties
+    for (AttrNumber parent_attno = 1; parent_attno <= parent_desc->natts; parent_attno++)
+    {
+        Form_pg_attribute parent_att = TupleDescAttr(parent_desc, parent_attno - 1);
+        char *parent_attname = NameStr(parent_att->attname);
+        HeapTuple tuple;
+
+        // Skip dropped columns
+        if (parent_att->attisdropped)
+            continue;
+
+        // Find matching column in child
+        tuple = SearchSysCacheCopyAttName(RelationGetRelid(child_rel), parent_attname);
+        if (HeapTupleIsValid(tuple))
+        {
+            Form_pg_attribute child_att = (Form_pg_attribute) GETSTRUCT(tuple);
+
+            // Validate type compatibility
+            if (parent_att->atttypid != child_att->atttypid ||
+                parent_att->atttypmod != child_att->atttypmod)
+                ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                               errmsg("child table \"%s\" has different type for column \"%s\"",
+                                      RelationGetRelationName(child_rel), parent_attname)));
+
+            // Validate collation compatibility
+            if (parent_att->attcollation != child_att->attcollation)
+                ereport(ERROR, (errcode(ERRCODE_COLLATION_MISMATCH),
+                               errmsg("child table \"%s\" has different collation for column \"%s\"",
+                                      RelationGetRelationName(child_rel), parent_attname)));
+
+            // Check NOT NULL constraint preservation
+            if (parent_att->attnotnull && !child_att->attnotnull)
+                ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                               errmsg("column \"%s\" in child table must be marked NOT NULL",
+                                      parent_attname)));
+
+            // Validate generated column consistency
+            if (parent_att->attgenerated && !child_att->attgenerated)
+                ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                               errmsg("column \"%s\" in child table must be a generated column", parent_attname)));
+            if (child_att->attgenerated && !parent_att->attgenerated)
+                ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                               errmsg("column \"%s\" in child table must not be a generated column", parent_attname)));
+
+            // Handle partition-specific inheritance
+            if (ispartition)
+                child_att->attidentity = parent_att->attidentity;
+
+            // Increment inheritance count
+            child_att->attinhcount++;
+            if (child_att->attinhcount < 0)
+                ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                               errmsg("too many inheritance parents")));
+
+            // Set partition inheritance properties
+            if (parent_rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE)
+            {
+                Assert(child_att->attinhcount == 1);
+                child_att->attislocal = false;
+            }
+
+            CatalogTupleUpdate(attrrel, &tuple->t_self, tuple);
+            heap_freetuple(tuple);
+        }
+        else
+        {
+            ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                           errmsg("child table is missing column \"%s\"", parent_attname)));
+        }
+    }
+
+    table_close(attrrel, RowExclusiveLock);
+}
+```

@@ -36,3 +36,21 @@ The setBaseObject function manages the base object context during JSONPath execu
 - The base object context is crucial for implementing JSONPath methods that need access to parent container information
 - Part of the state management system for complex JSONPath operations that require contextual information about containing objects
 - Used in conjunction with operations that may need to restore the previous base object state
+
+## Simplified Source
+
+```c
+static JsonBaseObjectInfo
+setBaseObject(JsonPathExecContext *cxt, JsonbValue *jbv, int32 id)
+{
+    // Save current base object info for restoration
+    JsonBaseObjectInfo previous_base = cxt->baseObject;
+
+    // Set new base object - extract container from binary values
+    cxt->baseObject.jbc = (jbv->type != jbvBinary) ? NULL :
+                          (JsonbContainer *) jbv->val.binary.data;
+    cxt->baseObject.id = id;
+
+    return previous_base;
+}
+```

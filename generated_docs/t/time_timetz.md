@@ -43,3 +43,29 @@ This function performs a conversion from a plain time data type to a time with t
 - Located in src/backend/utils/adt/date.c alongside other date/time conversion functions
 - The function follows PostgreSQL's standard function interface using PG_FUNCTION_ARGS
 - Timezone offset calculation takes into account daylight saving time rules when applicable
+
+## Simplified Source
+
+```c
+Datum time_timetz(PG_FUNCTION_ARGS) {
+    TimeADT time = PG_GETARG_TIMEADT(0);
+    TimeTzADT *result;
+    struct pg_tm tt, *tm = &tt;
+    fsec_t fsec;
+    int tz;
+
+    // Get current datetime context for timezone calculation
+    GetCurrentDateTime(tm);
+    time2tm(time, tm, &fsec);
+
+    // Determine timezone offset based on session timezone
+    tz = DetermineTimeZoneOffset(tm, session_timezone);
+
+    // Create result with original time plus timezone offset
+    result = (TimeTzADT *) palloc(sizeof(TimeTzADT));
+    result->time = time;
+    result->zone = tz;
+
+    PG_RETURN_TIMETZADT_P(result);
+}
+```

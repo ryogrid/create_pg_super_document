@@ -45,3 +45,54 @@ The process involves creating a dedicated memory context, copying the plan struc
 - Uses memory context reparenting to efficiently transfer cached plan sources
 - Essential for implementing SPI plan persistence across multiple operations
 - The unlinking of the plan cache from the temporary plan prevents memory management issues
+
+## Simplified Source
+
+```c
+static SPIPlanPtr
+_SPI_make_plan_non_temp(SPIPlanPtr plan)
+{
+    // Validate input plan
+    Assert(plan->magic == _SPI_PLAN_MAGIC);
+    Assert(plan->plancxt == NULL);
+    Assert(!plan->oneshot);
+
+    // Create persistent memory context for the plan
+    MemoryContext parentcxt = _SPI_current->procCxt;
+    MemoryContext plancxt = AllocSetContextCreate(parentcxt, "SPI Plan", ALLOCSET_SMALL_SIZES);
+    MemoryContext oldcxt = MemoryContextSwitchTo(plancxt);
+
+    // Copy plan structure to new context
+    SPIPlanPtr newplan = (SPIPlanPtr) palloc0(sizeof(_SPI_plan));
+    newplan->magic = _SPI_PLAN_MAGIC;
+    newplan->plancxt = plancxt;
+    newplan->parse_mode = plan->parse_mode;
+    newplan->cursor_options = plan->cursor_options;
+    newplan->nargs = plan->nargs;
+
+    // Copy argument types if present
+    if (plan->nargs > 0) {
+        newplan->argtypes = (Oid *) palloc(plan->nargs * sizeof(Oid));
+        memcpy(newplan->argtypes, plan->argtypes, plan->nargs * sizeof(Oid));
+    }
+
+    newplan->parserSetup = plan->parserSetup;
+    newplan->parserSetupArg = plan->parserSetupArg;
+
+    // Transfer cached plan sources to new context
+    ListCell *lc;
+    foreach(lc, plan->plancache_list)
+    {
+        CachedPlanSource *plansource = (CachedPlanSource *) lfirst(lc);
+        CachedPlanSetParentContext(plansource, parentcxt);
+        newplan->plancache_list = lappend(newplan->plancache_list, plansource);
+    }
+
+    MemoryContextSwitchTo(oldcxt);
+
+    // Unlink from temporary plan to prevent double-free
+    plan->plancache_list = NIL;
+
+    return newplan;
+}
+```

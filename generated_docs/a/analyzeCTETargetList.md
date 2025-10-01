@@ -49,3 +49,70 @@ The function is called at different stages depending on CTE type:
 - Preserves existing collations even when converting UNKNOWN to TEXT
 - Validates that enough columns are available to satisfy all specified aliases
 - Skips junk entries in the target list during processing
+
+## Simplified Source
+
+```c
+void
+analyzeCTETargetList(ParseState *pstate, CommonTableExpr *cte, List *tlist)
+{
+    int numaliases;
+    int varattno;
+    ListCell *tlistitem;
+
+    // Initialize CTE column metadata
+    cte->ctecolnames = copyObject(cte->aliascolnames);
+    cte->ctecoltypes = cte->ctecoltypmods = cte->ctecolcollations = NIL;
+    numaliases = list_length(cte->aliascolnames);
+    varattno = 0;
+
+    // Process each target list entry
+    foreach(tlistitem, tlist)
+    {
+        TargetEntry *te = (TargetEntry *) lfirst(tlistitem);
+        Oid coltype;
+        int32 coltypmod;
+        Oid colcoll;
+
+        // Skip junk entries
+        if (te->resjunk)
+            continue;
+
+        varattno++;
+
+        // Add column name if beyond alias count
+        if (varattno > numaliases)
+        {
+            char *attrname = pstrdup(te->resname);
+            cte->ctecolnames = lappend(cte->ctecolnames, makeString(attrname));
+        }
+
+        // Extract type information
+        coltype = exprType((Node *) te->expr);
+        coltypmod = exprTypmod((Node *) te->expr);
+        colcoll = exprCollation((Node *) te->expr);
+
+        // For recursive CTEs, convert UNKNOWN to TEXT
+        if (cte->cterecursive && coltype == UNKNOWNOID)
+        {
+            coltype = TEXTOID;
+            coltypmod = -1;
+            if (!OidIsValid(colcoll))
+                colcoll = DEFAULT_COLLATION_OID;
+        }
+
+        // Store type information
+        cte->ctecoltypes = lappend_oid(cte->ctecoltypes, coltype);
+        cte->ctecoltypmods = lappend_int(cte->ctecoltypmods, coltypmod);
+        cte->ctecolcollations = lappend_oid(cte->ctecolcollations, colcoll);
+    }
+
+    // Validate column count
+    if (varattno < numaliases)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_COLUMN_REFERENCE),
+                 errmsg("WITH query \"%s\" has %d columns available but %d columns specified",
+                        cte->ctename, varattno, numaliases),
+                 parser_errposition(pstate, cte->location)));
+}
+```

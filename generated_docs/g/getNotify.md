@@ -48,3 +48,64 @@ The function allocates memory for the entire notification structure in a single 
 - Applications retrieve notifications using PQnotifies() function
 - Entry assumes 'A' message type and length have already been consumed
 - Temporary copy of channel name is needed since workBuffer is reused for payload reading
+
+## Simplified Source
+
+```c
+static int
+getNotify(PGconn *conn)
+{
+    int backend_pid;
+    char *channel_name;
+    int name_len, payload_len;
+    PGnotify *newNotify;
+
+    // Read backend process ID
+    if (pqGetInt(&backend_pid, 4, conn))
+        return EOF;
+
+    // Read channel name
+    if (pqGets(&conn->workBuffer, conn))
+        return EOF;
+
+    // Save channel name (workBuffer will be reused for payload)
+    channel_name = strdup(conn->workBuffer.data);
+    if (!channel_name)
+        return EOF;
+
+    // Read payload data
+    if (pqGets(&conn->workBuffer, conn))
+    {
+        free(channel_name);
+        return EOF;
+    }
+
+    // Calculate memory needed for notification structure + strings
+    name_len = strlen(channel_name);
+    payload_len = strlen(conn->workBuffer.data);
+    newNotify = (PGnotify *) malloc(sizeof(PGnotify) + name_len + payload_len + 2);
+
+    if (newNotify)
+    {
+        // Set up string storage immediately after the PGnotify structure
+        newNotify->relname = (char *) newNotify + sizeof(PGnotify);
+        strcpy(newNotify->relname, channel_name);
+
+        newNotify->extra = newNotify->relname + name_len + 1;
+        strcpy(newNotify->extra, conn->workBuffer.data);
+
+        newNotify->be_pid = backend_pid;
+        newNotify->next = NULL;
+
+        // Add to notification queue (FIFO order)
+        if (conn->notifyTail)
+            conn->notifyTail->next = newNotify;
+        else
+            conn->notifyHead = newNotify;
+        conn->notifyTail = newNotify;
+    }
+
+    free(channel_name);
+    return 0;
+}
+```

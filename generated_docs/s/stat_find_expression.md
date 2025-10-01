@@ -36,3 +36,28 @@ This static function performs a linear search through a statistics object's expr
 - Part of the infrastructure for matching query expressions to available statistics
 - Linear search implementation suitable for typical small expression lists in statistics objects
 - Located in src/backend/statistics/extended_stats.c:1141-1167
+
+## Simplified Source
+
+```c
+static int
+stat_find_expression(StatisticExtInfo *stat, Node *expr)
+{
+    ListCell *lc;
+    int idx;
+
+    // Linear search through the statistics object's expression list
+    idx = 0;
+    foreach(lc, stat->exprs) {
+        Node *stat_expr = (Node *) lfirst(lc);
+
+        // Use deep structural comparison to match expressions
+        if (equal(stat_expr, expr))
+            return idx;
+        idx++;
+    }
+
+    // Expression not found in statistics object
+    return -1;
+}
+```

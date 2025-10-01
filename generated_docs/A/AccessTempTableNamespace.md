@@ -42,3 +42,21 @@ The function implements a lazy creation strategy - the temporary namespace is on
 - Uses the global myTempNamespace variable to track the current temporary namespace OID
 - Part of PostgreSQL's temporary table namespace management system
 - The force parameter is typically used when the system needs to guarantee namespace availability for pending operations
+
+## Simplified Source
+
+```c
+static void
+AccessTempTableNamespace(bool force)
+{
+    // Mark that temp namespace is accessed in this transaction
+    MyXactFlags |= XACT_FLAGS_ACCESSEDTEMPNAMESPACE;
+
+    // If namespace already exists and force is not required, we're done
+    if (!force && OidIsValid(myTempNamespace))
+        return;
+
+    // Create the temporary namespace if needed
+    InitTempTableNamespace();
+}
+```

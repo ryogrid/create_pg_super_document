@@ -49,3 +49,84 @@ The function implements an efficient approach by avoiding data copying - instead
 - Critical component in the query result processing pipeline, bridging protocol parsing and result construction
 - Error handling includes memory cleanup and maintains protocol synchronization
 - Works in conjunction with getRowDescriptions to provide complete result set processing
+
+## Simplified Source
+
+```c
+static int
+getAnotherTuple(PGconn *conn, int msgLength)
+{
+    PGresult *result = conn->result;
+    int expectedFields = result->numAttributes;
+    int actualFields;
+
+    // Read and validate field count
+    if (pqGetInt(&actualFields, 2, conn))
+        goto error_insufficient_data;
+
+    if (actualFields != expectedFields)
+        goto error_field_count_mismatch;
+
+    // Ensure row buffer is large enough
+    if (expectedFields > conn->rowBufLen)
+    {
+        PGdataValue *newBuf = (PGdataValue *) realloc(conn->rowBuf,
+                                                      expectedFields * sizeof(PGdataValue));
+        if (!newBuf)
+            goto error_out_of_memory;
+
+        conn->rowBuf = newBuf;
+        conn->rowBufLen = expectedFields;
+    }
+
+    // Read each field's length and set pointer to its data
+    for (int i = 0; i < expectedFields; i++)
+    {
+        int fieldLength;
+        if (pqGetInt(&fieldLength, 4, conn))
+            goto error_insufficient_data;
+
+        conn->rowBuf[i].len = fieldLength;
+        conn->rowBuf[i].value = conn->inBuffer + conn->inCursor;
+
+        // Skip over the field data in the input buffer
+        if (fieldLength > 0)
+        {
+            if (pqSkipnchar(fieldLength, conn))
+                goto error_insufficient_data;
+        }
+    }
+
+    // Process the complete row
+    const char *errmsg;
+    if (pqRowProcessor(conn, &errmsg))
+        return 0;  // Success
+
+    // Handle processing error
+    pqClearAsyncResult(conn);
+    appendPQExpBuffer(&conn->errorMessage, "%s\n",
+                     errmsg ? errmsg : libpq_gettext("out of memory for query result"));
+    pqSaveErrorResult(conn);
+    conn->inCursor = conn->inStart + 5 + msgLength;
+    return 0;
+
+error_insufficient_data:
+    errmsg = libpq_gettext("insufficient data in \"D\" message");
+    goto advance_and_error;
+
+error_field_count_mismatch:
+    errmsg = libpq_gettext("unexpected field count in \"D\" message");
+    goto advance_and_error;
+
+error_out_of_memory:
+    errmsg = NULL;  // Will be interpreted as "out of memory"
+
+advance_and_error:
+    pqClearAsyncResult(conn);
+    appendPQExpBuffer(&conn->errorMessage, "%s\n",
+                     errmsg ? errmsg : libpq_gettext("out of memory for query result"));
+    pqSaveErrorResult(conn);
+    conn->inCursor = conn->inStart + 5 + msgLength;
+    return 0;
+}
+```

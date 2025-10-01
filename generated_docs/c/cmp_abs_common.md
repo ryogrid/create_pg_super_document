@@ -48,3 +48,56 @@ The function handles PostgreSQL's base-NBASE representation where each 'digit' a
 - Essential building block for all numeric arithmetic operations that require magnitude comparison
 - Handles leading zeros correctly by skipping them during comparison
 - Weight-based comparison allows efficient handling of very large or very small numbers
+
+## Simplified Source
+
+```c
+static int
+cmp_abs_common(const NumericDigit *var1digits, int var1ndigits, int var1weight,
+               const NumericDigit *var2digits, int var2ndigits, int var2weight)
+{
+    int i1 = 0;
+    int i2 = 0;
+
+    // Compare digits where var1 has higher weight
+    while (var1weight > var2weight && i1 < var1ndigits) {
+        if (var1digits[i1++] != 0)
+            return 1; // var1 is larger
+        var1weight--;
+    }
+
+    // Compare digits where var2 has higher weight
+    while (var2weight > var1weight && i2 < var2ndigits) {
+        if (var2digits[i2++] != 0)
+            return -1; // var2 is larger
+        var2weight--;
+    }
+
+    // Compare aligned digits (same weight)
+    if (var1weight == var2weight) {
+        while (i1 < var1ndigits && i2 < var2ndigits) {
+            int stat = var1digits[i1++] - var2digits[i2++];
+
+            if (stat) {
+                if (stat > 0)
+                    return 1;  // var1 digit is larger
+                return -1;     // var2 digit is larger
+            }
+        }
+    }
+
+    // Check remaining digits in var1
+    while (i1 < var1ndigits) {
+        if (var1digits[i1++] != 0)
+            return 1; // var1 has non-zero trailing digits
+    }
+
+    // Check remaining digits in var2
+    while (i2 < var2ndigits) {
+        if (var2digits[i2++] != 0)
+            return -1; // var2 has non-zero trailing digits
+    }
+
+    return 0; // Numbers are equal
+}
+```

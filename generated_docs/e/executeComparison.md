@@ -29,3 +29,14 @@ The executeComparison function serves as a comparison predicate callback in the 
 
 ## Notes and Other Information
 This function is part of the SQL/JSON path expression evaluation system in PostgreSQL. It provides a standardized interface for comparison operations while encapsulating the context management details. The function extracts the useTz flag from the execution context to handle timezone-aware datetime comparisons properly.
+
+## Simplified Source
+
+```c
+static JsonPathBool
+executeComparison(JsonPathItem *cmp, JsonbValue *lv, JsonbValue *rv, void *p) {
+    // Extract context and delegate to comparison logic
+    JsonPathExecContext *cxt = (JsonPathExecContext *) p;
+    return compareItems(cmp->type, lv, rv, cxt->useTz);
+}
+```

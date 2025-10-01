@@ -38,3 +38,29 @@ The permission verification follows PostgreSQL's standard access control model w
 - Raises appropriate access control errors if insufficient privileges are found
 - Part of the security validation process during foreign key constraint creation
 - Follows PostgreSQL's hierarchical permission model for database objects
+
+## Simplified Source
+
+```c
+static void
+checkFkeyPermissions(Relation rel, int16 *attnums, int natts)
+{
+    Oid roleid = GetUserId();
+    AclResult aclresult;
+
+    // Check table-level REFERENCES permission first
+    aclresult = pg_class_aclcheck(RelationGetRelid(rel), roleid, ACL_REFERENCES);
+    if (aclresult == ACLCHECK_OK)
+        return;
+
+    // If no table-level permission, check each column individually
+    for (int i = 0; i < natts; i++)
+    {
+        aclresult = pg_attribute_aclcheck(RelationGetRelid(rel), attnums[i],
+                                         roleid, ACL_REFERENCES);
+        if (aclresult != ACLCHECK_OK)
+            aclcheck_error(aclresult, get_relkind_objtype(rel->rd_rel->relkind),
+                          RelationGetRelationName(rel));
+    }
+}
+```

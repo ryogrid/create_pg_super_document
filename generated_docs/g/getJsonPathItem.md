@@ -41,3 +41,41 @@ This function serves as a converter that transforms jsonpath items (nodes in the
 - [Variable](../V/Variable.md) processing is handled specially - it calls getJsonPathVariable and returns early
 - Uses elog(ERROR) for unexpected jsonpath item types, which will terminate execution
 - Part of the PostgreSQL jsonpath execution engine's type conversion system
+
+## Simplified Source
+
+```c
+static void
+getJsonPathItem(JsonPathExecContext *cxt, JsonPathItem *item, JsonbValue *value)
+{
+    switch (item->type)
+    {
+        case jpiNull:
+            value->type = jbvNull;
+            break;
+
+        case jpiBool:
+            value->type = jbvBool;
+            value->val.boolean = jspGetBool(item);
+            break;
+
+        case jpiNumeric:
+            value->type = jbvNumeric;
+            value->val.numeric = jspGetNumeric(item);
+            break;
+
+        case jpiString:
+            value->type = jbvString;
+            value->val.string.val = jspGetString(item, &value->val.string.len);
+            break;
+
+        case jpiVariable:
+            // Handle variables through specialized function
+            getJsonPathVariable(cxt, item, value);
+            return;
+
+        default:
+            elog(ERROR, "unexpected jsonpath item type");
+    }
+}
+```

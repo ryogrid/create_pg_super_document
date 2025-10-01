@@ -9,10 +9,7 @@ Deserializes binary bytea data back into an in-memory MVNDistinct structure, per
 ## Definition
 
 ```c
-struct */
-	if (VARSIZE_ANY_EXHDR(data) < SizeOfHeader)
-		elog(ERROR, "invalid MVNDistinct size %zu (expected at least %zu)",
-			 VARSIZE_ANY_EXHDR(data), SizeOfHeader);
+MVNDistinct *statext_ndistinct_deserialize(bytea *data)
 ```
 ## Detailed Description
 This function converts binary data stored in PostgreSQL's bytea format back into a fully functional MVNDistinct structure. It performs extensive validation of the input data including magic number verification, type checking, size validation, and structural integrity checks to ensure the data is valid and uncorrupted.
@@ -55,3 +52,85 @@ The function includes robust error handling with detailed error messages for var
 - Includes assertions to prevent buffer overruns during deserialization
 - Must exactly match the format produced by statext_ndistinct_serialize
 - Part of PostgreSQL's type system for multivariate statistics persistence
+
+## Simplified Source
+
+```c
+MVNDistinct *statext_ndistinct_deserialize(bytea *data)
+{
+    int i;
+    Size minimum_size;
+    MVNDistinct ndist;
+    MVNDistinct *ndistinct;
+    char *tmp;
+
+    if (data == NULL)
+        return NULL;
+
+    // Validate minimum data size
+    if (VARSIZE_ANY_EXHDR(data) < SizeOfHeader)
+        elog(ERROR, "invalid MVNDistinct size %zu (expected at least %zu)",
+             VARSIZE_ANY_EXHDR(data), SizeOfHeader);
+
+    // Skip varlena header and start reading binary data
+    tmp = VARDATA_ANY(data);
+
+    // Read and validate header fields
+    memcpy(&ndist.magic, tmp, sizeof(uint32));
+    tmp += sizeof(uint32);
+    memcpy(&ndist.type, tmp, sizeof(uint32));
+    tmp += sizeof(uint32);
+    memcpy(&ndist.nitems, tmp, sizeof(uint32));
+    tmp += sizeof(uint32);
+
+    // Validate header values
+    if (ndist.magic != STATS_NDISTINCT_MAGIC)
+        elog(ERROR, "invalid ndistinct magic %08x (expected %08x)",
+             ndist.magic, STATS_NDISTINCT_MAGIC);
+    if (ndist.type != STATS_NDISTINCT_TYPE_BASIC)
+        elog(ERROR, "invalid ndistinct type %d (expected %d)",
+             ndist.type, STATS_NDISTINCT_TYPE_BASIC);
+    if (ndist.nitems == 0)
+        elog(ERROR, "invalid zero-length item array in MVNDistinct");
+
+    // Verify total data size is sufficient
+    minimum_size = MinSizeOfItems(ndist.nitems);
+    if (VARSIZE_ANY_EXHDR(data) < minimum_size)
+        elog(ERROR, "invalid MVNDistinct size %zu (expected at least %zu)",
+             VARSIZE_ANY_EXHDR(data), minimum_size);
+
+    // Allocate the main structure with space for all items
+    ndistinct = palloc0(MAXALIGN(offsetof(MVNDistinct, items)) +
+                        (ndist.nitems * sizeof(MVNDistinctItem)));
+    ndistinct->magic = ndist.magic;
+    ndistinct->type = ndist.type;
+    ndistinct->nitems = ndist.nitems;
+
+    // Deserialize each distinct item
+    for (i = 0; i < ndistinct->nitems; i++) {
+        MVNDistinctItem *item = &ndistinct->items[i];
+
+        // Read ndistinct value and number of attributes
+        memcpy(&item->ndistinct, tmp, sizeof(double));
+        tmp += sizeof(double);
+        memcpy(&item->nattributes, tmp, sizeof(int));
+        tmp += sizeof(int);
+
+        // Validate attribute count
+        Assert((item->nattributes >= 2) && (item->nattributes <= STATS_MAX_DIMENSIONS));
+
+        // Allocate and read attribute numbers
+        item->attributes = (AttrNumber *) palloc(item->nattributes * sizeof(AttrNumber));
+        memcpy(item->attributes, tmp, sizeof(AttrNumber) * item->nattributes);
+        tmp += sizeof(AttrNumber) * item->nattributes;
+
+        // Ensure we haven't read past the end
+        Assert(tmp <= ((char *) data + VARSIZE_ANY(data)));
+    }
+
+    // Verify we consumed exactly all the data
+    Assert(tmp == ((char *) data + VARSIZE_ANY(data)));
+
+    return ndistinct;
+}
+```

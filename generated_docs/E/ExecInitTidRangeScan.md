@@ -42,3 +42,49 @@ The function follows PostgreSQL's standard executor initialization pattern, ensu
 - TID range scans don't use traditional table scan descriptors but manage their own scanning mechanism
 - The function ensures all expressions and projection information are properly initialized before returning
 - The returned TidRangeScanState structure is fully configured and ready for execution
+
+## Simplified Source
+
+```c
+TidRangeScanState *
+ExecInitTidRangeScan(TidRangeScan *node, EState *estate, int eflags)
+{
+    TidRangeScanState *tidrangestate;
+    Relation currentRelation;
+
+    // Create and initialize state structure
+    tidrangestate = makeNode(TidRangeScanState);
+    tidrangestate->ss.ps.plan = (Plan *) node;
+    tidrangestate->ss.ps.state = estate;
+    tidrangestate->ss.ps.ExecProcNode = ExecTidRangeScan;
+
+    // Set up expression context
+    ExecAssignExprContext(estate, &tidrangestate->ss.ps);
+
+    // Mark scan as not started and TID range not computed
+    tidrangestate->trss_inScan = false;
+
+    // Open the relation to be scanned
+    currentRelation = ExecOpenScanRelation(estate, node->scan.scanrelid, eflags);
+    tidrangestate->ss.ss_currentRelation = currentRelation;
+    tidrangestate->ss.ss_currentScanDesc = NULL; // No table scan descriptor needed
+
+    // Initialize scan tuple slot with relation descriptor
+    ExecInitScanTupleSlot(estate, &tidrangestate->ss,
+                         RelationGetDescr(currentRelation),
+                         table_slot_callbacks(currentRelation));
+
+    // Initialize result type and projection
+    ExecInitResultTypeTL(&tidrangestate->ss.ps);
+    ExecAssignScanProjectionInfo(&tidrangestate->ss);
+
+    // Initialize qualification expressions
+    tidrangestate->ss.ps.qual =
+        ExecInitQual(node->scan.plan.qual, (PlanState *) tidrangestate);
+
+    // Create TID expression list for range evaluation
+    TidExprListCreate(tidrangestate);
+
+    return tidrangestate;
+}
+```

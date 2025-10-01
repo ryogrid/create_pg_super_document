@@ -36,3 +36,34 @@ The function automatically suppresses zero counts in text mode to avoid clutteri
 - Handles the case where nloops is zero by displaying 0.0 instead of attempting division by zero
 - Widely used throughout ExplainNode function to display filtering statistics for various plan node types
 - The two filtering counters allow tracking different types of filtering operations within the same node
+
+## Simplified Source
+
+```c
+static void
+show_instrumentation_count(const char *qlabel, int which,
+                           PlanState *planstate, ExplainState *es)
+{
+    double nfiltered;
+    double nloops;
+
+    if (!es->analyze || !planstate->instrument)
+        return;
+
+    // Select which filtering counter to use
+    if (which == 2)
+        nfiltered = planstate->instrument->nfiltered2;
+    else
+        nfiltered = planstate->instrument->nfiltered1;
+    nloops = planstate->instrument->nloops;
+
+    // Suppress zero counts in text mode, but show them in structured formats
+    if (nfiltered > 0 || es->format != EXPLAIN_FORMAT_TEXT)
+    {
+        if (nloops > 0)
+            ExplainPropertyFloat(qlabel, NULL, nfiltered / nloops, 0, es);
+        else
+            ExplainPropertyFloat(qlabel, NULL, 0.0, 0, es);
+    }
+}
+```

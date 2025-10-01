@@ -54,3 +54,112 @@ The function caches its result in the relation's cheapest_unique_path field sinc
 - The choice between sort and hash methods is made based on cost comparison when both are available
 - For subqueries, the function leverages translate_sub_tlist to map expressions to subquery output columns
 - The pathkeys of the result depend on the uniqueness method chosen (preserved for NOOP, cleared otherwise)
+
+## Simplified Source
+
+```c
+UniquePath *create_unique_path(PlannerInfo *root, RelOptInfo *rel, Path *subpath,
+                              SpecialJoinInfo *sjinfo) {
+    UniquePath *pathnode;
+    Path sort_path, agg_path;
+    MemoryContext oldcontext;
+
+    // Return cached result if available
+    if (rel->cheapest_unique_path)
+        return (UniquePath *) rel->cheapest_unique_path;
+
+    // Return NULL if uniqueness is not possible
+    if (!(sjinfo->semi_can_btree || sjinfo->semi_can_hash))
+        return NULL;
+
+    // Switch to appropriate memory context
+    oldcontext = MemoryContextSwitchTo(GetMemoryChunkContext(rel));
+
+    // Create and initialize UniquePath node
+    pathnode = makeNode(UniquePath);
+    pathnode->path.pathtype = T_Unique;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = rel->reltarget;
+    pathnode->subpath = subpath;
+    pathnode->in_operators = copyObject(sjinfo->semi_operators);
+    pathnode->uniq_exprs = copyObject(sjinfo->semi_rhs_exprs);
+
+    // Optimization 1: Check if relation already has unique index
+    if (rel->rtekind == RTE_RELATION && sjinfo->semi_can_btree &&
+        relation_has_unique_index_for(root, rel, NIL,
+                                     sjinfo->semi_rhs_exprs,
+                                     sjinfo->semi_operators)) {
+        pathnode->umethod = UNIQUE_PATH_NOOP;
+        pathnode->path.rows = rel->rows;
+        pathnode->path.startup_cost = subpath->startup_cost;
+        pathnode->path.total_cost = subpath->total_cost;
+        goto cache_and_return;
+    }
+
+    // Optimization 2: Check if subquery already guarantees uniqueness
+    if (rel->rtekind == RTE_SUBQUERY) {
+        RangeTblEntry *rte = planner_rt_fetch(rel->relid, root);
+        if (query_supports_distinctness(rte->subquery)) {
+            List *sub_tlist_colnos = translate_sub_tlist(sjinfo->semi_rhs_exprs, rel->relid);
+            if (sub_tlist_colnos &&
+                query_is_distinct_for(rte->subquery, sub_tlist_colnos, sjinfo->semi_operators)) {
+                pathnode->umethod = UNIQUE_PATH_NOOP;
+                pathnode->path.rows = rel->rows;
+                pathnode->path.startup_cost = subpath->startup_cost;
+                pathnode->path.total_cost = subpath->total_cost;
+                goto cache_and_return;
+            }
+        }
+    }
+
+    // Estimate output rows
+    pathnode->path.rows = estimate_num_groups(root, sjinfo->semi_rhs_exprs, rel->rows, NULL, NULL);
+
+    // Cost sort-based approach if possible
+    if (sjinfo->semi_can_btree) {
+        cost_sort(&sort_path, root, NIL, subpath->total_cost, rel->rows,
+                  subpath->pathtarget->width, 0.0, work_mem, -1.0);
+        sort_path.total_cost += cpu_operator_cost * rel->rows * list_length(sjinfo->semi_rhs_exprs);
+    }
+
+    // Cost hash-based approach if possible
+    if (sjinfo->semi_can_hash) {
+        int hashentrysize = subpath->pathtarget->width + 64;
+        if (hashentrysize * pathnode->path.rows > get_hash_memory_limit()) {
+            sjinfo->semi_can_hash = false;
+        } else {
+            cost_agg(&agg_path, root, AGG_HASHED, NULL,
+                     list_length(sjinfo->semi_rhs_exprs), pathnode->path.rows,
+                     NIL, subpath->startup_cost, subpath->total_cost,
+                     rel->rows, subpath->pathtarget->width);
+        }
+    }
+
+    // Choose the best method
+    if (sjinfo->semi_can_btree && sjinfo->semi_can_hash) {
+        pathnode->umethod = (agg_path.total_cost < sort_path.total_cost) ?
+                           UNIQUE_PATH_HASH : UNIQUE_PATH_SORT;
+    } else if (sjinfo->semi_can_btree) {
+        pathnode->umethod = UNIQUE_PATH_SORT;
+    } else if (sjinfo->semi_can_hash) {
+        pathnode->umethod = UNIQUE_PATH_HASH;
+    } else {
+        MemoryContextSwitchTo(oldcontext);
+        return NULL;
+    }
+
+    // Set costs based on chosen method
+    if (pathnode->umethod == UNIQUE_PATH_HASH) {
+        pathnode->path.startup_cost = agg_path.startup_cost;
+        pathnode->path.total_cost = agg_path.total_cost;
+    } else {
+        pathnode->path.startup_cost = sort_path.startup_cost;
+        pathnode->path.total_cost = sort_path.total_cost;
+    }
+
+cache_and_return:
+    rel->cheapest_unique_path = (Path *) pathnode;
+    MemoryContextSwitchTo(oldcontext);
+    return pathnode;
+}
+```

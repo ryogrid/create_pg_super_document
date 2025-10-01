@@ -43,3 +43,32 @@ This function performs a conversion from a timestamp with timezone data type to 
 - The function follows PostgreSQL's standard function interface using PG_FUNCTION_ARGS
 - Error handling includes proper error codes for datetime value out of range conditions
 - The timezone information is extracted from the timestamp itself, not from session settings
+
+## Simplified Source
+
+```c
+Datum timestamptz_timetz(PG_FUNCTION_ARGS) {
+    TimestampTz timestamp = PG_GETARG_TIMESTAMP(0);
+    TimeTzADT *result;
+    struct pg_tm tm;
+    int tz;
+    fsec_t fsec;
+
+    // Return NULL for infinite timestamps
+    if (TIMESTAMP_NOT_FINITE(timestamp))
+        PG_RETURN_NULL();
+
+    // Convert timestamp to time components with timezone
+    if (timestamp2tm(timestamp, &tz, &tm, &fsec, NULL, NULL) != 0)
+        ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                       errmsg("timestamp out of range")));
+
+    // Allocate memory for result
+    result = (TimeTzADT *) palloc(sizeof(TimeTzADT));
+
+    // Convert time components to timetz structure
+    tm2timetz(&tm, fsec, tz, result);
+
+    PG_RETURN_TIMETZADT_P(result);
+}
+```

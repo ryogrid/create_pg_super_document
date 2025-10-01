@@ -50,3 +50,24 @@ The function returns:
 - The two-level comparison ensures proper ordering semantics for time with timezone values
 - The conversion to GMT-equivalent time allows comparison of times across different timezones
 - Used as the foundation for all timetz comparison operators and functions
+
+## Simplified Source
+
+```c
+static int timetz_cmp_internal(TimeTzADT *time1, TimeTzADT *time2) {
+    TimeOffset t1, t2;
+
+    // Primary comparison: convert both times to GMT-equivalent
+    t1 = time1->time + (time1->zone * USECS_PER_SEC);
+    t2 = time2->time + (time2->zone * USECS_PER_SEC);
+
+    if (t1 > t2) return 1;
+    if (t1 < t2) return -1;
+
+    // Secondary comparison: if GMT times equal, compare timezone offsets
+    if (time1->zone > time2->zone) return 1;
+    if (time1->zone < time2->zone) return -1;
+
+    return 0;  // Both time and timezone are equal
+}
+```

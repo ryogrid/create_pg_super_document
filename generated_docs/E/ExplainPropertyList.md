@@ -54,3 +54,75 @@ The function ensures proper escaping for each format to prevent injection attack
 - The function maintains proper indentation and formatting consistency across all output modes
 - Each output format has specific escaping requirements that are properly handled
 - Used extensively throughout the explain system for displaying various types of list data like sort keys, target lists, and other array-like properties
+
+## Simplified Source
+
+```c
+void
+ExplainPropertyList(const char *qlabel, List *data, ExplainState *es)
+{
+    ListCell *lc;
+    bool first = true;
+
+    switch (es->format)
+    {
+        case EXPLAIN_FORMAT_TEXT:
+            // Text format: comma-separated list on one line
+            ExplainIndentText(es);
+            appendStringInfo(es->str, "%s: ", qlabel);
+            foreach(lc, data)
+            {
+                if (!first)
+                    appendStringInfoString(es->str, ", ");
+                appendStringInfoString(es->str, (const char *) lfirst(lc));
+                first = false;
+            }
+            appendStringInfoChar(es->str, '\n');
+            break;
+
+        case EXPLAIN_FORMAT_XML:
+            // XML format: wrapped in <Item> tags
+            ExplainXMLTag(qlabel, X_OPENING, es);
+            foreach(lc, data)
+            {
+                appendStringInfoSpaces(es->str, es->indent * 2 + 2);
+                appendStringInfoString(es->str, "<Item>");
+                char *str = escape_xml((const char *) lfirst(lc));
+                appendStringInfoString(es->str, str);
+                pfree(str);
+                appendStringInfoString(es->str, "</Item>\n");
+            }
+            ExplainXMLTag(qlabel, X_CLOSING, es);
+            break;
+
+        case EXPLAIN_FORMAT_JSON:
+            // JSON format: array with proper escaping
+            ExplainJSONLineEnding(es);
+            appendStringInfoSpaces(es->str, es->indent * 2);
+            escape_json(es->str, qlabel);
+            appendStringInfoString(es->str, ": [");
+            foreach(lc, data)
+            {
+                if (!first)
+                    appendStringInfoString(es->str, ", ");
+                escape_json(es->str, (const char *) lfirst(lc));
+                first = false;
+            }
+            appendStringInfoChar(es->str, ']');
+            break;
+
+        case EXPLAIN_FORMAT_YAML:
+            // YAML format: dash-separated list
+            ExplainYAMLLineStarting(es);
+            appendStringInfo(es->str, "%s: ", qlabel);
+            foreach(lc, data)
+            {
+                appendStringInfoChar(es->str, '\n');
+                appendStringInfoSpaces(es->str, es->indent * 2 + 2);
+                appendStringInfoString(es->str, "- ");
+                escape_yaml(es->str, (const char *) lfirst(lc));
+            }
+            break;
+    }
+}
+```

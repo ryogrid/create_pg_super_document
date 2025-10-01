@@ -32,3 +32,12 @@ The  function provides a simplified interface for date-to-timestamptz conversion
 - Serves as the standard interface for date-to-timestamptz conversion when overflow should be treated as an error condition
 - Essential for timezone-aware operations where precise error handling is required
 - Incorporates session timezone settings to determine appropriate UTC offset
+
+## Simplified Source
+
+```c
+static TimestampTz date2timestamptz(DateADT dateVal) {
+    // Convert date to timestamptz, throwing error on overflow
+    return date2timestamptz_opt_overflow(dateVal, NULL);
+}
+```

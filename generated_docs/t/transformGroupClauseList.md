@@ -43,3 +43,42 @@ This function processes a list of expressions that belong to a single GROUP BY c
 - Returns NIL if no valid references are found
 - The function is specifically designed to handle the duplicate elimination semantics required within individual GROUP BY clauses or grouping sets
 - Part of PostgreSQL's sophisticated GROUP BY and grouping sets implementation
+
+## Simplified Source
+
+```c
+static List *
+transformGroupClauseList(List **flatresult,
+                        ParseState *pstate, List *list,
+                        List **targetlist, List *sortClause,
+                        ParseExprKind exprKind, bool useSQL99, bool toplevel)
+{
+    Bitmapset *seen_local = NULL;
+    List *result = NIL;
+    ListCell *gl;
+
+    // Process each expression in the GROUP BY clause
+    foreach(gl, list) {
+        Node *gexpr = (Node *) lfirst(gl);
+
+        // Transform the individual expression
+        Index ref = transformGroupClauseExpr(flatresult,
+                                           seen_local,
+                                           pstate,
+                                           gexpr,
+                                           targetlist,
+                                           sortClause,
+                                           exprKind,
+                                           useSQL99,
+                                           toplevel);
+
+        // Add to result if valid reference obtained
+        if (ref > 0) {
+            seen_local = bms_add_member(seen_local, ref);
+            result = lappend_int(result, ref);
+        }
+    }
+
+    return result;
+}
+```

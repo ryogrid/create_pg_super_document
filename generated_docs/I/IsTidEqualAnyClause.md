@@ -37,3 +37,41 @@ This function determines if a RestrictInfo represents a clause of the form "CTID
 
 ## Notes and Other Information
 Unlike the other TID clause functions, this one handles the ANY operator which allows matching against multiple TID values in a single clause. It requires the useOr flag to be true (indicating OR semantics for the array elements) and specifically checks that the CTID variable is the first argument. The function uses pull_varnos to ensure the array expression doesn't reference the target relation, maintaining the pseudoconstant requirement essential for TID-based optimization.
+
+## Simplified Source
+
+```c
+static bool
+IsTidEqualAnyClause(PlannerInfo *root, RestrictInfo *rinfo, RelOptInfo *rel)
+{
+    ScalarArrayOpExpr *node;
+    Node *arg1, *arg2;
+
+    // Must be a ScalarArrayOpExpr
+    if (!(rinfo->clause && IsA(rinfo->clause, ScalarArrayOpExpr)))
+        return false;
+
+    node = (ScalarArrayOpExpr *) rinfo->clause;
+
+    // Must use TID equality operator with OR semantics
+    if (node->opno != TIDEqualOperator || !node->useOr)
+        return false;
+
+    // Extract the two arguments
+    arg1 = linitial(node->args);
+    arg2 = lsecond(node->args);
+
+    // First argument must be CTID variable for this relation
+    if (arg1 && IsA(arg1, Var) && IsCTIDVar((Var *) arg1, rel))
+    {
+        // Second argument (array) must be a pseudoconstant
+        if (bms_is_member(rel->relid, pull_varnos(root, arg2)) ||
+            contain_volatile_functions(arg2))
+            return false;
+
+        return true;
+    }
+
+    return false;
+}
+```

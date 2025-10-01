@@ -67,3 +67,81 @@ The function uses a goto-based state machine (label l5) to restart computation w
 - The goto l5 pattern allows restarting computation when lock states are simplified
 - Critical for maintaining ACID properties and proper concurrent access control
 - Handles backward compatibility with tuples upgraded by pg_upgrade
+
+## Simplified Source
+
+```c
+static void compute_new_xmax_infomask(TransactionId xmax, uint16 old_infomask,
+                                      uint16 old_infomask2, TransactionId add_to_xmax,
+                                      LockTupleMode mode, bool is_update,
+                                      TransactionId *result_xmax, uint16 *result_infomask,
+                                      uint16 *result_infomask2) {
+    uint16 new_infomask = 0, new_infomask2 = 0;
+    TransactionId new_xmax;
+
+l5: // Restart point for simplified cases
+    if (old_infomask & HEAP_XMAX_INVALID) {
+        // No previous locker - simple case
+        if (is_update) {
+            new_xmax = add_to_xmax;
+            if (mode == LockTupleExclusive)
+                new_infomask2 |= HEAP_KEYS_UPDATED;
+        } else {
+            // Lock-only operation - set appropriate lock bits
+            new_infomask |= HEAP_XMAX_LOCK_ONLY;
+            new_xmax = add_to_xmax;
+            // Set specific lock type bits based on mode
+            switch (mode) {
+                case LockTupleKeyShare:
+                    new_infomask |= HEAP_XMAX_KEYSHR_LOCK;
+                    break;
+                case LockTupleShare:
+                    new_infomask |= HEAP_XMAX_SHR_LOCK;
+                    break;
+                case LockTupleNoKeyExclusive:
+                case LockTupleExclusive:
+                    new_infomask |= HEAP_XMAX_EXCL_LOCK;
+                    if (mode == LockTupleExclusive)
+                        new_infomask2 |= HEAP_KEYS_UPDATED;
+                    break;
+            }
+        }
+    }
+    else if (old_infomask & HEAP_XMAX_IS_MULTI) {
+        // Handle existing MultiXactId
+        if (!MultiXactIdIsRunning(xmax, HEAP_XMAX_IS_LOCKED_ONLY(old_infomask))) {
+            // MultiXact no longer running - simplify to invalid and restart
+            old_infomask &= ~HEAP_XMAX_IS_MULTI;
+            old_infomask |= HEAP_XMAX_INVALID;
+            goto l5;
+        }
+        // Expand existing MultiXactId to include new transaction
+        MultiXactStatus new_status = get_mxact_status_for_lock(mode, is_update);
+        new_xmax = MultiXactIdExpand((MultiXactId) xmax, add_to_xmax, new_status);
+        GetMultiXactIdHintBits(new_xmax, &new_infomask, &new_infomask2);
+    }
+    else if (TransactionIdIsInProgress(xmax)) {
+        // Existing transaction still running - create MultiXactId
+        if (xmax == add_to_xmax) {
+            // Same transaction - optimize by taking strongest lock
+            old_infomask |= HEAP_XMAX_INVALID;
+            goto l5;
+        }
+        // Create new MultiXactId with both transactions
+        MultiXactStatus old_status = /* determine from old_infomask */;
+        MultiXactStatus new_status = get_mxact_status_for_lock(mode, is_update);
+        new_xmax = MultiXactIdCreate(xmax, old_status, add_to_xmax, new_status);
+        GetMultiXactIdHintBits(new_xmax, &new_infomask, &new_infomask2);
+    }
+    else {
+        // Previous transaction finished - treat as invalid and restart
+        old_infomask |= HEAP_XMAX_INVALID;
+        goto l5;
+    }
+
+    // Return computed values
+    *result_infomask = new_infomask;
+    *result_infomask2 = new_infomask2;
+    *result_xmax = new_xmax;
+}
+```

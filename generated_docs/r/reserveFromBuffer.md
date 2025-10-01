@@ -31,3 +31,23 @@ This static function is part of the buffer manipulation utilities used by conver
 
 ## Notes and Other Information
 The function is declared static and scoped to jsonb_util.c. It follows a reserve-then-fill pattern common in buffer management, where space allocation is separated from data copying. The preservation of StringInfo invariants (trailing null terminator) ensures compatibility with standard PostgreSQL string handling utilities. The returned offset can be used by subsequent calls to copyToBuffer() to fill the reserved space with actual data. This approach optimizes memory allocation by reducing the number of buffer resize operations during JSONB construction.
+
+## Simplified Source
+
+```c
+static int reserveFromBuffer(StringInfo buffer, int len) {
+    // Ensure buffer has enough capacity
+    enlargeStringInfo(buffer, len);
+
+    // Remember current offset for caller
+    int offset = buffer->len;
+
+    // Reserve the space by advancing length
+    buffer->len += len;
+
+    // Preserve StringInfo invariant (null terminator)
+    buffer->data[buffer->len] = '\0';
+
+    return offset;
+}
+```

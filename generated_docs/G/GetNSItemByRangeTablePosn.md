@@ -42,3 +42,28 @@ The function assumes that a matching namespace item must exist and will raise an
 - Internal error indicates a programming bug, not a user input error
 - Critical for resolving Var nodes back to their namespace context during parsing
 - The `sublevels_up` mechanism supports references to outer query levels in subqueries
+
+## Simplified Source
+
+```c
+ParseNamespaceItem *
+GetNSItemByRangeTablePosn(ParseState *pstate, int varno, int sublevels_up)
+{
+    // Navigate up the ParseState hierarchy to the target level
+    while (sublevels_up-- > 0) {
+        pstate = pstate->parentParseState;
+    }
+
+    // Search the namespace list for matching range table index
+    foreach(lc, pstate->p_namespace) {
+        ParseNamespaceItem *nsitem = (ParseNamespaceItem *) lfirst(lc);
+
+        if (nsitem->p_rtindex == varno)
+            return nsitem;
+    }
+
+    // Should never reach here - indicates parser bug
+    elog(ERROR, "nsitem not found (internal error)");
+    return NULL;
+}
+```

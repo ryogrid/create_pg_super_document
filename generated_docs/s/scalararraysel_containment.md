@@ -53,3 +53,103 @@ For inequality operators (<>), the function swaps ANY/ALL semantics and inverts 
 - Uses array element statistics (MCELEM and DECHIST) when available
 - Adjusts for null fraction in the statistics
 - Part of PostgreSQL's cost-based optimizer selectivity estimation framework
+
+## Simplified Source
+
+```c
+Selectivity
+scalararraysel_containment(PlannerInfo *root, Node *leftop, Node *rightop,
+                          Oid elemtype, bool isEquality, bool useOr, int varRelid)
+{
+    Selectivity selec;
+    VariableStatData vardata;
+    Datum constval;
+    TypeCacheEntry *typentry;
+    FmgrInfo *cmpfunc;
+
+    // Verify rightop is a variable with statistics
+    examine_variable(root, rightop, varRelid, &vardata);
+    if (!vardata.rel) {
+        ReleaseVariableStats(vardata);
+        return -1.0;
+    }
+
+    // Verify leftop is a non-null constant
+    if (!IsA(leftop, Const) || ((Const *) leftop)->constisnull) {
+        ReleaseVariableStats(vardata);
+        return (IsA(leftop, Const)) ? 0.0 : -1.0;
+    }
+    constval = ((Const *) leftop)->constvalue;
+
+    // Get element type's comparison function
+    typentry = lookup_type_cache(elemtype, TYPECACHE_CMP_PROC_FINFO);
+    if (!OidIsValid(typentry->cmp_proc_finfo.fn_oid)) {
+        ReleaseVariableStats(vardata);
+        return -1.0;
+    }
+    cmpfunc = &typentry->cmp_proc_finfo;
+
+    // For <> operator, swap ANY/ALL semantics
+    if (!isEquality)
+        useOr = !useOr;
+
+    // Use array element statistics if available
+    if (HeapTupleIsValid(vardata.statsTuple) &&
+        statistic_proc_security_check(&vardata, cmpfunc->fn_oid)) {
+
+        AttStatsSlot sslot, hslot;
+
+        // Get most-common-elements statistics
+        if (get_attstatsslot(&sslot, vardata.statsTuple, STATISTIC_KIND_MCELEM,
+                            InvalidOid, ATTSTATSSLOT_VALUES | ATTSTATSSLOT_NUMBERS)) {
+
+            // For ALL case, also get distinct-element count histogram
+            if (!useOr) {
+                get_attstatsslot(&hslot, vardata.statsTuple, STATISTIC_KIND_DECHIST,
+                               InvalidOid, ATTSTATSSLOT_NUMBERS);
+            }
+
+            // Estimate selectivity based on operation type
+            if (useOr) {
+                // = ANY: estimate as array @> ARRAY[const]
+                selec = mcelem_array_contain_overlap_selec(sslot.values, sslot.nvalues,
+                                                         sslot.numbers, sslot.nnumbers,
+                                                         &constval, 1,
+                                                         OID_ARRAY_CONTAINS_OP, typentry);
+            } else {
+                // = ALL: estimate as array <@ ARRAY[const]
+                selec = mcelem_array_contained_selec(sslot.values, sslot.nvalues,
+                                                   sslot.numbers, sslot.nnumbers,
+                                                   &constval, 1, hslot.numbers, hslot.nnumbers,
+                                                   OID_ARRAY_CONTAINED_OP, typentry);
+            }
+
+            // Adjust for null fraction
+            Form_pg_statistic stats = (Form_pg_statistic) GETSTRUCT(vardata.statsTuple);
+            selec *= (1.0 - stats->stanullfrac);
+
+            free_attstatsslot(&sslot);
+            if (!useOr) free_attstatsslot(&hslot);
+        } else {
+            // No MCE statistics - use fallback estimation
+            selec = (useOr) ?
+                mcelem_array_contain_overlap_selec(NULL, 0, NULL, 0, &constval, 1, OID_ARRAY_CONTAINS_OP, typentry) :
+                mcelem_array_contained_selec(NULL, 0, NULL, 0, &constval, 1, NULL, 0, OID_ARRAY_CONTAINED_OP, typentry);
+        }
+    } else {
+        // No statistics - use default estimation
+        selec = (useOr) ?
+            mcelem_array_contain_overlap_selec(NULL, 0, NULL, 0, &constval, 1, OID_ARRAY_CONTAINS_OP, typentry) :
+            mcelem_array_contained_selec(NULL, 0, NULL, 0, &constval, 1, NULL, 0, OID_ARRAY_CONTAINED_OP, typentry);
+    }
+
+    ReleaseVariableStats(vardata);
+
+    // For <> operator, invert the result
+    if (!isEquality)
+        selec = 1.0 - selec;
+
+    CLAMP_PROBABILITY(selec);
+    return selec;
+}
+```

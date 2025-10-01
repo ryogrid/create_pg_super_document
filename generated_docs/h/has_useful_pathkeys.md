@@ -41,3 +41,33 @@ This is designed as an early filter to avoid the computational overhead of build
 - The implementation prioritizes simplicity over completeness - more complex checks (like verifying if join clauses are actually mergejoinable) were deliberately omitted as the performance benefit wouldn't justify the additional computational cost
 - The function is particularly valuable for optimizing simple queries without joins or sorting requirements, which are reasonably common in practice
 - Located in src/backend/optimizer/path/pathkeys.c:2258-2267
+
+## Simplified Source
+
+This function is already quite simple, but here's the core logic with clearer comments:
+
+```c
+bool has_useful_pathkeys(PlannerInfo *root, RelOptInfo *rel)
+{
+    // Check if pathkeys could help with joins (merge joins)
+    if (rel->joininfo != NIL || rel->has_eclass_joins)
+        return true;
+
+    // Check if pathkeys could help with grouping (GROUP BY)
+    if (root->group_pathkeys != NIL)
+        return true;
+
+    // Check if pathkeys could help with ordering (ORDER BY)
+    if (root->query_pathkeys != NIL)
+        return true;
+
+    // No potential benefit found
+    return false;
+}
+```
+
+**Key simplifications made:**
+- Added clearer comments explaining each check's purpose
+- Maintained the exact same logic flow and efficiency
+- Function was already well-optimized, so minimal changes were needed
+- The original extensive header comment was preserved in the documentation above

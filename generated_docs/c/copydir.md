@@ -48,3 +48,60 @@ The function implements platform-aware optimizations and handles interrupts grac
 - Platform-specific behavior controlled by  setting
 - Used extensively in database management operations where atomic directory copying with integrity guarantees is essential
 - The two-pass fsync approach (files first, then directory) ensures proper ordering of filesystem operations for crash safety
+
+## Simplified Source
+
+```c
+void
+copydir(const char *fromdir, const char *todir, bool recurse)
+{
+    DIR *xldir;
+    struct dirent *xlde;
+    char fromfile[MAXPGPATH * 2];
+    char tofile[MAXPGPATH * 2];
+
+    // Create destination directory
+    if (MakePGDirectory(todir) != 0)
+        ereport(ERROR, "could not create directory");
+
+    // Copy all files and subdirectories
+    xldir = AllocateDir(fromdir);
+    while ((xlde = ReadDir(xldir, fromdir)) != NULL) {
+        CHECK_FOR_INTERRUPTS();
+
+        if (strcmp(xlde->d_name, ".") == 0 || strcmp(xlde->d_name, "..") == 0)
+            continue;
+
+        snprintf(fromfile, sizeof(fromfile), "%s/%s", fromdir, xlde->d_name);
+        snprintf(tofile, sizeof(tofile), "%s/%s", todir, xlde->d_name);
+
+        PGFileType xlde_type = get_dirent_type(fromfile, xlde, false, ERROR);
+
+        if (xlde_type == PGFILETYPE_DIR) {
+            if (recurse)
+                copydir(fromfile, tofile, true);  // Recursive copy
+        } else if (xlde_type == PGFILETYPE_REG) {
+            copy_file(fromfile, tofile);  // Copy regular file
+        }
+    }
+    FreeDir(xldir);
+
+    // Fsync all copied files for durability (if fsync enabled)
+    if (!enableFsync)
+        return;
+
+    xldir = AllocateDir(todir);
+    while ((xlde = ReadDir(xldir, todir)) != NULL) {
+        if (strcmp(xlde->d_name, ".") == 0 || strcmp(xlde->d_name, "..") == 0)
+            continue;
+
+        snprintf(tofile, sizeof(tofile), "%s/%s", todir, xlde->d_name);
+        if (get_dirent_type(tofile, xlde, false, ERROR) == PGFILETYPE_REG)
+            fsync_fname(tofile, false);
+    }
+    FreeDir(xldir);
+
+    // Fsync the destination directory itself
+    fsync_fname(todir, true);
+}
+```

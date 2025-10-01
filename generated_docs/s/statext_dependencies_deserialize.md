@@ -55,3 +55,89 @@ The function includes comprehensive error handling with detailed error messages 
 - Ensures exact bytea consumption to detect serialization format mismatches
 - Part of PostgreSQL's extended statistics persistence and loading mechanism
 - Critical for maintaining data integrity when loading functional dependency statistics from disk
+
+## Simplified Source
+
+```c
+MVDependencies *
+statext_dependencies_deserialize(bytea *data)
+{
+    int i;
+    Size min_expected_size;
+    MVDependencies *dependencies;
+    char *tmp;
+
+    if (data == NULL)
+        return NULL;
+
+    // Basic size validation
+    if (VARSIZE_ANY_EXHDR(data) < SizeOfHeader)
+        elog(ERROR, "invalid MVDependencies size %zu (expected at least %zu)",
+             VARSIZE_ANY_EXHDR(data), SizeOfHeader);
+
+    // Allocate base structure and initialize data pointer
+    dependencies = (MVDependencies *) palloc0(sizeof(MVDependencies));
+    tmp = VARDATA_ANY(data);
+
+    // Read and validate header fields
+    memcpy(&dependencies->magic, tmp, sizeof(uint32));
+    tmp += sizeof(uint32);
+    memcpy(&dependencies->type, tmp, sizeof(uint32));
+    tmp += sizeof(uint32);
+    memcpy(&dependencies->ndeps, tmp, sizeof(uint32));
+    tmp += sizeof(uint32);
+
+    // Validate header values
+    if (dependencies->magic != STATS_DEPS_MAGIC)
+        elog(ERROR, "invalid dependency magic %d (expected %d)",
+             dependencies->magic, STATS_DEPS_MAGIC);
+    if (dependencies->type != STATS_DEPS_TYPE_BASIC)
+        elog(ERROR, "invalid dependency type %d (expected %d)",
+             dependencies->type, STATS_DEPS_TYPE_BASIC);
+    if (dependencies->ndeps == 0)
+        elog(ERROR, "invalid zero-length item array in MVDependencies");
+
+    // Check minimum expected size
+    min_expected_size = SizeOfItem(dependencies->ndeps);
+    if (VARSIZE_ANY_EXHDR(data) < min_expected_size)
+        elog(ERROR, "invalid dependencies size %zu (expected at least %zu)",
+             VARSIZE_ANY_EXHDR(data), min_expected_size);
+
+    // Reallocate to include space for dependency array
+    dependencies = repalloc(dependencies, offsetof(MVDependencies, deps)
+                           + (dependencies->ndeps * sizeof(MVDependency *)));
+
+    // Deserialize each dependency
+    for (i = 0; i < dependencies->ndeps; i++) {
+        double degree;
+        AttrNumber k;
+        MVDependency *d;
+
+        // Read dependency metadata
+        memcpy(&degree, tmp, sizeof(double));
+        tmp += sizeof(double);
+        memcpy(&k, tmp, sizeof(AttrNumber));
+        tmp += sizeof(AttrNumber);
+
+        Assert((k >= 2) && (k <= STATS_MAX_DIMENSIONS));
+
+        // Allocate and initialize dependency structure
+        d = (MVDependency *) palloc0(offsetof(MVDependency, attributes)
+                                    + (k * sizeof(AttrNumber)));
+        d->degree = degree;
+        d->nattributes = k;
+
+        // Copy attribute numbers
+        memcpy(d->attributes, tmp, sizeof(AttrNumber) * d->nattributes);
+        tmp += sizeof(AttrNumber) * d->nattributes;
+
+        dependencies->deps[i] = d;
+        Assert(tmp <= ((char *) data + VARSIZE_ANY(data)));
+    }
+
+    // Ensure we consumed exactly all data
+    Assert(tmp == ((char *) data + VARSIZE_ANY(data)));
+
+    return dependencies;
+}
+```

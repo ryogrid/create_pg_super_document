@@ -37,3 +37,42 @@ The function is designed to return simple SQL keywords when practical, making er
 - Returns "unrecognized expression kind" for unknown values at runtime
 - Many enum values share the same string representation (e.g., both EXPR_KIND_UPDATE_SOURCE and EXPR_KIND_UPDATE_TARGET return "UPDATE")
 - Prioritizes SQL keyword clarity over internal implementation details in naming
+
+## Simplified Source
+
+```c
+const char *ParseExprKindName(ParseExprKind exprKind) {
+    switch (exprKind) {
+        // Basic SQL clauses
+        case EXPR_KIND_WHERE:          return "WHERE";
+        case EXPR_KIND_HAVING:         return "HAVING";
+        case EXPR_KIND_SELECT_TARGET:  return "SELECT";
+        case EXPR_KIND_GROUP_BY:       return "GROUP BY";
+        case EXPR_KIND_ORDER_BY:       return "ORDER BY";
+
+        // DML operations
+        case EXPR_KIND_INSERT_TARGET:  return "INSERT";
+        case EXPR_KIND_UPDATE_SOURCE:
+        case EXPR_KIND_UPDATE_TARGET:  return "UPDATE";
+
+        // Window functions
+        case EXPR_KIND_WINDOW_PARTITION: return "window PARTITION BY";
+        case EXPR_KIND_WINDOW_ORDER:     return "window ORDER BY";
+
+        // Constraints and defaults
+        case EXPR_KIND_CHECK_CONSTRAINT:
+        case EXPR_KIND_DOMAIN_CHECK:     return "CHECK";
+        case EXPR_KIND_COLUMN_DEFAULT:
+        case EXPR_KIND_FUNCTION_DEFAULT: return "DEFAULT";
+
+        // Other contexts
+        case EXPR_KIND_INDEX_EXPRESSION: return "index expression";
+        case EXPR_KIND_PARTITION_EXPRESSION: return "PARTITION BY";
+
+        // [Additional cases omitted for brevity]
+
+        default:
+            return "unrecognized expression kind";
+    }
+}
+```

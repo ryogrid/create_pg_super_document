@@ -37,3 +37,31 @@ This function combines different types of selectivity estimates to produce an ac
 - Uses probability clamping to ensure results stay within valid [0,1] range
 - Critical component of PostgreSQL's extended statistics system for multi-column correlation handling
 - Located in src/backend/statistics/mcv.c:2006-2047
+
+## Simplified Source
+
+```c
+Selectivity
+mcv_combine_selectivities(Selectivity simple_sel,
+                          Selectivity mcv_sel,
+                          Selectivity mcv_basesel,
+                          Selectivity mcv_totalsel)
+{
+    Selectivity other_sel;
+    Selectivity sel;
+
+    // Calculate selectivity for data not covered by MCV matches
+    other_sel = simple_sel - mcv_basesel;
+    CLAMP_PROBABILITY(other_sel);
+
+    // Ensure non-MCV selectivity doesn't exceed available space
+    if (other_sel > 1.0 - mcv_totalsel)
+        other_sel = 1.0 - mcv_totalsel;
+
+    // Combine MCV and non-MCV selectivities
+    sel = mcv_sel + other_sel;
+    CLAMP_PROBABILITY(sel);
+
+    return sel;
+}
+```

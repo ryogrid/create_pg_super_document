@@ -38,3 +38,13 @@ Infinity values in PostgreSQL's numeric type represent mathematical concepts of 
 - Used primarily in JSON operations where infinity values need special handling
 - Part of PostgreSQL's comprehensive support for IEEE 754-style special numeric values
 - The function is inline-friendly and very lightweight, essentially just a macro call
+
+## Simplified Source
+
+```c
+bool
+numeric_is_inf(Numeric num)
+{
+    return NUMERIC_IS_INF(num);
+}
+```

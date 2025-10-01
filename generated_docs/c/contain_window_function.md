@@ -33,3 +33,15 @@ This function provides a wrapper to detect the presence of window functions with
 - Returns a boolean value indicating window function presence
 - Part of the window-function clause manipulation utilities in the PostgreSQL optimizer
 - The implementation is simpler than aggregate function detection due to the absence of level complexity
+
+## Simplified Source
+
+```c
+bool contain_window_function(Node *clause)
+{
+    // Simply delegate to the existing windowfuncs detection function
+    // Window functions don't have level fields and are always associated
+    // with the current query level, making this a simple wrapper
+    return contain_windowfuncs(clause);
+}
+```

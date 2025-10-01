@@ -41,3 +41,27 @@ This function handles only base cases; complex AND/OR combinations are processed
 - Part of PostgreSQL's cost-based optimizer for TID scan path generation
 - Does not handle complex boolean expressions (AND/OR) - these are processed by calling functions
 - Essential for enabling direct tuple access optimizations in query execution
+
+## Simplified Source
+
+```c
+static bool
+RestrictInfoIsTidQual(PlannerInfo *root, RestrictInfo *rinfo, RelOptInfo *rel)
+{
+    // Skip pseudoconstant clauses (cannot contain variables)
+    if (rinfo->pseudoconstant)
+        return false;
+
+    // Check security restrictions - ensure safe evaluation order
+    if (!restriction_is_securely_promotable(rinfo, rel))
+        return false;
+
+    // Check all supported TID qualification patterns
+    if (IsTidEqualClause(rinfo, rel) ||           // CTID = constant
+        IsTidEqualAnyClause(root, rinfo, rel) ||  // CTID = ANY(array)
+        IsCurrentOfClause(rinfo, rel))            // CURRENT OF cursor
+        return true;
+
+    return false;
+}
+```

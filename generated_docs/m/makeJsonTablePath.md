@@ -39,3 +39,21 @@ The function includes an assertion to verify that the pathvalue parameter is ind
 - The function follows PostgreSQL's standard pattern for node constructor functions using the makeNode infrastructure
 - This is part of the JSON_TABLE feature implementation which allows SQL queries to extract data from JSON documents in a tabular format
 - The created JsonTablePath nodes are used during query planning and execution to represent path expressions that need to be evaluated against JSON data
+
+## Simplified Source
+
+```c
+JsonTablePath *makeJsonTablePath(Const *pathvalue, char *pathname) {
+    // Validate input is a Const node
+    Assert(IsA(pathvalue, Const));
+
+    // Create new JsonTablePath node
+    JsonTablePath *path = makeNode(JsonTablePath);
+
+    // Initialize path fields
+    path->value = pathvalue;
+    path->name = pathname;
+
+    return path;
+}
+```

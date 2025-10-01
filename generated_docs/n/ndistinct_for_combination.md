@@ -55,3 +55,92 @@ The function works by:
 - The function uses default sort operators and collations for column types
 - Memory is allocated for temporary arrays to avoid sorting sample data in place
 - Located in src/backend/statistics/mvdistinct.c:425-520
+
+## Simplified Source
+
+```c
+static double
+ndistinct_for_combination(double totalrows, StatsBuildData *data,
+                         int k, int *combination)
+{
+    int i, j;
+    int f1, cnt, d;
+    bool *isnull;
+    Datum *values;
+    SortItem *items;
+    MultiSortSupport mss;
+    int numrows = data->numrows;
+
+    // Initialize multi-dimensional sorting
+    mss = multi_sort_init(k);
+
+    // Allocate arrays for sorting
+    items = (SortItem *) palloc(numrows * sizeof(SortItem));
+    values = (Datum *) palloc0(sizeof(Datum) * numrows * k);
+    isnull = (bool *) palloc0(sizeof(bool) * numrows * k);
+
+    // Set up item pointers
+    for (i = 0; i < numrows; i++)
+    {
+        items[i].values = &values[i * k];
+        items[i].isnull = &isnull[i * k];
+    }
+
+    // Configure sort support for each dimension
+    for (i = 0; i < k; i++)
+    {
+        Oid typid;
+        TypeCacheEntry *type;
+        Oid collid = InvalidOid;
+        VacAttrStats *colstat = data->stats[combination[i]];
+
+        typid = colstat->attrtypid;
+        collid = colstat->attrcollid;
+
+        // Look up sort operator
+        type = lookup_type_cache(typid, TYPECACHE_LT_OPR);
+        if (type->lt_opr == InvalidOid)
+            elog(ERROR, "cache lookup failed for ordering operator for type %u",
+                 typid);
+
+        // Add dimension to sort support
+        multi_sort_add_dimension(mss, i, type->lt_opr, collid);
+
+        // Copy sample data for this dimension
+        for (j = 0; j < numrows; j++)
+        {
+            items[j].values[i] = data->values[combination[i]][j];
+            items[j].isnull[i] = data->nulls[combination[i]][j];
+        }
+    }
+
+    // Sort the data
+    qsort_interruptible(items, numrows, sizeof(SortItem),
+                      multi_sort_compare, mss);
+
+    // Count distinct combinations and singletons
+    f1 = 0;
+    cnt = 1;
+    d = 1;
+    for (i = 1; i < numrows; i++)
+    {
+        if (multi_sort_compare(&items[i], &items[i - 1], mss) != 0)
+        {
+            // New distinct combination found
+            if (cnt == 1)
+                f1 += 1;  // Previous was a singleton
+
+            d++;
+            cnt = 0;
+        }
+        cnt += 1;
+    }
+
+    // Check if last group was a singleton
+    if (cnt == 1)
+        f1 += 1;
+
+    // Apply n-distinct estimation formula
+    return estimate_ndistinct(totalrows, numrows, d, f1);
+}
+```

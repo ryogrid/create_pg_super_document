@@ -40,3 +40,12 @@ Like other optimized popcount functions, this becomes a function pointer when TR
 - The function is part of PostgreSQL's portable bit manipulation library in src/port/pg_bitutils.c
 - Returns a 64-bit result to accommodate potentially large bit counts from substantial buffer sizes
 - The bits8 type is typically defined as unsigned char, providing a standardized 8-bit mask interface
+
+## Simplified Source
+
+```c
+uint64 pg_popcount_masked_optimized(const char *buf, int bytes, bits8 mask) {
+    // Delegate to the slow implementation which contains the optimized logic
+    return pg_popcount_masked_slow(buf, bytes, mask);
+}
+```

@@ -37,3 +37,12 @@ This wraparound behavior is essential for PostgreSQL's transaction management sy
 - This function is part of the MultiXact ID management infrastructure that supports PostgreSQL's MVCC (Multi-Version Concurrency Control) system
 - The function assumes that the input MultiXact ID is valid; no validation is performed
 - Similar to transaction ID wraparound handling, this prevents issues when MultiXact IDs reach their maximum value and need to restart from the minimum
+
+## Simplified Source
+
+```c
+static inline MultiXactId PreviousMultiXactId(MultiXactId multi) {
+    // Handle wraparound: if at minimum ID, wrap to maximum
+    return multi == FirstMultiXactId ? MaxMultiXactId : multi - 1;
+}
+```

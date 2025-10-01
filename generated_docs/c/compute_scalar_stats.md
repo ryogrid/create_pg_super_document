@@ -49,3 +49,99 @@ The `compute_scalar_stats` function performs the most sophisticated statistical 
 - Implements memory context switching to ensure statistics are stored in the appropriate long-lived context
 - Uses sophisticated duplicate detection during sorting to avoid redundant comparisons
 - The correlation statistic helps the planner estimate costs for ORDER BY and similar operations
+
+## Simplified Source
+
+```c
+static void compute_scalar_stats(VacAttrStatsP stats,
+                                AnalyzeAttrFetchFunc fetchfunc,
+                                int samplerows,
+                                double totalrows) {
+    int null_cnt = 0, nonnull_cnt = 0, toowide_cnt = 0;
+    double total_width = 0;
+    ScalarItem *values;
+    int values_cnt = 0;
+    ScalarMCVItem *track;
+    int track_cnt = 0;
+    int num_mcv = stats->attstattarget;
+    SortSupportData ssup;
+
+    // Allocate working arrays
+    values = (ScalarItem *) palloc(samplerows * sizeof(ScalarItem));
+    track = (ScalarMCVItem *) palloc(num_mcv * sizeof(ScalarMCVItem));
+
+    // Setup sorting infrastructure
+    setup_sort_support(&ssup, stats);
+
+    // Phase 1: Scan sample data and collect sortable values
+    for (int i = 0; i < samplerows; i++) {
+        Datum value;
+        bool isnull;
+
+        value = fetchfunc(stats, i, &isnull);
+
+        if (isnull) {
+            null_cnt++;
+            continue;
+        }
+        nonnull_cnt++;
+
+        // Calculate width for variable-length types
+        if (is_variable_width_type(stats)) {
+            total_width += calculate_datum_width(value, stats);
+
+            // Skip excessively wide values
+            if (datum_too_wide(value)) {
+                toowide_cnt++;
+                continue;
+            }
+        }
+
+        // Add to sortable values list
+        values[values_cnt].value = value;
+        values[values_cnt].tupno = values_cnt;
+        values_cnt++;
+    }
+
+    // Phase 2: Sort and analyze collected values
+    if (values_cnt > 0) {
+        // Sort the collected values
+        qsort_interruptible(values, values_cnt, sizeof(ScalarItem),
+                          compare_scalars, &ssup);
+
+        // Count distinct values and find most common values
+        int ndistinct = analyze_sorted_values(values, values_cnt, track, &track_cnt);
+
+        // Compute basic statistics
+        stats->stanullfrac = (double) null_cnt / (double) samplerows;
+        stats->stawidth = compute_average_width(total_width, nonnull_cnt, stats);
+        stats->stadistinct = estimate_distinct_values(ndistinct, nonnull_cnt,
+                                                     toowide_cnt, samplerows, totalrows);
+
+        // Generate MCV list if significant values found
+        if (track_cnt > 0) {
+            generate_mcv_statistics(stats, values, track, track_cnt, samplerows);
+        }
+
+        // Generate histogram if enough distinct values
+        if (ndistinct - track_cnt >= 2) {
+            generate_histogram_statistics(stats, values, values_cnt, track, track_cnt);
+        }
+
+        // Generate correlation statistics
+        if (values_cnt > 1) {
+            generate_correlation_statistics(stats, values, values_cnt);
+        }
+
+        stats->stats_valid = true;
+    }
+    else if (nonnull_cnt > 0) {
+        // Handle case with only too-wide values
+        handle_too_wide_only_case(stats, null_cnt, total_width, nonnull_cnt, samplerows);
+    }
+    else if (null_cnt > 0) {
+        // Handle all-null column
+        handle_all_null_case(stats);
+    }
+}
+```

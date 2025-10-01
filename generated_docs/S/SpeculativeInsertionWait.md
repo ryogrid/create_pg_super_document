@@ -39,3 +39,24 @@ This mechanism is crucial for handling conflicts in speculative insertions, part
 - Commonly used in B-tree index insertion and unique constraint checking
 - The token parameter must match the token returned by the corresponding SpeculativeInsertionLockAcquire call
 - Will block the calling transaction until the target transaction completes its speculative insertion decision
+
+## Simplified Source
+
+```c
+void
+SpeculativeInsertionWait(TransactionId xid, uint32 token)
+{
+    LOCKTAG tag;
+
+    // Create lock tag for the speculative insertion
+    SET_LOCKTAG_SPECULATIVE_INSERTION(tag, xid, token);
+
+    Assert(TransactionIdIsValid(xid));
+    Assert(token != 0);
+
+    // Wait by acquiring and immediately releasing a ShareLock
+    // This blocks until the target transaction releases its ExclusiveLock
+    LockAcquire(&tag, ShareLock, false, false);
+    LockRelease(&tag, ShareLock, false);
+}
+```

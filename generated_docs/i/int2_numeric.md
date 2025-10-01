@@ -32,3 +32,14 @@ This function is a PostgreSQL SQL-callable function that converts an int2 (16-bi
 - Used internally by PostgreSQL's JSON processing engine for type conversions
 - Commonly used in SQL casts like `CAST(smallint_value AS numeric)` or `smallint_value::numeric`
 - The function implicitly promotes int16 to int64 before calling the conversion routine, which is a safe widening conversion
+
+## Simplified Source
+
+```c
+Datum int2_numeric(PG_FUNCTION_ARGS) {
+    int16 val = PG_GETARG_INT16(0);
+
+    // Convert through int64_to_numeric (safe widening conversion)
+    PG_RETURN_NUMERIC(int64_to_numeric(val));
+}
+```

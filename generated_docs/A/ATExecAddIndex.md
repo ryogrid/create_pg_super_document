@@ -66,3 +66,52 @@ The function supports both new index creation and rebuilding scenarios, with spe
 - Restores createSubid and firstRelfilelocatorSubid fields for reused indexes
 - Uses InvalidOid for predefined OID, parent index, and parent constraint
 - Part of the broader ALTER TABLE command execution infrastructure
+
+## Simplified Source
+
+```c
+static ObjectAddress
+ATExecAddIndex(AlteredTableInfo *tab, Relation rel,
+               IndexStmt *stmt, bool is_rebuild, LOCKMODE lockmode)
+{
+    ObjectAddress address;
+
+    // Validate inputs - ensure we have a transformed IndexStmt
+    Assert(IsA(stmt, IndexStmt));
+    Assert(!stmt->concurrent);
+    Assert(stmt->transformed);
+
+    // Determine operation flags based on context
+    bool check_rights = !is_rebuild;  // Skip rights check for rebuilds
+    bool skip_build = tab->rewrite > 0 || RelFileNumberIsValid(stmt->oldNumber);
+    bool quiet = is_rebuild;  // Suppress notices for rebuilds
+
+    // Create the index using DefineIndex with ALTER TABLE context
+    address = DefineIndex(RelationGetRelid(rel),
+                         stmt,
+                         InvalidOid,  // no predefined OID
+                         InvalidOid,  // no parent index
+                         InvalidOid,  // no parent constraint
+                         -1,          // total_parts unknown
+                         true,        // is_alter_table
+                         check_rights,
+                         false,       // check_not_in_use already done
+                         skip_build,
+                         quiet);
+
+    // Handle storage reuse for rebuilt indexes
+    if (RelFileNumberIsValid(stmt->oldNumber)) {
+        Relation index_rel = index_open(address.objectId, NoLock);
+
+        // Restore transaction context from old index
+        index_rel->rd_createSubid = stmt->oldCreateSubid;
+        index_rel->rd_firstRelfilelocatorSubid = stmt->oldFirstRelfilelocatorSubid;
+
+        // Preserve storage and cancel pending deletion
+        RelationPreserveStorage(index_rel->rd_locator, true);
+        index_close(index_rel, NoLock);
+    }
+
+    return address;
+}
+```

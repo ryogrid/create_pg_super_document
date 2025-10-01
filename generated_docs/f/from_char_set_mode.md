@@ -35,3 +35,23 @@ This function manages the date mode setting during string-to-date/time conversio
 - Part of PostgreSQL's robust date/time parsing infrastructure
 - Uses PostgreSQL's modern error handling pattern with ErrorSaveContext support
 - The function allows setting mode to FROM_CHAR_DATE_NONE without validation, as this represents no specific mode
+
+## Simplified Source
+
+```c
+static bool
+from_char_set_mode(TmFromChar *tmfc, const FromCharDateMode mode, Node *escontext)
+{
+    if (mode != FROM_CHAR_DATE_NONE) {
+        if (tmfc->mode == FROM_CHAR_DATE_NONE) {
+            // First time setting a mode - accept it
+            tmfc->mode = mode;
+        } else if (tmfc->mode != mode) {
+            // Conflicting mode detected
+            ereturn(escontext, false, /* error: invalid combination of date conventions */);
+        }
+        // else: same mode, no problem
+    }
+    return true;
+}
+```

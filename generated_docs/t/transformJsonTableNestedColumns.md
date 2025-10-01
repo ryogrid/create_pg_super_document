@@ -40,3 +40,39 @@ The sibling join semantics ensure that rows from different nested column paths a
 - Automatic path name generation ensures proper identification of nested column contexts
 - The sibling join pattern allows multiple independent nested column specifications to coexist
 - Recursive structure enables arbitrary depth of JSON table nesting as per SQL/JSON standards
+
+## Simplified Source
+
+```c
+static JsonTablePlan *
+transformJsonTableNestedColumns(JsonTableParseContext *cxt, List *passingArgs, List *columns)
+{
+    JsonTablePlan *plan = NULL;
+    ListCell *lc;
+
+    // Process each column, combining nested plans with sibling joins
+    foreach(lc, columns)
+    {
+        JsonTableColumn *jtc = castNode(JsonTableColumn, lfirst(lc));
+
+        // Skip non-nested columns
+        if (jtc->coltype != JTC_NESTED)
+            continue;
+
+        // Generate path name if not specified
+        if (jtc->pathspec->name == NULL)
+            jtc->pathspec->name = generateJsonTablePathName(cxt);
+
+        // Recursively transform nested columns
+        JsonTablePlan *nested = transformJsonTableColumns(cxt, jtc->columns, passingArgs, jtc->pathspec);
+
+        // Combine with existing plan using sibling join (UNION-like operation)
+        if (plan)
+            plan = makeJsonTableSiblingJoin(plan, nested);
+        else
+            plan = nested;
+    }
+
+    return plan;
+}
+```

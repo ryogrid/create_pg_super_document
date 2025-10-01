@@ -35,3 +35,15 @@ This function displays information about runtime partition pruning in Append and
 - Part of PostgreSQL's partition pruning optimization reporting system
 - Helps users understand the effectiveness of runtime partition elimination
 - Related to PostgreSQL's partitioned table performance optimizations
+
+## Simplified Source
+
+```c
+static void
+ExplainMissingMembers(int nplans, int nchildren, ExplainState *es)
+{
+    // Report pruned subplans if any were removed or in non-text format
+    if (nplans < nchildren || es->format != EXPLAIN_FORMAT_TEXT)
+        ExplainPropertyInteger("Subplans Removed", NULL, nchildren - nplans, es);
+}
+```

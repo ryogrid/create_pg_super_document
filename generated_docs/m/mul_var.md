@@ -62,3 +62,97 @@ The algorithm accumulates partial products in an integer array, periodically nor
 - Guard digits (MUL_GUARD_DIGITS) help maintain precision during truncation
 - Part of PostgreSQL's arbitrary precision numeric arithmetic system
 - Memory allocation for temporary arrays is cleaned up automatically
+
+## Simplified Source
+
+```c
+static void
+mul_var(const NumericVar *var1, const NumericVar *var2, NumericVar *result, int rscale)
+{
+    int res_ndigits, res_sign, res_weight;
+    int *dig;  // Accumulator array
+    int maxdig = 0;
+    int var1ndigits, var2ndigits;
+    NumericDigit *var1digits, *var2digits;
+
+    // Optimization: arrange shorter number as var1 for better performance
+    if (var1->ndigits > var2->ndigits) {
+        const NumericVar *tmp = var1;
+        var1 = var2;
+        var2 = tmp;
+    }
+
+    // Local copies for speed
+    var1ndigits = var1->ndigits;
+    var2ndigits = var2->ndigits;
+    var1digits = var1->digits;
+    var2digits = var2->digits;
+
+    // Handle zero operands
+    if (var1ndigits == 0 || var2ndigits == 0) {
+        zero_var(result);
+        result->dscale = rscale;
+        return;
+    }
+
+    // Determine result sign and weight
+    res_sign = (var1->sign == var2->sign) ? NUMERIC_POS : NUMERIC_NEG;
+    res_weight = var1->weight + var2->weight + 2;
+
+    // Calculate number of result digits needed
+    res_ndigits = var1ndigits + var2ndigits + 1;
+    int maxdigits = res_weight + 1 + (rscale + DEC_DIGITS - 1) / DEC_DIGITS + MUL_GUARD_DIGITS;
+    res_ndigits = Min(res_ndigits, maxdigits);
+
+    if (res_ndigits < 3) {
+        zero_var(result);
+        result->dscale = rscale;
+        return;
+    }
+
+    // Allocate accumulator array
+    dig = (int *) palloc0(res_ndigits * sizeof(int));
+
+    // Main multiplication loop - schoolbook algorithm
+    for (int i1 = Min(var1ndigits - 1, res_ndigits - 3); i1 >= 0; i1--) {
+        NumericDigit var1digit = var1digits[i1];
+        if (var1digit == 0) continue;
+
+        // Check if normalization needed to prevent overflow
+        maxdig += var1digit;
+        if (maxdig > (INT_MAX - INT_MAX / NBASE) / (NBASE - 1)) {
+            // Normalize carries
+            int carry = 0;
+            for (int i = res_ndigits - 1; i >= 0; i--) {
+                int newdig = dig[i] + carry;
+                carry = (newdig >= NBASE) ? newdig / NBASE : 0;
+                dig[i] = newdig - carry * NBASE;
+            }
+            maxdig = 1 + var1digit;
+        }
+
+        // Inner multiplication loop - multiply var1digit by var2
+        int i2limit = Min(var2ndigits, res_ndigits - i1 - 2);
+        for (int i2 = 0; i2 < i2limit; i2++) {
+            dig[i1 + 2 + i2] += var1digit * var2digits[i2];
+        }
+    }
+
+    // Final carry propagation and result storage
+    alloc_var(result, res_ndigits);
+    int carry = 0;
+    for (int i = res_ndigits - 1; i >= 0; i--) {
+        int newdig = dig[i] + carry;
+        carry = (newdig >= NBASE) ? newdig / NBASE : 0;
+        result->digits[i] = newdig - carry * NBASE;
+    }
+
+    pfree(dig);
+
+    // Set result properties and round to target precision
+    result->weight = res_weight;
+    result->sign = res_sign;
+    round_var(result, rscale);
+    strip_var(result);
+}
+```

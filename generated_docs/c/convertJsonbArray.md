@@ -58,3 +58,59 @@ The function uses a sophisticated offset management system where every JB_OFFSET
 - Performs buffer alignment to 4-byte boundaries for optimal memory access
 - Includes comprehensive error checking for size limits to prevent integer overflow and data corruption
 - The function is static and only used internally within the JSONB conversion system
+
+## Simplified Source
+
+```c
+static void
+convertJsonbArray(StringInfo buffer, JEntry *header, JsonbValue *val, int level)
+{
+    int base_offset = buffer->len;
+    int nElems = val->val.array.nElems;
+
+    // Align buffer to 4-byte boundary
+    padBufferToInt(buffer);
+
+    // Create container header with element count and array flags
+    uint32 containerhead = nElems | JB_FARRAY;
+    if (val->val.array.rawScalar) {
+        containerhead |= JB_FSCALAR;  // Single scalar at top level
+    }
+
+    // Write container header
+    appendToBuffer(buffer, (char *) &containerhead, sizeof(uint32));
+
+    // Reserve space for element metadata
+    int jentry_offset = reserveFromBuffer(buffer, sizeof(JEntry) * nElems);
+
+    // Convert each array element
+    int totallen = 0;
+    for (int i = 0; i < nElems; i++) {
+        JsonbValue *elem = &val->val.array.elems[i];
+        JEntry meta;
+
+        // Recursively convert element
+        convertJsonbValue(buffer, &meta, elem, level + 1);
+
+        int len = JBE_OFFLENFLD(meta);
+        totallen += len;
+
+        // Check size limit to prevent overflow
+        if (totallen > JENTRY_OFFLENMASK) {
+            ereport(ERROR, "jsonb array elements exceed maximum size");
+        }
+
+        // Store offset every JB_OFFSET_STRIDE elements for efficient access
+        if ((i % JB_OFFSET_STRIDE) == 0) {
+            meta = (meta & JENTRY_TYPEMASK) | totallen | JENTRY_HAS_OFF;
+        }
+
+        // Write element metadata
+        copyToBuffer(buffer, jentry_offset, (char *) &meta, sizeof(JEntry));
+        jentry_offset += sizeof(JEntry);
+    }
+
+    // Set final header with total size
+    *header = JENTRY_ISCONTAINER | (buffer->len - base_offset);
+}
+```

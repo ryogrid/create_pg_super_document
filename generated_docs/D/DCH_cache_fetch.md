@@ -51,3 +51,27 @@ The parsing operation uses PostgreSQL's comprehensive date/time format parsing s
 - Forms the public interface of the three-function cache management system
 - Parse failures would leave cache entries invalid, preventing future incorrect lookups
 - Thread-safe due to the single-threaded nature of PostgreSQL backend processes
+
+## Simplified Source
+
+```c
+static DCHCacheEntry *
+DCH_cache_fetch(const char *str, bool std)
+{
+    DCHCacheEntry *ent;
+
+    // Try to find existing cache entry
+    if ((ent = DCH_cache_search(str, std)) == NULL) {
+        // Not in cache, create new entry and parse format
+        ent = DCH_cache_getnew(str, std);
+
+        // Parse the format string into the cache entry
+        parse_format(ent->format, str, DCH_keywords, DCH_suff, DCH_index,
+                     DCH_FLAG | (std ? STD_FLAG : 0), NULL);
+
+        // Mark entry as valid for future use
+        ent->valid = true;
+    }
+    return ent;
+}
+```

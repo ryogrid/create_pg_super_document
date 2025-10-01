@@ -58,3 +58,46 @@ Key behaviors:
 - The hash table enables O(1) field lookup instead of linear JSON traversal
 - Uses PostgreSQL's standard hash table implementation with string keys
 - Handles encoding properly through GetDatabaseEncoding()
+
+## Simplified Source
+
+```c
+static HTAB *
+get_json_object_as_hash(const char *json, int len, const char *funcname,
+                        Node *escontext)
+{
+    // Create hash table for JSON field storage
+    HASHCTL ctl;
+    ctl.keysize = NAMEDATALEN;
+    ctl.entrysize = sizeof(JsonHashEntry);
+    ctl.hcxt = CurrentMemoryContext;
+
+    HTAB *tab = hash_create("json object hashtable", 100, &ctl,
+                           HASH_ELEM | HASH_STRINGS | HASH_CONTEXT);
+
+    // Set up parsing state and semantic actions
+    JHashState *state = palloc0(sizeof(JHashState));
+    JsonSemAction *sem = palloc0(sizeof(JsonSemAction));
+
+    state->function_name = funcname;
+    state->hash = tab;
+    state->lex = makeJsonLexContextCstringLen(NULL, json, len,
+                                             GetDatabaseEncoding(), true);
+
+    // Configure semantic actions for JSON events
+    sem->semstate = (void *) state;
+    sem->array_start = hash_array_start;
+    sem->scalar = hash_scalar;
+    sem->object_field_start = hash_object_field_start;
+    sem->object_field_end = hash_object_field_end;
+
+    // Parse JSON and handle errors
+    if (!pg_parse_json_or_errsave(state->lex, sem, escontext)) {
+        hash_destroy(state->hash);
+        tab = NULL;
+    }
+
+    freeJsonLexContext(state->lex);
+    return tab;
+}
+```

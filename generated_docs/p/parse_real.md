@@ -46,3 +46,59 @@ The function rejects NaN values but allows infinities (which will be caught by s
 - Rejects NaN values but allows infinite values (handled by caller)
 - Simpler than parse_int() since no rounding or integer overflow checks are needed
 - Returns false for invalid input while optionally setting helpful error hints
+
+## Simplified Source
+
+```c
+bool
+parse_real(const char *value, double *result, int flags, const char **hintmsg)
+{
+    double val;
+    char *endptr;
+
+    // Initialize output parameters
+    if (result)
+        *result = 0;
+    if (hintmsg)
+        *hintmsg = NULL;
+
+    // Parse the floating-point value
+    errno = 0;
+    val = strtod(value, &endptr);
+
+    // Check for parsing errors
+    if (endptr == value || errno == ERANGE)
+        return false;
+
+    // Reject NaN values
+    if (isnan(val))
+        return false;
+
+    // Skip whitespace between number and unit
+    while (isspace((unsigned char) *endptr))
+        endptr++;
+
+    // Handle unit suffix if present
+    if (*endptr != '\0') {
+        if ((flags & GUC_UNIT) == 0)
+            return false;  // Units not allowed
+
+        // Convert unit to base value
+        if (!convert_to_base_unit(val, endptr, (flags & GUC_UNIT), &val)) {
+            // Set appropriate hint message for invalid unit
+            if (hintmsg) {
+                if (flags & GUC_UNIT_MEMORY)
+                    *hintmsg = memory_units_hint;
+                else
+                    *hintmsg = time_units_hint;
+            }
+            return false;
+        }
+    }
+
+    // Return the parsed value
+    if (result)
+        *result = val;
+    return true;
+}
+```

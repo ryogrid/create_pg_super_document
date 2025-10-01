@@ -34,3 +34,39 @@ The function handles three scenarios for user permission compatibility: (1) Both
 - Enables foreign join pushdown optimization when both relations use the same FDW server
 - Ensures proper access permission checking for foreign joins
 - Located in src/backend/optimizer/util/relnode.c:589-626
+
+## Simplified Source
+
+```c
+static void set_foreign_rel_properties(RelOptInfo *joinrel, RelOptInfo *outer_rel,
+                                       RelOptInfo *inner_rel) {
+    // Check if both relations belong to the same foreign server
+    if (OidIsValid(outer_rel->serverid) &&
+        inner_rel->serverid == outer_rel->serverid) {
+
+        // Case 1: Both relations have identical userids
+        if (inner_rel->userid == outer_rel->userid) {
+            joinrel->serverid = outer_rel->serverid;
+            joinrel->userid = outer_rel->userid;
+            joinrel->useridiscurrent = outer_rel->useridiscurrent || inner_rel->useridiscurrent;
+            joinrel->fdwroutine = outer_rel->fdwroutine;
+        }
+        // Case 2: Inner has no userid, outer matches current user
+        else if (!OidIsValid(inner_rel->userid) &&
+                 outer_rel->userid == GetUserId()) {
+            joinrel->serverid = outer_rel->serverid;
+            joinrel->userid = outer_rel->userid;
+            joinrel->useridiscurrent = true;
+            joinrel->fdwroutine = outer_rel->fdwroutine;
+        }
+        // Case 3: Outer has no userid, inner matches current user
+        else if (!OidIsValid(outer_rel->userid) &&
+                 inner_rel->userid == GetUserId()) {
+            joinrel->serverid = outer_rel->serverid;
+            joinrel->userid = inner_rel->userid;
+            joinrel->useridiscurrent = true;
+            joinrel->fdwroutine = outer_rel->fdwroutine;
+        }
+    }
+}
+```
