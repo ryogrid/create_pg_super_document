@@ -38,3 +38,33 @@ This function modifies a tuple slot in preparation for result projection based o
 - The all_grouped_cols list is arranged in descending order for optimization
 - Critical for implementing SQL GROUPING SETS functionality where different grouping combinations produce different null patterns
 - The direct slot manipulation is acknowledged as somewhat ugly but was chosen over alternatives for performance reasons
+
+## Simplified Source
+
+```c
+static void prepare_projection_slot(AggState *aggstate, TupleTableSlot *slot, int currentSet) {
+    if (aggstate->phase->grouped_cols) {
+        Bitmapset *grouped_cols = aggstate->phase->grouped_cols[currentSet];
+
+        aggstate->grouped_cols = grouped_cols;
+
+        if (TTS_EMPTY(slot)) {
+            // Force all values to NULL for empty grouping set
+            ExecStoreAllNullTuple(slot);
+        } else if (aggstate->all_grouped_cols) {
+            ListCell *lc;
+
+            // Ensure all needed attributes are materialized
+            slot_getsomeattrs(slot, linitial_int(aggstate->all_grouped_cols));
+
+            // Nullify attributes not in current grouping set
+            foreach(lc, aggstate->all_grouped_cols) {
+                int attnum = lfirst_int(lc);
+
+                if (!bms_is_member(attnum, grouped_cols))
+                    slot->tts_isnull[attnum - 1] = true;
+            }
+        }
+    }
+}
+```

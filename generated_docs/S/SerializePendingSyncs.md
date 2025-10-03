@@ -38,3 +38,49 @@ The function handles the case where there are no pending syncs by simply termina
 - Deleted relations (marked with atCommit flag) are filtered out during serialization
 - The serialized list is null-terminated with a zero-filled RelFileLocator entry
 - This is part of PostgreSQL's parallel query infrastructure for sharing pending I/O operations between processes
+
+## Simplified Source
+
+```c
+void SerializePendingSyncs(Size maxSize, char *startAddress) {
+    HTAB *tmphash;
+    HASHCTL ctl;
+    HASH_SEQ_STATUS scan;
+    PendingRelSync *sync;
+    PendingRelDelete *delete;
+    RelFileLocator *src;
+    RelFileLocator *dest = (RelFileLocator *) startAddress;
+
+    if (!pendingSyncHash)
+        goto terminate;
+
+    // Create temporary hash to collect active relfilelocators
+    ctl.keysize = sizeof(RelFileLocator);
+    ctl.entrysize = sizeof(RelFileLocator);
+    ctl.hcxt = CurrentMemoryContext;
+    tmphash = hash_create("tmp relfilelocators",
+                          hash_get_num_entries(pendingSyncHash), &ctl,
+                          HASH_ELEM | HASH_BLOBS | HASH_CONTEXT);
+
+    // Collect all rlocators from pending syncs
+    hash_seq_init(&scan, pendingSyncHash);
+    while ((sync = (PendingRelSync *) hash_seq_search(&scan)))
+        hash_search(tmphash, &sync->rlocator, HASH_ENTER, NULL);
+
+    // Remove deleted rnodes
+    for (delete = pendingDeletes; delete != NULL; delete = delete->next)
+        if (delete->atCommit)
+            hash_search(tmphash, &delete->rlocator, HASH_REMOVE, NULL);
+
+    // Copy final set to output buffer
+    hash_seq_init(&scan, tmphash);
+    while ((src = (RelFileLocator *) hash_seq_search(&scan)))
+        *dest++ = *src;
+
+    hash_destroy(tmphash);
+
+terminate:
+    // Null-terminate the list
+    MemSet(dest, 0, sizeof(RelFileLocator));
+}
+```

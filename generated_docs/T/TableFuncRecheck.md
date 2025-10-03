@@ -32,3 +32,14 @@ The function serves as a placeholder implementation of the recheck interface, ma
 - Part of the EvalPlanQual framework for handling concurrent transaction scenarios
 - The function is static, indicating it's only used within the nodeTableFuncscan.c file
 - Both parameters are effectively unused since no actual rechecking logic is needed for table functions
+
+## Simplified Source
+
+```c
+static bool
+TableFuncRecheck(TableFuncScanState *node, TupleTableSlot *slot)
+{
+    // Table function results are immutable - no rechecking needed
+    return true;
+}
+```

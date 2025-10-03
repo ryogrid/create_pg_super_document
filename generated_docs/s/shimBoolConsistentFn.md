@@ -39,3 +39,33 @@ This function serves as an adapter that allows binary logic consistency checking
 - Uses the same 7-parameter function call as directTriConsistentFn but converts the result for binary use
 - Essential for operator classes that only implement ternary consistent functions but need to work in binary contexts
 - Located in src/backend/access/gin/ginlogic.c:108-147
+
+## Simplified Source
+
+```c
+static bool
+shimBoolConsistentFn(GinScanKey key)
+{
+    GinTernaryValue result;
+
+    // Call ternary consistent function
+    result = DatumGetGinTernaryValue(FunctionCall7Coll(key->triConsistentFmgrInfo,
+                                                       key->collation,
+                                                       PointerGetDatum(key->entryRes),
+                                                       UInt16GetDatum(key->strategy),
+                                                       key->query,
+                                                       UInt32GetDatum(key->nuserentries),
+                                                       PointerGetDatum(key->extra_data),
+                                                       PointerGetDatum(key->queryValues),
+                                                       PointerGetDatum(key->queryCategories)));
+
+    // Convert ternary result to boolean logic
+    if (result == GIN_MAYBE) {
+        key->recheckCurItem = true;   // Need heap-level recheck
+        return true;
+    } else {
+        key->recheckCurItem = false;  // No recheck needed
+        return result;                // GIN_TRUE or GIN_FALSE cast to bool
+    }
+}
+```

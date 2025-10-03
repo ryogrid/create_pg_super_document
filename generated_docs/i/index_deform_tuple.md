@@ -48,3 +48,23 @@ A notable characteristic is that IndexTuples should never have missing columns, 
 - Unlike HeapTuples, IndexTuples should never contain missing columns
 - The function assumes the standard IndexTuple layout with the null bitmap immediately following the IndexTupleData header
 - Used across various PostgreSQL subsystems including B-tree operations, executor nodes, and tuple sorting
+
+## Simplified Source
+
+```c
+void index_deform_tuple(IndexTuple tup, TupleDesc tupleDescriptor,
+                        Datum *values, bool *isnull) {
+    char *tp;     // pointer to tuple data
+    bits8 *bp;    // pointer to null bitmap in tuple
+
+    // Locate null bitmap right after IndexTupleData header
+    bp = (bits8 *) ((char *) tup + sizeof(IndexTupleData));
+
+    // Calculate start of data section
+    tp = (char *) tup + IndexInfoFindDataOffset(tup->t_info);
+
+    // Delegate to internal function for actual deformation
+    index_deform_tuple_internal(tupleDescriptor, values, isnull,
+                                tp, bp, IndexTupleHasNulls(tup));
+}
+```

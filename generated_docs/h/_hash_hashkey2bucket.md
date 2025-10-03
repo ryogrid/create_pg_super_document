@@ -39,3 +39,22 @@ This design supports the dynamic bucket splitting mechanism used in hash indexes
 - Used throughout the hash index implementation for bucket mapping
 - Critical for both search operations and index maintenance tasks
 - The dual-mask approach allows for gradual index expansion without rehashing all data
+
+## Simplified Source
+
+```c
+Bucket _hash_hashkey2bucket(uint32 hashkey, uint32 maxbucket,
+                           uint32 highmask, uint32 lowmask)
+{
+    Bucket bucket;
+
+    // Apply high mask to get initial bucket candidate
+    bucket = hashkey & highmask;
+
+    // If bucket exceeds max, use low mask instead
+    if (bucket > maxbucket)
+        bucket = bucket & lowmask;
+
+    return bucket;
+}
+```

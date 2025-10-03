@@ -47,3 +47,78 @@ The function also handles collation information appropriately, using index-speci
 - Critical for GiST performance by avoiding repeated function lookups during operations
 - The returned GISTSTATE serves as a performance cache for the lifetime of index operations
 - Caller responsible for setting appropriate tempCxt if different from scanCxt is needed
+
+## Simplified Source
+
+```c
+GISTSTATE *
+initGISTstate(Relation index)
+{
+    GISTSTATE *giststate;
+    MemoryContext scanCxt;
+    MemoryContext oldCxt;
+
+    // Validate index attribute count to prevent array overflow
+    if (index->rd_att->natts > INDEX_MAX_KEYS)
+        elog(ERROR, "numberOfAttributes %d > %d",
+             index->rd_att->natts, INDEX_MAX_KEYS);
+
+    // Create dedicated memory context for GISTSTATE
+    scanCxt = AllocSetContextCreate(CurrentMemoryContext, "GiST scan context",
+                                   ALLOCSET_DEFAULT_SIZES);
+    oldCxt = MemoryContextSwitchTo(scanCxt);
+
+    // Allocate and initialize basic GISTSTATE structure
+    giststate = (GISTSTATE *) palloc(sizeof(GISTSTATE));
+    giststate->scanCxt = scanCxt;
+    giststate->tempCxt = scanCxt;
+    giststate->leafTupdesc = index->rd_att;
+
+    // Create truncated tuple descriptor for non-leaf pages (excludes INCLUDE attributes)
+    giststate->nonLeafTupdesc = CreateTupleDescCopyConstr(index->rd_att);
+    giststate->nonLeafTupdesc->natts = IndexRelationGetNumberOfKeyAttributes(index);
+
+    // Cache support function information for each key attribute
+    for (int i = 0; i < IndexRelationGetNumberOfKeyAttributes(index); i++)
+    {
+        // Cache required support functions
+        fmgr_info_copy(&(giststate->consistentFn[i]),
+                      index_getprocinfo(index, i + 1, GIST_CONSISTENT_PROC), scanCxt);
+        fmgr_info_copy(&(giststate->unionFn[i]),
+                      index_getprocinfo(index, i + 1, GIST_UNION_PROC), scanCxt);
+        fmgr_info_copy(&(giststate->penaltyFn[i]),
+                      index_getprocinfo(index, i + 1, GIST_PENALTY_PROC), scanCxt);
+        fmgr_info_copy(&(giststate->picksplitFn[i]),
+                      index_getprocinfo(index, i + 1, GIST_PICKSPLIT_PROC), scanCxt);
+        fmgr_info_copy(&(giststate->equalFn[i]),
+                      index_getprocinfo(index, i + 1, GIST_EQUAL_PROC), scanCxt);
+
+        // Cache optional support functions (compress, decompress, distance, fetch)
+        if (OidIsValid(index_getprocid(index, i + 1, GIST_COMPRESS_PROC)))
+            fmgr_info_copy(&(giststate->compressFn[i]),
+                          index_getprocinfo(index, i + 1, GIST_COMPRESS_PROC), scanCxt);
+        else
+            giststate->compressFn[i].fn_oid = InvalidOid;
+
+        // (Similar handling for decompress, distance, fetch functions...)
+
+        // Set collation for support functions
+        if (OidIsValid(index->rd_indcollation[i]))
+            giststate->supportCollation[i] = index->rd_indcollation[i];
+        else
+            giststate->supportCollation[i] = DEFAULT_COLLATION_OID;
+    }
+
+    // Invalidate function OIDs for INCLUDE attributes (no opclass support needed)
+    for (int i = IndexRelationGetNumberOfKeyAttributes(index); i < index->rd_att->natts; i++)
+    {
+        giststate->consistentFn[i].fn_oid = InvalidOid;
+        giststate->unionFn[i].fn_oid = InvalidOid;
+        // (Similar invalidation for all other function arrays...)
+        giststate->supportCollation[i] = InvalidOid;
+    }
+
+    MemoryContextSwitchTo(oldCxt);
+    return giststate;
+}
+```

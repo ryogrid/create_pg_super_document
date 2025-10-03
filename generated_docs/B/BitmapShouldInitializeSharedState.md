@@ -39,3 +39,33 @@ The function operates through a spin-lock protected state machine:
 
 ## Notes and Other Information
 This function is critical for avoiding race conditions in parallel bitmap scans. The spin-lock ensures atomic state transitions, while the condition variable provides efficient blocking/wakeup semantics. The function implements a standard leader-follower pattern commonly used in PostgreSQL's parallel query execution framework.
+
+## Simplified Source
+
+```c
+static bool
+BitmapShouldInitializeSharedState(ParallelBitmapHeapState *pstate)
+{
+    SharedBitmapState state;
+
+    while (1) {
+        // Atomically check and claim leadership if available
+        SpinLockAcquire(&pstate->mutex);
+        state = pstate->state;
+        if (pstate->state == BM_INITIAL)
+            pstate->state = BM_INPROGRESS;  // Become leader
+        SpinLockRelease(&pstate->mutex);
+
+        // Exit if bitmap is done, or if we're the leader
+        if (state != BM_INPROGRESS)
+            break;
+
+        // Wait for the leader to wake us up
+        ConditionVariableSleep(&pstate->cv, WAIT_EVENT_PARALLEL_BITMAP_SCAN);
+    }
+
+    ConditionVariableCancelSleep();
+
+    return (state == BM_INITIAL);  // True if we became leader
+}
+```

@@ -39,3 +39,63 @@ The function creates or reopens a mapping file in the pg_logical/mappings direct
 - Ensures data durability through explicit truncation, writing, and fsync operations
 - Part of the logical decoding infrastructure that maintains tuple mapping consistency across table rewrites
 - Critical for maintaining logical replication continuity when tables undergo structural changes
+
+## Simplified Source
+
+```c
+void
+heap_xlog_logical_rewrite(XLogReaderState *r)
+{
+    char path[MAXPGPATH];
+    int fd;
+    xl_heap_rewrite_mapping *xlrec;
+    uint32 len;
+    char *data;
+
+    // Extract WAL record data
+    xlrec = (xl_heap_rewrite_mapping *) XLogRecGetData(r);
+
+    // Generate mapping file path using record information
+    snprintf(path, MAXPGPATH,
+             "pg_logical/mappings/" LOGICAL_REWRITE_FORMAT,
+             xlrec->mapped_db, xlrec->mapped_rel,
+             LSN_FORMAT_ARGS(xlrec->start_lsn),
+             xlrec->mapped_xid, XLogRecGetXid(r));
+
+    // Open mapping file (create if doesn't exist)
+    fd = OpenTransientFile(path, O_CREAT | O_WRONLY | PG_BINARY);
+    if (fd < 0)
+        ereport(ERROR, (errmsg("could not create file \"%s\": %m", path)));
+
+    // Truncate file to ensure consistency (remove any stale data)
+    pgstat_report_wait_start(WAIT_EVENT_LOGICAL_REWRITE_TRUNCATE);
+    if (ftruncate(fd, xlrec->offset) != 0)
+        ereport(ERROR, (errmsg("could not truncate file \"%s\" to %u: %m",
+                              path, (uint32) xlrec->offset)));
+    pgstat_report_wait_end();
+
+    // Get mapping data from WAL record
+    data = XLogRecGetData(r) + sizeof(*xlrec);
+    len = xlrec->num_mappings * sizeof(LogicalRewriteMappingData);
+
+    // Write mapping data to file
+    pgstat_report_wait_start(WAIT_EVENT_LOGICAL_REWRITE_MAPPING_WRITE);
+    if (pg_pwrite(fd, data, len, xlrec->offset) != len) {
+        if (errno == 0)
+            errno = ENOSPC;
+        ereport(ERROR, (errmsg("could not write to file \"%s\": %m", path)));
+    }
+    pgstat_report_wait_end();
+
+    // Sync file to disk for durability
+    pgstat_report_wait_start(WAIT_EVENT_LOGICAL_REWRITE_MAPPING_SYNC);
+    if (pg_fsync(fd) != 0)
+        ereport(data_sync_elevel(ERROR),
+                (errmsg("could not fsync file \"%s\": %m", path)));
+    pgstat_report_wait_end();
+
+    // Close the file
+    if (CloseTransientFile(fd) != 0)
+        ereport(ERROR, (errmsg("could not close file \"%s\": %m", path)));
+}
+```

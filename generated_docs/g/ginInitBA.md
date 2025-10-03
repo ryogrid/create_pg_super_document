@@ -35,3 +35,22 @@ This function initializes a BuildAccumulator structure used during GIN index bul
 - Sets up a red-black tree optimized for GIN entry accumulation during bulk loading
 - No free function is provided to the red-black tree as memory is managed in bulk
 - Part of the GIN access method's bulk loading infrastructure
+
+## Simplified Source
+
+```c
+void ginInitBA(BuildAccumulator *accum) {
+    // Initialize memory allocation tracking
+    accum->allocatedMemory = 0;
+    accum->entryallocator = NULL;
+    accum->eas_used = 0;
+
+    // Create red-black tree for accumulating entries during bulk load
+    accum->tree = rbt_create(sizeof(GinEntryAccumulator),
+                            cmpEntryAccumulator,    // comparison function
+                            ginCombineData,         // merge duplicate entries
+                            ginAllocEntryAccumulator, // custom allocator
+                            NULL,                   // no free function needed
+                            (void *) accum);        // context for allocator
+}
+```

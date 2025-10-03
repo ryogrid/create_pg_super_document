@@ -48,3 +48,78 @@ The function processes one group at a time, scanning through all tuples in the c
 - Maintains efficiency by processing one group at a time rather than materializing all input
 - Part of PostgreSQL's two-strategy approach for set operations (direct vs hashed)
 - Returns NULL when no more groups are available for processing
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+setop_retrieve_direct(SetOpState *setopstate)
+{
+    PlanState *outerPlan;
+    SetOpStatePerGroup pergroup;
+    TupleTableSlot *outerslot;
+    TupleTableSlot *resultTupleSlot;
+    ExprContext *econtext = setopstate->ps.ps_ExprContext;
+
+    // Get state info from node
+    outerPlan = outerPlanState(setopstate);
+    pergroup = (SetOpStatePerGroup) setopstate->pergroup;
+    resultTupleSlot = setopstate->ps.ps_ResultTupleSlot;
+
+    // Process groups until we find one to return
+    while (!setopstate->setop_done) {
+        // Get first tuple of new group if needed
+        if (setopstate->grp_firstTuple == NULL) {
+            outerslot = ExecProcNode(outerPlan);
+            if (!TupIsNull(outerslot)) {
+                setopstate->grp_firstTuple = ExecCopySlotHeapTuple(outerslot);
+            } else {
+                setopstate->setop_done = true;
+                return NULL;
+            }
+        }
+
+        // Store first tuple in result slot
+        ExecStoreHeapTuple(setopstate->grp_firstTuple, resultTupleSlot, true);
+        setopstate->grp_firstTuple = NULL;
+
+        // Initialize and count first tuple
+        initialize_counts(pergroup);
+        advance_counts(pergroup, fetch_tuple_flag(setopstate, resultTupleSlot));
+
+        // Scan remaining tuples in current group
+        for (;;) {
+            outerslot = ExecProcNode(outerPlan);
+            if (TupIsNull(outerslot)) {
+                setopstate->setop_done = true;
+                break;
+            }
+
+            // Check for group boundary
+            econtext->ecxt_outertuple = resultTupleSlot;
+            econtext->ecxt_innertuple = outerslot;
+
+            if (!ExecQualAndReset(setopstate->eqfunction, econtext)) {
+                // Save first tuple of next group
+                setopstate->grp_firstTuple = ExecCopySlotHeapTuple(outerslot);
+                break;
+            }
+
+            // Count tuple in current group
+            advance_counts(pergroup, fetch_tuple_flag(setopstate, outerslot));
+        }
+
+        // Determine if this group should produce output
+        set_output_count(setopstate, pergroup);
+
+        if (setopstate->numOutput > 0) {
+            setopstate->numOutput--;
+            return resultTupleSlot;
+        }
+    }
+
+    // No more groups
+    ExecClearTuple(resultTupleSlot);
+    return NULL;
+}
+```

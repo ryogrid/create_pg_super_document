@@ -39,3 +39,34 @@ The calculation involves three components: single-phase groups, multi-phase grou
 - Supports efficient index expansion without requiring complete reorganization
 - Part of the complex mathematical framework that governs hash index growth
 - The algorithm balances simplicity with the need for predictable bucket distribution
+
+## Simplified Source
+
+```c
+uint32 _hash_spareindex(uint32 num_bucket)
+{
+    uint32 splitpoint_group;
+    uint32 splitpoint_phases;
+
+    // Determine which group this bucket belongs to
+    splitpoint_group = pg_ceil_log2_32(num_bucket);
+
+    // Early groups have one phase each
+    if (splitpoint_group < HASH_SPLITPOINT_GROUPS_WITH_ONE_PHASE)
+        return splitpoint_group;
+
+    // Count phases from single-phase groups
+    splitpoint_phases = HASH_SPLITPOINT_GROUPS_WITH_ONE_PHASE;
+
+    // Add phases from multi-phase groups before current group
+    splitpoint_phases += ((splitpoint_group - HASH_SPLITPOINT_GROUPS_WITH_ONE_PHASE)
+                         << HASH_SPLITPOINT_PHASE_BITS);
+
+    // Add phases within current group
+    splitpoint_phases += (((num_bucket - 1) >>
+                          (splitpoint_group - (HASH_SPLITPOINT_PHASE_BITS + 1)))
+                         & HASH_SPLITPOINT_PHASE_MASK);
+
+    return splitpoint_phases;
+}
+```

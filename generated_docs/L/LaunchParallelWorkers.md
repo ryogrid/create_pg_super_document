@@ -46,3 +46,75 @@ Each worker is configured to execute the ParallelWorkerMain function with the DS
 - The function tolerates ending up with fewer workers than requested due to system constraints
 - Initializes the known_attached_workers tracking array based on actual launched worker count
 - Uses "ParallelWorkerMain" as the entry point function for all parallel workers
+
+## Simplified Source
+
+```c
+void LaunchParallelWorkers(ParallelContext *pcxt)
+{
+    MemoryContext oldcontext;
+    BackgroundWorker worker;
+    bool any_registrations_failed = false;
+
+    // Skip if no workers to launch
+    if (pcxt->nworkers == 0 || pcxt->nworkers_to_launch == 0)
+        return;
+
+    // Establish this process as the lock group leader
+    BecomeLockGroupLeader();
+
+    // Must have a DSM segment for workers to attach to
+    Assert(pcxt->seg != NULL);
+
+    // Switch to transaction context for persistent allocations
+    oldcontext = MemoryContextSwitchTo(TopTransactionContext);
+
+    // Configure background worker template
+    memset(&worker, 0, sizeof(worker));
+    snprintf(worker.bgw_name, BGW_MAXLEN, "parallel worker for PID %d", MyProcPid);
+    snprintf(worker.bgw_type, BGW_MAXLEN, "parallel worker");
+    worker.bgw_flags = BGWORKER_SHMEM_ACCESS | BGWORKER_BACKEND_DATABASE_CONNECTION | BGWORKER_CLASS_PARALLEL;
+    worker.bgw_start_time = BgWorkerStart_ConsistentState;
+    worker.bgw_restart_time = BGW_NEVER_RESTART;
+    sprintf(worker.bgw_library_name, "postgres");
+    sprintf(worker.bgw_function_name, "ParallelWorkerMain");
+    worker.bgw_main_arg = UInt32GetDatum(dsm_segment_handle(pcxt->seg));  // Pass DSM handle
+    worker.bgw_notify_pid = MyProcPid;
+
+    // Launch each worker process
+    for (int i = 0; i < pcxt->nworkers_to_launch; ++i)
+    {
+        // Give each worker a unique index identifier
+        memcpy(worker.bgw_extra, &i, sizeof(int));
+
+        // Try to register this worker
+        if (!any_registrations_failed &&
+            RegisterDynamicBackgroundWorker(&worker, &pcxt->worker[i].bgwhandle))
+        {
+            // Success: set up error message queue handle
+            shm_mq_set_handle(pcxt->worker[i].error_mqh, pcxt->worker[i].bgwhandle);
+            pcxt->nworkers_launched++;
+        }
+        else
+        {
+            // Registration failed (likely hit max_worker_processes limit)
+            any_registrations_failed = true;
+            pcxt->worker[i].bgwhandle = NULL;
+
+            // Clean up error queue to avoid waiting for worker that won't start
+            shm_mq_detach(pcxt->worker[i].error_mqh);
+            pcxt->worker[i].error_mqh = NULL;
+        }
+    }
+
+    // Initialize tracking array for attached workers
+    if (pcxt->nworkers_launched > 0)
+    {
+        pcxt->known_attached_workers = palloc0(sizeof(bool) * pcxt->nworkers_launched);
+        pcxt->nknown_attached_workers = 0;
+    }
+
+    // Restore original memory context
+    MemoryContextSwitchTo(oldcontext);
+}
+```

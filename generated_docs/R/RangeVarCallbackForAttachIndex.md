@@ -44,3 +44,48 @@ The function is designed to handle race conditions and concurrent operations dur
 - Lock management is crucial to prevent race conditions during concurrent DDL operations
 - The function uses AccessShareLock which allows concurrent reads but prevents DDL operations on the locked relations
 - Error reporting follows PostgreSQL's standard error handling patterns with specific error codes for invalid object definitions
+
+## Simplified Source
+```c
+static void RangeVarCallbackForAttachIndex(const RangeVar *rv, Oid relOid, Oid oldRelOid,
+                                          void *arg) {
+    struct AttachIndexCallbackState *state = (struct AttachIndexCallbackState *) arg;
+    Form_pg_class classform;
+    HeapTuple tuple;
+
+    // Lock parent table if not already locked
+    if (!state->lockedParentTbl) {
+        LockRelationOid(state->parentTblOid, AccessShareLock);
+        state->lockedParentTbl = true;
+    }
+
+    // Release old lock if name now refers to different relation
+    if (relOid != oldRelOid && OidIsValid(state->partitionOid)) {
+        UnlockRelationOid(state->partitionOid, AccessShareLock);
+        state->partitionOid = InvalidOid;
+    }
+
+    // Exit early if no relation found
+    if (!OidIsValid(relOid)) {
+        return;
+    }
+
+    // Look up relation in system catalog
+    tuple = SearchSysCache1(RELOID, ObjectIdGetDatum(relOid));
+    if (!HeapTupleIsValid(tuple)) {
+        return; // Relation dropped concurrently
+    }
+
+    // Verify the relation is an index
+    classform = (Form_pg_class) GETSTRUCT(tuple);
+    if (classform->relkind != RELKIND_PARTITIONED_INDEX &&
+        classform->relkind != RELKIND_INDEX) {
+        ereport(ERROR, "relation is not an index");
+    }
+    ReleaseSysCache(tuple);
+
+    // Get the table that owns this index and lock it
+    state->partitionOid = IndexGetRelation(relOid, false);
+    LockRelationOid(state->partitionOid, AccessShareLock);
+}
+```

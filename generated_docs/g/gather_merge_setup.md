@@ -42,3 +42,39 @@ The allocation is based on gm->num_workers (upper bound), allowing for fewer act
 - The binary heap enables efficient O(log n) merge operations across all parallel sources
 - MAX_TUPLE_STORE defines the batch size for tuple buffering from worker processes
 - Uses minimal tuple format (TTSOpsMinimalTuple) for efficient worker communication
+
+## Simplified Source
+
+```c
+static void
+gather_merge_setup(GatherMergeState *gm_state)
+{
+    GatherMerge *gm = castNode(GatherMerge, gm_state->ps.plan);
+    int nreaders = gm->num_workers;
+
+    // Allocate tuple slots: [0] for leader, [1..n] for workers
+    gm_state->gm_slots = (TupleTableSlot **)
+        palloc0((nreaders + 1) * sizeof(TupleTableSlot *));
+
+    // Allocate tuple buffers for workers (no buffer for leader)
+    gm_state->gm_tuple_buffers = (GMReaderTupleBuffer *)
+        palloc0(nreaders * sizeof(GMReaderTupleBuffer));
+
+    // Set up each worker's tuple buffer and slot
+    for (int i = 0; i < nreaders; i++) {
+        // Allocate tuple array for buffering worker results
+        gm_state->gm_tuple_buffers[i].tuple =
+            (MinimalTuple *) palloc0(sizeof(MinimalTuple) * MAX_TUPLE_STORE);
+
+        // Create tuple slot for worker (index i+1, since 0 is for leader)
+        gm_state->gm_slots[i + 1] =
+            ExecInitExtraTupleSlot(gm_state->ps.state, gm_state->tupDesc,
+                                   &TTSOpsMinimalTuple);
+    }
+
+    // Create binary heap for efficient merging
+    gm_state->gm_heap = binaryheap_allocate(nreaders + 1,
+                                           heap_compare_slots,
+                                           gm_state);
+}
+```

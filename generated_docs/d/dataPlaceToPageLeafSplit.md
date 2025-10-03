@@ -62,3 +62,68 @@ The split operation preserves the logical ordering of segments while physically 
 - Sets appropriate right boundary item pointers for both pages
 - Maintains segment ordering across the split operation
 - Handles segment deletion by skipping those segments entirely during reconstruction
+
+## Simplified Source
+
+```c
+static void
+dataPlaceToPageLeafSplit(disassembledLeaf *leaf,
+                         ItemPointerData lbound, ItemPointerData rbound,
+                         Page lpage, Page rpage)
+{
+    char *ldata_ptr, *rdata_ptr;
+    int lsize = 0, rsize = 0;
+    dlist_node *node, *split_point;
+    leafSegmentInfo *seginfo;
+
+    // Initialize both pages as compressed data leaf pages
+    GinInitPage(lpage, GIN_DATA | GIN_LEAF | GIN_COMPRESSED, BLCKSZ);
+    GinInitPage(rpage, GIN_DATA | GIN_LEAF | GIN_COMPRESSED, BLCKSZ);
+
+    // Set up data areas
+    ldata_ptr = (char *) GinDataLeafPageGetPostingList(lpage);
+    rdata_ptr = (char *) GinDataLeafPageGetPostingList(rpage);
+
+    // Copy segments to left page (up to split point)
+    split_point = dlist_next_node(&leaf->segments, leaf->lastleft);
+    for (node = dlist_head_node(&leaf->segments);
+         node != split_point;
+         node = dlist_next_node(&leaf->segments, node))
+    {
+        seginfo = dlist_container(leafSegmentInfo, node, node);
+
+        if (seginfo->action != GIN_SEGMENT_DELETE)
+        {
+            int seg_size = SizeOfGinPostingList(seginfo->seg);
+            memcpy(ldata_ptr, seginfo->seg, seg_size);
+            ldata_ptr += seg_size;
+            lsize += seg_size;
+        }
+    }
+
+    // Copy segments to right page (from split point onward)
+    for (node = split_point; ; node = dlist_next_node(&leaf->segments, node))
+    {
+        seginfo = dlist_container(leafSegmentInfo, node, node);
+
+        if (seginfo->action != GIN_SEGMENT_DELETE)
+        {
+            int seg_size = SizeOfGinPostingList(seginfo->seg);
+            memcpy(rdata_ptr, seginfo->seg, seg_size);
+            rdata_ptr += seg_size;
+            rsize += seg_size;
+        }
+
+        if (!dlist_has_next(&leaf->segments, node))
+            break;
+    }
+
+    // Finalize page metadata
+    Assert(lsize == leaf->lsize);
+    Assert(rsize == leaf->rsize);
+    GinDataPageSetDataSize(lpage, lsize);
+    GinDataPageSetDataSize(rpage, rsize);
+    *GinDataPageGetRightBound(lpage) = lbound;
+    *GinDataPageGetRightBound(rpage) = rbound;
+}
+```

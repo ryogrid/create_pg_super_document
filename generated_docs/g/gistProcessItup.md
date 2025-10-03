@@ -67,3 +67,81 @@ The function returns a boolean indicating whether buffer emptying should be paus
 - Critical component of the buffering algorithm that reduces random I/O by batching insertions
 - Implements the tree descent algorithm that's fundamental to GiST index structure
 - Memory management is handled carefully with proper buffer locking and unlocking
+
+## Simplified Source
+
+```c
+static bool
+gistProcessItup(GISTBuildState *buildstate, IndexTuple itup,
+                BlockNumber startblkno, int startlevel)
+{
+    GISTBuildBuffers *gfbb = buildstate->gfbb;
+    Relation indexrel = buildstate->indexrel;
+    BlockNumber blkno = startblkno;
+    int level = startlevel;
+    BlockNumber parentblkno = InvalidBlockNumber;
+    OffsetNumber downlinkoffnum = InvalidOffsetNumber;
+
+    // Descend tree until reaching buffered level or leaf
+    for (;;)
+    {
+        // Stop if we reached a buffered level (but not the starting level)
+        if (LEVEL_HAS_BUFFERS(level, gfbb) && level != startlevel)
+            break;
+
+        // Stop if we reached a leaf page
+        if (level == 0)
+            break;
+
+        // Navigate to child node
+        Buffer buffer = ReadBuffer(indexrel, blkno);
+        LockBuffer(buffer, GIST_EXCLUSIVE);
+
+        Page page = BufferGetPage(buffer);
+        OffsetNumber childoffnum = gistchoose(indexrel, page, itup, buildstate->giststate);
+        ItemId iid = PageGetItemId(page, childoffnum);
+        IndexTuple idxtuple = (IndexTuple) PageGetItem(page, iid);
+        BlockNumber childblkno = ItemPointerGetBlockNumber(&(idxtuple->t_tid));
+
+        // Track parent relationships for levels > 1
+        if (level > 1)
+            gistMemorizeParent(buildstate, childblkno, blkno);
+
+        // Update child key if needed
+        IndexTuple newtup = gistgetadjusted(indexrel, idxtuple, itup, buildstate->giststate);
+        if (newtup)
+        {
+            blkno = gistbufferinginserttuples(buildstate, buffer, level, &newtup, 1,
+                                              childoffnum, InvalidBlockNumber,
+                                              InvalidOffsetNumber);
+        }
+        else
+            UnlockReleaseBuffer(buffer);
+
+        // Move to child level
+        parentblkno = blkno;
+        blkno = childblkno;
+        downlinkoffnum = childoffnum;
+        level--;
+    }
+
+    if (LEVEL_HAS_BUFFERS(level, gfbb))
+    {
+        // Add tuple to buffer at this level
+        GISTNodeBuffer *childNodeBuffer = gistGetNodeBuffer(gfbb, buildstate->giststate,
+                                                            blkno, level);
+        gistPushItupToNodeBuffer(gfbb, childNodeBuffer, itup);
+
+        return BUFFER_OVERFLOWED(childNodeBuffer, gfbb);
+    }
+    else
+    {
+        // Insert directly into leaf page
+        Buffer buffer = ReadBuffer(indexrel, blkno);
+        LockBuffer(buffer, GIST_EXCLUSIVE);
+        gistbufferinginserttuples(buildstate, buffer, level, &itup, 1,
+                                  InvalidOffsetNumber, parentblkno, downlinkoffnum);
+        return false;
+    }
+}
+```

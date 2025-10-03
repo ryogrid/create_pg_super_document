@@ -38,5 +38,25 @@ The function is designed to handle the standard case of single-column hash index
   - [hashbuildCallback](hashbuildCallback.md)
   - [hashinsert](hashinsert.md)
 
+## Simplified Source
+```c
+bool _hash_convert_tuple(Relation index,
+                        Datum *user_values, bool *user_isnull,
+                        Datum *index_values, bool *index_isnull) {
+    // Hash indexes don't support null values
+    if (user_isnull[0])
+        return false;
+
+    // Compute hash key from user data
+    uint32 hashkey = _hash_datum2hashkey(index, user_values[0]);
+
+    // Store hash key as index value
+    index_values[0] = UInt32GetDatum(hashkey);
+    index_isnull[0] = false;
+
+    return true;
+}
+```
+
 ## Notes and Other Information
 This function is essential for hash index insertion operations and bulk index building. The return value indicates whether the conversion was successful - a false return means the data contains null values and should not be indexed. The function's design reflects hash indexes' fundamental limitation of not supporting null values, which is acceptable given that hash indexes only support equality searches with strict operators.

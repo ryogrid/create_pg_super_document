@@ -31,3 +31,20 @@ ExecCustomRestrPos is responsible for restoring a custom scan node to a position
 - The function will raise an ERROR with code ERRCODE_FEATURE_NOT_SUPPORTED if the custom scan provider doesn't implement the RestrPosCustomScan method
 - Position restoration is typically used in conjunction with position marking for operations that need to backtrack through scan results
 - The error message incorrectly refers to "MarkPos" in the implementation, but the function is actually for restoring position
+
+## Simplified Source
+
+```c
+void ExecCustomRestrPos(CustomScanState *node)
+{
+    // Check if custom scan supports position restoration
+    if (!node->methods->RestrPosCustomScan)
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("custom scan \"%s\" does not support MarkPos",
+                        node->methods->CustomName)));
+
+    // Delegate to custom scan method
+    node->methods->RestrPosCustomScan(node);
+}
+```

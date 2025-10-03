@@ -46,3 +46,49 @@ This optimization helps reduce repeated visibility checks for tuples that are kn
 - The LSN check is critical for correctness - without it, there's a risk of marking valid tuples as dead
 - Always resets numKilled counter regardless of whether items were actually killed
 - Only works on leaf pages (asserted with GistPageIsLeaf)
+
+## Simplified Source
+
+```c
+static void gistkillitems(IndexScanDesc scan) {
+    GISTScanOpaque so = (GISTScanOpaque) scan->opaque;
+    Buffer buffer;
+    Page page;
+    bool killedsomething = false;
+
+    // Read the page and acquire share lock
+    buffer = ReadBuffer(scan->indexRelation, so->curBlkno);
+    if (!BufferIsValid(buffer))
+        return;
+
+    LockBuffer(buffer, GIST_SHARE);
+    gistcheckpage(scan->indexRelation, buffer);
+    page = BufferGetPage(buffer);
+
+    // Safety check: ensure page hasn't been modified since last read
+    if (BufferGetLSNAtomic(buffer) != so->curPageLSN) {
+        UnlockReleaseBuffer(buffer);
+        so->numKilled = 0;
+        return;
+    }
+
+    // Mark all killed items as dead
+    for (int i = 0; i < so->numKilled; i++) {
+        OffsetNumber offnum = so->killedItems[i];
+        ItemId iid = PageGetItemId(page, offnum);
+        ItemIdMarkDead(iid);
+        killedsomething = true;
+    }
+
+    // Update page state if items were killed
+    if (killedsomething) {
+        GistMarkPageHasGarbage(page);
+        MarkBufferDirtyHint(buffer, true);
+    }
+
+    UnlockReleaseBuffer(buffer);
+
+    // Reset killed items counter
+    so->numKilled = 0;
+}
+```

@@ -37,3 +37,19 @@ This callback is registered with the ResourceOwner system through the tupdesc_re
 - Has RELEASE_PRIO_TUPDESC_REFS priority in the cleanup order
 - Ensures that tuple descriptors are properly freed even if manual cleanup is missed
 - Maintains the assertion that tdrefcount > 0 before decrementing, ensuring reference count integrity
+
+## Simplified Source
+
+```c
+static void
+ResOwnerReleaseTupleDesc(Datum res)
+{
+    TupleDesc tupdesc = (TupleDesc) DatumGetPointer(res);
+
+    // Decrement reference count, free if reaches zero
+    // Similar to DecrTupleDescRefCount but without ResourceOwnerForget
+    Assert(tupdesc->tdrefcount > 0);
+    if (--tupdesc->tdrefcount == 0)
+        FreeTupleDesc(tupdesc);
+}
+```

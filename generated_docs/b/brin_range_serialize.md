@@ -45,3 +45,93 @@ Before serialization, the function deduplicates values and performs various sani
 - Memory layout is carefully managed to avoid buffer overflows
 - The function handles endianness considerations for by-value types
 - After serialization, the range data is compacted to the target maximum values size
+
+## Simplified Source
+
+```c
+static SerializedRanges *
+brin_range_serialize(Ranges *range)
+{
+    Size        len;
+    int         nvalues;
+    SerializedRanges *serialized;
+    Oid         typid;
+    int         typlen;
+    bool        typbyval;
+    char       *ptr;
+
+    // Deduplicate values first
+    range_deduplicate_values(range);
+
+    // Calculate total values count (ranges + individual values)
+    nvalues = 2 * range->nranges + range->nvalues;
+
+    // Get type information
+    typid = range->typid;
+    typbyval = get_typbyval(typid);
+    typlen = get_typlen(typid);
+
+    // Calculate space needed for serialization
+    len = offsetof(SerializedRanges, data);
+
+    if (typlen == -1)  // varlena types
+    {
+        for (int i = 0; i < nvalues; i++)
+            len += VARSIZE_ANY(range->values[i]);
+    }
+    else if (typlen == -2)  // cstring types
+    {
+        for (int i = 0; i < nvalues; i++)
+            len += strlen(DatumGetCString(range->values[i])) + 1;
+    }
+    else  // fixed-length types
+    {
+        len += nvalues * typlen;
+    }
+
+    // Allocate and initialize serialized structure
+    serialized = (SerializedRanges *) palloc0(len);
+    SET_VARSIZE(serialized, len);
+
+    serialized->typid = typid;
+    serialized->nranges = range->nranges;
+    serialized->nvalues = range->nvalues;
+    serialized->maxvalues = range->target_maxvalues;
+
+    // Copy values according to type
+    ptr = serialized->data;
+    for (int i = 0; i < nvalues; i++)
+    {
+        if (typbyval)
+        {
+            // Copy by-value types with proper alignment
+            Datum tmp;
+            store_att_byval(&tmp, range->values[i], typlen);
+            memcpy(ptr, &tmp, typlen);
+            ptr += typlen;
+        }
+        else if (typlen > 0)
+        {
+            // Fixed-length by-reference types
+            memcpy(ptr, DatumGetPointer(range->values[i]), typlen);
+            ptr += typlen;
+        }
+        else if (typlen == -1)
+        {
+            // Variable-length types
+            int tmp = VARSIZE_ANY(DatumGetPointer(range->values[i]));
+            memcpy(ptr, DatumGetPointer(range->values[i]), tmp);
+            ptr += tmp;
+        }
+        else if (typlen == -2)
+        {
+            // C-string types
+            int tmp = strlen(DatumGetCString(range->values[i])) + 1;
+            memcpy(ptr, DatumGetCString(range->values[i]), tmp);
+            ptr += tmp;
+        }
+    }
+
+    return serialized;
+}
+```

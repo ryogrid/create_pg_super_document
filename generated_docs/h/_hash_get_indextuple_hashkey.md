@@ -35,5 +35,16 @@ This "crude but very very cheaply" approach (as noted in the source comment) byp
   - [_hash_load_qualified_items](_hash_load_qualified_items.md)
   - [_h_indexbuild](_h_indexbuild.md)
 
+## Simplified Source
+```c
+uint32 _hash_get_indextuple_hashkey(IndexTuple itup) {
+    // Calculate pointer to tuple data (skip header)
+    char *data_ptr = (char *) itup + IndexInfoFindDataOffset(itup->t_info);
+
+    // Hash key is first attribute, cast to uint32 and return
+    return *((uint32 *) data_ptr);
+}
+```
+
 ## Notes and Other Information
 This function is fundamental to hash index operations and is called frequently during searches, insertions, deletions, and maintenance operations. Its optimized implementation reflects the critical performance requirements of hash index operations. The function assumes the standard hash index tuple format where the hash key is stored as the first 4 bytes of the tuple data area.

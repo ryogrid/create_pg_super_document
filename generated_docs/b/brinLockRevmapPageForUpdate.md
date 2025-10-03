@@ -46,3 +46,20 @@ The returned buffer remains locked and cached in the revmap structure until the 
 - The returned buffer is cached in revmap->rm_currBuf and will be released when the revmap operation completes
 - The exclusive lock prevents concurrent modifications to the revmap page during updates
 - This function is part of the critical path for BRIN index maintenance operations including insertions and updates
+
+## Simplified Source
+
+```c
+Buffer brinLockRevmapPageForUpdate(BrinRevmap *revmap, BlockNumber heapBlk)
+{
+    Buffer rmBuf;
+
+    // Get the revmap buffer for this heap block
+    rmBuf = revmap_get_buffer(revmap, heapBlk);
+
+    // Lock it exclusively for update
+    LockBuffer(rmBuf, BUFFER_LOCK_EXCLUSIVE);
+
+    return rmBuf;
+}
+```

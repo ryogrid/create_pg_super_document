@@ -41,3 +41,28 @@ The function operates as part of the memoize node's cache management system, whi
 - The function assumes that entry_purge_tuples has already handled memory accounting for the cached tuples
 - The LRU node removal ensures proper cache eviction ordering is maintained
 - All memory allocated for the key parameters and key structure is properly freed to prevent memory leaks
+
+## Simplified Source
+
+```c
+static void remove_cache_entry(MemoizeState *mstate, MemoizeEntry *entry) {
+    MemoizeKey *key = entry->key;
+
+    // Remove entry from LRU list
+    dlist_delete(&entry->key->lru_node);
+
+    // Remove all cached tuples from this entry
+    entry_purge_tuples(mstate, entry);
+
+    // Update memory accounting for the entry structure itself
+    // (entry_purge_tuples already handled tuple memory)
+    mstate->mem_used -= EMPTY_ENTRY_MEMORY_BYTES(entry);
+
+    // Remove entry from the hash table
+    memoize_delete_item(mstate->hashtable, entry);
+
+    // Free the key's parameter data and the key itself
+    pfree(key->params);
+    pfree(key);
+}
+```

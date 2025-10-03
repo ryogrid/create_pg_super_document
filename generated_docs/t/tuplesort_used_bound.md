@@ -32,3 +32,13 @@ The function simply returns the value of the boundUsed flag from the sort state,
 - Useful for performance analysis and debugging to understand when bounded sort optimizations are effective
 - The boundUsed flag is set internally by the tuplesort system based on various conditions and constraints
 - Typically called after sort completion to determine if the optimization was beneficial
+
+## Simplified Source
+
+```c
+bool tuplesort_used_bound(Tuplesortstate *state)
+{
+    // Simply return whether bound optimization was actually used
+    return state->boundUsed;
+}
+```

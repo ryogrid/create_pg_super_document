@@ -64,3 +64,89 @@ The function is designed to be retry-safe, meaning callers are expected to retry
 - Page evacuation is performed when a target block is already in use as a regular BRIN page
 - Maintains proper buffer locking protocols to prevent corruption during concurrent access
 - Updates the metapage's pd_lower field to ensure proper page compression handling by xlog.c
+
+## Simplified Source
+
+```c
+static void revmap_physical_extend(BrinRevmap *revmap)
+{
+    // Lock metapage to prevent concurrent extensions
+    LockBuffer(revmap->rm_metaBuf, BUFFER_LOCK_EXCLUSIVE);
+    Page metapage = BufferGetPage(revmap->rm_metaBuf);
+    BrinMetaPageData *metadata = (BrinMetaPageData *) PageGetContents(metapage);
+
+    // Check if our cached metadata is current; if not, update and retry
+    if (metadata->lastRevmapPage != revmap->rm_lastRevmapPage) {
+        revmap->rm_lastRevmapPage = metadata->lastRevmapPage;
+        LockBuffer(revmap->rm_metaBuf, BUFFER_LOCK_UNLOCK);
+        return;  // Caller should retry
+    }
+
+    BlockNumber mapBlk = metadata->lastRevmapPage + 1;
+
+    // Get or create the target block
+    Buffer buf;
+    BlockNumber nblocks = RelationGetNumberOfBlocks(revmap->rm_irel);
+    if (mapBlk < nblocks) {
+        buf = ReadBuffer(revmap->rm_irel, mapBlk);
+        LockBuffer(buf, BUFFER_LOCK_EXCLUSIVE);
+    } else {
+        buf = ExtendBufferedRel(BMR_REL(revmap->rm_irel), MAIN_FORKNUM, NULL, EB_LOCK_FIRST);
+        if (BufferGetBlockNumber(buf) != mapBlk) {
+            // Concurrent extension detected, retry
+            LockBuffer(revmap->rm_metaBuf, BUFFER_LOCK_UNLOCK);
+            UnlockReleaseBuffer(buf);
+            return;
+        }
+    }
+
+    Page page = BufferGetPage(buf);
+
+    // Validate page type
+    if (!PageIsNew(page) && !BRIN_IS_REGULAR_PAGE(page))
+        ereport(ERROR, (errcode(ERRCODE_INDEX_CORRUPTED),
+                       errmsg("unexpected page type 0x%04X in BRIN index \"%s\" block %u",
+                              BrinPageType(page), RelationGetRelationName(revmap->rm_irel),
+                              BufferGetBlockNumber(buf))));
+
+    // Handle page evacuation if needed
+    if (brin_start_evacuating_page(revmap->rm_irel, buf)) {
+        LockBuffer(revmap->rm_metaBuf, BUFFER_LOCK_UNLOCK);
+        brin_evacuate_page(revmap->rm_irel, revmap->rm_pagesPerRange, revmap, buf);
+        return;  // Caller should retry
+    }
+
+    START_CRIT_SECTION();
+
+    // Initialize as revmap page and update metadata
+    brin_page_init(page, BRIN_PAGETYPE_REVMAP);
+    MarkBufferDirty(buf);
+
+    metadata->lastRevmapPage = mapBlk;
+
+    // Fix metapage pd_lower for compression
+    ((PageHeader) metapage)->pd_lower =
+        ((char *) metadata + sizeof(BrinMetaPageData)) - (char *) metapage;
+    MarkBufferDirty(revmap->rm_metaBuf);
+
+    // WAL logging if needed
+    if (RelationNeedsWAL(revmap->rm_irel)) {
+        xl_brin_revmap_extend xlrec;
+        xlrec.targetBlk = mapBlk;
+
+        XLogBeginInsert();
+        XLogRegisterData((char *) &xlrec, SizeOfBrinRevmapExtend);
+        XLogRegisterBuffer(0, revmap->rm_metaBuf, REGBUF_STANDARD);
+        XLogRegisterBuffer(1, buf, REGBUF_WILL_INIT);
+
+        XLogRecPtr recptr = XLogInsert(RM_BRIN_ID, XLOG_BRIN_REVMAP_EXTEND);
+        PageSetLSN(metapage, recptr);
+        PageSetLSN(page, recptr);
+    }
+
+    END_CRIT_SECTION();
+
+    LockBuffer(revmap->rm_metaBuf, BUFFER_LOCK_UNLOCK);
+    UnlockReleaseBuffer(buf);
+}
+```

@@ -56,3 +56,63 @@ The function continues iterating through TIDs until it finds a valid, visible tu
 - Returns NULL (via ExecClearTuple) when no more tuples are available
 - Part of PostgreSQL's executor framework for direct tuple access via TID values
 - Optimized for sequential access through the sorted TID list produced by TidListEval
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+TidNext(TidScanState *node)
+{
+    EState *estate = node->ss.ps.state;
+    ScanDirection direction = estate->es_direction;
+    Snapshot snapshot = estate->es_snapshot;
+    Relation heapRelation = node->ss.ss_currentRelation;
+    TupleTableSlot *slot = node->ss.ss_ScanTupleSlot;
+
+    // First time: compute TID list
+    if (node->tss_TidList == NULL)
+        TidListEval(node);
+
+    TableScanDesc scan = node->ss.ss_currentScanDesc;
+    ItemPointerData *tidList = node->tss_TidList;
+    int numTids = node->tss_NumTids;
+
+    // Initialize or advance scan position
+    bool bBackward = ScanDirectionIsBackward(direction);
+    if (bBackward) {
+        if (node->tss_TidPtr < 0)
+            node->tss_TidPtr = numTids - 1;  // init backward
+        else
+            node->tss_TidPtr--;
+    } else {
+        if (node->tss_TidPtr < 0)
+            node->tss_TidPtr = 0;  // init forward
+        else
+            node->tss_TidPtr++;
+    }
+
+    // Iterate through TID list to find valid tuple
+    while (node->tss_TidPtr >= 0 && node->tss_TidPtr < numTids) {
+        ItemPointerData tid = tidList[node->tss_TidPtr];
+
+        // Handle CURRENT OF cursor case
+        if (node->tss_isCurrentOf)
+            table_tuple_get_latest_tid(scan, &tid);
+
+        // Try to fetch tuple version
+        if (table_tuple_fetch_row_version(heapRelation, &tid, snapshot, slot))
+            return slot;
+
+        // Bad TID or failed snapshot - try next
+        if (bBackward)
+            node->tss_TidPtr--;
+        else
+            node->tss_TidPtr++;
+
+        CHECK_FOR_INTERRUPTS();
+    }
+
+    // End of scan
+    return ExecClearTuple(slot);
+}
+```

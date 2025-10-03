@@ -32,3 +32,14 @@ For CTE scans, this function currently performs no actual rechecking and always 
 - Part of the standard scan node interface but has no meaningful work to do for CTE scans
 - CTE tuples don't need rechecking since they're materialized in a tuplestore and not subject to concurrent modifications
 - Located at src/backend/executor/nodeCtescan.c:145-159
+
+## Simplified Source
+
+```c
+static bool
+CteScanRecheck(CteScanState *node, TupleTableSlot *slot)
+{
+    // CTE tuples are materialized in tuplestore, no rechecking needed
+    return true;
+}
+```

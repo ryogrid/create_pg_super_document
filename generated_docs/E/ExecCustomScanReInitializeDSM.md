@@ -35,3 +35,21 @@ ExecCustomScanReInitializeDSM is responsible for re-initializing the shared memo
 - The coordinate pointer allows the custom scan provider to reset its shared state without reallocating memory
 - This function is called when parallel execution needs to restart from the beginning
 - The shm_toc_lookup call uses 'false' for the missing_ok parameter, meaning it will error if the segment is not found
+
+## Simplified Source
+```c
+void ExecCustomScanReInitializeDSM(CustomScanState *node, ParallelContext *pcxt) {
+    const CustomExecMethods *methods = node->methods;
+
+    // Only reinitialize if the custom scan provider supports it
+    if (methods->ReInitializeDSMCustomScan) {
+        int plan_node_id = node->ss.ps.plan->plan_node_id;
+
+        // Find the shared memory coordinate for this plan node
+        void *coordinate = shm_toc_lookup(pcxt->toc, plan_node_id, false);
+
+        // Delegate to the custom scan provider's reinitialization method
+        methods->ReInitializeDSMCustomScan(node, pcxt, coordinate);
+    }
+}
+```

@@ -154,3 +154,126 @@ The function handles edge cases like all-null columns, mixed null/non-null scena
 - The caller must initialize spl_lisnull and spl_risnull arrays to all-true before calling
 - Uses a mapping system to track tuple positions during recursive splitting operations
 - Designed to handle any number of index columns through recursive processing
+
+## Simplified Source
+
+```c
+void
+gistSplitByKey(Relation r, Page page, IndexTuple *itup, int len,
+               GISTSTATE *giststate, GistSplitVector *v, int attno)
+{
+    GistEntryVector *entryvec;
+    OffsetNumber *offNullTuples;
+    int nOffNullTuples = 0;
+    int i;
+
+    // Create entry vector and identify null tuples
+    entryvec = palloc(GEVHDRSZ + (len + 1) * sizeof(GISTENTRY));
+    entryvec->n = len + 1;
+    offNullTuples = (OffsetNumber *) palloc(len * sizeof(OffsetNumber));
+
+    // Build entry vector and collect null tuple offsets
+    for (i = 1; i <= len; i++) {
+        Datum datum;
+        bool IsNull;
+
+        datum = index_getattr(itup[i - 1], attno + 1, giststate->leafTupdesc, &IsNull);
+        gistdentryinit(giststate, attno, &(entryvec->vector[i]),
+                      datum, r, page, i, false, IsNull);
+        if (IsNull)
+            offNullTuples[nOffNullTuples++] = i;
+    }
+
+    if (nOffNullTuples == len) {
+        // All keys are null - move to next column or split evenly
+        v->spl_risnull[attno] = v->spl_lisnull[attno] = true;
+
+        if (attno + 1 < giststate->nonLeafTupdesc->natts)
+            gistSplitByKey(r, page, itup, len, giststate, v, attno + 1);
+        else
+            gistSplitHalf(&v->splitVector, len);
+    }
+    else if (nOffNullTuples > 0) {
+        // Mixed null/non-null: nulls to right, non-nulls to left
+        int j = 0;
+
+        v->splitVector.spl_right = offNullTuples;
+        v->splitVector.spl_nright = nOffNullTuples;
+        v->spl_risnull[attno] = true;
+
+        v->splitVector.spl_left = (OffsetNumber *) palloc(len * sizeof(OffsetNumber));
+        v->splitVector.spl_nleft = 0;
+
+        for (i = 1; i <= len; i++) {
+            if (j < v->splitVector.spl_nright && offNullTuples[j] == i)
+                j++;
+            else
+                v->splitVector.spl_left[v->splitVector.spl_nleft++] = i;
+        }
+
+        // Compute union keys for single-column index
+        if (attno == 0 && giststate->nonLeafTupdesc->natts == 1) {
+            v->spl_dontcare = NULL;
+            gistunionsubkey(giststate, itup, v);
+        }
+    }
+    else {
+        // All keys are non-null - use user-defined split method
+        if (gistUserPicksplit(r, entryvec, attno, v, itup, len, giststate)) {
+            // Split was suboptimal - try optimizing with next column
+            Assert(attno + 1 < giststate->nonLeafTupdesc->natts);
+
+            if (v->spl_dontcare == NULL) {
+                // Degenerate split - use next column entirely
+                gistSplitByKey(r, page, itup, len, giststate, v, attno + 1);
+            }
+            else {
+                // Extract don't-care tuples for recursive splitting
+                IndexTuple *newitup = (IndexTuple *) palloc(len * sizeof(IndexTuple));
+                OffsetNumber *map = (OffsetNumber *) palloc(len * sizeof(OffsetNumber));
+                int newlen = 0;
+                GIST_SPLITVEC backupSplit;
+
+                // Collect don't-care tuples
+                for (i = 0; i < len; i++) {
+                    if (v->spl_dontcare[i + 1]) {
+                        newitup[newlen] = itup[i];
+                        map[newlen] = i + 1;
+                        newlen++;
+                    }
+                }
+
+                Assert(newlen > 0);
+
+                // Backup current split vector
+                backupSplit = v->splitVector;
+                backupSplit.spl_left = (OffsetNumber *) palloc(sizeof(OffsetNumber) * len);
+                memcpy(backupSplit.spl_left, v->splitVector.spl_left,
+                       sizeof(OffsetNumber) * v->splitVector.spl_nleft);
+                backupSplit.spl_right = (OffsetNumber *) palloc(sizeof(OffsetNumber) * len);
+                memcpy(backupSplit.spl_right, v->splitVector.spl_right,
+                       sizeof(OffsetNumber) * v->splitVector.spl_nright);
+
+                // Recursively split don't-care tuples
+                gistSplitByKey(r, page, newitup, newlen, giststate, v, attno + 1);
+
+                // Merge recursive results with backup
+                for (i = 0; i < v->splitVector.spl_nleft; i++)
+                    backupSplit.spl_left[backupSplit.spl_nleft++] =
+                        map[v->splitVector.spl_left[i] - 1];
+                for (i = 0; i < v->splitVector.spl_nright; i++)
+                    backupSplit.spl_right[backupSplit.spl_nright++] =
+                        map[v->splitVector.spl_right[i] - 1];
+
+                v->splitVector = backupSplit;
+            }
+        }
+    }
+
+    // Recompute union datums for multi-column indexes at top level
+    if (attno == 0 && giststate->nonLeafTupdesc->natts > 1) {
+        v->spl_dontcare = NULL;
+        gistunionsubkey(giststate, itup, v);
+    }
+}
+```

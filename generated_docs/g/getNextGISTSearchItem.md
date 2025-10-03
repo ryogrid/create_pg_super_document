@@ -36,3 +36,21 @@ The caller is responsible for freeing the returned GISTSearchItem using pfree() 
 - The pairing heap ensures that items are returned in the correct order for ordered scans
 - Caller must handle memory management by calling pfree() on returned items
 - Simple wrapper around pairing heap operations for cleaner code organization
+
+## Simplified Source
+
+```c
+static GISTSearchItem *
+getNextGISTSearchItem(GISTScanOpaque so)
+{
+    GISTSearchItem *item;
+
+    // Get next item from priority queue, or NULL if empty
+    if (!pairingheap_is_empty(so->queue))
+        item = (GISTSearchItem *) pairingheap_remove_first(so->queue);
+    else
+        item = NULL;  // Scan complete
+
+    return item;  // Caller must pfree when done
+}
+```

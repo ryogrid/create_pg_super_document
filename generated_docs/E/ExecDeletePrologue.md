@@ -49,3 +49,33 @@ The function is essential for maintaining trigger semantics and data consistency
 - Return value determines whether the delete operation should proceed (true) or be skipped (false)
 - The tmfd field in context is passed to trigger execution for tuple metadata handling
 - [EvalPlanQual](EvalPlanQual.md) (EPQ) integration allows for concurrent update handling in higher isolation levels
+
+## Simplified Source
+
+```c
+static bool ExecDeletePrologue(ModifyTableContext *context, ResultRelInfo *resultRelInfo,
+                              ItemPointer tupleid, HeapTuple oldtuple,
+                              TupleTableSlot **epqreturnslot, TM_Result *result)
+{
+    // Initialize result status
+    if (result)
+        *result = TM_Ok;
+
+    // Execute BEFORE ROW DELETE triggers if they exist
+    if (resultRelInfo->ri_TrigDesc &&
+        resultRelInfo->ri_TrigDesc->trig_delete_before_row)
+    {
+        // Flush pending inserts to ensure trigger consistency
+        if (context->estate->es_insert_pending_result_relations != NIL)
+            ExecPendingInserts(context->estate);
+
+        // Execute triggers and return their decision
+        return ExecBRDeleteTriggersNew(context->estate, context->epqstate,
+                                     resultRelInfo, tupleid, oldtuple,
+                                     epqreturnslot, result, &context->tmfd,
+                                     context->mtstate->operation == CMD_MERGE);
+    }
+
+    return true; // Proceed with deletion
+}
+```

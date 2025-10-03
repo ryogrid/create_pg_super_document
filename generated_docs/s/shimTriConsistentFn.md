@@ -43,3 +43,71 @@ The function modifies the entryRes array during processing but restores original
 - Thread safety consideration: The function modifies the key->entryRes array temporarily, which could be problematic in multithreaded GIN scans
 - The recheck mechanism is used to handle cases where the consistent function needs to re-examine tuples at a higher level
 - Located at src/backend/access/gin/ginlogic.c:148-226
+
+## Simplified Source
+
+```c
+static GinTernaryValue
+shimTriConsistentFn(GinScanKey key)
+{
+    int nmaybe = 0;
+    int maybeEntries[MAX_MAYBE_ENTRIES];
+    bool recheck = false;
+    GinTernaryValue curResult;
+
+    // Count MAYBE entries and store their indexes
+    for (int i = 0; i < key->nentries; i++) {
+        if (key->entryRes[i] == GIN_MAYBE) {
+            if (nmaybe >= MAX_MAYBE_ENTRIES)
+                return GIN_MAYBE;  // Too many uncertain entries
+            maybeEntries[nmaybe++] = i;
+        }
+    }
+
+    // If no MAYBE entries, call consistent function directly
+    if (nmaybe == 0)
+        return directBoolConsistentFn(key);
+
+    // Test first combination: all MAYBE entries set to FALSE
+    for (int i = 0; i < nmaybe; i++)
+        key->entryRes[maybeEntries[i]] = GIN_FALSE;
+
+    curResult = directBoolConsistentFn(key);
+    recheck = key->recheckCurItem;
+
+    // Test all other combinations (binary counting through MAYBE positions)
+    for (;;) {
+        // Increment to next combination
+        int i;
+        for (i = 0; i < nmaybe; i++) {
+            if (key->entryRes[maybeEntries[i]] == GIN_FALSE) {
+                key->entryRes[maybeEntries[i]] = GIN_TRUE;
+                break;
+            } else {
+                key->entryRes[maybeEntries[i]] = GIN_FALSE;
+            }
+        }
+        if (i == nmaybe)
+            break;  // All combinations tested
+
+        bool newResult = directBoolConsistentFn(key);
+        recheck |= key->recheckCurItem;
+
+        // If results differ, overall result is uncertain
+        if (curResult != newResult) {
+            curResult = GIN_MAYBE;
+            break;
+        }
+    }
+
+    // TRUE with recheck requirement means uncertainty
+    if (curResult == GIN_TRUE && recheck)
+        curResult = GIN_MAYBE;
+
+    // Restore original MAYBE values
+    for (int i = 0; i < nmaybe; i++)
+        key->entryRes[maybeEntries[i]] = GIN_MAYBE;
+
+    return curResult;
+}
+```

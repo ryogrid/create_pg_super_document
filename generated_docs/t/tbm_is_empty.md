@@ -29,3 +29,12 @@ This function provides a simple and efficient way to determine if a TIDBitmap co
 - This is a read-only operation that does not modify the bitmap state
 - The function is commonly used in bitmap scan operations to determine if there are any tuples to iterate over
 - It serves as an optimization point where empty bitmaps can be handled efficiently without setting up iteration machinery
+
+## Simplified Source
+
+```c
+bool tbm_is_empty(const TIDBitmap *tbm)
+{
+    return (tbm->nentries == 0);
+}
+```

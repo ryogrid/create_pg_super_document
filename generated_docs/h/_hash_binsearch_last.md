@@ -29,5 +29,31 @@ The algorithm uses binary search but with a slightly different approach than the
 - Called from (representative examples):
   - [_hash_readpage](_hash_readpage.md)
 
+## Simplified Source
+```c
+OffsetNumber _hash_binsearch_last(Page page, uint32 hash_value) {
+    // Initialize search bounds for finding last occurrence
+    OffsetNumber upper = PageGetMaxOffsetNumber(page);
+    OffsetNumber lower = FirstOffsetNumber - 1;
+
+    // Binary search: lower <= desired position <= upper
+    while (upper > lower) {
+        OffsetNumber mid = (upper + lower + 1) / 2;  // +1 for last occurrence
+
+        // Get hash key from tuple at middle position
+        IndexTuple itup = (IndexTuple) PageGetItem(page, PageGetItemId(page, mid));
+        uint32 hashkey = _hash_get_indextuple_hashkey(itup);
+
+        // Adjust search bounds (inverted logic for last occurrence)
+        if (hashkey > hash_value)
+            upper = mid - 1;
+        else
+            lower = mid;
+    }
+
+    return lower;
+}
+```
+
 ## Notes and Other Information
 The function is specifically optimized for backwards scanning scenarios where you need to start from the last occurrence of a particular hash value. The different bounds (0..maxoffset vs 1..maxoffset+1) reflect this specialized use case. The midpoint calculation uses (upper + lower + 1) / 2 instead of (upper + lower) / 2 to ensure correct behavior when searching for the last occurrence.

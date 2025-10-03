@@ -44,3 +44,25 @@ Unlike transition functions which have variable argument lists depending on the 
 - The created expression is used for type resolution only and never executed
 - Much simpler than build_aggregate_transfn_expr due to the standardized serialization function signature
 - Part of the parallel aggregation infrastructure in PostgreSQL
+
+## Simplified Source
+
+```c
+void
+build_aggregate_serialfn_expr(Oid serialfn_oid, Expr **serialfnexpr)
+{
+    // Build argument list for serialization function
+    // Always takes INTERNAL (aggregate state) and returns BYTEA
+    List *args = list_make1(make_agg_arg(INTERNALOID, InvalidOid));
+
+    // Create function expression that returns BYTEA
+    FuncExpr *fexpr = makeFuncExpr(serialfn_oid,
+                                  BYTEAOID,           // return type
+                                  args,
+                                  InvalidOid,         // inputcollid
+                                  InvalidOid,         // funccollid
+                                  COERCE_EXPLICIT_CALL);
+
+    *serialfnexpr = (Expr *) fexpr;
+}
+```

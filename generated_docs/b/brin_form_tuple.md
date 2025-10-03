@@ -52,3 +52,126 @@ Key operations include:
 - Performs memory management carefully to avoid leaks when detoasting/compressing values
 - Critical for BRIN index maintenance operations and tuple insertion workflows
 - The function must coordinate with brin_form_placeholder_tuple for consistency
+
+## Simplified Source
+
+```c
+BrinTuple *
+brin_form_tuple(BrinDesc *brdesc, BlockNumber blkno, BrinMemTuple *tuple, Size *size)
+{
+    Assert(brdesc->bd_totalstored > 0);
+
+    // Allocate arrays for tuple construction
+    Datum *values = (Datum *) palloc(sizeof(Datum) * brdesc->bd_totalstored);
+    bool *nulls = (bool *) palloc0(sizeof(bool) * brdesc->bd_totalstored);
+    bool anynulls = false;
+
+    // Process each column's stored values
+    int idxattno = 0;
+    for (int keyno = 0; keyno < brdesc->bd_tupdesc->natts; keyno++) {
+        // Handle all-null columns
+        if (tuple->bt_columns[keyno].bv_allnulls) {
+            for (int datumno = 0; datumno < brdesc->bd_info[keyno]->oi_nstored; datumno++)
+                nulls[idxattno++] = true;
+            anynulls = true;
+            continue;
+        }
+
+        // Track null presence for bitmap
+        if (tuple->bt_columns[keyno].bv_hasnulls)
+            anynulls = true;
+
+        // Serialize values if needed
+        if (tuple->bt_columns[keyno].bv_serialize) {
+            tuple->bt_columns[keyno].bv_serialize(brdesc,
+                                                tuple->bt_columns[keyno].bv_mem_value,
+                                                tuple->bt_columns[keyno].bv_values);
+        }
+
+        // Store each datum for this column
+        for (int datumno = 0; datumno < brdesc->bd_info[keyno]->oi_nstored; datumno++) {
+            Datum value = tuple->bt_columns[keyno].bv_values[datumno];
+
+#ifdef TOAST_INDEX_HACK
+            // Handle TOAST values: detoast external values and compress large ones
+            TypeCacheEntry *atttype = brdesc->bd_info[keyno]->oi_typcache[datumno];
+            if (atttype->typlen == -1) {  // Variable length type
+                if (VARATT_IS_EXTERNAL(DatumGetPointer(value))) {
+                    value = PointerGetDatum(detoast_external_attr((struct varlena *)
+                                                                 DatumGetPointer(value)));
+                }
+                // Try compression for large values
+                if (!VARATT_IS_EXTENDED(DatumGetPointer(value)) &&
+                    VARSIZE(DatumGetPointer(value)) > TOAST_INDEX_TARGET) {
+                    Datum cvalue = toast_compress_datum(value, InvalidCompressionMethod);
+                    if (DatumGetPointer(cvalue) != NULL) {
+                        value = cvalue;
+                    }
+                }
+            }
+#endif
+            values[idxattno++] = value;
+        }
+    }
+
+    // Calculate tuple size
+    Size len = SizeOfBrinTuple;
+    if (anynulls) {
+        len += BITMAPLEN(brdesc->bd_tupdesc->natts * 2);  // Double bitmap
+    }
+    len = MAXALIGN(len);
+    Size hoff = len;
+
+    Size data_len = heap_compute_data_size(brtuple_disk_tupdesc(brdesc), values, nulls);
+    len += data_len;
+    len = MAXALIGN(len);
+
+    // Create and fill tuple
+    BrinTuple *rettuple = palloc0(len);
+    rettuple->bt_blkno = blkno;
+    rettuple->bt_info = hoff;
+
+    uint16 phony_infomask = 0;
+    bits8 *phony_nullbitmap = (bits8 *) palloc(sizeof(bits8) * BITMAPLEN(brdesc->bd_totalstored));
+
+    heap_fill_tuple(brtuple_disk_tupdesc(brdesc), values, nulls,
+                   (char *) rettuple + hoff, data_len,
+                   &phony_infomask, phony_nullbitmap);
+
+    // Set up BRIN-specific null bitmaps
+    if (anynulls) {
+        rettuple->bt_info |= BRIN_NULLS_MASK;
+
+        bits8 *bitP = ((bits8 *) ((char *) rettuple + SizeOfBrinTuple)) - 1;
+        int bitmask = HIGHBIT;
+
+        // Set allnulls bits
+        for (int keyno = 0; keyno < brdesc->bd_tupdesc->natts; keyno++) {
+            if (bitmask != HIGHBIT) bitmask <<= 1;
+            else { bitP += 1; *bitP = 0x0; bitmask = 1; }
+            if (tuple->bt_columns[keyno].bv_allnulls) *bitP |= bitmask;
+        }
+
+        // Set hasnulls bits
+        for (int keyno = 0; keyno < brdesc->bd_tupdesc->natts; keyno++) {
+            if (bitmask != HIGHBIT) bitmask <<= 1;
+            else { bitP += 1; *bitP = 0x0; bitmask = 1; }
+            if (tuple->bt_columns[keyno].bv_hasnulls) *bitP |= bitmask;
+        }
+    }
+
+    // Set special flags
+    if (tuple->bt_placeholder)
+        rettuple->bt_info |= BRIN_PLACEHOLDER_MASK;
+    if (tuple->bt_empty_range)
+        rettuple->bt_info |= BRIN_EMPTY_RANGE_MASK;
+
+    // Clean up
+    pfree(values);
+    pfree(nulls);
+    pfree(phony_nullbitmap);
+
+    *size = len;
+    return rettuple;
+}
+```

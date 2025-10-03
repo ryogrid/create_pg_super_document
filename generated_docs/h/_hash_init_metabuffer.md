@@ -46,3 +46,73 @@ This function sets up the metadata page for a hash index, which is the control s
 - Sets up initial spare page mapping for future table expansion
 - Initializes bitmap size and shift parameters for efficient bitmap operations
 - Critical for proper WAL recovery through pd_lower setting
+
+## Simplified Source
+
+```c
+void _hash_init_metabuffer(Buffer buf, double num_tuples, RegProcedure procid,
+                          uint16 ffactor, bool initpage)
+{
+    HashMetaPage metap;
+    HashPageOpaque pageopaque;
+    Page page;
+    uint32 num_buckets, spare_index;
+
+    // Calculate initial bucket count based on fill factor
+    double dnumbuckets = num_tuples / ffactor;
+    if (dnumbuckets <= 2.0)
+        num_buckets = 2;
+    else if (dnumbuckets >= (double) 0x40000000)
+        num_buckets = 0x40000000;
+    else
+        num_buckets = _hash_get_totalbuckets(_hash_spareindex(dnumbuckets));
+
+    spare_index = _hash_spareindex(num_buckets);
+
+    page = BufferGetPage(buf);
+    if (initpage)
+        _hash_pageinit(page, BufferGetPageSize(buf));
+
+    // Initialize page opaque data
+    pageopaque = HashPageGetOpaque(page);
+    pageopaque->hasho_prevblkno = InvalidBlockNumber;
+    pageopaque->hasho_nextblkno = InvalidBlockNumber;
+    pageopaque->hasho_bucket = InvalidBucket;
+    pageopaque->hasho_flag = LH_META_PAGE;
+    pageopaque->hasho_page_id = HASHO_PAGE_ID;
+
+    // Initialize metadata
+    metap = HashPageGetMeta(page);
+    metap->hashm_magic = HASH_MAGIC;
+    metap->hashm_version = HASH_VERSION;
+    metap->hashm_ntuples = 0;
+    metap->hashm_nmaps = 0;
+    metap->hashm_ffactor = ffactor;
+    metap->hashm_bsize = HashGetMaxBitmapSize(page);
+
+    // Calculate bitmap parameters
+    uint32 lshift = pg_leftmost_one_pos32(metap->hashm_bsize);
+    metap->hashm_bmsize = 1 << lshift;
+    metap->hashm_bmshift = lshift + BYTE_TO_BIT;
+
+    metap->hashm_procid = procid;
+    metap->hashm_maxbucket = num_buckets - 1;
+
+    // Set bucket masks for hash-to-bucket mapping
+    metap->hashm_highmask = pg_nextpower2_32(num_buckets + 1) - 1;
+    metap->hashm_lowmask = (metap->hashm_highmask >> 1);
+
+    // Initialize arrays
+    MemSet(metap->hashm_spares, 0, sizeof(metap->hashm_spares));
+    MemSet(metap->hashm_mapp, 0, sizeof(metap->hashm_mapp));
+
+    // Set up initial splitpoint mapping
+    metap->hashm_spares[spare_index] = 1;
+    metap->hashm_ovflpoint = spare_index;
+    metap->hashm_firstfree = 0;
+
+    // Set pd_lower to preserve metadata during WAL compression
+    ((PageHeader) page)->pd_lower =
+        ((char *) metap + sizeof(HashMetaPageData)) - (char *) page;
+}
+```

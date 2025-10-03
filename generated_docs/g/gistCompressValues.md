@@ -41,3 +41,41 @@ This function processes attribute data for GiST index entries by applying compre
 - NULL values are handled by storing (Datum) 0 in the output array
 - For leaf entries, included attributes are processed after key attributes without compression
 - The function uses the collation information from giststate when calling compression functions
+
+## Simplified Source
+
+```c
+void gistCompressValues(GISTSTATE *giststate, Relation r,
+                        const Datum *attdata, const bool *isnull,
+                        bool isleaf, Datum *compatt) {
+    int num_key_attrs = IndexRelationGetNumberOfKeyAttributes(r);
+
+    // Process key attributes with compression
+    for (int i = 0; i < num_key_attrs; i++) {
+        if (isnull[i]) {
+            compatt[i] = (Datum) 0;
+        } else {
+            GISTENTRY entry;
+            gistentryinit(entry, attdata[i], r, NULL, 0, isleaf);
+
+            // Apply compression if function exists
+            if (OidIsValid(giststate->compressFn[i].fn_oid)) {
+                GISTENTRY *compressed = (GISTENTRY *)
+                    DatumGetPointer(FunctionCall1Coll(&giststate->compressFn[i],
+                                                    giststate->supportCollation[i],
+                                                    PointerGetDatum(&entry)));
+                compatt[i] = compressed->key;
+            } else {
+                compatt[i] = entry.key;
+            }
+        }
+    }
+
+    // For leaf entries, copy included attributes directly
+    if (isleaf) {
+        for (int i = num_key_attrs; i < r->rd_att->natts; i++) {
+            compatt[i] = isnull[i] ? (Datum) 0 : attdata[i];
+        }
+    }
+}
+```

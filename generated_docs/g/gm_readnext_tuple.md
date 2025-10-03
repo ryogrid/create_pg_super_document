@@ -44,3 +44,24 @@ A critical aspect of this function is that it creates a copy of any successfully
 - Includes interrupt checking to allow query cancellation during tuple reads
 - Part of the parallel query execution infrastructure that enables efficient tuple streaming from multiple workers
 - The function is designed to work with PostgreSQL's shared memory message queue system for parallel processing
+
+## Simplified Source
+```c
+static MinimalTuple gm_readnext_tuple(GatherMergeState *gm_state, int nreader,
+                                      bool nowait, bool *done) {
+    TupleQueueReader *reader;
+    MinimalTuple tup;
+
+    // Check for query interrupts/cancellation
+    CHECK_FOR_INTERRUPTS();
+
+    // Get reader for the specified worker (nreader is 1-based)
+    reader = gm_state->reader[nreader - 1];
+
+    // Read next tuple from worker's queue
+    tup = TupleQueueReaderNext(reader, nowait, done);
+
+    // Make a copy for buffering (original may be freed)
+    return tup ? heap_copy_minimal_tuple(tup) : NULL;
+}
+```

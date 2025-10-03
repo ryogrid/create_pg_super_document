@@ -34,3 +34,26 @@ This function performs a lookup in the parent map hash table to find the parent 
 - Essential for navigating the index hierarchy during buffering-based GiST construction
 - The error condition should never occur in normal operation if the parent map is properly maintained
 - Used primarily in scenarios where the build process needs to traverse up the index tree structure
+
+## Simplified Source
+
+```c
+static BlockNumber
+gistGetParent(GISTBuildState *buildstate, BlockNumber child)
+{
+    ParentMapEntry *entry;
+    bool found;
+
+    // Look up child block in parent map
+    entry = (ParentMapEntry *) hash_search(buildstate->parentMap,
+                                          &child,
+                                          HASH_FIND,
+                                          &found);
+
+    // Child must exist in parent map
+    if (!found)
+        elog(ERROR, "could not find parent of block %u in lookup table", child);
+
+    return entry->parentblkno;
+}
+```

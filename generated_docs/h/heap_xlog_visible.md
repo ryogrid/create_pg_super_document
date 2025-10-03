@@ -51,3 +51,77 @@ The recovery process carefully handles cases where the heap file may have been d
 - Updates FSM to prevent performance issues in promoted standbys
 - Uses careful LSN management to handle torn page scenarios safely
 - The function must handle cases where heap files are truncated/dropped during recovery
+
+## Simplified Source
+
+```c
+static void
+heap_xlog_visible(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    xl_heap_visible *xlrec = (xl_heap_visible *) XLogRecGetData(record);
+    Buffer vmbuffer = InvalidBuffer;
+    Buffer buffer;
+    RelFileLocator rlocator;
+    BlockNumber blkno;
+    XLogRedoAction action;
+
+    XLogRecGetBlockTag(record, 1, &rlocator, NULL, &blkno);
+
+    // Handle Hot Standby conflicts for index-only scans
+    if (InHotStandby)
+        ResolveRecoveryConflictWithSnapshot(xlrec->snapshotConflictHorizon,
+                                          xlrec->flags & VISIBILITYMAP_XLOG_CATALOG_REL,
+                                          rlocator);
+
+    // Update heap page all-visible bit
+    action = XLogReadBufferForRedo(record, 1, &buffer);
+    if (action == BLK_NEEDS_REDO) {
+        Page page = BufferGetPage(buffer);
+
+        PageSetAllVisible(page);
+
+        // Update LSN only if needed (checksums/wal_hint_bits)
+        if (XLogHintBitIsNeeded())
+            PageSetLSN(page, lsn);
+
+        MarkBufferDirty(buffer);
+    }
+
+    // Update FSM to prevent stale free space in standbys
+    if (BufferIsValid(buffer)) {
+        Size space = PageGetFreeSpace(BufferGetPage(buffer));
+        UnlockReleaseBuffer(buffer);
+
+        if (xlrec->flags & VISIBILITYMAP_VALID_BITS)
+            XLogRecordPageWithFreeSpace(rlocator, blkno, space);
+    }
+
+    // Update visibility map
+    if (XLogReadBufferForRedoExtended(record, 0, RBM_ZERO_ON_ERROR, false,
+                                    &vmbuffer) == BLK_NEEDS_REDO) {
+        Page vmpage = BufferGetPage(vmbuffer);
+        Relation reln;
+        uint8 vmbits;
+
+        // Initialize page if it was read as zeros
+        if (PageIsNew(vmpage))
+            PageInit(vmpage, BLCKSZ, 0);
+
+        // Extract visibility map bits (remove XLOG-specific flags)
+        vmbits = xlrec->flags & VISIBILITYMAP_VALID_BITS;
+
+        // Set visibility map bits
+        LockBuffer(vmbuffer, BUFFER_LOCK_UNLOCK);
+        reln = CreateFakeRelcacheEntry(rlocator);
+        visibilitymap_pin(reln, blkno, &vmbuffer);
+        visibilitymap_set(reln, blkno, InvalidBuffer, lsn, vmbuffer,
+                         xlrec->snapshotConflictHorizon, vmbits);
+
+        ReleaseBuffer(vmbuffer);
+        FreeFakeRelcacheEntry(reln);
+    } else if (BufferIsValid(vmbuffer)) {
+        UnlockReleaseBuffer(vmbuffer);
+    }
+}
+```

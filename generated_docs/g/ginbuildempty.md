@@ -46,3 +46,34 @@ Unlike ginbuild, this function doesn't scan any heap data and creates only the m
 - Both pages are immediately logged via log_newpage_buffer for WAL consistency
 - Uses EB_LOCK_FIRST and EB_SKIP_EXTENSION_LOCK flags during buffer extension for proper locking
 - This function is complementary to ginbuild - while ginbuild creates a full index from heap data, ginbuildempty creates just the skeleton
+
+## Simplified Source
+
+```c
+void
+ginbuildempty(Relation index)
+{
+    Buffer RootBuffer, MetaBuffer;
+
+    // Create two pages: meta page and root page
+    MetaBuffer = ExtendBufferedRel(BMR_REL(index), INIT_FORKNUM, NULL,
+                                   EB_LOCK_FIRST | EB_SKIP_EXTENSION_LOCK);
+    RootBuffer = ExtendBufferedRel(BMR_REL(index), INIT_FORKNUM, NULL,
+                                   EB_LOCK_FIRST | EB_SKIP_EXTENSION_LOCK);
+
+    // Initialize pages and log them for WAL
+    START_CRIT_SECTION();
+    GinInitMetabuffer(MetaBuffer);
+    MarkBufferDirty(MetaBuffer);
+    log_newpage_buffer(MetaBuffer, true);
+
+    GinInitBuffer(RootBuffer, GIN_LEAF);
+    MarkBufferDirty(RootBuffer);
+    log_newpage_buffer(RootBuffer, false);
+    END_CRIT_SECTION();
+
+    // Release buffers
+    UnlockReleaseBuffer(MetaBuffer);
+    UnlockReleaseBuffer(RootBuffer);
+}
+```

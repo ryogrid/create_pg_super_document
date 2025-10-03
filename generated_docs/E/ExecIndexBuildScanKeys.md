@@ -62,3 +62,80 @@ The function dynamically manages memory for runtime keys and array keys, sharing
 - Array keys are allocated optimistically and freed if unused
 - Caller may pass NULL for arrayKeys/numArrayKeys to indicate array operations are not supported
 - Located in src/backend/executor/nodeIndexscan.c:1135-1640
+
+## Simplified Source
+
+```c
+void
+ExecIndexBuildScanKeys(PlanState *planstate, Relation index,
+                       List *quals, bool isorderby,
+                       ScanKey *scanKeys, int *numScanKeys,
+                       IndexRuntimeKeyInfo **runtimeKeys, int *numRuntimeKeys,
+                       IndexArrayKeyInfo **arrayKeys, int *numArrayKeys)
+{
+    ListCell *qual_cell;
+    ScanKey scan_keys;
+    IndexRuntimeKeyInfo *runtime_keys;
+    IndexArrayKeyInfo *array_keys;
+    int n_scan_keys, n_runtime_keys, max_runtime_keys, n_array_keys;
+    int j;
+
+    // Allocate arrays for scan keys and supporting structures
+    n_scan_keys = list_length(quals);
+    scan_keys = palloc(n_scan_keys * sizeof(ScanKeyData));
+
+    runtime_keys = *runtimeKeys;
+    n_runtime_keys = max_runtime_keys = *numRuntimeKeys;
+
+    array_keys = palloc0(n_scan_keys * sizeof(IndexArrayKeyInfo));
+    n_array_keys = 0;
+
+    // Process each qualification clause
+    j = 0;
+    foreach(qual_cell, quals)
+    {
+        Expr *clause = (Expr *) lfirst(qual_cell);
+        ScanKey this_scan_key = &scan_keys[j++];
+
+        if (IsA(clause, OpExpr)) {
+            // Handle simple operator: indexkey op constant/expression
+            process_simple_operator(clause, this_scan_key, index, planstate,
+                                   isorderby, &runtime_keys, &n_runtime_keys, &max_runtime_keys);
+        }
+        else if (IsA(clause, RowCompareExpr)) {
+            // Handle row comparison: (col1,col2) op (val1,val2)
+            process_row_comparison(clause, this_scan_key, index, planstate,
+                                 &runtime_keys, &n_runtime_keys, &max_runtime_keys);
+        }
+        else if (IsA(clause, ScalarArrayOpExpr)) {
+            // Handle array operation: indexkey op ANY(array)
+            process_array_operation(clause, this_scan_key, index, planstate,
+                                  &runtime_keys, &n_runtime_keys, &max_runtime_keys,
+                                  &array_keys, &n_array_keys);
+        }
+        else if (IsA(clause, NullTest)) {
+            // Handle null test: indexkey IS [NOT] NULL
+            process_null_test(clause, this_scan_key, index);
+        }
+        else {
+            elog(ERROR, "unsupported indexqual type: %d", (int) nodeTag(clause));
+        }
+    }
+
+    // Clean up unused arrays
+    if (n_array_keys == 0) {
+        pfree(array_keys);
+        array_keys = NULL;
+    }
+
+    // Return results
+    *scanKeys = scan_keys;
+    *numScanKeys = n_scan_keys;
+    *runtimeKeys = runtime_keys;
+    *numRuntimeKeys = n_runtime_keys;
+    if (arrayKeys) {
+        *arrayKeys = array_keys;
+        *numArrayKeys = n_array_keys;
+    }
+}
+```

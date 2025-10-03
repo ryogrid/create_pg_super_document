@@ -28,3 +28,12 @@ The function is designed to be lightweight and safe - it performs no validation 
 - The returned handle is intended to be passed to AttachSerializableXact() in parallel worker processes
 - The handle is essentially a pointer to the SERIALIZABLEXACT structure, but is typed as void* for abstraction
 - Part of PostgreSQL's parallel query infrastructure introduced to support serializable isolation in parallel queries
+
+## Simplified Source
+
+```c
+SerializableXactHandle ShareSerializableXact(void) {
+    // Return current process's serializable transaction for sharing with parallel workers
+    return MySerializableXact;
+}
+```

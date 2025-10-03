@@ -46,3 +46,28 @@ The function ensures the page is properly prepared for subsequent insertion oper
 - The function includes assertions to ensure it's only called on non-data pages and that insertData->entry is valid
 - [Delete](../D/Delete.md) operations are only performed on leaf pages, while downlink updates only occur on internal pages
 - The function is part of the GIN index entry page management subsystem
+
+## Simplified Source
+
+```c
+static void
+entryPreparePage(GinBtree btree, Page page, OffsetNumber off,
+                 GinBtreeEntryInsertData *insertData, BlockNumber updateblkno)
+{
+    // Basic validation
+    Assert(insertData->entry);
+    Assert(!GinPageIsData(page));
+
+    // Delete existing tuple if this is a delete operation on leaf page
+    if (insertData->isDelete) {
+        Assert(GinPageIsLeaf(page));
+        PageIndexTupleDelete(page, off);
+    }
+
+    // Update downlink if this is an internal page and child split occurred
+    if (!GinPageIsLeaf(page) && updateblkno != InvalidBlockNumber) {
+        IndexTuple tuple = (IndexTuple) PageGetItem(page, PageGetItemId(page, off));
+        GinSetDownlink(tuple, updateblkno);
+    }
+}
+```

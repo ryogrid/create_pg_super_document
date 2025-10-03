@@ -39,3 +39,20 @@ This function is typically called before attempting a same-page update to avoid 
 - The function assumes the buffer is already locked by the caller
 - This is a lightweight check that helps optimize BRIN update performance by avoiding unnecessary page splits
 - The calculation accounts for tuple size changes, allowing both shrinking and growing updates when space permits
+
+## Simplified Source
+
+```c
+bool brin_can_do_samepage_update(Buffer buffer, Size origsz, Size newsz) {
+    // If new tuple is smaller or same size, always fits
+    if (newsz <= origsz) {
+        return true;
+    }
+
+    // If new tuple is larger, check if page has enough free space for the difference
+    Size space_needed = newsz - origsz;
+    Size available_space = PageGetExactFreeSpace(BufferGetPage(buffer));
+
+    return available_space >= space_needed;
+}
+```

@@ -37,3 +37,15 @@ This function takes no parameters and returns:
 - The assertion ensures the function is only called after proper session initialization
 - [Session](../S/Session.md) superuser status persists across SET ROLE operations, unlike current effective privileges
 - Critical for session-level authorization decisions and security policy enforcement
+
+## Simplified Source
+
+```c
+bool GetSessionUserIsSuperuser(void) {
+    // Verify session user ID is properly initialized
+    Assert(OidIsValid(SessionUserId));
+
+    // Return cached session user superuser status
+    return SessionUserIsSuperuser;
+}
+```

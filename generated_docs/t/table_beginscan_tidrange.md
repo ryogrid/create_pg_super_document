@@ -40,3 +40,24 @@ The scan is configured with SO_TYPE_TIDRANGESCAN and SO_ALLOW_PAGEMODE flags to 
 - The function combines general scan initialization with TID range-specific configuration
 - Used primarily by the TID range scan executor node for efficient tuple retrieval within specified TID boundaries
 - The scan flags enable both type-specific optimization and page-mode operation for better performance
+
+## Simplified Source
+
+```c
+static inline TableScanDesc
+table_beginscan_tidrange(Relation rel, Snapshot snapshot,
+                        ItemPointer mintid,
+                        ItemPointer maxtid)
+{
+    TableScanDesc sscan;
+    uint32 flags = SO_TYPE_TIDRANGESCAN | SO_ALLOW_PAGEMODE;
+
+    // Initialize table scan with TID range scan flags
+    sscan = rel->rd_tableam->scan_begin(rel, snapshot, 0, NULL, NULL, flags);
+
+    // Configure the TID range to scan
+    sscan->rs_rd->rd_tableam->scan_set_tidrange(sscan, mintid, maxtid);
+
+    return sscan;
+}
+```

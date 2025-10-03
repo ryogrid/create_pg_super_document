@@ -40,3 +40,55 @@ The function specifically handles partial match semantics where the comparison c
 
 ## Notes and Other Information
 Critical optimization for partial match queries in GIN indexes. The caching mechanism significantly improves performance when the same page is scanned multiple times for different entries. The function assumes tuples are ordered by attribute number and datum value, allowing early termination when attribute boundaries are crossed.
+
+## Simplified Source
+```c
+static bool matchPartialInPendingList(GinState *ginstate, Page page,
+                                     OffsetNumber off, OffsetNumber maxoff,
+                                     GinScanEntry entry,
+                                     Datum *datum, GinNullCategory *category,
+                                     bool *datumExtracted) {
+    IndexTuple itup;
+    int32 cmp;
+
+    // Partial match to null is not possible
+    if (entry->queryCategory != GIN_CAT_NORM_KEY)
+        return false;
+
+    while (off < maxoff) {
+        itup = (IndexTuple) PageGetItem(page, PageGetItemId(page, off));
+
+        // Stop if we've moved to a different attribute
+        if (gintuple_get_attrnum(ginstate, itup) != entry->attnum)
+            return false;
+
+        // Extract datum if not already cached
+        if (datumExtracted[off - 1] == false) {
+            datum[off - 1] = gintuple_get_key(ginstate, itup, &category[off - 1]);
+            datumExtracted[off - 1] = true;
+        }
+
+        // Stop at nulls - no further matches possible
+        if (category[off - 1] != GIN_CAT_NORM_KEY)
+            return false;
+
+        // Perform partial match comparison
+        cmp = DatumGetInt32(FunctionCall4Coll(&ginstate->comparePartialFn[entry->attnum - 1],
+                                             ginstate->supportCollation[entry->attnum - 1],
+                                             entry->queryKey,
+                                             datum[off - 1],
+                                             UInt16GetDatum(entry->strategy),
+                                             PointerGetDatum(entry->extra_data)));
+
+        if (cmp == 0)
+            return true;    // Match found
+        else if (cmp > 0)
+            return false;   // No match and no later match possible
+
+        // cmp < 0: no match but continue scanning
+        off++;
+    }
+
+    return false;
+}
+```

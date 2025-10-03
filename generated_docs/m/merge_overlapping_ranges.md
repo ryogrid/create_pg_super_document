@@ -47,3 +47,49 @@ The function operates in-place to minimize memory usage and returns the new coun
 - The algorithm has O(n) time complexity in the best case, but can be O(n²) if many ranges overlap
 - Critical for the BRIN union operation to prevent range explosion during index maintenance
 - The function is static and used internally within the BRIN minmax_multi implementation
+
+## Simplified Source
+
+```c
+static int
+merge_overlapping_ranges(FmgrInfo *cmp, Oid colloid,
+                         ExpandedRange *eranges, int neranges)
+{
+    int idx = 0;
+
+    while (idx < (neranges - 1)) {
+        // Check if current range overlaps with next range
+        // Ranges overlap if current_max >= next_min
+        Datum r = FunctionCall2Coll(cmp, colloid,
+                                    eranges[idx].maxval,
+                                    eranges[idx + 1].minval);
+
+        if (DatumGetBool(r)) {
+            // No overlap - ranges are ordered, so no more overlaps possible
+            idx++;
+            continue;
+        }
+
+        // Ranges overlap - merge them
+        // Keep the larger of the two maximum values
+        r = FunctionCall2Coll(cmp, colloid,
+                              eranges[idx].maxval,
+                              eranges[idx + 1].maxval);
+
+        if (DatumGetBool(r))
+            eranges[idx].maxval = eranges[idx + 1].maxval;
+
+        // Mark merged range as not collapsed
+        eranges[idx].collapsed = false;
+
+        // Remove the merged range by shifting remaining ranges
+        memmove(&eranges[idx + 1], &eranges[idx + 2],
+                (neranges - (idx + 2)) * sizeof(ExpandedRange));
+
+        neranges--;
+        // Don't increment idx - check if newly merged range overlaps with next
+    }
+
+    return neranges;
+}
+```

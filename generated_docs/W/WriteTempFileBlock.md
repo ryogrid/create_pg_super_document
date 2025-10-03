@@ -33,3 +33,16 @@ WriteTempFileBlock is a wrapper around BufFile operations specifically designed 
 - The function is static, meaning it's only accessible within the same compilation unit
 - Used specifically during GiST index construction for managing temporary file I/O operations
 - The ptr parameter is const, indicating the function will not modify the source data
+
+## Simplified Source
+
+```c
+static void WriteTempFileBlock(BufFile *file, long blknum, const void *ptr) {
+    // Seek to the specified block number
+    if (BufFileSeekBlock(file, blknum) != 0)
+        elog(ERROR, "could not seek to block %ld in temporary file", blknum);
+
+    // Write exactly one block of data
+    BufFileWrite(file, ptr, BLCKSZ);
+}
+```

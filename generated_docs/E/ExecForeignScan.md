@@ -45,3 +45,23 @@ The function delegates tuple fetching to ForeignNext and tuple rechecking during
 - The casting from PlanState to ForeignScanState is safe due to PostgreSQL's node type system
 - Function pointers to ForeignNext and ForeignRecheck are passed to ExecScan to customize scan behavior for foreign data sources
 - The function inherits all the standard scan capabilities (qualification checking, projection, etc.) from ExecScan
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecForeignScan(PlanState *pstate)
+{
+    // Cast to foreign scan state
+    ForeignScanState *node = castNode(ForeignScanState, pstate);
+    ForeignScan *plan = (ForeignScan *) node->ss.ps.plan;
+    EState *estate = node->ss.ps.state;
+
+    // Skip direct modifications during EvalPlanQual processing
+    if (estate->es_epq_active != NULL && plan->operation != CMD_SELECT)
+        return NULL;
+
+    // Delegate to generic scan framework with foreign-specific methods
+    return ExecScan(&node->ss, ForeignNext, ForeignRecheck);
+}
+```

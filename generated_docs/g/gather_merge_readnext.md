@@ -46,4 +46,60 @@ The function builds a TupleTableSlot from the retrieved MinimalTuple, making it 
 - Handles DSA area installation/cleanup during local plan execution for proper memory management
 - The function implements an important optimization by calling load_tuple_array() after reading a single tuple to prefetch additional tuples
 - Part of the parallel query execution framework that merges sorted streams from multiple workers
+
+## Simplified Source
+
+```c
+static bool
+gather_merge_readnext(GatherMergeState *gm_state, int reader, bool nowait)
+{
+    GMReaderTupleBuffer *tuple_buffer;
+    MinimalTuple tup;
+
+    // Handle leader process (reader 0) - execute plan directly
+    if (reader == 0) {
+        if (gm_state->need_to_scan_locally) {
+            PlanState *outerPlan = outerPlanState(gm_state);
+            TupleTableSlot *outerTupleSlot;
+            EState *estate = gm_state->ps.state;
+
+            // Install DSA area and execute plan
+            estate->es_query_dsa = gm_state->pei ? gm_state->pei->area : NULL;
+            outerTupleSlot = ExecProcNode(outerPlan);
+            estate->es_query_dsa = NULL;
+
+            if (!TupIsNull(outerTupleSlot)) {
+                gm_state->gm_slots[0] = outerTupleSlot;
+                return true;
+            }
+            // Leader is done
+            gm_state->need_to_scan_locally = false;
+        }
+        return false;
+    }
+
+    // Handle worker process - check tuple buffer
+    tuple_buffer = &gm_state->gm_tuple_buffers[reader - 1];
+
+    if (tuple_buffer->nTuples > tuple_buffer->readCounter) {
+        // Return buffered tuple
+        tup = tuple_buffer->tuple[tuple_buffer->readCounter++];
+    } else if (tuple_buffer->done) {
+        // Worker is exhausted
+        return false;
+    } else {
+        // Read next tuple from worker
+        tup = gm_readnext_tuple(gm_state, reader, nowait, &tuple_buffer->done);
+        if (!tup)
+            return false;
+
+        // Try to read more tuples to fill buffer
+        load_tuple_array(gm_state, reader);
+    }
+
+    // Store tuple in slot
+    ExecStoreMinimalTuple(tup, gm_state->gm_slots[reader], true);
+    return true;
+}
+```
 - Maintains separate handling logic for leader vs worker processes due to their fundamentally different tuple sources

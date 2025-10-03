@@ -43,3 +43,39 @@ This function performs the initialization of a fresh TupleHashEntry that has jus
 - Memory is allocated in the hash table's context (tablecxt) for proper lifecycle management
 - The function assumes that lookup_hash_entries has already selected the appropriate grouping set
 - Returns early if there are no aggregate functions to initialize (numtrans == 0)
+
+## Simplified Source
+
+```c
+static void
+initialize_hash_entry(AggState *aggstate, TupleHashTable hashtable,
+                      TupleHashEntry entry)
+{
+    AggStatePerGroup pergroup;
+    int transno;
+
+    // Track new group and check memory limits
+    aggstate->hash_ngroups_current++;
+    hash_agg_check_limits(aggstate);
+
+    // Early return if no aggregates to initialize
+    if (aggstate->numtrans == 0)
+        return;
+
+    // Allocate per-group state for all aggregates
+    pergroup = (AggStatePerGroup)
+        MemoryContextAlloc(hashtable->tablecxt,
+                          sizeof(AggStatePerGroupData) * aggstate->numtrans);
+
+    entry->additional = pergroup;
+
+    // Initialize each aggregate function for this group
+    for (transno = 0; transno < aggstate->numtrans; transno++)
+    {
+        AggStatePerTrans pertrans = &aggstate->pertrans[transno];
+        AggStatePerGroup pergroupstate = &pergroup[transno];
+
+        initialize_aggregate(aggstate, pertrans, pergroupstate);
+    }
+}
+```

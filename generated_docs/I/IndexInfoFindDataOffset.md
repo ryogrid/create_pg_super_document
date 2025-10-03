@@ -41,3 +41,17 @@ The function is primarily designed to be usable at index_form_tuple time to ensu
 - The function handles the layout optimization where IndexAttributeBitMapData is only included when needed
 - The MAXALIGN constraint ensures proper memory alignment for the data portion regardless of whether the null bitmap is present
 - The design supports PostgreSQL's space-efficient index tuple format where null bitmaps are conditionally included
+
+## Simplified Source
+
+```c
+static inline Size IndexInfoFindDataOffset(unsigned short t_info) {
+    // Check if tuple has null values
+    if (!(t_info & INDEX_NULL_MASK))
+        // No nulls: data starts after basic header
+        return MAXALIGN(sizeof(IndexTupleData));
+    else
+        // Has nulls: data starts after header + null bitmap
+        return MAXALIGN(sizeof(IndexTupleData) + sizeof(IndexAttributeBitMapData));
+}
+```

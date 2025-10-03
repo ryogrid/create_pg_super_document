@@ -40,3 +40,19 @@ This function is essential for maintaining consistency in READ COMMITTED isolati
 - The function is called when the executor needs to verify that a tuple still matches the scan conditions after potential concurrent modifications
 - Returns a boolean result that determines whether the tuple should be included in the final result set
 - Works with PostgreSQL's snapshot isolation and visibility mechanisms to ensure consistent reads
+
+## Simplified Source
+
+```c
+static bool IndexRecheck(IndexScanState *node, TupleTableSlot *slot)
+{
+    // Extract expression context from scan state
+    ExprContext *econtext = node->ss.ps.ps_ExprContext;
+
+    // Set the tuple to be rechecked as scan tuple
+    econtext->ecxt_scantuple = slot;
+
+    // Test the tuple against original index qualifications
+    return ExecQualAndReset(node->indexqualorig, econtext);
+}
+```

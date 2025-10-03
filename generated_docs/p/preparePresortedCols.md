@@ -45,3 +45,48 @@ This preparation is essential for the incremental sort algorithm to quickly dete
 - Error checking ensures that valid equality operators and functions exist for all sort operators
 - The cached comparison functions are used by other functions like isCurrentGroup to efficiently detect group boundaries
 - Memory is allocated in the CurrentMemoryContext to persist for the duration of the query execution
+
+## Simplified Source
+
+```c
+static void preparePresortedCols(IncrementalSortState *node)
+{
+    IncrementalSort *plannode = castNode(IncrementalSort, node->ss.ps.plan);
+
+    // Allocate array for presorted key comparison data
+    node->presorted_keys = (PresortedKeyData *) palloc(plannode->nPresortedCols * sizeof(PresortedKeyData));
+
+    // Pre-cache comparison functions for each pre-sorted column
+    for (int i = 0; i < plannode->nPresortedCols; i++)
+    {
+        Oid equalityOp, equalityFunc;
+        PresortedKeyData *key = &node->presorted_keys[i];
+
+        // Store the column attribute number
+        key->attno = plannode->sort.sortColIdx[i];
+
+        // Find equality operator for the sort operator
+        equalityOp = get_equality_op_for_ordering_op(plannode->sort.sortOperators[i], NULL);
+        if (!OidIsValid(equalityOp))
+            elog(ERROR, "missing equality operator for ordering operator %u",
+                 plannode->sort.sortOperators[i]);
+
+        // Get the actual function for the equality operator
+        equalityFunc = get_opcode(equalityOp);
+        if (!OidIsValid(equalityFunc))
+            elog(ERROR, "missing function for operator %u", equalityOp);
+
+        // Cache function manager information
+        fmgr_info_cxt(equalityFunc, &key->flinfo, CurrentMemoryContext);
+
+        // Pre-initialize function call info for efficiency
+        key->fcinfo = palloc0(SizeForFunctionCallInfo(2));
+        InitFunctionCallInfoData(*key->fcinfo, &key->flinfo, 2,
+                                 plannode->sort.collations[i], NULL, NULL);
+
+        // Mark arguments as non-null by default
+        key->fcinfo->args[0].isnull = false;
+        key->fcinfo->args[1].isnull = false;
+    }
+}
+```

@@ -48,3 +48,35 @@ This function generates fake LSN values for GiST indexes that don't participate 
 - The fake LSN mechanism is essential for GiST's concurrent split detection algorithm
 - For permanent relations, if the insert LSN hasn't advanced since the last call, generates a dummy WAL record to ensure distinct LSNs
 - Each relation type has different concurrency and persistence requirements, hence the three-way handling strategy
+
+## Simplified Source
+
+```c
+XLogRecPtr gistGetFakeLSN(Relation rel) {
+    if (rel->rd_rel->relpersistence == RELPERSISTENCE_TEMP) {
+        // Temporary relations: simple backend-local counter
+        static XLogRecPtr counter = FirstNormalUnloggedLSN;
+        return counter++;
+    }
+    else if (RelationIsPermanent(rel)) {
+        // Permanent relations: use WAL insert position
+        static XLogRecPtr lastlsn = InvalidXLogRecPtr;
+        XLogRecPtr currlsn = GetXLogInsertRecPtr();
+
+        // Ensure this relation doesn't need WAL
+        Assert(!RelationNeedsWAL(rel));
+
+        // Generate dummy WAL record if LSN hasn't advanced
+        if (!XLogRecPtrIsInvalid(lastlsn) && lastlsn == currlsn)
+            currlsn = gistXLogAssignLSN();
+
+        lastlsn = currlsn;
+        return currlsn;
+    }
+    else {
+        // Unlogged relations: use system-wide handler
+        Assert(rel->rd_rel->relpersistence == RELPERSISTENCE_UNLOGGED);
+        return GetFakeLSNForUnloggedRel();
+    }
+}
+```

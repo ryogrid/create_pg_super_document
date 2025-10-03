@@ -55,3 +55,33 @@ Key functionality:
 - The ginxlogVacuumDataLeafPage structure contains compression data needed for page reconstruction
 - More efficient than full-page image approach for data leaf pages due to their compressed nature
 - Part of PostgreSQL's GIN index vacuum recovery mechanism for posting list maintenance
+
+## Simplified Source
+
+```c
+static void ginRedoVacuumDataLeafPage(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    Buffer buffer;
+
+    // Apply vacuum operation if buffer needs redo
+    if (XLogReadBufferForRedo(record, 0, &buffer) == BLK_NEEDS_REDO) {
+        Page page = BufferGetPage(buffer);
+        Size len;
+        ginxlogVacuumDataLeafPage *xlrec;
+
+        // Extract vacuum data from WAL record
+        xlrec = (ginxlogVacuumDataLeafPage *) XLogRecGetBlockData(record, 0, &len);
+
+        // Recompress the page with vacuum data
+        ginRedoRecompress(page, &xlrec->data);
+
+        // Complete WAL replay
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buffer);
+    }
+
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+}
+```

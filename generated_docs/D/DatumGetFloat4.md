@@ -39,3 +39,18 @@ The function first extracts the int32 representation using DatumGetInt32(), then
 - Part of PostgreSQL's type conversion system for floating-point values
 - Essential for extracting float4 values from function arguments and stored data
 - Located in src/include/postgres.h:458-474
+
+## Simplified Source
+
+```c
+static inline float4 DatumGetFloat4(Datum X) {
+    // Use union to safely reinterpret int32 bits as float4
+    union {
+        int32   value;
+        float4  retval;
+    } myunion;
+
+    myunion.value = DatumGetInt32(X);
+    return myunion.retval;
+}
+```

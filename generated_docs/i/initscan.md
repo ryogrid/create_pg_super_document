@@ -53,3 +53,80 @@ The function applies a threshold of NBuffers/4 to determine if a table is "large
 - BAS_BULKREAD strategy optimizes buffer replacement for large sequential scans
 - The function always initializes scan direction to ForwardScanDirection as it's the most common case
 - Only sequential heap scans (SO_TYPE_SEQSCAN) increment the heap scan statistics counter
+
+## Simplified Source
+
+```c
+static void initscan(HeapScanDesc scan, ScanKey key, bool keep_startblock) {
+    ParallelBlockTableScanDesc bpscan = NULL;
+    bool allow_strat, allow_sync;
+
+    // Determine number of blocks to scan
+    if (scan->rs_base.rs_parallel != NULL) {
+        bpscan = (ParallelBlockTableScanDesc) scan->rs_base.rs_parallel;
+        scan->rs_nblocks = bpscan->phs_nblocks;
+    } else {
+        scan->rs_nblocks = RelationGetNumberOfBlocks(scan->rs_base.rs_rd);
+    }
+
+    // Enable bulk-read strategy and sync scanning for large tables
+    if (!RelationUsesLocalBuffers(scan->rs_base.rs_rd) &&
+        scan->rs_nblocks > NBuffers / 4) {
+        allow_strat = (scan->rs_base.rs_flags & SO_ALLOW_STRAT) != 0;
+        allow_sync = (scan->rs_base.rs_flags & SO_ALLOW_SYNC) != 0;
+    } else {
+        allow_strat = allow_sync = false;
+    }
+
+    // Set up bulk-read access strategy
+    if (allow_strat) {
+        if (scan->rs_strategy == NULL)
+            scan->rs_strategy = GetAccessStrategy(BAS_BULKREAD);
+    } else {
+        if (scan->rs_strategy != NULL)
+            FreeAccessStrategy(scan->rs_strategy);
+        scan->rs_strategy = NULL;
+    }
+
+    // Configure synchronized scanning
+    if (scan->rs_base.rs_parallel != NULL) {
+        // Parallel scan: use ParallelTableScanDesc settings
+        if (scan->rs_base.rs_parallel->phs_syncscan)
+            scan->rs_base.rs_flags |= SO_ALLOW_SYNC;
+        else
+            scan->rs_base.rs_flags &= ~SO_ALLOW_SYNC;
+    } else if (keep_startblock) {
+        // Rescan: keep startblock, update sync setting
+        if (allow_sync && synchronize_seqscans)
+            scan->rs_base.rs_flags |= SO_ALLOW_SYNC;
+        else
+            scan->rs_base.rs_flags &= ~SO_ALLOW_SYNC;
+    } else if (allow_sync && synchronize_seqscans) {
+        // New scan with sync enabled
+        scan->rs_base.rs_flags |= SO_ALLOW_SYNC;
+        scan->rs_startblock = ss_get_location(scan->rs_base.rs_rd, scan->rs_nblocks);
+    } else {
+        // No sync
+        scan->rs_base.rs_flags &= ~SO_ALLOW_SYNC;
+        scan->rs_startblock = 0;
+    }
+
+    // Initialize scan state
+    scan->rs_numblocks = InvalidBlockNumber;
+    scan->rs_inited = false;
+    scan->rs_ctup.t_data = NULL;
+    ItemPointerSetInvalid(&scan->rs_ctup.t_self);
+    scan->rs_cbuf = InvalidBuffer;
+    scan->rs_cblock = InvalidBlockNumber;
+    scan->rs_dir = ForwardScanDirection;
+    scan->rs_prefetch_block = InvalidBlockNumber;
+
+    // Copy scan keys
+    if (key != NULL && scan->rs_base.rs_nkeys > 0)
+        memcpy(scan->rs_base.rs_key, key, scan->rs_base.rs_nkeys * sizeof(ScanKeyData));
+
+    // Update statistics for sequential scans
+    if (scan->rs_base.rs_flags & SO_TYPE_SEQSCAN)
+        pgstat_count_heap_scan(scan->rs_base.rs_rd);
+}
+```

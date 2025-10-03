@@ -41,3 +41,31 @@ This function performs sanity checks on GiST index pages after they are read fro
 - Reports specific error codes (ERRCODE_INDEX_CORRUPTED) to help with diagnosis
 - Used extensively throughout GiST operations as a defensive programming measure
 - The special area size check ensures the page has the correct GiST-specific metadata structure
+
+## Simplified Source
+
+```c
+void gistcheckpage(Relation rel, Buffer buf) {
+    Page page = BufferGetPage(buf);
+
+    // Check for unexpected zero/uninitialized page
+    if (PageIsNew(page)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INDEX_CORRUPTED),
+                 errmsg("index \"%s\" contains unexpected zero page at block %u",
+                        RelationGetRelationName(rel),
+                        BufferGetBlockNumber(buf)),
+                 errhint("Please REINDEX it.")));
+    }
+
+    // Verify special area has correct size for GiST pages
+    if (PageGetSpecialSize(page) != MAXALIGN(sizeof(GISTPageOpaqueData))) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INDEX_CORRUPTED),
+                 errmsg("index \"%s\" contains corrupted page at block %u",
+                        RelationGetRelationName(rel),
+                        BufferGetBlockNumber(buf)),
+                 errhint("Please REINDEX it.")));
+    }
+}
+```

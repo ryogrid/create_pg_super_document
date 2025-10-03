@@ -41,3 +41,76 @@ This function is a core utility for window function processing that retrieves a 
 - Uses per-query memory context for tuple operations
 - Includes interrupt checking for long-running operations
 - Ensures physical tuple copies to maintain data validity across tuplestore manipulations
+
+## Simplified Source
+
+```c
+static bool
+window_gettupleslot(WindowObject winobj, int64 pos, TupleTableSlot *slot)
+{
+    WindowAggState *winstate = winobj->winstate;
+    MemoryContext oldcontext;
+
+    CHECK_FOR_INTERRUPTS();
+
+    // Validate position
+    if (pos < 0)
+        return false;
+
+    // Ensure tuple is spooled
+    spool_tuples(winstate, pos);
+
+    if (pos >= winstate->spooled_rows)
+        return false;
+
+    if (pos < winobj->markpos)
+        elog(ERROR, "cannot fetch row before WindowObject's mark position");
+
+    // Switch to per-query memory context
+    oldcontext = MemoryContextSwitchTo(winstate->ss.ps.ps_ExprContext->ecxt_per_query_memory);
+    tuplestore_select_read_pointer(winstate->buffer, winobj->readptr);
+
+    // Position read pointer near target position
+    if (winobj->seekpos < pos - 1)
+    {
+        // Advance to get close to target
+        if (!tuplestore_skiptuples(winstate->buffer, pos - 1 - winobj->seekpos, true))
+            elog(ERROR, "unexpected end of tuplestore");
+        winobj->seekpos = pos - 1;
+    }
+    else if (winobj->seekpos > pos + 1)
+    {
+        // Rewind to get close to target
+        if (!tuplestore_skiptuples(winstate->buffer, winobj->seekpos - (pos + 1), false))
+            elog(ERROR, "unexpected end of tuplestore");
+        winobj->seekpos = pos + 1;
+    }
+    else if (winobj->seekpos == pos)
+    {
+        // Move forward then back to refetch current position
+        tuplestore_advance(winstate->buffer, true);
+        winobj->seekpos++;
+    }
+
+    // Fetch the target tuple
+    if (winobj->seekpos > pos)
+    {
+        // Fetch backwards
+        if (!tuplestore_gettupleslot(winstate->buffer, false, true, slot))
+            elog(ERROR, "unexpected end of tuplestore");
+        winobj->seekpos--;
+    }
+    else
+    {
+        // Fetch forwards
+        if (!tuplestore_gettupleslot(winstate->buffer, true, true, slot))
+            elog(ERROR, "unexpected end of tuplestore");
+        winobj->seekpos++;
+    }
+
+    Assert(winobj->seekpos == pos);
+    MemoryContextSwitchTo(oldcontext);
+
+    return true;
+}
+```

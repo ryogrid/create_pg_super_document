@@ -41,3 +41,29 @@ This function ensures that each fresh scan starts with clean state while reusing
 
 ## Notes and Other Information
 This function is called when a parallel plan node needs to be re-executed, such as in nested loops or when rescanning is required. It's important that this function properly frees shared memory resources to prevent memory leaks in long-running queries with many rescan operations. The function preserves the shared memory structure itself and synchronization primitives, only cleaning up scan-specific state. The safety check for DSA availability ensures graceful handling when parallel execution is not active.
+
+## Simplified Source
+```c
+void ExecBitmapHeapReInitializeDSM(BitmapHeapScanState *node, ParallelContext *pcxt) {
+    ParallelBitmapHeapState *pstate = node->pstate;
+    dsa_area *dsa = node->ss.ps.state->es_query_dsa;
+
+    // Early exit if no parallel workers
+    if (dsa == NULL)
+        return;
+
+    // Reset state for fresh scan
+    pstate->state = BM_INITIAL;
+
+    // Free existing shared iterators
+    if (DsaPointerIsValid(pstate->tbmiterator))
+        tbm_free_shared_area(dsa, pstate->tbmiterator);
+
+    if (DsaPointerIsValid(pstate->prefetch_iterator))
+        tbm_free_shared_area(dsa, pstate->prefetch_iterator);
+
+    // Reset iterator pointers
+    pstate->tbmiterator = InvalidDsaPointer;
+    pstate->prefetch_iterator = InvalidDsaPointer;
+}
+```

@@ -33,3 +33,18 @@ ExecSubqueryScan serves as the primary execution entry point for subquery scan n
 - Function pointers are cast to ExecScanAccessMtd and ExecScanRecheckMtd types for type safety
 - Part of the executor node infrastructure that enables consistent scan operations across different plan node types
 - Located at src/backend/executor/nodeSubqueryscan.c:83-96
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecSubqueryScan(PlanState *pstate)
+{
+    SubqueryScanState *node = castNode(SubqueryScanState, pstate);
+
+    // Delegate to generic scan executor with subquery-specific methods
+    return ExecScan(&node->ss,
+                    (ExecScanAccessMtd) SubqueryNext,      // How to get next tuple
+                    (ExecScanRecheckMtd) SubqueryRecheck); // How to recheck tuples
+}
+```

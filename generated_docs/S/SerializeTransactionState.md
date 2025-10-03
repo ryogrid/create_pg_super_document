@@ -51,3 +51,51 @@ All transaction IDs are emitted in sorted order for efficient processing by the 
 - Transaction IDs are sorted to optimize lookup performance in parallel workers
 - Critical for maintaining ACID properties across parallel execution boundaries
 - The serialized format includes both the transaction state metadata and the complete list of active transaction IDs
+
+## Simplified Source
+
+```c
+void SerializeTransactionState(Size maxsize, char *start_address) {
+    SerializedTransactionState *result = (SerializedTransactionState *) start_address;
+
+    // Copy basic transaction state
+    result->xactIsoLevel = XactIsoLevel;
+    result->xactDeferrable = XactDeferrable;
+    result->topFullTransactionId = XactTopFullTransactionId;
+    result->currentFullTransactionId = CurrentTransactionState->fullTransactionId;
+    result->currentCommandId = currentCommandId;
+
+    // If already in parallel worker, just pass along existing XIDs
+    if (nParallelCurrentXids > 0) {
+        result->nParallelCurrentXids = nParallelCurrentXids;
+        memcpy(&result->parallelCurrentXids[0], ParallelCurrentXids,
+               nParallelCurrentXids * sizeof(TransactionId));
+        return;
+    }
+
+    // Count total XIDs in transaction hierarchy
+    Size nxids = 0;
+    for (TransactionState s = CurrentTransactionState; s != NULL; s = s->parent) {
+        if (FullTransactionIdIsValid(s->fullTransactionId))
+            nxids++;
+        nxids += s->nChildXids;
+    }
+
+    // Collect all XIDs into workspace
+    TransactionId *workspace = palloc(nxids * sizeof(TransactionId));
+    Size i = 0;
+    for (TransactionState s = CurrentTransactionState; s != NULL; s = s->parent) {
+        if (FullTransactionIdIsValid(s->fullTransactionId))
+            workspace[i++] = XidFromFullTransactionId(s->fullTransactionId);
+        if (s->nChildXids > 0) {
+            memcpy(&workspace[i], s->childXids, s->nChildXids * sizeof(TransactionId));
+            i += s->nChildXids;
+        }
+    }
+
+    // Sort XIDs and copy to output
+    qsort(workspace, nxids, sizeof(TransactionId), xidComparator);
+    result->nParallelCurrentXids = nxids;
+    memcpy(&result->parallelCurrentXids[0], workspace, nxids * sizeof(TransactionId));
+}
+```

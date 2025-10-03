@@ -34,3 +34,14 @@ This function exists to conform to the standard scan method interface expected b
 - Part of the standard scan method interface for EvalPlanQual support
 - Named tuple stores don't require actual rechecking since they contain pre-validated data
 - Serves as a no-op placeholder to maintain interface consistency with other scan types
+
+## Simplified Source
+
+```c
+static bool
+NamedTuplestoreScanRecheck(NamedTuplestoreScanState *node, TupleTableSlot *slot)
+{
+    // Named tuple stores don't need rechecking - data is already validated
+    return true;
+}
+```

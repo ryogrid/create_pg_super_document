@@ -41,3 +41,18 @@ This function initializes a new page for use in a GiST index by calling PageInit
 - The GIST_PAGE_ID helps identify valid GiST pages and detect corruption
 - Used extensively during index building, especially with the sort-based build method
 - The initialized page is ready to have GiST tuples inserted into it
+
+## Simplified Source
+
+```c
+void gistinitpage(Page page, uint32 f) {
+    // Initialize basic page structure with GiST opaque data space
+    PageInit(page, BLCKSZ, sizeof(GISTPageOpaqueData));
+
+    // Set up GiST-specific page metadata
+    GISTPageOpaque opaque = GistPageGetOpaque(page);
+    opaque->rightlink = InvalidBlockNumber;  // No right sibling initially
+    opaque->flags = f;                       // Page type flags (leaf/internal)
+    opaque->gist_page_id = GIST_PAGE_ID;    // Page identifier for validation
+}
+```

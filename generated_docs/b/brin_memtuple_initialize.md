@@ -36,3 +36,38 @@ This function performs a complete reinitialization of an existing BrinMemTuple s
 - Initializes all columns to bv_allnulls=true and bv_hasnulls=false state
 - Sets bt_empty_range=true to indicate the tuple represents an empty range initially
 - Used both during initial tuple creation and when reusing existing tuples
+
+## Simplified Source
+
+```c
+BrinMemTuple *brin_memtuple_initialize(BrinMemTuple *dtuple, BrinDesc *brdesc) {
+    int i;
+    char *currdatum;
+
+    // Reset memory context to clear previous data
+    MemoryContextReset(dtuple->bt_context);
+
+    // Calculate starting position for datum storage
+    currdatum = (char *) dtuple +
+        MAXALIGN(sizeof(BrinMemTuple) +
+                 sizeof(BrinValues) * brdesc->bd_tupdesc->natts);
+
+    // Initialize each column
+    for (i = 0; i < brdesc->bd_tupdesc->natts; i++) {
+        dtuple->bt_columns[i].bv_attno = i + 1;
+        dtuple->bt_columns[i].bv_allnulls = true;
+        dtuple->bt_columns[i].bv_hasnulls = false;
+        dtuple->bt_columns[i].bv_values = (Datum *) currdatum;
+        dtuple->bt_columns[i].bv_mem_value = PointerGetDatum(NULL);
+        dtuple->bt_columns[i].bv_serialize = NULL;
+        dtuple->bt_columns[i].bv_context = dtuple->bt_context;
+
+        // Advance to next column's storage area
+        currdatum += sizeof(Datum) * brdesc->bd_info[i]->oi_nstored;
+    }
+
+    // Mark as empty range
+    dtuple->bt_empty_range = true;
+    return dtuple;
+}
+```

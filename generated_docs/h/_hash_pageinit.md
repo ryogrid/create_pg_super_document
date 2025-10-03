@@ -37,3 +37,13 @@ This function is a simple wrapper around the standard PageInit function that ini
 - Reserves space for hash-specific opaque data structure
 - Used consistently across all hash page creation scenarios
 - Simple but critical function ensuring proper page layout for hash operations
+
+## Simplified Source
+
+```c
+void _hash_pageinit(Page page, Size size)
+{
+    // Initialize page with hash-specific opaque data space
+    PageInit(page, size, sizeof(HashPageOpaqueData));
+}
+```

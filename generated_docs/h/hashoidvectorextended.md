@@ -35,3 +35,15 @@ This function is the extended version of hashoidvector that accepts an additiona
 - Hashes the entire values array as a contiguous block of memory with the provided seed
 - Provides better hash distribution and security through seed-based hashing
 - Located in src/backend/access/hash/hashfunc.c:240-249
+
+## Simplified Source
+```c
+Datum hashoidvectorextended(PG_FUNCTION_ARGS) {
+    oidvector *key = (oidvector *) PG_GETARG_POINTER(0);
+
+    // Hash the entire array of OIDs with the provided seed
+    return hash_any_extended((unsigned char *) key->values,
+                           key->dim1 * sizeof(Oid),
+                           PG_GETARG_INT64(1));
+}
+```

@@ -35,3 +35,25 @@ The function is typically registered as a callback using PostgreSQL's expression
 - It handles null pointers gracefully by checking if funcResultSlot and funcResultStore exist before operating on them
 - The setArgsValid flag is set to false to invalidate any cached set argument state
 - This callback mechanism is crucial for preventing memory leaks in PostgreSQL's expression evaluation system
+
+## Simplified Source
+```c
+static void ShutdownSetExpr(Datum arg) {
+    SetExprState *sexpr = castNode(SetExprState, DatumGetPointer(arg));
+
+    // Clear the function result slot if it exists
+    if (sexpr->funcResultSlot)
+        ExecClearTuple(sexpr->funcResultSlot);
+
+    // Release any open tuplestore
+    if (sexpr->funcResultStore)
+        tuplestore_end(sexpr->funcResultStore);
+    sexpr->funcResultStore = NULL;
+
+    // Invalidate set argument state
+    sexpr->setArgsValid = false;
+
+    // Mark callback as unregistered
+    sexpr->shutdown_reg = false;
+}
+```

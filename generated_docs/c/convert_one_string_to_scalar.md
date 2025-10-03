@@ -42,3 +42,37 @@ The formula essentially treats the string as: char[0]/base + char[1]/base² + ch
 - The function is static, indicating it's an internal helper for string-to-scalar conversion
 - The variable-base system allows for more accurate representations when the actual character range is narrower than the full ASCII range
 - Part of PostgreSQL's selectivity estimation system used by the query planner for optimizing queries involving string comparisons
+
+## Simplified Source
+
+```c
+static double convert_one_string_to_scalar(char *value, int rangelo, int rangehi) {
+    int slen = strlen(value);
+
+    if (slen <= 0)
+        return 0.0; // Empty string = 0
+
+    // Limit to 12 characters for precision and overflow safety
+    if (slen > 12)
+        slen = 12;
+
+    // Convert string to fractional value
+    double base = rangehi - rangelo + 1;
+    double num = 0.0;
+    double denom = base;
+
+    while (slen-- > 0) {
+        int ch = (unsigned char) *value++;
+
+        // Clamp out-of-range characters to preserve ordering
+        if (ch < rangelo) ch = rangelo - 1;
+        else if (ch > rangehi) ch = rangehi + 1;
+
+        // Add fractional component: char/base + char/base² + ...
+        num += ((double) (ch - rangelo)) / denom;
+        denom *= base;
+    }
+
+    return num;
+}
+```

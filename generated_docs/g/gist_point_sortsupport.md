@@ -41,3 +41,24 @@ The abbreviation optimization converts bounding boxes to compact Z-order values,
 - Follows PostgreSQL's function interface conventions with PG_FUNCTION_ARGS
 - Critical for efficient spatial index construction performance
 - Works in conjunction with the abbreviation functions to optimize sorting of spatial data
+
+## Simplified Source
+
+```c
+Datum gist_point_sortsupport(PG_FUNCTION_ARGS) {
+    SortSupport ssup = (SortSupport) PG_GETARG_POINTER(0);
+
+    if (ssup->abbreviate) {
+        // Enable abbreviated sorting for better performance
+        ssup->comparator = ssup_datum_unsigned_cmp;
+        ssup->abbrev_converter = gist_bbox_zorder_abbrev_convert;
+        ssup->abbrev_abort = gist_bbox_zorder_abbrev_abort;
+        ssup->abbrev_full_comparator = gist_bbox_zorder_cmp;
+    } else {
+        // Standard Z-order comparison without abbreviation
+        ssup->comparator = gist_bbox_zorder_cmp;
+    }
+
+    PG_RETURN_VOID();
+}
+```

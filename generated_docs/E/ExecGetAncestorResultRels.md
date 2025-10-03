@@ -42,3 +42,55 @@ ExecGetAncestorResultRels builds and caches a list of ResultRelInfo structures r
 - Essential for maintaining referential integrity across partition boundaries
 - Used by foreign key enforcement during cross-partition updates
 - Closed automatically by ExecCloseResultRelations during cleanup
+
+## Simplified Source
+
+```c
+List *
+ExecGetAncestorResultRels(EState *estate, ResultRelInfo *resultRelInfo)
+{
+    ResultRelInfo *rootRelInfo = resultRelInfo->ri_RootResultRelInfo;
+    Relation partRel = resultRelInfo->ri_RelationDesc;
+    Oid rootRelOid;
+
+    // Validate input - must be a partition
+    if (!partRel->rd_rel->relispartition)
+        elog(ERROR, "cannot find ancestors of a non-partition result relation");
+
+    Assert(rootRelInfo != NULL);
+    rootRelOid = RelationGetRelid(rootRelInfo->ri_RelationDesc);
+
+    // Build ancestor list if not already cached
+    if (resultRelInfo->ri_ancestorResultRels == NIL)
+    {
+        List *oids = get_partition_ancestors(RelationGetRelid(partRel));
+        List *ancResultRels = NIL;
+        ListCell *lc;
+
+        // Create ResultRelInfo for each ancestor (except root)
+        foreach(lc, oids)
+        {
+            Oid ancOid = lfirst_oid(lc);
+            Relation ancRel;
+            ResultRelInfo *rInfo;
+
+            // Stop when we reach the root relation
+            if (ancOid == rootRelOid)
+                break;
+
+            // Open ancestor relation and create ResultRelInfo
+            ancRel = table_open(ancOid, NoLock);
+            rInfo = makeNode(ResultRelInfo);
+            InitResultRelInfo(rInfo, ancRel, 0, NULL, estate->es_instrument);
+            ancResultRels = lappend(ancResultRels, rInfo);
+        }
+
+        // Add root relation at the end
+        ancResultRels = lappend(ancResultRels, rootRelInfo);
+        resultRelInfo->ri_ancestorResultRels = ancResultRels;
+    }
+
+    Assert(resultRelInfo->ri_ancestorResultRels != NIL);
+    return resultRelInfo->ri_ancestorResultRels;
+}
+```

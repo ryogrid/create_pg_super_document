@@ -43,3 +43,36 @@ The function is critical for ensuring crash safety and consistency of logical re
 - The fsync() operations are essential for crash safety and ensuring logical replication consistency
 - Part of the larger heap rewrite infrastructure that maintains logical decoding correctness during DDL operations
 - Uses appropriate error levels for synchronization failures via data_sync_elevel()
+
+## Simplified Source
+
+```c
+static void
+logical_end_heap_rewrite(RewriteState state)
+{
+    HASH_SEQ_STATUS seq_status;
+    RewriteMappingFile *src;
+
+    // Exit early if no logical rewrite was performed
+    if (!state->rs_logical_rewrite)
+        return;
+
+    // Flush any remaining in-memory mappings to disk
+    if (state->rs_num_rewrite_mappings > 0)
+        logical_heap_rewrite_flush_mappings(state);
+
+    // Iterate through all mapping files and sync them to disk
+    hash_seq_init(&seq_status, state->rs_logical_mappings);
+    while ((src = (RewriteMappingFile *) hash_seq_search(&seq_status)) != NULL) {
+        // Synchronize file to disk for crash safety
+        if (FileSync(src->vfd, WAIT_EVENT_LOGICAL_REWRITE_SYNC) != 0)
+            ereport(data_sync_elevel(ERROR),
+                    (errmsg("could not fsync file \"%s\": %m", src->path)));
+
+        // Close the file descriptor
+        FileClose(src->vfd);
+    }
+
+    // Memory context cleanup will handle the rest of the cleanup
+}
+```

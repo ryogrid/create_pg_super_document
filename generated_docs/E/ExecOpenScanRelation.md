@@ -48,3 +48,28 @@ If an unscannable materialized view is detected during actual execution, the fun
 - Returns the opened Relation object for use by the scan node
 - Essential for ensuring data integrity by preventing scans of unpopulated materialized views
 - The error message provides clear guidance on how to fix unpopulated materialized view issues
+
+## Simplified Source
+
+```c
+Relation
+ExecOpenScanRelation(EState *estate, Index scanrelid, int eflags)
+{
+    // Open the relation from range table
+    Relation rel = ExecGetRangeTableRelation(estate, scanrelid);
+
+    // Check if relation is scannable (skip for EXPLAIN or NO_DATA queries)
+    bool skip_validation = (eflags & (EXEC_FLAG_EXPLAIN_ONLY | EXEC_FLAG_WITH_NO_DATA)) != 0;
+
+    if (!skip_validation && !RelationIsScannable(rel)) {
+        // Error for unpopulated materialized views
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("materialized view \"%s\" has not been populated",
+                        RelationGetRelationName(rel)),
+                 errhint("Use the REFRESH MATERIALIZED VIEW command.")));
+    }
+
+    return rel;
+}
+```

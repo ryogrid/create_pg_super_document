@@ -43,3 +43,33 @@ The function includes a safety check - if no DSA (Dynamic Shared Area) is availa
 
 ## Notes and Other Information
 This function runs only in the leader process during parallel query setup. Worker processes will later access this shared state via ExecBitmapHeapInitializeWorker. The shared state enables coordination for bitmap iterator sharing, prefetch coordination, and synchronization during parallel bitmap heap scanning. The plan_node_id is used as the key for shared memory TOC lookup, ensuring each node's shared state can be uniquely identified.
+
+## Simplified Source
+
+```c
+void ExecBitmapHeapInitializeDSM(BitmapHeapScanState *node, ParallelContext *pcxt)
+{
+    ParallelBitmapHeapState *pstate;
+    dsa_area *dsa = node->ss.ps.state->es_query_dsa;
+
+    // Exit early if no DSA available (no parallel workers)
+    if (dsa == NULL)
+        return;
+
+    // Allocate and initialize shared parallel state
+    pstate = shm_toc_allocate(pcxt->toc, sizeof(ParallelBitmapHeapState));
+    pstate->tbmiterator = 0;
+    pstate->prefetch_iterator = 0;
+    pstate->prefetch_pages = 0;
+    pstate->prefetch_target = 0;
+    pstate->state = BM_INITIAL;
+
+    // Initialize synchronization primitives
+    SpinLockInit(&pstate->mutex);
+    ConditionVariableInit(&pstate->cv);
+
+    // Register shared state for worker access
+    shm_toc_insert(pcxt->toc, node->ss.ps.plan->plan_node_id, pstate);
+    node->pstate = pstate;
+}
+```

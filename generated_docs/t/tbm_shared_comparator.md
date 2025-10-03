@@ -9,11 +9,7 @@ A comparator function used for sorting PagetableEntry indices in shared TID bitm
 ## Definition
 
 ```c
-struct, with enough trailing space to
-	 * serve the needs of the TBMIterateResult sub-struct.
-	 */
-	iterator = (TBMSharedIterator *) palloc0(sizeof(TBMSharedIterator) +
-											 MAX_TUPLES_PER_PAGE * sizeof(OffsetNumber));
+static int tbm_shared_comparator(const void *left, const void *right, void *arg)
 ```
 ## Detailed Description
 This function serves as a comparison callback for sorting operations on shared TID bitmaps. Unlike direct PagetableEntry comparisons, this function works with indices into a PagetableEntry array. It takes two integer indices, retrieves the corresponding PagetableEntry structures from the base array provided in the arg parameter, and compares their block numbers. This indirection is necessary when working with shared memory structures where direct pointer comparisons are not feasible.
@@ -35,3 +31,23 @@ This function serves as a comparison callback for sorting operations on shared T
 - The function follows the standard C qsort comparator interface, returning -1, 0, or 1
 - Essential for maintaining sorted order in shared bitmap iterations across parallel workers
 - Works with indices rather than direct pointers to support shared memory architecture
+
+## Simplified Source
+
+```c
+static int tbm_shared_comparator(const void *left, const void *right, void *arg) {
+    PagetableEntry *base = (PagetableEntry *) arg;
+
+    // Get actual PagetableEntry structs using indices
+    PagetableEntry *left_page = &base[*(int *) left];
+    PagetableEntry *right_page = &base[*(int *) right];
+
+    // Compare block numbers
+    if (left_page->blockno < right_page->blockno)
+        return -1;
+    else if (left_page->blockno > right_page->blockno)
+        return 1;
+
+    return 0;  // Equal block numbers
+}
+```

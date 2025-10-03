@@ -31,3 +31,25 @@ The function handles memory management by allocating a new string using pnstrdup
 - Only converts ASCII characters (a-z to A-Z), leaving other characters unchanged
 - Designed for use in PostgreSQL's formatting system where locale-independent behavior is desired
 - Part of the formatting.c module which handles various string formatting operations
+
+## Simplified Source
+
+```c
+char *asc_toupper(const char *buff, size_t nbytes) {
+    char *result;
+    char *p;
+
+    // Handle NULL input
+    if (!buff)
+        return NULL;
+
+    // Create copy of input string
+    result = pnstrdup(buff, nbytes);
+
+    // Convert each character to uppercase
+    for (p = result; *p; p++)
+        *p = pg_ascii_toupper((unsigned char) *p);
+
+    return result;
+}
+```

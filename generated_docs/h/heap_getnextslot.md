@@ -48,3 +48,28 @@ This function is part of the table access method interface and provides better m
 - Performs the same statistics tracking as  via 
 - The slot-based interface allows for better memory management and integration with the executor's tuple processing pipeline
 - Unlike , this function doesn't include the heap AM validation checks, suggesting it's used in more controlled contexts
+
+## Simplified Source
+
+```c
+bool heap_getnextslot(TableScanDesc sscan, ScanDirection direction, TupleTableSlot *slot) {
+    HeapScanDesc scan = (HeapScanDesc) sscan;
+
+    // Choose scan method based on page mode flag
+    if (sscan->rs_flags & SO_ALLOW_PAGEMODE)
+        heapgettup_pagemode(scan, direction, sscan->rs_nkeys, sscan->rs_key);
+    else
+        heapgettup(scan, direction, sscan->rs_nkeys, sscan->rs_key);
+
+    // Check if tuple was found
+    if (scan->rs_ctup.t_data == NULL) {
+        ExecClearTuple(slot);
+        return false;
+    }
+
+    // Store tuple in slot and update statistics
+    pgstat_count_heap_getnext(scan->rs_base.rs_rd);
+    ExecStoreBufferHeapTuple(&scan->rs_ctup, slot, scan->rs_cbuf);
+    return true;
+}
+```

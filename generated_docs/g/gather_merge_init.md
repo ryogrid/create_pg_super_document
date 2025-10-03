@@ -54,3 +54,63 @@ The function uses a goto-based reread loop to handle the transition from nowait 
 - Includes CHECK_FOR_INTERRUPTS() to handle query cancellation during initialization
 - The reread logic ensures that no worker is left uninitialized, which is crucial for correct merge ordering
 - Binary heap is built after all initial tuples are collected to establish proper ordering for the merge process
+
+## Simplified Source
+
+```c
+static void
+gather_merge_init(GatherMergeState *gm_state)
+{
+    int nreaders = gm_state->nreaders;
+    bool nowait = true;
+    int i;
+
+    // Reset leader's tuple slot to empty
+    gm_state->gm_slots[0] = NULL;
+
+    // Reset tuple slot and tuple array for each worker
+    for (i = 0; i < nreaders; i++) {
+        gm_state->gm_tuple_buffers[i].nTuples = 0;
+        gm_state->gm_tuple_buffers[i].readCounter = 0;
+        gm_state->gm_tuple_buffers[i].done = false;
+        ExecClearTuple(gm_state->gm_slots[i + 1]);
+    }
+
+    // Reset binary heap to empty
+    binaryheap_reset(gm_state->gm_heap);
+
+    // Try to read a tuple from each source, using two-pass approach
+reread:
+    for (i = 0; i <= nreaders; i++) {
+        CHECK_FOR_INTERRUPTS();
+
+        // Skip if source is already done
+        bool source_active = (i == 0) ? gm_state->need_to_scan_locally :
+                                      !gm_state->gm_tuple_buffers[i - 1].done;
+
+        if (source_active) {
+            if (TupIsNull(gm_state->gm_slots[i])) {
+                // Don't have a tuple yet, try to get one
+                if (gather_merge_readnext(gm_state, i, nowait)) {
+                    binaryheap_add_unordered(gm_state->gm_heap, Int32GetDatum(i));
+                }
+            } else {
+                // Already got tuple, check for more ready tuples
+                load_tuple_array(gm_state, i);
+            }
+        }
+    }
+
+    // Check if any workers still need tuples and switch to wait mode
+    for (i = 1; i <= nreaders; i++) {
+        if (!gm_state->gm_tuple_buffers[i - 1].done && TupIsNull(gm_state->gm_slots[i])) {
+            nowait = false;
+            goto reread;
+        }
+    }
+
+    // Build the heap for ordered merging
+    binaryheap_build(gm_state->gm_heap);
+    gm_state->gm_initialized = true;
+}
+```

@@ -36,3 +36,24 @@ pg_atomic_test_set_flag_impl is a fallback implementation of the atomic test-and
 - Part of PostgreSQL's atomic flag simulation framework alongside pg_atomic_init_flag_impl and pg_atomic_clear_flag_impl
 - Defined in src/backend/port/atomics.c under conditional compilation (PG_HAVE_ATOMIC_FLAG_SIMULATION)
 - Critical section is kept minimal (just the read-modify-write operation) for performance
+
+## Simplified Source
+
+```c
+bool pg_atomic_test_set_flag_impl(volatile pg_atomic_flag *ptr) {
+    uint32 oldval;
+
+    // Acquire spinlock for atomic operation
+    SpinLockAcquire((slock_t *) &ptr->sema);
+
+    // Test current value and set to true
+    oldval = ptr->value;
+    ptr->value = true;
+
+    // Release spinlock
+    SpinLockRelease((slock_t *) &ptr->sema);
+
+    // Return true if flag was previously unset (available)
+    return oldval == 0;
+}
+```

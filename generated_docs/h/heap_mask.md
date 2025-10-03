@@ -41,3 +41,55 @@ The function systematically processes each tuple on the page and masks various f
 - Properly handles tuple alignment padding to avoid false consistency failures
 - Part of the broader WAL verification framework used to ensure standby consistency
 - Does not mask CTID changes for moved partitions as that information must remain consistent
+
+## Simplified Source
+
+```c
+void heap_mask(char *pagedata, BlockNumber blkno) {
+    Page page = (Page) pagedata;
+
+    // Mask page-level metadata that can differ between primary/standby
+    mask_page_lsn_and_checksum(page);
+    mask_page_hint_bits(page);
+    mask_unused_space(page);
+
+    // Process each tuple on the page
+    for (OffsetNumber off = 1; off <= PageGetMaxOffsetNumber(page); off++) {
+        ItemId iid = PageGetItemId(page, off);
+        char *page_item = (char *) (page + ItemIdGetOffset(iid));
+
+        if (ItemIdIsNormal(iid)) {
+            HeapTupleHeader page_htup = (HeapTupleHeader) page_item;
+
+            // Mask transaction hint bits for non-frozen tuples
+            if (!HeapTupleHeaderXminFrozen(page_htup)) {
+                // Mask all transaction status bits that can be set as hints
+                page_htup->t_infomask &= ~HEAP_XACT_MASK;
+            } else {
+                // For frozen tuples, only mask xmax hint bits
+                page_htup->t_infomask &= ~HEAP_XMAX_INVALID;
+                page_htup->t_infomask &= ~HEAP_XMAX_COMMITTED;
+            }
+
+            // Mask command ID (set to FirstCommandId during replay)
+            page_htup->t_choice.t_heap.t_field3.t_cid = MASK_MARKER;
+
+            // Handle speculative tuples: normalize CTID to block/offset
+            // since speculative tokens aren't WAL-logged
+            if (HeapTupleHeaderIsSpeculative(page_htup)) {
+                ItemPointerSet(&page_htup->t_ctid, blkno, off);
+            }
+            // Note: Don't mask moved partition CTIDs - they're important!
+        }
+
+        // Mask alignment padding bytes
+        if (ItemIdHasStorage(iid)) {
+            int len = ItemIdGetLength(iid);
+            int padlen = MAXALIGN(len) - len;
+            if (padlen > 0) {
+                memset(page_item + len, MASK_MARKER, padlen);
+            }
+        }
+    }
+}
+```

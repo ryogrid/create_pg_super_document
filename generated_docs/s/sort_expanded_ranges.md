@@ -43,3 +43,35 @@ The function currently uses quicksort for all elements, though there's potential
 - Contains a TODO comment suggesting merge sort optimization could leverage partially sorted input data
 - Uses assertion checks to ensure valid input and output conditions
 - The function is static and used internally within the BRIN minmax_multi implementation
+
+## Simplified Source
+
+```c
+static int
+sort_expanded_ranges(FmgrInfo *cmp, Oid colloid,
+                     ExpandedRange *eranges, int neranges)
+{
+    compare_context cxt;
+    cxt.colloid = colloid;
+    cxt.cmpFn = cmp;
+
+    // Sort all ranges using quicksort
+    qsort_arg(eranges, neranges, sizeof(ExpandedRange),
+              compare_expanded_ranges, &cxt);
+
+    // Deduplicate consecutive identical ranges
+    int n = 1;
+    for (int i = 1; i < neranges; i++) {
+        // Skip if current range equals previous range
+        if (!compare_expanded_ranges(&eranges[i - 1], &eranges[i], (void *) &cxt))
+            continue;
+
+        // Copy unique range to position n (compact array)
+        if (i != n)
+            memcpy(&eranges[n], &eranges[i], sizeof(ExpandedRange));
+        n++;
+    }
+
+    return n;  // Return number of unique ranges
+}
+```

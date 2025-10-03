@@ -42,3 +42,24 @@ The estimation is only performed when both instrumentation is enabled and parall
 - Uses PostgreSQL's safe arithmetic functions (mul_size, add_size) to prevent integer overflow
 - The shared memory table of contents (shm_toc) tracks both chunk space and key space requirements
 - Statistics collected include metrics for both fullsort and prefixsort operations across parallel workers
+
+## Simplified Source
+
+```c
+void ExecIncrementalSortEstimate(IncrementalSortState *node, ParallelContext *pcxt)
+{
+    Size size;
+
+    // Skip estimation if no instrumentation or workers
+    if (!node->ss.ps.instrument || pcxt->nworkers == 0)
+        return;
+
+    // Calculate memory needed: worker count * info struct size + shared header
+    size = mul_size(pcxt->nworkers, sizeof(IncrementalSortInfo));
+    size = add_size(size, offsetof(SharedIncrementalSortInfo, sinfo));
+
+    // Register memory requirements with shared memory allocator
+    shm_toc_estimate_chunk(&pcxt->estimator, size);
+    shm_toc_estimate_keys(&pcxt->estimator, 1);
+}
+```

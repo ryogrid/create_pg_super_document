@@ -38,3 +38,21 @@ This function is an extended version of the standard float8 hash function that a
 - Ensures consistent hash values for special floating-point cases (±0, NaN)
 - The extended version allows for hash table implementations that require seeded hashing
 - Located in src/backend/access/hash/hashfunc.c:217-231
+
+## Simplified Source
+```c
+Datum hashfloat8extended(PG_FUNCTION_ARGS) {
+    float8 key = PG_GETARG_FLOAT8(0);
+    uint64 seed = PG_GETARG_INT64(1);
+
+    // Handle zero case: return seed directly
+    if (key == (float8) 0)
+        PG_RETURN_UINT64(seed);
+
+    // Normalize NaN values to standard representation
+    if (isnan(key))
+        key = get_float8_nan();
+
+    return hash_any_extended((unsigned char *) &key, sizeof(key), seed);
+}
+```

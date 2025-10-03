@@ -44,3 +44,28 @@ The insertdata parameter format is tree-specific (entry vs data trees) and is pa
 
 ## Notes and Other Information
 The function always consumes the passed-in stack structure, freeing it before returning (similar to freeGinBtreeStack behavior). This design simplifies caller resource management but requires callers to not reuse stack pointers after calling this function. The function handles both successful direct insertions and cases requiring splits, providing a unified interface regardless of the underlying complexity.
+
+## Simplified Source
+
+```c
+void ginInsertValue(GinBtree btree, GinBtreeStack *stack, void *insertdata,
+                   GinStatsData *buildStats) {
+    // Handle any incomplete split on the target page first
+    if (GinPageIsIncompleteSplit(BufferGetPage(stack->buffer))) {
+        ginFinishOldSplit(btree, stack, buildStats, GIN_EXCLUSIVE);
+    }
+
+    // Try to insert the value on the current page
+    bool inserted = ginPlaceToPage(btree, stack, insertdata,
+                                  InvalidBlockNumber, InvalidBuffer, buildStats);
+
+    if (inserted) {
+        // Success - release resources and we're done
+        LockBuffer(stack->buffer, GIN_UNLOCK);
+        freeGinBtreeStack(stack);
+    } else {
+        // Page was full - need to split to make room
+        ginFinishSplit(btree, stack, true, buildStats);
+    }
+}
+```

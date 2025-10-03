@@ -48,3 +48,36 @@ The function handles edge cases by clamping out-of-range values and returns 0.0 
 - Part of PostgreSQL's selectivity estimation system, specifically designed for bytea column statistics
 - The fixed-base approach is simpler than the string version's dynamic range analysis, reflecting the nature of binary data
 - Critical for accurate query planning when dealing with bytea columns in WHERE clauses and JOIN conditions
+
+## Simplified Source
+
+```c
+static double convert_one_bytea_to_scalar(unsigned char *value, int valuelen,
+                                          int rangelo, int rangehi) {
+    if (valuelen <= 0)
+        return 0.0; // Empty data = 0
+
+    // Limit processing to 10 bytes for efficiency
+    if (valuelen > 10)
+        valuelen = 10;
+
+    // Convert bytes to fractional value
+    double base = rangehi - rangelo + 1;
+    double num = 0.0;
+    double denom = base;
+
+    while (valuelen-- > 0) {
+        int ch = *value++;
+
+        // Clamp out-of-range bytes to preserve ordering
+        if (ch < rangelo) ch = rangelo - 1;
+        else if (ch > rangehi) ch = rangehi + 1;
+
+        // Add fractional component: byte/base + byte/base² + ...
+        num += ((double) (ch - rangelo)) / denom;
+        denom *= base;
+    }
+
+    return num;
+}
+```

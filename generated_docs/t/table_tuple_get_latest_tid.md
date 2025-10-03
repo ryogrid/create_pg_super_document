@@ -48,3 +48,30 @@ This function updates a provided TID to point to the latest version of a tuple, 
 - Part of PostgreSQL's table access method abstraction for storage engine independence
 - Primarily used by TID scan operations and SQL functions that need to follow tuple update chains
 - Error handling includes detailed error messages with specific TID coordinates for debugging
+
+## Simplified Source
+
+```c
+void
+table_tuple_get_latest_tid(TableScanDesc scan, ItemPointer tid)
+{
+    Relation rel = scan->rs_rd;
+    const TableAmRoutine *tableam = rel->rd_tableam;
+
+    // Safety check for logical decoding operations
+    if (unlikely(TransactionIdIsValid(CheckXidAlive) && !bsysscan))
+        elog(ERROR, "unexpected table_tuple_get_latest_tid call during logical decoding");
+
+    // Validate the input TID
+    if (!tableam->tuple_tid_valid(scan, tid))
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("tid (%u, %u) is not valid for relation \"%s\"",
+                        ItemPointerGetBlockNumberNoCheck(tid),
+                        ItemPointerGetOffsetNumberNoCheck(tid),
+                        RelationGetRelationName(rel))));
+
+    // Delegate to table access method to get latest TID
+    tableam->tuple_get_latest_tid(scan, tid);
+}
+```

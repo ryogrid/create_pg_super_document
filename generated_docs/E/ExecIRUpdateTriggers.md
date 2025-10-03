@@ -43,3 +43,81 @@ This function executes INSTEAD OF ROW UPDATE triggers, which are primarily used 
 - Manages memory carefully by tracking which HeapTuples need to be freed
 - Does not use updated column information (passes NULL to TriggerEnabled)
 - Each trigger can potentially modify the result of previous triggers in the chain
+
+## Simplified Source
+
+```c
+bool
+ExecIRUpdateTriggers(EState *estate, ResultRelInfo *relinfo,
+                     HeapTuple trigtuple, TupleTableSlot *newslot)
+{
+    TriggerDesc *trigdesc = relinfo->ri_TrigDesc;
+    TupleTableSlot *oldslot = ExecGetTriggerOldSlot(estate, relinfo);
+    HeapTuple newtuple = NULL;
+    bool should_free;
+    TriggerData LocTriggerData = {0};
+
+    // Set up trigger event data
+    LocTriggerData.type = T_TriggerData;
+    LocTriggerData.tg_event = TRIGGER_EVENT_UPDATE |
+                             TRIGGER_EVENT_ROW |
+                             TRIGGER_EVENT_INSTEAD;
+    LocTriggerData.tg_relation = relinfo->ri_RelationDesc;
+
+    // Store the old tuple in the trigger slot
+    ExecForceStoreHeapTuple(trigtuple, oldslot, false);
+
+    // Execute each applicable INSTEAD OF UPDATE trigger
+    for (int i = 0; i < trigdesc->numtriggers; i++) {
+        Trigger *trigger = &trigdesc->triggers[i];
+
+        // Skip triggers that don't match our criteria
+        if (!TRIGGER_TYPE_MATCHES(trigger->tgtype,
+                                TRIGGER_TYPE_ROW,
+                                TRIGGER_TYPE_INSTEAD,
+                                TRIGGER_TYPE_UPDATE))
+            continue;
+
+        // Skip disabled triggers
+        if (!TriggerEnabled(estate, relinfo, trigger, LocTriggerData.tg_event,
+                          NULL, oldslot, newslot))
+            continue;
+
+        // Convert new slot to HeapTuple if not already done
+        if (!newtuple)
+            newtuple = ExecFetchSlotHeapTuple(newslot, true, &should_free);
+
+        // Set up trigger data
+        LocTriggerData.tg_trigslot = oldslot;
+        LocTriggerData.tg_trigtuple = trigtuple;
+        LocTriggerData.tg_newslot = newslot;
+        LocTriggerData.tg_newtuple = newtuple;
+        LocTriggerData.tg_trigger = trigger;
+
+        // Execute the trigger function
+        HeapTuple oldtuple = newtuple;
+        newtuple = ExecCallTriggerFunc(&LocTriggerData, i,
+                                     relinfo->ri_TrigFunctions,
+                                     relinfo->ri_TrigInstrument,
+                                     GetPerTupleMemoryContext(estate));
+
+        if (newtuple == NULL) {
+            return false; // Trigger canceled the operation
+        }
+
+        // If trigger modified the tuple, update the slot
+        if (newtuple != oldtuple) {
+            ExecForceStoreHeapTuple(newtuple, newslot, false);
+
+            // Free old tuple if we allocated it
+            if (should_free)
+                heap_freetuple(oldtuple);
+
+            // Signal that tuple should be re-fetched next time
+            newtuple = NULL;
+        }
+    }
+
+    return true; // All triggers executed successfully
+}
+```

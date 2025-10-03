@@ -36,3 +36,29 @@ This function takes the current backend's client connection information (stored 
 - Must be paired with `EstimateClientConnectionInfoSpace()` to ensure adequate buffer space
 - Part of the parallel worker communication infrastructure
 - The serialized format is platform-dependent due to direct struct copying
+
+## Simplified Source
+
+```c
+void SerializeClientConnectionInfo(Size maxsize, char *start_address) {
+    SerializedClientConnectionInfo serialized = {0};
+
+    // Copy authentication method and determine ID length
+    serialized.auth_method = MyClientConnectionInfo.auth_method;
+    serialized.authn_id_len = -1;
+
+    if (MyClientConnectionInfo.authn_id)
+        serialized.authn_id_len = strlen(MyClientConnectionInfo.authn_id);
+
+    // Copy fixed-size struct to buffer
+    memcpy(start_address, &serialized, sizeof(serialized));
+    start_address += sizeof(serialized);
+
+    // Copy variable-length authentication ID if present
+    if (serialized.authn_id_len >= 0) {
+        memcpy(start_address,
+               MyClientConnectionInfo.authn_id,
+               serialized.authn_id_len + 1);  // Include null terminator
+    }
+}
+```

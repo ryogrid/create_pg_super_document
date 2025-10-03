@@ -60,3 +60,69 @@ The function manages the B-tree traversal to locate the appropriate leaf page, h
 - Memory management: Allocates new tuple and frees it after insertion
 - The isDelete flag in insertdata indicates whether this is replacing an existing tuple
 - Critical performance path for GIN index maintenance and construction
+
+## Simplified Source
+```c
+void ginEntryInsert(GinState *ginstate,
+                   OffsetNumber attnum, Datum key, GinNullCategory category,
+                   ItemPointerData *items, uint32 nitem,
+                   GinStatsData *buildStats) {
+    GinBtreeData btree;
+    GinBtreeEntryInsertData insertdata;
+    GinBtreeStack *stack;
+    IndexTuple itup;
+    Page page;
+
+    insertdata.isDelete = false;
+
+    // Initialize B-tree scan for the key
+    ginPrepareEntryScan(&btree, attnum, key, category, ginstate);
+    btree.isBuild = (buildStats != NULL);
+
+    // Find the appropriate leaf page for this key
+    stack = ginFindLeafPage(&btree, false, false);
+    page = BufferGetPage(stack->buffer);
+
+    if (btree.findItem(&btree, stack)) {
+        // Found existing entry for this key
+        itup = (IndexTuple) PageGetItem(page, PageGetItemId(page, stack->off));
+
+        if (GinIsPostingTree(itup)) {
+            // Entry already has posting tree - insert directly into tree
+            BlockNumber rootPostingTree = GinGetPostingTree(itup);
+
+            // Release locks and insert into posting tree
+            LockBuffer(stack->buffer, GIN_UNLOCK);
+            freeGinBtreeStack(stack);
+
+            ginInsertItemPointers(ginstate->index, rootPostingTree,
+                                items, nitem, buildStats);
+            return;
+        }
+
+        // Entry has posting list - add items to it
+        CheckForSerializableConflictIn(ginstate->index, NULL,
+                                     BufferGetBlockNumber(stack->buffer));
+
+        itup = addItemPointersToLeafTuple(ginstate, itup, items, nitem,
+                                         buildStats, stack->buffer);
+        insertdata.isDelete = true;  // Replacing existing tuple
+    } else {
+        // No existing entry - create new one
+        CheckForSerializableConflictIn(ginstate->index, NULL,
+                                     BufferGetBlockNumber(stack->buffer));
+
+        itup = buildFreshLeafTuple(ginstate, attnum, key, category,
+                                  items, nitem, buildStats, stack->buffer);
+
+        // Increment entry count for new entries only
+        if (buildStats)
+            buildStats->nEntries++;
+    }
+
+    // Insert the new or modified tuple into the B-tree
+    insertdata.entry = itup;
+    ginInsertValue(&btree, stack, &insertdata, buildStats);
+    pfree(itup);
+}
+```

@@ -56,3 +56,62 @@ This function takes no parameters and returns:
 - Includes space estimation and allocation for shared record typmod registry used by ephemeral row types
 - Returns DSM_HANDLE_INVALID on resource exhaustion rather than throwing an error
 - All allocations are done in TopMemoryContext to ensure proper lifetime management
+
+## Simplified Source
+
+```c
+dsm_handle GetSessionDsmHandle(void) {
+    // Return existing segment handle if already created
+    if (CurrentSession->segment != NULL)
+        return dsm_segment_handle(CurrentSession->segment);
+
+    // Switch to TopMemoryContext for permanent allocations
+    MemoryContext old_context = MemoryContextSwitchTo(TopMemoryContext);
+
+    // Estimate space requirements
+    shm_toc_estimator estimator;
+    shm_toc_initialize_estimator(&estimator);
+
+    // Space for DSA area
+    shm_toc_estimate_keys(&estimator, 1);
+    shm_toc_estimate_chunk(&estimator, SESSION_DSA_SIZE);
+
+    // Space for typmod registry
+    size_t typmod_size = SharedRecordTypmodRegistryEstimate();
+    shm_toc_estimate_keys(&estimator, 1);
+    shm_toc_estimate_chunk(&estimator, typmod_size);
+
+    // Create DSM segment
+    size_t total_size = shm_toc_estimate(&estimator);
+    dsm_segment *seg = dsm_create(total_size, DSM_CREATE_NULL_IF_MAXSEGMENTS);
+    if (seg == NULL) {
+        MemoryContextSwitchTo(old_context);
+        return DSM_HANDLE_INVALID;
+    }
+
+    // Set up shared memory table of contents
+    shm_toc *toc = shm_toc_create(SESSION_MAGIC, dsm_segment_address(seg), total_size);
+
+    // Create DSA area for dynamic allocation
+    void *dsa_space = shm_toc_allocate(toc, SESSION_DSA_SIZE);
+    dsa_area *dsa = dsa_create_in_place(dsa_space, SESSION_DSA_SIZE,
+                                        LWTRANCHE_PER_SESSION_DSA, seg);
+    shm_toc_insert(toc, SESSION_KEY_DSA, dsa_space);
+
+    // Create shared typmod registry
+    void *typmod_space = shm_toc_allocate(toc, typmod_size);
+    SharedRecordTypmodRegistryInit((SharedRecordTypmodRegistry *)typmod_space, seg, dsa);
+    shm_toc_insert(toc, SESSION_KEY_RECORD_TYPMOD_REGISTRY, typmod_space);
+
+    // Pin mappings to keep them alive for session lifetime
+    dsm_pin_mapping(seg);
+    dsa_pin_mapping(dsa);
+
+    // Store in CurrentSession for reuse
+    CurrentSession->segment = seg;
+    CurrentSession->area = dsa;
+
+    MemoryContextSwitchTo(old_context);
+    return dsm_segment_handle(seg);
+}
+```

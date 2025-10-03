@@ -54,3 +54,34 @@ The function provides robust error handling and memory management, ensuring that
 - Used extensively in PostgreSQL's locale-aware string functions that need to handle international character sets correctly
 - The function handles buffer overflow gracefully by reallocating with the correct size as determined by ICU
 - Returns the actual length of the converted string in UChar units
+
+## Simplified Source
+```c
+static int32_t icu_convert_case(ICU_Convert_Func func, pg_locale_t mylocale,
+                                UChar **buff_dest, UChar *buff_source, int32_t len_source) {
+    UErrorCode status;
+    int32_t len_dest;
+
+    // First attempt: try with same length as source
+    len_dest = len_source;
+    *buff_dest = palloc(len_dest * sizeof(**buff_dest));
+    status = U_ZERO_ERROR;
+    len_dest = func(*buff_dest, len_dest, buff_source, len_source,
+                    mylocale->info.icu.locale, &status);
+
+    // Second attempt: reallocate with correct size if buffer overflow
+    if (status == U_BUFFER_OVERFLOW_ERROR) {
+        pfree(*buff_dest);
+        *buff_dest = palloc(len_dest * sizeof(**buff_dest));
+        status = U_ZERO_ERROR;
+        len_dest = func(*buff_dest, len_dest, buff_source, len_source,
+                        mylocale->info.icu.locale, &status);
+    }
+
+    // Report any conversion errors
+    if (U_FAILURE(status))
+        ereport(ERROR, (errmsg("case conversion failed: %s", u_errorName(status))));
+
+    return len_dest;
+}
+```

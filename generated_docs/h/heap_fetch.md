@@ -49,3 +49,87 @@ The function performs several validation steps: it checks for valid block and of
 - Performs predicate locking and serializable conflict detection for proper isolation
 - The function assumes tuple->t_self contains the target TID on entry
 - Buffer management is critical: successful calls require caller to release the buffer
+
+## Simplified Source
+
+```c
+bool
+heap_fetch(Relation relation,
+           Snapshot snapshot,
+           HeapTuple tuple,
+           Buffer *userbuf,
+           bool keep_buf)
+{
+    ItemPointer tid = &(tuple->t_self);
+    Buffer buffer;
+    Page page;
+    OffsetNumber offnum;
+    ItemId lp;
+    bool valid;
+
+    // Read and pin the page containing the tuple
+    buffer = ReadBuffer(relation, ItemPointerGetBlockNumber(tid));
+
+    // Lock buffer to examine tuple safely
+    LockBuffer(buffer, BUFFER_LOCK_SHARE);
+    page = BufferGetPage(buffer);
+
+    // Validate offset number is within page bounds
+    offnum = ItemPointerGetOffsetNumber(tid);
+    if (offnum < FirstOffsetNumber || offnum > PageGetMaxOffsetNumber(page)) {
+        // Invalid offset - cleanup and return false
+        LockBuffer(buffer, BUFFER_LOCK_UNLOCK);
+        ReleaseBuffer(buffer);
+        *userbuf = InvalidBuffer;
+        tuple->t_data = NULL;
+        return false;
+    }
+
+    // Get the item pointer for this offset
+    lp = PageGetItemId(page, offnum);
+
+    // Check if tuple is deleted/invalid
+    if (!ItemIdIsNormal(lp)) {
+        // Deleted tuple - cleanup and return false
+        LockBuffer(buffer, BUFFER_LOCK_UNLOCK);
+        ReleaseBuffer(buffer);
+        *userbuf = InvalidBuffer;
+        tuple->t_data = NULL;
+        return false;
+    }
+
+    // Fill in tuple structure with data from page
+    tuple->t_data = (HeapTupleHeader) PageGetItem(page, lp);
+    tuple->t_len = ItemIdGetLength(lp);
+    tuple->t_tableOid = RelationGetRelid(relation);
+
+    // Check if tuple is visible according to snapshot
+    valid = HeapTupleSatisfiesVisibility(tuple, snapshot, buffer);
+
+    // Handle predicate locking and serializable conflict detection
+    if (valid) {
+        PredicateLockTID(relation, &(tuple->t_self), snapshot,
+                        HeapTupleHeaderGetXmin(tuple->t_data));
+    }
+    HeapCheckForSerializableConflictOut(valid, relation, tuple, buffer, snapshot);
+
+    LockBuffer(buffer, BUFFER_LOCK_UNLOCK);
+
+    // Return results based on visibility and keep_buf setting
+    if (valid) {
+        *userbuf = buffer;  // Caller must unpin
+        return true;
+    }
+
+    // Tuple failed visibility check
+    if (keep_buf) {
+        *userbuf = buffer;  // Keep buffer even though tuple not visible
+    } else {
+        ReleaseBuffer(buffer);
+        *userbuf = InvalidBuffer;
+        tuple->t_data = NULL;
+    }
+
+    return false;
+}
+```

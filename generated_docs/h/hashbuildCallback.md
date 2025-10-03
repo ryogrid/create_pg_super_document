@@ -43,3 +43,32 @@ The function maintains a count of processed tuples in the build state for progre
 - Updates the indtuples counter for each successfully processed tuple
 - Memory management includes proper cleanup of temporary IndexTuple objects
 - The function is static, indicating it's only used within the hash access method implementation
+
+## Simplified Source
+
+```c
+static void hashbuildCallback(Relation index, ItemPointer tid, Datum *values,
+                             bool *isnull, bool tupleIsAlive, void *state) {
+    HashBuildState *buildstate = (HashBuildState *) state;
+    Datum index_values[1];
+    bool index_isnull[1];
+    IndexTuple itup;
+
+    // Convert heap tuple to hash key format
+    if (!_hash_convert_tuple(index, values, isnull, index_values, index_isnull))
+        return;
+
+    // Either spool for later sorting or insert immediately
+    if (buildstate->spool) {
+        _h_spool(buildstate->spool, tid, index_values, index_isnull);
+    } else {
+        // Create index tuple and insert directly
+        itup = index_form_tuple(RelationGetDescr(index), index_values, index_isnull);
+        itup->t_tid = *tid;
+        _hash_doinsert(index, itup, buildstate->heapRel, false);
+        pfree(itup);
+    }
+
+    buildstate->indtuples += 1;
+}
+```

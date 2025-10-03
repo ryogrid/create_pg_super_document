@@ -41,3 +41,22 @@ This function serves as the foundation for all GIN page types (entry pages, data
 - The rightlink is always initialized to InvalidBlockNumber, indicating no right sibling initially
 - The function assumes the page buffer has already been allocated and is ready for initialization
 - Different page types (entry, data, meta) will have different flag values passed to this function
+
+## Simplified Source
+
+```c
+// Simplified version of GinInitPage
+void
+GinInitPage(Page page, uint32 f, Size pageSize)
+{
+    GinPageOpaque opaque;
+
+    // Initialize the basic page structure
+    PageInit(page, pageSize, sizeof(GinPageOpaqueData));
+
+    // Setup GIN-specific page opaque data
+    opaque = GinPageGetOpaque(page);
+    opaque->flags = f;
+    opaque->rightlink = InvalidBlockNumber;
+}
+```

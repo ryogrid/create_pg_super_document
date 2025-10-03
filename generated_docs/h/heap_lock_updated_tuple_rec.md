@@ -60,3 +60,225 @@ A key optimization is detecting when the current transaction already holds a loc
 - Critical for maintaining proper tuple locking semantics in PostgreSQL's MVCC system
 - Includes extensive error handling for scenarios like aborted transactions and vacuumed tuples
 - Performance-optimized with visibility map integration to minimize unnecessary I/O operations
+
+## Simplified Source
+
+```c
+static TM_Result
+heap_lock_updated_tuple_rec(Relation rel, ItemPointer tid, TransactionId xid,
+                            LockTupleMode mode)
+{
+    TM_Result result;
+    ItemPointerData tupid;
+    HeapTupleData mytup;
+    Buffer buf;
+    uint16 new_infomask, new_infomask2, old_infomask, old_infomask2;
+    TransactionId xmax, new_xmax;
+    TransactionId priorXmax = InvalidTransactionId;
+    bool cleared_all_frozen = false;
+    bool pinned_desired_page;
+    Buffer vmbuffer = InvalidBuffer;
+    BlockNumber block;
+
+    ItemPointerCopy(tid, &tupid);
+
+    // Loop through the update chain, locking each version
+    for (;;) {
+        new_infomask = 0;
+        new_xmax = InvalidTransactionId;
+        block = ItemPointerGetBlockNumber(&tupid);
+        ItemPointerCopy(&tupid, &(mytup.t_self));
+
+        // Fetch the current tuple version
+        if (!heap_fetch(rel, SnapshotAny, &mytup, &buf, false)) {
+            // Tuple was vacuumed/pruned - chain ends here
+            result = TM_Ok;
+            goto out_unlocked;
+        }
+
+l4:
+        CHECK_FOR_INTERRUPTS();
+
+        // Pin visibility map if page appears all-visible
+        if (PageIsAllVisible(BufferGetPage(buf))) {
+            visibilitymap_pin(rel, block, &vmbuffer);
+            pinned_desired_page = true;
+        } else {
+            pinned_desired_page = false;
+        }
+
+        LockBuffer(buf, BUFFER_LOCK_EXCLUSIVE);
+
+        // Recheck visibility map after locking
+        if (!pinned_desired_page && PageIsAllVisible(BufferGetPage(buf))) {
+            LockBuffer(buf, BUFFER_LOCK_UNLOCK);
+            visibilitymap_pin(rel, block, &vmbuffer);
+            LockBuffer(buf, BUFFER_LOCK_EXCLUSIVE);
+        }
+
+        // Validate chain integrity
+        if (TransactionIdIsValid(priorXmax) &&
+            !TransactionIdEquals(HeapTupleHeaderGetXmin(mytup.t_data), priorXmax)) {
+            result = TM_Ok;  // Chain broken
+            goto out_locked;
+        }
+
+        // Check if tuple was created by aborted transaction
+        if (TransactionIdDidAbort(HeapTupleHeaderGetXmin(mytup.t_data))) {
+            result = TM_Ok;  // Previous live tuple already locked
+            goto out_locked;
+        }
+
+        old_infomask = mytup.t_data->t_infomask;
+        old_infomask2 = mytup.t_data->t_infomask2;
+        xmax = HeapTupleHeaderGetRawXmax(mytup.t_data);
+
+        // Handle existing locks/updates on this tuple version
+        if (!(old_infomask & HEAP_XMAX_INVALID)) {
+            TransactionId rawxmax = HeapTupleHeaderGetRawXmax(mytup.t_data);
+            bool needwait;
+
+            if (old_infomask & HEAP_XMAX_IS_MULTI) {
+                // Handle MultiXactId case
+                int nmembers, i;
+                MultiXactMember *members;
+
+                nmembers = GetMultiXactIdMembers(rawxmax, &members, false,
+                                               HEAP_XMAX_IS_LOCKED_ONLY(old_infomask));
+
+                for (i = 0; i < nmembers; i++) {
+                    result = test_lockmode_for_conflict(members[i].status,
+                                                       members[i].xid, mode,
+                                                       &mytup, &needwait);
+
+                    if (result == TM_SelfModified) {
+                        // Already locked by us - skip this version
+                        pfree(members);
+                        goto next;
+                    }
+
+                    if (needwait) {
+                        // Wait for conflicting transaction
+                        LockBuffer(buf, BUFFER_LOCK_UNLOCK);
+                        XactLockTableWait(members[i].xid, rel, &mytup.t_self,
+                                         XLTW_LockUpdated);
+                        pfree(members);
+                        goto l4;  // Restart after waiting
+                    }
+
+                    if (result != TM_Ok) {
+                        pfree(members);
+                        goto out_locked;
+                    }
+                }
+                if (members)
+                    pfree(members);
+            } else {
+                // Handle single TransactionId case
+                MultiXactStatus status;
+
+                // Convert infomask bits to MultiXactStatus
+                if (HEAP_XMAX_IS_LOCKED_ONLY(old_infomask)) {
+                    if (HEAP_XMAX_IS_KEYSHR_LOCKED(old_infomask))
+                        status = MultiXactStatusForKeyShare;
+                    else if (HEAP_XMAX_IS_SHR_LOCKED(old_infomask))
+                        status = MultiXactStatusForShare;
+                    else if (HEAP_XMAX_IS_EXCL_LOCKED(old_infomask)) {
+                        status = (old_infomask2 & HEAP_KEYS_UPDATED) ?
+                                MultiXactStatusForUpdate : MultiXactStatusForNoKeyUpdate;
+                    } else {
+                        elog(ERROR, "invalid lock status in tuple");
+                    }
+                } else {
+                    // It's an update
+                    status = (old_infomask2 & HEAP_KEYS_UPDATED) ?
+                            MultiXactStatusUpdate : MultiXactStatusNoKeyUpdate;
+                }
+
+                result = test_lockmode_for_conflict(status, rawxmax, mode,
+                                                   &mytup, &needwait);
+
+                if (result == TM_SelfModified)
+                    goto next;  // Already locked by us
+
+                if (needwait) {
+                    LockBuffer(buf, BUFFER_LOCK_UNLOCK);
+                    XactLockTableWait(rawxmax, rel, &mytup.t_self,
+                                     XLTW_LockUpdated);
+                    goto l4;  // Restart after waiting
+                }
+
+                if (result != TM_Ok)
+                    goto out_locked;
+            }
+        }
+
+        // Compute new lock information for this tuple
+        compute_new_xmax_infomask(xmax, old_infomask, mytup.t_data->t_infomask2,
+                                 xid, mode, false,
+                                 &new_xmax, &new_infomask, &new_infomask2);
+
+        // Clear visibility map if needed
+        if (PageIsAllVisible(BufferGetPage(buf)) &&
+            visibilitymap_clear(rel, block, vmbuffer, VISIBILITYMAP_ALL_FROZEN))
+            cleared_all_frozen = true;
+
+        START_CRIT_SECTION();
+
+        // Update tuple with new lock information
+        HeapTupleHeaderSetXmax(mytup.t_data, new_xmax);
+        mytup.t_data->t_infomask &= ~HEAP_XMAX_BITS;
+        mytup.t_data->t_infomask2 &= ~HEAP_KEYS_UPDATED;
+        mytup.t_data->t_infomask |= new_infomask;
+        mytup.t_data->t_infomask2 |= new_infomask2;
+
+        MarkBufferDirty(buf);
+
+        // WAL logging for crash recovery
+        if (RelationNeedsWAL(rel)) {
+            xl_heap_lock_updated xlrec;
+            XLogRecPtr recptr;
+
+            XLogBeginInsert();
+            XLogRegisterBuffer(0, buf, REGBUF_STANDARD);
+
+            xlrec.offnum = ItemPointerGetOffsetNumber(&mytup.t_self);
+            xlrec.xmax = new_xmax;
+            xlrec.infobits_set = compute_infobits(new_infomask, new_infomask2);
+            xlrec.flags = cleared_all_frozen ? XLH_LOCK_ALL_FROZEN_CLEARED : 0;
+
+            XLogRegisterData((char *) &xlrec, SizeOfHeapLockUpdated);
+            recptr = XLogInsert(RM_HEAP2_ID, XLOG_HEAP2_LOCK_UPDATED);
+            PageSetLSN(BufferGetPage(buf), recptr);
+        }
+
+        END_CRIT_SECTION();
+
+next:
+        // Check if we've reached the end of the update chain
+        if (mytup.t_data->t_infomask & HEAP_XMAX_INVALID ||
+            HeapTupleHeaderIndicatesMovedPartitions(mytup.t_data) ||
+            ItemPointerEquals(&mytup.t_self, &mytup.t_data->t_ctid) ||
+            HeapTupleHeaderIsOnlyLocked(mytup.t_data)) {
+            result = TM_Ok;
+            goto out_locked;
+        }
+
+        // Move to next tuple in the update chain
+        priorXmax = HeapTupleHeaderGetUpdateXid(mytup.t_data);
+        ItemPointerCopy(&(mytup.t_data->t_ctid), &tupid);
+        UnlockReleaseBuffer(buf);
+    }
+
+    result = TM_Ok;
+
+out_locked:
+    UnlockReleaseBuffer(buf);
+
+out_unlocked:
+    if (vmbuffer != InvalidBuffer)
+        ReleaseBuffer(vmbuffer);
+
+    return result;
+}
+```

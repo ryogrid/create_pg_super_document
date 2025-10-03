@@ -51,3 +51,43 @@ Unlike ExecMarkPos, this function throws a hard error for unsupported node types
 - Unlike ExecMarkPos, this function throws a hard ERROR for unrecognized node types since restore without a valid mark represents a programming error
 - The mark/restore mechanism is primarily used by MergeJoin when processing duplicate values requires backing up in the input stream
 - Each node type maintains its own internal position tracking mechanism to support the restore functionality
+
+## Simplified Source
+
+```c
+void
+ExecRestrPos(PlanState *node)
+{
+    // Dispatch to appropriate restore function based on node type
+    switch (nodeTag(node)) {
+        case T_IndexScanState:
+            ExecIndexRestrPos((IndexScanState *) node);
+            break;
+
+        case T_IndexOnlyScanState:
+            ExecIndexOnlyRestrPos((IndexOnlyScanState *) node);
+            break;
+
+        case T_CustomScanState:
+            ExecCustomRestrPos((CustomScanState *) node);
+            break;
+
+        case T_MaterialState:
+            ExecMaterialRestrPos((MaterialState *) node);
+            break;
+
+        case T_SortState:
+            ExecSortRestrPos((SortState *) node);
+            break;
+
+        case T_ResultState:
+            ExecResultRestrPos((ResultState *) node);
+            break;
+
+        default:
+            // Error for unsupported node types
+            elog(ERROR, "unrecognized node type: %d", (int) nodeTag(node));
+            break;
+    }
+}
+```

@@ -32,3 +32,17 @@ The function performs a simple argument count check and then delegates all proce
 - Specifically supports reloading of pre-9.1 contrib/intarray opclass declarations
 - The function includes error checking to ensure proper argument count
 - Part of PostgreSQL's backward compatibility infrastructure for GIN array operations
+
+## Simplified Source
+
+```c
+Datum
+ginarrayextract_2args(PG_FUNCTION_ARGS)
+{
+    // Compatibility wrapper - validate argument count and delegate
+    if (PG_NARGS() < 3)
+        elog(ERROR, "ginarrayextract requires three arguments");
+
+    return ginarrayextract(fcinfo);
+}
+```

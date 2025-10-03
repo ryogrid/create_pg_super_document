@@ -41,3 +41,20 @@ The function performs three main operations:
 - If seg is NULL, no automatic cleanup callback is registered, requiring manual cleanup
 - The underlying file system implementation creates directories that are automatically cleaned up when no longer needed
 - This is part of PostgreSQL's parallel query infrastructure for sharing temporary storage across worker processes
+
+## Simplified Source
+
+```c
+void SharedFileSetInit(SharedFileSet *fileset, dsm_segment *seg) {
+    // Initialize shared fileset synchronization and reference counting
+    SpinLockInit(&fileset->mutex);
+    fileset->refcnt = 1;
+
+    // Initialize the underlying fileset
+    FileSetInit(&fileset->fs);
+
+    // Register cleanup callback for automatic file deletion when DSM detaches
+    if (seg)
+        on_dsm_detach(seg, SharedFileSetOnDetach, PointerGetDatum(fileset));
+}
+```

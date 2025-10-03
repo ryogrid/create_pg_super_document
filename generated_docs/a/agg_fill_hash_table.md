@@ -51,3 +51,43 @@ This function is called only once per aggregation operation when using AGG_HASHE
 - Multiple hash tables may be built for different grouping sets, but initialization focuses on the first one
 - Expression context reset is performed both explicitly and implicitly through hash lookups
 - The table_filled flag prevents redundant hash table building in subsequent calls
+
+## Simplified Source
+
+```c
+static void
+agg_fill_hash_table(AggState *aggstate)
+{
+    TupleTableSlot *outerslot;
+    ExprContext *tmpcontext = aggstate->tmpcontext;
+
+    // Process all input tuples from the outer plan
+    for (;;)
+    {
+        outerslot = fetch_input_tuple(aggstate);
+        if (TupIsNull(outerslot))
+            break;
+
+        // Set up context for this tuple
+        tmpcontext->ecxt_outertuple = outerslot;
+
+        // Find or create hash table entries for grouping keys
+        lookup_hash_entries(aggstate);
+
+        // Update aggregate transition values
+        advance_aggregates(aggstate);
+
+        // Clean up per-tuple context
+        ResetExprContext(aggstate->tmpcontext);
+    }
+
+    // Finalize any spilled data to disk
+    hashagg_finish_initial_spills(aggstate);
+
+    // Mark table as complete and prepare for retrieval
+    aggstate->table_filled = true;
+    select_current_set(aggstate, 0, true);
+    ResetTupleHashIterator(aggstate->perhash[0].hashtable,
+                          &aggstate->perhash[0].hashiter);
+}
+```

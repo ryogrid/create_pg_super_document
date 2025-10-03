@@ -52,3 +52,35 @@ The function is optimized for bulk operations during index creation, using the B
 - Updates indtuples counter to track total number of index entries being created
 - Part of PostgreSQL's strategy for efficient bulk index creation
 - The funcCtx memory context is reset after each tuple to prevent memory bloat during large index builds
+
+## Simplified Source
+```c
+static void ginHeapTupleBulkInsert(GinBuildState *buildstate, OffsetNumber attnum,
+                                  Datum value, bool isNull,
+                                  ItemPointer heapptr) {
+    Datum *entries;
+    GinNullCategory *categories;
+    int32 nentries;
+    MemoryContext oldCtx;
+
+    // Switch to temporary context for entry extraction
+    oldCtx = MemoryContextSwitchTo(buildstate->funcCtx);
+
+    // Extract indexable entries from the input value
+    entries = ginExtractEntries(buildstate->accum.ginstate, attnum,
+                               value, isNull,
+                               &nentries, &categories);
+
+    MemoryContextSwitchTo(oldCtx);
+
+    // Add entries to build accumulator for batched insertion
+    ginInsertBAEntries(&buildstate->accum, heapptr, attnum,
+                      entries, categories, nentries);
+
+    // Track total number of index tuples being created
+    buildstate->indtuples += nentries;
+
+    // Reset temporary context to prevent memory accumulation
+    MemoryContextReset(buildstate->funcCtx);
+}
+```

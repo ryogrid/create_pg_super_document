@@ -61,3 +61,193 @@ The function is designed to be called during VACUUM operations and bucket squeez
 - Performs validation to ensure the overflow bit number is valid before clearing it
 - Updates the hashm_firstfree pointer in metadata when the freed page becomes the earliest free page
 - Critical section ensures atomicity of all modifications across multiple pages
+
+## Simplified Source
+
+```c
+// Remove an overflow page from its bucket chain and mark it as free.
+// Transfer any remaining tuples to the designated write page.
+BlockNumber _hash_freeovflpage(Relation rel, Buffer bucketbuf, Buffer ovflbuf,
+                              Buffer wbuf, IndexTuple *itups, OffsetNumber *itup_offsets,
+                              Size *tups_size, uint16 nitups,
+                              BufferAccessStrategy bstrategy) {
+    HashMetaPage metap;
+    Buffer metabuf, mapbuf;
+    BlockNumber ovflblkno, prevblkno, nextblkno, writeblkno;
+    HashPageOpaque ovflopaque;
+    Page ovflpage, mappage;
+    uint32 *freep, ovflbitno;
+    int32 bitmappage, bitmapbit;
+    Buffer prevbuf = InvalidBuffer, nextbuf = InvalidBuffer;
+    bool update_metap = false;
+
+    // Get information from the overflow page being freed
+    _hash_checkpage(rel, ovflbuf, LH_OVERFLOW_PAGE);
+    ovflblkno = BufferGetBlockNumber(ovflbuf);
+    ovflpage = BufferGetPage(ovflbuf);
+    ovflopaque = HashPageGetOpaque(ovflpage);
+    nextblkno = ovflopaque->hasho_nextblkno;
+    prevblkno = ovflopaque->hasho_prevblkno;
+    writeblkno = BufferGetBlockNumber(wbuf);
+
+    // Fix up the bucket chain - get buffers for prev/next pages
+    if (BlockNumberIsValid(prevblkno)) {
+        if (prevblkno == writeblkno)
+            prevbuf = wbuf;  // Previous page is same as write buffer
+        else
+            prevbuf = _hash_getbuf_with_strategy(rel, prevblkno, HASH_WRITE,
+                                               LH_BUCKET_PAGE | LH_OVERFLOW_PAGE,
+                                               bstrategy);
+    }
+    if (BlockNumberIsValid(nextblkno))
+        nextbuf = _hash_getbuf_with_strategy(rel, nextblkno, HASH_WRITE,
+                                           LH_OVERFLOW_PAGE, bstrategy);
+
+    // Read metapage to identify which bitmap page to use
+    metabuf = _hash_getbuf(rel, HASH_METAPAGE, HASH_READ, LH_META_PAGE);
+    metap = HashPageGetMeta(BufferGetPage(metabuf));
+
+    // Calculate bitmap location for this overflow page
+    ovflbitno = _hash_ovflblkno_to_bitno(metap, ovflblkno);
+    bitmappage = ovflbitno >> BMPG_SHIFT(metap);
+    bitmapbit = ovflbitno & BMPG_MASK(metap);
+
+    if (bitmappage >= metap->hashm_nmaps)
+        elog(ERROR, "invalid overflow bit number %u", ovflbitno);
+
+    BlockNumber blkno = metap->hashm_mapp[bitmappage];
+    LockBuffer(metabuf, BUFFER_LOCK_UNLOCK);
+
+    // Get bitmap page and prepare for multiple WAL records
+    mapbuf = _hash_getbuf(rel, blkno, HASH_WRITE, LH_BITMAP_PAGE);
+    mappage = BufferGetPage(mapbuf);
+    freep = HashPageGetBitmap(mappage);
+    Assert(ISSET(freep, bitmapbit));
+
+    // Get write-lock on metapage to update firstfree
+    LockBuffer(metabuf, BUFFER_LOCK_EXCLUSIVE);
+
+    if (RelationNeedsWAL(rel))
+        XLogEnsureRecordSpace(HASH_XLOG_FREE_OVFL_BUFS, 4 + nitups);
+
+    START_CRIT_SECTION();
+
+    // Add tuples to write page (preserving hashkey ordering)
+    if (nitups > 0) {
+        _hash_pgaddmultitup(rel, wbuf, itups, itup_offsets, nitups);
+        MarkBufferDirty(wbuf);
+    }
+
+    // Reinitialize the freed overflow page
+    _hash_pageinit(ovflpage, BufferGetPageSize(ovflbuf));
+    ovflopaque = HashPageGetOpaque(ovflpage);
+    ovflopaque->hasho_prevblkno = InvalidBlockNumber;
+    ovflopaque->hasho_nextblkno = InvalidBlockNumber;
+    ovflopaque->hasho_bucket = InvalidBucket;
+    ovflopaque->hasho_flag = LH_UNUSED_PAGE;
+    ovflopaque->hasho_page_id = HASHO_PAGE_ID;
+    MarkBufferDirty(ovflbuf);
+
+    // Update previous page to point to next page
+    if (BufferIsValid(prevbuf)) {
+        Page prevpage = BufferGetPage(prevbuf);
+        HashPageOpaque prevopaque = HashPageGetOpaque(prevpage);
+        prevopaque->hasho_nextblkno = nextblkno;
+        MarkBufferDirty(prevbuf);
+    }
+
+    // Update next page to point to previous page
+    if (BufferIsValid(nextbuf)) {
+        Page nextpage = BufferGetPage(nextbuf);
+        HashPageOpaque nextopaque = HashPageGetOpaque(nextpage);
+        nextopaque->hasho_prevblkno = prevblkno;
+        MarkBufferDirty(nextbuf);
+    }
+
+    // Clear the bitmap bit to mark page as free
+    CLRBIT(freep, bitmapbit);
+    MarkBufferDirty(mapbuf);
+
+    // Update firstfree pointer if this becomes the earliest free page
+    if (ovflbitno < metap->hashm_firstfree) {
+        metap->hashm_firstfree = ovflbitno;
+        update_metap = true;
+        MarkBufferDirty(metabuf);
+    }
+
+    // WAL logging for crash recovery and replication
+    if (RelationNeedsWAL(rel)) {
+        xl_hash_squeeze_page xlrec;
+        xlrec.prevblkno = prevblkno;
+        xlrec.nextblkno = nextblkno;
+        xlrec.ntups = nitups;
+        xlrec.is_prim_bucket_same_wrt = (wbuf == bucketbuf);
+        xlrec.is_prev_bucket_same_wrt = (wbuf == prevbuf);
+
+        XLogBeginInsert();
+        XLogRegisterData((char *) &xlrec, SizeOfHashSqueezePage);
+
+        // Register buffers based on what changed
+        if (!xlrec.is_prim_bucket_same_wrt) {
+            uint8 flags = REGBUF_STANDARD | REGBUF_NO_IMAGE | REGBUF_NO_CHANGE;
+            XLogRegisterBuffer(0, bucketbuf, flags);
+        }
+
+        if (xlrec.ntups > 0) {
+            XLogRegisterBuffer(1, wbuf, REGBUF_STANDARD);
+            XLogRegisterBufData(1, (char *) itup_offsets,
+                              nitups * sizeof(OffsetNumber));
+            for (int i = 0; i < nitups; i++)
+                XLogRegisterBufData(1, (char *) itups[i], tups_size[i]);
+        } else if (xlrec.is_prim_bucket_same_wrt || xlrec.is_prev_bucket_same_wrt) {
+            uint8 wbuf_flags = REGBUF_STANDARD;
+            if (!xlrec.is_prev_bucket_same_wrt)
+                wbuf_flags |= REGBUF_NO_CHANGE;
+            XLogRegisterBuffer(1, wbuf, wbuf_flags);
+        }
+
+        XLogRegisterBuffer(2, ovflbuf, REGBUF_STANDARD);
+
+        if (BufferIsValid(prevbuf) && !xlrec.is_prev_bucket_same_wrt)
+            XLogRegisterBuffer(3, prevbuf, REGBUF_STANDARD);
+        if (BufferIsValid(nextbuf))
+            XLogRegisterBuffer(4, nextbuf, REGBUF_STANDARD);
+
+        XLogRegisterBuffer(5, mapbuf, REGBUF_STANDARD);
+        XLogRegisterBufData(5, (char *) &bitmapbit, sizeof(uint32));
+
+        if (update_metap) {
+            XLogRegisterBuffer(6, metabuf, REGBUF_STANDARD);
+            XLogRegisterBufData(6, (char *) &metap->hashm_firstfree, sizeof(uint32));
+        }
+
+        XLogRecPtr recptr = XLogInsert(RM_HASH_ID, XLOG_HASH_SQUEEZE_PAGE);
+
+        // Set LSN on modified pages
+        if (xlrec.ntups > 0 || xlrec.is_prev_bucket_same_wrt)
+            PageSetLSN(BufferGetPage(wbuf), recptr);
+        PageSetLSN(BufferGetPage(ovflbuf), recptr);
+        if (BufferIsValid(prevbuf) && !xlrec.is_prev_bucket_same_wrt)
+            PageSetLSN(BufferGetPage(prevbuf), recptr);
+        if (BufferIsValid(nextbuf))
+            PageSetLSN(BufferGetPage(nextbuf), recptr);
+        PageSetLSN(BufferGetPage(mapbuf), recptr);
+        if (update_metap)
+            PageSetLSN(BufferGetPage(metabuf), recptr);
+    }
+
+    END_CRIT_SECTION();
+
+    // Release all buffers
+    if (BufferIsValid(prevbuf) && prevblkno != writeblkno)
+        _hash_relbuf(rel, prevbuf);
+    if (BufferIsValid(ovflbuf))
+        _hash_relbuf(rel, ovflbuf);
+    if (BufferIsValid(nextbuf))
+        _hash_relbuf(rel, nextbuf);
+    _hash_relbuf(rel, mapbuf);
+    _hash_relbuf(rel, metabuf);
+
+    return nextblkno;
+}
+```

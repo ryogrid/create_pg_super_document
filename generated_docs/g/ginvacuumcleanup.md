@@ -53,3 +53,95 @@ The function scans all pages in the index to identify recyclable pages, count di
 - Reports heap tuple count as index entry count (limitation for partial indexes)
 - Part of the PostgreSQL access method interface for GIN indexes
 - Ensures pending insertions are processed even when ginbulkdelete wasn't called
+
+## Simplified Source
+
+```c
+IndexBulkDeleteResult *
+ginvacuumcleanup(IndexVacuumInfo *info, IndexBulkDeleteResult *stats)
+{
+    Relation index = info->index;
+    bool needLock;
+    BlockNumber npages, blkno;
+    BlockNumber totFreePages;
+    GinState ginstate;
+    GinStatsData idxStat;
+
+    // For analyze-only operations, just clean up pending inserts
+    if (info->analyze_only) {
+        if (AmAutoVacuumWorkerProcess()) {
+            initGinState(&ginstate, index);
+            ginInsertCleanup(&ginstate, false, true, true, stats);
+        }
+        return stats;
+    }
+
+    // Initialize stats if ginbulkdelete wasn't called
+    if (stats == NULL) {
+        stats = (IndexBulkDeleteResult *) palloc0(sizeof(IndexBulkDeleteResult));
+        initGinState(&ginstate, index);
+        ginInsertCleanup(&ginstate, !AmAutoVacuumWorkerProcess(),
+                        false, true, stats);
+    }
+
+    memset(&idxStat, 0, sizeof(idxStat));
+
+    // Set basic statistics
+    stats->num_index_tuples = Max(info->num_heap_tuples, 0);
+    stats->estimated_count = info->estimated_count;
+
+    // Get relation size with appropriate locking
+    needLock = !RELATION_IS_LOCAL(index);
+    if (needLock)
+        LockRelationForExtension(index, ExclusiveLock);
+    npages = RelationGetNumberOfBlocks(index);
+    if (needLock)
+        UnlockRelationForExtension(index, ExclusiveLock);
+
+    totFreePages = 0;
+
+    // Scan all pages to collect statistics
+    for (blkno = GIN_ROOT_BLKNO; blkno < npages; blkno++) {
+        Buffer buffer;
+        Page page;
+
+        vacuum_delay_point();
+
+        buffer = ReadBufferExtended(index, MAIN_FORKNUM, blkno,
+                                   RBM_NORMAL, info->strategy);
+        LockBuffer(buffer, GIN_SHARE);
+        page = (Page) BufferGetPage(buffer);
+
+        if (GinPageIsRecyclable(page)) {
+            RecordFreeIndexPage(index, blkno);
+            totFreePages++;
+        } else if (GinPageIsData(page)) {
+            idxStat.nDataPages++;
+        } else if (!GinPageIsList(page)) {
+            idxStat.nEntryPages++;
+            if (GinPageIsLeaf(page))
+                idxStat.nEntries += PageGetMaxOffsetNumber(page);
+        }
+
+        UnlockReleaseBuffer(buffer);
+    }
+
+    // Update metapage with collected statistics
+    idxStat.nTotalPages = npages;
+    ginUpdateStats(info->index, &idxStat, false);
+
+    // Vacuum the free space map
+    IndexFreeSpaceMapVacuum(info->index);
+
+    // Set final statistics
+    stats->pages_free = totFreePages;
+
+    if (needLock)
+        LockRelationForExtension(index, ExclusiveLock);
+    stats->num_pages = RelationGetNumberOfBlocks(index);
+    if (needLock)
+        UnlockRelationForExtension(index, ExclusiveLock);
+
+    return stats;
+}
+```

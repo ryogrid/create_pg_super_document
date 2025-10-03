@@ -28,3 +28,20 @@ This function implements a two-phase pointer management strategy used during Jso
 - Part of a deferred pointer resolution system that handles the complexity of serializing tree structures to linear binary format
 - The zero placeholder ensures the buffer maintains proper structure even before actual values are written
 - Critical for maintaining referential integrity in the flattened JsonPath binary representation
+
+## Simplified Source
+
+```c
+static int32 reserveSpaceForItemPointer(StringInfo buf)
+{
+    // Remember current position in buffer
+    int32 pos = buf->len;
+
+    // Write placeholder zero pointer (to be filled later)
+    int32 placeholder = 0;
+    appendBinaryStringInfo(buf, &placeholder, sizeof(placeholder));
+
+    // Return position for later pointer update
+    return pos;
+}
+```

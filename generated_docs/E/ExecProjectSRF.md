@@ -40,3 +40,70 @@ The function iterates through all elements in the target list, evaluating each a
 - Returns NULL when all SRFs have finished producing results
 - Carefully manages memory contexts to prevent leaks during SRF evaluation
 - The elemdone array tracks the completion state of each target list element
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecProjectSRF(ProjectSetState *node, bool continuing)
+{
+    TupleTableSlot *resultSlot = node->ps.ps_ResultTupleSlot;
+    ExprContext *econtext = node->ps.ps_ExprContext;
+    MemoryContext oldcontext;
+    bool hasresult = false;
+    int argno;
+
+    ExecClearTuple(resultSlot);
+
+    // Evaluate expressions in per-tuple memory context
+    oldcontext = MemoryContextSwitchTo(econtext->ecxt_per_tuple_memory);
+
+    // Assume no more tuples unless SRF produces more
+    node->pending_srf_tuples = false;
+
+    // Process each element in the target list
+    for (argno = 0; argno < node->nelems; argno++)
+    {
+        Node *elem = node->elems[argno];
+        ExprDoneCond *isdone = &node->elemdone[argno];
+        Datum *result = &resultSlot->tts_values[argno];
+        bool *isnull = &resultSlot->tts_isnull[argno];
+
+        if (continuing && *isdone == ExprEndResult)
+        {
+            // SRF exhausted, return NULL for this column
+            *result = (Datum) 0;
+            *isnull = true;
+        }
+        else if (IsA(elem, SetExprState))
+        {
+            // Evaluate set-returning function
+            *result = ExecMakeFunctionResultSet((SetExprState *) elem,
+                                                econtext, node->argcontext,
+                                                isnull, isdone);
+
+            if (*isdone != ExprEndResult)
+                hasresult = true;
+            if (*isdone == ExprMultipleResult)
+                node->pending_srf_tuples = true;
+        }
+        else
+        {
+            // Regular expression, evaluate normally
+            *result = ExecEvalExpr((ExprState *) elem, econtext, isnull);
+            *isdone = ExprSingleResult;
+        }
+    }
+
+    MemoryContextSwitchTo(oldcontext);
+
+    // Return result tuple if any SRF produced output
+    if (hasresult)
+    {
+        ExecStoreVirtualTuple(resultSlot);
+        return resultSlot;
+    }
+
+    return NULL;
+}
+```

@@ -39,3 +39,73 @@ The function properly handles predicate locking on the metapage to coordinate wi
 
 ## Notes and Other Information
 Key entry point for pending list processing in GIN bitmap scans. The predicate locking ensures proper concurrency control with fast-update operations. Memory context management is essential to prevent memory leaks during consistent function evaluation, as these functions may allocate significant temporary memory. The function gracefully handles empty pending lists by returning immediately.
+
+## Simplified Source
+```c
+static void scanPendingInsert(IndexScanDesc scan, TIDBitmap *tbm, int64 *ntids) {
+    GinScanOpaque so = (GinScanOpaque) scan->opaque;
+    MemoryContext oldCtx;
+    bool recheck, match;
+    int i;
+    pendingPosition pos;
+    Buffer metabuffer;
+    Page page;
+    BlockNumber blkno;
+
+    *ntids = 0;
+
+    // Get pending list head from metapage
+    metabuffer = ReadBuffer(scan->indexRelation, GIN_METAPAGE_BLKNO);
+    PredicateLockPage(scan->indexRelation, GIN_METAPAGE_BLKNO, scan->xs_snapshot);
+
+    LockBuffer(metabuffer, GIN_SHARE);
+    page = BufferGetPage(metabuffer);
+    blkno = GinPageGetMeta(page)->head;
+
+    // Check if pending list exists
+    if (blkno == InvalidBlockNumber) {
+        UnlockReleaseBuffer(metabuffer);
+        return;  // No pending list
+    }
+
+    // Initialize position for pending list scan
+    pos.pendingBuffer = ReadBuffer(scan->indexRelation, blkno);
+    LockBuffer(pos.pendingBuffer, GIN_SHARE);
+    pos.firstOffset = FirstOffsetNumber;
+    UnlockReleaseBuffer(metabuffer);
+    pos.hasMatchKey = palloc(sizeof(bool) * so->nkeys);
+
+    // Process each heap row in pending list
+    while (scanGetCandidate(scan, &pos)) {
+        // Collect matches for current heap row
+        if (!collectMatchesForHeapRow(scan, &pos))
+            continue;
+
+        // Apply consistent functions to determine final match
+        oldCtx = MemoryContextSwitchTo(so->tempCtx);
+        recheck = false;
+        match = true;
+
+        for (i = 0; i < so->nkeys; i++) {
+            GinScanKey key = so->keys + i;
+
+            if (!key->boolConsistentFn(key)) {
+                match = false;
+                break;
+            }
+            recheck |= key->recheckCurItem;
+        }
+
+        MemoryContextSwitchTo(oldCtx);
+        MemoryContextReset(so->tempCtx);
+
+        // Add matching row to bitmap
+        if (match) {
+            tbm_add_tuples(tbm, &pos.item, 1, recheck);
+            (*ntids)++;
+        }
+    }
+
+    pfree(pos.hasMatchKey);
+}
+```

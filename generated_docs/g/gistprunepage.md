@@ -50,3 +50,60 @@ The function also handles Write-Ahead Logging (WAL) requirements for crash recov
 - Uses critical sections to ensure atomic operations during page modification
 - The F_HAS_GARBAGE hint bit may occasionally be falsely cleared, but this is acceptable as it's only a performance hint
 - If no LP_DEAD items are found, the function still leaves the F_HAS_GARBAGE bit set rather than performing an additional write operation
+
+## Simplified Source
+
+```c
+static void
+gistprunepage(Relation rel, Page page, Buffer buffer, Relation heapRel)
+{
+    OffsetNumber deletable[MaxIndexTuplesPerPage];
+    int ndeletable = 0;
+    OffsetNumber offnum, maxoff;
+
+    Assert(GistPageIsLeaf(page));
+
+    // Scan page to identify LP_DEAD items for deletion
+    maxoff = PageGetMaxOffsetNumber(page);
+    for (offnum = FirstOffsetNumber; offnum <= maxoff; offnum = OffsetNumberNext(offnum))
+    {
+        ItemId itemId = PageGetItemId(page, offnum);
+        if (ItemIdIsDead(itemId))
+            deletable[ndeletable++] = offnum;
+    }
+
+    if (ndeletable > 0)
+    {
+        TransactionId snapshotConflictHorizon = InvalidTransactionId;
+
+        // Compute transaction horizon for standby conflict resolution
+        if (XLogStandbyInfoActive() && RelationNeedsWAL(rel))
+            snapshotConflictHorizon = index_compute_xid_horizon_for_tuples(rel, heapRel, buffer,
+                                                                          deletable, ndeletable);
+
+        START_CRIT_SECTION();
+
+        // Remove dead items from page
+        PageIndexMultiDelete(page, deletable, ndeletable);
+
+        // Clear garbage hint bit since page is now clean
+        GistClearPageHasGarbage(page);
+        MarkBufferDirty(buffer);
+
+        // Handle WAL logging for recovery and replication
+        if (RelationNeedsWAL(rel))
+        {
+            XLogRecPtr recptr = gistXLogDelete(buffer, deletable, ndeletable,
+                                             snapshotConflictHorizon, heapRel);
+            PageSetLSN(page, recptr);
+        }
+        else
+            PageSetLSN(page, gistGetFakeLSN(rel));
+
+        END_CRIT_SECTION();
+    }
+
+    // Note: If no dead items found, F_HAS_GARBAGE hint bit remains set
+    // This is acceptable since clearing it would require an extra write
+}
+```

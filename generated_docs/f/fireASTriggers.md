@@ -36,3 +36,52 @@ The fireASTriggers function is responsible for firing AFTER EACH STATEMENT trigg
 - INSERT operations with ON CONFLICT UPDATE use separate transition capture states for the conflict resolution (mt_oc_transition_capture) and the main operation (mt_transition_capture)
 - The function ensures that transition tables contain the appropriate row data for each trigger type
 - Located in src/backend/executor/nodeModifyTable.c:3819-3863
+
+## Simplified Source
+
+```c
+static void
+fireASTriggers(ModifyTableState *node) {
+    ModifyTable *plan = (ModifyTable *) node->ps.plan;
+    ResultRelInfo *resultRelInfo = node->rootResultRelInfo;
+
+    // Execute AFTER STATEMENT triggers based on operation type
+    switch (node->operation) {
+        case CMD_INSERT:
+            // For INSERT with ON CONFLICT UPDATE, fire both trigger types
+            if (plan->onConflictAction == ONCONFLICT_UPDATE)
+                ExecASUpdateTriggers(node->ps.state, resultRelInfo,
+                                   node->mt_oc_transition_capture);
+            ExecASInsertTriggers(node->ps.state, resultRelInfo,
+                               node->mt_transition_capture);
+            break;
+
+        case CMD_UPDATE:
+            ExecASUpdateTriggers(node->ps.state, resultRelInfo,
+                               node->mt_transition_capture);
+            break;
+
+        case CMD_DELETE:
+            ExecASDeleteTriggers(node->ps.state, resultRelInfo,
+                               node->mt_transition_capture);
+            break;
+
+        case CMD_MERGE:
+            // Fire triggers for each subcommand that was executed
+            if (node->mt_merge_subcommands & MERGE_DELETE)
+                ExecASDeleteTriggers(node->ps.state, resultRelInfo,
+                                   node->mt_transition_capture);
+            if (node->mt_merge_subcommands & MERGE_UPDATE)
+                ExecASUpdateTriggers(node->ps.state, resultRelInfo,
+                                   node->mt_transition_capture);
+            if (node->mt_merge_subcommands & MERGE_INSERT)
+                ExecASInsertTriggers(node->ps.state, resultRelInfo,
+                                   node->mt_transition_capture);
+            break;
+
+        default:
+            elog(ERROR, "unknown operation");
+            break;
+    }
+}
+```

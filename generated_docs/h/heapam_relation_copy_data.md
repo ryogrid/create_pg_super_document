@@ -44,3 +44,46 @@ heapam_relation_copy_data performs a comprehensive physical copy of a heap relat
 - WAL logging is performed for permanent relations and init forks of unlogged relations
 - The old relation storage is dropped after successful copying
 - Any conflicts in relfilenumber values are caught by RelationCreateStorage()
+
+## Simplified Source
+
+```c
+static void
+heapam_relation_copy_data(Relation rel, const RelFileLocator *newrlocator)
+{
+    SMgrRelation dstrel;
+
+    // Flush source relation buffers to ensure consistency
+    FlushRelationBuffers(rel);
+
+    // Create destination storage
+    dstrel = RelationCreateStorage(*newrlocator, rel->rd_rel->relpersistence, true);
+
+    // Copy main fork
+    RelationCopyStorage(RelationGetSmgr(rel), dstrel, MAIN_FORKNUM,
+                        rel->rd_rel->relpersistence);
+
+    // Copy additional forks (FSM, VM, etc.) if they exist
+    for (ForkNumber forkNum = MAIN_FORKNUM + 1; forkNum <= MAX_FORKNUM; forkNum++) {
+        if (smgrexists(RelationGetSmgr(rel), forkNum)) {
+            // Create fork in destination
+            smgrcreate(dstrel, forkNum, false);
+
+            // Log creation for permanent relations or init forks of unlogged relations
+            if (RelationIsPermanent(rel) ||
+                (rel->rd_rel->relpersistence == RELPERSISTENCE_UNLOGGED &&
+                 forkNum == INIT_FORKNUM)) {
+                log_smgrcreate(newrlocator, forkNum);
+            }
+
+            // Copy fork data
+            RelationCopyStorage(RelationGetSmgr(rel), dstrel, forkNum,
+                                rel->rd_rel->relpersistence);
+        }
+    }
+
+    // Clean up: drop old relation and close new one
+    RelationDropStorage(rel);
+    smgrclose(dstrel);
+}
+```

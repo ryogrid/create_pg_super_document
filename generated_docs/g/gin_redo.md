@@ -62,3 +62,53 @@ The function includes a comment noting that GIN indexes don't require conflict p
 - Includes error handling for unknown operation codes with a PANIC level message
 - The function is designed to be called by PostgreSQL's WAL recovery infrastructure
 - Located in src/backend/access/gin/ginxlog.c:726-774
+
+## Simplified Source
+
+```c
+void gin_redo(XLogReaderState *record)
+{
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+    MemoryContext oldCtx;
+
+    // Switch to operation context for proper memory management
+    oldCtx = MemoryContextSwitchTo(opCtx);
+
+    // Dispatch to appropriate redo handler based on operation type
+    switch (info) {
+        case XLOG_GIN_CREATE_PTREE:
+            ginRedoCreatePTree(record);
+            break;
+        case XLOG_GIN_INSERT:
+            ginRedoInsert(record);
+            break;
+        case XLOG_GIN_SPLIT:
+            ginRedoSplit(record);
+            break;
+        case XLOG_GIN_VACUUM_PAGE:
+            ginRedoVacuumPage(record);
+            break;
+        case XLOG_GIN_VACUUM_DATA_LEAF_PAGE:
+            ginRedoVacuumDataLeafPage(record);
+            break;
+        case XLOG_GIN_DELETE_PAGE:
+            ginRedoDeletePage(record);
+            break;
+        case XLOG_GIN_UPDATE_META_PAGE:
+            ginRedoUpdateMetapage(record);
+            break;
+        case XLOG_GIN_INSERT_LISTPAGE:
+            ginRedoInsertListPage(record);
+            break;
+        case XLOG_GIN_DELETE_LISTPAGE:
+            ginRedoDeleteListPages(record);
+            break;
+        default:
+            elog(PANIC, "gin_redo: unknown op code %u", info);
+    }
+
+    // Clean up memory context
+    MemoryContextSwitchTo(oldCtx);
+    MemoryContextReset(opCtx);
+}
+```

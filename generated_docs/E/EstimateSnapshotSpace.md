@@ -44,3 +44,25 @@ The size calculation is done using PostgreSQL's safe arithmetic functions (add_s
 - The returned size represents the exact memory requirement for serializing the snapshot
 - Located in src/backend/utils/time/snapmgr.c at lines 1692-1715
 - Validation ensures the snapshot is valid and of the expected MVCC type before calculation
+
+## Simplified Source
+
+```c
+Size EstimateSnapshotSpace(Snapshot snapshot) {
+    // Validate input snapshot
+    Assert(snapshot != InvalidSnapshot);
+    Assert(snapshot->snapshot_type == SNAPSHOT_MVCC);
+
+    // Calculate base size: SerializedSnapshotData + main transaction IDs
+    Size size = sizeof(SerializedSnapshotData) +
+                (snapshot->xcnt * sizeof(TransactionId));
+
+    // Add space for subtransaction IDs if needed
+    if (snapshot->subxcnt > 0 &&
+        (!snapshot->suboverflowed || snapshot->takenDuringRecovery)) {
+        size += snapshot->subxcnt * sizeof(TransactionId);
+    }
+
+    return size;
+}
+```

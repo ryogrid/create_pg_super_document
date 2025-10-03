@@ -47,3 +47,38 @@ This ensures that after detachment, the former partition continues to enforce th
 - Sets is_no_inherit to false, allowing inheritance if the detached table later becomes a parent
 - Essential for maintaining data integrity in concurrent detachment scenarios
 - The created constraint exactly replicates the logical validation that was previously implicit
+
+## Simplified Source
+```c
+static void DetachAddConstraintIfNeeded(List **wqueue, Relation partRel) {
+    List *constraintExpr;
+
+    // Get the partition constraint expression and optimize it
+    constraintExpr = RelationGetPartitionQual(partRel);
+    constraintExpr = (List *) eval_const_expressions(NULL, (Node *) constraintExpr);
+
+    // Check if existing constraints already imply the needed constraint
+    if (!PartConstraintImpliedByRelConstraint(partRel, constraintExpr)) {
+        AlteredTableInfo *tab;
+        Constraint *new_constraint;
+
+        // Get work queue entry for this table
+        tab = ATGetQueueEntry(wqueue, partRel);
+
+        // Create new check constraint equivalent to partition constraint
+        new_constraint = makeNode(Constraint);
+        new_constraint->contype = CONSTR_CHECK;
+        new_constraint->conname = NULL; // Auto-generate name
+        new_constraint->location = -1;
+        new_constraint->is_no_inherit = false;
+        new_constraint->raw_expr = NULL;
+        new_constraint->cooked_expr = nodeToString(make_ands_explicit(constraintExpr));
+        new_constraint->initially_valid = true;
+        new_constraint->skip_validation = true; // Data already satisfies constraint
+
+        // Add the constraint to the work queue
+        ATAddCheckConstraint(wqueue, tab, partRel, new_constraint,
+                           true, false, true, ShareUpdateExclusiveLock);
+    }
+}
+```

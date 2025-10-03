@@ -91,3 +91,52 @@ The caching uses the MinmaxMultiOpaque structure's strategy_procinfos array and 
 - Strategy numbers must be between 1 and BTMaxStrategyNumber
 - Extensively used throughout the minmax-multi implementation for comparison operations
 - The cached operators are stored in the BRIN index's memory context for proper lifecycle management
+
+## Simplified Source
+
+```c
+static FmgrInfo *minmax_multi_get_strategy_procinfo(BrinDesc *bdesc, uint16 attno,
+                                                   Oid subtype, uint16 strategynum) {
+    MinmaxMultiOpaque *opaque;
+
+    // Get the opaque structure that holds cached strategy operators
+    opaque = (MinmaxMultiOpaque *) bdesc->bd_info[attno - 1]->oi_opaque;
+
+    // If subtype changed, invalidate all cached strategy operators
+    if (opaque->cached_subtype != subtype) {
+        for (uint16 i = 1; i <= BTMaxStrategyNumber; i++) {
+            opaque->strategy_procinfos[i - 1].fn_oid = InvalidOid;
+        }
+        opaque->cached_subtype = subtype;
+    }
+
+    // Check if we need to cache this strategy operator
+    if (opaque->strategy_procinfos[strategynum - 1].fn_oid == InvalidOid) {
+        // Look up the operator in the system catalog
+        Oid opfamily = bdesc->bd_index->rd_opfamily[attno - 1];
+        Form_pg_attribute attr = TupleDescAttr(bdesc->bd_tupdesc, attno - 1);
+
+        HeapTuple tuple = SearchSysCache4(AMOPSTRATEGY,
+                                         ObjectIdGetDatum(opfamily),
+                                         ObjectIdGetDatum(attr->atttypid),
+                                         ObjectIdGetDatum(subtype),
+                                         Int16GetDatum(strategynum));
+
+        if (!HeapTupleIsValid(tuple)) {
+            elog(ERROR, "missing operator %d(%u,%u) in opfamily %u",
+                 strategynum, attr->atttypid, subtype, opfamily);
+        }
+
+        // Extract operator OID and cache the function info
+        Oid oprid = DatumGetObjectId(SysCacheGetAttrNotNull(AMOPSTRATEGY, tuple,
+                                                           Anum_pg_amop_amopopr));
+        ReleaseSysCache(tuple);
+
+        fmgr_info_cxt(get_opcode(oprid),
+                      &opaque->strategy_procinfos[strategynum - 1],
+                      bdesc->bd_context);
+    }
+
+    return &opaque->strategy_procinfos[strategynum - 1];
+}
+```

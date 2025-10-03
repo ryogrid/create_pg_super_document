@@ -44,3 +44,28 @@ The function leverages PostgreSQL's projection infrastructure to efficiently com
 - For FDW operations, the function can work with NULL tupleSlot, relying on the FDW to have set up the expression context
 - The function returns a TupleTableSlot containing the computed RETURNING expression results
 - This is a key component in PostgreSQL's RETURNING clause implementation across all DML operations
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecProcessReturning(ResultRelInfo *resultRelInfo,
+                     TupleTableSlot *tupleSlot,
+                     TupleTableSlot *planSlot)
+{
+    ProjectionInfo *projectReturning = resultRelInfo->ri_projectReturning;
+    ExprContext *econtext = projectReturning->pi_exprContext;
+
+    // Set up expression context with tuple data
+    if (tupleSlot)
+        econtext->ecxt_scantuple = tupleSlot;
+    econtext->ecxt_outertuple = planSlot;
+
+    // Initialize tableoid for RETURNING expressions that might reference it
+    econtext->ecxt_scantuple->tts_tableOid =
+        RelationGetRelid(resultRelInfo->ri_RelationDesc);
+
+    // Compute and return the RETURNING expression results
+    return ExecProject(projectReturning);
+}
+```

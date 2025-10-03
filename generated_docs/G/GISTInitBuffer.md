@@ -33,3 +33,15 @@ This function serves as a wrapper around the lower-level gistinitpage function t
 - The flags parameter determines the page type and characteristics (leaf vs internal node, etc.)
 - Used extensively during GiST index maintenance operations
 - Part of the GiST access method implementation in PostgreSQL
+
+## Simplified Source
+
+```c
+void GISTInitBuffer(Buffer b, uint32 f) {
+    // Get the page from the buffer
+    Page page = BufferGetPage(b);
+
+    // Initialize the page with specified flags
+    gistinitpage(page, f);
+}
+```

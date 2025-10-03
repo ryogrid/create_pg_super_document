@@ -33,3 +33,18 @@ The function assumes that the FDW supports asynchronous operations and has provi
 - Part of the asynchronous foreign scan infrastructure that enables concurrent tuple fetching
 - The actual implementation of asynchronous behavior is delegated to the specific FDW
 - Located in src/backend/executor/nodeForeignscan.c:456-471
+
+## Simplified Source
+
+```c
+void ExecAsyncForeignScanRequest(AsyncRequest *areq) {
+    ForeignScanState *node = (ForeignScanState *) areq->requestee;
+    FdwRoutine *fdwroutine = node->fdwroutine;
+
+    // Ensure FDW supports async operations
+    Assert(fdwroutine->ForeignAsyncRequest != NULL);
+
+    // Delegate to FDW-specific async request handler
+    fdwroutine->ForeignAsyncRequest(areq);
+}
+```

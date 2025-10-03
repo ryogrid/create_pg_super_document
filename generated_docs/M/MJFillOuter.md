@@ -43,3 +43,31 @@ This function is essential for implementing LEFT OUTER JOIN and FULL OUTER JOIN 
 - Part of the merge join state machine that handles different join scenarios
 - Includes debug output via MJ_printf for development and troubleshooting
 - Performance instrumentation tracks filtered tuples for query optimization feedback
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+MJFillOuter(MergeJoinState *node) {
+    ExprContext *econtext = node->js.ps.ps_ExprContext;
+    ExprState *otherqual = node->js.ps.qual;
+
+    // Reset context for new evaluation
+    ResetExprContext(econtext);
+
+    // Set up fake join tuple: current outer + NULL inner
+    econtext->ecxt_outertuple = node->mj_OuterTupleSlot;
+    econtext->ecxt_innertuple = node->mj_NullInnerTupleSlot;
+
+    // Check if non-join quals are satisfied
+    if (ExecQual(otherqual, econtext)) {
+        // Quals passed - project and return the result tuple
+        return ExecProject(node->js.ps.ps_ProjInfo);
+    } else {
+        // Quals failed - count as filtered for instrumentation
+        InstrCountFiltered2(node, 1);
+    }
+
+    return NULL;
+}
+```

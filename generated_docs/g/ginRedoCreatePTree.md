@@ -45,3 +45,32 @@ The function extracts the posting tree creation data from the WAL record, initia
 - Posting trees are created when posting lists become too large to fit efficiently in regular entry tree pages
 - The function handles the complete setup of a new data leaf page including proper flag initialization and data copying
 - WAL consistency is maintained through proper LSN updates and buffer management
+
+## Simplified Source
+
+```c
+static void ginRedoCreatePTree(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    ginxlogCreatePostingTree *data = (ginxlogCreatePostingTree *) XLogRecGetData(record);
+    Buffer buffer;
+    Page page;
+
+    // Initialize buffer for redo operation
+    buffer = XLogInitBufferForRedo(record, 0);
+    page = (Page) BufferGetPage(buffer);
+
+    // Initialize as compressed GIN data leaf page
+    GinInitBuffer(buffer, GIN_DATA | GIN_LEAF | GIN_COMPRESSED);
+
+    // Copy posting list data from WAL record to page
+    char *posting_data = XLogRecGetData(record) + sizeof(ginxlogCreatePostingTree);
+    memcpy(GinDataLeafPageGetPostingList(page), posting_data, data->size);
+    GinDataPageSetDataSize(page, data->size);
+
+    // Complete WAL replay
+    PageSetLSN(page, lsn);
+    MarkBufferDirty(buffer);
+    UnlockReleaseBuffer(buffer);
+}
+```

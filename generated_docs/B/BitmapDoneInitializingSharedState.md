@@ -38,3 +38,19 @@ The synchronization mechanism ensures that worker processes don't attempt to acc
 - The inline designation suggests this is a performance-critical synchronization point
 - The spinlock duration is kept minimal to avoid blocking worker processes unnecessarily
 - After this function completes, worker processes can safely proceed with their bitmap iteration
+
+## Simplified Source
+
+```c
+static inline void
+BitmapDoneInitializingSharedState(ParallelBitmapHeapState *pstate)
+{
+    // Atomically update shared state to indicate completion
+    SpinLockAcquire(&pstate->mutex);
+    pstate->state = BM_FINISHED;
+    SpinLockRelease(&pstate->mutex);
+
+    // Wake up all waiting worker processes
+    ConditionVariableBroadcast(&pstate->cv);
+}
+```

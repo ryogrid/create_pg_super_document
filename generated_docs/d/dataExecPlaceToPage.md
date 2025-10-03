@@ -43,3 +43,22 @@ The function is designed to be called with XLOG record creation already initiali
 - Both leaf and internal page handlers follow the same interface contract for consistency
 - The function is the execution counterpart to dataBeginPlaceToPage, completing the two-phase insertion process
 - The target buffer must be pre-registered in slot 0 for proper WAL logging by the specialized handlers
+
+## Simplified Source
+
+```c
+static void
+dataExecPlaceToPage(GinBtree btree, Buffer buf, GinBtreeStack *stack,
+                   void *insertdata, BlockNumber updateblkno,
+                   void *ptp_workspace)
+{
+    Page page = BufferGetPage(buf);
+
+    // Dispatch to appropriate handler based on page type
+    if (GinPageIsLeaf(page))
+        dataExecPlaceToPageLeaf(btree, buf, stack, insertdata, ptp_workspace);
+    else
+        dataExecPlaceToPageInternal(btree, buf, stack, insertdata,
+                                   updateblkno, ptp_workspace);
+}
+```

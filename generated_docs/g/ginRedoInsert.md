@@ -47,3 +47,49 @@ Key functionality includes:
 - For non-leaf pages, extracts child block numbers and clears incomplete split flags
 - Ensures proper crash recovery by setting LSN and marking buffers dirty
 - Part of PostgreSQL's GIN index WAL recovery mechanism
+
+## Simplified Source
+
+```c
+static void ginRedoInsert(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    ginxlogInsert *data = (ginxlogInsert *) XLogRecGetData(record);
+    Buffer buffer;
+    BlockNumber rightChildBlkno = InvalidBlockNumber;
+    bool isLeaf = (data->flags & GIN_INSERT_ISLEAF) != 0;
+
+    // Handle incomplete split completion for non-leaf pages
+    if (!isLeaf) {
+        char *payload = XLogRecGetData(record) + sizeof(ginxlogInsert);
+        payload += sizeof(BlockIdData); // Skip left child block number
+        rightChildBlkno = BlockIdGetBlockNumber((BlockId) payload);
+        payload += sizeof(BlockIdData);
+
+        ginRedoClearIncompleteSplit(record, 1);
+    }
+
+    // Process the insertion if buffer needs redo
+    if (XLogReadBufferForRedo(record, 0, &buffer) == BLK_NEEDS_REDO) {
+        Page page = BufferGetPage(buffer);
+        Size len;
+        char *payload = XLogRecGetBlockData(record, 0, &len);
+
+        // Route to appropriate insertion handler based on page type
+        if (data->flags & GIN_INSERT_ISDATA) {
+            // Data page insertion
+            ginRedoInsertData(buffer, isLeaf, rightChildBlkno, payload);
+        } else {
+            // Entry page insertion
+            ginRedoInsertEntry(buffer, isLeaf, rightChildBlkno, payload);
+        }
+
+        // Complete WAL replay
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buffer);
+    }
+
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+}
+```

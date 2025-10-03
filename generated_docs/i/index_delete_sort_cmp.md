@@ -33,3 +33,29 @@ The function uses an inlineable design to minimize function call overhead during
 - Returns -1 if deltid1 < deltid2, 1 if deltid1 > deltid2, or 0 if equal (though the Assert(false) suggests equality should not occur)
 - The comparison is performed hierarchically: block number takes precedence over offset number
 - Located in src/backend/access/heap/heapam.c:8404-8439
+
+## Simplified Source
+
+```c
+static inline int index_delete_sort_cmp(TM_IndexDelete *deltid1, TM_IndexDelete *deltid2)
+{
+    ItemPointer tid1 = &deltid1->tid;
+    ItemPointer tid2 = &deltid2->tid;
+
+    // Compare by block number first
+    BlockNumber blk1 = ItemPointerGetBlockNumber(tid1);
+    BlockNumber blk2 = ItemPointerGetBlockNumber(tid2);
+    if (blk1 != blk2)
+        return (blk1 < blk2) ? -1 : 1;
+
+    // If same block, compare by offset number
+    OffsetNumber pos1 = ItemPointerGetOffsetNumber(tid1);
+    OffsetNumber pos2 = ItemPointerGetOffsetNumber(tid2);
+    if (pos1 != pos2)
+        return (pos1 < pos2) ? -1 : 1;
+
+    // TIDs should never be equal in practice
+    Assert(false);
+    return 0;
+}
+```

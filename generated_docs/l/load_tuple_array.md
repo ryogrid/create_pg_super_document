@@ -40,3 +40,35 @@ The function includes special handling for the leader process (reader == 0) by d
 - Integrates with PostgreSQL's parallel query execution framework for efficient tuple processing
 - The MAX_TUPLE_STORE constant defines the maximum number of tuples that can be buffered per worker
 - Part of the nodeGatherMerge.c module which handles merging sorted results from multiple parallel workers
+
+## Simplified Source
+```c
+static void load_tuple_array(GatherMergeState *gm_state, int reader) {
+    GMReaderTupleBuffer *tuple_buffer;
+    int i;
+
+    // Skip if this is the leader process
+    if (reader == 0)
+        return;
+
+    tuple_buffer = &gm_state->gm_tuple_buffers[reader - 1];
+
+    // Reset counters if buffer is fully consumed
+    if (tuple_buffer->nTuples == tuple_buffer->readCounter)
+        tuple_buffer->nTuples = tuple_buffer->readCounter = 0;
+
+    // Fill buffer with tuples until MAX_TUPLE_STORE or no more available
+    for (i = tuple_buffer->nTuples; i < MAX_TUPLE_STORE; i++) {
+        MinimalTuple tuple;
+
+        // Try to read next tuple in non-blocking mode
+        tuple = gm_readnext_tuple(gm_state, reader, true, &tuple_buffer->done);
+        if (!tuple)
+            break;
+
+        // Store tuple and increment counter
+        tuple_buffer->tuple[i] = tuple;
+        tuple_buffer->nTuples++;
+    }
+}
+```

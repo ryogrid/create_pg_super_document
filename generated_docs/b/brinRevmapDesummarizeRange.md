@@ -61,3 +61,96 @@ The function handles various edge cases including missing tuples, concurrent pag
 - Records the desummarization in WAL for crash recovery when WAL logging is enabled
 - Uses critical sections to ensure the operation is atomic across both revmap and regular pages
 - Validates index consistency and reports INDEX_CORRUPTED errors for invalid states
+
+## Simplified Source
+
+```c
+bool brinRevmapDesummarizeRange(Relation idxrel, BlockNumber heapBlk)
+{
+    // Initialize revmap and find the revmap page for this heap block
+    BlockNumber pagesPerRange;
+    BrinRevmap *revmap = brinRevmapInitialize(idxrel, &pagesPerRange);
+
+    BlockNumber revmapBlk = revmap_get_blkno(revmap, heapBlk);
+    if (!BlockNumberIsValid(revmapBlk)) {
+        brinRevmapTerminate(revmap);
+        return true;  // Range not summarized, nothing to do
+    }
+
+    // Lock revmap page and get pointer to index tuple
+    Buffer revmapBuf = brinLockRevmapPageForUpdate(revmap, heapBlk);
+    Page revmapPg = BufferGetPage(revmapBuf);
+    OffsetNumber revmapOffset = HEAPBLK_TO_REVMAP_INDEX(revmap->rm_pagesPerRange, heapBlk);
+
+    RevmapContents *contents = (RevmapContents *) PageGetContents(revmapPg);
+    ItemPointerData *iptr = contents->rm_tids + revmapOffset;
+
+    if (!ItemPointerIsValid(iptr)) {
+        LockBuffer(revmapBuf, BUFFER_LOCK_UNLOCK);
+        brinRevmapTerminate(revmap);
+        return true;  // No index tuple, nothing to do
+    }
+
+    // Read and lock the regular index page containing the tuple
+    Buffer regBuf = ReadBuffer(idxrel, ItemPointerGetBlockNumber(iptr));
+    LockBuffer(regBuf, BUFFER_LOCK_EXCLUSIVE);
+    Page regPg = BufferGetPage(regBuf);
+
+    // Validate page is still a regular page
+    if (!BRIN_IS_REGULAR_PAGE(regPg)) {
+        LockBuffer(revmapBuf, BUFFER_LOCK_UNLOCK);
+        LockBuffer(regBuf, BUFFER_LOCK_UNLOCK);
+        brinRevmapTerminate(revmap);
+        return false;  // Caller should retry
+    }
+
+    // Validate tuple offset and existence
+    OffsetNumber regOffset = ItemPointerGetOffsetNumber(iptr);
+    if (regOffset > PageGetMaxOffsetNumber(regPg))
+        ereport(ERROR, (errcode(ERRCODE_INDEX_CORRUPTED),
+                       errmsg("corrupted BRIN index: inconsistent range map")));
+
+    ItemId lp = PageGetItemId(regPg, regOffset);
+    if (!ItemIdIsUsed(lp))
+        ereport(ERROR, (errcode(ERRCODE_INDEX_CORRUPTED),
+                       errmsg("corrupted BRIN index: inconsistent range map")));
+
+    START_CRIT_SECTION();
+
+    // Clear the revmap entry and delete the tuple
+    ItemPointerData invalidIptr;
+    ItemPointerSetInvalid(&invalidIptr);
+    brinSetHeapBlockItemptr(revmapBuf, revmap->rm_pagesPerRange, heapBlk, invalidIptr);
+    PageIndexTupleDeleteNoCompact(regPg, regOffset);
+
+    // Mark pages dirty
+    MarkBufferDirty(regBuf);
+    MarkBufferDirty(revmapBuf);
+
+    // WAL logging if needed
+    if (RelationNeedsWAL(idxrel)) {
+        xl_brin_desummarize xlrec;
+        xlrec.pagesPerRange = revmap->rm_pagesPerRange;
+        xlrec.heapBlk = heapBlk;
+        xlrec.regOffset = regOffset;
+
+        XLogBeginInsert();
+        XLogRegisterData((char *) &xlrec, SizeOfBrinDesummarize);
+        XLogRegisterBuffer(0, revmapBuf, 0);
+        XLogRegisterBuffer(1, regBuf, REGBUF_STANDARD);
+        XLogRecPtr recptr = XLogInsert(RM_BRIN_ID, XLOG_BRIN_DESUMMARIZE);
+
+        PageSetLSN(revmapPg, recptr);
+        PageSetLSN(regPg, recptr);
+    }
+
+    END_CRIT_SECTION();
+
+    // Clean up
+    UnlockReleaseBuffer(regBuf);
+    LockBuffer(revmapBuf, BUFFER_LOCK_UNLOCK);
+    brinRevmapTerminate(revmap);
+
+    return true;
+}
+```

@@ -35,3 +35,18 @@ pg_atomic_clear_flag_impl is a fallback implementation for clearing atomic flags
 - Defined in src/backend/port/atomics.c under conditional compilation (PG_HAVE_ATOMIC_FLAG_SIMULATION)
 - Critical section is minimal (just the write operation) for optimal performance
 - Used to release locks or signals implemented via atomic flags
+
+## Simplified Source
+
+```c
+void pg_atomic_clear_flag_impl(volatile pg_atomic_flag *ptr) {
+    // Acquire spinlock for atomic operation
+    SpinLockAcquire((slock_t *) &ptr->sema);
+
+    // Clear the flag
+    ptr->value = false;
+
+    // Release spinlock
+    SpinLockRelease((slock_t *) &ptr->sema);
+}
+```

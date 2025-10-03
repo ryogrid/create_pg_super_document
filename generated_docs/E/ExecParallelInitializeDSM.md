@@ -54,3 +54,52 @@ The function allows each plan node to allocate shared memory space and insert ke
 - [Node](../N/Node.md) counting and instrumentation setup occur before type-specific initialization
 - The recursive nature ensures all nodes in the plan tree are properly initialized for parallel execution
 - [Hash](../H/Hash.md), Sort, IncrementalSort, Agg, and Memoize nodes always initialize DSM regardless of parallel_aware flag to support EXPLAIN ANALYZE functionality
+
+## Simplified Source
+
+```c
+static bool ExecParallelInitializeDSM(PlanState *planstate, ExecParallelInitializeDSMContext *d)
+{
+    if (planstate == NULL)
+        return false;
+
+    // Setup instrumentation tracking if enabled
+    if (d->instrumentation != NULL)
+        d->instrumentation->plan_node_id[d->nnodes] = planstate->plan->plan_node_id;
+
+    // Count this node
+    d->nnodes++;
+
+    // Initialize DSM for different node types
+    switch (nodeTag(planstate))
+    {
+        case T_SeqScanState:
+        case T_IndexScanState:
+        case T_IndexOnlyScanState:
+        case T_ForeignScanState:
+        case T_AppendState:
+        case T_CustomScanState:
+        case T_BitmapHeapScanState:
+        case T_HashJoinState:
+            // Only initialize if parallel-aware
+            if (planstate->plan->parallel_aware)
+                call_node_specific_dsm_init(planstate, d->pcxt);
+            break;
+
+        case T_HashState:
+        case T_SortState:
+        case T_IncrementalSortState:
+        case T_AggState:
+        case T_MemoizeState:
+            // Always initialize for EXPLAIN ANALYZE support
+            call_node_specific_dsm_init(planstate, d->pcxt);
+            break;
+
+        default:
+            break;
+    }
+
+    // Recursively process child nodes
+    return planstate_tree_walker(planstate, ExecParallelInitializeDSM, d);
+}
+```

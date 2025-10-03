@@ -40,3 +40,25 @@ The `ginGetStats` function reads statistical information from a GIN index's meta
 - Provides a snapshot of index structure including entry pages, data pages, and total entries
 - The `ginVersion` field indicates the format version of the GIN index
 - Essential for monitoring GIN index health and performance characteristics
+
+## Simplified Source
+
+```c
+void ginGetStats(Relation index, GinStatsData *stats) {
+    // Read metapage with shared lock
+    Buffer metabuffer = ReadBuffer(index, GIN_METAPAGE_BLKNO);
+    LockBuffer(metabuffer, GIN_SHARE);
+    Page metapage = BufferGetPage(metabuffer);
+    GinMetaPageData *metadata = GinPageGetMeta(metapage);
+
+    // Copy statistics from metadata
+    stats->nPendingPages = metadata->nPendingPages;
+    stats->nTotalPages = metadata->nTotalPages;
+    stats->nEntryPages = metadata->nEntryPages;
+    stats->nDataPages = metadata->nDataPages;
+    stats->nEntries = metadata->nEntries;
+    stats->ginVersion = metadata->ginVersion;
+
+    UnlockReleaseBuffer(metabuffer);
+}
+```

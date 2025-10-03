@@ -70,3 +70,156 @@ The function supports multiple deletion scenarios:
 - Index tuple cleanup is deferred to VACUUM rather than being done immediately
 - Supports serializable transaction isolation through snapshot checks
 - Part of PostgreSQL's executor framework for DML operations
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecDelete(ModifyTableContext *context, ResultRelInfo *resultRelInfo,
+           ItemPointer tupleid, HeapTuple oldtuple, bool processReturning,
+           bool changingPart, bool canSetTag, TM_Result *tmresult,
+           bool *tupleDeleted, TupleTableSlot **epqreturnslot) {
+    EState *estate = context->estate;
+    Relation resultRelationDesc = resultRelInfo->ri_RelationDesc;
+    TupleTableSlot *slot = NULL;
+    TM_Result result;
+
+    if (tupleDeleted)
+        *tupleDeleted = false;
+
+    // Preparation phase: BEFORE triggers and checks
+    if (!ExecDeletePrologue(context, resultRelInfo, tupleid, oldtuple,
+                           epqreturnslot, tmresult))
+        return NULL;
+
+    // Handle INSTEAD OF triggers for views
+    if (resultRelInfo->ri_TrigDesc &&
+        resultRelInfo->ri_TrigDesc->trig_delete_instead_row) {
+        Assert(oldtuple != NULL);
+        bool dodelete = ExecIRDeleteTriggers(estate, resultRelInfo, oldtuple);
+        if (!dodelete)
+            return NULL;
+    }
+    // Handle foreign table deletion
+    else if (resultRelInfo->ri_FdwRoutine) {
+        slot = ExecGetReturningSlot(estate, resultRelInfo);
+        slot = resultRelInfo->ri_FdwRoutine->ExecForeignDelete(estate, resultRelInfo,
+                                                              slot, context->planSlot);
+        if (slot == NULL)
+            return NULL;
+
+        // Initialize tableOid for RETURNING expressions
+        if (TTS_EMPTY(slot))
+            ExecStoreAllNullTuple(slot);
+        slot->tts_tableOid = RelationGetRelid(resultRelationDesc);
+    }
+    // Handle regular table deletion
+    else {
+ldelete:
+        result = ExecDeleteAct(context, resultRelInfo, tupleid, changingPart);
+        if (tmresult)
+            *tmresult = result;
+
+        switch (result) {
+            case TM_SelfModified:
+                // Handle concurrent self-modification
+                if (context->tmfd.cmax != estate->es_output_cid)
+                    ereport(ERROR, (errcode(ERRCODE_TRIGGERED_DATA_CHANGE_VIOLATION),
+                                   errmsg("tuple to be deleted was already modified by an operation triggered by the current command")));
+                return NULL;
+
+            case TM_Ok:
+                break;
+
+            case TM_Updated:
+                // Handle concurrent update using EPQ
+                if (IsolationUsesXactSnapshot())
+                    ereport(ERROR, (errcode(ERRCODE_T_R_SERIALIZATION_FAILURE),
+                                   errmsg("could not serialize access due to concurrent update")));
+
+                EvalPlanQualBegin(context->epqstate);
+                TupleTableSlot *inputslot = EvalPlanQualSlot(context->epqstate, resultRelationDesc,
+                                                            resultRelInfo->ri_RangeTableIndex);
+
+                result = table_tuple_lock(resultRelationDesc, tupleid, estate->es_snapshot,
+                                        inputslot, estate->es_output_cid, LockTupleExclusive,
+                                        LockWaitBlock, TUPLE_LOCK_FLAG_FIND_LAST_VERSION,
+                                        &context->tmfd);
+
+                switch (result) {
+                    case TM_Ok:
+                        Assert(context->tmfd.traversed);
+                        TupleTableSlot *epqslot = EvalPlanQual(context->epqstate, resultRelationDesc,
+                                                              resultRelInfo->ri_RangeTableIndex, inputslot);
+                        if (TupIsNull(epqslot))
+                            return NULL;
+
+                        if (epqreturnslot) {
+                            *epqreturnslot = epqslot;
+                            return NULL;
+                        } else
+                            goto ldelete;
+
+                    case TM_SelfModified:
+                        if (context->tmfd.cmax != estate->es_output_cid)
+                            ereport(ERROR, (errcode(ERRCODE_TRIGGERED_DATA_CHANGE_VIOLATION),
+                                           errmsg("tuple to be deleted was already modified by an operation triggered by the current command")));
+                        return NULL;
+
+                    case TM_Deleted:
+                        return NULL;
+
+                    default:
+                        elog(ERROR, "unexpected table_tuple_lock status: %u", result);
+                        return NULL;
+                }
+                break;
+
+            case TM_Deleted:
+                if (IsolationUsesXactSnapshot())
+                    ereport(ERROR, (errcode(ERRCODE_T_R_SERIALIZATION_FAILURE),
+                                   errmsg("could not serialize access due to concurrent delete")));
+                return NULL;
+
+            default:
+                elog(ERROR, "unrecognized table_tuple_delete status: %u", result);
+                return NULL;
+        }
+    }
+
+    // Update processed count and mark as deleted
+    if (canSetTag)
+        (estate->es_processed)++;
+
+    if (tupleDeleted)
+        *tupleDeleted = true;
+
+    // Cleanup phase: AFTER triggers
+    ExecDeleteEpilogue(context, resultRelInfo, tupleid, oldtuple, changingPart);
+
+    // Process RETURNING clause if requested
+    if (processReturning && resultRelInfo->ri_projectReturning) {
+        TupleTableSlot *rslot;
+
+        if (resultRelInfo->ri_FdwRoutine) {
+            Assert(!TupIsNull(slot));
+        } else {
+            slot = ExecGetReturningSlot(estate, resultRelInfo);
+            if (oldtuple != NULL) {
+                ExecForceStoreHeapTuple(oldtuple, slot, false);
+            } else {
+                if (!table_tuple_fetch_row_version(resultRelationDesc, tupleid,
+                                                  SnapshotAny, slot))
+                    elog(ERROR, "failed to fetch deleted tuple for DELETE RETURNING");
+            }
+        }
+
+        rslot = ExecProcessReturning(resultRelInfo, slot, context->planSlot);
+        ExecMaterializeSlot(rslot);
+        ExecClearTuple(slot);
+        return rslot;
+    }
+
+    return NULL;
+}
+```

@@ -46,3 +46,23 @@ The function records metadata about the relation, the specific block being reuse
 - The isCatalogRel flag affects logical decoding behavior for the reuse operation
 - This is part of PostgreSQL's mechanism to maintain read consistency across primary and standby servers
 - The record helps ensure that old snapshots on standby servers don't try to read pages that have been reused for different data
+
+## Simplified Source
+
+```c
+void gistXLogPageReuse(Relation rel, Relation heaprel,
+                      BlockNumber blkno, FullTransactionId deleteXid) {
+    gistxlogPageReuse xlrec_reuse;
+
+    // Setup page reuse record for Hot Standby conflict resolution
+    xlrec_reuse.isCatalogRel = RelationIsAccessibleInLogicalDecoding(heaprel);
+    xlrec_reuse.locator = rel->rd_locator;
+    xlrec_reuse.block = blkno;
+    xlrec_reuse.snapshotConflictHorizon = deleteXid;
+
+    XLogBeginInsert();
+    XLogRegisterData((char *) &xlrec_reuse, SizeOfGistxlogPageReuse);
+
+    XLogInsert(RM_GIST_ID, XLOG_GIST_PAGE_REUSE);
+}
+```

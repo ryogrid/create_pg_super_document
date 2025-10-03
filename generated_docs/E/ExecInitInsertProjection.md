@@ -45,3 +45,53 @@ The function optimizes for the common case where no projection is needed (when t
 - Creates ri_newTupleSlot to hold tuples in the target table's format
 - Schema validation via ExecCheckPlanOutput ensures type compatibility between source and target
 - Expression context allocation is deferred until actually needed for projection
+
+## Simplified Source
+
+```c
+static void
+ExecInitInsertProjection(ModifyTableState *mtstate, ResultRelInfo *resultRelInfo) {
+    ModifyTable *node = (ModifyTable *) mtstate->ps.plan;
+    Plan *subplan = outerPlan(node);
+    EState *estate = mtstate->ps.state;
+    List *insertTargetList = NIL;
+    bool need_projection = false;
+
+    // Extract non-junk columns from subplan's target list
+    foreach(ListCell *l, subplan->targetlist) {
+        TargetEntry *tle = (TargetEntry *) lfirst(l);
+
+        if (!tle->resjunk)
+            insertTargetList = lappend(insertTargetList, tle);
+        else
+            need_projection = true;  // Found junk columns
+    }
+
+    // Verify that target list matches the target relation schema
+    ExecCheckPlanOutput(resultRelInfo->ri_RelationDesc, insertTargetList);
+
+    // Create a slot matching the target table's format
+    resultRelInfo->ri_newTupleSlot =
+        table_slot_create(resultRelInfo->ri_RelationDesc, &estate->es_tupleTable);
+
+    // Build projection if junk columns need to be filtered out
+    if (need_projection) {
+        TupleDesc relDesc = RelationGetDescr(resultRelInfo->ri_RelationDesc);
+
+        // Ensure expression context exists for projection
+        if (mtstate->ps.ps_ExprContext == NULL)
+            ExecAssignExprContext(estate, &mtstate->ps);
+
+        // Build the projection to transform tuples
+        resultRelInfo->ri_projectNew =
+            ExecBuildProjectionInfo(insertTargetList,
+                                   mtstate->ps.ps_ExprContext,
+                                   resultRelInfo->ri_newTupleSlot,
+                                   &mtstate->ps,
+                                   relDesc);
+    }
+
+    // Mark initialization as complete
+    resultRelInfo->ri_projectNewInfoValid = true;
+}
+```

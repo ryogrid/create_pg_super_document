@@ -47,3 +47,46 @@ The function provides better ergonomics when modifying a small, fixed set of col
 - Commonly used in trigger functions and specialized update scenarios
 - Preserves tuple identity information (t_ctid, t_self, t_tableOid) from the original tuple
 - Creates a completely new tuple rather than modifying in-place, similar to `heap_modify_tuple`
+
+## Simplified Source
+
+```c
+HeapTuple heap_modify_tuple_by_cols(HeapTuple tuple, TupleDesc tupleDesc,
+                                   int nCols, const int *replCols,
+                                   const Datum *replValues, const bool *replIsnull) {
+    int numberOfAttributes = tupleDesc->natts;
+    Datum *values;
+    bool *isnull;
+    HeapTuple newTuple;
+    int i;
+
+    // Extract all values from original tuple
+    values = (Datum *) palloc(numberOfAttributes * sizeof(Datum));
+    isnull = (bool *) palloc(numberOfAttributes * sizeof(bool));
+    heap_deform_tuple(tuple, tupleDesc, values, isnull);
+
+    // Replace specified columns with new values
+    for (i = 0; i < nCols; i++) {
+        int attnum = replCols[i];
+
+        if (attnum <= 0 || attnum > numberOfAttributes)
+            elog(ERROR, "invalid column number %d", attnum);
+
+        values[attnum - 1] = replValues[i];
+        isnull[attnum - 1] = replIsnull[i];
+    }
+
+    // Create new tuple and preserve identity info
+    newTuple = heap_form_tuple(tupleDesc, values, isnull);
+
+    pfree(values);
+    pfree(isnull);
+
+    // Copy tuple identity information
+    newTuple->t_data->t_ctid = tuple->t_data->t_ctid;
+    newTuple->t_self = tuple->t_self;
+    newTuple->t_tableOid = tuple->t_tableOid;
+
+    return newTuple;
+}
+```

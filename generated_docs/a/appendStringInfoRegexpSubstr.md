@@ -49,3 +49,74 @@ The function carefully handles character vs. byte positioning, using helper func
 - Gracefully handles edge cases like escapes at the end of strings
 - The function assumes pmatch[0] contains the full match, and pmatch[1-9] contain captured groups
 - Located in src/backend/utils/adt/varlena.c:4106-4205
+
+## Simplified Source
+
+```c
+static void appendStringInfoRegexpSubstr(StringInfo str, text *replace_text,
+                                        regmatch_t *pmatch,
+                                        char *start_ptr, int data_pos) {
+    const char *p = VARDATA_ANY(replace_text);
+    const char *p_end = p + VARSIZE_ANY_EXHDR(replace_text);
+
+    while (p < p_end) {
+        const char *chunk_start = p;
+        int so, eo;
+
+        // Find next escape character
+        p = memchr(p, '\\', p_end - p);
+        if (p == NULL)
+            p = p_end;
+
+        // Copy literal text before escape
+        if (p > chunk_start)
+            appendBinaryStringInfo(str, chunk_start, p - chunk_start);
+
+        // Done if at end, else process escape
+        if (p >= p_end)
+            break;
+        p++;
+
+        // Handle escape at end of string
+        if (p >= p_end) {
+            appendStringInfoChar(str, '\\');
+            break;
+        }
+
+        // Process escape sequences
+        if (*p >= '1' && *p <= '9') {
+            // Back reference to captured group
+            int idx = *p - '0';
+            so = pmatch[idx].rm_so;
+            eo = pmatch[idx].rm_eo;
+            p++;
+        } else if (*p == '&') {
+            // Entire matched string
+            so = pmatch[0].rm_so;
+            eo = pmatch[0].rm_eo;
+            p++;
+        } else if (*p == '\\') {
+            // Literal backslash
+            appendStringInfoChar(str, '\\');
+            p++;
+            continue;
+        } else {
+            // Unknown escape - treat as literal
+            appendStringInfoChar(str, '\\');
+            continue;
+        }
+
+        // Copy the referenced text if valid match
+        if (so >= 0 && eo >= 0) {
+            char *chunk_start;
+            int chunk_len;
+
+            Assert(so >= data_pos);
+            chunk_start = start_ptr;
+            chunk_start += charlen_to_bytelen(chunk_start, so - data_pos);
+            chunk_len = charlen_to_bytelen(chunk_start, eo - so);
+            appendBinaryStringInfo(str, chunk_start, chunk_len);
+        }
+    }
+}
+```

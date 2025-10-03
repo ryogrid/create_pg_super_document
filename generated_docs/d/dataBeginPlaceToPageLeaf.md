@@ -48,3 +48,83 @@ This function is the core logic for inserting posting list items into GIN leaf d
 - Returns different result codes: GPTP_INSERT (fits), GPTP_SPLIT (needs split), GPTP_NO_WORK (all duplicates)
 - Part of the GIN (Generalized Inverted Index) access method implementation
 - Critical for maintaining GIN index performance and storage efficiency
+
+## Simplified Source
+
+```c
+static GinPlaceToPageRC dataBeginPlaceToPageLeaf(GinBtree btree, Buffer buf, GinBtreeStack *stack,
+                                                void *insertdata, void **ptp_workspace,
+                                                Page *newlpage, Page *newrpage) {
+    GinBtreeDataLeafInsertData *items = insertdata;
+    ItemPointer newItems = &items->items[items->curitem];
+    int maxitems = items->nitem - items->curitem;
+    Page page = BufferGetPage(buf);
+
+    // Determine how many items belong on this page (respect page boundaries)
+    ItemPointerData rbound = *GinDataPageGetRightBound(page);
+    if (!GinPageRightMost(page)) {
+        for (int i = 0; i < maxitems; i++) {
+            if (ginCompareItemPointers(&newItems[i], &rbound) > 0) {
+                maxitems = i; // Stop at page boundary
+                break;
+            }
+        }
+    }
+
+    // Disassemble existing page data for processing
+    disassembledLeaf *leaf = disassembleLeaf(page);
+
+    // Determine if we're appending to end of page
+    bool append = true;
+    if (!dlist_is_empty(&leaf->segments)) {
+        // Check if new items are larger than existing ones
+        ItemPointerData maxOldItem = /* get max existing item */;
+        append = (ginCompareItemPointers(&newItems[0], &maxOldItem) >= 0);
+    }
+
+    // Estimate space and limit items accordingly
+    Size freespace = GinPageIsCompressed(page) ? GinDataLeafPageGetFreeSpace(page) : 0;
+    if (append) {
+        maxitems = Min(maxitems, freespace + GinDataPageMaxDataSize);
+    } else {
+        // Conservative estimate for non-append case
+        int segments = freespace / GinPostingListSegmentMaxSize;
+        segments += GinDataPageMaxDataSize / GinPostingListSegmentMaxSize;
+        maxitems = Min(maxitems, segments * MinTuplesPerSegment);
+    }
+
+    // Add new items to the leaf structure
+    if (!addItemsToLeaf(leaf, newItems, maxitems)) {
+        items->curitem += maxitems;
+        return GPTP_NO_WORK; // All duplicates
+    }
+
+    // Repack items and determine if split is needed
+    ItemPointerData remaining;
+    bool needsplit = leafRepackItems(leaf, &remaining);
+
+    if (!needsplit) {
+        // Items fit - prepare for single page update
+        if (RelationNeedsWAL(btree->index) && !btree->isBuild) {
+            computeLeafRecompressWALData(leaf);
+        }
+        *ptp_workspace = leaf;
+    } else {
+        // Split required - create left and right pages
+        if (!btree->isBuild) {
+            // Balance pages 50/50 or 75/25 for append case
+            while (/* rebalancing condition */) {
+                // Move segments from left to right page
+            }
+        }
+
+        // Create new page images
+        *newlpage = palloc(BLCKSZ);
+        *newrpage = palloc(BLCKSZ);
+        dataPlaceToPageLeafSplit(leaf, lbound, rbound, *newlpage, *newrpage);
+    }
+
+    items->curitem += maxitems;
+    return needsplit ? GPTP_SPLIT : GPTP_INSERT;
+}
+```

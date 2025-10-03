@@ -53,3 +53,123 @@ The function implements bidirectional tuple access for random access sorts and m
 - The function validates bounded sort limits to prevent over-fetching
 - During final merge, it maintains a heap of the current front tuples from each input run
 - The slab allocator is used for memory management when tuples don't fit entirely in memory
+
+## Simplified Source
+
+```c
+bool
+tuplesort_gettuple_common(Tuplesortstate *state, bool forward, SortTuple *stup)
+{
+    Assert(!WORKER(state));
+
+    switch (state->status) {
+        case TSS_SORTEDINMEM:
+            // Tuples sorted in memory array
+            if (forward) {
+                if (state->current < state->memtupcount) {
+                    *stup = state->memtuples[state->current++];
+                    return true;
+                }
+                state->eof_reached = true;
+                return false;
+            } else {
+                // Backward scan
+                if (state->current <= 0)
+                    return false;
+
+                if (state->eof_reached)
+                    state->eof_reached = false;
+                else {
+                    state->current--;
+                    if (state->current <= 0)
+                        return false;
+                }
+                *stup = state->memtuples[state->current - 1];
+                return true;
+            }
+
+        case TSS_SORTEDONTAPE:
+            // Tuples stored on single tape
+            // Release previous tuple memory
+            if (state->lastReturnedTuple) {
+                RELEASE_SLAB_SLOT(state, state->lastReturnedTuple);
+                state->lastReturnedTuple = NULL;
+            }
+
+            if (forward) {
+                if (state->eof_reached)
+                    return false;
+
+                unsigned int tuplen = getlen(state->result_tape, true);
+                if (tuplen != 0) {
+                    READTUP(state, stup, state->result_tape, tuplen);
+                    state->lastReturnedTuple = stup->tuple;
+                    return true;
+                } else {
+                    state->eof_reached = true;
+                    return false;
+                }
+            } else {
+                // Complex backward tape positioning logic
+                if (state->eof_reached) {
+                    size_t nmoved = LogicalTapeBackspace(state->result_tape,
+                                                       2 * sizeof(unsigned int));
+                    if (nmoved == 0)
+                        return false;
+                    state->eof_reached = false;
+                } else {
+                    // Navigate to previous tuple
+                    size_t nmoved = LogicalTapeBackspace(state->result_tape,
+                                                       sizeof(unsigned int));
+                    if (nmoved == 0)
+                        return false;
+
+                    unsigned int tuplen = getlen(state->result_tape, false);
+                    nmoved = LogicalTapeBackspace(state->result_tape,
+                                                tuplen + 2 * sizeof(unsigned int));
+                    if (nmoved == tuplen + sizeof(unsigned int))
+                        return false;  // At beginning of file
+                }
+
+                unsigned int tuplen = getlen(state->result_tape, false);
+                LogicalTapeBackspace(state->result_tape, tuplen);
+                READTUP(state, stup, state->result_tape, tuplen);
+                state->lastReturnedTuple = stup->tuple;
+                return true;
+            }
+
+        case TSS_FINALMERGE:
+            // Final merge from multiple runs
+            if (state->lastReturnedTuple) {
+                RELEASE_SLAB_SLOT(state, state->lastReturnedTuple);
+                state->lastReturnedTuple = NULL;
+            }
+
+            if (state->memtupcount > 0) {
+                int srcTapeIndex = state->memtuples[0].srctape;
+                LogicalTape *srcTape = state->inputTapes[srcTapeIndex];
+                SortTuple newtup;
+
+                *stup = state->memtuples[0];
+                state->lastReturnedTuple = stup->tuple;
+
+                // Get next tuple from same tape and maintain heap
+                if (!mergereadnext(state, srcTape, &newtup)) {
+                    // Tape exhausted, remove from heap
+                    tuplesort_heap_delete_top(state);
+                    state->nInputRuns--;
+                    LogicalTapeClose(srcTape);
+                } else {
+                    newtup.srctape = srcTapeIndex;
+                    tuplesort_heap_replace_top(state, &newtup);
+                }
+                return true;
+            }
+            return false;
+
+        default:
+            elog(ERROR, "invalid tuplesort state");
+            return false;
+    }
+}
+```

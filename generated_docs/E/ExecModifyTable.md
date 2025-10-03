@@ -44,3 +44,124 @@ ExecModifyTable is the core execution engine for data modification operations in
 - Processes batch inserts at the end of execution for optimal performance
 - Maintains proper trigger firing order: BEFORE triggers before modifications, AFTER triggers after all processing
 - Located in src/backend/executor/nodeModifyTable.c:3953-4372
+
+## Simplified Source
+
+```c
+static TupleTableSlot *ExecModifyTable(PlanState *pstate)
+{
+    ModifyTableState *node = castNode(ModifyTableState, pstate);
+    ModifyTableContext context;
+    EState *estate = node->ps.state;
+    CmdType operation = node->operation;
+
+    CHECK_FOR_INTERRUPTS();
+
+    // Prevent execution during EvalPlanQual operations
+    if (estate->es_epq_active != NULL)
+        elog(ERROR, "ModifyTable should not be called during EvalPlanQual");
+
+    // Early return if already completed processing
+    if (node->mt_done)
+        return NULL;
+
+    // Fire BEFORE STATEMENT triggers on first call
+    if (node->fireBSTriggers)
+    {
+        fireBSTriggers(node);
+        node->fireBSTriggers = false;
+    }
+
+    // Setup execution context
+    ResultRelInfo *resultRelInfo = node->resultRelInfo + node->mt_lastResultIndex;
+    PlanState *subplanstate = outerPlanState(node);
+    context.mtstate = node;
+    context.epqstate = &node->mt_epqstate;
+    context.estate = estate;
+
+    // Main processing loop
+    for (;;)
+    {
+        ResetPerTupleExprContext(estate);
+        ResetExprContext(pstate->ps_ExprContext);
+
+        // Handle pending MERGE WHEN NOT MATCHED actions
+        if (node->mt_merge_pending_not_matched != NULL)
+        {
+            TupleTableSlot *slot = ExecMergeNotMatched(&context, node->resultRelInfo,
+                                                       node->canSetTag);
+            node->mt_merge_pending_not_matched = NULL;
+            if (slot)
+                return slot;
+            continue;
+        }
+
+        // Get next tuple from subplan
+        context.planSlot = ExecProcNode(subplanstate);
+        if (TupIsNull(context.planSlot))
+            break;
+
+        // Select correct result relation for multi-table operations
+        if (AttributeNumberIsValid(node->mt_resultOidAttno))
+        {
+            Oid resultoid = ExecGetJunkAttribute(context.planSlot, node->mt_resultOidAttno, &isNull);
+            if (resultoid != node->mt_lastResultOid)
+                resultRelInfo = ExecLookupResultRelByOid(node, resultoid, false, true);
+        }
+
+        // Handle FDW direct modifications
+        if (resultRelInfo->ri_usesFdwDirectModify)
+        {
+            return ExecProcessReturning(resultRelInfo, NULL, context.planSlot);
+        }
+
+        // Extract row identity for UPDATE/DELETE/MERGE operations
+        ItemPointer tupleid = NULL;
+        HeapTuple oldtuple = NULL;
+        if (operation == CMD_UPDATE || operation == CMD_DELETE || operation == CMD_MERGE)
+        {
+            // Extract TID or wholerow based on relation type
+            // (simplified - detailed extraction logic omitted)
+        }
+
+        // Execute the appropriate modification operation
+        TupleTableSlot *slot = NULL;
+        switch (operation)
+        {
+            case CMD_INSERT:
+                slot = ExecGetInsertNewTuple(resultRelInfo, context.planSlot);
+                slot = ExecInsert(&context, resultRelInfo, slot, node->canSetTag, NULL, NULL);
+                break;
+
+            case CMD_UPDATE:
+                slot = ExecGetUpdateNewTuple(resultRelInfo, context.planSlot, oldSlot);
+                slot = ExecUpdate(&context, resultRelInfo, tupleid, oldtuple,
+                                  slot, node->canSetTag);
+                break;
+
+            case CMD_DELETE:
+                slot = ExecDelete(&context, resultRelInfo, tupleid, oldtuple,
+                                  true, false, node->canSetTag, NULL, NULL, NULL);
+                break;
+
+            case CMD_MERGE:
+                slot = ExecMerge(&context, resultRelInfo, tupleid, oldtuple, node->canSetTag);
+                break;
+        }
+
+        // Return RETURNING results if any
+        if (slot)
+            return slot;
+    }
+
+    // Complete any pending batch inserts
+    if (estate->es_insert_pending_result_relations != NIL)
+        ExecPendingInserts(estate);
+
+    // Fire AFTER STATEMENT triggers
+    fireASTriggers(node);
+    node->mt_done = true;
+
+    return NULL;
+}
+```

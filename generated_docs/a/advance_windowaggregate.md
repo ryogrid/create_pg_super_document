@@ -42,4 +42,133 @@ This function is parallel to  in nodeAgg.c and handles the core logic for advanc
 - Tracks  to support inverse transition functions in moving window aggregates
 - Moving-aggregate transition functions must not return NULL (enforced with error)
 - Sophisticated memory management including detection of expanded objects already in the correct memory context
-- Sets  during transition function calls to support AggCheckCallContext
+- Sets curaggcontext during transition function calls to support AggCheckCallContext
+
+## Simplified Source
+
+```c
+static void
+advance_windowaggregate(WindowAggState *winstate,
+                       WindowStatePerFunc perfuncstate,
+                       WindowStatePerAgg peraggstate)
+{
+    LOCAL_FCINFO(fcinfo, FUNC_MAX_ARGS);
+    WindowFuncExprState *wfuncstate = perfuncstate->wfuncstate;
+    int numArguments = perfuncstate->numArguments;
+    Datum newVal;
+    ListCell *arg;
+    int i;
+    MemoryContext oldContext;
+    ExprContext *econtext = winstate->tmpcontext;
+    ExprState *filter = wfuncstate->aggfilter;
+
+    oldContext = MemoryContextSwitchTo(econtext->ecxt_per_tuple_memory);
+
+    // Skip anything filtered out
+    if (filter)
+    {
+        bool isnull;
+        Datum res = ExecEvalExpr(filter, econtext, &isnull);
+
+        if (isnull || !DatumGetBool(res))
+        {
+            MemoryContextSwitchTo(oldContext);
+            return;
+        }
+    }
+
+    // Evaluate aggregate arguments (start from 1, 0 is transition value)
+    i = 1;
+    foreach(arg, wfuncstate->args)
+    {
+        ExprState *argstate = (ExprState *) lfirst(arg);
+        fcinfo->args[i].value = ExecEvalExpr(argstate, econtext,
+                                           &fcinfo->args[i].isnull);
+        i++;
+    }
+
+    // Handle strict transition functions
+    if (peraggstate->transfn.fn_strict)
+    {
+        // Skip if any argument is NULL
+        for (i = 1; i <= numArguments; i++)
+        {
+            if (fcinfo->args[i].isnull)
+            {
+                MemoryContextSwitchTo(oldContext);
+                return;
+            }
+        }
+
+        // For strict functions with NULL initial value, use first non-NULL input
+        if (peraggstate->transValueCount == 0 && peraggstate->transValueIsNull)
+        {
+            MemoryContextSwitchTo(peraggstate->aggcontext);
+            peraggstate->transValue = datumCopy(fcinfo->args[1].value,
+                                               peraggstate->transtypeByVal,
+                                               peraggstate->transtypeLen);
+            peraggstate->transValueIsNull = false;
+            peraggstate->transValueCount = 1;
+            MemoryContextSwitchTo(oldContext);
+            return;
+        }
+
+        // Don't call strict function with NULL transition value
+        if (peraggstate->transValueIsNull)
+        {
+            MemoryContextSwitchTo(oldContext);
+            Assert(!OidIsValid(peraggstate->invtransfn_oid));
+            return;
+        }
+    }
+
+    // Call the transition function
+    InitFunctionCallInfoData(*fcinfo, &(peraggstate->transfn),
+                            numArguments + 1,
+                            perfuncstate->winCollation,
+                            (void *) winstate, NULL);
+    fcinfo->args[0].value = peraggstate->transValue;
+    fcinfo->args[0].isnull = peraggstate->transValueIsNull;
+    winstate->curaggcontext = peraggstate->aggcontext;
+    newVal = FunctionCallInvoke(fcinfo);
+    winstate->curaggcontext = NULL;
+
+    // Moving-aggregate transition functions must not return NULL
+    if (fcinfo->isnull && OidIsValid(peraggstate->invtransfn_oid))
+        ereport(ERROR,
+                (errcode(ERRCODE_NULL_VALUE_NOT_ALLOWED),
+                 errmsg("moving-aggregate transition function must not return null")));
+
+    // Track number of rows for inverse transition support
+    peraggstate->transValueCount++;
+
+    // Handle memory management for pass-by-ref values
+    if (!peraggstate->transtypeByVal &&
+        DatumGetPointer(newVal) != DatumGetPointer(peraggstate->transValue))
+    {
+        if (!fcinfo->isnull)
+        {
+            MemoryContextSwitchTo(peraggstate->aggcontext);
+            // Check if we can adopt expanded object without copying
+            if (DatumIsReadWriteExpandedObject(newVal, false, peraggstate->transtypeLen) &&
+                MemoryContextGetParent(DatumGetEOHP(newVal)->eoh_context) == CurrentMemoryContext)
+                /* do nothing */;
+            else
+                newVal = datumCopy(newVal, peraggstate->transtypeByVal, peraggstate->transtypeLen);
+        }
+
+        // Free old transition value if not NULL
+        if (!peraggstate->transValueIsNull)
+        {
+            if (DatumIsReadWriteExpandedObject(peraggstate->transValue, false, peraggstate->transtypeLen))
+                DeleteExpandedObject(peraggstate->transValue);
+            else
+                pfree(DatumGetPointer(peraggstate->transValue));
+        }
+    }
+
+    MemoryContextSwitchTo(oldContext);
+    peraggstate->transValue = newVal;
+    peraggstate->transValueIsNull = fcinfo->isnull;
+}
+```

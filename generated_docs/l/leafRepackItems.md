@@ -69,3 +69,140 @@ Returns true if the page must be split into two pages, false if all items fit on
 - Uses custom iteration logic instead of dlist_foreach_modify due to the complex segment insertions during iteration
 - Located in src/backend/access/gin/gindatapage.c at lines 1571-1774
 - Critical component of GIN index page split and reorganization operations
+
+## Simplified Source
+
+```c
+static bool
+leafRepackItems(disassembledLeaf *leaf, ItemPointer remaining)
+{
+    int pgused = 0;
+    bool needsplit = false;
+    dlist_node *cur_node, *next_node;
+
+    ItemPointerSetInvalid(remaining);
+
+    // Process each segment, handling compression and splitting
+    for (cur_node = dlist_head_node(&leaf->segments); cur_node != NULL; cur_node = next_node) {
+        leafSegmentInfo *seginfo = dlist_container(leafSegmentInfo, node, cur_node);
+
+        next_node = dlist_has_next(&leaf->segments, cur_node) ?
+                   dlist_next_node(&leaf->segments, cur_node) : NULL;
+
+        // Skip deleted segments
+        if (seginfo->action == GIN_SEGMENT_DELETE)
+            continue;
+
+        // Compress segment if needed
+        if (seginfo->seg == NULL) {
+            int npacked;
+
+            if (seginfo->nitems > GinPostingListSegmentMaxSize) {
+                npacked = 0;  // Too large to fit
+            } else {
+                seginfo->seg = ginCompressPostingList(seginfo->items, seginfo->nitems,
+                                                     GinPostingListSegmentMaxSize, &npacked);
+            }
+
+            // If segment too large, split it
+            if (npacked != seginfo->nitems) {
+                if (seginfo->seg) pfree(seginfo->seg);
+
+                seginfo->seg = ginCompressPostingList(seginfo->items, seginfo->nitems,
+                                                     GinPostingListSegmentTargetSize, &npacked);
+                if (seginfo->action != GIN_SEGMENT_INSERT)
+                    seginfo->action = GIN_SEGMENT_REPLACE;
+
+                // Create new segment for remaining items
+                leafSegmentInfo *nextseg = palloc(sizeof(leafSegmentInfo));
+                nextseg->action = GIN_SEGMENT_INSERT;
+                nextseg->seg = NULL;
+                nextseg->items = &seginfo->items[npacked];
+                nextseg->nitems = seginfo->nitems - npacked;
+                next_node = &nextseg->node;
+                dlist_insert_after(cur_node, next_node);
+            }
+        }
+
+        // Merge small segments with next segment
+        if (SizeOfGinPostingList(seginfo->seg) < GinPostingListSegmentMinSize && next_node) {
+            leafSegmentInfo *nextseg = dlist_container(leafSegmentInfo, node, next_node);
+
+            // Decode both segments if needed
+            if (!seginfo->items)
+                seginfo->items = ginPostingListDecode(seginfo->seg, &seginfo->nitems);
+            if (!nextseg->items)
+                nextseg->items = ginPostingListDecode(nextseg->seg, &nextseg->nitems);
+
+            // Merge the segments
+            int nmerged;
+            nextseg->items = ginMergeItemPointers(seginfo->items, seginfo->nitems,
+                                                 nextseg->items, nextseg->nitems, &nmerged);
+            nextseg->nitems = nmerged;
+            nextseg->seg = NULL;
+            nextseg->action = GIN_SEGMENT_REPLACE;
+
+            // Handle current segment deletion
+            if (seginfo->action == GIN_SEGMENT_INSERT) {
+                dlist_delete(cur_node);
+                continue;
+            } else {
+                seginfo->action = GIN_SEGMENT_DELETE;
+                seginfo->seg = NULL;
+                continue;
+            }
+        }
+
+        // Check if segment fits on current page
+        int segsize = SizeOfGinPostingList(seginfo->seg);
+        if (pgused + segsize > GinDataPageMaxDataSize) {
+            if (!needsplit) {
+                // Switch to right page
+                leaf->lastleft = dlist_prev_node(&leaf->segments, cur_node);
+                needsplit = true;
+                leaf->lsize = pgused;
+                pgused = 0;
+            } else {
+                // Both pages full - set remaining items
+                *remaining = seginfo->seg->first;
+
+                // Remove segments that don't fit
+                while (dlist_has_next(&leaf->segments, cur_node))
+                    dlist_delete(dlist_next_node(&leaf->segments, cur_node));
+                dlist_delete(cur_node);
+                break;
+            }
+        }
+
+        pgused += segsize;
+        seginfo->items = NULL;
+        seginfo->nitems = 0;
+    }
+
+    // Set final sizes
+    if (!needsplit) {
+        leaf->lsize = pgused;
+        leaf->rsize = 0;
+    } else {
+        leaf->rsize = pgused;
+    }
+
+    // Create palloc'd copies of unmodified segments that come after modified ones
+    bool modified = false;
+    dlist_iter iter;
+    dlist_foreach(iter, &leaf->segments) {
+        leafSegmentInfo *seginfo = dlist_container(leafSegmentInfo, node, iter.cur);
+
+        if (!modified && seginfo->action != GIN_SEGMENT_UNMODIFIED) {
+            modified = true;
+        } else if (modified && seginfo->action == GIN_SEGMENT_UNMODIFIED) {
+            int segsize = SizeOfGinPostingList(seginfo->seg);
+            GinPostingList *tmp = palloc(segsize);
+            memcpy(tmp, seginfo->seg, segsize);
+            seginfo->seg = tmp;
+        }
+    }
+
+    return needsplit;
+}
+```

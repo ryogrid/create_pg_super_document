@@ -33,3 +33,12 @@ The function operates by taking the scan tuple slot from the provided ScanState 
 - The function is part of the scan node support utilities in the executor
 - Located in src/backend/executor/execUtils.c:647-658
 - Essential for proper tuple slot initialization in various scan node types
+
+## Simplified Source
+```c
+void ExecAssignScanType(ScanState *scanstate, TupleDesc tupDesc) {
+    // Assign tuple descriptor to scan slot for type information
+    TupleTableSlot *slot = scanstate->ss_ScanTupleSlot;
+    ExecSetSlotDescriptor(slot, tupDesc);
+}
+```

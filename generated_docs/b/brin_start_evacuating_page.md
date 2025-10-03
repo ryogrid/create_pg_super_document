@@ -46,3 +46,33 @@ The BRIN_EVACUATE_PAGE flag serves as a marker that informs other functions (par
 - The BRIN_EVACUATE_PAGE flag is not explicitly WAL-logged, but may be logged accidentally through other operations
 - This function only marks the page for evacuation; actual tuple evacuation is handled by other functions
 - Part of the BRIN index page management system that allows repurposing regular index pages for reverse mapping when needed
+
+## Simplified Source
+
+```c
+bool brin_start_evacuating_page(Relation idxRel, Buffer buf)
+{
+    Page page = BufferGetPage(buf);
+
+    // Skip uninitialized pages - they can be used directly for revmap
+    if (PageIsNew(page))
+        return false;
+
+    // Check if page contains any tuples
+    OffsetNumber maxoff = PageGetMaxOffsetNumber(page);
+    for (OffsetNumber off = FirstOffsetNumber; off <= maxoff; off++)
+    {
+        ItemId lp = PageGetItemId(page, off);
+        if (ItemIdIsUsed(lp))
+        {
+            // Mark page for evacuation to prevent new tuple insertions
+            BrinPageFlags(page) |= BRIN_EVACUATE_PAGE;
+            MarkBufferDirtyHint(buf, true);
+            return true;
+        }
+    }
+
+    // Page is empty, no evacuation needed
+    return false;
+}
+```

@@ -46,3 +46,29 @@ This function is essential during index creation and restoration operations, est
 - Version information is stored to handle compatibility across PostgreSQL versions
 - Fast insertion list pointers (head/tail) are initialized to InvalidBlockNumber
 - Statistics counters (nTotalPages, nEntryPages, nDataPages, nEntries) start at zero
+
+## Simplified Source
+
+```c
+void GinInitMetabuffer(Buffer b) {
+    // Initialize page as GIN metapage
+    Page page = BufferGetPage(b);
+    GinInitPage(page, GIN_META, BufferGetPageSize(b));
+
+    // Get metadata structure and initialize all fields to zero/invalid
+    GinMetaPageData *metadata = GinPageGetMeta(page);
+    metadata->head = metadata->tail = InvalidBlockNumber;
+    metadata->tailFreeSize = 0;
+    metadata->nPendingPages = 0;
+    metadata->nPendingHeapTuples = 0;
+    metadata->nTotalPages = 0;
+    metadata->nEntryPages = 0;
+    metadata->nDataPages = 0;
+    metadata->nEntries = 0;
+    metadata->ginVersion = GIN_CURRENT_VERSION;
+
+    // Set pd_lower to prevent metadata loss during WAL compression
+    ((PageHeader) page)->pd_lower =
+        ((char *) metadata + sizeof(GinMetaPageData)) - (char *) page;
+}
+```

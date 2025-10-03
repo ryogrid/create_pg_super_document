@@ -37,3 +37,26 @@ If no bits are set in the considered range, or if the first set bit is beyond th
   -  returns 1 (first bit is set)
   -  returns 3 (third bit is the first set bit)
   -  returns 11 (b + 1, no bits set)
+
+## Simplified Source
+
+```c
+static inline uint8
+rho(uint32 x, uint8 b)
+{
+    // Handle special case: no bits set
+    if (x == 0)
+        return b + 1;
+
+    // Find position of leftmost set bit
+    uint8 j = 32 - pg_leftmost_one_pos32(x);
+
+    // Return b+1 if first set bit is beyond b-bit boundary
+    if (j > b)
+        return b + 1;
+
+    return j;
+}
+```
+
+This simplified version shows the core HyperLogLog bit-finding algorithm: return the position of the first set bit within the first `b` bits of the input value `x`, or `b+1` if no bits are set in that range.

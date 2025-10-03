@@ -41,3 +41,48 @@ Once a buffer is completely emptied (blocksCount == 0), it is removed from the l
 - Uses temporary memory context switching to manage memory efficiently during the emptying process
 - Logs debug information about the completion of each level's buffer emptying
 - Critical for ensuring index build completion and data integrity
+
+## Simplified Source
+
+```c
+static void
+gistEmptyAllBuffers(GISTBuildState *buildstate)
+{
+    GISTBuildBuffers *gfbb = buildstate->gfbb;
+    MemoryContext oldCtx = MemoryContextSwitchTo(buildstate->giststate->tempCxt);
+
+    // Process levels from top to bottom
+    for (int i = gfbb->buffersOnLevelsLen - 1; i >= 0; i--)
+    {
+        // Empty all buffers at this level
+        while (gfbb->buffersOnLevels[i] != NIL)
+        {
+            GISTNodeBuffer *nodeBuffer = (GISTNodeBuffer *) linitial(gfbb->buffersOnLevels[i]);
+
+            if (nodeBuffer->blocksCount != 0)
+            {
+                // Add buffer to emptying queue if not already queued
+                if (!nodeBuffer->queuedForEmptying)
+                {
+                    MemoryContextSwitchTo(gfbb->context);
+                    nodeBuffer->queuedForEmptying = true;
+                    gfbb->bufferEmptyingQueue = lcons(nodeBuffer, gfbb->bufferEmptyingQueue);
+                    MemoryContextSwitchTo(buildstate->giststate->tempCxt);
+                }
+
+                // Process the emptying queue
+                gistProcessEmptyingQueue(buildstate);
+            }
+            else
+            {
+                // Buffer is empty, remove it from the level
+                gfbb->buffersOnLevels[i] = list_delete_first(gfbb->buffersOnLevels[i]);
+            }
+        }
+
+        elog(DEBUG2, "emptied all buffers at level %d", i);
+    }
+
+    MemoryContextSwitchTo(oldCtx);
+}
+```

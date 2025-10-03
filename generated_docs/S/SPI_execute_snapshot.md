@@ -53,3 +53,39 @@ The function validates the plan and parameters, converts parameters to the inter
 - Requires that Values parameter is provided when the plan expects arguments (plan->nargs > 0)
 - The function handles snapshot registration automatically
 - AFTER trigger firing behavior can be controlled to integrate with outer query processing
+
+## Simplified Source
+
+```c
+int SPI_execute_snapshot(SPIPlanPtr plan,
+                        Datum *Values, const char *Nulls,
+                        Snapshot snapshot, Snapshot crosscheck_snapshot,
+                        bool read_only, bool fire_triggers, long tcount) {
+    SPIExecuteOptions options;
+    int res;
+
+    // Validate plan and parameters
+    if (plan == NULL || plan->magic != _SPI_PLAN_MAGIC || tcount < 0)
+        return SPI_ERROR_ARGUMENT;
+    if (plan->nargs > 0 && Values == NULL)
+        return SPI_ERROR_PARAM;
+
+    // Begin SPI call context
+    res = _SPI_begin_call(true);
+    if (res < 0)
+        return res;
+
+    // Set up execution options with converted parameters
+    memset(&options, 0, sizeof(options));
+    options.params = _SPI_convert_params(plan->nargs, plan->argtypes, Values, Nulls);
+    options.read_only = read_only;
+    options.tcount = tcount;
+
+    // Execute the plan with specified snapshots
+    res = _SPI_execute_plan(plan, &options, snapshot, crosscheck_snapshot, fire_triggers);
+
+    // Clean up and return result
+    _SPI_end_call(true);
+    return res;
+}
+```

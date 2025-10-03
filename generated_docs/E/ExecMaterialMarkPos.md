@@ -35,3 +35,23 @@ The function includes safety checks - it asserts that the EXEC_FLAG_MARK flag is
 - The tuplestore_trim call is an optimization to free unused tuples after advancing the mark
 - Returns immediately if no tuplestore has been created yet (lazy initialization)
 - The mark position is persistent until explicitly changed by another mark operation
+
+## Simplified Source
+
+```c
+void ExecMaterialMarkPos(MaterialState *node)
+{
+    // Verify mark/restore capability was requested
+    Assert(node->eflags & EXEC_FLAG_MARK);
+
+    // Skip if tuplestore not materialized yet
+    if (!node->tuplestorestate)
+        return;
+
+    // Copy current read position to mark position
+    tuplestore_copy_read_pointer(node->tuplestorestate, 0, 1);
+
+    // Optimize memory by trimming unnecessary tuples
+    tuplestore_trim(node->tuplestorestate);
+}
+```

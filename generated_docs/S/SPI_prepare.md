@@ -49,3 +49,12 @@ This function is fundamental to the SPI interface and is widely used throughout 
 - Used extensively in referential integrity triggers and utility functions
 - This is the standard way to create prepared statements in SPI
 - The plan is cached and can provide performance benefits for repeated execution
+
+## Simplified Source
+
+```c
+SPIPlanPtr SPI_prepare(const char *src, int nargs, Oid *argtypes) {
+    // Simple wrapper that delegates to SPI_prepare_cursor with no cursor options
+    return SPI_prepare_cursor(src, nargs, argtypes, 0);
+}
+```

@@ -30,3 +30,12 @@ This function takes no parameters and returns a Size value representing the requ
 - Used in conjunction with SerializeRelationMap to transfer mapping data to workers
 - Critical for ensuring parallel workers can access system catalogs with correct OID-to-filenode mappings
 - The estimate is conservative and covers both shared and local relation maps
+
+## Simplified Source
+
+```c
+Size EstimateRelationMapSpace(void) {
+    // Fixed size for serialized active relation maps structure
+    return sizeof(SerializedActiveRelMaps);
+}
+```

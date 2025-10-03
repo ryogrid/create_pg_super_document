@@ -35,3 +35,26 @@ ExecCustomScanInitializeDSM is responsible for setting up the shared memory coor
 - The plan_node_id serves as a unique key to identify this custom scan's shared memory segment
 - The coordinate pointer passed to InitializeDSMCustomScan allows the custom scan provider to initialize its shared state
 - This function runs in the leader process before parallel workers are launched
+
+## Simplified Source
+
+```c
+void ExecCustomScanInitializeDSM(CustomScanState *node, ParallelContext *pcxt)
+{
+    const CustomExecMethods *methods = node->methods;
+
+    // Initialize DSM if custom scan provider supports it
+    if (methods->InitializeDSMCustomScan)
+    {
+        int plan_node_id = node->ss.ps.plan->plan_node_id;
+        void *coordinate;
+
+        // Allocate shared memory and delegate to custom provider
+        coordinate = shm_toc_allocate(pcxt->toc, node->pscan_len);
+        methods->InitializeDSMCustomScan(node, pcxt, coordinate);
+
+        // Register in shared memory table of contents
+        shm_toc_insert(pcxt->toc, plan_node_id, coordinate);
+    }
+}
+```

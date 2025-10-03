@@ -31,3 +31,20 @@ This function takes no parameters and operates on the global `MyClientConnection
 - The calculation is safe from integer overflow due to use of `add_size()`
 - Only includes space for `authn_id` if it exists (null pointer check)
 - Part of the client connection info serialization API along with `SerializeClientConnectionInfo` and `RestoreClientConnectionInfo`
+
+## Simplified Source
+
+```c
+Size EstimateClientConnectionInfoSpace(void) {
+    Size size = 0;
+
+    // Account for fixed-size structure
+    size = add_size(size, sizeof(SerializedClientConnectionInfo));
+
+    // Add space for authentication ID string if present
+    if (MyClientConnectionInfo.authn_id)
+        size = add_size(size, strlen(MyClientConnectionInfo.authn_id) + 1);
+
+    return size;
+}
+```

@@ -54,3 +54,82 @@ This mapping is crucial for index operations, as indexes point to root tuples, a
 - Handles broken HOT chains gracefully by stopping chain traversal
 - Critical for index building and validation operations
 - Used primarily in heap access method implementations for index operations
+
+## Simplified Source
+
+```c
+void
+heap_get_root_tuples(Page page, OffsetNumber *root_offsets)
+{
+    OffsetNumber offnum, maxoff;
+
+    // Initialize all entries to invalid
+    MemSet(root_offsets, InvalidOffsetNumber, MaxHeapTuplesPerPage * sizeof(OffsetNumber));
+
+    maxoff = PageGetMaxOffsetNumber(page);
+
+    // Scan all items on the page
+    for (offnum = FirstOffsetNumber; offnum <= maxoff; offnum = OffsetNumberNext(offnum)) {
+        ItemId lp = PageGetItemId(page, offnum);
+        HeapTupleHeader htup;
+        OffsetNumber nextoffnum;
+        TransactionId priorXmax;
+
+        // Skip unused and dead items
+        if (!ItemIdIsUsed(lp) || ItemIdIsDead(lp))
+            continue;
+
+        if (ItemIdIsNormal(lp)) {
+            htup = (HeapTupleHeader) PageGetItem(page, lp);
+
+            // Skip heap-only tuples - they'll be processed via their root
+            if (HeapTupleHeaderIsHeapOnly(htup))
+                continue;
+
+            // This is a root tuple (normal or start of HOT chain)
+            root_offsets[offnum - 1] = offnum;
+
+            // If not HOT-updated, we're done with this tuple
+            if (!HeapTupleHeaderIsHotUpdated(htup))
+                continue;
+
+            // Start following the HOT chain
+            nextoffnum = ItemPointerGetOffsetNumber(&htup->t_ctid);
+            priorXmax = HeapTupleHeaderGetUpdateXid(htup);
+        }
+        else {
+            // Redirect item - start of HOT chain
+            Assert(ItemIdIsRedirected(lp));
+            nextoffnum = ItemIdGetRedirect(lp);
+            priorXmax = InvalidTransactionId;
+        }
+
+        // Follow the HOT chain and map all members to this root
+        for (;;) {
+            if (nextoffnum < FirstOffsetNumber || nextoffnum > maxoff)
+                break;
+
+            lp = PageGetItemId(page, nextoffnum);
+            if (!ItemIdIsNormal(lp))
+                break;
+
+            htup = (HeapTupleHeader) PageGetItem(page, lp);
+
+            // Validate chain consistency
+            if (TransactionIdIsValid(priorXmax) &&
+                !TransactionIdEquals(priorXmax, HeapTupleHeaderGetXmin(htup)))
+                break;
+
+            // Map this tuple to the root
+            root_offsets[nextoffnum - 1] = offnum;
+
+            // Continue to next in chain if HOT-updated
+            if (!HeapTupleHeaderIsHotUpdated(htup))
+                break;
+
+            nextoffnum = ItemPointerGetOffsetNumber(&htup->t_ctid);
+            priorXmax = HeapTupleHeaderGetUpdateXid(htup);
+        }
+    }
+}
+```

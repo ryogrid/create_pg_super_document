@@ -37,3 +37,44 @@ The function operates in the per-tuple memory context and uses the WindowObject 
 - The function handles memory management by copying pass-by-ref results when multiple window functions are using the same WindowObject to prevent data clobbering
 - All regular argument slots are set to null since window functions access their arguments through the WindowObject context
 - The function temporarily switches to per-tuple memory context during execution
+
+## Simplified Source
+
+```c
+static void
+eval_windowfunction(WindowAggState *winstate, WindowStatePerFunc perfuncstate,
+                    Datum *result, bool *isnull)
+{
+    LOCAL_FCINFO(fcinfo, FUNC_MAX_ARGS);
+
+    // Switch to per-tuple memory context
+    MemoryContext oldContext = MemoryContextSwitchTo(
+        winstate->ss.ps.ps_ExprContext->ecxt_per_tuple_memory);
+
+    // Initialize function call with window object context
+    InitFunctionCallInfoData(*fcinfo, &(perfuncstate->flinfo),
+                             perfuncstate->numArguments,
+                             perfuncstate->winCollation,
+                             (void *) perfuncstate->winobj, NULL);
+
+    // Set all argument slots to null (window functions access args through WindowObject)
+    for (int argno = 0; argno < perfuncstate->numArguments; argno++)
+        fcinfo->args[argno].isnull = true;
+
+    // Clear aggregate context since this is a window function
+    winstate->curaggcontext = NULL;
+
+    // Call the window function
+    *result = FunctionCallInvoke(fcinfo);
+    *isnull = fcinfo->isnull;
+
+    // Copy result if multiple functions share the same WindowObject to prevent clobbering
+    if (!perfuncstate->resulttypeByVal && !fcinfo->isnull && winstate->numfuncs > 1) {
+        *result = datumCopy(*result,
+                            perfuncstate->resulttypeByVal,
+                            perfuncstate->resulttypeLen);
+    }
+
+    MemoryContextSwitchTo(oldContext);
+}
+```

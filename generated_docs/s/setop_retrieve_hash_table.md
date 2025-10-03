@@ -42,3 +42,43 @@ The function returns one tuple per call, maintaining state between calls to cont
 - Handles multiple output copies through numOutput counter mechanism
 - Processes hash table entries in hash order, not input order
 - Part of PostgreSQL's hashed strategy for set operations when input data cannot be efficiently sorted
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+setop_retrieve_hash_table(SetOpState *setopstate)
+{
+    TupleHashEntryData *entry;
+    TupleTableSlot *resultTupleSlot;
+
+    // Get result slot
+    resultTupleSlot = setopstate->ps.ps_ResultTupleSlot;
+
+    // Process hash table entries until we find one to return
+    while (!setopstate->setop_done) {
+        CHECK_FOR_INTERRUPTS();
+
+        // Get next entry from hash table
+        entry = ScanTupleHashTable(setopstate->hashtable, &setopstate->hashiter);
+        if (entry == NULL) {
+            setopstate->setop_done = true;
+            return NULL;
+        }
+
+        // Determine if this group should produce output
+        set_output_count(setopstate, (SetOpStatePerGroup) entry->additional);
+
+        if (setopstate->numOutput > 0) {
+            setopstate->numOutput--;
+            return ExecStoreMinimalTuple(entry->firstTuple,
+                                         resultTupleSlot,
+                                         false);
+        }
+    }
+
+    // No more groups
+    ExecClearTuple(resultTupleSlot);
+    return NULL;
+}
+```

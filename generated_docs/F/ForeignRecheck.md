@@ -39,3 +39,27 @@ The expression context is properly set up with the tuple as the scan tuple and r
 - Outer joins pushed down to foreign servers require special handling as column nullability may change during recheck
 - The function returns false if either the FDW-specific recheck fails or the local qualifications are not satisfied
 - Expression context cleanup is handled through ResetExprContext to prevent memory leaks during repeated evaluations
+
+## Simplified Source
+
+```c
+static bool
+ForeignRecheck(ForeignScanState *node, TupleTableSlot *slot)
+{
+    FdwRoutine *fdwroutine = node->fdwroutine;
+    ExprContext *econtext = node->ss.ps.ps_ExprContext;
+
+    // Set up expression context with the tuple to be rechecked
+    econtext->ecxt_scantuple = slot;
+    ResetExprContext(econtext);
+
+    // First phase: FDW-specific recheck (if provided)
+    // Important for outer joins where column nullability may change
+    if (fdwroutine->RecheckForeignScan &&
+        !fdwroutine->RecheckForeignScan(node, slot))
+        return false;
+
+    // Second phase: evaluate local recheck qualifications
+    return ExecQual(node->fdw_recheck_quals, econtext);
+}
+```

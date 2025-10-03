@@ -55,3 +55,163 @@ The function maintains frame tail tracking through  and , ensures proper tuple s
 - Handles NULL values in ORDER BY columns according to NULLS FIRST/LAST specifications
 - Frame tail position is always one past the last included row (exclusive end boundary)
 - Critical for performance as it determines the ending boundary for all frame-based window function computations
+
+## Simplified Source
+
+```c
+static void
+update_frametailpos(WindowAggState *winstate)
+{
+    WindowAgg *node = (WindowAgg *) winstate->ss.ps.plan;
+    int frameOptions = winstate->frameOptions;
+
+    // Return if position already computed for current row
+    if (winstate->frametail_valid)
+        return;
+
+    // Switch to persistent memory context
+    MemoryContext oldcontext = MemoryContextSwitchTo(
+        winstate->ss.ps.ps_ExprContext->ecxt_per_query_memory);
+
+    if (frameOptions & FRAMEOPTION_END_UNBOUNDED_FOLLOWING) {
+        // Frame extends to end of partition
+        spool_tuples(winstate, -1);
+        winstate->frametailpos = winstate->spooled_rows;
+        winstate->frametail_valid = true;
+    }
+    else if (frameOptions & FRAMEOPTION_END_CURRENT_ROW) {
+        if (frameOptions & FRAMEOPTION_ROWS) {
+            // In ROWS mode, tail is one past current row
+            winstate->frametailpos = winstate->currentpos + 1;
+            winstate->frametail_valid = true;
+        }
+        else if (frameOptions & (FRAMEOPTION_RANGE | FRAMEOPTION_GROUPS)) {
+            // If no ORDER BY, all rows are peers
+            if (node->ordNumCols == 0) {
+                spool_tuples(winstate, -1);
+                winstate->frametailpos = winstate->spooled_rows;
+                winstate->frametail_valid = true;
+                MemoryContextSwitchTo(oldcontext);
+                return;
+            }
+
+            // Find first row after current peer group
+            tuplestore_select_read_pointer(winstate->buffer, winstate->frametail_ptr);
+
+            // Initialize frame tail slot if needed
+            if (winstate->frametailpos == 0 && TupIsNull(winstate->frametail_slot)) {
+                tuplestore_gettupleslot(winstate->buffer, true, true, winstate->frametail_slot);
+            }
+
+            // Advance until we find non-peer of current row
+            while (!TupIsNull(winstate->frametail_slot)) {
+                if (winstate->frametailpos > winstate->currentpos &&
+                    !are_peers(winstate, winstate->frametail_slot, winstate->ss.ss_ScanTupleSlot))
+                    break;
+
+                winstate->frametailpos++;
+                spool_tuples(winstate, winstate->frametailpos);
+                if (!tuplestore_gettupleslot(winstate->buffer, true, true, winstate->frametail_slot))
+                    break;
+            }
+            winstate->frametail_valid = true;
+        }
+    }
+    else if (frameOptions & FRAMEOPTION_END_OFFSET) {
+        if (frameOptions & FRAMEOPTION_ROWS) {
+            // Calculate physical offset from current row
+            int64 offset = DatumGetInt64(winstate->endOffsetValue);
+            if (frameOptions & FRAMEOPTION_END_OFFSET_PRECEDING)
+                offset = -offset;
+
+            winstate->frametailpos = winstate->currentpos + offset + 1;
+
+            // Ensure position stays within partition bounds
+            if (winstate->frametailpos < 0)
+                winstate->frametailpos = 0;
+            else if (winstate->frametailpos > winstate->currentpos + 1) {
+                spool_tuples(winstate, winstate->frametailpos - 1);
+                if (winstate->frametailpos > winstate->spooled_rows)
+                    winstate->frametailpos = winstate->spooled_rows;
+            }
+            winstate->frametail_valid = true;
+        }
+        else if (frameOptions & FRAMEOPTION_RANGE) {
+            // Use in_range function for RANGE offset mode
+            int sortCol = node->ordColIdx[0];
+            bool sub = (frameOptions & FRAMEOPTION_END_OFFSET_PRECEDING);
+            bool less = true;
+
+            // Flip flags if descending sort order
+            if (!winstate->inRangeAsc) {
+                sub = !sub;
+                less = false;
+            }
+
+            tuplestore_select_read_pointer(winstate->buffer, winstate->frametail_ptr);
+
+            // Initialize if needed
+            if (winstate->frametailpos == 0 && TupIsNull(winstate->frametail_slot)) {
+                tuplestore_gettupleslot(winstate->buffer, true, true, winstate->frametail_slot);
+            }
+
+            // Find first row beyond in_range constraint
+            while (!TupIsNull(winstate->frametail_slot)) {
+                Datum tailval = slot_getattr(winstate->frametail_slot, sortCol, &tailisnull);
+                Datum currval = slot_getattr(winstate->ss.ss_ScanTupleSlot, sortCol, &currisnull);
+
+                // Handle NULL values or call in_range function
+                if (!tailisnull && !currisnull) {
+                    if (!DatumGetBool(FunctionCall5Coll(&winstate->endInRangeFunc,
+                                                        winstate->inRangeColl,
+                                                        tailval, currval,
+                                                        winstate->endOffsetValue,
+                                                        BoolGetDatum(sub),
+                                                        BoolGetDatum(less))))
+                        break;
+                }
+
+                winstate->frametailpos++;
+                spool_tuples(winstate, winstate->frametailpos);
+                if (!tuplestore_gettupleslot(winstate->buffer, true, true, winstate->frametail_slot))
+                    break;
+            }
+            winstate->frametail_valid = true;
+        }
+        else if (frameOptions & FRAMEOPTION_GROUPS) {
+            // Groups mode: find first row beyond target peer group
+            int64 offset = DatumGetInt64(winstate->endOffsetValue);
+            int64 max_group = (frameOptions & FRAMEOPTION_END_OFFSET_PRECEDING)
+                            ? winstate->currentgroup - offset
+                            : winstate->currentgroup + offset;
+
+            tuplestore_select_read_pointer(winstate->buffer, winstate->frametail_ptr);
+
+            // Initialize if needed
+            if (winstate->frametailpos == 0 && TupIsNull(winstate->frametail_slot)) {
+                tuplestore_gettupleslot(winstate->buffer, true, true, winstate->frametail_slot);
+            }
+
+            // Advance beyond target group
+            while (!TupIsNull(winstate->frametail_slot)) {
+                if (winstate->frametailgroup > max_group)
+                    break;
+
+                ExecCopySlot(winstate->temp_slot_2, winstate->frametail_slot);
+                winstate->frametailpos++;
+                spool_tuples(winstate, winstate->frametailpos);
+
+                if (!tuplestore_gettupleslot(winstate->buffer, true, true, winstate->frametail_slot))
+                    break;
+
+                if (!are_peers(winstate, winstate->temp_slot_2, winstate->frametail_slot))
+                    winstate->frametailgroup++;
+            }
+            ExecClearTuple(winstate->temp_slot_2);
+            winstate->frametail_valid = true;
+        }
+    }
+
+    MemoryContextSwitchTo(oldcontext);
+}
+```

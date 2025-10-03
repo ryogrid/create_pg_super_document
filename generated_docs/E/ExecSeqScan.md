@@ -32,3 +32,18 @@ ExecSeqScan serves as the primary execution interface for sequential scan operat
 - The castNode macro is used for safe type conversion from PlanState to SeqScanState
 - Part of PostgreSQL's modular executor architecture where each scan type provides its own execution function
 - Returns NULL when no more qualifying tuples are found
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecSeqScan(PlanState *pstate)
+{
+    SeqScanState *node = castNode(SeqScanState, pstate);
+
+    // Delegate to generic scan executor with sequential scan methods
+    return ExecScan(&node->ss,
+                    (ExecScanAccessMtd) SeqNext,      // How to get next tuple
+                    (ExecScanRecheckMtd) SeqRecheck); // How to recheck tuples
+}
+```

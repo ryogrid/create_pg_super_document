@@ -48,3 +48,57 @@ The function automatically detects duplicates during the merge process and ensur
 - The returned array must be freed by the caller using pfree()
 - Maintains strict ordering requirements essential for GIN index correctness
 - Used extensively during index updates where new items need to be merged with existing posting lists
+
+## Simplified Source
+
+```c
+ItemPointer ginMergeItemPointers(ItemPointerData *a, uint32 na,
+                                ItemPointerData *b, uint32 nb,
+                                int *nmerged) {
+    ItemPointerData *dst;
+
+    // Allocate worst-case space (all items unique)
+    dst = (ItemPointer) palloc((na + nb) * sizeof(ItemPointerData));
+
+    // Optimization: if arrays don't overlap, just concatenate
+    if (na == 0 || nb == 0 || ginCompareItemPointers(&a[na - 1], &b[0]) < 0) {
+        // Array 'a' is entirely before 'b'
+        memcpy(dst, a, na * sizeof(ItemPointerData));
+        memcpy(&dst[na], b, nb * sizeof(ItemPointerData));
+        *nmerged = na + nb;
+    } else if (ginCompareItemPointers(&b[nb - 1], &a[0]) < 0) {
+        // Array 'b' is entirely before 'a'
+        memcpy(dst, b, nb * sizeof(ItemPointerData));
+        memcpy(&dst[nb], a, na * sizeof(ItemPointerData));
+        *nmerged = na + nb;
+    } else {
+        // Arrays overlap - need standard merge with duplicate elimination
+        ItemPointerData *dptr = dst;
+        ItemPointerData *aptr = a;
+        ItemPointerData *bptr = b;
+
+        // Merge while both arrays have elements
+        while (aptr - a < na && bptr - b < nb) {
+            int cmp = ginCompareItemPointers(aptr, bptr);
+
+            if (cmp > 0)
+                *dptr++ = *bptr++;      // b element is smaller
+            else if (cmp == 0) {
+                *dptr++ = *bptr++;      // Equal - keep one copy
+                aptr++;                  // Skip duplicate from a
+            } else
+                *dptr++ = *aptr++;      // a element is smaller
+        }
+
+        // Copy remaining elements from whichever array isn't exhausted
+        while (aptr - a < na)
+            *dptr++ = *aptr++;
+        while (bptr - b < nb)
+            *dptr++ = *bptr++;
+
+        *nmerged = dptr - dst;
+    }
+
+    return dst;
+}
+```

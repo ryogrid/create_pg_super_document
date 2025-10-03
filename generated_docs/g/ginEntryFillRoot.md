@@ -40,3 +40,29 @@ The function performs two main operations:
 - The function will throw an ERROR if either PageAddItem operation fails, indicating a serious page corruption issue
 - Memory management is handled properly with pfree() calls for the temporary tuples
 - The function assumes both child pages contain at least one tuple to extract the rightmost key from
+
+## Simplified Source
+
+```c
+// Simplified version of ginEntryFillRoot
+void ginEntryFillRoot(GinBtree btree, Page root,
+                      BlockNumber lblkno, Page lpage,
+                      BlockNumber rblkno, Page rpage)
+{
+    IndexTuple itup;
+
+    // Create and insert tuple for left child
+    itup = GinFormInteriorTuple(getRightMostTuple(lpage), lpage, lblkno);
+    if (PageAddItem(root, (Item) itup, IndexTupleSize(itup),
+                    InvalidOffsetNumber, false, false) == InvalidOffsetNumber)
+        elog(ERROR, "failed to add item to index root page");
+    pfree(itup);
+
+    // Create and insert tuple for right child
+    itup = GinFormInteriorTuple(getRightMostTuple(rpage), rpage, rblkno);
+    if (PageAddItem(root, (Item) itup, IndexTupleSize(itup),
+                    InvalidOffsetNumber, false, false) == InvalidOffsetNumber)
+        elog(ERROR, "failed to add item to index root page");
+    pfree(itup);
+}
+```

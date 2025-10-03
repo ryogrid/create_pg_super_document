@@ -50,3 +50,39 @@ The function includes a comment noting that GiST indexes do not require conflict
 - Unknown operation codes trigger a PANIC to indicate serious corruption or version mismatch
 - The function explicitly notes that conflict processing is not required for GiST indexes
 - Future optimizations similar to B-tree killed tuple removal would require adding conflict handling here
+
+## Simplified Source
+
+```c
+void gist_redo(XLogReaderState *record) {
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+    MemoryContext oldCxt = MemoryContextSwitchTo(opCtx);
+
+    // Dispatch to appropriate redo handler based on record type
+    switch (info) {
+        case XLOG_GIST_PAGE_UPDATE:
+            gistRedoPageUpdateRecord(record);
+            break;
+        case XLOG_GIST_DELETE:
+            gistRedoDeleteRecord(record);
+            break;
+        case XLOG_GIST_PAGE_REUSE:
+            gistRedoPageReuse(record);
+            break;
+        case XLOG_GIST_PAGE_SPLIT:
+            gistRedoPageSplitRecord(record);
+            break;
+        case XLOG_GIST_PAGE_DELETE:
+            gistRedoPageDelete(record);
+            break;
+        case XLOG_GIST_ASSIGN_LSN:
+            // No operation - just for LSN assignment
+            break;
+        default:
+            elog(PANIC, "gist_redo: unknown op code %u", info);
+    }
+
+    MemoryContextSwitchTo(oldCxt);
+    MemoryContextReset(opCtx);
+}
+```

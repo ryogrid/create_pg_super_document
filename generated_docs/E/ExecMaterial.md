@@ -47,3 +47,72 @@ The function handles both forward and backward scan directions. For forward scan
 - Uses work_mem for tuplestore memory management
 - Implements EOF tracking for both the tuplestore and underlying subplan to optimize performance
 - The function is robust against multiple calls after returning NULL
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecMaterial(PlanState *pstate)
+{
+    MaterialState *node = castNode(MaterialState, pstate);
+    EState *estate = node->ss.ps.state;
+    ScanDirection dir = estate->es_direction;
+    bool forward = ScanDirectionIsForward(dir);
+    Tuplestorestate *tuplestorestate = node->tuplestorestate;
+    TupleTableSlot *slot = node->ss.ps.ps_ResultTupleSlot;
+
+    CHECK_FOR_INTERRUPTS();
+
+    // Initialize tuplestore on first call if needed
+    if (tuplestorestate == NULL && node->eflags != 0) {
+        tuplestorestate = tuplestore_begin_heap(true, false, work_mem);
+        tuplestore_set_eflags(tuplestorestate, node->eflags);
+
+        // Allocate mark pointer if needed
+        if (node->eflags & EXEC_FLAG_MARK) {
+            tuplestore_alloc_read_pointer(tuplestorestate, node->eflags);
+        }
+        node->tuplestorestate = tuplestorestate;
+    }
+
+    // Check if we're at end of tuplestore
+    bool eof_tuplestore = (tuplestorestate == NULL) ||
+                         tuplestore_ateof(tuplestorestate);
+
+    // Handle backward scan direction at EOF
+    if (!forward && eof_tuplestore && !node->eof_underlying) {
+        if (!tuplestore_advance(tuplestorestate, forward))
+            return NULL;
+        eof_tuplestore = false;
+    }
+
+    // Try to fetch from tuplestore first
+    if (!eof_tuplestore) {
+        if (tuplestore_gettupleslot(tuplestorestate, forward, false, slot))
+            return slot;
+        if (forward)
+            eof_tuplestore = true;
+    }
+
+    // Fetch new tuple from subplan if needed
+    if (eof_tuplestore && !node->eof_underlying) {
+        PlanState *outerNode = outerPlanState(node);
+        TupleTableSlot *outerslot = ExecProcNode(outerNode);
+
+        if (TupIsNull(outerslot)) {
+            node->eof_underlying = true;
+            return NULL;
+        }
+
+        // Store new tuple in tuplestore
+        if (tuplestorestate)
+            tuplestore_puttupleslot(tuplestorestate, outerslot);
+
+        ExecCopySlot(slot, outerslot);
+        return slot;
+    }
+
+    // Nothing left
+    return ExecClearTuple(slot);
+}
+```

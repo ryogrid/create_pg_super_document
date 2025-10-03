@@ -42,3 +42,47 @@ The function uses a clever union-based storage allocation to create a properly s
 - The function operates on a single column at a time, unlike gistMakeUnionItVec which processes all columns
 - This is a lower-level utility primarily used during index splits and adjustments where precise control over individual column unions is needed
 - The stack allocation approach avoids the overhead of palloc/pfree for this frequently called function
+
+## Simplified Source
+
+```c
+void gistMakeUnionKey(GISTSTATE *giststate, int attno,
+                     GISTENTRY *entry1, bool isnull1,
+                     GISTENTRY *entry2, bool isnull2,
+                     Datum *dst, bool *dstisnull) {
+    // Stack-allocated GistEntryVector for exactly 2 entries
+    union {
+        GistEntryVector gev;
+        char padding[2 * sizeof(GISTENTRY) + GEVHDRSZ];
+    } storage;
+    GistEntryVector *evec = &storage.gev;
+
+    evec->n = 2;
+
+    if (isnull1 && isnull2) {
+        // Both null - result is null
+        *dstisnull = true;
+        *dst = (Datum) 0;
+    } else {
+        // Handle null cases by duplicating non-null entry
+        if (!isnull1 && !isnull2) {
+            evec->vector[0] = *entry1;
+            evec->vector[1] = *entry2;
+        } else if (!isnull1) {
+            evec->vector[0] = *entry1;
+            evec->vector[1] = *entry1;
+        } else {
+            evec->vector[0] = *entry2;
+            evec->vector[1] = *entry2;
+        }
+
+        // Call union function for this column
+        int dstsize;
+        *dstisnull = false;
+        *dst = FunctionCall2Coll(&giststate->unionFn[attno],
+                               giststate->supportCollation[attno],
+                               PointerGetDatum(evec),
+                               PointerGetDatum(&dstsize));
+    }
+}
+```

@@ -34,3 +34,12 @@ DatumGetIntervalP is an inline function that extracts a pointer to an Interval s
 - Used in timezone validation, statistical functions, timestamp arithmetic, and range operations
 - The Interval type represents time spans and can include years, months, days, hours, minutes, seconds, and microseconds
 - Location: src/include/utils/timestamp.h:40-45
+
+## Simplified Source
+
+```c
+static inline Interval * DatumGetIntervalP(Datum X) {
+    // Extract Interval pointer from Datum (pass-by-reference type)
+    return (Interval *) DatumGetPointer(X);
+}
+```

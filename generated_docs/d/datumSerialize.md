@@ -54,3 +54,58 @@ The function updates the `start_address` pointer to point immediately after the 
 - The function is designed for parallel query processing where data needs to be shared between worker processes
 - Memory layout is platform-specific and not suitable for cross-platform serialization
 - Declared in src/include/utils/datum.h as part of the public PostgreSQL utility API
+
+## Simplified Source
+
+```c
+void datumSerialize(Datum value, bool isnull, bool typByVal, int typLen,
+                    char **start_address)
+{
+    ExpandedObjectHeader *eoh = NULL;
+    int header;
+
+    // Write header: -2 for NULL, -1 for by-value, size for by-reference
+    if (isnull)
+        header = -2;
+    else if (typByVal)
+        header = -1;
+    else if (typLen == -1 && VARATT_IS_EXTERNAL_EXPANDED(DatumGetPointer(value)))
+    {
+        // Handle expanded objects by getting flattened size
+        eoh = DatumGetEOHP(value);
+        header = EOH_get_flat_size(eoh);
+    }
+    else
+        header = datumGetSize(value, typByVal, typLen);
+
+    // Write header to output buffer
+    memcpy(*start_address, &header, sizeof(int));
+    *start_address += sizeof(int);
+
+    // Write payload data if not NULL
+    if (!isnull)
+    {
+        if (typByVal)
+        {
+            // Copy by-value data directly
+            memcpy(*start_address, &value, sizeof(Datum));
+            *start_address += sizeof(Datum);
+        }
+        else if (eoh)
+        {
+            // Flatten expanded object into temporary aligned buffer
+            char *tmp = (char *) palloc(header);
+            EOH_flatten_into(eoh, (void *) tmp, header);
+            memcpy(*start_address, tmp, header);
+            *start_address += header;
+            pfree(tmp);
+        }
+        else
+        {
+            // Copy by-reference data directly
+            memcpy(*start_address, DatumGetPointer(value), header);
+            *start_address += header;
+        }
+    }
+}
+```

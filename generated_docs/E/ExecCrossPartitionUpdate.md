@@ -69,3 +69,90 @@ Key features include:
 - Manages transition capture state to handle statement-level triggers properly
 - Uses root table as the entry point for tuple routing to find the correct destination partition
 - Part of PostgreSQL's partitioned table update mechanism
+
+## Simplified Source
+
+```c
+static bool ExecCrossPartitionUpdate(ModifyTableContext *context,
+                                   ResultRelInfo *resultRelInfo,
+                                   ItemPointer tupleid, HeapTuple oldtuple,
+                                   TupleTableSlot *slot,
+                                   bool canSetTag,
+                                   UpdateContext *updateCxt,
+                                   TM_Result *tmresult,
+                                   TupleTableSlot **retry_slot,
+                                   TupleTableSlot **inserted_tuple,
+                                   ResultRelInfo **insert_destrel) {
+    ModifyTableState *mtstate = context->mtstate;
+    EState *estate = mtstate->ps.state;
+    TupleConversionMap *tupconv_map;
+    bool tuple_deleted;
+    TupleTableSlot *epqslot = NULL;
+
+    // Initialize output parameters
+    context->cpUpdateReturningSlot = NULL;
+    *retry_slot = NULL;
+
+    // Disallow INSERT ON CONFLICT DO UPDATE with partition movement
+    if (((ModifyTable *) mtstate->ps.plan)->onConflictAction == ONCONFLICT_UPDATE) {
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("invalid ON UPDATE specification")));
+    }
+
+    // Fail if UPDATE run directly on leaf partition
+    if (resultRelInfo == mtstate->rootResultRelInfo) {
+        ExecPartitionCheckEmitError(resultRelInfo, slot, estate);
+    }
+
+    // Initialize partition tuple routing if needed
+    if (mtstate->mt_partition_tuple_routing == NULL) {
+        Relation rootRel = mtstate->rootResultRelInfo->ri_RelationDesc;
+        MemoryContext oldcxt = MemoryContextSwitchTo(estate->es_query_cxt);
+
+        mtstate->mt_partition_tuple_routing =
+            ExecSetupPartitionTupleRouting(estate, rootRel);
+        mtstate->mt_root_tuple_slot = table_slot_create(rootRel, NULL);
+
+        MemoryContextSwitchTo(oldcxt);
+    }
+
+    // Phase 1: Delete tuple from current partition
+    ExecDelete(context, resultRelInfo, tupleid, oldtuple,
+               false, true, false, tmresult, &tuple_deleted, &epqslot);
+
+    // If delete failed, handle concurrency scenarios
+    if (!tuple_deleted) {
+        if (mtstate->operation == CMD_MERGE) {
+            return *tmresult == TM_Ok;
+        } else if (TupIsNull(epqslot)) {
+            return true;
+        } else {
+            // Handle concurrent update - prepare retry
+            TupleTableSlot *oldSlot = resultRelInfo->ri_oldTupleSlot;
+            table_tuple_fetch_row_version(resultRelInfo->ri_RelationDesc,
+                                        tupleid, SnapshotAny, oldSlot);
+            *retry_slot = ExecGetUpdateNewTuple(resultRelInfo, epqslot, oldSlot);
+            return false;
+        }
+    }
+
+    // Phase 2: Convert tuple format if needed and insert into root table
+    tupconv_map = ExecGetChildToRootMap(resultRelInfo);
+    if (tupconv_map != NULL) {
+        slot = execute_attr_map_slot(tupconv_map->attrMap, slot,
+                                   mtstate->mt_root_tuple_slot);
+    }
+
+    // Insert into root table (will be routed to correct partition)
+    context->cpUpdateReturningSlot =
+        ExecInsert(context, mtstate->rootResultRelInfo, slot, canSetTag,
+                  inserted_tuple, insert_destrel);
+
+    // Clean up transition state
+    if (mtstate->mt_transition_capture) {
+        mtstate->mt_transition_capture->tcs_original_insert_tuple = NULL;
+    }
+
+    return true;
+}
+```

@@ -43,3 +43,23 @@ The function performs a simple memory copy operation after ensuring adequate buf
 - Essential for BRIN index operations that require tuple duplication
 - Used in various BRIN operations including insertion, bitmap scans, and page evacuation
 - The destination buffer size tracking helps optimize memory usage patterns
+
+## Simplified Source
+
+```c
+BrinTuple *brin_copy_tuple(BrinTuple *tuple, Size len, BrinTuple *dest, Size *destsz) {
+    // Allocate new buffer if none provided or size is zero
+    if (!destsz || *destsz == 0) {
+        dest = palloc(len);
+    }
+    // Expand buffer if needed
+    else if (len > *destsz) {
+        dest = repalloc(dest, len);
+        *destsz = len;
+    }
+
+    // Copy tuple data and return destination
+    memcpy(dest, tuple, len);
+    return dest;
+}
+```

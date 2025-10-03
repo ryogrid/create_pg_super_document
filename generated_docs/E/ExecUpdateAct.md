@@ -56,3 +56,89 @@ The function uses a retry mechanism (via the  label) to handle cases where cross
 - For MERGE operations, cross-partition update retries are handled differently and delegated back to the MERGE logic
 - The function integrates with PostgreSQL's tuple visibility and concurrency control mechanisms through table_tuple_update
 - Foreign key constraint checking for cross-partition updates is handled via ExecCrossPartitionUpdateForeignKey
+
+## Simplified Source
+
+```c
+static TM_Result
+ExecUpdateAct(ModifyTableContext *context, ResultRelInfo *resultRelInfo,
+              ItemPointer tupleid, HeapTuple oldtuple, TupleTableSlot *slot,
+              bool canSetTag, UpdateContext *updateCxt)
+{
+    EState *estate = context->estate;
+    Relation resultRelationDesc = resultRelInfo->ri_RelationDesc;
+    bool partition_constraint_failed;
+    TM_Result result;
+
+    updateCxt->crossPartUpdate = false;
+
+retry_update:
+    // Fill in GENERATED columns and prepare the slot
+    ExecUpdatePrepareSlot(resultRelInfo, slot, estate);
+    ExecMaterializeSlot(slot);
+
+    // Check if updated tuple still satisfies partition constraint
+    partition_constraint_failed =
+        resultRelationDesc->rd_rel->relispartition &&
+        !ExecPartitionCheck(resultRelInfo, slot, estate, false);
+
+    // Check RLS UPDATE policies if partition constraint passes
+    if (!partition_constraint_failed &&
+        resultRelInfo->ri_WithCheckOptions != NIL) {
+        ExecWithCheckOptions(WCO_RLS_UPDATE_CHECK,
+                           resultRelInfo, slot, estate);
+    }
+
+    // Handle cross-partition update if partition constraint failed
+    if (partition_constraint_failed) {
+        TupleTableSlot *inserted_tuple, *retry_slot;
+        ResultRelInfo *insert_destrel = NULL;
+
+        // Attempt cross-partition update (DELETE + INSERT)
+        if (ExecCrossPartitionUpdate(context, resultRelInfo,
+                                   tupleid, oldtuple, slot,
+                                   canSetTag, updateCxt,
+                                   &result, &retry_slot,
+                                   &inserted_tuple, &insert_destrel)) {
+            // Success - mark as cross-partition update
+            updateCxt->crossPartUpdate = true;
+
+            // Handle foreign key triggers for cross-partition updates
+            if (insert_destrel &&
+                resultRelInfo->ri_TrigDesc &&
+                resultRelInfo->ri_TrigDesc->trig_update_after_row) {
+                ExecCrossPartitionUpdateForeignKey(context,
+                                                 resultRelInfo,
+                                                 insert_destrel,
+                                                 tupleid, slot,
+                                                 inserted_tuple);
+            }
+
+            return TM_Ok;
+        }
+
+        // Cross-partition update failed, retry needed
+        if (context->mtstate->operation == CMD_MERGE)
+            return result; // Let MERGE handle retry
+
+        // Use updated tuple from retry slot and try again
+        slot = retry_slot;
+        goto retry_update;
+    }
+
+    // Validate remaining table constraints
+    if (resultRelationDesc->rd_att->constr)
+        ExecConstraints(resultRelInfo, slot, estate);
+
+    // Perform the actual tuple update
+    result = table_tuple_update(resultRelationDesc, tupleid, slot,
+                              estate->es_output_cid,
+                              estate->es_snapshot,
+                              estate->es_crosscheck_snapshot,
+                              true /* wait for commit */,
+                              &context->tmfd, &updateCxt->lockmode,
+                              &updateCxt->updateIndexes);
+
+    return result;
+}
+```

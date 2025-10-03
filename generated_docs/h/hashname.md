@@ -34,3 +34,13 @@ This function generates a hash value for a PostgreSQL Name data type. The Name t
 - Commonly used for hashing database object identifiers in system catalogs
 - The hash only includes the actual string content, not the padding
 - Located in src/backend/access/hash/hashfunc.c:250-257
+
+## Simplified Source
+```c
+Datum hashname(PG_FUNCTION_ARGS) {
+    char *key = NameStr(*PG_GETARG_NAME(0));
+
+    // Hash the actual string content based on its length
+    return hash_any((unsigned char *) key, strlen(key));
+}
+```

@@ -55,3 +55,54 @@ This function is currently limited to foreign tables without RETURNING clauses, 
 - The ri_NumSlots counter is reset to 0 after batch completion
 - The tableoid column is properly set for each tuple before trigger execution
 - Memory cleanup is performed regardless of how many tuples were actually inserted
+
+## Simplified Source
+
+```c
+static void
+ExecBatchInsert(ModifyTableState *mtstate,
+                ResultRelInfo *resultRelInfo,
+                TupleTableSlot **slots,
+                TupleTableSlot **planSlots,
+                int numSlots,
+                EState *estate,
+                bool canSetTag)
+{
+    int numInserted = numSlots;
+    TupleTableSlot **rslots;
+
+    // Delegate batch insertion to Foreign Data Wrapper
+    rslots = resultRelInfo->ri_FdwRoutine->ExecForeignBatchInsert(estate,
+                                                                  resultRelInfo,
+                                                                  slots,
+                                                                  planSlots,
+                                                                  &numInserted);
+
+    // Process each successfully inserted tuple
+    for (int i = 0; i < numInserted; i++) {
+        TupleTableSlot *slot = rslots[i];
+
+        // Set table OID for trigger processing
+        slot->tts_tableOid = RelationGetRelid(resultRelInfo->ri_RelationDesc);
+
+        // Execute AFTER ROW INSERT triggers
+        ExecARInsertTriggers(estate, resultRelInfo, slot, NIL,
+                           mtstate->mt_transition_capture);
+
+        // Check WITH CHECK OPTION constraints from parent views
+        if (resultRelInfo->ri_WithCheckOptions != NIL)
+            ExecWithCheckOptions(WCO_VIEW_CHECK, resultRelInfo, slot, estate);
+    }
+
+    // Update processed tuple count
+    if (canSetTag && numInserted > 0)
+        estate->es_processed += numInserted;
+
+    // Clean up all slots for next batch
+    for (int i = 0; i < numSlots; i++) {
+        ExecClearTuple(slots[i]);
+        ExecClearTuple(planSlots[i]);
+    }
+    resultRelInfo->ri_NumSlots = 0;
+}
+```

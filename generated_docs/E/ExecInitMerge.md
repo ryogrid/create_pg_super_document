@@ -111,8 +111,96 @@ The function handles complex scenarios involving inheritance and partitioning, e
 - Sets mt_merge_subcommands bitmask to track which types of operations (INSERT/UPDATE/DELETE) are present
 - Special handling for partitioned tables where INSERT actions must be routed through the root relation
 - Manages complex attribute mapping for inherited tables to ensure correct column references
-- Initializes Row Level Security (RLS) WITH CHECK OPTION expressions when present  
+- Initializes Row Level Security (RLS) WITH CHECK OPTION expressions when present
 - Sets up RETURNING clause projections for INSERT actions on inherited tables
 - Uses the first relation as a reference when building constraints and projections for root relations
 - Early return if no merge actions are present (node->mergeActionLists == NIL)
 - Similar initialization logic appears in ExecInitPartitionInfo() for partition-specific setup
+
+## Simplified Source
+
+```c
+void ExecInitMerge(ModifyTableState *mtstate, EState *estate)
+{
+    ModifyTable *node = (ModifyTable *) mtstate->ps.plan;
+    ResultRelInfo *rootRelInfo = mtstate->rootResultRelInfo;
+
+    // Early return if no merge actions to process
+    if (node->mergeActionLists == NIL)
+        return;
+
+    mtstate->mt_merge_subcommands = 0;
+
+    // Ensure expression context exists
+    if (mtstate->ps.ps_ExprContext == NULL)
+        ExecAssignExprContext(estate, &mtstate->ps);
+
+    // Process each relation's merge actions
+    int i = 0;
+    foreach(lc, node->mergeActionLists)
+    {
+        List *mergeActionList = lfirst(lc);
+        ResultRelInfo *resultRelInfo = mtstate->resultRelInfo + i;
+
+        // Initialize tuple slots and join conditions for this relation
+        if (unlikely(!resultRelInfo->ri_projectNewInfoValid))
+            ExecInitMergeTupleSlots(mtstate, resultRelInfo);
+
+        resultRelInfo->ri_MergeJoinCondition =
+            ExecInitQual((List *) list_nth(node->mergeJoinConditions, i), &mtstate->ps);
+
+        // Process each action for this relation
+        foreach(l, mergeActionList)
+        {
+            MergeAction *action = (MergeAction *) lfirst(l);
+            MergeActionState *action_state = makeNode(MergeActionState);
+
+            action_state->mas_action = action;
+            action_state->mas_whenqual = ExecInitQual((List *) action->qual, &mtstate->ps);
+
+            // Add to appropriate action list by match kind
+            resultRelInfo->ri_MergeActions[action->matchKind] =
+                lappend(resultRelInfo->ri_MergeActions[action->matchKind], action_state);
+
+            // Setup projection based on command type
+            switch (action->commandType)
+            {
+                case CMD_INSERT:
+                    // Handle partitioned table routing for inserts
+                    ExecCheckPlanOutput(rootRelInfo->ri_RelationDesc, action->targetList);
+                    action_state->mas_proj = ExecBuildProjectionInfo(action->targetList, econtext,
+                                                                    target_slot, &mtstate->ps, target_desc);
+                    mtstate->mt_merge_subcommands |= MERGE_INSERT;
+                    break;
+
+                case CMD_UPDATE:
+                    action_state->mas_proj = ExecBuildUpdateProjection(action->targetList, true,
+                                                                      action->updateColnos, relationDesc,
+                                                                      econtext, resultRelInfo->ri_newTupleSlot,
+                                                                      &mtstate->ps);
+                    mtstate->mt_merge_subcommands |= MERGE_UPDATE;
+                    break;
+
+                case CMD_DELETE:
+                    mtstate->mt_merge_subcommands |= MERGE_DELETE;
+                    break;
+
+                case CMD_NOTHING:
+                    break;
+
+                default:
+                    elog(ERROR, "unknown action in MERGE WHEN clause");
+            }
+        }
+        i++;
+    }
+
+    // Initialize WITH CHECK OPTIONS and RETURNING for inherited tables
+    if (rootRelInfo != mtstate->resultRelInfo &&
+        (mtstate->mt_merge_subcommands & MERGE_INSERT) != 0)
+    {
+        // Initialize constraints and returning projections for root relation
+        // (simplified - complex attribute mapping logic omitted)
+    }
+}
+```

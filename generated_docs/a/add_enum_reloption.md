@@ -39,3 +39,19 @@ This function creates and registers a new global enumeration-type relation optio
 - The detailmsg provides user-friendly error messages when invalid enum values are specified
 - Used by access methods and extensions to define enum-based configuration options
 - Part of PostgreSQL's type-safe configuration parameter system
+
+## Simplified Source
+
+```c
+void add_enum_reloption(bits32 kinds, const char *name, const char *desc,
+                        relopt_enum_elt_def *members, int default_val,
+                        const char *detailmsg, LOCKMODE lockmode) {
+    // Create a new enumeration reloption with predefined value set
+    relopt_enum *new_option = init_enum_reloption(kinds, name, desc,
+                                                  members, default_val,
+                                                  detailmsg, lockmode);
+
+    // Register the option globally
+    add_reloption((relopt_gen *) new_option);
+}
+```

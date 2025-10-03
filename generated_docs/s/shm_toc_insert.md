@@ -62,3 +62,54 @@ The function includes comprehensive checks for:
 - The address validation (address > toc) ensures that registered addresses point within the shared memory segment
 - Entry insertion failure results in an ERROR, which is appropriate since TOC setup typically occurs during critical initialization phases
 - The relative addressing scheme makes shared memory segments portable across process restarts and different system configurations
+
+## Simplified Source
+
+```c
+void shm_toc_insert(shm_toc *toc, uint64 key, void *address)
+{
+    volatile shm_toc *vtoc = toc;
+    Size total_bytes;
+    Size allocated_bytes;
+    Size nentry;
+    Size toc_bytes;
+    Size offset;
+
+    // Convert absolute address to relative offset
+    Assert(address > (void *) toc);
+    offset = ((char *) address) - (char *) toc;
+
+    SpinLockAcquire(&toc->toc_mutex);
+
+    // Get current TOC state
+    total_bytes = vtoc->toc_total_bytes;
+    allocated_bytes = vtoc->toc_allocated_bytes;
+    nentry = vtoc->toc_nentry;
+
+    // Calculate space needed for current TOC + new entry
+    toc_bytes = offsetof(shm_toc, toc_entry) + nentry * sizeof(shm_toc_entry) + allocated_bytes;
+
+    // Check for space exhaustion and limits
+    if (toc_bytes + sizeof(shm_toc_entry) > total_bytes ||
+        toc_bytes + sizeof(shm_toc_entry) < toc_bytes ||
+        nentry >= PG_UINT32_MAX)
+    {
+        SpinLockRelease(&toc->toc_mutex);
+        ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY),
+                       errmsg("out of shared memory")));
+    }
+
+    // Fill in the new TOC entry
+    Assert(offset < total_bytes);
+    vtoc->toc_entry[nentry].key = key;
+    vtoc->toc_entry[nentry].offset = offset;
+
+    // Memory barrier ensures entry is complete before making it visible
+    pg_write_barrier();
+
+    // Make new entry visible to readers
+    vtoc->toc_nentry++;
+
+    SpinLockRelease(&toc->toc_mutex);
+}
+```

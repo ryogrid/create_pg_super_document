@@ -35,3 +35,21 @@ The hashvarlenaextended function is the extended variant of hashvarlena that acc
 - Uses hash_any_extended to incorporate the seed parameter into hash computation
 - Suitable for hash table resizing and algorithms requiring multiple hash functions
 - Located at src/backend/access/hash/hashfunc.c:398-410
+
+## Simplified Source
+
+```c
+Datum hashvarlenaextended(PG_FUNCTION_ARGS) {
+    struct varlena *key = PG_GETARG_VARLENA_PP(0);
+
+    // Hash the variable-length data with seed parameter
+    Datum result = hash_any_extended((unsigned char *) VARDATA_ANY(key),
+                                    VARSIZE_ANY_EXHDR(key),
+                                    PG_GETARG_INT64(1));
+
+    // Clean up memory for toasted inputs
+    PG_FREE_IF_COPY(key, 0);
+
+    return result;
+}
+```

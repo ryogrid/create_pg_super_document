@@ -32,3 +32,23 @@ This function performs a complete extraction of all index tuples from a GiST pag
 
 ## Notes and Other Information
 The returned array contains pointers to tuples that remain within the original page buffer, so the tuples are only valid as long as the page buffer remains pinned and unmodified. This function is commonly used during page reorganization operations, page splits, and bulk loading where all tuples on a page need to be processed collectively. The caller is responsible for freeing the allocated array (but not the individual tuples, as they remain in the page). The array indexing starts from 0, with itvec[0] corresponding to the tuple at FirstOffsetNumber.
+
+## Simplified Source
+
+```c
+IndexTuple *gistextractpage(Page page, int *len) {
+    // Get number of tuples on page
+    OffsetNumber max_offset = PageGetMaxOffsetNumber(page);
+    *len = max_offset;
+
+    // Allocate array for tuple pointers
+    IndexTuple *tuple_array = palloc(sizeof(IndexTuple) * max_offset);
+
+    // Extract each tuple and store pointer in array
+    for (OffsetNumber i = FirstOffsetNumber; i <= max_offset; i++) {
+        tuple_array[i - FirstOffsetNumber] = (IndexTuple) PageGetItem(page, PageGetItemId(page, i));
+    }
+
+    return tuple_array;
+}
+```

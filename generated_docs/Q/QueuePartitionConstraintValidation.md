@@ -49,3 +49,52 @@ The function is recursive and will traverse the entire partition hierarchy to en
 - Handles attribute number mapping when recursing into partitions to account for different column orders
 - Part of PostgreSQL's three-phase ALTER TABLE execution model, specifically preparing work for Phase 3 validation
 - Keeps table locks until commit to maintain consistency throughout the validation process
+
+## Simplified Source
+```c
+static void QueuePartitionConstraintValidation(List **wqueue, Relation scanrel,
+                                               List *partConstraint,
+                                               bool validate_default) {
+    // Check if existing constraints already imply the partition constraint
+    if (PartConstraintImpliedByRelConstraint(scanrel, partConstraint)) {
+        // Log that validation can be skipped
+        if (!validate_default) {
+            ereport(DEBUG1, "partition constraint is implied by existing constraints");
+        } else {
+            ereport(DEBUG1, "default partition constraint is implied by existing constraints");
+        }
+        return;
+    }
+
+    // For plain tables, add validation work to the queue
+    if (scanrel->rd_rel->relkind == RELKIND_RELATION) {
+        AlteredTableInfo *tab = ATGetQueueEntry(wqueue, scanrel);
+
+        tab->partition_constraint = (Expr *) linitial(partConstraint);
+        tab->validate_default = validate_default;
+    }
+    // For partitioned tables, recursively process each partition
+    else if (scanrel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE) {
+        PartitionDesc partdesc = RelationGetPartitionDesc(scanrel, true);
+
+        for (int i = 0; i < partdesc->nparts; i++) {
+            Relation part_rel;
+            List *mapped_constraint;
+
+            // Open partition with exclusive lock to prevent deadlocks
+            part_rel = table_open(partdesc->oids[i], AccessExclusiveLock);
+
+            // Map constraint attribute numbers to match this partition
+            mapped_constraint = map_partition_varattnos(partConstraint, 1,
+                                                      part_rel, scanrel);
+
+            // Recursively queue validation for this partition
+            QueuePartitionConstraintValidation(wqueue, part_rel,
+                                             mapped_constraint,
+                                             validate_default);
+
+            table_close(part_rel, NoLock); // Keep lock until commit
+        }
+    }
+}
+```

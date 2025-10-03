@@ -35,3 +35,29 @@ The function is part of PostgreSQL's asynchronous execution framework, allowing 
 - The result must be either NULL or a valid TupleTableSlot
 - Updates the AppendState tracking counters and bitmaps to manage async subplan states
 - Part of the broader async execution infrastructure that enables concurrent subplan execution in Append nodes
+
+## Simplified Source
+
+```c
+void ExecAsyncAppendResponse(AsyncRequest *areq)
+{
+    AppendState *node = (AppendState *) areq->requestor;
+    TupleTableSlot *slot = areq->result;
+
+    // Skip if request is still pending
+    if (!areq->request_complete)
+        return;
+
+    // Handle empty/null results
+    if (TupIsNull(slot)) {
+        --node->as_nasyncremain;
+        return;
+    }
+
+    // Save valid result for later retrieval
+    node->as_asyncresults[node->as_nasyncresults++] = slot;
+
+    // Mark subplan as ready for new requests
+    node->as_needrequest = bms_add_member(node->as_needrequest, areq->request_index);
+}
+```

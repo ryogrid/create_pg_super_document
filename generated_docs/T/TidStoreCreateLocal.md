@@ -40,3 +40,43 @@ The function optimizes memory allocation by choosing an appropriate maxBlockSize
 - Callers must monitor actual memory usage through TidStoreMemoryUsage() if they need to enforce limits
 - The choice between BumpContext and AllocSetContext depends on the intended usage pattern: BumpContext is more efficient for insert-only scenarios
 - The maxBlockSize is automatically adjusted to be no larger than 1/16 of max_bytes to optimize memory allocation patterns
+
+## Simplified Source
+
+```c
+TidStore *TidStoreCreateLocal(size_t max_bytes, bool insert_only)
+{
+    TidStore *ts = palloc0(sizeof(TidStore));
+    ts->context = CurrentMemoryContext;
+
+    // Calculate optimal block size based on memory hint
+    size_t maxBlockSize = ALLOCSET_DEFAULT_MAXSIZE;
+    while (16 * maxBlockSize > max_bytes)
+        maxBlockSize >>= 1;
+
+    if (maxBlockSize < ALLOCSET_DEFAULT_INITSIZE)
+        maxBlockSize = ALLOCSET_DEFAULT_INITSIZE;
+
+    // Create memory context based on usage pattern
+    if (insert_only) {
+        // Bump context is more efficient for insert-only workloads
+        ts->rt_context = BumpContextCreate(CurrentMemoryContext,
+                                          "TID storage",
+                                          ALLOCSET_DEFAULT_MINSIZE,
+                                          ALLOCSET_DEFAULT_INITSIZE,
+                                          maxBlockSize);
+    } else {
+        // AllocSet context supports both insertions and deletions
+        ts->rt_context = AllocSetContextCreate(CurrentMemoryContext,
+                                              "TID storage",
+                                              ALLOCSET_DEFAULT_MINSIZE,
+                                              ALLOCSET_DEFAULT_INITSIZE,
+                                              maxBlockSize);
+    }
+
+    // Create the underlying radix tree
+    ts->tree.local = local_ts_create(ts->rt_context);
+
+    return ts;
+}
+```

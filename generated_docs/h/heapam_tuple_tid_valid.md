@@ -37,3 +37,15 @@ This function is essential for ensuring that tuple access operations don't attem
 - Returns true only if both the TID is valid and the referenced block is within the scan range
 - Part of the heap access method's tuple validation infrastructure
 - The rs_nblocks field represents the total number of blocks in the relation being scanned
+
+## Simplified Source
+
+```c
+static bool heapam_tuple_tid_valid(TableScanDesc scan, ItemPointer tid) {
+    HeapScanDesc hscan = (HeapScanDesc) scan;
+
+    // Validate TID format and check if block is within scan range
+    return ItemPointerIsValid(tid) &&
+           ItemPointerGetBlockNumber(tid) < hscan->rs_nblocks;
+}
+```

@@ -45,3 +45,82 @@ The function iterates through each RewriteMappingFile in the hash table, process
 - Cleans up memory structures as it processes them to avoid memory leaks
 - Critical for maintaining logical replication consistency during DDL operations that rewrite heap files
 - The function ensures all mappings are flushed when called, resetting rs_num_rewrite_mappings to 0
+
+## Simplified Source
+
+```c
+static void
+logical_heap_rewrite_flush_mappings(RewriteState state)
+{
+    HASH_SEQ_STATUS seq_status;
+    RewriteMappingFile *src;
+    dlist_mutable_iter iter;
+
+    // Early exit if no logical rewrite in progress
+    if (state->rs_num_rewrite_mappings == 0)
+        return;
+
+    // Iterate through all mapping files by transaction
+    hash_seq_init(&seq_status, state->rs_logical_mappings);
+    while ((src = (RewriteMappingFile *) hash_seq_search(&seq_status)) != NULL) {
+        char *waldata;
+        char *waldata_start;
+        xl_heap_rewrite_mapping xlrec;
+        Oid dboid;
+        uint32 len;
+        int written;
+        uint32 num_mappings = dclist_count(&src->mappings);
+
+        // Skip files with no new mappings
+        if (num_mappings == 0)
+            continue;
+
+        // Set database OID (InvalidOid for shared relations)
+        if (state->rs_old_rel->rd_rel->relisshared)
+            dboid = InvalidOid;
+        else
+            dboid = MyDatabaseId;
+
+        // Prepare WAL record header
+        xlrec.num_mappings = num_mappings;
+        xlrec.mapped_rel = RelationGetRelid(state->rs_old_rel);
+        xlrec.mapped_xid = src->xid;
+        xlrec.mapped_db = dboid;
+        xlrec.offset = src->off;
+        xlrec.start_lsn = state->rs_begin_lsn;
+
+        // Collect all mapping data for this transaction
+        len = num_mappings * sizeof(LogicalRewriteMappingData);
+        waldata_start = waldata = palloc(len);
+
+        dclist_foreach_modify(iter, &src->mappings) {
+            RewriteMappingDataEntry *pmap;
+            pmap = dclist_container(RewriteMappingDataEntry, node, iter.cur);
+
+            // Copy mapping data and clean up
+            memcpy(waldata, &pmap->map, sizeof(pmap->map));
+            waldata += sizeof(pmap->map);
+
+            dclist_delete_from(&src->mappings, &pmap->node);
+            pfree(pmap);
+            state->rs_num_rewrite_mappings--;
+        }
+
+        // Write data to file BEFORE WAL record (non-standard pattern)
+        written = FileWrite(src->vfd, waldata_start, len, src->off,
+                           WAIT_EVENT_LOGICAL_REWRITE_WRITE);
+        if (written != len)
+            ereport(ERROR, (errmsg("could not write to file \"%s\"", src->path)));
+
+        src->off += len;
+
+        // Now create WAL record for replication
+        XLogBeginInsert();
+        XLogRegisterData((char *) (&xlrec), sizeof(xlrec));
+        XLogRegisterData(waldata_start, len);
+        XLogInsert(RM_HEAP2_ID, XLOG_HEAP2_REWRITE);
+
+        pfree(waldata_start);
+    }
+}
+```

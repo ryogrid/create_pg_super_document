@@ -49,3 +49,60 @@ This function is the core implementation of tuple fetching for heap tables withi
 - The call_again parameter enables iteration through HOT chains in non-MVCC snapshots
 - Returns true if a visible tuple was found, false otherwise
 - Buffer switching logic is optimized to avoid unnecessary operations when already on correct page
+
+## Simplified Source
+
+```c
+static bool heapam_index_fetch_tuple(struct IndexFetchTableData *scan,
+                                   ItemPointer tid,
+                                   Snapshot snapshot,
+                                   TupleTableSlot *slot,
+                                   bool *call_again, bool *all_dead) {
+    IndexFetchHeapData *hscan = (IndexFetchHeapData *) scan;
+    BufferHeapTupleTableSlot *bslot = (BufferHeapTupleTableSlot *) slot;
+    bool got_heap_tuple;
+
+    Assert(TTS_IS_BUFFERTUPLE(slot));
+
+    // Handle buffer switching (skip if continuing HOT chain)
+    if (!*call_again) {
+        Buffer prev_buf = hscan->xs_cbuf;
+
+        // Switch to target buffer containing the tuple
+        hscan->xs_cbuf = ReleaseAndReadBuffer(hscan->xs_cbuf,
+                                            hscan->xs_base.rel,
+                                            ItemPointerGetBlockNumber(tid));
+
+        // Prune page if we switched to a new buffer
+        if (prev_buf != hscan->xs_cbuf) {
+            heap_page_prune_opt(hscan->xs_base.rel, hscan->xs_cbuf);
+        }
+    }
+
+    // Lock buffer and search for visible tuple in HOT chain
+    LockBuffer(hscan->xs_cbuf, BUFFER_LOCK_SHARE);
+    got_heap_tuple = heap_hot_search_buffer(tid,
+                                          hscan->xs_base.rel,
+                                          hscan->xs_cbuf,
+                                          snapshot,
+                                          &bslot->base.tupdata,
+                                          all_dead,
+                                          !*call_again);
+    bslot->base.tupdata.t_self = *tid;
+    LockBuffer(hscan->xs_cbuf, BUFFER_LOCK_UNLOCK);
+
+    if (got_heap_tuple) {
+        // For non-MVCC snapshots, may need to check more HOT chain members
+        *call_again = !IsMVCCSnapshot(snapshot);
+
+        // Store tuple in slot
+        slot->tts_tableOid = RelationGetRelid(scan->rel);
+        ExecStoreBufferHeapTuple(&bslot->base.tupdata, slot, hscan->xs_cbuf);
+    } else {
+        // End of HOT chain reached
+        *call_again = false;
+    }
+
+    return got_heap_tuple;
+}
+```

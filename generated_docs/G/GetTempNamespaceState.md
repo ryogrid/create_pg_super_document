@@ -9,15 +9,15 @@ Fetches the status of the session's temporary namespace, specifically designed f
 ## Definition
 
 ```c
-structure is allocated in the specified memory context
- * (which might or might not be equal to CurrentMemoryContext);
+void GetTempNamespaceState(Oid *tempNamespaceId, Oid *tempToastNamespaceId)
 ```
+
 ## Detailed Description
-This function retrieves the OIDs of the current session's temporary namespace and its associated toast namespace. It's primarily intended for internal use in parallel processing scenarios where worker processes need access to the main session's temporary namespace information. The function directly accesses the global variables  and  to return their current values.
+This function retrieves the OIDs of the current session's temporary namespace and its associated toast namespace. It's primarily intended for internal use in parallel processing scenarios where worker processes need access to the main session's temporary namespace information. The function directly accesses the global variables myTempNamespace and myTempToastNamespace to return their current values.
 
 ## Parameters / Member Variables
-- : Output parameter that receives the OID of the session's temporary namespace (0 if no temp namespace exists)
-- : Output parameter that receives the OID of the session's temporary toast namespace (0 if no temp namespace exists)
+- `tempNamespaceId`: Output parameter that receives the OID of the session's temporary namespace (0 if no temp namespace exists)
+- `tempToastNamespaceId`: Output parameter that receives the OID of the session's temporary toast namespace (0 if no temp namespace exists)
 
 ## Dependencies
 - Functions called/Symbols referenced:
@@ -31,3 +31,13 @@ This function retrieves the OIDs of the current session's temporary namespace an
 - This function is specifically designed for parallel processing and is not intended for general-purpose access
 - Returns 0 for both namespace OIDs if the session has not created a temporary namespace
 - Part of PostgreSQL's namespace management system for temporary objects
+
+## Simplified Source
+
+```c
+void GetTempNamespaceState(Oid *tempNamespaceId, Oid *tempToastNamespaceId) {
+    // Return current temp namespace OIDs (0 if none exist)
+    *tempNamespaceId = myTempNamespace;
+    *tempToastNamespaceId = myTempToastNamespace;
+}
+```

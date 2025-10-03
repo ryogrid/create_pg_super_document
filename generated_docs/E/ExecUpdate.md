@@ -67,3 +67,118 @@ The function implements PostgreSQL's Multi-Version Concurrency Control (MVCC) se
 - INSTEAD OF triggers are used for view updates where the view itself is not directly updatable
 - The redo_act label enables retry logic when EPQ determines a new tuple version should be processed
 - Bootstrap mode restrictions prevent infinite update loops during database initialization
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecUpdate(ModifyTableContext *context, ResultRelInfo *resultRelInfo,
+           ItemPointer tupleid, HeapTuple oldtuple, TupleTableSlot *slot,
+           bool canSetTag)
+{
+    EState *estate = context->estate;
+    Relation resultRelationDesc = resultRelInfo->ri_RelationDesc;
+    UpdateContext updateCxt = {0};
+    TM_Result result;
+
+    // Prevent updates during bootstrap
+    if (IsBootstrapProcessingMode())
+        elog(ERROR, "cannot UPDATE during bootstrap");
+
+    // Handle BEFORE ROW triggers and validation
+    if (!ExecUpdatePrologue(context, resultRelInfo, tupleid, oldtuple, slot, NULL))
+        return NULL;
+
+    // Handle INSTEAD OF ROW UPDATE triggers for views
+    if (resultRelInfo->ri_TrigDesc &&
+        resultRelInfo->ri_TrigDesc->trig_update_instead_row) {
+        if (!ExecIRUpdateTriggers(estate, resultRelInfo, oldtuple, slot))
+            return NULL;  // "do nothing"
+    }
+    else if (resultRelInfo->ri_FdwRoutine) {
+        // Foreign table update
+        ExecUpdatePrepareSlot(resultRelInfo, slot, estate);
+        slot = resultRelInfo->ri_FdwRoutine->ExecForeignUpdate(estate,
+                                                               resultRelInfo,
+                                                               slot,
+                                                               context->planSlot);
+        if (slot == NULL)
+            return NULL;
+        slot->tts_tableOid = RelationGetRelid(resultRelationDesc);
+    }
+    else {
+        // Regular table update with concurrency control
+        ItemPointerData lockedtid;
+
+redo_act:
+        lockedtid = *tupleid;
+        result = ExecUpdateAct(context, resultRelInfo, tupleid, oldtuple, slot,
+                               canSetTag, &updateCxt);
+
+        // Handle cross-partition updates
+        if (updateCxt.crossPartUpdate)
+            return context->cpUpdateReturningSlot;
+
+        switch (result)
+        {
+            case TM_SelfModified:
+                // Check for concurrent modifications by same transaction
+                if (context->tmfd.cmax != estate->es_output_cid)
+                    ereport(ERROR, /* detailed error handling */);
+                return NULL;
+
+            case TM_Ok:
+                break;
+
+            case TM_Updated:
+                // Handle concurrent updates with EvalPlanQual
+                if (IsolationUsesXactSnapshot())
+                    ereport(ERROR, /* serialization failure */);
+
+                // Re-evaluate plan for updated tuple
+                TupleTableSlot *inputslot = EvalPlanQualSlot(context->epqstate,
+                                                             resultRelationDesc,
+                                                             resultRelInfo->ri_RangeTableIndex);
+                // Lock and re-fetch the updated tuple
+                result = table_tuple_lock(resultRelationDesc, tupleid, /*...*/);
+
+                if (result == TM_Ok) {
+                    TupleTableSlot *epqslot = EvalPlanQual(context->epqstate, /*...*/);
+                    if (TupIsNull(epqslot))
+                        return NULL;
+
+                    // Prepare for retry with updated tuple
+                    if (unlikely(!resultRelInfo->ri_projectNewInfoValid))
+                        ExecInitUpdateProjection(context->mtstate, resultRelInfo);
+
+                    TupleTableSlot *oldSlot = resultRelInfo->ri_oldTupleSlot;
+                    table_tuple_fetch_row_version(resultRelationDesc, tupleid,
+                                                  SnapshotAny, oldSlot);
+                    slot = ExecGetUpdateNewTuple(resultRelInfo, epqslot, oldSlot);
+                    goto redo_act;
+                }
+                return NULL;
+
+            case TM_Deleted:
+                if (IsolationUsesXactSnapshot())
+                    ereport(ERROR, /* serialization failure */);
+                return NULL;
+
+            default:
+                elog(ERROR, "unrecognized table_tuple_update status: %u", result);
+        }
+    }
+
+    if (canSetTag)
+        (estate->es_processed)++;
+
+    // Handle index updates and AFTER triggers
+    ExecUpdateEpilogue(context, &updateCxt, resultRelInfo, tupleid, oldtuple, slot);
+
+    // Process RETURNING clause if present
+    if (resultRelInfo->ri_projectReturning)
+        return ExecProcessReturning(resultRelInfo, slot, context->planSlot);
+
+    return NULL;
+}
+```

@@ -37,3 +37,32 @@ The function performs garbage collection by checking if there are any unresolved
 - May leave some unmatched entries in UnresolvedTups hash table, which is acceptable as VACUUM operations can remove dead tuples from chains
 - Helps optimize memory usage by early cleanup of references to definitely dead tuples
 - Part of the tuple chain resolution mechanism that handles complex update chain scenarios during rewrites
+
+## Simplified Source
+
+```c
+bool
+rewrite_heap_dead_tuple(RewriteState state, HeapTuple old_tuple)
+{
+    UnresolvedTup unresolved;
+    TidHashKey hashkey;
+    bool found;
+
+    // Check if there's an unresolved tuple waiting for this dead tuple
+    memset(&hashkey, 0, sizeof(hashkey));
+    hashkey.xmin = HeapTupleHeaderGetXmin(old_tuple->t_data);
+    hashkey.tid = old_tuple->t_self;
+
+    unresolved = hash_search(state->rs_unresolved_tups, &hashkey, HASH_FIND, NULL);
+
+    if (unresolved != NULL) {
+        // Found a waiting tuple - clean it up since target is dead
+        heap_freetuple(unresolved->tuple);
+        hash_search(state->rs_unresolved_tups, &hashkey, HASH_REMOVE, &found);
+        Assert(found);
+        return true;
+    }
+
+    return false;
+}
+```

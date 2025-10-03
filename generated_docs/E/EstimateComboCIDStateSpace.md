@@ -41,3 +41,19 @@ The function uses PostgreSQL's overflow-safe arithmetic functions (add_size and 
 - Works in conjunction with SerializeComboCIDState to support parallel worker processes
 - The function assumes the global combo CID state is valid and accessible
 - Essential for proper memory allocation before serializing combo CID state for inter-process communication
+
+## Simplified Source
+
+```c
+Size EstimateComboCIDStateSpace(void) {
+    Size size;
+
+    // Space for storing count of used combo CIDs
+    size = sizeof(int);
+
+    // Space for storing all ComboCidKeyData structures
+    size = add_size(size, mul_size(sizeof(ComboCidKeyData), usedComboCids));
+
+    return size;
+}
+```

@@ -45,3 +45,42 @@ This synchronization is essential for making informed decisions about memory usa
 - The total_tuples field provides a quick summary of tuple count across all batches
 - This operation is relatively lightweight but requires coordination among all parallel workers
 - Essential for proper batch management decisions and memory pressure detection in parallel hash joins
+
+## Simplified Source
+
+```c
+static void
+ExecParallelHashMergeCounters(HashJoinTable hashtable)
+{
+    ParallelHashJoinState *pstate = hashtable->parallel_state;
+
+    // Acquire exclusive lock to safely update shared counters
+    LWLockAcquire(&pstate->lock, LW_EXCLUSIVE);
+
+    // Reset global tuple total
+    pstate->total_tuples = 0;
+
+    // Merge local counters into shared state for each batch
+    for (int i = 0; i < hashtable->nbatch; ++i)
+    {
+        ParallelHashJoinBatchAccessor *batch = &hashtable->batches[i];
+
+        // Add local counters to shared counters
+        batch->shared->size += batch->size;
+        batch->shared->estimated_size += batch->estimated_size;
+        batch->shared->ntuples += batch->ntuples;
+        batch->shared->old_ntuples += batch->old_ntuples;
+
+        // Reset local counters to zero
+        batch->size = 0;
+        batch->estimated_size = 0;
+        batch->ntuples = 0;
+        batch->old_ntuples = 0;
+
+        // Update global total
+        pstate->total_tuples += batch->shared->ntuples;
+    }
+
+    LWLockRelease(&pstate->lock);
+}
+```

@@ -59,3 +59,59 @@ Key operations performed:
 - Fast-update mode is more efficient for bulk insertions but may require periodic cleanup
 - Uses 1-based attribute numbering when calling helper functions
 - Memory context switching ensures proper cleanup even if errors occur during insertion
+
+## Simplified Source
+
+```c
+bool
+gininsert(Relation index, Datum *values, bool *isnull,
+          ItemPointer ht_ctid, Relation heapRel,
+          IndexUniqueCheck checkUnique,
+          bool indexUnchanged,
+          IndexInfo *indexInfo)
+{
+    GinState *ginstate = (GinState *) indexInfo->ii_AmCache;
+    MemoryContext oldCtx, insertCtx;
+
+    // Initialize GinState cache if first call in this statement
+    if (ginstate == NULL) {
+        oldCtx = MemoryContextSwitchTo(indexInfo->ii_Context);
+        ginstate = (GinState *) palloc(sizeof(GinState));
+        initGinState(ginstate, index);
+        indexInfo->ii_AmCache = (void *) ginstate;
+        MemoryContextSwitchTo(oldCtx);
+    }
+
+    // Create temporary memory context for insertion
+    insertCtx = AllocSetContextCreate(CurrentMemoryContext,
+                                      "Gin insert temporary context",
+                                      ALLOCSET_DEFAULT_SIZES);
+    oldCtx = MemoryContextSwitchTo(insertCtx);
+
+    // Choose insertion method based on fast-update setting
+    if (GinGetUseFastUpdate(index)) {
+        // Fast-update mode: collect entries and batch insert
+        GinTupleCollector collector;
+        memset(&collector, 0, sizeof(GinTupleCollector));
+
+        for (int i = 0; i < ginstate->origTupdesc->natts; i++) {
+            ginHeapTupleFastCollect(ginstate, &collector,
+                                    (OffsetNumber) (i + 1),
+                                    values[i], isnull[i], ht_ctid);
+        }
+        ginHeapTupleFastInsert(ginstate, &collector);
+    } else {
+        // Normal mode: insert entries directly
+        for (int i = 0; i < ginstate->origTupdesc->natts; i++) {
+            ginHeapTupleInsert(ginstate, (OffsetNumber) (i + 1),
+                               values[i], isnull[i], ht_ctid);
+        }
+    }
+
+    // Clean up temporary memory context
+    MemoryContextSwitchTo(oldCtx);
+    MemoryContextDelete(insertCtx);
+
+    return false; // GIN indexes don't support unique constraints
+}
+```

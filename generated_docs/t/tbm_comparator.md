@@ -39,3 +39,16 @@ The function handles the double pointer indirection required by qsort when sorti
 - Critical for ensuring TID bitmap iterations occur in block number order
 - The double pointer indirection is necessary because qsort sorts arrays of pointers to PagetableEntry structures
 - Sorting by block number provides optimal I/O access patterns during bitmap scans
+
+## Simplified Source
+
+```c
+static int tbm_comparator(const void *left, const void *right) {
+    // Extract block numbers from PagetableEntry pointers
+    BlockNumber left_block = (*((PagetableEntry *const *) left))->blockno;
+    BlockNumber right_block = (*((PagetableEntry *const *) right))->blockno;
+
+    // Compare block numbers using PostgreSQL's comparison utility
+    return pg_cmp_u32(left_block, right_block);
+}
+```

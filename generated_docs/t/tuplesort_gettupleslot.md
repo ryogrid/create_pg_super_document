@@ -44,3 +44,45 @@ This function retrieves the next tuple from a completed sorting operation and pl
 - Abbreviated keys are provided when available to enable fast inequality checks without full tuple comparison
 - Used extensively in executor nodes that need to process sorted tuple streams
 - Part of the high-level tuplesort interface for tuple-based sorting operations
+
+## Simplified Source
+
+```c
+bool tuplesort_gettupleslot(Tuplesortstate *state, bool forward, bool copy,
+                           TupleTableSlot *slot, Datum *abbrev)
+{
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    SortTuple stup;
+
+    // Switch to sort context for memory operations
+    MemoryContext oldcontext = MemoryContextSwitchTo(base->sortcontext);
+
+    // Try to get the next tuple from the sort
+    if (!tuplesort_gettuple_common(state, forward, &stup))
+        stup.tuple = NULL;  // No more tuples available
+
+    // Restore original memory context
+    MemoryContextSwitchTo(oldcontext);
+
+    if (stup.tuple)
+    {
+        // Provide abbreviated key if available and requested
+        if (base->sortKeys->abbrev_converter && abbrev)
+            *abbrev = stup.datum1;
+
+        // Copy tuple if requested (safer but slower)
+        if (copy)
+            stup.tuple = heap_copy_minimal_tuple((MinimalTuple) stup.tuple);
+
+        // Store tuple in the provided slot
+        ExecStoreMinimalTuple((MinimalTuple) stup.tuple, slot, copy);
+        return true;  // Successfully retrieved tuple
+    }
+    else
+    {
+        // No tuple available - clear slot and return false
+        ExecClearTuple(slot);
+        return false;  // End of sorted data
+    }
+}
+```

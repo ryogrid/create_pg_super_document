@@ -160,3 +160,96 @@ write_data_to_archive_lz4_doc.md: Scan direction (forward or backward) determini
 - Uses early termination optimization - stops loading when encountering the first non-matching tuple
 - Returns the number of items loaded (itemIndex for forward scans, or adjusted itemIndex for backward scans)
 - Maintains assertion checks to ensure buffer boundaries are respected (MaxIndexTuplesPerPage)
+
+## Simplified Source
+
+```c
+static int
+_hash_load_qualified_items(IndexScanDesc scan, Page page,
+                           OffsetNumber offnum, ScanDirection dir)
+{
+    HashScanOpaque so = (HashScanOpaque) scan->opaque;
+    IndexTuple itup;
+    int itemIndex;
+    OffsetNumber maxoff;
+
+    maxoff = PageGetMaxOffsetNumber(page);
+
+    if (ScanDirectionIsForward(dir))
+    {
+        // Load items in ascending order
+        itemIndex = 0;
+
+        while (offnum <= maxoff)
+        {
+            itup = (IndexTuple) PageGetItem(page, PageGetItemId(page, offnum));
+
+            // Skip tuples moved by split or marked as dead
+            if ((so->hashso_buc_populated && !so->hashso_buc_split &&
+                 (itup->t_info & INDEX_MOVED_BY_SPLIT_MASK)) ||
+                (scan->ignore_killed_tuples &&
+                 (ItemIdIsDead(PageGetItemId(page, offnum)))))
+            {
+                offnum = OffsetNumberNext(offnum);
+                continue;
+            }
+
+            // Check if tuple matches hash key and qualifies
+            if (so->hashso_sk_hash == _hash_get_indextuple_hashkey(itup) &&
+                _hash_checkqual(scan, itup))
+            {
+                // Save qualifying tuple
+                _hash_saveitem(so, itemIndex, offnum, itup);
+                itemIndex++;
+            }
+            else
+            {
+                // No more matching tuples on this page
+                break;
+            }
+
+            offnum = OffsetNumberNext(offnum);
+        }
+
+        return itemIndex;
+    }
+    else
+    {
+        // Load items in descending order for backward scan
+        itemIndex = MaxIndexTuplesPerPage;
+
+        while (offnum >= FirstOffsetNumber)
+        {
+            itup = (IndexTuple) PageGetItem(page, PageGetItemId(page, offnum));
+
+            // Skip tuples moved by split or marked as dead
+            if ((so->hashso_buc_populated && !so->hashso_buc_split &&
+                 (itup->t_info & INDEX_MOVED_BY_SPLIT_MASK)) ||
+                (scan->ignore_killed_tuples &&
+                 (ItemIdIsDead(PageGetItemId(page, offnum)))))
+            {
+                offnum = OffsetNumberPrev(offnum);
+                continue;
+            }
+
+            // Check if tuple matches hash key and qualifies
+            if (so->hashso_sk_hash == _hash_get_indextuple_hashkey(itup) &&
+                _hash_checkqual(scan, itup))
+            {
+                itemIndex--;
+                // Save qualifying tuple
+                _hash_saveitem(so, itemIndex, offnum, itup);
+            }
+            else
+            {
+                // No more matching tuples on this page
+                break;
+            }
+
+            offnum = OffsetNumberPrev(offnum);
+        }
+
+        return itemIndex;
+    }
+}
+```

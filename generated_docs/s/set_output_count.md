@@ -45,3 +45,49 @@ The calculated count is stored in setopstate->numOutput for use by the tuple emi
 - Uses defensive programming with an error case for unrecognized set operation commands
 - Critical for correct implementation of SQL set operations in PostgreSQL
 - The output count determines how many times the representative tuple will be emitted to the parent node
+
+## Simplified Source
+
+```c
+static void
+set_output_count(SetOpState *setopstate, SetOpStatePerGroup pergroup)
+{
+    SetOp *plannode = (SetOp *) setopstate->ps.plan;
+
+    // Apply SQL set operation rules based on command type
+    switch (plannode->cmd)
+    {
+        case SETOPCMD_INTERSECT:
+            // Output 1 if both sides have tuples, 0 otherwise
+            if (pergroup->numLeft > 0 && pergroup->numRight > 0)
+                setopstate->numOutput = 1;
+            else
+                setopstate->numOutput = 0;
+            break;
+
+        case SETOPCMD_INTERSECT_ALL:
+            // Output minimum of left and right counts
+            setopstate->numOutput = (pergroup->numLeft < pergroup->numRight) ?
+                                   pergroup->numLeft : pergroup->numRight;
+            break;
+
+        case SETOPCMD_EXCEPT:
+            // Output 1 if left has tuples but right doesn't, 0 otherwise
+            if (pergroup->numLeft > 0 && pergroup->numRight == 0)
+                setopstate->numOutput = 1;
+            else
+                setopstate->numOutput = 0;
+            break;
+
+        case SETOPCMD_EXCEPT_ALL:
+            // Output difference (left - right), or 0 if negative
+            setopstate->numOutput = (pergroup->numLeft < pergroup->numRight) ?
+                                   0 : (pergroup->numLeft - pergroup->numRight);
+            break;
+
+        default:
+            elog(ERROR, "unrecognized set op: %d", (int) plannode->cmd);
+            break;
+    }
+}
+```

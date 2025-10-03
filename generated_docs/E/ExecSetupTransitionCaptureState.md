@@ -35,3 +35,29 @@ The ExecSetupTransitionCaptureState function initializes the transition capture 
 - Transition capture states are essential for statement-level AFTER triggers that need access to OLD and NEW transition tables
 - The function only sets up capture for the directly targeted relation, not for any potential child relations in inheritance hierarchies
 - Located in src/backend/executor/nodeModifyTable.c:3864-3892
+
+## Simplified Source
+
+```c
+static void ExecSetupTransitionCaptureState(ModifyTableState *mtstate, EState *estate)
+{
+    ModifyTable *plan = (ModifyTable *) mtstate->ps.plan;
+    ResultRelInfo *targetRelInfo = mtstate->rootResultRelInfo;
+
+    // Setup main transition capture state for the target relation
+    mtstate->mt_transition_capture =
+        MakeTransitionCaptureState(targetRelInfo->ri_TrigDesc,
+                                   RelationGetRelid(targetRelInfo->ri_RelationDesc),
+                                   mtstate->operation);
+
+    // Setup additional transition capture for ON CONFLICT UPDATE scenarios
+    if (plan->operation == CMD_INSERT &&
+        plan->onConflictAction == ONCONFLICT_UPDATE)
+    {
+        mtstate->mt_oc_transition_capture =
+            MakeTransitionCaptureState(targetRelInfo->ri_TrigDesc,
+                                       RelationGetRelid(targetRelInfo->ri_RelationDesc),
+                                       CMD_UPDATE);
+    }
+}
+```

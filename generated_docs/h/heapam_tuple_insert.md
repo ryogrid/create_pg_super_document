@@ -46,3 +46,30 @@ The function extracts a HeapTuple from the provided slot, sets the appropriate t
 - The options parameter can include flags like HEAP_INSERT_SKIP_WAL, HEAP_INSERT_SKIP_FSM, etc.
 - [BulkInsertState](../B/BulkInsertState.md) parameter enables optimization for bulk operations but is optional for single inserts
 - The function ensures proper integration between the generic table access method layer and heap-specific implementation
+
+## Simplified Source
+
+```c
+static void
+heapam_tuple_insert(Relation relation, TupleTableSlot *slot, CommandId cid,
+                    int options, BulkInsertState bistate)
+{
+    // Extract heap tuple from slot
+    bool shouldFree = true;
+    HeapTuple tuple = ExecFetchSlotHeapTuple(slot, true, &shouldFree);
+
+    // Set table OID in both slot and tuple
+    slot->tts_tableOid = RelationGetRelid(relation);
+    tuple->t_tableOid = slot->tts_tableOid;
+
+    // Perform the actual insertion
+    heap_insert(relation, tuple, cid, options, bistate);
+
+    // Copy resulting location back to slot
+    ItemPointerCopy(&tuple->t_self, &slot->tts_tid);
+
+    // Clean up allocated memory if needed
+    if (shouldFree)
+        pfree(tuple);
+}
+```

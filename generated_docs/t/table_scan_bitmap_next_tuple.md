@@ -44,3 +44,18 @@ Like its companion function, it includes safety checks to prevent calls during l
 - Contains logical decoding safety checks similar to other bitmap scan functions
 - The function is inline and defined in the table access method interface header
 - Proper sequencing is critical - calling this function without proper block selection will lead to undefined behavior
+
+## Simplified Source
+
+```c
+static inline bool
+table_scan_bitmap_next_tuple(TableScanDesc scan, struct TBMIterateResult *tbmres, TupleTableSlot *slot)
+{
+    // Safety check: prevent calls during logical decoding
+    if (unlikely(TransactionIdIsValid(CheckXidAlive) && !bsysscan))
+        elog(ERROR, "unexpected call during logical decoding");
+
+    // Delegate to table access method implementation
+    return scan->rs_rd->rd_tableam->scan_bitmap_next_tuple(scan, tbmres, slot);
+}
+```

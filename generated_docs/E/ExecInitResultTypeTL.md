@@ -36,3 +36,17 @@ The function uses ExecTypeFromTL to convert the plan's target list into a TupleD
 - Essential for PostgreSQL's type system and tuple slot management during query execution
 - Part of the convenience initialization routines that simplify common setup patterns in the executor
 - The target list contains TargetEntry structures that specify the output columns' expressions and metadata
+
+## Simplified Source
+
+```c
+void
+ExecInitResultTypeTL(PlanState *planstate)
+{
+    // Create tuple descriptor from plan's target list
+    TupleDesc result_desc = ExecTypeFromTL(planstate->plan->targetlist);
+
+    // Store result tuple descriptor in plan state
+    planstate->ps_ResultTupleDesc = result_desc;
+}
+```

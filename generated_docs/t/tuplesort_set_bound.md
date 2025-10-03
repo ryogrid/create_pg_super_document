@@ -44,3 +44,37 @@ When a bound is set, the function also disables abbreviated key optimization sin
 - Disables abbreviated key optimization for better bounded sort performance
 - Bounded sorts are primarily useful for LIMIT operations in SQL queries
 - The bound is limited to INT_MAX/2 to prevent integer overflow in internal calculations
+
+## Simplified Source
+
+```c
+void tuplesort_set_bound(Tuplesortstate *state, int64 bound)
+{
+    // Verify preconditions: must be called before loading tuples
+    Assert(state->status == TSS_INITIAL && state->memtupcount == 0);
+    Assert(state->base.sortopt & TUPLESORT_ALLOWBOUNDED);
+    Assert(!state->bounded);
+    Assert(!WORKER(state));
+
+    // Parallel leader ignores the hint
+    if (LEADER(state))
+        return;
+
+    // Limit bound to prevent overflow in calculations
+    if (bound > (int64) (INT_MAX / 2))
+        return;
+
+    // Enable bounded sorting
+    state->bounded = true;
+    state->bound = (int) bound;
+
+    // Disable abbreviated key optimization for bounded sorts
+    state->base.sortKeys->abbrev_converter = NULL;
+    if (state->base.sortKeys->abbrev_full_comparator)
+        state->base.sortKeys->comparator = state->base.sortKeys->abbrev_full_comparator;
+
+    // Clean up abbreviation state
+    state->base.sortKeys->abbrev_abort = NULL;
+    state->base.sortKeys->abbrev_full_comparator = NULL;
+}
+```

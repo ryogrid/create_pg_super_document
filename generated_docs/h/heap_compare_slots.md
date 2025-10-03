@@ -47,3 +47,44 @@ The function stops as soon as it finds a difference between the tuples on any so
 - The INVERT_COMPARE_RESULT macro adjusts the comparison result for proper heap ordering
 - Also used in MergeAppend operations, indicating its general utility for tuple comparison in merge contexts
 - Assumes both input slots contain valid (non-NULL) tuples as verified by assertions
+
+## Simplified Source
+
+```c
+static int32
+heap_compare_slots(Datum a, Datum b, void *arg)
+{
+    GatherMergeState *node = (GatherMergeState *) arg;
+    SlotNumber slot1 = DatumGetInt32(a);
+    SlotNumber slot2 = DatumGetInt32(b);
+
+    TupleTableSlot *s1 = node->gm_slots[slot1];
+    TupleTableSlot *s2 = node->gm_slots[slot2];
+
+    Assert(!TupIsNull(s1));
+    Assert(!TupIsNull(s2));
+
+    // Compare tuples column by column using sort keys
+    for (int nkey = 0; nkey < node->gm_nkeys; nkey++) {
+        SortSupport sortKey = node->gm_sortkeys + nkey;
+        AttrNumber attno = sortKey->ssup_attno;
+
+        // Extract attribute values from both slots
+        bool isNull1, isNull2;
+        Datum datum1 = slot_getattr(s1, attno, &isNull1);
+        Datum datum2 = slot_getattr(s2, attno, &isNull2);
+
+        // Compare the values using the appropriate comparator
+        int compare = ApplySortComparator(datum1, isNull1,
+                                        datum2, isNull2,
+                                        sortKey);
+        if (compare != 0) {
+            INVERT_COMPARE_RESULT(compare);
+            return compare;
+        }
+    }
+
+    // All sort keys are equal
+    return 0;
+}
+```

@@ -44,3 +44,22 @@ The function is intentionally minimal, focusing solely on the physical deletion 
 - Cross-check snapshot support enables proper serializable isolation level behavior
 - The changingPart parameter helps the storage layer optimize partition-related deletion scenarios
 - This function only handles regular tables - foreign table deletions use different code paths
+
+## Simplified Source
+
+```c
+static TM_Result ExecDeleteAct(ModifyTableContext *context, ResultRelInfo *resultRelInfo,
+                              ItemPointer tupleid, bool changingPart)
+{
+    EState *estate = context->estate;
+
+    // Perform the actual physical deletion using the storage layer
+    return table_tuple_delete(resultRelInfo->ri_RelationDesc, tupleid,
+                             estate->es_output_cid,
+                             estate->es_snapshot,
+                             estate->es_crosscheck_snapshot,
+                             true /* wait for commit */,
+                             &context->tmfd,
+                             changingPart);
+}
+```

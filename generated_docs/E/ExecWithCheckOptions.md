@@ -47,3 +47,113 @@ ExecWithCheckOptions enforces WITH CHECK OPTION constraints and row-level securi
 - Uses appropriate error codes: ERRCODE_WITH_CHECK_OPTION_VIOLATION for view constraints and ERRCODE_INSUFFICIENT_PRIVILEGE for RLS policy violations
 - Supports various RLS policy types including insert, update, merge, and conflict resolution scenarios
 - NULL or FALSE expression evaluation results in constraint violation, following PostgreSQL's constraint semantics
+
+## Simplified Source
+
+```c
+void
+ExecWithCheckOptions(WCOKind kind, ResultRelInfo *resultRelInfo,
+                     TupleTableSlot *slot, EState *estate)
+{
+    Relation rel = resultRelInfo->ri_RelationDesc;
+    TupleDesc tupdesc = RelationGetDescr(rel);
+    ExprContext *econtext;
+    ListCell *l1, *l2;
+
+    // Set up expression context for constraint evaluation
+    econtext = GetPerTupleExprContext(estate);
+    econtext->ecxt_scantuple = slot;
+
+    // Check each WITH CHECK OPTION constraint
+    forboth(l1, resultRelInfo->ri_WithCheckOptions,
+            l2, resultRelInfo->ri_WithCheckOptionExprs)
+    {
+        WithCheckOption *wco = (WithCheckOption *) lfirst(l1);
+        ExprState *wcoExpr = (ExprState *) lfirst(l2);
+
+        // Skip constraints not matching the requested kind
+        if (wco->kind != kind)
+            continue;
+
+        // Evaluate the constraint expression
+        if (!ExecQual(wcoExpr, econtext))
+        {
+            // Handle constraint violation based on type
+            switch (wco->kind)
+            {
+                case WCO_VIEW_CHECK:
+                    // For view constraints, provide detailed error info
+                    handle_view_check_violation(wco, resultRelInfo, slot,
+                                                 estate, rel, tupdesc);
+                    break;
+
+                case WCO_RLS_INSERT_CHECK:
+                case WCO_RLS_UPDATE_CHECK:
+                    // For RLS policies, report generic security violation
+                    report_rls_policy_violation(wco, "new row violates row-level security policy");
+                    break;
+
+                case WCO_RLS_MERGE_UPDATE_CHECK:
+                case WCO_RLS_MERGE_DELETE_CHECK:
+                    report_rls_policy_violation(wco, "target row violates row-level security policy (USING expression)");
+                    break;
+
+                case WCO_RLS_CONFLICT_CHECK:
+                    report_rls_policy_violation(wco, "new row violates row-level security policy (USING expression)");
+                    break;
+
+                default:
+                    elog(ERROR, "unrecognized WCO kind: %u", wco->kind);
+                    break;
+            }
+        }
+    }
+}
+
+// Helper function to handle view constraint violations
+static void
+handle_view_check_violation(WithCheckOption *wco, ResultRelInfo *resultRelInfo,
+                             TupleTableSlot *slot, EState *estate,
+                             Relation rel, TupleDesc tupdesc)
+{
+    char *val_desc;
+    Bitmapset *modifiedCols;
+
+    // Handle partition mapping if needed
+    if (resultRelInfo->ri_RootResultRelInfo)
+    {
+        // Map slot to root relation format and get modified columns
+        slot = map_partition_slot_to_root(slot, resultRelInfo);
+        modifiedCols = get_root_modified_cols(resultRelInfo, estate);
+        rel = resultRelInfo->ri_RootResultRelInfo->ri_RelationDesc;
+    }
+    else
+    {
+        modifiedCols = bms_union(ExecGetInsertedCols(resultRelInfo, estate),
+                                 ExecGetUpdatedCols(resultRelInfo, estate));
+    }
+
+    // Build detailed error description
+    val_desc = ExecBuildSlotValueDescription(RelationGetRelid(rel), slot,
+                                             tupdesc, modifiedCols, 64);
+
+    ereport(ERROR,
+            (errcode(ERRCODE_WITH_CHECK_OPTION_VIOLATION),
+             errmsg("new row violates check option for view \"%s\"", wco->relname),
+             val_desc ? errdetail("Failing row contains %s.", val_desc) : 0));
+}
+
+// Helper function to report RLS policy violations
+static void
+report_rls_policy_violation(WithCheckOption *wco, const char *message)
+{
+    if (wco->polname != NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                 errmsg("%s \"%s\" for table \"%s\"", message, wco->polname, wco->relname)));
+    else
+        ereport(ERROR,
+                (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                 errmsg("%s for table \"%s\"", message, wco->relname)));
+}
+```

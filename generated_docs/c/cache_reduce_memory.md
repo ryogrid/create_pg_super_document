@@ -48,3 +48,55 @@ The function returns a boolean indicating whether a 'special' cache entry (if sp
 - Memory limit enforcement is strict - eviction continues until memory usage is at or below the limit
 - Statistics tracking includes both eviction counts and peak memory usage
 - [Hash](../H/Hash.md) table lookup is required for each LRU entry due to the architectural decision to store LRU pointers in keys rather than entries
+
+## Simplified Source
+
+```c
+static bool
+cache_reduce_memory(MemoizeState *mstate, MemoizeKey *specialkey)
+{
+    bool specialkey_intact = true;
+    dlist_mutable_iter iter;
+    uint64 evictions = 0;
+
+    // Update peak memory usage statistics
+    if (mstate->mem_used > mstate->stats.mem_peak)
+        mstate->stats.mem_peak = mstate->mem_used;
+
+    Assert(mstate->mem_used > mstate->mem_limit);
+
+    // Evict entries starting from least recently used
+    dlist_foreach_modify(iter, &mstate->lru_list)
+    {
+        MemoizeKey *key = dlist_container(MemoizeKey, lru_node, iter.cur);
+        MemoizeEntry *entry;
+
+        // Set up hash table probe for this LRU entry
+        prepare_probe_slot(mstate, key);
+
+        // Find the cache entry for this key
+        entry = memoize_lookup(mstate->hashtable, NULL);
+
+        // Verify we found the correct entry
+        if (unlikely(entry == NULL || entry->key != key))
+            elog(ERROR, "could not find memoization table entry");
+
+        // Check if we're evicting the special key
+        if (key == specialkey)
+            specialkey_intact = false;
+
+        // Remove the cache entry (also removes from LRU list)
+        remove_cache_entry(mstate, entry);
+        evictions++;
+
+        // Stop if we've freed enough memory
+        if (mstate->mem_used <= mstate->mem_limit)
+            break;
+    }
+
+    // Update eviction statistics
+    mstate->stats.cache_evictions += evictions;
+
+    return specialkey_intact;
+}
+```

@@ -44,3 +44,34 @@ The function ensures that all variable references have been properly processed b
 - The recursive nature allows it to properly handle nested expressions and aggregate functions
 - Critical for aggregation optimization as it enables the executor to understand which columns are needed in different phases of aggregation processing
 - The context's  flag provides the state needed to correctly categorize column references based on their location relative to aggregate function boundaries
+
+## Simplified Source
+
+```c
+static bool find_cols_walker(Node *node, FindColsContext *context) {
+    if (node == NULL)
+        return false;
+
+    if (IsA(node, Var)) {
+        Var *var = (Var *) node;
+
+        // Add column to appropriate set based on context
+        if (context->is_aggref)
+            context->aggregated = bms_add_member(context->aggregated, var->varattno);
+        else
+            context->unaggregated = bms_add_member(context->unaggregated, var->varattno);
+        return false;
+    }
+
+    if (IsA(node, Aggref)) {
+        // Process aggregate function arguments
+        context->is_aggref = true;
+        expression_tree_walker(node, find_cols_walker, (void *) context);
+        context->is_aggref = false;
+        return false;
+    }
+
+    // Continue traversing expression tree
+    return expression_tree_walker(node, find_cols_walker, (void *) context);
+}
+```

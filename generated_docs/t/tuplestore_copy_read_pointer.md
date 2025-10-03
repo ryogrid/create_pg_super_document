@@ -38,3 +38,66 @@ This function copies all the state information from a source read pointer to a d
 - When eflags differ between pointers, the function recomputes the overall state eflags by OR-ing all read pointer eflags
 - In TSS_READFILE state, special handling is required for the active read pointer since its logical position may differ from the file's actual seek position
 - File operations can raise ERROR conditions if seek operations fail
+
+## Simplified Source
+
+```c
+void tuplestore_copy_read_pointer(Tuplestorestate *state,
+                                  int srcptr, int destptr) {
+    TSReadPointer *sptr = &state->readptrs[srcptr];
+    TSReadPointer *dptr = &state->readptrs[destptr];
+
+    // Validate pointer indices
+    Assert(srcptr >= 0 && srcptr < state->readptrcount);
+    Assert(destptr >= 0 && destptr < state->readptrcount);
+
+    // Self-assignment is a no-op
+    if (srcptr == destptr) {
+        return;
+    }
+
+    // Handle potential eflags changes
+    if (dptr->eflags != sptr->eflags) {
+        // Copy and recompute overall eflags
+        *dptr = *sptr;
+        int eflags = state->readptrs[0].eflags;
+        for (int i = 1; i < state->readptrcount; i++) {
+            eflags |= state->readptrs[i].eflags;
+        }
+        state->eflags = eflags;
+    } else {
+        // Simple copy when eflags match
+        *dptr = *sptr;
+    }
+
+    // Handle different tuplestore states
+    switch (state->status) {
+        case TSS_INMEM:
+        case TSS_WRITEFILE:
+            // No additional work needed
+            break;
+
+        case TSS_READFILE:
+            // Handle file-based storage with active pointer considerations
+            if (destptr == state->activeptr) {
+                // Setting the active pointer requires a file seek
+                if (dptr->eof_reached) {
+                    BufFileSeek(state->myfile, state->writepos_file,
+                               state->writepos_offset, SEEK_SET);
+                } else {
+                    BufFileSeek(state->myfile, dptr->file, dptr->offset, SEEK_SET);
+                }
+            } else if (srcptr == state->activeptr) {
+                // Copying from active pointer requires getting current file position
+                if (!dptr->eof_reached) {
+                    BufFileTell(state->myfile, &dptr->file, &dptr->offset);
+                }
+            }
+            break;
+
+        default:
+            elog(ERROR, "invalid tuplestore state");
+            break;
+    }
+}
+```

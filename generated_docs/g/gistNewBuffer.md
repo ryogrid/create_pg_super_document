@@ -46,3 +46,50 @@ This function implements a sophisticated page allocation strategy for GiST index
 - Uses conditional locking to avoid blocking when other processes are using candidate pages
 - Falls back to file extension when no recyclable pages are available
 - Critical for maintaining good space utilization in GiST indexes
+
+## Simplified Source
+
+```c
+Buffer gistNewBuffer(Relation r, Relation heaprel) {
+    Buffer buffer;
+
+    // Try to recycle pages from Free Space Map
+    for (;;) {
+        BlockNumber blkno = GetFreeIndexPage(r);
+        if (blkno == InvalidBlockNumber)
+            break;  // No more pages in FSM
+
+        buffer = ReadBuffer(r, blkno);
+
+        // Try to lock buffer non-blocking (avoid contention)
+        if (ConditionalLockBuffer(buffer)) {
+            Page page = BufferGetPage(buffer);
+
+            // Uninitialized page is ready to use
+            if (PageIsNew(page))
+                return buffer;
+
+            // Validate page integrity
+            gistcheckpage(r, buffer);
+
+            // Check if page can be safely recycled
+            if (gistPageRecyclable(page)) {
+                // Generate WAL record for Hot Standby conflict resolution
+                if (XLogStandbyInfoActive() && RelationNeedsWAL(r))
+                    gistXLogPageReuse(r, heaprel, blkno, GistPageGetDeleteXid(page));
+
+                return buffer;
+            }
+
+            LockBuffer(buffer, GIST_UNLOCK);
+        }
+
+        // Page not usable, release and try next
+        ReleaseBuffer(buffer);
+    }
+
+    // No recyclable pages found, extend the file
+    buffer = ExtendBufferedRel(BMR_REL(r), MAIN_FORKNUM, NULL, EB_LOCK_FIRST);
+    return buffer;
+}
+```

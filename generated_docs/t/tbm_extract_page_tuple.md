@@ -36,3 +36,33 @@ This static inline function processes a single page entry from a TIDBitmap to ex
 - Converts bit positions back to tuple offset numbers by adding the base offset for each word
 - The function processes the bitmap word by word, then bit by bit within each word
 - Essential component of both private and shared bitmap iteration mechanisms
+
+## Simplified Source
+
+```c
+static inline int tbm_extract_page_tuple(PagetableEntry *page, TBMIterateResult *output) {
+    int wordnum;
+    int ntuples = 0;
+
+    // Process each bitmap word in the page
+    for (wordnum = 0; wordnum < WORDS_PER_PAGE; wordnum++) {
+        bitmapword w = page->words[wordnum];
+
+        // Skip empty words
+        if (w != 0) {
+            // Calculate base offset for this word
+            int offset = wordnum * BITS_PER_BITMAPWORD + 1;
+
+            // Extract each set bit as a tuple offset
+            while (w != 0) {
+                if (w & 1)
+                    output->offsets[ntuples++] = (OffsetNumber) offset;
+                offset++;
+                w >>= 1;  // Move to next bit
+            }
+        }
+    }
+
+    return ntuples;
+}
+```

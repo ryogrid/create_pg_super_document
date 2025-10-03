@@ -57,3 +57,47 @@ The function implements PostgreSQL's standard pattern for bulk index creation, b
 - Critical for GIN index build performance, especially on large tables
 - The static keyword indicates this is internal to the GIN access method implementation
 - Part of PostgreSQL's pluggable index access method architecture
+
+## Simplified Source
+```c
+static void ginBuildCallback(Relation index, ItemPointer tid, Datum *values,
+                            bool *isnull, bool tupleIsAlive, void *state) {
+    GinBuildState *buildstate = (GinBuildState *) state;
+    MemoryContext oldCtx;
+    int i;
+
+    oldCtx = MemoryContextSwitchTo(buildstate->tmpCtx);
+
+    // Process each indexed attribute of the tuple
+    for (i = 0; i < buildstate->ginstate.origTupdesc->natts; i++) {
+        ginHeapTupleBulkInsert(buildstate, (OffsetNumber) (i + 1),
+                              values[i], isnull[i], tid);
+    }
+
+    // Check if we've exceeded memory limit - flush if needed
+    if (buildstate->accum.allocatedMemory >= (Size) maintenance_work_mem * 1024L) {
+        ItemPointerData *list;
+        Datum key;
+        GinNullCategory category;
+        uint32 nlist;
+        OffsetNumber attnum;
+
+        // Scan all accumulated entries and insert them into index
+        ginBeginBAScan(&buildstate->accum);
+        while ((list = ginGetBAEntry(&buildstate->accum,
+                                    &attnum, &key, &category, &nlist)) != NULL) {
+            // Allow interruption during long operations
+            CHECK_FOR_INTERRUPTS();
+
+            ginEntryInsert(&buildstate->ginstate, attnum, key, category,
+                          list, nlist, &buildstate->buildStats);
+        }
+
+        // Reset accumulator for next batch
+        MemoryContextReset(buildstate->tmpCtx);
+        ginInitBA(&buildstate->accum);
+    }
+
+    MemoryContextSwitchTo(oldCtx);
+}
+```

@@ -44,3 +44,61 @@ The validation occurs after obtaining a lock on the target relation, ensuring th
 - The function handles special cases for dropped columns and generated columns by requiring NULL constants
 - Error messages provide detailed information about mismatches including column positions and type names
 - The check is performed at execution time rather than parse time to handle cases where plans might be cached across schema changes
+
+## Simplified Source
+
+```c
+static void
+ExecCheckPlanOutput(Relation resultRel, List *targetList) {
+    TupleDesc resultDesc = RelationGetDescr(resultRel);
+    int attno = 0;
+    ListCell *lc;
+
+    // Check each target list entry against table columns
+    foreach(lc, targetList) {
+        TargetEntry *tle = (TargetEntry *) lfirst(lc);
+        Form_pg_attribute attr;
+
+        Assert(!tle->resjunk);  // Non-junk entries only
+
+        // Check for too many columns
+        if (attno >= resultDesc->natts)
+            ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                           errmsg("table row type and query-specified row type do not match"),
+                           errdetail("Query has too many columns.")));
+
+        attr = TupleDescAttr(resultDesc, attno);
+        attno++;
+
+        if (attr->attisdropped) {
+            // Dropped columns must be NULL constants
+            if (!IsA(tle->expr, Const) || !((Const *) tle->expr)->constisnull)
+                ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                               errmsg("table row type and query-specified row type do not match"),
+                               errdetail("Query provides a value for a dropped column at ordinal position %d.", attno)));
+        }
+        else if (attr->attgenerated) {
+            // Generated columns must be NULL constants
+            if (!IsA(tle->expr, Const) || !((Const *) tle->expr)->constisnull)
+                ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                               errmsg("table row type and query-specified row type do not match"),
+                               errdetail("Query provides a value for a generated column at ordinal position %d.", attno)));
+        }
+        else {
+            // Regular columns must have matching types
+            if (exprType((Node *) tle->expr) != attr->atttypid)
+                ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                               errmsg("table row type and query-specified row type do not match"),
+                               errdetail("Table has type %s at ordinal position %d, but query expects %s.",
+                                        format_type_be(attr->atttypid), attno,
+                                        format_type_be(exprType((Node *) tle->expr)))));
+        }
+    }
+
+    // Check for too few columns
+    if (attno != resultDesc->natts)
+        ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                       errmsg("table row type and query-specified row type do not match"),
+                       errdetail("Query has too few columns.")));
+}
+```

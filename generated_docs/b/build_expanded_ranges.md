@@ -43,3 +43,29 @@ The expanded representation is essential for range merging algorithms as it prov
 - The function is static and used internally within the BRIN minmax-multi implementation
 - Memory allocation uses palloc0 to ensure proper initialization of the expanded ranges
 - Part of the BRIN index optimization process for managing multiple values per block range
+
+## Simplified Source
+
+```c
+static ExpandedRange *
+build_expanded_ranges(FmgrInfo *cmp, Oid colloid, Ranges *ranges,
+                      int *nranges)
+{
+    // Calculate total expanded ranges needed: ranges + individual values
+    int neranges = ranges->nranges + ranges->nvalues;
+
+    // Allocate memory for expanded representation
+    ExpandedRange *eranges = (ExpandedRange *) palloc0(neranges * sizeof(ExpandedRange));
+
+    // Convert ranges and individual values to expanded format
+    fill_expanded_ranges(eranges, neranges, ranges);
+
+    // Sort and deduplicate the expanded ranges
+    neranges = sort_expanded_ranges(cmp, colloid, eranges, neranges);
+
+    // Return the final count to caller
+    *nranges = neranges;
+
+    return eranges;
+}
+```

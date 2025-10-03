@@ -46,3 +46,44 @@ The function provides an important optimization through the `advancePast` parame
 - For compressed pages, the function performs segment-level skipping for efficiency
 - The returned ItemPointer array is allocated with palloc() and must be freed by the caller
 - TIDs are guaranteed to be returned in ascending order regardless of page format
+
+## Simplified Source
+
+```c
+ItemPointer GinDataLeafPageGetItems(Page page, int *nitems, ItemPointerData advancePast) {
+    ItemPointer result;
+
+    if (GinPageIsCompressed(page)) {
+        // Handle compressed page format
+        GinPostingList *seg = GinDataLeafPageGetPostingList(page);
+        Size len = GinDataLeafPageGetPostingListSize(page);
+        Pointer endptr = ((Pointer) seg) + len;
+
+        // Skip segments with only TIDs <= advancePast (optimization)
+        if (ItemPointerIsValid(&advancePast)) {
+            GinPostingList *next = GinNextPostingListSegment(seg);
+            while ((Pointer) next < endptr &&
+                   ginCompareItemPointers(&next->first, &advancePast) <= 0) {
+                seg = next;
+                next = GinNextPostingListSegment(seg);
+            }
+            len = endptr - (Pointer) seg;
+        }
+
+        // Decode remaining segments into TID array
+        if (len > 0) {
+            result = ginPostingListDecodeAllSegments(seg, len, nitems);
+        } else {
+            result = NULL;
+            *nitems = 0;
+        }
+    } else {
+        // Handle uncompressed page format - just copy the TID array
+        ItemPointer uncompressed_tids = dataLeafPageGetUncompressed(page, nitems);
+        result = palloc((*nitems) * sizeof(ItemPointerData));
+        memcpy(result, uncompressed_tids, (*nitems) * sizeof(ItemPointerData));
+    }
+
+    return result;
+}
+```

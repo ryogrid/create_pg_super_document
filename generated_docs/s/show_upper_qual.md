@@ -39,3 +39,18 @@ The function implements a range table-based prefixing strategy: it uses table pr
 - The range table length check (> 1) effectively identifies multi-table queries where prefixes add clarity
 - Part of the specialized EXPLAIN infrastructure, complementing show_scan_qual for different plan node categories
 - Frequently used throughout ExplainNode for various upper-level operations like Hash Join, Merge Join, Group, etc.
+
+## Simplified Source
+
+```c
+static void show_upper_qual(List *qual, const char *qlabel,
+                           PlanState *planstate, List *ancestors,
+                           ExplainState *es) {
+    // Determine if table prefixes should be used
+    // Use prefixes for multi-table queries or when verbose output requested
+    bool useprefix = (list_length(es->rtable) > 1 || es->verbose);
+
+    // Delegate to general qualification display function
+    show_qual(qual, qlabel, planstate, ancestors, useprefix, es);
+}
+```

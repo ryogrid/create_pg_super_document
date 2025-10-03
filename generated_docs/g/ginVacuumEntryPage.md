@@ -50,3 +50,93 @@ The function uses a copy-on-write strategy where it works with the original page
 - Properly manages memory allocation and deallocation for temporary data structures
 - Part of the GIN index vacuum system that maintains posting list integrity
 - The function maintains the original page structure while selectively updating individual tuples
+
+## Simplified Source
+
+```c
+static Page
+ginVacuumEntryPage(GinVacuumState *gvs, Buffer buffer, BlockNumber *roots, uint32 *nroot)
+{
+    Page origpage = BufferGetPage(buffer), tmppage;
+    OffsetNumber i, maxoff = PageGetMaxOffsetNumber(origpage);
+
+    tmppage = origpage;  // Use copy-on-write strategy
+    *nroot = 0;
+
+    // Process each tuple on the page
+    for (i = FirstOffsetNumber; i <= maxoff; i++) {
+        IndexTuple itup = (IndexTuple) PageGetItem(tmppage, PageGetItemId(tmppage, i));
+
+        if (GinIsPostingTree(itup)) {
+            // Collect posting tree roots for later processing
+            roots[*nroot] = GinGetDownlink(itup);
+            (*nroot)++;
+        } else if (GinGetNPosting(itup) > 0) {
+            // Process posting list tuples
+            int nitems;
+            ItemPointer items_orig, items;
+            bool free_items_orig;
+
+            // Extract item pointers from tuple (compressed or uncompressed)
+            if (GinItupIsCompressed(itup)) {
+                items_orig = ginPostingListDecode((GinPostingList *) GinGetPosting(itup), &nitems);
+                free_items_orig = true;
+            } else {
+                items_orig = (ItemPointer) GinGetPosting(itup);
+                nitems = GinGetNPosting(itup);
+                free_items_orig = false;
+            }
+
+            // Remove dead item pointers
+            items = ginVacuumItemPointers(gvs, items_orig, nitems, &nitems);
+
+            if (free_items_orig)
+                pfree(items_orig);
+
+            // If items were removed, recreate the tuple
+            if (items) {
+                OffsetNumber attnum;
+                Datum key;
+                GinNullCategory category;
+                GinPostingList *plist;
+                int plistsize;
+
+                // Compress posting list if items remain
+                if (nitems > 0) {
+                    plist = ginCompressPostingList(items, nitems, GinMaxItemSize, NULL);
+                    plistsize = SizeOfGinPostingList(plist);
+                } else {
+                    plist = NULL;
+                    plistsize = 0;
+                }
+
+                // Create temporary page copy on first modification
+                if (tmppage == origpage) {
+                    tmppage = PageGetTempPageCopy(origpage);
+                    itup = (IndexTuple) PageGetItem(tmppage, PageGetItemId(tmppage, i));
+                }
+
+                // Recreate tuple with updated posting list
+                attnum = gintuple_get_attrnum(&gvs->ginstate, itup);
+                key = gintuple_get_key(&gvs->ginstate, itup, &category);
+                itup = GinFormTuple(&gvs->ginstate, attnum, key, category,
+                                   (char *) plist, plistsize, nitems, true);
+
+                // Replace tuple on page
+                PageIndexTupleDelete(tmppage, i);
+                if (PageAddItem(tmppage, (Item) itup, IndexTupleSize(itup), i, false, false) != i)
+                    elog(ERROR, "failed to add item to index page in \"%s\"",
+                         RelationGetRelationName(gvs->index));
+
+                // Clean up
+                if (plist)
+                    pfree(plist);
+                pfree(itup);
+                pfree(items);
+            }
+        }
+    }
+
+    return (tmppage == origpage) ? NULL : tmppage;
+}
+```

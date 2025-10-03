@@ -34,3 +34,12 @@ This function is typically called during the planning phase of parallel query ex
 - Returns a Size type (typically size_t) representing bytes needed
 - This is a simple helper function that enables proper memory allocation for parallel scan coordination
 - The returned size corresponds to the shared memory space needed to coordinate multiple worker processes scanning the same relation in parallel
+
+## Simplified Source
+
+```c
+Size table_block_parallelscan_estimate(Relation rel) {
+    // Return memory size needed for parallel scan coordination
+    return sizeof(ParallelBlockTableScanDescData);
+}
+```

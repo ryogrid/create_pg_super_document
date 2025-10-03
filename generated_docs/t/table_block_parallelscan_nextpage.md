@@ -40,3 +40,54 @@ The allocation uses atomic operations to track globally allocated blocks (phs_na
 - Coordinates with synchronized scanning (syncscan) feature to report scan progress
 - The 64-bit nallocated counter prevents overflow when worker threads increment beyond the actual block count
 - Chunk size reduction occurs when remaining work falls below PARALLEL_SEQSCAN_RAMPDOWN_CHUNKS thresholds
+
+## Simplified Source
+
+```c
+BlockNumber
+table_block_parallelscan_nextpage(Relation rel,
+                                  ParallelBlockTableScanWorker pbscanwork,
+                                  ParallelBlockTableScanDesc pbscan)
+{
+    BlockNumber page;
+    uint64 nallocated;
+
+    // Check if worker has remaining blocks in current chunk
+    if (pbscanwork->phsw_chunk_remaining > 0) {
+        // Give next block from current chunk
+        nallocated = ++pbscanwork->phsw_nallocated;
+        pbscanwork->phsw_chunk_remaining--;
+    }
+    else {
+        // Reduce chunk size when approaching end of scan for load balancing
+        if (pbscanwork->phsw_chunk_size > 1 &&
+            pbscanwork->phsw_nallocated > pbscan->phs_nblocks -
+            (pbscanwork->phsw_chunk_size * PARALLEL_SEQSCAN_RAMPDOWN_CHUNKS))
+            pbscanwork->phsw_chunk_size >>= 1;
+
+        // Allocate new chunk atomically
+        nallocated = pbscanwork->phsw_nallocated =
+            pg_atomic_fetch_add_u64(&pbscan->phs_nallocated,
+                                    pbscanwork->phsw_chunk_size);
+
+        // Set remaining blocks in new chunk
+        pbscanwork->phsw_chunk_remaining = pbscanwork->phsw_chunk_size - 1;
+    }
+
+    // Calculate actual block number or return invalid if done
+    if (nallocated >= pbscan->phs_nblocks)
+        page = InvalidBlockNumber;
+    else
+        page = (nallocated + pbscan->phs_startblock) % pbscan->phs_nblocks;
+
+    // Report scan progress for synchronized scans
+    if (pbscan->base.phs_syncscan) {
+        if (page != InvalidBlockNumber)
+            ss_report_location(rel, page);
+        else if (nallocated == pbscan->phs_nblocks)
+            ss_report_location(rel, pbscan->phs_startblock);
+    }
+
+    return page;
+}
+```

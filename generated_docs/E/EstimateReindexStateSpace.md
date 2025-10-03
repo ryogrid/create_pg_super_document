@@ -36,3 +36,14 @@ The function computes the total size by adding:
 - Uses mul_size() for overflow-safe multiplication when calculating array sizes
 - The pendingReindexedIndexes is a global list that tracks indexes currently being reindexed
 - Located in src/backend/catalog/index.c at lines 4181-4191
+
+## Simplified Source
+
+```c
+Size EstimateReindexStateSpace(void) {
+    // Base size of SerializedReindexState up to flexible array member
+    // plus space for array of pending reindexed index OIDs
+    return offsetof(SerializedReindexState, pendingReindexedIndexes)
+           + mul_size(sizeof(Oid), list_length(pendingReindexedIndexes));
+}
+```

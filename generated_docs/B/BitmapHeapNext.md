@@ -51,3 +51,113 @@ For prefetching optimization, the function maintains two separate iterators - on
 - For parallel execution, the function coordinates shared state initialization among worker processes
 - The scan can handle cases where no tuple data is needed (projection-only queries) by using table_beginscan_bm appropriately
 - Error handling ensures that unexpected results from child index scans are detected and reported
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+BitmapHeapNext(BitmapHeapScanState *node)
+{
+    ExprContext *econtext = node->ss.ps.ps_ExprContext;
+    TupleTableSlot *slot = node->ss.ss_ScanTupleSlot;
+    TableScanDesc scan = node->ss.ss_currentScanDesc;
+    TIDBitmap *tbm = node->tbm;
+    TBMIterateResult *tbmres = node->tbmres;
+
+    // One-time initialization: get bitmap from index scan and setup iterators
+    if (!node->initialized) {
+        // Get bitmap from child index scan node
+        if (!node->pstate) {
+            tbm = (TIDBitmap *) MultiExecProcNode(outerPlanState(node));
+            if (!tbm || !IsA(tbm, TIDBitmap))
+                elog(ERROR, "unrecognized result from subplan");
+
+            node->tbm = tbm;
+            node->tbmiterator = tbm_begin_iterate(tbm);
+            // Setup prefetch iterator if enabled
+            if (node->prefetch_maximum > 0) {
+                node->prefetch_iterator = tbm_begin_iterate(tbm);
+                node->prefetch_pages = 0;
+                node->prefetch_target = -1;
+            }
+        } else {
+            // Handle parallel bitmap scan initialization
+            if (BitmapShouldInitializeSharedState(node->pstate)) {
+                tbm = (TIDBitmap *) MultiExecProcNode(outerPlanState(node));
+                node->tbm = tbm;
+                node->pstate->tbmiterator = tbm_prepare_shared_iterate(tbm);
+                BitmapDoneInitializingSharedState(node->pstate);
+            }
+            node->shared_tbmiterator = tbm_attach_shared_iterate(node->ss.ps.state->es_query_dsa,
+                                                                 node->pstate->tbmiterator);
+        }
+
+        // Create table scan descriptor if needed
+        if (!scan) {
+            scan = table_beginscan_bm(node->ss.ss_currentRelation,
+                                      node->ss.ps.state->es_snapshot,
+                                      0, NULL, true);
+            node->ss.ss_currentScanDesc = scan;
+        }
+        node->initialized = true;
+    }
+
+    // Main iteration loop: get pages from bitmap and fetch tuples
+    for (;;) {
+        CHECK_FOR_INTERRUPTS();
+
+        // Get next page of results if needed
+        if (tbmres == NULL) {
+            if (!node->pstate)
+                tbmres = tbm_iterate(node->tbmiterator);
+            else
+                tbmres = tbm_shared_iterate(node->shared_tbmiterator);
+
+            if (tbmres == NULL)
+                break;  // No more pages in bitmap
+
+            node->tbmres = tbmres;
+            BitmapAdjustPrefetchIterator(node, tbmres->blockno);
+
+            // Position scan at this block
+            bool valid_block = table_scan_bitmap_next_block(scan, tbmres);
+            if (!valid_block)
+                continue;  // Skip invalid blocks
+
+            // Update page counters and adjust prefetch
+            if (tbmres->ntuples >= 0)
+                node->exact_pages++;
+            else
+                node->lossy_pages++;
+            BitmapAdjustPrefetchTarget(node);
+        }
+
+        // Issue prefetch requests for upcoming pages
+        BitmapPrefetch(node, scan);
+
+        // Fetch next tuple from current page
+        if (!table_scan_bitmap_next_tuple(scan, tbmres, slot)) {
+            // No more tuples on this page, get next page
+            node->tbmres = tbmres = NULL;
+            continue;
+        }
+
+        // For lossy bitmap entries, recheck qual conditions
+        if (tbmres->recheck) {
+            econtext->ecxt_scantuple = slot;
+            if (!ExecQualAndReset(node->bitmapqualorig, econtext)) {
+                // Tuple fails recheck, try next one
+                InstrCountFiltered2(node, 1);
+                ExecClearTuple(slot);
+                continue;
+            }
+        }
+
+        // Return valid tuple
+        return slot;
+    }
+
+    // End of scan reached
+    return ExecClearTuple(slot);
+}
+```

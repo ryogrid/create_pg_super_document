@@ -53,3 +53,63 @@ The function operates in different contexts depending on the outer_tuple flag: f
 - Null values in non-strict contexts contribute zero to the hash combination
 - The hash computation respects collation settings for each hash key expression
 - Expression context is reset before each computation to reclaim memory from previous evaluations
+
+## Simplified Source
+
+```c
+bool
+ExecHashGetHashValue(HashJoinTable hashtable,
+                     ExprContext *econtext,
+                     List *hashkeys,
+                     bool outer_tuple,
+                     bool keep_nulls,
+                     uint32 *hashvalue)
+{
+    uint32 hashkey = 0;
+    FmgrInfo *hashfunctions;
+    int i = 0;
+
+    // Reset expression context to prevent memory leaks
+    ResetExprContext(econtext);
+
+    // Choose hash functions based on tuple source
+    if (outer_tuple)
+        hashfunctions = hashtable->outer_hashfunctions;
+    else
+        hashfunctions = hashtable->inner_hashfunctions;
+
+    // Process each hash key expression
+    foreach(hk, hashkeys)
+    {
+        ExprState *keyexpr = (ExprState *) lfirst(hk);
+        Datum keyval;
+        bool isNull;
+
+        // Rotate previous hash value and get next key value
+        hashkey = pg_rotate_left32(hashkey, 1);
+        keyval = ExecEvalExpr(keyexpr, econtext, &isNull);
+
+        // Handle null values according to join semantics
+        if (isNull)
+        {
+            if (hashtable->hashStrict[i] && !keep_nulls)
+                return false; // Reject tuple for strict joins
+            // For non-strict, leave hashkey unchanged (null = 0 hash)
+        }
+        else
+        {
+            // Compute hash value and combine with XOR
+            uint32 hkey = DatumGetUInt32(FunctionCall1Coll(&hashfunctions[i],
+                                                           hashtable->collations[i],
+                                                           keyval));
+            hashkey ^= hkey;
+        }
+        i++;
+    }
+
+    *hashvalue = hashkey;
+    return true;
+}
+```
+
+This simplified version shows the core hash computation algorithm: evaluate each hash key expression, handle nulls according to join strictness, and combine hash values using rotation and XOR for even distribution.

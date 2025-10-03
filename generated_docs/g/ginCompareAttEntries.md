@@ -47,3 +47,18 @@ This function is essential for multi-column GIN indexes where entries from diffe
 - Used primarily in entry page operations where cross-column comparisons are needed
 - Ensures consistent ordering that supports both single-column and multi-column GIN index operations
 - The function assumes 1-based attribute numbering consistent with PostgreSQL conventions
+
+## Simplified Source
+
+```c
+int ginCompareAttEntries(GinState *ginstate,
+                        OffsetNumber attnuma, Datum a, GinNullCategory categorya,
+                        OffsetNumber attnumb, Datum b, GinNullCategory categoryb) {
+    // Attribute number takes precedence
+    if (attnuma != attnumb)
+        return (attnuma < attnumb) ? -1 : 1;
+
+    // Same column - delegate to regular comparison
+    return ginCompareEntries(ginstate, attnuma, a, categorya, b, categoryb);
+}
+```

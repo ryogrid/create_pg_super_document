@@ -48,3 +48,42 @@ The function ensures that all post-update processing is completed in the correct
 - View constraint checking is performed last to comply with SQL specification requirements
 - The recheckIndexes list is properly freed to prevent memory leaks
 - AFTER ROW triggers receive both old and new tuple information for complete update context
+
+## Simplified Source
+
+```c
+static void
+ExecUpdateEpilogue(ModifyTableContext *context, UpdateContext *updateCxt,
+                   ResultRelInfo *resultRelInfo, ItemPointer tupleid,
+                   HeapTuple oldtuple, TupleTableSlot *slot)
+{
+    ModifyTableState *mtstate = context->mtstate;
+    List *recheckIndexes = NIL;
+
+    // Update index entries if table has indexes and they need updating
+    if (resultRelInfo->ri_NumIndices > 0 && updateCxt->updateIndexes != TU_None) {
+        recheckIndexes = ExecInsertIndexTuples(resultRelInfo, slot, context->estate,
+                                             true, false, NULL, NIL,
+                                             (updateCxt->updateIndexes == TU_Summarizing));
+    }
+
+    // Execute AFTER ROW UPDATE triggers
+    ExecARUpdateTriggers(context->estate, resultRelInfo,
+                        NULL, NULL, tupleid, oldtuple, slot,
+                        recheckIndexes,
+                        mtstate->operation == CMD_INSERT ?
+                        mtstate->mt_oc_transition_capture :
+                        mtstate->mt_transition_capture,
+                        false);
+
+    // Clean up index list
+    list_free(recheckIndexes);
+
+    // Check WITH CHECK OPTION constraints from parent views
+    // Must be done after all constraints and the physical update per SQL spec
+    if (resultRelInfo->ri_WithCheckOptions != NIL) {
+        ExecWithCheckOptions(WCO_VIEW_CHECK, resultRelInfo,
+                           slot, context->estate);
+    }
+}
+```

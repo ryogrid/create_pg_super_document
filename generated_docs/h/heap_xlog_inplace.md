@@ -50,3 +50,48 @@ This operation is primarily used for system catalog maintenance and other specia
 - **No Transaction Effects**: Since this doesn't create new tuple versions, it doesn't affect transaction visibility or MVCC semantics
 - **Error Handling**: Includes PANIC-level validation for both tuple existence and length consistency
 - **Recovery Simplicity**: One of the simpler WAL replay operations due to its straightforward data replacement nature
+
+## Simplified Source
+
+```c
+static void heap_xlog_inplace(XLogReaderState *record) {
+    xl_heap_inplace *xlrec = (xl_heap_inplace *) XLogRecGetData(record);
+    Buffer buffer;
+
+    // Read the target buffer for redo operation
+    if (XLogReadBufferForRedo(record, 0, &buffer) == BLK_NEEDS_REDO) {
+        // Get new tuple data from WAL record
+        Size newlen;
+        char *newtup = XLogRecGetBlockData(record, 0, &newlen);
+
+        Page page = BufferGetPage(buffer);
+        OffsetNumber offnum = xlrec->offnum;
+
+        // Locate the target tuple
+        ItemId lp = PageGetItemId(page, offnum);
+        if (!ItemIdIsNormal(lp)) {
+            elog(PANIC, "invalid lp");
+        }
+
+        HeapTupleHeader htup = (HeapTupleHeader) PageGetItem(page, lp);
+
+        // Validate tuple length matches exactly
+        uint32 oldlen = ItemIdGetLength(lp) - htup->t_hoff;
+        if (oldlen != newlen) {
+            elog(PANIC, "wrong tuple length");
+        }
+
+        // Replace tuple data in-place (preserving header)
+        memcpy((char *) htup + htup->t_hoff, newtup, newlen);
+
+        // Mark page as modified
+        PageSetLSN(page, record->EndRecPtr);
+        MarkBufferDirty(buffer);
+    }
+
+    // Release buffer if valid
+    if (BufferIsValid(buffer)) {
+        UnlockReleaseBuffer(buffer);
+    }
+}
+```

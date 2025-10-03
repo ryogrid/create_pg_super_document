@@ -55,3 +55,69 @@ This simplified approach is used in contexts where the full catalog system may n
 - Returns true on successful completion
 - Part of the simplified result output system for scenarios with limited catalog access
 - Uses hardcoded type conversion logic instead of the dynamic type system
+
+## Simplified Source
+
+```c
+bool printsimple(TupleTableSlot *slot, DestReceiver *self) {
+    TupleDesc tupdesc = slot->tts_tupleDescriptor;
+    StringInfoData buf;
+    int i;
+
+    // Ensure all attributes are deconstructed
+    slot_getallattrs(slot);
+
+    // Begin DataRow message
+    pq_beginmessage(&buf, PqMsg_DataRow);
+    pq_sendint16(&buf, tupdesc->natts);
+
+    // Send each column value
+    for (i = 0; i < tupdesc->natts; ++i) {
+        Form_pg_attribute attr = TupleDescAttr(tupdesc, i);
+        Datum value;
+
+        // Handle NULL values
+        if (slot->tts_isnull[i]) {
+            pq_sendint32(&buf, -1);
+            continue;
+        }
+
+        value = slot->tts_values[i];
+
+        // Convert based on hardcoded type knowledge
+        switch (attr->atttypid) {
+            case TEXTOID: {
+                text *t = DatumGetTextPP(value);
+                pq_sendcountedtext(&buf, VARDATA_ANY(t), VARSIZE_ANY_EXHDR(t));
+                break;
+            }
+            case INT4OID: {
+                int32 num = DatumGetInt32(value);
+                char str[12];  // sign, 10 digits and '\0'
+                int len = pg_ltoa(num, str);
+                pq_sendcountedtext(&buf, str, len);
+                break;
+            }
+            case INT8OID: {
+                int64 num = DatumGetInt64(value);
+                char str[MAXINT8LEN + 1];
+                int len = pg_lltoa(num, str);
+                pq_sendcountedtext(&buf, str, len);
+                break;
+            }
+            case OIDOID: {
+                Oid num = ObjectIdGetDatum(value);
+                char str[10];  // 10 digits
+                int len = pg_ultoa_n(num, str);
+                pq_sendcountedtext(&buf, str, len);
+                break;
+            }
+            default:
+                elog(ERROR, "unsupported type OID: %u", attr->atttypid);
+        }
+    }
+
+    pq_endmessage(&buf);
+    return true;
+}
+```

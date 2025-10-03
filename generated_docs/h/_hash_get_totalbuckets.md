@@ -36,3 +36,36 @@ The algorithm determines which splitpoint group the phase belongs to, calculates
 
 ## Notes and Other Information
 This function is critical for hash index maintenance and expansion operations. It provides the foundation for determining bucket numbering and allocation strategies. The splitpoint mechanism allows hash indexes to grow incrementally without requiring complete reorganization, making this function essential for performance during dynamic index growth.
+
+## Simplified Source
+
+```c
+uint32 _hash_get_totalbuckets(uint32 splitpoint_phase)
+{
+    uint32 splitpoint_group;
+    uint32 total_buckets;
+    uint32 phases_within_splitpoint_group;
+
+    // Early phases: simple power-of-2 calculation
+    if (splitpoint_phase < HASH_SPLITPOINT_GROUPS_WITH_ONE_PHASE)
+        return (1 << splitpoint_phase);
+
+    // Determine which splitpoint group this phase belongs to
+    splitpoint_group = HASH_SPLITPOINT_GROUPS_WITH_ONE_PHASE +
+                      ((splitpoint_phase - HASH_SPLITPOINT_GROUPS_WITH_ONE_PHASE)
+                       >> HASH_SPLITPOINT_PHASE_BITS);
+
+    // Count buckets from groups before this one
+    total_buckets = (1 << (splitpoint_group - 1));
+
+    // Count buckets within current group
+    phases_within_splitpoint_group =
+        (((splitpoint_phase - HASH_SPLITPOINT_GROUPS_WITH_ONE_PHASE)
+          & HASH_SPLITPOINT_PHASE_MASK) + 1);
+
+    total_buckets += (((1 << (splitpoint_group - 1)) >> HASH_SPLITPOINT_PHASE_BITS)
+                     * phases_within_splitpoint_group);
+
+    return total_buckets;
+}
+```

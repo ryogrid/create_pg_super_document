@@ -54,3 +54,94 @@ The function uses a build accumulator (buildstate.accum) to collect entries duri
 - Handles WAL logging by writing all pages at the end if WAL is required for the relation
 - Returns an IndexBuildResult containing statistics about heap tuples processed and index tuples created
 - The build process is interruptible via CHECK_FOR_INTERRUPTS() calls during entry insertion
+
+## Simplified Source
+
+```c
+IndexBuildResult *
+ginbuild(Relation heap, Relation index, IndexInfo *indexInfo)
+{
+    IndexBuildResult *result;
+    double reltuples;
+    GinBuildState buildstate;
+    Buffer MetaBuffer, RootBuffer;
+
+    // Verify index is empty before building
+    if (RelationGetNumberOfBlocks(index) != 0)
+        elog(ERROR, "index \"%s\" already contains data",
+             RelationGetRelationName(index));
+
+    // Initialize GIN state and build statistics
+    initGinState(&buildstate.ginstate, index);
+    buildstate.indtuples = 0;
+    memset(&buildstate.buildStats, 0, sizeof(GinStatsData));
+
+    // Create and initialize meta and root pages
+    MetaBuffer = GinNewBuffer(index);
+    RootBuffer = GinNewBuffer(index);
+
+    START_CRIT_SECTION();
+    GinInitMetabuffer(MetaBuffer);
+    MarkBufferDirty(MetaBuffer);
+    GinInitBuffer(RootBuffer, GIN_LEAF);
+    MarkBufferDirty(RootBuffer);
+    END_CRIT_SECTION();
+
+    UnlockReleaseBuffer(MetaBuffer);
+    UnlockReleaseBuffer(RootBuffer);
+
+    // Set up memory contexts for build operations
+    buildstate.tmpCtx = AllocSetContextCreate(CurrentMemoryContext,
+                                              "Gin build temporary context",
+                                              ALLOCSET_DEFAULT_SIZES);
+    buildstate.funcCtx = AllocSetContextCreate(CurrentMemoryContext,
+                                               "Gin build temporary context for user-defined function",
+                                               ALLOCSET_DEFAULT_SIZES);
+
+    // Initialize build accumulator
+    buildstate.accum.ginstate = &buildstate.ginstate;
+    ginInitBA(&buildstate.accum);
+
+    // Scan heap and collect entries
+    reltuples = table_index_build_scan(heap, index, indexInfo, false, true,
+                                       ginBuildCallback, (void *) &buildstate,
+                                       NULL);
+
+    // Insert accumulated entries into index
+    MemoryContext oldCtx = MemoryContextSwitchTo(buildstate.tmpCtx);
+    ginBeginBAScan(&buildstate.accum);
+
+    ItemPointerData *list;
+    Datum key;
+    GinNullCategory category;
+    uint32 nlist;
+    OffsetNumber attnum;
+
+    while ((list = ginGetBAEntry(&buildstate.accum, &attnum, &key, &category, &nlist)) != NULL) {
+        CHECK_FOR_INTERRUPTS();
+        ginEntryInsert(&buildstate.ginstate, attnum, key, category,
+                       list, nlist, &buildstate.buildStats);
+    }
+    MemoryContextSwitchTo(oldCtx);
+
+    // Clean up memory contexts
+    MemoryContextDelete(buildstate.funcCtx);
+    MemoryContextDelete(buildstate.tmpCtx);
+
+    // Update statistics and handle WAL logging
+    buildstate.buildStats.nTotalPages = RelationGetNumberOfBlocks(index);
+    ginUpdateStats(index, &buildstate.buildStats, true);
+
+    if (RelationNeedsWAL(index)) {
+        log_newpage_range(index, MAIN_FORKNUM,
+                          0, RelationGetNumberOfBlocks(index), true);
+    }
+
+    // Return build results
+    result = (IndexBuildResult *) palloc(sizeof(IndexBuildResult));
+    result->heap_tuples = reltuples;
+    result->index_tuples = buildstate.indtuples;
+
+    return result;
+}
+```

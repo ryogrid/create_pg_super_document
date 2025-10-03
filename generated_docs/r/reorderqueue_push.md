@@ -38,3 +38,44 @@ The function allocates memory for the ReorderTuple and copies the heap tuple fro
 - Part of PostgreSQL's KNN index scan implementation for ordered result retrieval
 - The function is static, indicating it's only used within the nodeIndexscan.c file
 - Handles NULL ordering values by setting them to (Datum) 0 while preserving the null flag
+
+## Simplified Source
+
+```c
+static void
+reorderqueue_push(IndexScanState *node, TupleTableSlot *slot,
+                  Datum *orderbyvals, bool *orderbynulls)
+{
+    IndexScanDesc scandesc = node->iss_ScanDesc;
+    EState *estate = node->ss.ps.state;
+    MemoryContext oldContext;
+    ReorderTuple *rt;
+    int i;
+
+    // Switch to query memory context for persistent storage
+    oldContext = MemoryContextSwitchTo(estate->es_query_cxt);
+
+    // Allocate and initialize ReorderTuple structure
+    rt = (ReorderTuple *) palloc(sizeof(ReorderTuple));
+    rt->htup = ExecCopySlotHeapTuple(slot);
+    rt->orderbyvals = (Datum *) palloc(sizeof(Datum) * scandesc->numberOfOrderBys);
+    rt->orderbynulls = (bool *) palloc(sizeof(bool) * scandesc->numberOfOrderBys);
+
+    // Copy ordering values with proper null handling
+    for (i = 0; i < node->iss_NumOrderByKeys; i++)
+    {
+        if (!orderbynulls[i])
+            rt->orderbyvals[i] = datumCopy(orderbyvals[i],
+                                           node->iss_OrderByTypByVals[i],
+                                           node->iss_OrderByTypLens[i]);
+        else
+            rt->orderbyvals[i] = (Datum) 0;
+        rt->orderbynulls[i] = orderbynulls[i];
+    }
+
+    // Add tuple to pairing heap queue
+    pairingheap_add(node->iss_ReorderQueue, &rt->ph_node);
+
+    MemoryContextSwitchTo(oldContext);
+}
+```

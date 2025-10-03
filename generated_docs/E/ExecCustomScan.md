@@ -31,3 +31,20 @@ ExecCustomScan is a thin wrapper function that serves as the main execution entr
 - The actual scanning logic is implemented by the custom scan provider in their ExecCustomScan callback
 - Includes interrupt checking for query cancellation and other signal handling
 - The function assumes the custom scan provider has properly implemented the ExecCustomScan method
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecCustomScan(PlanState *pstate)
+{
+    // Cast to custom scan state
+    CustomScanState *node = castNode(CustomScanState, pstate);
+
+    // Check for interrupts (query cancellation, etc.)
+    CHECK_FOR_INTERRUPTS();
+
+    // Delegate to custom scan provider's implementation
+    return node->methods->ExecCustomScan(node);
+}
+```

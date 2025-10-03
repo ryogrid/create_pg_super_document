@@ -44,3 +44,160 @@ The function supports various search scenarios including exact matches, partial 
 - The function supports complex query patterns including partial matches and exclude-only operations
 - Search modes determine how the scan will behave: DEFAULT for normal equality/containment searches, ALL for exclude-only operations, and EVERYTHING for full-index scans
 - The function ensures that exclude-only keys are properly positioned after normal keys in the scan key array for correct execution order
+
+## Simplified Source
+
+```c
+// Simplified version of ginNewScanKey
+void
+ginNewScanKey(IndexScanDesc scan)
+{
+    GinScanOpaque so = (GinScanOpaque) scan->opaque;
+    ScanKey scankey = scan->keyData;
+    MemoryContext oldCtx;
+    bool hasNullQuery = false;
+    bool attrHasNormalScan[INDEX_MAX_KEYS] = {false};
+    int numExcludeOnly;
+
+    // Switch to key context for allocation
+    oldCtx = MemoryContextSwitchTo(so->keyCtx);
+
+    // Allocate scan keys and entries arrays
+    so->keys = palloc(Max(scan->numberOfKeys, 1) * sizeof(GinScanKeyData));
+    so->nkeys = 0;
+    so->totalentries = 0;
+    so->allocentries = 32;
+    so->entries = palloc(so->allocentries * sizeof(GinScanEntry));
+    so->isVoidRes = false;
+
+    // Process each scan key
+    for (int i = 0; i < scan->numberOfKeys; i++)
+    {
+        ScanKey skey = &scankey[i];
+        Datum *queryValues;
+        int32 nQueryValues = 0;
+        bool *partial_matches = NULL;
+        Pointer *extra_data = NULL;
+        bool *nullFlags = NULL;
+        GinNullCategory *categories;
+        int32 searchMode = GIN_SEARCH_MODE_DEFAULT;
+
+        // Handle null query argument
+        if (skey->sk_flags & SK_ISNULL)
+        {
+            so->isVoidRes = true;
+            break;
+        }
+
+        // Extract query values using operator class function
+        queryValues = (Datum *) DatumGetPointer(
+            FunctionCall7Coll(&so->ginstate.extractQueryFn[skey->sk_attno - 1],
+                             so->ginstate.supportCollation[skey->sk_attno - 1],
+                             skey->sk_argument,
+                             PointerGetDatum(&nQueryValues),
+                             UInt16GetDatum(skey->sk_strategy),
+                             PointerGetDatum(&partial_matches),
+                             PointerGetDatum(&extra_data),
+                             PointerGetDatum(&nullFlags),
+                             PointerGetDatum(&searchMode)));
+
+        // Validate search mode
+        if (searchMode < GIN_SEARCH_MODE_DEFAULT || searchMode > GIN_SEARCH_MODE_ALL)
+            searchMode = GIN_SEARCH_MODE_ALL;
+
+        if (searchMode != GIN_SEARCH_MODE_DEFAULT)
+            hasNullQuery = true;
+
+        // Handle case where no query values extracted
+        if (queryValues == NULL || nQueryValues <= 0)
+        {
+            if (searchMode == GIN_SEARCH_MODE_DEFAULT)
+            {
+                so->isVoidRes = true;
+                break;
+            }
+            nQueryValues = 0;
+        }
+
+        // Create null category representation
+        categories = palloc0(nQueryValues * sizeof(GinNullCategory));
+        if (nullFlags)
+        {
+            for (int j = 0; j < nQueryValues; j++)
+            {
+                if (nullFlags[j])
+                {
+                    categories[j] = GIN_CAT_NULL_KEY;
+                    hasNullQuery = true;
+                }
+            }
+        }
+
+        // Fill in the scan key structure
+        ginFillScanKey(so, skey->sk_attno, skey->sk_strategy, searchMode,
+                      skey->sk_argument, nQueryValues, queryValues, categories,
+                      partial_matches, extra_data);
+
+        // Track normal scan keys per attribute
+        if (searchMode != GIN_SEARCH_MODE_ALL)
+            attrHasNormalScan[skey->sk_attno - 1] = true;
+    }
+
+    // Handle exclude-only keys - ensure each attribute has at least one normal key
+    numExcludeOnly = 0;
+    for (int i = 0; i < so->nkeys; i++)
+    {
+        GinScanKey key = &so->keys[i];
+        if (key->searchMode == GIN_SEARCH_MODE_ALL)
+        {
+            if (!attrHasNormalScan[key->attnum - 1])
+            {
+                key->excludeOnly = false;
+                ginScanKeyAddHiddenEntry(so, key, GIN_CAT_EMPTY_QUERY);
+                attrHasNormalScan[key->attnum - 1] = true;
+            }
+            else
+                numExcludeOnly++;
+        }
+    }
+
+    // Reorder keys: normal keys first, then exclude-only keys
+    if (numExcludeOnly > 0)
+    {
+        GinScanKey tmpkeys = palloc(so->nkeys * sizeof(GinScanKeyData));
+        int normalIdx = 0;
+        int excludeIdx = so->nkeys - numExcludeOnly;
+
+        for (int i = 0; i < so->nkeys; i++)
+        {
+            if (so->keys[i].excludeOnly)
+                memcpy(tmpkeys + excludeIdx++, &so->keys[i], sizeof(GinScanKeyData));
+            else
+                memcpy(tmpkeys + normalIdx++, &so->keys[i], sizeof(GinScanKeyData));
+        }
+        memcpy(so->keys, tmpkeys, so->nkeys * sizeof(GinScanKeyData));
+        pfree(tmpkeys);
+    }
+
+    // Generate EVERYTHING scan key if no regular keys
+    if (so->nkeys == 0 && !so->isVoidRes)
+    {
+        hasNullQuery = true;
+        ginFillScanKey(so, FirstOffsetNumber, InvalidStrategy, GIN_SEARCH_MODE_EVERYTHING,
+                      (Datum) 0, 0, NULL, NULL, NULL, NULL);
+    }
+
+    // Check index version compatibility for null queries
+    if (hasNullQuery && !so->isVoidRes)
+    {
+        GinStatsData ginStats;
+        ginGetStats(scan->indexRelation, &ginStats);
+        if (ginStats.ginVersion < 1)
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                          errmsg("old GIN indexes do not support whole-index scans nor searches for nulls")));
+    }
+
+    MemoryContextSwitchTo(oldCtx);
+    pgstat_count_index_scan(scan->indexRelation);
+}
+```

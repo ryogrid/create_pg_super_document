@@ -39,3 +39,41 @@ The function uses a cleanup lock on the root page to prevent concurrent insertio
 - Uses a two-phase approach: first identify empty pages, then delete them in a separate scan
 - Properly manages memory by freeing the deletion stack after use
 - Part of the larger GIN index maintenance and space reclamation system
+
+## Simplified Source
+
+```c
+static void
+ginVacuumPostingTree(GinVacuumState *gvs, BlockNumber rootBlkno)
+{
+    // First phase: scan all leaf pages and check if any are empty
+    if (ginVacuumPostingTreeLeaves(gvs, rootBlkno)) {
+        // Second phase: if empty pages found, rescan to delete them
+        Buffer buffer;
+        DataPageDeleteStack root, *ptr, *tmp;
+
+        // Lock the root page for cleanup to prevent concurrent inserts
+        buffer = ReadBufferExtended(gvs->index, MAIN_FORKNUM, rootBlkno,
+                                   RBM_NORMAL, gvs->strategy);
+        LockBufferForCleanup(buffer);
+
+        // Initialize deletion stack
+        memset(&root, 0, sizeof(DataPageDeleteStack));
+        root.leftBuffer = InvalidBuffer;
+        root.isRoot = true;
+
+        // Scan tree to delete empty pages
+        ginScanToDelete(gvs, rootBlkno, true, &root, InvalidOffsetNumber);
+
+        // Clean up deletion stack memory
+        ptr = root.child;
+        while (ptr) {
+            tmp = ptr->child;
+            pfree(ptr);
+            ptr = tmp;
+        }
+
+        UnlockReleaseBuffer(buffer);
+    }
+}
+```

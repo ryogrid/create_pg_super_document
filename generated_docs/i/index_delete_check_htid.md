@@ -53,3 +53,40 @@ When corruption is detected, the function reports detailed error messages includ
 - The checks are particularly valuable because they occur while holding appropriate locks, ensuring reliable corruption detection
 - Detects corruption patterns that are not visible during normal index scans due to timing differences
 - Uses ereport(ERROR) to immediately terminate processing when corruption is detected
+
+## Simplified Source
+
+```c
+static inline void index_delete_check_htid(TM_IndexDeleteOp *delstate,
+                                          Page page, OffsetNumber maxoff,
+                                          ItemPointer htid, TM_IndexStatus *istatus)
+{
+    OffsetNumber offset = ItemPointerGetOffsetNumber(htid);
+
+    // Check 1: Offset beyond valid range
+    if (unlikely(offset > maxoff))
+        ereport(ERROR, (errcode(ERRCODE_INDEX_CORRUPTED),
+                       errmsg_internal("heap tid (%u,%u) points past end of page at offset %u in index \"%s\"",
+                                     ItemPointerGetBlockNumber(htid), offset,
+                                     istatus->idxoffnum, RelationGetRelationName(delstate->irel))));
+
+    // Check 2: Item ID must be in use
+    ItemId iid = PageGetItemId(page, offset);
+    if (unlikely(!ItemIdIsUsed(iid)))
+        ereport(ERROR, (errcode(ERRCODE_INDEX_CORRUPTED),
+                       errmsg_internal("heap tid (%u,%u) points to unused item at offset %u in index \"%s\"",
+                                     ItemPointerGetBlockNumber(htid), offset,
+                                     istatus->idxoffnum, RelationGetRelationName(delstate->irel))));
+
+    // Check 3: If item has storage, ensure it's not heap-only
+    if (ItemIdHasStorage(iid))
+    {
+        HeapTupleHeader htup = (HeapTupleHeader) PageGetItem(page, iid);
+        if (unlikely(HeapTupleHeaderIsHeapOnly(htup)))
+            ereport(ERROR, (errcode(ERRCODE_INDEX_CORRUPTED),
+                           errmsg_internal("heap tid (%u,%u) points to heap-only tuple at offset %u in index \"%s\"",
+                                         ItemPointerGetBlockNumber(htid), offset,
+                                         istatus->idxoffnum, RelationGetRelationName(delstate->irel))));
+    }
+}
+```

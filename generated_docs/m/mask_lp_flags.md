@@ -41,3 +41,24 @@ The function iterates through all line pointers on the page and sets the lp_flag
 - LP_UNUSED is used as the mask value to normalize all active line pointer flags
 - Line pointers are fundamental structures in PostgreSQL pages that track the location and status of items
 - This masking is essential for WAL consistency verification in index access methods that use hint-bit-like optimizations in line pointers
+
+## Simplified Source
+
+```c
+void mask_lp_flags(Page page)
+{
+    OffsetNumber max_offset = PageGetMaxOffsetNumber(page);
+
+    // Iterate through all line pointers on the page
+    for (OffsetNumber offset = FirstOffsetNumber;
+         offset <= max_offset;
+         offset = OffsetNumberNext(offset))
+    {
+        ItemId line_pointer = PageGetItemId(page, offset);
+
+        // Mask flags for line pointers that are in use
+        if (ItemIdIsUsed(line_pointer))
+            line_pointer->lp_flags = LP_UNUSED;
+    }
+}
+```

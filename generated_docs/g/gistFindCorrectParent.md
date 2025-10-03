@@ -55,3 +55,89 @@ The function must handle different scenarios during normal operations versus ind
 - Properly manages buffer references and locks throughout the complex search process
 - Critical for maintaining tree consistency in the presence of concurrent page splits and modifications
 - The assertion check verifies that either the LSN changed, we're in build mode, or the downlink offset was invalid
+
+## Simplified Source
+```c
+static void gistFindCorrectParent(Relation r, GISTInsertStack *child, bool is_build) {
+    GISTInsertStack *parent = child->parent;
+    ItemId iid;
+    IndexTuple idxtuple;
+    OffsetNumber maxoff;
+
+    // Refresh parent page info
+    gistcheckpage(r, parent->buffer);
+    parent->page = BufferGetPage(parent->buffer);
+    maxoff = PageGetMaxOffsetNumber(parent->page);
+
+    // Quick check: is downlink still at expected offset?
+    if (child->downlinkoffnum != InvalidOffsetNumber &&
+        child->downlinkoffnum <= maxoff) {
+        iid = PageGetItemId(parent->page, child->downlinkoffnum);
+        idxtuple = (IndexTuple) PageGetItem(parent->page, iid);
+        if (ItemPointerGetBlockNumber(&(idxtuple->t_tid)) == child->blkno)
+            return;  // Still there, nothing to do
+    }
+
+    // Page changed - validate this is expected
+    Assert(parent->lsn != PageGetLSN(parent->page) || is_build ||
+           child->downlinkoffnum == InvalidOffsetNumber);
+
+    // Search for downlink in current page and right siblings
+    while (true) {
+        maxoff = PageGetMaxOffsetNumber(parent->page);
+
+        // Scan current page for the downlink
+        for (OffsetNumber i = FirstOffsetNumber; i <= maxoff; i++) {
+            iid = PageGetItemId(parent->page, i);
+            idxtuple = (IndexTuple) PageGetItem(parent->page, iid);
+            if (ItemPointerGetBlockNumber(&(idxtuple->t_tid)) == child->blkno) {
+                // Found it!
+                child->downlinkoffnum = i;
+                return;
+            }
+        }
+
+        // Not found, try right sibling
+        parent->blkno = GistPageGetOpaque(parent->page)->rightlink;
+        parent->downlinkoffnum = InvalidOffsetNumber;
+        UnlockReleaseBuffer(parent->buffer);
+
+        if (parent->blkno == InvalidBlockNumber) {
+            // End of chain - very rare case (root split)
+            break;
+        }
+
+        // Move to right sibling
+        parent->buffer = ReadBuffer(r, parent->blkno);
+        LockBuffer(parent->buffer, GIST_EXCLUSIVE);
+        gistcheckpage(r, parent->buffer);
+        parent->page = BufferGetPage(parent->buffer);
+    }
+
+    // Downlink not found in right siblings - need full tree search
+    // Release all old parent buffers
+    GISTInsertStack *ptr = child->parent->parent;
+    while (ptr) {
+        ReleaseBuffer(ptr->buffer);
+        ptr = ptr->parent;
+    }
+
+    // Find new path from root to child
+    parent = gistFindPath(r, child->blkno, &child->downlinkoffnum);
+
+    // Read all buffers in new path (but don't lock them yet)
+    ptr = parent;
+    while (ptr) {
+        ptr->buffer = ReadBuffer(r, ptr->blkno);
+        ptr->page = BufferGetPage(ptr->buffer);
+        ptr = ptr->parent;
+    }
+
+    // Install new parent chain
+    child->parent = parent;
+
+    // Recursively ensure the new parent chain is correct
+    LockBuffer(child->parent->buffer, GIST_EXCLUSIVE);
+    gistFindCorrectParent(r, child, is_build);
+}
+```

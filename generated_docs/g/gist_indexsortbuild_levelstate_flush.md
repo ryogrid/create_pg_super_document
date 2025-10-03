@@ -53,3 +53,85 @@ This function implements the critical flush operation for sorted GiST index cons
 - Bulk writing optimization significantly improves I/O performance compared to traditional page-by-page writing
 - The function ensures atomic page creation - either all pages in a split are created successfully or none are
 - LSN assignment ensures proper WAL integration and recovery support for the constructed pages
+
+## Simplified Source
+
+```c
+static void
+gist_indexsortbuild_levelstate_flush(GISTBuildState *state,
+                                     GistSortedBuildLevelState *levelstate)
+{
+    MemoryContext oldCtx = MemoryContextSwitchTo(state->giststate->tempCxt);
+    bool isleaf = GistPageIsLeaf(levelstate->pages[0]);
+
+    // Extract tuples from all pages
+    IndexTuple *itvec = gistextractpage(levelstate->pages[0], &vect_len);
+
+    for (int i = 1; i <= levelstate->current_page; i++)
+    {
+        int len_local;
+        IndexTuple *itvec_local = gistextractpage(levelstate->pages[i], &len_local);
+        itvec = gistjoinvector(itvec, &vect_len, itvec_local, len_local);
+        pfree(itvec_local);
+    }
+
+    // Determine split strategy
+    SplitPageLayout *dist;
+    if (levelstate->current_page > 0)
+    {
+        // Multiple pages - apply split algorithm
+        dist = gistSplit(state->indexrel, levelstate->pages[0], itvec, vect_len, state->giststate);
+    }
+    else
+    {
+        // Single page - create simple layout
+        dist = palloc0(sizeof(SplitPageLayout));
+        dist->itup = gistunion(state->indexrel, itvec, vect_len, state->giststate);
+        dist->list = gistfillitupvec(itvec, vect_len, &(dist->lenlist));
+        dist->block.num = vect_len;
+    }
+
+    MemoryContextSwitchTo(oldCtx);
+    levelstate->current_page = 0;
+
+    // Create and write pages for each split partition
+    for (; dist != NULL; dist = dist->next)
+    {
+        BulkWriteBuffer buf = smgr_bulk_get_buf(state->bulkstate);
+        Page target = (Page) buf;
+
+        gistinitpage(target, isleaf ? F_LEAF : 0);
+
+        // Add tuples to page
+        char *data = (char *) (dist->list);
+        for (int i = 0; i < dist->block.num; i++)
+        {
+            IndexTuple thistup = (IndexTuple) data;
+            PageAddItem(target, (Item) data, IndexTupleSize(thistup),
+                       i + FirstOffsetNumber, false, false);
+            data += IndexTupleSize(thistup);
+        }
+
+        // Write page and update metadata
+        BlockNumber blkno = state->pages_allocated++;
+        PageSetLSN(target, GistBuildLSN);
+        smgr_bulk_write(state->bulkstate, blkno, buf, true);
+
+        ItemPointerSetBlockNumber(&(dist->itup->t_tid), blkno);
+        if (levelstate->last_blkno)
+            GistPageGetOpaque(target)->rightlink = levelstate->last_blkno;
+        levelstate->last_blkno = blkno;
+
+        // Add union tuple to parent level
+        GistSortedBuildLevelState *parent = levelstate->parent;
+        if (parent == NULL)
+        {
+            parent = palloc0(sizeof(GistSortedBuildLevelState));
+            parent->pages[0] = palloc(BLCKSZ);
+            gistinitpage(parent->pages[0], 0);
+            levelstate->parent = parent;
+        }
+        gist_indexsortbuild_levelstate_add(state, parent, dist->itup);
+    }
+}
+```

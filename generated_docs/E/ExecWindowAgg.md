@@ -64,3 +64,139 @@ The function handles complex scenarios including:
 - Supports both top-level and nested WindowAgg operations with different behavior for run condition failures
 - Critical path function that must efficiently handle millions of rows while maintaining frame boundary accuracy
 - Implements lazy evaluation strategies - frame boundaries are computed only when needed by window functions
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecWindowAgg(PlanState *pstate)
+{
+    WindowAggState *winstate = castNode(WindowAggState, pstate);
+    TupleTableSlot *slot;
+    ExprContext *econtext;
+
+    // Check if we're done processing
+    if (winstate->status == WINDOWAGG_DONE)
+        return NULL;
+
+    // First-time setup: evaluate frame offset expressions
+    if (winstate->all_first)
+    {
+        // Evaluate and cache frame start/end offsets
+        if (winstate->frameOptions & FRAMEOPTION_START_OFFSET)
+            winstate->startOffsetValue = ExecEvalExprSwitchContext(winstate->startOffset, ...);
+        if (winstate->frameOptions & FRAMEOPTION_END_OFFSET)
+            winstate->endOffsetValue = ExecEvalExprSwitchContext(winstate->endOffset, ...);
+        winstate->all_first = false;
+    }
+
+    // Main processing loop
+    for (;;)
+    {
+        // Initialize or advance current position
+        if (winstate->buffer == NULL)
+            begin_partition(winstate);  // Start new partition
+        else
+        {
+            winstate->currentpos++;     // Move to next row
+            // Invalidate frame boundaries since position changed
+            winstate->framehead_valid = false;
+            winstate->frametail_valid = false;
+        }
+
+        // Buffer tuples up to current position
+        spool_tuples(winstate, winstate->currentpos);
+
+        // Check if we need to move to next partition
+        if (winstate->partition_spooled &&
+            winstate->currentpos >= winstate->spooled_rows)
+        {
+            release_partition(winstate);
+            if (winstate->more_partitions)
+                begin_partition(winstate);
+            else
+            {
+                winstate->status = WINDOWAGG_DONE;
+                return NULL;
+            }
+        }
+
+        // Read current row from tuplestore
+        tuplestore_select_read_pointer(winstate->buffer, winstate->current_ptr);
+        tuplestore_gettupleslot(winstate->buffer, true, true, winstate->ss.ss_ScanTupleSlot);
+
+        // Handle peer group detection for GROUPS mode
+        if (winstate->frameOptions & (FRAMEOPTION_GROUPS | FRAMEOPTION_EXCLUDE_GROUP) &&
+            winstate->currentpos > 0)
+        {
+            if (!are_peers(winstate, previous_tuple, current_tuple))
+            {
+                winstate->currentgroup++;
+                winstate->groupheadpos = winstate->currentpos;
+            }
+        }
+
+        // Evaluate window functions (when not in pass-through mode)
+        if (winstate->status == WINDOWAGG_RUN)
+        {
+            // Evaluate window functions
+            for (int i = 0; i < winstate->numfuncs; i++)
+            {
+                if (!winstate->perfunc[i].plain_agg)
+                    eval_windowfunction(winstate, &winstate->perfunc[i], ...);
+            }
+
+            // Evaluate aggregate functions
+            if (winstate->numaggs > 0)
+                eval_windowaggregates(winstate);
+        }
+
+        // Update frame boundary pointers
+        if (winstate->framehead_ptr >= 0) update_frameheadpos(winstate);
+        if (winstate->frametail_ptr >= 0) update_frametailpos(winstate);
+        if (winstate->grouptail_ptr >= 0) update_grouptailpos(winstate);
+
+        // Clean up tuplestore
+        tuplestore_trim(winstate->buffer);
+
+        // Project output tuple
+        econtext = winstate->ss.ps.ps_ExprContext;
+        econtext->ecxt_outertuple = winstate->ss.ss_ScanTupleSlot;
+        slot = ExecProject(winstate->ss.ps.ps_ProjInfo);
+
+        // Check run condition and qualification
+        if (winstate->status == WINDOWAGG_RUN)
+        {
+            if (!ExecQual(winstate->runcondition, econtext))
+            {
+                // Switch to pass-through mode or finish
+                if (winstate->use_pass_through)
+                    winstate->status = winstate->top_window ?
+                        WINDOWAGG_PASSTHROUGH_STRICT : WINDOWAGG_PASSTHROUGH;
+                else
+                {
+                    winstate->status = WINDOWAGG_DONE;
+                    return NULL;
+                }
+            }
+
+            if (ExecQual(winstate->ss.ps.qual, econtext))
+                break;  // Tuple passes qualification
+        }
+        else if (!winstate->top_window)
+            break;  // Return tuple in pass-through mode for nested windows
+    }
+
+    return slot;
+}
+```
+
+This function implements window aggregation processing by:
+1. **Setup**: Evaluating frame offset expressions on first call
+2. **Positioning**: Managing current row position within partitions
+3. **Buffering**: Spooling input tuples into a tuplestore for random access
+4. **Partitioning**: Detecting and transitioning between partitions
+5. **Function Evaluation**: Computing window functions and aggregates for each row
+6. **Frame Management**: Maintaining frame head/tail boundaries for window functions
+7. **Optimization**: Using pass-through modes when run conditions fail
+8. **Output**: Projecting final tuples with window function results

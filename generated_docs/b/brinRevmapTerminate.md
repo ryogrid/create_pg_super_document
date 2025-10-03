@@ -41,3 +41,20 @@ The cleanup process involves:
 - The function safely handles cases where rm_currBuf is InvalidBuffer (no current buffer held)
 - Should be called even if errors occur during revmap operations to ensure proper cleanup
 - The revmap pointer becomes invalid after this call and should not be used subsequently
+
+## Simplified Source
+
+```c
+void brinRevmapTerminate(BrinRevmap *revmap)
+{
+    // Release metadata buffer
+    ReleaseBuffer(revmap->rm_metaBuf);
+
+    // Release current buffer if held
+    if (revmap->rm_currBuf != InvalidBuffer)
+        ReleaseBuffer(revmap->rm_currBuf);
+
+    // Free the revmap structure
+    pfree(revmap);
+}
+```

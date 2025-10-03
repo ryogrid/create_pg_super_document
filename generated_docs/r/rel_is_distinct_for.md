@@ -54,3 +54,63 @@ The function assumes callers have pre-validated that each clause is a mergejoina
 - Cross-type equality operators are handled appropriately by delegating complex cases to query_is_distinct_for
 - The outer_is_left flag in RestrictInfo helps identify which side of the clause references the relation being analyzed
 - Located in src/backend/optimizer/plan/analyzejoins.c at lines 861-957
+
+## Simplified Source
+
+```c
+static bool
+rel_is_distinct_for(PlannerInfo *root, RelOptInfo *rel, List *clause_list)
+{
+    // Only handle base relations
+    if (rel->reloptkind != RELOPT_BASEREL)
+        return false;
+
+    if (rel->rtekind == RTE_RELATION)
+    {
+        // For plain tables: check if unique index covers join columns
+        if (relation_has_unique_index_for(root, rel, clause_list, NIL, NIL))
+            return true;
+    }
+    else if (rel->rtekind == RTE_SUBQUERY)
+    {
+        // For subqueries: build column list and operator list
+        Index relid = rel->relid;
+        Query *subquery = root->simple_rte_array[relid]->subquery;
+        List *colnos = NIL;
+        List *opids = NIL;
+        ListCell *l;
+
+        // Extract output columns and operators from join clauses
+        foreach(l, clause_list)
+        {
+            RestrictInfo *rinfo = lfirst_node(RestrictInfo, l);
+            Oid op = castNode(OpExpr, rinfo->clause)->opno;
+            Var *var;
+
+            // Get the subquery-side variable
+            if (rinfo->outer_is_left)
+                var = (Var *) get_rightop(rinfo->clause);
+            else
+                var = (Var *) get_leftop(rinfo->clause);
+
+            // Strip RelabelType if present
+            if (var && IsA(var, RelabelType))
+                var = (Var *) ((RelabelType *) var)->arg;
+
+            // Only consider actual subquery output columns
+            if (!var || !IsA(var, Var) ||
+                var->varno != relid || var->varlevelsup != 0)
+                continue;
+
+            colnos = lappend_int(colnos, var->varattno);
+            opids = lappend_oid(opids, op);
+        }
+
+        // Check if subquery is distinct for these columns
+        if (query_is_distinct_for(subquery, colnos, opids))
+            return true;
+    }
+
+    return false;
+}
+```

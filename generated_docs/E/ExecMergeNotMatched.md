@@ -47,3 +47,64 @@ The function is simpler than ExecMergeMatched because NOT MATCHED cases don't ne
 - Simpler than matched case handling due to absence of concurrency concerns with target tuples
 - Works efficiently with partitioned tables by using root relation descriptors
 - The comment suggests potential optimization for partitioned tables by avoiding copies of actionStates for not-matched actions
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecMergeNotMatched(ModifyTableContext *context, ResultRelInfo *resultRelInfo,
+                    bool canSetTag)
+{
+    ModifyTableState *mtstate = context->mtstate;
+    ExprContext *econtext = mtstate->ps.ps_ExprContext;
+    List *actionStates;
+    TupleTableSlot *rslot = NULL;
+    ListCell *l;
+
+    // Get the list of WHEN NOT MATCHED [BY TARGET] actions
+    actionStates = resultRelInfo->ri_MergeActions[MERGE_WHEN_NOT_MATCHED_BY_TARGET];
+
+    // Set up expression context with only the source tuple
+    econtext->ecxt_scantuple = NULL;
+    econtext->ecxt_innertuple = context->planSlot;  // source tuple
+    econtext->ecxt_outertuple = NULL;
+
+    // Process each action until one qualifies
+    foreach(l, actionStates)
+    {
+        MergeActionState *action = (MergeActionState *) lfirst(l);
+        CmdType commandType = action->mas_action->commandType;
+
+        // Test the WHEN condition
+        if (!ExecQual(action->mas_whenqual, econtext))
+            continue;
+
+        // Execute the action
+        switch (commandType)
+        {
+            case CMD_INSERT:
+                {
+                    TupleTableSlot *newslot = ExecProject(action->mas_proj);
+                    mtstate->mt_merge_action = action;
+
+                    rslot = ExecInsert(context, mtstate->rootResultRelInfo,
+                                       newslot, canSetTag, NULL, NULL);
+                    mtstate->mt_merge_inserted += 1;
+                }
+                break;
+
+            case CMD_NOTHING:
+                // Do nothing
+                break;
+
+            default:
+                elog(ERROR, "unknown action in MERGE WHEN NOT MATCHED clause");
+        }
+
+        // Execute only the first qualifying action
+        break;
+    }
+
+    return rslot;
+}
+```

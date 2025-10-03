@@ -58,3 +58,106 @@ Key aspects of the initialization process:
 The function sets the initial join state to HJ_BUILD_HASHTABLE, indicating that hash table construction is the first operation to perform during execution.
 
 Location: src/backend/executor/nodeHashjoin.c:710-858
+
+## Simplified Source
+
+```c
+HashJoinState *
+ExecInitHashJoin(HashJoin *node, EState *estate, int eflags)
+{
+    HashJoinState *hjstate;
+    Plan *outerNode;
+    Hash *hashNode;
+    TupleDesc outerDesc, innerDesc;
+
+    // Verify supported execution flags
+    Assert(!(eflags & (EXEC_FLAG_BACKWARD | EXEC_FLAG_MARK)));
+
+    // Create and initialize main state structure
+    hjstate = makeNode(HashJoinState);
+    hjstate->js.ps.plan = (Plan *) node;
+    hjstate->js.ps.state = estate;
+    hjstate->js.ps.ExecProcNode = ExecHashJoin;
+    hjstate->js.jointype = node->join.jointype;
+
+    // Set up expression context
+    ExecAssignExprContext(estate, &hjstate->js.ps);
+
+    // Initialize child nodes (outer and inner)
+    outerNode = outerPlan(node);
+    hashNode = (Hash *) innerPlan(node);
+    outerPlanState(hjstate) = ExecInitNode(outerNode, estate, eflags);
+    innerPlanState(hjstate) = ExecInitNode((Plan *) hashNode, estate, eflags);
+
+    // Get tuple descriptors from child nodes
+    outerDesc = ExecGetResultType(outerPlanState(hjstate));
+    innerDesc = ExecGetResultType(innerPlanState(hjstate));
+
+    // Initialize result slot and projection
+    ExecInitResultTupleSlotTL(&hjstate->js.ps, &TTSOpsVirtual);
+    ExecAssignProjectionInfo(&hjstate->js.ps, NULL);
+
+    // Set up outer tuple slot
+    hjstate->hj_OuterTupleSlot = ExecInitExtraTupleSlot(estate, outerDesc,
+        ExecGetResultSlotOps(outerPlanState(hjstate), NULL));
+
+    // Configure single match optimization
+    hjstate->js.single_match = (node->join.inner_unique ||
+                                node->join.jointype == JOIN_SEMI);
+
+    // Set up null tuple slots based on join type
+    switch (node->join.jointype) {
+        case JOIN_INNER:
+        case JOIN_SEMI:
+            // No null slots needed
+            break;
+        case JOIN_LEFT:
+        case JOIN_ANTI:
+            hjstate->hj_NullInnerTupleSlot =
+                ExecInitNullTupleSlot(estate, innerDesc, &TTSOpsVirtual);
+            break;
+        case JOIN_RIGHT:
+        case JOIN_RIGHT_ANTI:
+            hjstate->hj_NullOuterTupleSlot =
+                ExecInitNullTupleSlot(estate, outerDesc, &TTSOpsVirtual);
+            break;
+        case JOIN_FULL:
+            hjstate->hj_NullOuterTupleSlot =
+                ExecInitNullTupleSlot(estate, outerDesc, &TTSOpsVirtual);
+            hjstate->hj_NullInnerTupleSlot =
+                ExecInitNullTupleSlot(estate, innerDesc, &TTSOpsVirtual);
+            break;
+        default:
+            elog(ERROR, "unrecognized join type: %d", (int) node->join.jointype);
+    }
+
+    // Reuse Hash node's result slot as hash tuple slot
+    HashState *hashstate = (HashState *) innerPlanState(hjstate);
+    hjstate->hj_HashTupleSlot = hashstate->ps.ps_ResultTupleSlot;
+
+    // Initialize expression trees
+    hjstate->js.ps.qual = ExecInitQual(node->join.plan.qual, (PlanState *) hjstate);
+    hjstate->js.joinqual = ExecInitQual(node->join.joinqual, (PlanState *) hjstate);
+    hjstate->hashclauses = ExecInitQual(node->hashclauses, (PlanState *) hjstate);
+
+    // Initialize hash-specific state variables
+    hjstate->hj_HashTable = NULL;
+    hjstate->hj_FirstOuterTupleSlot = NULL;
+    hjstate->hj_CurHashValue = 0;
+    hjstate->hj_CurBucketNo = 0;
+    hjstate->hj_CurSkewBucketNo = INVALID_SKEW_BUCKET_NO;
+    hjstate->hj_CurTuple = NULL;
+
+    // Set up hash key expressions and operators
+    hjstate->hj_OuterHashKeys = ExecInitExprList(node->hashkeys, (PlanState *) hjstate);
+    hjstate->hj_HashOperators = node->hashoperators;
+    hjstate->hj_Collations = node->hashcollations;
+
+    // Set initial execution state
+    hjstate->hj_JoinState = HJ_BUILD_HASHTABLE;
+    hjstate->hj_MatchedOuter = false;
+    hjstate->hj_OuterNotEmpty = false;
+
+    return hjstate;
+}
+```

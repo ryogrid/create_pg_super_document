@@ -43,3 +43,53 @@ The function handles its own instrumentation for performance monitoring, calling
 - Part of PostgreSQL's bitmap index scan infrastructure for efficient multi-index queries
 - Handles its own performance instrumentation since it bypasses standard executor interfaces
 - Located in src/backend/executor/nodeBitmapAnd.c:110-177
+
+## Simplified Source
+
+```c
+Node *
+MultiExecBitmapAnd(BitmapAndState *node)
+{
+    TIDBitmap *result = NULL;
+
+    // Start performance instrumentation if enabled
+    if (node->ps.instrument)
+        InstrStartNode(node->ps.instrument);
+
+    // Get subplan information
+    PlanState **bitmapplans = node->bitmapplans;
+    int nplans = node->nplans;
+
+    // Execute each subplan and AND their bitmaps together
+    for (int i = 0; i < nplans; i++)
+    {
+        // Execute the subplan to get its bitmap
+        TIDBitmap *subresult = (TIDBitmap *) MultiExecProcNode(bitmapplans[i]);
+
+        if (!subresult || !IsA(subresult, TIDBitmap))
+            elog(ERROR, "unrecognized result from subplan");
+
+        if (result == NULL)
+            result = subresult;  // First subplan result
+        else
+        {
+            // Intersect with previous results
+            tbm_intersect(result, subresult);
+            tbm_free(subresult);
+        }
+
+        // Early termination optimization: if empty, no need to continue
+        if (tbm_is_empty(result))
+            break;
+    }
+
+    if (result == NULL)
+        elog(ERROR, "BitmapAnd doesn't support zero inputs");
+
+    // Stop performance instrumentation
+    if (node->ps.instrument)
+        InstrStopNode(node->ps.instrument, 0);
+
+    return (Node *) result;
+}
+```

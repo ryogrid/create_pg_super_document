@@ -34,3 +34,25 @@ The function operates on the tuple store referenced by the NamedTuplestoreScanSt
 - The function always operates on the scan tuple slot (ss_ScanTupleSlot) from the node's ScanState
 - Uses tuple store infrastructure to manage persistent tuple storage and retrieval
 - Returns the same slot regardless of whether a tuple was found (caller must check if slot contains data)
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+NamedTuplestoreScanNext(NamedTuplestoreScanState *node)
+{
+    TupleTableSlot *slot;
+
+    // Ensure we're scanning forward only
+    Assert(ScanDirectionIsForward(node->ss.ps.state->es_direction));
+
+    // Get the scan tuple slot
+    slot = node->ss.ss_ScanTupleSlot;
+
+    // Select the appropriate read pointer and fetch next tuple
+    tuplestore_select_read_pointer(node->relation, node->readptr);
+    (void) tuplestore_gettupleslot(node->relation, true, false, slot);
+
+    return slot;
+}
+```

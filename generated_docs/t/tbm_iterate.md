@@ -38,4 +38,71 @@ The function maintains iteration state through the TBMIterator, ensuring pages a
   - [BitmapPrefetch](../B/BitmapPrefetch.md) (src/backend/executor/nodeBitmapHeapscan.c:475)
 
 ## Notes and Other Information
-The function ensures numerical page order by carefully comparing chunk and individual page block numbers. When  is true, the condition must be rechecked even for exact tuples. The function returns NULL when no more pages remain in the bitmap. The iteration state is private to a single process (contrast with  for multi-process scenarios).
+The function ensures numerical page order by carefully comparing chunk and individual page block numbers. When recheck is true, the condition must be rechecked even for exact tuples. The function returns NULL when no more pages remain in the bitmap. The iteration state is private to a single process (contrast with tbm_shared_iterate for multi-process scenarios).
+
+## Simplified Source
+
+```c
+TBMIterateResult *
+tbm_iterate(TBMIterator *iterator)
+{
+    TIDBitmap *tbm = iterator->tbm;
+    TBMIterateResult *output = &(iterator->output);
+
+    Assert(tbm->iterating == TBM_ITERATING_PRIVATE);
+
+    // Advance to next set bit in lossy chunks
+    while (iterator->schunkptr < tbm->nchunks) {
+        PagetableEntry *chunk = tbm->schunks[iterator->schunkptr];
+        int schunkbit = iterator->schunkbit;
+
+        tbm_advance_schunkbit(chunk, &schunkbit);
+        if (schunkbit < PAGES_PER_CHUNK) {
+            iterator->schunkbit = schunkbit;
+            break;
+        }
+        // Move to next chunk
+        iterator->schunkptr++;
+        iterator->schunkbit = 0;
+    }
+
+    // Return chunk page if it comes before individual pages
+    if (iterator->schunkptr < tbm->nchunks) {
+        PagetableEntry *chunk = tbm->schunks[iterator->schunkptr];
+        BlockNumber chunk_blockno = chunk->blockno + iterator->schunkbit;
+
+        if (iterator->spageptr >= tbm->npages ||
+            chunk_blockno < tbm->spages[iterator->spageptr]->blockno) {
+            // Return lossy page from chunk
+            output->blockno = chunk_blockno;
+            output->ntuples = -1;   // Lossy - check all tuples
+            output->recheck = true;
+            iterator->schunkbit++;
+            return output;
+        }
+    }
+
+    // Return individual page if available
+    if (iterator->spageptr < tbm->npages) {
+        PagetableEntry *page;
+        int ntuples;
+
+        // Handle single page mode
+        if (tbm->status == TBM_ONE_PAGE)
+            page = &tbm->entry1;
+        else
+            page = tbm->spages[iterator->spageptr];
+
+        // Extract exact tuple offsets
+        ntuples = tbm_extract_page_tuple(page, output);
+        output->blockno = page->blockno;
+        output->ntuples = ntuples;
+        output->recheck = page->recheck;
+        iterator->spageptr++;
+        return output;
+    }
+
+    // No more pages
+    return NULL;
+}
+```

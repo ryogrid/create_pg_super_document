@@ -54,3 +54,62 @@ The function ensures that all item pointers are properly merged and sorted, with
 - The function is static, indicating it's an internal implementation detail of GIN insertion
 - Critical for GIN index performance as it handles the transition between different storage formats
 - Part of the GIN access method's strategy for handling variable-sized posting lists efficiently
+
+## Simplified Source
+```c
+static IndexTuple addItemPointersToLeafTuple(GinState *ginstate,
+                                            IndexTuple old,
+                                            ItemPointerData *items, uint32 nitem,
+                                            GinStatsData *buildStats, Buffer buffer) {
+    OffsetNumber attnum;
+    Datum key;
+    GinNullCategory category;
+    IndexTuple res;
+    ItemPointerData *newItems, *oldItems;
+    int oldNPosting, newNPosting;
+    GinPostingList *compressedList;
+
+    Assert(!GinIsPostingTree(old));
+
+    // Extract tuple components
+    attnum = gintuple_get_attrnum(ginstate, old);
+    key = gintuple_get_key(ginstate, old, &category);
+
+    // Read existing posting list and merge with new items
+    oldItems = ginReadTuple(ginstate, attnum, old, &oldNPosting);
+    newItems = ginMergeItemPointers(items, nitem, oldItems, oldNPosting, &newNPosting);
+
+    // Try to create tuple with compressed posting list
+    res = NULL;
+    compressedList = ginCompressPostingList(newItems, newNPosting, GinMaxItemSize, NULL);
+    pfree(newItems);
+
+    if (compressedList) {
+        // Posting list fits in tuple - create compressed tuple
+        res = GinFormTuple(ginstate, attnum, key, category,
+                          (char *) compressedList,
+                          SizeOfGinPostingList(compressedList),
+                          newNPosting, false);
+        pfree(compressedList);
+    }
+
+    if (!res) {
+        // Posting list too big - convert to posting tree
+        BlockNumber postingRoot;
+
+        // Create posting tree from old tuple's posting list
+        postingRoot = createPostingTree(ginstate->index, oldItems, oldNPosting,
+                                       buildStats, buffer);
+
+        // Insert new items into the posting tree
+        ginInsertItemPointers(ginstate->index, postingRoot, items, nitem, buildStats);
+
+        // Create tuple pointing to posting tree
+        res = GinFormTuple(ginstate, attnum, key, category, NULL, 0, 0, true);
+        GinSetPostingTree(res, postingRoot);
+    }
+
+    pfree(oldItems);
+    return res;
+}
+```

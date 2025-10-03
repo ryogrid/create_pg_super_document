@@ -39,3 +39,17 @@ This design allows CTE scans to benefit from the common scan infrastructure (inc
 - The actual tuple retrieval logic is implemented in CteScanNext, while this function handles the executor framework integration
 - Part of the plan node execution interface where each node type provides an execution function
 - Located at src/backend/executor/nodeCtescan.c:160-174
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecCteScan(PlanState *pstate)
+{
+    // Cast to CTE scan state
+    CteScanState *node = castNode(CteScanState, pstate);
+
+    // Delegate to generic scan framework with CTE-specific methods
+    return ExecScan(&node->ss, CteScanNext, CteScanRecheck);
+}
+```

@@ -43,3 +43,24 @@ The function performs the operation within a critical section to ensure atomicit
 - Uses the initialization fork rather than the main fork for crash safety during index creation
 - The critical section ensures that the page initialization and logging are atomic operations
 - Located in src/backend/access/gist/gist.c:133-158
+
+## Simplified Source
+```c
+void gistbuildempty(Relation index) {
+    Buffer buffer;
+
+    // Create new buffer for root page in initialization fork
+    buffer = ExtendBufferedRel(BMR_REL(index), INIT_FORKNUM, NULL,
+                               EB_SKIP_EXTENSION_LOCK | EB_LOCK_FIRST);
+
+    // Initialize root page as leaf and log operation
+    START_CRIT_SECTION();
+    GISTInitBuffer(buffer, F_LEAF);  // Root starts as leaf in empty index
+    MarkBufferDirty(buffer);
+    log_newpage_buffer(buffer, true);  // WAL log for crash recovery
+    END_CRIT_SECTION();
+
+    // Clean up
+    UnlockReleaseBuffer(buffer);
+}
+```

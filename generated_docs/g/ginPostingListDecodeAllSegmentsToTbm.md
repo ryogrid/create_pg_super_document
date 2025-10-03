@@ -41,3 +41,23 @@ This is particularly useful during query processing where multiple posting lists
 - The  parameter to  indicates that the items are already sorted (guaranteed by the posting list format)
 - Commonly used during GIN index scans where results from multiple posting lists need to be combined into a single bitmap
 - Eliminates the need for callers to manage the intermediate ItemPointer array lifecycle
+
+## Simplified Source
+
+```c
+int ginPostingListDecodeAllSegmentsToTbm(GinPostingList *ptr, int len, TIDBitmap *tbm) {
+    int ndecoded;
+    ItemPointer items;
+
+    // Decode all posting list segments into item pointer array
+    items = ginPostingListDecodeAllSegments(ptr, len, &ndecoded);
+
+    // Add all decoded items to the TID bitmap (sorted=false since already sorted)
+    tbm_add_tuples(tbm, items, ndecoded, false);
+
+    // Clean up temporary array
+    pfree(items);
+
+    return ndecoded;
+}
+```

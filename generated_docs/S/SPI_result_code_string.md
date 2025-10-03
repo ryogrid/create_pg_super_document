@@ -39,3 +39,53 @@ For unrecognized codes, the function falls back to generating a formatted string
 - Widely used across procedural language implementations (PL/Perl, PL/Python, PL/Tcl)
 - Essential for debugging and error reporting in SPI-based code
 - The function recognizes all standard SPI return codes including newer ones like MERGE operations
+
+## Simplified Source
+
+```c
+const char *SPI_result_code_string(int code) {
+    static char buf[64];
+
+    // Map SPI error codes to strings
+    switch (code) {
+        // Error codes (negative)
+        case SPI_ERROR_CONNECT:      return "SPI_ERROR_CONNECT";
+        case SPI_ERROR_COPY:         return "SPI_ERROR_COPY";
+        case SPI_ERROR_OPUNKNOWN:    return "SPI_ERROR_OPUNKNOWN";
+        case SPI_ERROR_UNCONNECTED:  return "SPI_ERROR_UNCONNECTED";
+        case SPI_ERROR_ARGUMENT:     return "SPI_ERROR_ARGUMENT";
+        case SPI_ERROR_PARAM:        return "SPI_ERROR_PARAM";
+        case SPI_ERROR_TRANSACTION:  return "SPI_ERROR_TRANSACTION";
+        case SPI_ERROR_NOATTRIBUTE:  return "SPI_ERROR_NOATTRIBUTE";
+        case SPI_ERROR_NOOUTFUNC:    return "SPI_ERROR_NOOUTFUNC";
+        case SPI_ERROR_TYPUNKNOWN:   return "SPI_ERROR_TYPUNKNOWN";
+        case SPI_ERROR_REL_DUPLICATE: return "SPI_ERROR_REL_DUPLICATE";
+        case SPI_ERROR_REL_NOT_FOUND: return "SPI_ERROR_REL_NOT_FOUND";
+
+        // Success codes (positive)
+        case SPI_OK_CONNECT:         return "SPI_OK_CONNECT";
+        case SPI_OK_FINISH:          return "SPI_OK_FINISH";
+        case SPI_OK_FETCH:           return "SPI_OK_FETCH";
+        case SPI_OK_UTILITY:         return "SPI_OK_UTILITY";
+        case SPI_OK_SELECT:          return "SPI_OK_SELECT";
+        case SPI_OK_SELINTO:         return "SPI_OK_SELINTO";
+        case SPI_OK_INSERT:          return "SPI_OK_INSERT";
+        case SPI_OK_DELETE:          return "SPI_OK_DELETE";
+        case SPI_OK_UPDATE:          return "SPI_OK_UPDATE";
+        case SPI_OK_CURSOR:          return "SPI_OK_CURSOR";
+        case SPI_OK_INSERT_RETURNING: return "SPI_OK_INSERT_RETURNING";
+        case SPI_OK_DELETE_RETURNING: return "SPI_OK_DELETE_RETURNING";
+        case SPI_OK_UPDATE_RETURNING: return "SPI_OK_UPDATE_RETURNING";
+        case SPI_OK_REWRITTEN:       return "SPI_OK_REWRITTEN";
+        case SPI_OK_REL_REGISTER:    return "SPI_OK_REL_REGISTER";
+        case SPI_OK_REL_UNREGISTER:  return "SPI_OK_REL_UNREGISTER";
+        case SPI_OK_TD_REGISTER:     return "SPI_OK_TD_REGISTER";
+        case SPI_OK_MERGE:           return "SPI_OK_MERGE";
+        case SPI_OK_MERGE_RETURNING: return "SPI_OK_MERGE_RETURNING";
+    }
+
+    // Handle unrecognized codes
+    sprintf(buf, "Unrecognized SPI code %d", code);
+    return buf;
+}
+```

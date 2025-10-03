@@ -33,3 +33,11 @@ This function is part of PostgreSQL's comprehensive collection of datatype-speci
 - No type casting required since the input is already 32-bit, matching the underlying hash function's expected input
 - Designed to be called through PostgreSQL's function manager (fmgr) interface
 - The int4 data type is the most commonly used integer type in PostgreSQL applications
+
+## Simplified Source
+```c
+Datum hashint4(PG_FUNCTION_ARGS) {
+    // Extract 32-bit integer argument and hash it directly
+    return hash_uint32(PG_GETARG_INT32(0));
+}
+```

@@ -56,3 +56,79 @@ This function works with heapam_scan_sample_next_block to implement tuple-level 
 - Returns false when no more tuples are available on the current page
 - Maintains proper tuple statistics via pgstat_count_heap_getnext
 - Includes interrupt checking to allow cancellation during long sampling operations
+
+## Simplified Source
+
+```c
+static bool
+heapam_scan_sample_next_tuple(TableScanDesc scan, SampleScanState *scanstate,
+                              TupleTableSlot *slot)
+{
+    HeapScanDesc hscan = (HeapScanDesc) scan;
+    TsmRoutine *tsm = scanstate->tsmroutine;
+    BlockNumber blockno = hscan->rs_cblock;
+    bool pagemode = (scan->rs_flags & SO_ALLOW_PAGEMODE) != 0;
+
+    Page page;
+    bool all_visible;
+    OffsetNumber maxoffset;
+
+    // Lock buffer for visibility checks if not in pagemode
+    if (!pagemode)
+        LockBuffer(hscan->rs_cbuf, BUFFER_LOCK_SHARE);
+
+    page = (Page) BufferGetPage(hscan->rs_cbuf);
+    all_visible = PageIsAllVisible(page) && !scan->rs_snapshot->takenDuringRecovery;
+    maxoffset = PageGetMaxOffsetNumber(page);
+
+    // Sample tuples until we find a visible one or exhaust the page
+    for (;;) {
+        OffsetNumber tupoffset;
+
+        CHECK_FOR_INTERRUPTS();
+
+        // Ask sampling method which tuple to check next
+        tupoffset = tsm->NextSampleTuple(scanstate, blockno, maxoffset);
+
+        if (OffsetNumberIsValid(tupoffset)) {
+            ItemId itemid = PageGetItemId(page, tupoffset);
+            if (!ItemIdIsNormal(itemid))
+                continue;
+
+            // Build tuple from page data
+            HeapTuple tuple = &(hscan->rs_ctup);
+            tuple->t_data = (HeapTupleHeader) PageGetItem(page, itemid);
+            tuple->t_len = ItemIdGetLength(itemid);
+            ItemPointerSet(&(tuple->t_self), blockno, tupoffset);
+
+            // Check visibility - use optimization for all-visible pages
+            bool visible = all_visible ? true :
+                          SampleHeapTupleVisible(scan, hscan->rs_cbuf, tuple, tupoffset);
+
+            // Handle serializable conflict detection
+            if (!pagemode)
+                HeapCheckForSerializableConflictOut(visible, scan->rs_rd, tuple,
+                                                   hscan->rs_cbuf, scan->rs_snapshot);
+
+            if (!visible)
+                continue;
+
+            // Found visible tuple - store it and return
+            if (!pagemode)
+                LockBuffer(hscan->rs_cbuf, BUFFER_LOCK_UNLOCK);
+
+            ExecStoreBufferHeapTuple(tuple, slot, hscan->rs_cbuf);
+            pgstat_count_heap_getnext(scan->rs_rd);
+            return true;
+        }
+        else {
+            // No more tuples on this page
+            if (!pagemode)
+                LockBuffer(hscan->rs_cbuf, BUFFER_LOCK_UNLOCK);
+
+            ExecClearTuple(slot);
+            return false;
+        }
+    }
+}
+```

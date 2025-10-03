@@ -42,3 +42,46 @@ For efficiency, it scans the shorter of the two joininfo lists.
 - The EquivalenceClass fallback check ensures comprehensive coverage of potential join relationships
 - This function is crucial for the query optimizer's join ordering decisions
 - Located in src/backend/optimizer/util/joininfo.c:39-97
+
+## Simplified Source
+
+```c
+bool
+have_relevant_joinclause(PlannerInfo *root, RelOptInfo *rel1, RelOptInfo *rel2)
+{
+    bool result = false;
+    List *joininfo;
+    Relids other_relids;
+    ListCell *l;
+
+    // Use the shorter joininfo list for efficiency
+    if (list_length(rel1->joininfo) <= list_length(rel2->joininfo))
+    {
+        joininfo = rel1->joininfo;
+        other_relids = rel2->relids;
+    }
+    else
+    {
+        joininfo = rel2->joininfo;
+        other_relids = rel1->relids;
+    }
+
+    // Check joininfo list for overlapping required_relids
+    foreach(l, joininfo)
+    {
+        RestrictInfo *rinfo = (RestrictInfo *) lfirst(l);
+
+        if (bms_overlap(other_relids, rinfo->required_relids))
+        {
+            result = true;
+            break;
+        }
+    }
+
+    // Fallback: check EquivalenceClass relationships
+    if (!result && rel1->has_eclass_joins && rel2->has_eclass_joins)
+        result = have_relevant_eclass_joinclause(root, rel1, rel2);
+
+    return result;
+}
+```

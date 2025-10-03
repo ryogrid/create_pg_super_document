@@ -59,3 +59,48 @@ The function uses a retry mechanism when brin_doupdate fails, decrementing the o
 - The function checks for interrupts to allow cancellation during long-running evacuations
 - Part of the BRIN page repurposing mechanism that allows regular index pages to be converted for reverse mapping use
 - The evacuation process maintains index consistency by ensuring all tuples are properly relocated before the page is repurposed
+
+## Simplified Source
+
+```c
+void brin_evacuate_page(Relation idxRel, BlockNumber pagesPerRange,
+                        BrinRevmap *revmap, Buffer buf)
+{
+    Page page = BufferGetPage(buf);
+    BrinTuple *btup = NULL;
+    Size btupsz = 0;
+
+    // Verify page is marked for evacuation
+    Assert(BrinPageFlags(page) & BRIN_EVACUATE_PAGE);
+
+    // Process each tuple on the page
+    OffsetNumber maxoff = PageGetMaxOffsetNumber(page);
+    for (OffsetNumber off = FirstOffsetNumber; off <= maxoff; off++)
+    {
+        CHECK_FOR_INTERRUPTS();
+
+        ItemId lp = PageGetItemId(page, off);
+        if (ItemIdIsUsed(lp))
+        {
+            // Copy tuple data
+            Size sz = ItemIdGetLength(lp);
+            BrinTuple *tup = (BrinTuple *) PageGetItem(page, lp);
+            tup = brin_copy_tuple(tup, sz, btup, &btupsz);
+
+            // Relocate tuple to new location
+            LockBuffer(buf, BUFFER_LOCK_UNLOCK);
+            if (!brin_doupdate(idxRel, pagesPerRange, revmap, tup->bt_blkno,
+                              buf, off, tup, sz, tup, sz, false))
+                off--;  // Retry on failure
+
+            LockBuffer(buf, BUFFER_LOCK_SHARE);
+
+            // Check if page was converted to revmap during evacuation
+            if (!BRIN_IS_REGULAR_PAGE(page))
+                break;
+        }
+    }
+
+    UnlockReleaseBuffer(buf);
+}
+```

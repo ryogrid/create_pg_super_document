@@ -55,3 +55,61 @@ BEFORE STATEMENT triggers are not allowed to return values - if a trigger attemp
 - Part of the statement-level trigger execution system
 - Located in src/backend/commands/trigger.c:2906-2963
 - Operates before any row-level processing begins for UPDATE statements
+
+## Simplified Source
+
+```c
+void
+ExecBSUpdateTriggers(EState *estate, ResultRelInfo *relinfo) {
+    TriggerDesc *trigdesc = relinfo->ri_TrigDesc;
+    TriggerData LocTriggerData = {0};
+    Bitmapset *updatedCols;
+
+    // Early exits: no triggers or no UPDATE BEFORE STATEMENT triggers
+    if (trigdesc == NULL || !trigdesc->trig_update_before_statement)
+        return;
+
+    // Skip if already fired in this context (optimization)
+    if (before_stmt_triggers_fired(RelationGetRelid(relinfo->ri_RelationDesc), CMD_UPDATE))
+        return;
+
+    // Statement-level triggers only operate on parent table
+    Assert(relinfo->ri_RootResultRelInfo == NULL);
+
+    // Get information about which columns are being updated
+    updatedCols = ExecGetAllUpdatedCols(relinfo, estate);
+
+    // Set up trigger event data
+    LocTriggerData.type = T_TriggerData;
+    LocTriggerData.tg_event = TRIGGER_EVENT_UPDATE | TRIGGER_EVENT_BEFORE;
+    LocTriggerData.tg_relation = relinfo->ri_RelationDesc;
+    LocTriggerData.tg_updatedcols = updatedCols;
+
+    // Execute each matching trigger
+    for (int i = 0; i < trigdesc->numtriggers; i++) {
+        Trigger *trigger = &trigdesc->triggers[i];
+
+        // Skip if not a BEFORE STATEMENT UPDATE trigger
+        if (!TRIGGER_TYPE_MATCHES(trigger->tgtype, TRIGGER_TYPE_STATEMENT,
+                                  TRIGGER_TYPE_BEFORE, TRIGGER_TYPE_UPDATE))
+            continue;
+
+        // Skip if trigger is disabled
+        if (!TriggerEnabled(estate, relinfo, trigger, LocTriggerData.tg_event,
+                           updatedCols, NULL, NULL))
+            continue;
+
+        // Execute the trigger
+        LocTriggerData.tg_trigger = trigger;
+        HeapTuple newtuple = ExecCallTriggerFunc(&LocTriggerData, i,
+                                                relinfo->ri_TrigFunctions,
+                                                relinfo->ri_TrigInstrument,
+                                                GetPerTupleMemoryContext(estate));
+
+        // BEFORE STATEMENT triggers must not return values
+        if (newtuple)
+            ereport(ERROR, (errcode(ERRCODE_E_R_I_E_TRIGGER_PROTOCOL_VIOLATED),
+                           errmsg("BEFORE STATEMENT trigger cannot return a value")));
+    }
+}
+```

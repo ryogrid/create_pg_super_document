@@ -36,3 +36,11 @@ The function handles proper Unicode case conversion according to Unicode standar
 - Proper Unicode case conversion is performed, handling multi-byte UTF-8 sequences correctly
 - If dstsize is greater than the result length, the destination will be NUL-terminated; otherwise it will not be
 - Useful for calculating required buffer size by calling with dst=NULL and dstsize=0
+
+## Simplified Source
+```c
+size_t unicode_strupper(char *dst, size_t dstsize, const char *src, ssize_t srclen) {
+    // Convert UTF-8 string to uppercase using Unicode case mapping
+    return convert_case(dst, dstsize, src, srclen, CaseUpper, NULL, NULL);
+}
+```

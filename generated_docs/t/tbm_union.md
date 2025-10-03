@@ -37,3 +37,29 @@ The function handles different internal representations of TIDBitmaps. If the so
 - Used primarily in bitmap OR operations during query execution
 - The union operation preserves both exact and lossy page representations
 - Memory management and potential lossification are handled by the underlying `tbm_union_page` calls
+
+## Simplified Source
+
+```c
+void tbm_union(TIDBitmap *a, const TIDBitmap *b)
+{
+    // Early return if source bitmap is empty
+    if (b->nentries == 0)
+        return;
+
+    // Handle single page bitmap
+    if (b->status == TBM_ONE_PAGE) {
+        tbm_union_page(a, &b->entry1);
+    }
+    else {
+        // Handle multi-page hash table
+        pagetable_iterator i;
+        PagetableEntry *bpage;
+
+        pagetable_start_iterate(b->pagetable, &i);
+        while ((bpage = pagetable_iterate(b->pagetable, &i)) != NULL) {
+            tbm_union_page(a, bpage);
+        }
+    }
+}
+```

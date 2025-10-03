@@ -40,3 +40,38 @@ The function follows PostgreSQL's executor pattern of returning one tuple per ca
 - Handles duplicate output counting for operations that require multiple returns of the same tuple
 - Strategy selection (SETOP_HASHED vs direct) is determined at plan time based on input characteristics
 - Part of PostgreSQL's executor framework for set operations (UNION, INTERSECT, EXCEPT)
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecSetOp(PlanState *pstate)
+{
+    SetOpState *node = castNode(SetOpState, pstate);
+    SetOp *plannode = (SetOp *) node->ps.plan;
+    TupleTableSlot *resultTupleSlot = node->ps.ps_ResultTupleSlot;
+
+    CHECK_FOR_INTERRUPTS();
+
+    // Handle duplicate output: return same tuple multiple times if needed
+    if (node->numOutput > 0) {
+        node->numOutput--;
+        return resultTupleSlot;
+    }
+
+    // Check if processing is complete
+    if (node->setop_done)
+        return NULL;
+
+    // Choose strategy based on plan configuration
+    if (plannode->strategy == SETOP_HASHED) {
+        // Hashed strategy: for unsorted inputs
+        if (!node->table_filled)
+            setop_fill_hash_table(node);  // Build hash table once
+        return setop_retrieve_hash_table(node);  // Get next result from hash
+    } else {
+        // Direct strategy: for sorted inputs
+        return setop_retrieve_direct(node);  // Compare adjacent groups directly
+    }
+}
+```

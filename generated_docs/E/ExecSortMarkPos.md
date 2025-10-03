@@ -36,3 +36,17 @@ The mark/restore functionality is essential for certain query operations that ne
 - Works in conjunction with ExecSortRestrPos to provide mark/restore semantics
 - The underlying tuplesort module handles the actual position tracking mechanism
 - No-op if called before sorting is complete, ensuring safe usage in all execution scenarios
+
+## Simplified Source
+
+```c
+void ExecSortMarkPos(SortState *node)
+{
+    // Skip if sorting hasn't completed yet
+    if (!node->sort_Done)
+        return;
+
+    // Mark current position in sorted data
+    tuplesort_markpos((Tuplesortstate *) node->tuplesortstate);
+}
+```

@@ -41,3 +41,22 @@ The estimation process considers the index relation descriptor, scan keys for fi
 - Parallel index-only scans can significantly improve query performance on large datasets by distributing the workload across multiple worker processes
 - The estimation must account for index-specific coordination requirements that vary between different index access methods
 - Proper memory estimation is critical for avoiding shared memory allocation failures during parallel query execution
+
+## Simplified Source
+
+```c
+void ExecIndexOnlyScanEstimate(IndexOnlyScanState *node, ParallelContext *pcxt)
+{
+    EState *estate = node->ss.ps.state;
+
+    // Calculate shared memory needed for parallel index scan coordination
+    node->ioss_PscanLen = index_parallelscan_estimate(node->ioss_RelationDesc,
+                                                      node->ioss_NumScanKeys,
+                                                      node->ioss_NumOrderByKeys,
+                                                      estate->es_snapshot);
+
+    // Register memory requirements with parallel context
+    shm_toc_estimate_chunk(&pcxt->estimator, node->ioss_PscanLen);
+    shm_toc_estimate_keys(&pcxt->estimator, 1);
+}
+```

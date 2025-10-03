@@ -46,3 +46,33 @@ The read pointer array is dynamically resized if necessary, doubling in size whe
 - Each read pointer can have independent eflags and position
 - Commonly used in window functions that need multiple scanning positions
 - The returned index is used in subsequent tuplestore operations to specify which read pointer to use
+
+## Simplified Source
+
+```c
+int
+tuplestore_alloc_read_pointer(Tuplestorestate *state, int eflags)
+{
+    // Check if we can still modify requirements
+    if (state->status != TSS_INMEM || state->memtupcount != 0) {
+        if ((state->eflags | eflags) != state->eflags) {
+            elog(ERROR, "too late to require new tuplestore eflags");
+        }
+    }
+
+    // Expand read pointer array if needed
+    if (state->readptrcount >= state->readptrsize) {
+        int newsize = state->readptrsize * 2;
+        state->readptrs = repalloc(state->readptrs, newsize * sizeof(TSReadPointer));
+        state->readptrsize = newsize;
+    }
+
+    // Initialize new read pointer by copying read pointer 0
+    state->readptrs[state->readptrcount] = state->readptrs[0];
+    state->readptrs[state->readptrcount].eflags = eflags;
+
+    // Update global flags and return new pointer index
+    state->eflags |= eflags;
+    return state->readptrcount++;
+}
+```

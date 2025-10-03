@@ -47,3 +47,77 @@ The function manages three key data structures: a working table (current iterati
 - Handles parameter changes for recursive term re-evaluation through chgParam bitmap
 - Returns NULL when recursion terminates (no more tuples to process)
 - Critical component of PostgreSQL's WITH RECURSIVE implementation
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecRecursiveUnion(PlanState *pstate)
+{
+    RecursiveUnionState *node = castNode(RecursiveUnionState, pstate);
+    PlanState *outerPlan = outerPlanState(node);
+    PlanState *innerPlan = innerPlanState(node);
+    RecursiveUnion *plan = (RecursiveUnion *) node->ps.plan;
+    TupleTableSlot *slot;
+    bool isnew;
+
+    CHECK_FOR_INTERRUPTS();
+
+    // Phase 1: Process non-recursive term (anchor)
+    if (!node->recursing) {
+        for (;;) {
+            slot = ExecProcNode(outerPlan);
+            if (TupIsNull(slot))
+                break;
+
+            // Check for duplicates if needed
+            if (plan->numCols > 0) {
+                LookupTupleHashEntry(node->hashtable, slot, &isnew, NULL);
+                MemoryContextReset(node->tempContext);
+                if (!isnew)
+                    continue; // Skip duplicates
+            }
+
+            // Add tuple to working table and return to caller
+            tuplestore_puttupleslot(node->working_table, slot);
+            return slot;
+        }
+        node->recursing = true;
+    }
+
+    // Phase 2: Process recursive term iteratively
+    for (;;) {
+        slot = ExecProcNode(innerPlan);
+        if (TupIsNull(slot)) {
+            // If intermediate table is empty, recursion is complete
+            if (node->intermediate_empty)
+                break;
+
+            // Swap tables: intermediate becomes new working table
+            tuplestore_end(node->working_table);
+            node->working_table = node->intermediate_table;
+            node->intermediate_table = tuplestore_begin_heap(false, false, work_mem);
+            node->intermediate_empty = true;
+
+            // Reset recursive plan for next iteration
+            innerPlan->chgParam = bms_add_member(innerPlan->chgParam, plan->wtParam);
+            continue;
+        }
+
+        // Check for duplicates if needed
+        if (plan->numCols > 0) {
+            LookupTupleHashEntry(node->hashtable, slot, &isnew, NULL);
+            MemoryContextReset(node->tempContext);
+            if (!isnew)
+                continue; // Skip duplicates
+        }
+
+        // Add new tuple to intermediate table and return to caller
+        node->intermediate_empty = false;
+        tuplestore_puttupleslot(node->intermediate_table, slot);
+        return slot;
+    }
+
+    return NULL; // Recursion complete
+}
+```

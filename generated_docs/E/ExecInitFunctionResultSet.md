@@ -43,3 +43,46 @@ The function includes an assertion to verify that the resolved function actually
 - The needDescForSRF parameter passed to init_sexpr enables special tuple descriptor handling for SRF results
 - Includes runtime assertion to catch cases where non-set-returning functions are incorrectly processed through this path
 - Used by nodeProjectSet.c which implements the ProjectSet plan node for handling multiple SRFs in the target list
+
+## Simplified Source
+
+```c
+SetExprState *ExecInitFunctionResultSet(Expr *expr, ExprContext *econtext, PlanState *parent)
+{
+    SetExprState *state = makeNode(SetExprState);
+
+    // Initialize state for set-returning function
+    state->funcReturnsSet = true;
+    state->expr = expr;
+    state->func.fn_oid = InvalidOid;
+
+    // Handle different expression types
+    if (IsA(expr, FuncExpr))
+    {
+        FuncExpr *func = (FuncExpr *) expr;
+
+        // Initialize function arguments and setup
+        state->args = ExecInitExprList(func->args, parent);
+        init_sexpr(func->funcid, func->inputcollid, expr, state, parent,
+                   econtext->ecxt_per_query_memory, true, true);
+    }
+    else if (IsA(expr, OpExpr))
+    {
+        OpExpr *op = (OpExpr *) expr;
+
+        // Initialize operator arguments and setup
+        state->args = ExecInitExprList(op->args, parent);
+        init_sexpr(op->opfuncid, op->inputcollid, expr, state, parent,
+                   econtext->ecxt_per_query_memory, true, true);
+    }
+    else
+    {
+        elog(ERROR, "unrecognized node type: %d", (int) nodeTag(expr));
+    }
+
+    // Verify function actually returns set
+    Assert(state->func.fn_retset);
+
+    return state;
+}
+```

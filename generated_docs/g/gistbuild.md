@@ -47,3 +47,115 @@ The function automatically detects the optimal build strategy by checking for so
 - Memory management uses a temporary context that is reset after each tuple to prevent memory bloat during large index builds
 - WAL logging is deferred until the end of construction for non-sorted builds to improve performance
 - The function returns statistics about heap tuples processed and index tuples created for use by the query planner
+
+## Simplified Source
+
+```c
+IndexBuildResult *
+gistbuild(Relation heap, Relation index, IndexInfo *indexInfo)
+{
+    IndexBuildResult *result;
+    double reltuples;
+    GISTBuildState buildstate;
+    int fillfactor;
+    GiSTOptions *options = (GiSTOptions *) index->rd_options;
+
+    // Ensure index is empty before building
+    if (RelationGetNumberOfBlocks(index) != 0)
+        elog(ERROR, "index \"%s\" already contains data",
+             RelationGetRelationName(index));
+
+    // Initialize build state
+    buildstate.indexrel = index;
+    buildstate.heaprel = heap;
+    buildstate.giststate = initGISTstate(index);
+    buildstate.giststate->tempCxt = createTempGistContext();
+
+    // Determine build strategy based on options and capabilities
+    if (options && options->buffering_mode == GIST_OPTION_BUFFERING_ON)
+        buildstate.buildMode = GIST_BUFFERING_STATS;
+    else if (options && options->buffering_mode == GIST_OPTION_BUFFERING_OFF)
+        buildstate.buildMode = GIST_BUFFERING_DISABLED;
+    else
+        buildstate.buildMode = GIST_BUFFERING_AUTO;
+
+    // Check if sorted build is possible (all attributes have sort support)
+    if (buildstate.buildMode != GIST_BUFFERING_STATS)
+    {
+        bool hasallsortsupports = true;
+        int keyscount = IndexRelationGetNumberOfKeyAttributes(index);
+
+        for (int i = 0; i < keyscount; i++)
+        {
+            if (!OidIsValid(index_getprocid(index, i + 1, GIST_SORTSUPPORT_PROC)))
+            {
+                hasallsortsupports = false;
+                break;
+            }
+        }
+        if (hasallsortsupports)
+            buildstate.buildMode = GIST_SORTED_BUILD;
+    }
+
+    // Calculate free space based on fill factor
+    fillfactor = options ? options->fillfactor : GIST_DEFAULT_FILLFACTOR;
+    buildstate.freespace = BLCKSZ * (100 - fillfactor) / 100;
+    buildstate.indtuples = 0;
+
+    if (buildstate.buildMode == GIST_SORTED_BUILD)
+    {
+        // Sorted build: sort all data then build bottom-up
+        buildstate.sortstate = tuplesort_begin_index_gist(heap, index,
+                                                         maintenance_work_mem, NULL,
+                                                         TUPLESORT_NONE);
+
+        // Scan heap and add tuples to sort
+        reltuples = table_index_build_scan(heap, index, indexInfo, true, true,
+                                          gistSortedBuildCallback, &buildstate, NULL);
+
+        // Sort and build index pages
+        tuplesort_performsort(buildstate.sortstate);
+        gist_indexsortbuild(&buildstate);
+        tuplesort_end(buildstate.sortstate);
+    }
+    else
+    {
+        // Traditional build: initialize empty index and insert tuples
+        Buffer buffer = gistNewBuffer(index, heap);
+        Page page = BufferGetPage(buffer);
+
+        START_CRIT_SECTION();
+        GISTInitBuffer(buffer, F_LEAF);
+        MarkBufferDirty(buffer);
+        PageSetLSN(page, GistBuildLSN);
+        UnlockReleaseBuffer(buffer);
+        END_CRIT_SECTION();
+
+        // Scan and insert tuples
+        reltuples = table_index_build_scan(heap, index, indexInfo, true, true,
+                                          gistBuildCallback, &buildstate, NULL);
+
+        // Flush buffered tuples if buffering was used
+        if (buildstate.buildMode == GIST_BUFFERING_ACTIVE)
+        {
+            gistEmptyAllBuffers(&buildstate);
+            gistFreeBuildBuffers(buildstate.gfbb);
+        }
+
+        // Write WAL records for entire index if needed
+        if (RelationNeedsWAL(index))
+            log_newpage_range(index, MAIN_FORKNUM, 0,
+                             RelationGetNumberOfBlocks(index), true);
+    }
+
+    // Cleanup and return statistics
+    MemoryContextDelete(buildstate.giststate->tempCxt);
+    freeGISTstate(buildstate.giststate);
+
+    result = (IndexBuildResult *) palloc(sizeof(IndexBuildResult));
+    result->heap_tuples = reltuples;
+    result->index_tuples = (double) buildstate.indtuples;
+
+    return result;
+}
+```

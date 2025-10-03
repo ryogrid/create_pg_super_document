@@ -38,3 +38,59 @@ The restored snapshot is marked as 'copied' to indicate it was reconstructed fro
 - Handles both XID arrays and SubXID arrays when present in the serialized data
 - Memory layout matches the format created by SerializeSnapshot: header followed by XID arrays
 - Used exclusively in parallel query execution contexts where snapshot state must be shared between processes
+
+## Simplified Source
+
+```c
+Snapshot
+RestoreSnapshot(char *start_address)
+{
+    SerializedSnapshotData serialized_snapshot;
+    Size size;
+    Snapshot snapshot;
+    TransactionId *serialized_xids;
+
+    // Copy serialized header and locate XID arrays
+    memcpy(&serialized_snapshot, start_address, sizeof(SerializedSnapshotData));
+    serialized_xids = (TransactionId *) (start_address + sizeof(SerializedSnapshotData));
+
+    // Calculate total size needed (header + XID arrays)
+    size = sizeof(SnapshotData)
+        + serialized_snapshot.xcnt * sizeof(TransactionId)
+        + serialized_snapshot.subxcnt * sizeof(TransactionId);
+
+    // Allocate and initialize snapshot structure
+    snapshot = (Snapshot) MemoryContextAlloc(TopTransactionContext, size);
+    snapshot->snapshot_type = SNAPSHOT_MVCC;
+    snapshot->xmin = serialized_snapshot.xmin;
+    snapshot->xmax = serialized_snapshot.xmax;
+    snapshot->xcnt = serialized_snapshot.xcnt;
+    snapshot->subxcnt = serialized_snapshot.subxcnt;
+    snapshot->suboverflowed = serialized_snapshot.suboverflowed;
+    snapshot->takenDuringRecovery = serialized_snapshot.takenDuringRecovery;
+    snapshot->curcid = serialized_snapshot.curcid;
+    snapshot->whenTaken = serialized_snapshot.whenTaken;
+    snapshot->lsn = serialized_snapshot.lsn;
+    snapshot->snapXactCompletionCount = 0;
+
+    // Copy XID arrays if present
+    if (serialized_snapshot.xcnt > 0) {
+        snapshot->xip = (TransactionId *) (snapshot + 1);
+        memcpy(snapshot->xip, serialized_xids,
+               serialized_snapshot.xcnt * sizeof(TransactionId));
+    }
+
+    if (serialized_snapshot.subxcnt > 0) {
+        snapshot->subxip = ((TransactionId *) (snapshot + 1)) + serialized_snapshot.xcnt;
+        memcpy(snapshot->subxip, serialized_xids + serialized_snapshot.xcnt,
+               serialized_snapshot.subxcnt * sizeof(TransactionId));
+    }
+
+    // Mark as copied snapshot with zero reference counts
+    snapshot->regd_count = 0;
+    snapshot->active_count = 0;
+    snapshot->copied = true;
+
+    return snapshot;
+}
+```

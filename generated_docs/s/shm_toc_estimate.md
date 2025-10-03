@@ -38,3 +38,21 @@ This function computes the memory size estimation for a shared memory table of c
 - Essential for proper shared memory allocation in parallel execution scenarios
 - Works in conjunction with shm_toc_estimator structures that track the expected number of keys and chunk space requirements
 - Used during the setup phase of parallel operations before the actual shared memory segment is created
+
+## Simplified Source
+
+```c
+Size shm_toc_estimate(shm_toc_estimator *e) {
+    // Start with base TOC structure size (up to toc_entry field)
+    Size total_size = offsetof(shm_toc, toc_entry);
+
+    // Add space for all TOC entries
+    total_size += e->number_of_keys * sizeof(shm_toc_entry);
+
+    // Add space for data chunks
+    total_size += e->space_for_chunks;
+
+    // Return buffer-aligned size for optimal access
+    return BUFFERALIGN(total_size);
+}
+```

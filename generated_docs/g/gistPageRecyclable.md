@@ -36,3 +36,24 @@ This function implements the safety logic for page recycling in GiST indexes. It
 - The visibility check ensures that no active snapshot can still see the deleted page
 - Essential for both correctness and performance of GiST index operations
 - Part of PostgreSQL's transaction visibility infrastructure
+
+## Simplified Source
+
+```c
+bool gistPageRecyclable(Page page) {
+    // New pages are always safe to recycle
+    if (PageIsNew(page))
+        return true;
+
+    // Check if page was deleted
+    if (GistPageIsDeleted(page)) {
+        // Page can only be recycled if deletion transaction
+        // is no longer visible to any active transaction
+        FullTransactionId deletexid_full = GistPageGetDeleteXid(page);
+        return GlobalVisCheckRemovableFullXid(NULL, deletexid_full);
+    }
+
+    // All other pages cannot be recycled
+    return false;
+}
+```

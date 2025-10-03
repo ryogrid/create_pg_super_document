@@ -38,3 +38,23 @@ After ensuring that runtime keys are ready, the function calls ExecScan with spe
 - The function integrates with PostgreSQL's generic scan execution framework rather than implementing custom logic
 - Part of the executor node method table that gets called by the executor engine
 - The castNode operation provides type safety and debugging assistance in development builds
+
+## Simplified Source
+
+```c
+// Simplified version of ExecIndexOnlyScan
+static TupleTableSlot *
+ExecIndexOnlyScan(PlanState *pstate)
+{
+    IndexOnlyScanState *node = castNode(IndexOnlyScanState, pstate);
+
+    // Set up runtime keys if needed (for parameterized queries)
+    if (node->ioss_NumRuntimeKeys != 0 && !node->ioss_RuntimeKeysReady)
+        ExecReScan((PlanState *) node);
+
+    // Delegate to generic scan framework with index-only specific functions
+    return ExecScan(&node->ss,
+                    (ExecScanAccessMtd) IndexOnlyNext,      // Get next tuple
+                    (ExecScanRecheckMtd) IndexOnlyRecheck); // Recheck for EvalPlanQual
+}
+```

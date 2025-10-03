@@ -47,3 +47,34 @@ The function abstracts the complexity of spill handling from the executor, provi
 - Works seamlessly with grouping sets by delegating grouping set management to the underlying functions
 - The function sets agg_done only when truly complete, ensuring proper cleanup and state management
 - Critical component in PostgreSQL's spill-to-disk strategy for memory-constrained hash aggregation
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+agg_retrieve_hash_table(AggState *aggstate)
+{
+    TupleTableSlot *result = NULL;
+
+    // Keep trying to get results until we find one or exhaust all data
+    while (result == NULL)
+    {
+        // First try to get a result from current in-memory hash table
+        result = agg_retrieve_hash_table_in_memory(aggstate);
+
+        if (result == NULL)
+        {
+            // In-memory table exhausted, try to refill from spilled data
+            if (!agg_refill_hash_table(aggstate))
+            {
+                // No more spilled data available - we're completely done
+                aggstate->agg_done = true;
+                break;
+            }
+            // Hash table refilled, loop will retry in-memory retrieval
+        }
+    }
+
+    return result; // Either a valid result or NULL (when done)
+}
+```

@@ -46,3 +46,25 @@ This is a critical operation for maintaining index consistency during crash reco
 - Both the deleted page and its parent page are registered with REGBUF_STANDARD, meaning full page images may be included if needed for consistency
 - The downlink offset allows the recovery process to locate and remove the exact index tuple pointing to the deleted page
 - The function is part of PostgreSQL's crash recovery mechanism and must maintain ACID properties for the deletion operation
+
+## Simplified Source
+
+```c
+XLogRecPtr gistXLogPageDelete(Buffer buffer, FullTransactionId xid,
+                             Buffer parentBuffer, OffsetNumber downlinkOffset) {
+    gistxlogPageDelete xlrec;
+
+    // Setup deletion record with transaction ID and downlink offset
+    xlrec.deleteXid = xid;
+    xlrec.downlinkOffset = downlinkOffset;
+
+    XLogBeginInsert();
+    XLogRegisterData((char *) &xlrec, SizeOfGistxlogPageDelete);
+
+    // Register both the deleted page and its parent
+    XLogRegisterBuffer(0, buffer, REGBUF_STANDARD);
+    XLogRegisterBuffer(1, parentBuffer, REGBUF_STANDARD);
+
+    return XLogInsert(RM_GIST_ID, XLOG_GIST_PAGE_DELETE);
+}
+```

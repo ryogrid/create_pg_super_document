@@ -60,3 +60,78 @@ The operation requires that the new tuple data has exactly the same length as th
 - **WAL Logging**: Logs the operation as XLOG_HEAP_INPLACE when WAL is enabled
 - **Cache Invalidation**: Sends cache invalidation messages for the modified tuple
 - **System Catalogs**: Primarily intended for system catalog maintenance operations
+
+## Simplified Source
+
+```c
+void
+heap_inplace_update(Relation relation, HeapTuple tuple)
+{
+    Buffer buffer;
+    Page page;
+    OffsetNumber offnum;
+    ItemId lp = NULL;
+    HeapTupleHeader htup;
+    uint32 oldlen, newlen;
+
+    // Check parallel mode restriction
+    if (IsInParallelMode())
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_TRANSACTION_STATE),
+                 errmsg("cannot update tuples during a parallel operation")));
+
+    // Read and lock the target page
+    buffer = ReadBuffer(relation, ItemPointerGetBlockNumber(&(tuple->t_self)));
+    LockBuffer(buffer, BUFFER_LOCK_EXCLUSIVE);
+    page = (Page) BufferGetPage(buffer);
+
+    // Validate tuple location
+    offnum = ItemPointerGetOffsetNumber(&(tuple->t_self));
+    if (PageGetMaxOffsetNumber(page) >= offnum)
+        lp = PageGetItemId(page, offnum);
+
+    if (PageGetMaxOffsetNumber(page) < offnum || !ItemIdIsNormal(lp))
+        elog(ERROR, "invalid lp");
+
+    htup = (HeapTupleHeader) PageGetItem(page, lp);
+
+    // Validate size constraints - old and new must have same length
+    oldlen = ItemIdGetLength(lp) - htup->t_hoff;
+    newlen = tuple->t_len - tuple->t_data->t_hoff;
+    if (oldlen != newlen || htup->t_hoff != tuple->t_data->t_hoff)
+        elog(ERROR, "wrong tuple length");
+
+    START_CRIT_SECTION();
+
+    // Copy new data over existing tuple data in-place
+    memcpy((char *) htup + htup->t_hoff,
+           (char *) tuple->t_data + tuple->t_data->t_hoff,
+           newlen);
+
+    MarkBufferDirty(buffer);
+
+    // WAL logging for crash recovery
+    if (RelationNeedsWAL(relation)) {
+        xl_heap_inplace xlrec;
+        XLogRecPtr recptr;
+
+        xlrec.offnum = ItemPointerGetOffsetNumber(&tuple->t_self);
+
+        XLogBeginInsert();
+        XLogRegisterData((char *) &xlrec, SizeOfHeapInplace);
+        XLogRegisterBuffer(0, buffer, REGBUF_STANDARD);
+        XLogRegisterBufData(0, (char *) htup + htup->t_hoff, newlen);
+
+        recptr = XLogInsert(RM_HEAP_ID, XLOG_HEAP_INPLACE);
+        PageSetLSN(page, recptr);
+    }
+
+    END_CRIT_SECTION();
+
+    UnlockReleaseBuffer(buffer);
+
+    // Invalidate cache entries for the modified tuple
+    if (!IsBootstrapProcessingMode())
+        CacheInvalidateHeapTuple(relation, tuple, NULL);
+}
+```

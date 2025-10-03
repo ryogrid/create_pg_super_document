@@ -48,3 +48,44 @@ This function is typically called by the dependency system during DROP operation
 - Statistics cleanup is performed via pgstat_drop_function to ensure monitoring data is properly removed
 - Error handling includes cache lookup failures which should not normally occur
 - The function uses RowExclusiveLock to ensure safe concurrent access to catalog tables
+
+## Simplified Source
+
+```c
+void RemoveFunctionById(Oid funcOid)
+{
+    Relation relation;
+    HeapTuple tup;
+    char prokind;
+
+    // Delete the pg_proc tuple
+    relation = table_open(ProcedureRelationId, RowExclusiveLock);
+
+    tup = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcOid));
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for function %u", funcOid);
+
+    prokind = ((Form_pg_proc) GETSTRUCT(tup))->prokind;
+
+    CatalogTupleDelete(relation, &tup->t_self);
+    ReleaseSysCache(tup);
+    table_close(relation, RowExclusiveLock);
+
+    // Drop function statistics
+    pgstat_drop_function(funcOid);
+
+    // If it's an aggregate, delete pg_aggregate tuple too
+    if (prokind == PROKIND_AGGREGATE)
+    {
+        relation = table_open(AggregateRelationId, RowExclusiveLock);
+
+        tup = SearchSysCache1(AGGFNOID, ObjectIdGetDatum(funcOid));
+        if (!HeapTupleIsValid(tup))
+            elog(ERROR, "cache lookup failed for pg_aggregate tuple for function %u", funcOid);
+
+        CatalogTupleDelete(relation, &tup->t_self);
+        ReleaseSysCache(tup);
+        table_close(relation, RowExclusiveLock);
+    }
+}
+```

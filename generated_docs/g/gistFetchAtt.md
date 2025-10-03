@@ -35,3 +35,22 @@ This function performs the reverse operation of compression by applying the fetc
 - It initializes the GISTENTRY as non-leaf (false) since this is typically used for internal node processing
 - The fetch operation is the inverse of the compress operation, used to retrieve original values when needed
 - Uses the appropriate collation from giststate when calling the fetch function
+
+## Simplified Source
+
+```c
+static Datum gistFetchAtt(GISTSTATE *giststate, int nkey, Datum k, Relation r) {
+    GISTENTRY entry;
+
+    // Initialize entry with compressed key
+    gistentryinit(entry, k, r, NULL, 0, false);
+
+    // Call fetch function to decompress/reconstruct original value
+    GISTENTRY *fetched = (GISTENTRY *)
+        DatumGetPointer(FunctionCall1Coll(&giststate->fetchFn[nkey],
+                                        giststate->supportCollation[nkey],
+                                        PointerGetDatum(&entry)));
+
+    return fetched->key;
+}
+```

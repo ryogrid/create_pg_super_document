@@ -43,3 +43,27 @@ This shared memory will later be used by worker processes to report their tuples
 - Uses the plan node ID as the key for TOC registration, allowing workers to locate the shared memory
 - The shared_info pointer in the SortState provides access to the allocated memory throughout execution
 - Memory layout includes the SharedSortInfo header followed by an array of TuplesortInstrumentation structures
+
+## Simplified Source
+
+```c
+void ExecSortInitializeDSM(SortState *node, ParallelContext *pcxt) {
+    // Skip if no instrumentation or no workers
+    if (!node->ss.ps.instrument || pcxt->nworkers == 0)
+        return;
+
+    // Calculate size: header + per-worker instrumentation array
+    Size size = offsetof(SharedSortInfo, sinstrument) +
+                pcxt->nworkers * sizeof(TuplesortInstrumentation);
+
+    // Allocate shared memory for statistics collection
+    node->shared_info = shm_toc_allocate(pcxt->toc, size);
+
+    // Initialize to zero for clean starting state
+    memset(node->shared_info, 0, size);
+
+    // Set worker count and register in shared memory TOC
+    node->shared_info->num_workers = pcxt->nworkers;
+    shm_toc_insert(pcxt->toc, node->ss.ps.plan->plan_node_id, node->shared_info);
+}
+```

@@ -55,3 +55,27 @@ The critical section ensures atomicity of the page initialization and WAL loggin
 - Essential for maintaining index consistency across crashes and in standby servers
 - The function specifically addresses corner cases where pages are extended but cannot be immediately utilized
 - Debug logging helps track page initialization for troubleshooting and monitoring purposes
+
+## Simplified Source
+
+```c
+static void brin_initialize_empty_new_buffer(Relation idxrel, Buffer buffer)
+{
+    Page page;
+
+    BRIN_elog((DEBUG2, "brin_initialize_empty_new_buffer: initializing blank page %u",
+               BufferGetBlockNumber(buffer)));
+
+    // Atomically initialize page and log it
+    START_CRIT_SECTION();
+    page = BufferGetPage(buffer);
+    brin_page_init(page, BRIN_PAGETYPE_REGULAR);
+    MarkBufferDirty(buffer);
+    log_newpage_buffer(buffer, true);
+    END_CRIT_SECTION();
+
+    // Record page in FSM for future allocation
+    RecordPageWithFreeSpace(idxrel, BufferGetBlockNumber(buffer),
+                           br_page_get_freespace(page));
+}
+```

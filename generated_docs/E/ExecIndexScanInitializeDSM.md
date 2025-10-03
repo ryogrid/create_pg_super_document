@@ -47,3 +47,37 @@ This function ensures that all parallel workers can coordinate their scanning ef
 - Worker processes will use index_beginscan_parallel with the same shared descriptor to join the parallel scan
 - The shared snapshot ensures all workers see a consistent view of the data
 - Located in src/backend/executor/nodeIndexscan.c:1661-1696
+
+## Simplified Source
+
+```c
+void ExecIndexScanInitializeDSM(IndexScanState *node, ParallelContext *pcxt) {
+    EState *estate = node->ss.ps.state;
+
+    // Allocate shared memory for parallel index scan descriptor
+    ParallelIndexScanDesc piscan = shm_toc_allocate(pcxt->toc, node->iss_PscanLen);
+
+    // Initialize parallel scan with relation and snapshot info
+    index_parallelscan_initialize(node->ss.ss_currentRelation,
+                                  node->iss_RelationDesc,
+                                  estate->es_snapshot,
+                                  piscan);
+
+    // Register parallel scan descriptor in shared memory TOC
+    shm_toc_insert(pcxt->toc, node->ss.ps.plan->plan_node_id, piscan);
+
+    // Create index scan descriptor for parallel execution
+    node->iss_ScanDesc = index_beginscan_parallel(node->ss.ss_currentRelation,
+                                                  node->iss_RelationDesc,
+                                                  node->iss_NumScanKeys,
+                                                  node->iss_NumOrderByKeys,
+                                                  piscan);
+
+    // Start scan if runtime keys are ready
+    if (node->iss_NumRuntimeKeys == 0 || node->iss_RuntimeKeysReady) {
+        index_rescan(node->iss_ScanDesc,
+                     node->iss_ScanKeys, node->iss_NumScanKeys,
+                     node->iss_OrderByKeys, node->iss_NumOrderByKeys);
+    }
+}
+```

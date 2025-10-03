@@ -53,3 +53,101 @@ The function ensures all items are in sorted order with no duplicates before pro
 - The function handles memory management carefully, using palloc/pfree for temporary structures
 - Critical sections protect the page modification and WAL logging operations
 - Statistics are updated during index builds to track the number of data pages created
+
+## Simplified Source
+
+```c
+BlockNumber
+createPostingTree(Relation index, ItemPointerData *items, uint32 nitems,
+                  GinStatsData *buildStats, Buffer entrybuffer)
+{
+    BlockNumber blkno;
+    Buffer buffer;
+    Page tmppage;
+    Page page;
+    Pointer ptr;
+    int nrootitems = 0;
+    int rootsize = 0;
+    bool is_build = (buildStats != NULL);
+
+    // Create new root page in memory
+    tmppage = (Page) palloc(BLCKSZ);
+    GinInitPage(tmppage, GIN_DATA | GIN_LEAF | GIN_COMPRESSED, BLCKSZ);
+    GinPageGetOpaque(tmppage)->rightlink = InvalidBlockNumber;
+
+    // Pack items into segments, filling the root page
+    ptr = (Pointer) GinDataLeafPageGetPostingList(tmppage);
+    while (nrootitems < nitems) {
+        GinPostingList *segment;
+        int npacked;
+        int segsize;
+
+        // Compress items into a segment
+        segment = ginCompressPostingList(&items[nrootitems],
+                                        nitems - nrootitems,
+                                        GinPostingListSegmentMaxSize,
+                                        &npacked);
+        segsize = SizeOfGinPostingList(segment);
+
+        // Check if segment fits on page
+        if (rootsize + segsize > GinDataPageMaxDataSize)
+            break;
+
+        // Copy segment to page
+        memcpy(ptr, segment, segsize);
+        ptr += segsize;
+        rootsize += segsize;
+        nrootitems += npacked;
+        pfree(segment);
+    }
+    GinDataPageSetDataSize(tmppage, rootsize);
+
+    // Allocate physical page and copy in-memory page to it
+    buffer = GinNewBuffer(index);
+    page = BufferGetPage(buffer);
+    blkno = BufferGetBlockNumber(buffer);
+
+    // Copy predicate locks from entry buffer to new posting tree
+    PredicateLockPageSplit(index, BufferGetBlockNumber(entrybuffer), blkno);
+
+    START_CRIT_SECTION();
+
+    PageRestoreTempPage(tmppage, page);
+    MarkBufferDirty(buffer);
+
+    // WAL logging (skip during index builds)
+    if (RelationNeedsWAL(index) && !is_build) {
+        XLogRecPtr recptr;
+        ginxlogCreatePostingTree data;
+
+        data.size = rootsize;
+
+        XLogBeginInsert();
+        XLogRegisterData((char *) &data, sizeof(ginxlogCreatePostingTree));
+        XLogRegisterData((char *) GinDataLeafPageGetPostingList(page), rootsize);
+        XLogRegisterBuffer(0, buffer, REGBUF_WILL_INIT);
+
+        recptr = XLogInsert(RM_GIN_ID, XLOG_GIN_CREATE_PTREE);
+        PageSetLSN(page, recptr);
+    }
+
+    UnlockReleaseBuffer(buffer);
+    END_CRIT_SECTION();
+
+    // Update build statistics
+    if (buildStats)
+        buildStats->nDataPages++;
+
+    elog(DEBUG2, "created GIN posting tree with %d items", nrootitems);
+
+    // Insert any remaining items that didn't fit in root
+    if (nitems > nrootitems) {
+        ginInsertItemPointers(index, blkno,
+                             items + nrootitems,
+                             nitems - nrootitems,
+                             buildStats);
+    }
+
+    return blkno;
+}
+```

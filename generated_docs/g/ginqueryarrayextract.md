@@ -46,3 +46,56 @@ The function handles four main search strategies:
 - Memory management mirrors ginarrayextract - array copy is retained as elements point into it
 - Essential component of PostgreSQL's array GIN operator classes for query processing
 - The function includes comprehensive error handling for unknown strategies
+
+## Simplified Source
+
+```c
+Datum
+ginqueryarrayextract(PG_FUNCTION_ARGS)
+{
+    // Extract query parameters
+    ArrayType *array = PG_GETARG_ARRAYTYPE_P_COPY(0);
+    int32 *nkeys = (int32 *) PG_GETARG_POINTER(1);
+    StrategyNumber strategy = PG_GETARG_UINT16(2);
+    bool **nullFlags = (bool **) PG_GETARG_POINTER(5);
+    int32 *searchMode = (int32 *) PG_GETARG_POINTER(6);
+
+    // Get array element type information
+    int16 elmlen;
+    bool elmbyval;
+    char elmalign;
+    Datum *elems;
+    bool *nulls;
+    int nelems;
+
+    get_typlenbyvalalign(ARR_ELEMTYPE(array), &elmlen, &elmbyval, &elmalign);
+
+    // Extract elements from query array
+    deconstruct_array(array, ARR_ELEMTYPE(array), elmlen, elmbyval, elmalign,
+                      &elems, &nulls, &nelems);
+
+    *nkeys = nelems;
+    *nullFlags = nulls;
+
+    // Set search mode based on strategy
+    switch (strategy)
+    {
+        case GinOverlapStrategy:
+            *searchMode = GIN_SEARCH_MODE_DEFAULT;
+            break;
+        case GinContainsStrategy:
+            *searchMode = (nelems > 0) ? GIN_SEARCH_MODE_DEFAULT : GIN_SEARCH_MODE_ALL;
+            break;
+        case GinContainedStrategy:
+            *searchMode = GIN_SEARCH_MODE_INCLUDE_EMPTY;
+            break;
+        case GinEqualStrategy:
+            *searchMode = (nelems > 0) ? GIN_SEARCH_MODE_DEFAULT : GIN_SEARCH_MODE_INCLUDE_EMPTY;
+            break;
+        default:
+            elog(ERROR, "ginqueryarrayextract: unknown strategy number: %d", strategy);
+    }
+
+    PG_RETURN_POINTER(elems);
+}
+```

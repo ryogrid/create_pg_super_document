@@ -51,3 +51,45 @@ The function performs comprehensive checking for memory exhaustion and integer o
 - The lack of deallocation capability makes this suitable for initialization-time allocation patterns common in PostgreSQL's parallel processing
 - Memory exhaustion results in an ERROR being raised, which will abort the current operation - this is appropriate for shared memory scenarios where allocation failure indicates a serious system resource issue
 - The volatile qualifier on vtoc ensures proper memory access semantics in multi-process environments
+
+## Simplified Source
+
+```c
+void *shm_toc_allocate(shm_toc *toc, Size nbytes)
+{
+    volatile shm_toc *vtoc = toc;
+    Size total_bytes;
+    Size allocated_bytes;
+    Size nentry;
+    Size toc_bytes;
+
+    // Align request to buffer boundaries for atomic ops safety
+    nbytes = BUFFERALIGN(nbytes);
+
+    SpinLockAcquire(&toc->toc_mutex);
+
+    // Get current allocation state
+    total_bytes = vtoc->toc_total_bytes;
+    allocated_bytes = vtoc->toc_allocated_bytes;
+    nentry = vtoc->toc_nentry;
+
+    // Calculate space needed for TOC entries + current allocation
+    toc_bytes = offsetof(shm_toc, toc_entry) + nentry * sizeof(shm_toc_entry) + allocated_bytes;
+
+    // Check for memory exhaustion and overflow
+    if (toc_bytes + nbytes > total_bytes || toc_bytes + nbytes < toc_bytes)
+    {
+        SpinLockRelease(&toc->toc_mutex);
+        ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY),
+                       errmsg("out of shared memory")));
+    }
+
+    // Update allocation tracking
+    vtoc->toc_allocated_bytes += nbytes;
+
+    SpinLockRelease(&toc->toc_mutex);
+
+    // Return pointer from end of segment (backwards allocation)
+    return ((char *) toc) + (total_bytes - allocated_bytes - nbytes);
+}
+```

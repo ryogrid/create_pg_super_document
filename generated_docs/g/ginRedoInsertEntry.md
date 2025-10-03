@@ -53,3 +53,38 @@ For non-leaf pages, it can update downlink pointers when a page split has occurr
 - The isLeaf parameter is provided but not actively used in the current implementation
 - Operations are performed in a specific order: first link updates, then deletions, finally insertions
 - The function ensures data consistency by properly validating offset numbers and page types before operations
+
+## Simplified Source
+
+```c
+static void ginRedoInsertEntry(Buffer buffer, bool isLeaf, BlockNumber rightblkno, void *rdata)
+{
+    Page page = BufferGetPage(buffer);
+    ginxlogInsertEntry *data = (ginxlogInsertEntry *) rdata;
+    OffsetNumber offset = data->offset;
+    IndexTuple itup;
+
+    // Update downlink after page split (internal pages only)
+    if (rightblkno != InvalidBlockNumber) {
+        itup = (IndexTuple) PageGetItem(page, PageGetItemId(page, offset));
+        GinSetDownlink(itup, rightblkno);
+    }
+
+    // Delete existing tuple if requested (leaf pages only)
+    if (data->isDelete) {
+        PageIndexTupleDelete(page, offset);
+    }
+
+    // Insert new tuple
+    itup = &data->tuple;
+    if (PageAddItem(page, (Item) itup, IndexTupleSize(itup), offset, false, false) == InvalidOffsetNumber) {
+        RelFileLocator locator;
+        ForkNumber forknum;
+        BlockNumber blknum;
+
+        BufferGetTag(buffer, &locator, &forknum, &blknum);
+        elog(ERROR, "failed to add item to index page in %u/%u/%u",
+             locator.spcOid, locator.dbOid, locator.relNumber);
+    }
+}
+```

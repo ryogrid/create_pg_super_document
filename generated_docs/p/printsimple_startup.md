@@ -41,3 +41,31 @@ The function iterates through each attribute in the tuple descriptor and sends t
 - Sends hardcoded values for table OID (0), attribute number (0), and format code (0) as this is a simplified output format
 - The function follows PostgreSQL's wire protocol for RowDescription messages
 - Part of the access/common subsystem for handling simple result output formatting
+
+## Simplified Source
+
+```c
+void printsimple_startup(DestReceiver *self, int operation, TupleDesc tupdesc) {
+    StringInfoData buf;
+    int i;
+
+    // Begin RowDescription message
+    pq_beginmessage(&buf, PqMsg_RowDescription);
+    pq_sendint16(&buf, tupdesc->natts);
+
+    // Send column metadata for each attribute
+    for (i = 0; i < tupdesc->natts; ++i) {
+        Form_pg_attribute attr = TupleDescAttr(tupdesc, i);
+
+        pq_sendstring(&buf, NameStr(attr->attname));
+        pq_sendint32(&buf, 0);  // table oid (hardcoded)
+        pq_sendint16(&buf, 0);  // attnum (hardcoded)
+        pq_sendint32(&buf, (int) attr->atttypid);
+        pq_sendint16(&buf, attr->attlen);
+        pq_sendint32(&buf, attr->atttypmod);
+        pq_sendint16(&buf, 0);  // format code (hardcoded)
+    }
+
+    pq_endmessage(&buf);
+}
+```

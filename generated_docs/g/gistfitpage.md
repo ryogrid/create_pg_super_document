@@ -28,3 +28,22 @@ This function performs a simple size calculation to determine if a collection of
 
 ## Notes and Other Information
 The function includes a TODO comment indicating that fillfactor considerations should be added in the future. Currently, it performs a strict size check against the maximum page size without accounting for any desired fill percentage. This makes it suitable for determining absolute space constraints but may not be optimal for maintaining desired page utilization levels. The function is primarily used during page split operations where precise space management is critical for maintaining index structure integrity.
+
+## Simplified Source
+
+```c
+bool
+gistfitpage(IndexTuple *itvec, int len)
+{
+    int i;
+    Size size = 0;
+
+    // Calculate total space needed for all tuples
+    for (i = 0; i < len; i++)
+        size += IndexTupleSize(itvec[i]) + sizeof(ItemIdData);
+
+    // Check if total size fits within page limit
+    // TODO: Consider fillfactor
+    return (size <= GiSTPageSize);
+}
+```

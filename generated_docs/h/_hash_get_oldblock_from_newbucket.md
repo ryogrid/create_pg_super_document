@@ -37,5 +37,25 @@ The function reads the hash meta page to access the bucket-to-block mapping info
 - Called from (representative examples):
   - [_hash_first](_hash_first.md)
 
+## Simplified Source
+```c
+BlockNumber _hash_get_oldblock_from_newbucket(Relation rel, Bucket new_bucket) {
+    // Calculate mask to find old bucket from new bucket
+    // Mask removes the most significant bit of new bucket
+    uint32 mask = (((uint32) 1) << pg_leftmost_one_pos32(new_bucket)) - 1;
+    Bucket old_bucket = new_bucket & mask;
+
+    // Read meta page to get bucket-to-block mapping
+    Buffer metabuf = _hash_getbuf(rel, HASH_METAPAGE, HASH_READ, LH_META_PAGE);
+    HashMetaPage metap = HashPageGetMeta(BufferGetPage(metabuf));
+
+    // Convert old bucket number to physical block number
+    BlockNumber blkno = BUCKET_TO_BLKNO(metap, old_bucket);
+
+    _hash_relbuf(rel, metabuf);
+    return blkno;
+}
+```
+
 ## Notes and Other Information
 The function is critical for hash index splitting operations. It cannot rely on the current hashm_lowmask value stored in the meta page because it needs the mask value that was prevalent when the bucket split started. The mask calculation using pg_leftmost_one_pos32 ensures correct mapping from new buckets to their corresponding old buckets during the split process. This is essential for maintaining data consistency during hash table expansion.

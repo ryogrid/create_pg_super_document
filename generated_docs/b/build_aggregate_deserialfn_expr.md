@@ -38,3 +38,26 @@ The function is part of PostgreSQL's aggregate expression building infrastructur
 - Part of PostgreSQL's parallel aggregation infrastructure
 - Located in src/backend/parser/parse_agg.c:2119-2142
 - The function creates dummy parameter nodes using make_agg_arg to represent the expected argument types
+
+## Simplified Source
+
+```c
+void
+build_aggregate_deserialfn_expr(Oid deserialfn_oid, Expr **deserialfnexpr)
+{
+    // Build argument list for deserialization function
+    // Always takes BYTEA (serialized data) and INTERNAL (context)
+    List *args = list_make2(make_agg_arg(BYTEAOID, InvalidOid),
+                           make_agg_arg(INTERNALOID, InvalidOid));
+
+    // Create function expression that returns INTERNAL state
+    FuncExpr *fexpr = makeFuncExpr(deserialfn_oid,
+                                  INTERNALOID,        // return type
+                                  args,
+                                  InvalidOid,         // inputcollid
+                                  InvalidOid,         // funccollid
+                                  COERCE_EXPLICIT_CALL);
+
+    *deserialfnexpr = (Expr *) fexpr;
+}
+```

@@ -49,3 +49,63 @@ This enables efficient range pruning where entire page ranges can be skipped if 
 - Returns the result of the comparison operation directly as a Datum
 - Strategy numbers correspond to standard B-tree operator strategies
 - The function assumes NULL handling is done at a higher level in the access method code
+
+## Simplified Source
+
+```c
+Datum
+brin_minmax_consistent(PG_FUNCTION_ARGS)
+{
+    BrinDesc   *bdesc = (BrinDesc *) PG_GETARG_POINTER(0);
+    BrinValues *column = (BrinValues *) PG_GETARG_POINTER(1);
+    ScanKey     key = (ScanKey) PG_GETARG_POINTER(2);
+    Oid         colloid = PG_GET_COLLATION();
+    AttrNumber  attno;
+    Datum       value;
+    Datum       matches;
+    FmgrInfo   *finfo;
+
+    attno = key->sk_attno;
+    value = key->sk_argument;
+
+    switch (key->sk_strategy)
+    {
+        case BTLessStrategyNumber:
+        case BTLessEqualStrategyNumber:
+            // For < or <=: check if min value satisfies condition
+            finfo = minmax_get_strategy_procinfo(bdesc, attno, key->sk_subtype,
+                                               key->sk_strategy);
+            matches = FunctionCall2Coll(finfo, colloid, column->bv_values[0], value);
+            break;
+
+        case BTEqualStrategyNumber:
+            // For =: value must be within [min, max] range
+            // Check min <= value
+            finfo = minmax_get_strategy_procinfo(bdesc, attno, key->sk_subtype,
+                                               BTLessEqualStrategyNumber);
+            matches = FunctionCall2Coll(finfo, colloid, column->bv_values[0], value);
+            if (!DatumGetBool(matches))
+                break;
+            // Check max >= value
+            finfo = minmax_get_strategy_procinfo(bdesc, attno, key->sk_subtype,
+                                               BTGreaterEqualStrategyNumber);
+            matches = FunctionCall2Coll(finfo, colloid, column->bv_values[1], value);
+            break;
+
+        case BTGreaterEqualStrategyNumber:
+        case BTGreaterStrategyNumber:
+            // For >= or >: check if max value satisfies condition
+            finfo = minmax_get_strategy_procinfo(bdesc, attno, key->sk_subtype,
+                                               key->sk_strategy);
+            matches = FunctionCall2Coll(finfo, colloid, column->bv_values[1], value);
+            break;
+
+        default:
+            elog(ERROR, "invalid strategy number %d", key->sk_strategy);
+            matches = 0;
+            break;
+    }
+
+    PG_RETURN_DATUM(matches);
+}
+```

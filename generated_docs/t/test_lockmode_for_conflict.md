@@ -54,3 +54,64 @@ The "hypothetical" nature of the status parameter allows the function to work un
 - The 'hypothetical' status design allows unified handling of both simple TransactionId locks and MultiXactId member locks
 - For committed updates, uses tuple's t_self vs t_ctid comparison to distinguish between updates and deletes
 - Critical for maintaining proper concurrency control and preventing lock conflicts in tuple locking operations
+
+## Simplified Source
+
+```c
+static TM_Result
+test_lockmode_for_conflict(MultiXactStatus status, TransactionId xid,
+                          LockTupleMode mode, HeapTuple tup,
+                          bool *needwait)
+{
+    MultiXactStatus wantedstatus;
+
+    *needwait = false;
+    wantedstatus = get_mxact_status_for_lock(mode, false);
+
+    // Check transaction state and determine conflict resolution
+
+    // Case 1: Same transaction (rare self-locking scenario)
+    if (TransactionIdIsCurrentTransactionId(xid)) {
+        return TM_SelfModified;
+    }
+
+    // Case 2: Transaction is still running
+    else if (TransactionIdIsInProgress(xid)) {
+        // Check if lock modes conflict
+        if (DoLockModesConflict(LOCKMODE_from_mxstatus(status),
+                               LOCKMODE_from_mxstatus(wantedstatus))) {
+            *needwait = true;  // Must wait for conflicting transaction
+        }
+        return TM_Ok;  // Either no conflict or caller will wait
+    }
+
+    // Case 3: Transaction aborted - its effects are gone
+    else if (TransactionIdDidAbort(xid)) {
+        return TM_Ok;  // Aborted transaction's locks are gone
+    }
+
+    // Case 4: Transaction committed - locks gone but updates persist
+    else if (TransactionIdDidCommit(xid)) {
+        // If it was only a lock (not update), lock is completely gone
+        if (!ISUPDATE_from_mxstatus(status)) {
+            return TM_Ok;
+        }
+
+        // It was an update - check if our desired lock conflicts
+        if (DoLockModesConflict(LOCKMODE_from_mxstatus(status),
+                               LOCKMODE_from_mxstatus(wantedstatus))) {
+            // Conflict with committed update
+            if (!ItemPointerEquals(&tup->t_self, &tup->t_data->t_ctid)) {
+                return TM_Updated;  // Tuple was updated
+            } else {
+                return TM_Deleted;  // Tuple was deleted
+            }
+        }
+
+        return TM_Ok;  // No conflict with committed update
+    }
+
+    // Case 5: Transaction crashed (not in progress, not aborted, not committed)
+    return TM_Ok;  // Crashed transaction's effects are gone
+}
+```

@@ -52,3 +52,85 @@ The deletion process involves multiple steps: unlinking the page from its siblin
 - Preserves rightlink in deleted page to maintain workability of running search scans
 - Uses critical section to ensure atomicity of the deletion operation
 - Includes debug assertions to verify the correct posting item is being deleted
+
+## Simplified Source
+
+```c
+static void
+ginDeletePage(GinVacuumState *gvs, BlockNumber deleteBlkno, BlockNumber leftBlkno,
+              BlockNumber parentBlkno, OffsetNumber myoff, bool isParentRoot)
+{
+    Buffer dBuffer, lBuffer, pBuffer;
+    Page page, parentPage;
+    BlockNumber rightlink;
+
+    // Read the three pages involved: page to delete, left sibling, parent
+    lBuffer = ReadBufferExtended(gvs->index, MAIN_FORKNUM, leftBlkno,
+                                RBM_NORMAL, gvs->strategy);
+    dBuffer = ReadBufferExtended(gvs->index, MAIN_FORKNUM, deleteBlkno,
+                                RBM_NORMAL, gvs->strategy);
+    pBuffer = ReadBufferExtended(gvs->index, MAIN_FORKNUM, parentBlkno,
+                                RBM_NORMAL, gvs->strategy);
+
+    // Get the right link from the page being deleted
+    page = BufferGetPage(dBuffer);
+    rightlink = GinPageGetOpaque(page)->rightlink;
+
+    // Handle predicate locking for concurrent scans
+    PredicateLockPageCombine(gvs->index, deleteBlkno, rightlink);
+
+    START_CRIT_SECTION();
+
+    // Step 1: Update left sibling to point to right sibling
+    page = BufferGetPage(lBuffer);
+    GinPageGetOpaque(page)->rightlink = rightlink;
+
+    // Step 2: Remove downlink from parent page
+    parentPage = BufferGetPage(pBuffer);
+    GinPageDeletePostingItem(parentPage, myoff);
+
+    // Step 3: Mark the page as deleted with current transaction ID
+    page = BufferGetPage(dBuffer);
+    GinPageSetDeleted(page);
+    GinPageSetDeleteXid(page, ReadNextTransactionId());
+
+    // Mark all buffers dirty for WAL
+    MarkBufferDirty(pBuffer);
+    MarkBufferDirty(lBuffer);
+    MarkBufferDirty(dBuffer);
+
+    // Write WAL record if needed
+    if (RelationNeedsWAL(gvs->index)) {
+        XLogRecPtr recptr;
+        ginxlogDeletePage data;
+
+        XLogBeginInsert();
+        XLogRegisterBuffer(0, dBuffer, 0);
+        XLogRegisterBuffer(1, pBuffer, REGBUF_STANDARD);
+        XLogRegisterBuffer(2, lBuffer, 0);
+
+        data.parentOffset = myoff;
+        data.rightLink = rightlink;
+        data.deleteXid = GinPageGetDeleteXid(page);
+
+        XLogRegisterData((char *) &data, sizeof(ginxlogDeletePage));
+        recptr = XLogInsert(RM_GIN_ID, XLOG_GIN_DELETE_PAGE);
+
+        // Set LSN on all modified pages
+        PageSetLSN(page, recptr);
+        PageSetLSN(parentPage, recptr);
+        PageSetLSN(BufferGetPage(lBuffer), recptr);
+    }
+
+    // Release all buffers
+    ReleaseBuffer(pBuffer);
+    ReleaseBuffer(lBuffer);
+    ReleaseBuffer(dBuffer);
+
+    END_CRIT_SECTION();
+
+    // Update vacuum statistics
+    gvs->result->pages_newly_deleted++;
+    gvs->result->pages_deleted++;
+}
+```

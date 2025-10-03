@@ -57,3 +57,128 @@ The caching strategy is designed to perform well for queries that access large n
 - [Variable](../V/Variable.md)-length attribute handling includes proper alignment considerations
 - The caching mechanism improves performance significantly for repeated access to the same attributes across multiple tuples
 - Comment indicates this approach was designed by "cim 5/4/91" as a performance optimization
+
+## Simplified Source
+
+```c
+Datum nocache_index_getattr(IndexTuple tup, int attnum, TupleDesc tupleDesc) {
+    char *tp;
+    bits8 *bp = NULL;
+    bool slow = false;
+    int data_off;
+    int off;
+
+    data_off = IndexInfoFindDataOffset(tup->t_info);
+    attnum--;  // Convert to 0-based indexing
+
+    // Check if we need to handle nulls
+    if (IndexTupleHasNulls(tup)) {
+        bp = (bits8 *) ((char *) tup + sizeof(IndexTupleData));
+
+        // Check for nulls before target attribute
+        int byte = attnum >> 3;
+        int finalbit = attnum & 0x07;
+
+        if ((~bp[byte]) & ((1 << finalbit) - 1)) {
+            slow = true;
+        } else {
+            // Check earlier bytes for nulls
+            for (int i = 0; i < byte; i++) {
+                if (bp[i] != 0xFF) {
+                    slow = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    tp = (char *) tup + data_off;
+
+    // Fast path: no nulls or variable widths before target
+    if (!slow) {
+        Form_pg_attribute att = TupleDescAttr(tupleDesc, attnum);
+
+        // Use cached offset if available
+        if (att->attcacheoff >= 0)
+            return fetchatt(att, tp + att->attcacheoff);
+
+        // Check for variable-width attributes
+        if (IndexTupleHasVarwidths(tup)) {
+            for (int j = 0; j <= attnum; j++) {
+                if (TupleDescAttr(tupleDesc, j)->attlen <= 0) {
+                    slow = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    // Calculate and cache fixed-width offsets
+    if (!slow) {
+        int natts = tupleDesc->natts;
+        int j = 1;
+
+        TupleDescAttr(tupleDesc, 0)->attcacheoff = 0;
+
+        // Skip already cached offsets
+        while (j < natts && TupleDescAttr(tupleDesc, j)->attcacheoff > 0)
+            j++;
+
+        off = TupleDescAttr(tupleDesc, j - 1)->attcacheoff +
+              TupleDescAttr(tupleDesc, j - 1)->attlen;
+
+        // Cache offsets for leading fixed-width columns
+        for (; j < natts; j++) {
+            Form_pg_attribute att = TupleDescAttr(tupleDesc, j);
+
+            if (att->attlen <= 0) break;
+
+            off = att_align_nominal(off, att->attalign);
+            att->attcacheoff = off;
+            off += att->attlen;
+        }
+
+        off = TupleDescAttr(tupleDesc, attnum)->attcacheoff;
+    } else {
+        // Slow path: walk tuple carefully handling nulls and variable widths
+        bool usecache = true;
+        off = 0;
+
+        for (int i = 0;; i++) {
+            Form_pg_attribute att = TupleDescAttr(tupleDesc, i);
+
+            // Skip null attributes
+            if (IndexTupleHasNulls(tup) && att_isnull(i, bp)) {
+                usecache = false;
+                continue;
+            }
+
+            // Use cached offset if available
+            if (usecache && att->attcacheoff >= 0) {
+                off = att->attcacheoff;
+            } else if (att->attlen == -1) {
+                // Variable-length attribute
+                if (usecache && off == att_align_nominal(off, att->attalign))
+                    att->attcacheoff = off;
+                else {
+                    off = att_align_pointer(off, att->attalign, -1, tp + off);
+                    usecache = false;
+                }
+            } else {
+                // Fixed-length attribute
+                off = att_align_nominal(off, att->attalign);
+                if (usecache) att->attcacheoff = off;
+            }
+
+            if (i == attnum) break;
+
+            off = att_addlength_pointer(off, att->attlen, tp + off);
+
+            if (usecache && att->attlen <= 0)
+                usecache = false;
+        }
+    }
+
+    return fetchatt(TupleDescAttr(tupleDesc, attnum), tp + off);
+}
+```

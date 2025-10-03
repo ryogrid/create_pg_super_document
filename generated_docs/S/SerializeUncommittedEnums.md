@@ -44,3 +44,37 @@ The function includes assertions to ensure the provided space matches the estima
 - Safe to call even when hash tables are NULL (will just write terminators)
 - The serialized format must be compatible with RestoreUncommittedEnums for deserialization
 - [Hash](../H/Hash.md) table iteration order is not guaranteed to be consistent across calls
+
+## Simplified Source
+
+```c
+void SerializeUncommittedEnums(void *space, Size size) {
+    Oid *serialized = (Oid *) space;
+
+    // Serialize uncommitted enum types if any exist
+    if (uncommitted_enum_types) {
+        HASH_SEQ_STATUS status;
+        Oid *value;
+
+        hash_seq_init(&status, uncommitted_enum_types);
+        while ((value = (Oid *) hash_seq_search(&status)))
+            *serialized++ = *value;
+    }
+
+    // Write terminator for types section
+    *serialized++ = InvalidOid;
+
+    // Serialize uncommitted enum values if any exist
+    if (uncommitted_enum_values) {
+        HASH_SEQ_STATUS status;
+        Oid *value;
+
+        hash_seq_init(&status, uncommitted_enum_values);
+        while ((value = (Oid *) hash_seq_search(&status)))
+            *serialized++ = *value;
+    }
+
+    // Write terminator for values section
+    *serialized++ = InvalidOid;
+}
+```

@@ -47,3 +47,26 @@ This masking ensures that consistency checks focus on the actual data content ra
 - The  parameter is accepted but not used in the current implementation, indicating potential for future enhancements
 - GIN deleted pages are handled specially by masking all content since they are always initialized to empty regardless of their previous state
 - The function assumes that  has been set correctly when deciding whether to mask unused space
+
+## Simplified Source
+```c
+void gin_mask(char *pagedata, BlockNumber blkno) {
+    Page page = (Page) pagedata;
+    PageHeader pagehdr = (PageHeader) page;
+    GinPageOpaque opaque;
+
+    // Mask standard page elements (LSN, checksum, hint bits)
+    mask_page_lsn_and_checksum(page);
+    opaque = GinPageGetOpaque(page);
+    mask_page_hint_bits(page);
+
+    // Handle different page types
+    if (opaque->flags & GIN_DELETED) {
+        // Deleted pages: mask entire content
+        mask_page_content(page);
+    } else if (pagehdr->pd_lower > SizeOfPageHeaderData) {
+        // Active pages: mask unused space only
+        mask_unused_space(page);
+    }
+}
+```

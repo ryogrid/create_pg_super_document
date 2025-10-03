@@ -39,3 +39,32 @@ A special case handles set-returning functions (SRFs): they break distinctness u
 - Returns true for potential distinctness, false only when distinctness is definitely impossible  
 - The presence of target SRFs without DISTINCT is specifically handled as it breaks distinctness guarantees
 - Part of PostgreSQL's query optimization framework for join elimination and path generation
+
+## Simplified Source
+
+```c
+bool
+query_supports_distinctness(Query *query)
+{
+    // SRFs break distinctness unless DISTINCT is explicit
+    if (query->hasTargetSRFs && query->distinctClause == NIL)
+        return false;
+
+    // Check for features that can prove distinctness:
+    // - DISTINCT clause
+    // - GROUP BY operations
+    // - Grouping sets
+    // - Aggregates
+    // - HAVING clause
+    // - Set operations (UNION, etc.)
+    if (query->distinctClause != NIL ||
+        query->groupClause != NIL ||
+        query->groupingSets != NIL ||
+        query->hasAggs ||
+        query->havingQual ||
+        query->setOperations)
+        return true;
+
+    return false;
+}
+```

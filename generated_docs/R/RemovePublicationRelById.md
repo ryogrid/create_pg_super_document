@@ -37,3 +37,40 @@ This function removes a specific publication-relation mapping from the pg_public
 - Uses PUBLICATION_PART_ALL to include all partition levels in invalidation
 - Error handling includes cache lookup failure detection with elog(ERROR)
 - Essential component of publication cleanup during DROP operations
+
+## Simplified Source
+
+```c
+void RemovePublicationRelById(Oid proid)
+{
+    Relation rel;
+    HeapTuple tup;
+    Form_pg_publication_rel pubrel;
+    List *relids = NIL;
+
+    // Open publication-relation catalog table
+    rel = table_open(PublicationRelRelationId, RowExclusiveLock);
+
+    // Look up the publication-relation mapping
+    tup = SearchSysCache1(PUBLICATIONREL, ObjectIdGetDatum(proid));
+
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for publication table %u", proid);
+
+    pubrel = (Form_pg_publication_rel) GETSTRUCT(tup);
+
+    // Get all relations in partition hierarchy for cache invalidation
+    // This includes the relation itself and all its partitions
+    relids = GetPubPartitionOptionRelations(relids, PUBLICATION_PART_ALL,
+                                           pubrel->prrelid);
+
+    // Invalidate relation cache for all affected relations
+    InvalidatePublicationRels(relids);
+
+    // Delete the publication-relation mapping
+    CatalogTupleDelete(rel, &tup->t_self);
+
+    ReleaseSysCache(tup);
+    table_close(rel, RowExclusiveLock);
+}
+```

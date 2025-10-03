@@ -37,3 +37,39 @@ This function processes a GiST index tuple to reconstruct the original tuple dat
 - Uses temporary memory context to avoid memory leaks during tuple reconstruction
 - The resulting HeapTuple is formed using fetchTupdesc which describes the structure of the original indexed data
 - Critical for enabling index-only scans on GiST indexes when the operator classes support fetching
+
+## Simplified Source
+
+```c
+HeapTuple gistFetchTuple(GISTSTATE *giststate, Relation r, IndexTuple tuple) {
+    MemoryContext oldcxt = MemoryContextSwitchTo(giststate->tempCxt);
+    Datum fetchatt[INDEX_MAX_KEYS];
+    bool isnull[INDEX_MAX_KEYS];
+    int num_key_attrs = IndexRelationGetNumberOfKeyAttributes(r);
+
+    // Process key attributes
+    for (int i = 0; i < num_key_attrs; i++) {
+        Datum datum = index_getattr(tuple, i + 1, giststate->leafTupdesc, &isnull[i]);
+
+        if (giststate->fetchFn[i].fn_oid != InvalidOid) {
+            // Fetch function available - decompress the value
+            fetchatt[i] = isnull[i] ? (Datum) 0 : gistFetchAtt(giststate, i, datum, r);
+        } else if (giststate->compressFn[i].fn_oid == InvalidOid) {
+            // No compression/fetch - value stored in original form
+            fetchatt[i] = isnull[i] ? (Datum) 0 : datum;
+        } else {
+            // Index-only scan not supported for this column
+            isnull[i] = true;
+            fetchatt[i] = (Datum) 0;
+        }
+    }
+
+    // Copy included attributes directly
+    for (int i = num_key_attrs; i < r->rd_att->natts; i++) {
+        fetchatt[i] = index_getattr(tuple, i + 1, giststate->leafTupdesc, &isnull[i]);
+    }
+
+    MemoryContextSwitchTo(oldcxt);
+    return heap_form_tuple(giststate->fetchTupdesc, fetchatt, isnull);
+}
+```

@@ -34,3 +34,16 @@ The simplicity of this function belies its importance in the scan lifecycle - it
 - The freeGISTstate() call handles cleanup of all subsidiary contexts (scanCxt, queueCxt, tempCxt, pageDataCxt)
 - Part of the standard index access method API, ensuring consistent resource management across all index types
 - No explicit return value needed as cleanup operations are designed to be infallible within the PostgreSQL memory management framework
+
+## Simplified Source
+
+```c
+void
+gistendscan(IndexScanDesc scan)
+{
+    GISTScanOpaque so = (GISTScanOpaque) scan->opaque;
+
+    // Clean up all scan state and memory contexts
+    freeGISTstate(so->giststate);
+}
+```

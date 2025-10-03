@@ -47,3 +47,59 @@ Key aspects of the algorithm include:
 - The hierarchical level state management allows for efficient bottom-up tree construction
 - Parent levels are created dynamically as child levels become full, ensuring balanced tree growth
 - The final root page writing ensures the index becomes immediately usable after construction
+
+## Simplified Source
+
+```c
+static void
+gist_indexsortbuild(GISTBuildState *state)
+{
+    IndexTuple itup;
+    GistSortedBuildLevelState *levelstate;
+    BulkWriteBuffer rootbuf;
+
+    // Reserve block 0 for root page and initialize bulk writing
+    state->pages_allocated = 1;
+    state->bulkstate = smgr_bulk_start_rel(state->indexrel, MAIN_FORKNUM);
+
+    // Initialize first leaf level state
+    levelstate = palloc0(sizeof(GistSortedBuildLevelState));
+    levelstate->pages[0] = palloc(BLCKSZ);
+    levelstate->parent = NULL;
+    gistinitpage(levelstate->pages[0], F_LEAF);
+
+    // Process all sorted tuples, building pages bottom-up
+    while ((itup = tuplesort_getindextuple(state->sortstate, true)) != NULL)
+    {
+        gist_indexsortbuild_levelstate_add(state, levelstate, itup);
+        MemoryContextReset(state->giststate->tempCxt);
+    }
+
+    // Flush all partially filled pages, working up the tree
+    while (levelstate->parent != NULL || levelstate->current_page != 0)
+    {
+        GistSortedBuildLevelState *parent;
+
+        // Flush current level and move to parent
+        gist_indexsortbuild_levelstate_flush(state, levelstate);
+        parent = levelstate->parent;
+
+        // Free current level resources
+        for (int i = 0; i < GIST_SORTED_BUILD_PAGE_NUM; i++)
+            if (levelstate->pages[i])
+                pfree(levelstate->pages[i]);
+        pfree(levelstate);
+        levelstate = parent;
+    }
+
+    // Write the final root page
+    PageSetLSN(levelstate->pages[0], GistBuildLSN);
+    rootbuf = smgr_bulk_get_buf(state->bulkstate);
+    memcpy(rootbuf, levelstate->pages[0], BLCKSZ);
+    smgr_bulk_write(state->bulkstate, GIST_ROOT_BLKNO, rootbuf, true);
+
+    // Final cleanup
+    pfree(levelstate);
+    smgr_bulk_finish(state->bulkstate);
+}
+```

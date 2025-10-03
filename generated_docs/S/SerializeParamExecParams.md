@@ -50,3 +50,57 @@ The serialized data structure enables parallel workers to reconstruct the exact 
 - The function is critical for parameter passing in parallel query execution scenarios
 - Memory allocation is done upfront based on the estimation to avoid fragmentation
 - Located in src/backend/executor/execParallel.c:354-408
+
+## Simplified Source
+
+```c
+static dsa_pointer
+SerializeParamExecParams(EState *estate, Bitmapset *params, dsa_area *area)
+{
+    Size size;
+    int nparams;
+    int paramid;
+    ParamExecData *prm;
+    dsa_pointer handle;
+    char *start_address;
+
+    // Allocate space for serialized parameters
+    size = EstimateParamExecSpace(estate, params);
+    handle = dsa_allocate(area, size);
+    start_address = dsa_get_address(area, handle);
+
+    // Write number of parameters as header
+    nparams = bms_num_members(params);
+    memcpy(start_address, &nparams, sizeof(int));
+    start_address += sizeof(int);
+
+    // Serialize each parameter
+    paramid = -1;
+    while ((paramid = bms_next_member(params, paramid)) >= 0) {
+        Oid typeOid;
+        int16 typLen;
+        bool typByVal;
+
+        prm = &(estate->es_param_exec_vals[paramid]);
+        typeOid = list_nth_oid(estate->es_plannedstmt->paramExecTypes, paramid);
+
+        // Write parameter ID
+        memcpy(start_address, &paramid, sizeof(int));
+        start_address += sizeof(int);
+
+        // Get type info for serialization
+        if (OidIsValid(typeOid))
+            get_typlenbyval(typeOid, &typLen, &typByVal);
+        else {
+            // Default for unknown types (like copyParamList)
+            typLen = sizeof(Datum);
+            typByVal = true;
+        }
+
+        // Serialize parameter value and null indicator
+        datumSerialize(prm->value, prm->isnull, typByVal, typLen, &start_address);
+    }
+
+    return handle;
+}
+```

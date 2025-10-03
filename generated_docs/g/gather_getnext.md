@@ -42,3 +42,52 @@ When reading from workers, tuples come as MinimalTuple objects that are stored i
 - Sets need_to_scan_locally to false after local scanning completes to prevent repeated local scans
 - Returns an empty slot when all data sources are exhausted, signaling end-of-data to the caller
 - Critical for maintaining correct tuple ordering and ensuring all parallel data sources are properly consumed
+
+## Simplified Source
+
+```c
+static TupleTableSlot *gather_getnext(GatherState *gatherstate)
+{
+    PlanState *outerPlan = outerPlanState(gatherstate);
+    TupleTableSlot *funnel_slot = gatherstate->funnel_slot;
+
+    // Keep reading until both workers and local scanning are exhausted
+    while (gatherstate->nreaders > 0 || gatherstate->need_to_scan_locally)
+    {
+        CHECK_FOR_INTERRUPTS();
+
+        // First priority: read from worker processes
+        if (gatherstate->nreaders > 0)
+        {
+            MinimalTuple worker_tuple = gather_readnext(gatherstate);
+
+            if (HeapTupleIsValid(worker_tuple))
+            {
+                // Store worker tuple in funnel slot and return it
+                ExecStoreMinimalTuple(worker_tuple, funnel_slot, false);
+                return funnel_slot;
+            }
+        }
+
+        // Second priority: scan locally if needed and no worker data available
+        if (gatherstate->need_to_scan_locally)
+        {
+            EState *estate = gatherstate->ps.state;
+
+            // Set up parallel DSA context for local execution
+            estate->es_query_dsa = gatherstate->pei ? gatherstate->pei->area : NULL;
+            TupleTableSlot *local_tuple = ExecProcNode(outerPlan);
+            estate->es_query_dsa = NULL;
+
+            if (!TupIsNull(local_tuple))
+                return local_tuple;
+
+            // Local scanning complete
+            gatherstate->need_to_scan_locally = false;
+        }
+    }
+
+    // No more data from any source
+    return ExecClearTuple(funnel_slot);
+}
+```

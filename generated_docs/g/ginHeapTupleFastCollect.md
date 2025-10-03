@@ -47,3 +47,50 @@ This function is responsible for converting a single attribute value from a heap
 - Must be followed by ginHeapTupleFastInsert to actually write collected tuples
 - Guarantees that all tuples for a single heap tuple are collected together for consistency
 - Efficiently handles both initial allocation and dynamic expansion of tuple arrays
+
+## Simplified Source
+
+```c
+// Simplified version of ginHeapTupleFastCollect
+void ginHeapTupleFastCollect(GinState *ginstate,
+                            GinTupleCollector *collector,
+                            OffsetNumber attnum, Datum value, bool isNull,
+                            ItemPointer ht_ctid)
+{
+    Datum *entries;
+    GinNullCategory *categories;
+    int32 i, nentries;
+
+    // Extract key values from the input
+    entries = ginExtractEntries(ginstate, attnum, value, isNull,
+                               &nentries, &categories);
+
+    // Check for overflow
+    if (nentries < 0 ||
+        collector->ntuples + nentries > MaxAllocSize / sizeof(IndexTuple))
+        elog(ERROR, "too many entries for GIN index");
+
+    // Allocate or expand tuple array
+    if (collector->tuples == NULL) {
+        // Initial allocation using power of 2
+        collector->lentuples = pg_nextpower2_32(Max(16, nentries));
+        collector->tuples = palloc_array(IndexTuple, collector->lentuples);
+    } else if (collector->lentuples < collector->ntuples + nentries) {
+        // Expand using power of 2
+        collector->lentuples = pg_nextpower2_32(collector->ntuples + nentries);
+        collector->tuples = repalloc_array(collector->tuples,
+                                          IndexTuple, collector->lentuples);
+    }
+
+    // Create index tuples for each extracted key
+    for (i = 0; i < nentries; i++) {
+        IndexTuple itup;
+
+        itup = GinFormTuple(ginstate, attnum, entries[i], categories[i],
+                           NULL, 0, 0, true);
+        itup->t_tid = *ht_ctid;
+        collector->tuples[collector->ntuples++] = itup;
+        collector->sumsize += IndexTupleSize(itup);
+    }
+}
+```

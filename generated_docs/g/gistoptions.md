@@ -39,3 +39,21 @@ This function serves as the relation options handler for GiST indexes, parsing a
 - The validation flag allows for syntax checking without enforcing value constraints
 - Used during index creation and alteration to process WITH clause options
 - Integrates with the broader PostgreSQL storage parameter system
+
+## Simplified Source
+
+```c
+bytea *gistoptions(Datum reloptions, bool validate) {
+    // Define supported GiST-specific options
+    static const relopt_parse_elt tab[] = {
+        {"fillfactor", RELOPT_TYPE_INT, offsetof(GiSTOptions, fillfactor)},
+        {"buffering", RELOPT_TYPE_ENUM, offsetof(GiSTOptions, buffering_mode)}
+    };
+
+    // Parse and build options structure using core infrastructure
+    return (bytea *) build_reloptions(reloptions, validate,
+                                      RELOPT_KIND_GIST,
+                                      sizeof(GiSTOptions),
+                                      tab, lengthof(tab));
+}
+```

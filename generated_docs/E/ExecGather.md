@@ -43,3 +43,69 @@ The execution strategy adapts based on runtime conditions: if no workers are lau
 - Handles the case where no workers are available by falling back to local execution
 - The number of workers launched may be less than requested and is saved for EXPLAIN output
 - Memory context is reset per tuple to prevent memory leaks during long-running queries
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecGather(PlanState *pstate)
+{
+    GatherState *node = castNode(GatherState, pstate);
+    TupleTableSlot *slot;
+    ExprContext *econtext;
+
+    CHECK_FOR_INTERRUPTS();
+
+    // Initialize parallel execution on first call
+    if (!node->initialized) {
+        EState *estate = node->ps.state;
+        Gather *gather = (Gather *) node->ps.plan;
+
+        // Set up parallel workers if enabled
+        if (gather->num_workers > 0 && estate->es_use_parallel_mode) {
+            // Initialize or reinitialize parallel plan
+            if (!node->pei)
+                node->pei = ExecInitParallelPlan(outerPlanState(node), estate,
+                                                gather->initParam, gather->num_workers,
+                                                node->tuples_needed);
+            else
+                ExecParallelReinitialize(outerPlanState(node), node->pei, gather->initParam);
+
+            // Launch workers and set up readers
+            LaunchParallelWorkers(node->pei->pcxt);
+            node->nworkers_launched = node->pei->pcxt->nworkers_launched;
+
+            if (node->pei->pcxt->nworkers_launched > 0) {
+                ExecParallelCreateReaders(node->pei);
+                // Set up reader array for worker communication
+                node->nreaders = node->pei->pcxt->nworkers_launched;
+                node->reader = palloc(node->nreaders * sizeof(TupleQueueReader *));
+                memcpy(node->reader, node->pei->reader,
+                       node->nreaders * sizeof(TupleQueueReader *));
+            }
+            node->nextreader = 0;
+        }
+
+        // Determine if leader should scan locally
+        node->need_to_scan_locally = (node->nreaders == 0) ||
+                                    (!gather->single_copy && parallel_leader_participation);
+        node->initialized = true;
+    }
+
+    // Reset memory context per tuple
+    econtext = node->ps.ps_ExprContext;
+    ResetExprContext(econtext);
+
+    // Get next tuple from workers or local execution
+    slot = gather_getnext(node);
+    if (TupIsNull(slot))
+        return NULL;
+
+    // Apply projection if needed
+    if (node->ps.ps_ProjInfo == NULL)
+        return slot;
+
+    econtext->ecxt_outertuple = slot;
+    return ExecProject(node->ps.ps_ProjInfo);
+}
+```

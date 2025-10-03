@@ -34,3 +34,23 @@ ExecCustomScanEstimate is responsible for calculating the shared memory space ne
 - The estimated size is stored in the node's pscan_len field for later use during DSM initialization
 - The function reserves exactly one key in the shared memory TOC regardless of the actual memory requirement
 - This estimation is crucial for proper shared memory allocation in parallel workers
+
+## Simplified Source
+
+```c
+void ExecCustomScanEstimate(CustomScanState *node, ParallelContext *pcxt)
+{
+    const CustomExecMethods *methods = node->methods;
+
+    // Check if custom scan provider supports parallel execution
+    if (methods->EstimateDSMCustomScan)
+    {
+        // Get estimated memory requirement from custom scan provider
+        node->pscan_len = methods->EstimateDSMCustomScan(node, pcxt);
+
+        // Register memory requirements with shared memory estimator
+        shm_toc_estimate_chunk(&pcxt->estimator, node->pscan_len);
+        shm_toc_estimate_keys(&pcxt->estimator, 1);
+    }
+}
+```

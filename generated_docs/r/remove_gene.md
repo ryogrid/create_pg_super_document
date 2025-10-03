@@ -35,3 +35,35 @@ The removal process involves finding the gene in each edge list and replacing it
 - The function uses absolute values when accessing edge lists, suggesting that negative values may have special meaning in the edge representation
 - The removal algorithm maintains O(1) complexity by swapping with the last element rather than shifting all subsequent elements
 - Part of the ERX crossover operator implementation in PostgreSQL's genetic query optimizer
+
+## Simplified Source
+
+```c
+static void
+remove_gene(PlannerInfo *root, Gene gene, Edge edge, Edge *edge_table)
+{
+    int i, j;
+    int possess_edge;
+    int genes_remaining;
+
+    // Remove gene from all edge lists that reference it
+    for (i = 0; i < edge.unused_edges; i++)
+    {
+        possess_edge = abs(edge.edge_list[i]);
+        genes_remaining = edge_table[possess_edge].unused_edges;
+
+        // Find and remove the gene from this edge list
+        for (j = 0; j < genes_remaining; j++)
+        {
+            if ((Gene) abs(edge_table[possess_edge].edge_list[j]) == gene)
+            {
+                // Replace with last element and decrement count
+                edge_table[possess_edge].unused_edges--;
+                edge_table[possess_edge].edge_list[j] =
+                    edge_table[possess_edge].edge_list[genes_remaining - 1];
+                break;
+            }
+        }
+    }
+}
+```

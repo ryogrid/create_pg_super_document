@@ -36,3 +36,19 @@ ExecInitNullTupleSlot creates a specialized tuple slot that contains a tuple whe
 - Essential for LEFT, RIGHT, and FULL OUTER JOIN implementations
 - Used primarily by join executor nodes that need to handle non-matching tuples
 - Located in src/backend/executor/execTuples.c:1934-1954
+
+## Simplified Source
+
+```c
+// Simplified version of ExecInitNullTupleSlot
+TupleTableSlot *
+ExecInitNullTupleSlot(EState *estate, TupleDesc tupType,
+                      const TupleTableSlotOps *tts_ops)
+{
+    // Create a new tuple slot with the specified type and operations
+    TupleTableSlot *slot = ExecInitExtraTupleSlot(estate, tupType, tts_ops);
+
+    // Fill the slot with all NULL values and return it
+    return ExecStoreAllNullTuple(slot);
+}
+```

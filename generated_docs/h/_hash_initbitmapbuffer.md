@@ -48,3 +48,31 @@ The function handles both the page initialization (if needed) and the setup of h
 - The function sets pd_lower precisely to the end of bitmap data rather than equal to pd_upper to make the page appear compressible to the WAL system
 - Bitmap pages have LH_BITMAP_PAGE flag in their special space opaque data
 - The prevblkno and nextblkno fields are set to InvalidBlockNumber since bitmap pages don't participate in bucket chains
+
+## Simplified Source
+
+```c
+void _hash_initbitmapbuffer(Buffer buf, uint16 bmsize, bool initpage) {
+    Page pg = BufferGetPage(buf);
+
+    // Initialize page if requested
+    if (initpage) {
+        _hash_pageinit(pg, BufferGetPageSize(buf));
+    }
+
+    // Setup page special space as bitmap page
+    HashPageOpaque op = HashPageGetOpaque(pg);
+    op->hasho_prevblkno = InvalidBlockNumber;
+    op->hasho_nextblkno = InvalidBlockNumber;
+    op->hasho_bucket = InvalidBucket;
+    op->hasho_flag = LH_BITMAP_PAGE;
+    op->hasho_page_id = HASHO_PAGE_ID;
+
+    // Set all bitmap bits to 1 (indicating "in use")
+    uint32 *freep = HashPageGetBitmap(pg);
+    memset(freep, 0xFF, bmsize);
+
+    // Set page boundary for compression
+    ((PageHeader) pg)->pd_lower = ((char *) freep + bmsize) - (char *) pg;
+}
+```

@@ -39,3 +39,25 @@ This function takes no parameters and operates on global transaction state.
 - Uses safe arithmetic functions (add_size, mul_size) to prevent integer overflow
 - Traverses the complete parent transaction chain to ensure no transaction data is missed
 - Critical for proper memory allocation in parallel query execution where transaction state must be shared between processes
+
+## Simplified Source
+
+```c
+Size EstimateTransactionStateSpace(void) {
+    Size num_xids = 0;
+    Size size = SerializedTransactionStateHeaderSize;
+
+    // Walk through transaction hierarchy counting XIDs
+    for (TransactionState s = CurrentTransactionState; s != NULL; s = s->parent) {
+        // Count main transaction ID if valid
+        if (FullTransactionIdIsValid(s->fullTransactionId))
+            num_xids++;
+
+        // Count child transaction IDs
+        num_xids += s->nChildXids;
+    }
+
+    // Return header size plus space for all transaction IDs
+    return size + (num_xids * sizeof(TransactionId));
+}
+```

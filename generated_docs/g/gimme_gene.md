@@ -41,3 +41,56 @@ The selection strategy helps maintain good connectivity in the resulting tour wh
 - Includes error checking for cases where no valid gene can be found
 - The random selection mechanism helps maintain population diversity in the genetic algorithm
 - Part of the ERX crossover operator implementation which is known for preserving edge information from parent solutions
+
+## Simplified Source
+
+```c
+static Gene
+gimme_gene(PlannerInfo *root, Edge edge, Edge *edge_table)
+{
+    int i;
+    Gene friend;
+    int minimum_edges = 5;  // max edges any point can have is 4
+    int minimum_count = -1;
+    int rand_decision;
+
+    // First pass: prioritize shared edges (negative values) and find minimum edge counts
+    for (i = 0; i < edge.unused_edges; i++)
+    {
+        friend = (Gene) edge.edge_list[i];
+
+        // Shared edges have highest priority - return immediately
+        if (friend < 0)
+            return (Gene) abs(friend);
+
+        // Track genes with minimum unused edges for random selection
+        if (edge_table[(int) friend].unused_edges < minimum_edges)
+        {
+            minimum_edges = edge_table[(int) friend].unused_edges;
+            minimum_count = 1;
+        }
+        else if (edge_table[(int) friend].unused_edges == minimum_edges)
+            minimum_count++;
+    }
+
+    // Random selection among candidates with minimum edge count
+    rand_decision = geqo_randint(root, minimum_count - 1, 0);
+
+    // Second pass: find and return the randomly chosen candidate
+    for (i = 0; i < edge.unused_edges; i++)
+    {
+        friend = (Gene) edge.edge_list[i];
+
+        if (edge_table[(int) friend].unused_edges == minimum_edges)
+        {
+            minimum_count--;
+            if (minimum_count == rand_decision)
+                return friend;
+        }
+    }
+
+    // Should never reach here
+    elog(ERROR, "no valid gene found");
+    return 0;
+}
+```

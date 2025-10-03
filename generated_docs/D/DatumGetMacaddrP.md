@@ -37,3 +37,12 @@ This function is part of PostgreSQL's fmgr (function manager) interface macros f
 - Part of the PostgreSQL function manager interface for type conversion
 - Much simpler than inet conversion functions due to fixed-length nature of MAC addresses
 - The PG_GETARG_MACADDR_P macro provides a convenient wrapper for function argument access
+
+## Simplified Source
+
+```c
+static inline macaddr * DatumGetMacaddrP(Datum X) {
+    // Extract macaddr pointer from Datum (fixed-length type)
+    return (macaddr *) DatumGetPointer(X);
+}
+```

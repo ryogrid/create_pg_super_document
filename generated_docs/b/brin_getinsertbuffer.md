@@ -69,3 +69,110 @@ The function handles several complex scenarios:
 - Uses CHECK_FOR_INTERRUPTS to allow cancellation during potentially long-running operations
 - The extension lock is held only during the critical section of relation extension to minimize contention
 - Returns InvalidBuffer when the old buffer is found to be converted to a revmap page, signaling the caller to restart the operation
+
+## Simplified Source
+
+```c
+static Buffer brin_getinsertbuffer(Relation irel, Buffer oldbuf, Size itemsz,
+                                   bool *extended)
+{
+    BlockNumber oldblk, newblk;
+    Page page;
+    Size freespace;
+
+    Assert(itemsz <= BrinMaxItemSize);
+
+    // Get old buffer's block number
+    oldblk = BufferIsValid(oldbuf) ? BufferGetBlockNumber(oldbuf) : InvalidBlockNumber;
+
+    // Find target page using FSM or relation target block
+    newblk = RelationGetTargetBlock(irel);
+    if (newblk == InvalidBlockNumber)
+        newblk = GetPageWithFreeSpace(irel, itemsz);
+
+    // Loop until we find a suitable page
+    for (;;)
+    {
+        Buffer buf;
+        bool extensionLockHeld = false;
+
+        CHECK_FOR_INTERRUPTS();
+        *extended = false;
+
+        // Handle page acquisition
+        if (newblk == InvalidBlockNumber)
+        {
+            // Extend relation for new page
+            if (!RELATION_IS_LOCAL(irel))
+            {
+                LockRelationForExtension(irel, ExclusiveLock);
+                extensionLockHeld = true;
+            }
+            buf = ReadBuffer(irel, P_NEW);
+            newblk = BufferGetBlockNumber(buf);
+            *extended = true;
+        }
+        else if (newblk == oldblk)
+        {
+            buf = oldbuf;  // Reuse old buffer
+        }
+        else
+        {
+            buf = ReadBuffer(irel, newblk);
+        }
+
+        // Lock buffers in order to avoid deadlocks
+        if (BufferIsValid(oldbuf) && oldblk < newblk)
+        {
+            LockBuffer(oldbuf, BUFFER_LOCK_EXCLUSIVE);
+            if (!BRIN_IS_REGULAR_PAGE(BufferGetPage(oldbuf)))
+            {
+                // Old page converted to revmap - clean up and return invalid
+                LockBuffer(oldbuf, BUFFER_LOCK_UNLOCK);
+                if (*extended)
+                    brin_initialize_empty_new_buffer(irel, buf);
+                if (extensionLockHeld)
+                    UnlockRelationForExtension(irel, ExclusiveLock);
+                ReleaseBuffer(buf);
+                return InvalidBuffer;
+            }
+        }
+
+        LockBuffer(buf, BUFFER_LOCK_EXCLUSIVE);
+        if (extensionLockHeld)
+            UnlockRelationForExtension(irel, ExclusiveLock);
+
+        page = BufferGetPage(buf);
+
+        // Check if page has enough space
+        freespace = *extended ? BrinMaxItemSize : br_page_get_freespace(page);
+        if (freespace >= itemsz)
+        {
+            RelationSetTargetBlock(irel, newblk);
+
+            // Lock old buffer if needed
+            if (BufferIsValid(oldbuf) && oldblk > newblk)
+                LockBuffer(oldbuf, BUFFER_LOCK_EXCLUSIVE);
+
+            return buf;
+        }
+
+        // Page doesn't have enough space - try again
+        if (*extended)
+        {
+            brin_initialize_empty_new_buffer(irel, buf);
+            ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                           errmsg("index row size %zu exceeds maximum %zu for index \"%s\"",
+                                 itemsz, freespace, RelationGetRelationName(irel))));
+        }
+
+        // Clean up and find new page
+        if (newblk != oldblk)
+            UnlockReleaseBuffer(buf);
+        if (BufferIsValid(oldbuf) && oldblk <= newblk)
+            LockBuffer(oldbuf, BUFFER_LOCK_UNLOCK);
+
+        newblk = RecordAndGetPageWithFreeSpace(irel, newblk, freespace, itemsz);
+    }
+}
+```

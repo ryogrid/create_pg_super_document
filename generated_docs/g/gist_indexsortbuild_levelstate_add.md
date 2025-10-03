@@ -46,3 +46,42 @@ After determining the appropriate target page, the function uses gistfillbuffer 
 - Memory allocation for new pages uses palloc0 to ensure clean initialization
 - The function handles the transition from leaf pages to internal pages automatically during tree construction
 - Overflow management ensures that the build process can handle arbitrarily large datasets without memory exhaustion
+
+## Simplified Source
+
+```c
+static void
+gist_indexsortbuild_levelstate_add(GISTBuildState *state,
+                                   GistSortedBuildLevelState *levelstate,
+                                   IndexTuple itup)
+{
+    Size sizeNeeded = IndexTupleSize(itup) + sizeof(ItemIdData);
+
+    // Check if tuple fits on current page
+    if (PageGetFreeSpace(levelstate->pages[levelstate->current_page]) < sizeNeeded)
+    {
+        // Page is full, advance to next page or flush
+        if (levelstate->current_page + 1 == GIST_SORTED_BUILD_PAGE_NUM)
+        {
+            gist_indexsortbuild_levelstate_flush(state, levelstate);
+        }
+        else
+        {
+            levelstate->current_page++;
+        }
+
+        // Initialize new page if needed
+        if (levelstate->pages[levelstate->current_page] == NULL)
+            levelstate->pages[levelstate->current_page] = palloc0(BLCKSZ);
+
+        Page newPage = levelstate->pages[levelstate->current_page];
+        Page oldPage = levelstate->pages[levelstate->current_page - 1];
+        uint16 pageFlags = GistPageGetOpaque(oldPage)->flags;
+
+        gistinitpage(newPage, pageFlags);
+    }
+
+    // Insert tuple into current page
+    gistfillbuffer(levelstate->pages[levelstate->current_page], &itup, 1, InvalidOffsetNumber);
+}
+```

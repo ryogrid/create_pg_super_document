@@ -44,3 +44,58 @@ The function continues processing until it finds a heap tuple or the queue is ex
 - Handles both regular ordered scans and index-only scans
 - The function processes items in strict distance order due to the priority queue implementation
 - Memory cleanup is performed for both the current xs_hitup and processed search items
+
+## Simplified Source
+
+```c
+static bool
+getNextNearest(IndexScanDesc scan)
+{
+    GISTScanOpaque so = (GISTScanOpaque) scan->opaque;
+    bool res = false;
+
+    // Clean up previously returned tuple
+    if (scan->xs_hitup)
+    {
+        pfree(scan->xs_hitup);
+        scan->xs_hitup = NULL;
+    }
+
+    // Process items from queue until we find a heap tuple
+    do
+    {
+        GISTSearchItem *item = getNextGISTSearchItem(so);
+
+        if (!item)
+            break;  // Queue exhausted
+
+        if (GISTSearchItemIsHeap(*item))
+        {
+            // Found heap tuple - set up scan results
+            scan->xs_heaptid = item->data.heap.heapPtr;
+            scan->xs_recheck = item->data.heap.recheck;
+
+            // Store distance values for ORDER BY
+            index_store_float8_orderby_distances(scan, so->orderByTypes,
+                                                  item->distances,
+                                                  item->data.heap.recheckDistances);
+
+            // For index-only scans, return reconstructed tuple
+            if (scan->xs_want_itup)
+                scan->xs_hitup = item->data.heap.recontup;
+
+            res = true;
+        }
+        else
+        {
+            // Index page - scan it to extract items into queue
+            CHECK_FOR_INTERRUPTS();
+            gistScanPage(scan, item, item->distances, NULL, NULL);
+        }
+
+        pfree(item);
+    } while (!res);
+
+    return res;
+}
+```

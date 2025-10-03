@@ -56,3 +56,39 @@ This function is essential for memory management, query planning, and storage op
 - This function is critical for accurate memory usage calculations and query optimization decisions.
 - The function is part of the detoast.c module, which handles the decompression and retrieval of TOASTed data.
 - Different storage formats are handled in a specific order, checking for external storage types first before falling back to inline storage calculations.
+
+## Simplified Source
+
+```c
+Size toast_datum_size(Datum value)
+{
+    struct varlena *data = (struct varlena *) DatumGetPointer(value);
+
+    // Handle different storage formats for variable-length data
+
+    if (VARATT_IS_EXTERNAL_ONDISK(data)) {
+        // External on-disk: return size from TOAST pointer
+        struct varatt_external toast_ptr;
+        VARATT_EXTERNAL_GET_POINTER(toast_ptr, data);
+        return VARATT_EXTERNAL_GET_EXTSIZE(toast_ptr);
+    }
+    else if (VARATT_IS_EXTERNAL_INDIRECT(data)) {
+        // External indirect: recursively get size of pointed-to data
+        struct varatt_indirect toast_ptr;
+        VARATT_EXTERNAL_GET_POINTER(toast_ptr, data);
+        return toast_datum_size(PointerGetDatum(toast_ptr.pointer));
+    }
+    else if (VARATT_IS_EXTERNAL_EXPANDED(data)) {
+        // External expanded: get flattened size
+        return EOH_get_flat_size(DatumGetEOHP(value));
+    }
+    else if (VARATT_IS_SHORT(data)) {
+        // Short varlena format
+        return VARSIZE_SHORT(data);
+    }
+    else {
+        // Standard inline storage (compressed or not)
+        return VARSIZE(data);
+    }
+}
+```

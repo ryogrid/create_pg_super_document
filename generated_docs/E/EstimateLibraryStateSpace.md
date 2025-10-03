@@ -32,3 +32,18 @@ This function estimates the total size required to serialize the current state o
 - Uses add_size() to prevent integer overflow when calculating total size
 - Part of the parallel query infrastructure for sharing library state between processes
 - Works in conjunction with SerializeLibraryState and RestoreLibraryState functions
+
+## Simplified Source
+
+```c
+Size EstimateLibraryStateSpace(void) {
+    DynamicFileList *file_scanner;
+    Size size = 1;  // Start with 1 for terminating marker
+
+    // Add space for each loaded library filename
+    for (file_scanner = file_list; file_scanner != NULL; file_scanner = file_scanner->next)
+        size = add_size(size, strlen(file_scanner->filename) + 1);
+
+    return size;
+}
+```

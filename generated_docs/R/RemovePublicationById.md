@@ -36,3 +36,34 @@ This function completely removes a publication from the pg_publication catalog t
 - Error handling includes cache lookup failure detection
 - Essential for maintaining logical replication consistency during publication drops
 - Simpler than RemovePublicationRelById as it handles entire publications rather than individual relations
+
+## Simplified Source
+
+```c
+void RemovePublicationById(Oid pubid)
+{
+    Relation rel;
+    HeapTuple tup;
+    Form_pg_publication pubform;
+
+    // Open publication catalog table
+    rel = table_open(PublicationRelationId, RowExclusiveLock);
+
+    // Look up the publication tuple
+    tup = SearchSysCache1(PUBLICATIONOID, ObjectIdGetDatum(pubid));
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for publication %u", pubid);
+
+    pubform = (Form_pg_publication) GETSTRUCT(tup);
+
+    // Invalidate relation cache - global invalidation for ALL TABLES publications
+    if (pubform->puballtables)
+        CacheInvalidateRelcacheAll();
+
+    // Delete the publication tuple
+    CatalogTupleDelete(rel, &tup->t_self);
+
+    ReleaseSysCache(tup);
+    table_close(rel, RowExclusiveLock);
+}
+```

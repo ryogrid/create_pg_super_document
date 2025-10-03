@@ -51,3 +51,39 @@ The extension lock mechanism prevents race conditions where this function might 
 - The function handles the case where a page might be initialized by another process between the initial check and acquiring the exclusive lock
 - Part of the BRIN index maintenance infrastructure that ensures all pages are properly initialized and their free space is tracked
 - The extension lock coordination is crucial for maintaining consistency in multi-process environments where relation extension might be happening concurrently
+
+## Simplified Source
+
+```c
+void brin_page_cleanup(Relation idxrel, Buffer buf)
+{
+    Page page = BufferGetPage(buf);
+
+    // Handle uninitialized pages
+    if (PageIsNew(page))
+    {
+        // Coordinate with concurrent relation extension
+        LockRelationForExtension(idxrel, ShareLock);
+        UnlockRelationForExtension(idxrel, ShareLock);
+
+        LockBuffer(buf, BUFFER_LOCK_EXCLUSIVE);
+        if (PageIsNew(page))
+        {
+            // Initialize the new page
+            brin_initialize_empty_new_buffer(idxrel, buf);
+            LockBuffer(buf, BUFFER_LOCK_UNLOCK);
+            return;
+        }
+        LockBuffer(buf, BUFFER_LOCK_UNLOCK);
+    }
+
+    // Skip meta and revmap pages - only process regular index pages
+    if (BRIN_IS_META_PAGE(BufferGetPage(buf)) ||
+        BRIN_IS_REVMAP_PAGE(BufferGetPage(buf)))
+        return;
+
+    // Record current free space in FSM for future allocations
+    RecordPageWithFreeSpace(idxrel, BufferGetBlockNumber(buf),
+                           br_page_get_freespace(page));
+}
+```

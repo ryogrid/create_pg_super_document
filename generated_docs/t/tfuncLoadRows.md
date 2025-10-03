@@ -38,3 +38,77 @@ tfuncLoadRows is responsible for the actual data extraction phase of table funct
 - Uses per-tuple memory context for efficient memory management
 - Integrates with CHECK_FOR_INTERRUPTS() for query cancellation support
 - Essential component of XMLTABLE and JSON_TABLE data extraction pipeline
+
+## Simplified Source
+```c
+static void
+tfuncLoadRows(TableFuncScanState *tstate, ExprContext *econtext)
+{
+    const TableFuncRoutine *routine = tstate->routine;
+    TupleTableSlot *slot = tstate->ss.ss_ScanTupleSlot;
+    TupleDesc tupdesc = slot->tts_tupleDescriptor;
+    Datum *values = slot->tts_values;
+    bool *nulls = slot->tts_isnull;
+    int natts = tupdesc->natts;
+    int ordinalitycol = ((TableFuncScan *) (tstate->ss.ps.plan))->tablefunc->ordinalitycol;
+
+    // Switch to per-tuple memory context for cleanup
+    MemoryContext oldcxt = MemoryContextSwitchTo(econtext->ecxt_per_tuple_memory);
+
+    // Process each row from the table builder
+    while (routine->FetchRow(tstate))
+    {
+        ListCell *cell = list_head(tstate->coldefexprs);
+
+        CHECK_FOR_INTERRUPTS();
+        ExecClearTuple(slot);
+
+        // Process each column in the row
+        for (int colno = 0; colno < natts; colno++)
+        {
+            Form_pg_attribute att = TupleDescAttr(tupdesc, colno);
+
+            if (colno == ordinalitycol)
+            {
+                // Handle ordinality column - auto-increment counter
+                values[colno] = Int32GetDatum(tstate->ordinal++);
+                nulls[colno] = false;
+            }
+            else
+            {
+                bool isnull;
+
+                // Get column value from table builder
+                values[colno] = routine->GetValue(tstate, colno, att->atttypid,
+                                                att->atttypmod, &isnull);
+
+                // Apply default expression if value is null
+                if (isnull && cell != NULL)
+                {
+                    ExprState *coldefexpr = (ExprState *) lfirst(cell);
+                    if (coldefexpr != NULL)
+                        values[colno] = ExecEvalExpr(coldefexpr, econtext, &isnull);
+                }
+
+                // Check NOT NULL constraint
+                if (isnull && bms_is_member(colno, tstate->notnulls))
+                    ereport(ERROR, (errcode(ERRCODE_NULL_VALUE_NOT_ALLOWED),
+                            errmsg("null is not allowed in column \"%s\"",
+                                   NameStr(att->attname))));
+
+                nulls[colno] = isnull;
+            }
+
+            // Move to next default expression
+            if (cell != NULL)
+                cell = lnext(tstate->coldefexprs, cell);
+        }
+
+        // Store the completed tuple
+        tuplestore_putvalues(tstate->tupstore, tupdesc, values, nulls);
+        MemoryContextReset(econtext->ecxt_per_tuple_memory);
+    }
+
+    MemoryContextSwitchTo(oldcxt);
+}
+```

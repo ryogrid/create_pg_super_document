@@ -45,3 +45,56 @@ The function uses projection to transform input tuples or generate output tuples
 - The rs_checkqual flag ensures constant qualifications are evaluated only once
 - Memory context is reset between tuple cycles to prevent memory leaks during expression evaluation
 - The function returns NULL when no more tuples are available or when constant qualifications fail
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecResult(PlanState *pstate)
+{
+    ResultState *node = castNode(ResultState, pstate);
+    TupleTableSlot *outerTupleSlot;
+    PlanState *outerPlan;
+    ExprContext *econtext;
+
+    CHECK_FOR_INTERRUPTS();
+
+    econtext = node->ps.ps_ExprContext;
+
+    // Check constant qualifications once (e.g., WHERE 2 > 1)
+    if (node->rs_checkqual) {
+        bool qualResult = ExecQual(node->resconstantqual, econtext);
+        node->rs_checkqual = false;
+        if (!qualResult) {
+            node->rs_done = true;
+            return NULL; // Constant qualification failed
+        }
+    }
+
+    // Reset memory context for each tuple
+    ResetExprContext(econtext);
+
+    // If already done (constant tuple generated or qual failed), return NULL
+    if (!node->rs_done) {
+        outerPlan = outerPlanState(node);
+
+        if (outerPlan != NULL) {
+            // Case 1: Has outer plan - retrieve and filter tuples
+            outerTupleSlot = ExecProcNode(outerPlan);
+            if (TupIsNull(outerTupleSlot))
+                return NULL; // No more tuples from outer plan
+
+            // Set up tuple for projection
+            econtext->ecxt_outertuple = outerTupleSlot;
+        } else {
+            // Case 2: No outer plan - generate constant result once
+            node->rs_done = true;
+        }
+
+        // Apply projection and return result tuple
+        return ExecProject(node->ps.ps_ProjInfo);
+    }
+
+    return NULL; // Done processing
+}
+```

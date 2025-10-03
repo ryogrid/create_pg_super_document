@@ -43,3 +43,61 @@ The function sets up hash tables to track tuple update chains and maintains mapp
 - The new heap relation doesn't need to be empty, only locked, allowing for incremental rewrites
 - Uses bulk write operations for efficient insertion into the new relation
 - Integrates with logical replication by calling logical_begin_heap_rewrite for change tracking
+
+## Simplified Source
+
+```c
+RewriteState
+begin_heap_rewrite(Relation old_heap, Relation new_heap, TransactionId oldest_xmin,
+                   TransactionId freeze_xid, MultiXactId cutoff_multi)
+{
+    RewriteState state;
+    MemoryContext rw_cxt;
+    MemoryContext old_cxt;
+    HASHCTL hash_ctl;
+
+    // Create dedicated memory context for easy cleanup
+    rw_cxt = AllocSetContextCreate(CurrentMemoryContext,
+                                   "Table rewrite",
+                                   ALLOCSET_DEFAULT_SIZES);
+    old_cxt = MemoryContextSwitchTo(rw_cxt);
+
+    // Initialize the rewrite state structure
+    state = palloc0(sizeof(RewriteStateData));
+    state->rs_old_rel = old_heap;
+    state->rs_new_rel = new_heap;
+    state->rs_buffer = NULL;
+    state->rs_blockno = RelationGetNumberOfBlocks(new_heap);
+    state->rs_oldest_xmin = oldest_xmin;
+    state->rs_freeze_xid = freeze_xid;
+    state->rs_cutoff_multi = cutoff_multi;
+    state->rs_cxt = rw_cxt;
+    state->rs_bulkstate = smgr_bulk_start_rel(new_heap, MAIN_FORKNUM);
+
+    // Set up hash table for tracking unresolved tuple chains
+    hash_ctl.keysize = sizeof(TidHashKey);
+    hash_ctl.entrysize = sizeof(UnresolvedTupData);
+    hash_ctl.hcxt = state->rs_cxt;
+
+    state->rs_unresolved_tups =
+        hash_create("Rewrite / Unresolved ctids",
+                    128,  // Initial size
+                    &hash_ctl,
+                    HASH_ELEM | HASH_BLOBS | HASH_CONTEXT);
+
+    // Set up hash table for old-to-new TID mappings
+    hash_ctl.entrysize = sizeof(OldToNewMappingData);
+    state->rs_old_new_tid_map =
+        hash_create("Rewrite / Old to new tid map",
+                    128,  // Initial size
+                    &hash_ctl,
+                    HASH_ELEM | HASH_BLOBS | HASH_CONTEXT);
+
+    MemoryContextSwitchTo(old_cxt);
+
+    // Initialize logical replication support
+    logical_begin_heap_rewrite(state);
+
+    return state;
+}
+```

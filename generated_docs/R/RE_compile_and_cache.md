@@ -48,3 +48,86 @@ The function handles memory management carefully by creating separate memory con
 - Handles compilation errors by throwing PostgreSQL ERRORs with appropriate error codes
 - The cache is global and persists across function calls within a backend process
 - Thread-safe within PostgreSQL's single-threaded backend model
+
+## Simplified Source
+
+```c
+regex_t *RE_compile_and_cache(text *text_re, int cflags, Oid collation) {
+    int text_len = VARSIZE_ANY_EXHDR(text_re);
+    char *text_val = VARDATA_ANY(text_re);
+
+    // Search existing cache (LRU - most recent at front)
+    for (int i = 0; i < num_res; i++) {
+        if (re_array[i].cre_pat_len == text_len &&
+            re_array[i].cre_flags == cflags &&
+            re_array[i].cre_collation == collation &&
+            memcmp(re_array[i].cre_pat, text_val, text_len) == 0) {
+
+            // Move to front if not already there (LRU update)
+            if (i > 0) {
+                cached_re_str temp = re_array[i];
+                memmove(&re_array[1], &re_array[0], i * sizeof(cached_re_str));
+                re_array[0] = temp;
+            }
+            return &re_array[0].cre_re;
+        }
+    }
+
+    // Initialize cache memory context if needed
+    if (unlikely(RegexpCacheMemoryContext == NULL)) {
+        RegexpCacheMemoryContext = AllocSetContextCreate(TopMemoryContext,
+                                                         "RegexpCacheMemoryContext",
+                                                         ALLOCSET_SMALL_SIZES);
+    }
+
+    // Compile new regex
+    cached_re_str new_entry;
+
+    // Convert to wide characters for regex library
+    pg_wchar *pattern = palloc((text_len + 1) * sizeof(pg_wchar));
+    int pattern_len = pg_mb2wchar_with_len(text_val, pattern, text_len);
+
+    // Create memory context for this regex
+    new_entry.cre_context = AllocSetContextCreate(CurrentMemoryContext,
+                                                  "RegexpMemoryContext",
+                                                  ALLOCSET_SMALL_SIZES);
+    MemoryContext oldcontext = MemoryContextSwitchTo(new_entry.cre_context);
+
+    // Compile the regex
+    int result = pg_regcomp(&new_entry.cre_re, pattern, pattern_len, cflags, collation);
+    pfree(pattern);
+
+    if (result != REG_OKAY) {
+        char errMsg[100];
+        pg_regerror(result, &new_entry.cre_re, errMsg, sizeof(errMsg));
+        ereport(ERROR, (errcode(ERRCODE_INVALID_REGULAR_EXPRESSION),
+                       errmsg("invalid regular expression: %s", errMsg)));
+    }
+
+    // Store pattern in regex memory context
+    new_entry.cre_pat = palloc(text_len + 1);
+    memcpy(new_entry.cre_pat, text_val, text_len);
+    new_entry.cre_pat[text_len] = 0;  // Null terminate for context identifier
+    new_entry.cre_pat_len = text_len;
+    new_entry.cre_flags = cflags;
+    new_entry.cre_collation = collation;
+
+    // Insert into cache (evict oldest if full)
+    if (num_res >= MAX_CACHED_RES) {
+        MemoryContextDelete(re_array[--num_res].cre_context);
+    }
+
+    // Move existing entries down, insert new one at front
+    if (num_res > 0) {
+        memmove(&re_array[1], &re_array[0], num_res * sizeof(cached_re_str));
+    }
+
+    // Re-parent context to cache and insert
+    MemoryContextSetParent(new_entry.cre_context, RegexpCacheMemoryContext);
+    re_array[0] = new_entry;
+    num_res++;
+
+    MemoryContextSwitchTo(oldcontext);
+    return &re_array[0].cre_re;
+}
+```

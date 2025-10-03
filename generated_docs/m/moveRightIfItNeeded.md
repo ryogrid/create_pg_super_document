@@ -39,3 +39,27 @@ The function handles the boundary condition when scanning reaches the end of a p
 - Part of the GIN index scanning infrastructure that supports efficient bitmap collection during index searches
 - Handles predicate locking for the newly accessed page to maintain proper isolation levels
 - The function is critical for maintaining scan continuity across page boundaries in GIN indexes
+
+## Simplified Source
+
+```c
+static bool moveRightIfItNeeded(GinBtreeData *btree, GinBtreeStack *stack, Snapshot snapshot)
+{
+    Page page = BufferGetPage(stack->buffer);
+
+    // Check if we've scanned past the end of current page
+    if (stack->off > PageGetMaxOffsetNumber(page)) {
+        // If this is the rightmost page, we're done
+        if (GinPageRightMost(page))
+            return false;  // No more pages to scan
+
+        // Move to the next page on the right
+        stack->buffer = ginStepRight(stack->buffer, btree->index, GIN_SHARE);
+        stack->blkno = BufferGetBlockNumber(stack->buffer);
+        stack->off = FirstOffsetNumber;  // Reset to start of new page
+        PredicateLockPage(btree->index, stack->blkno, snapshot);
+    }
+
+    return true;  // Continue scanning
+}
+```

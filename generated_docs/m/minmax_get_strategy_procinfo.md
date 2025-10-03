@@ -52,3 +52,57 @@ The caching strategy improves performance by avoiding redundant syscache lookups
 - Memory for FmgrInfo structures is allocated in the BRIN descriptor's memory context
 - The function will error if a required operator is not found in the operator family
 - Cache invalidation is necessary because different subtypes may require different operator implementations
+
+## Simplified Source
+
+```c
+static FmgrInfo *
+minmax_get_strategy_procinfo(BrinDesc *bdesc, uint16 attno, Oid subtype,
+                            uint16 strategynum)
+{
+    MinmaxOpaque *opaque;
+
+    opaque = (MinmaxOpaque *) bdesc->bd_info[attno - 1]->oi_opaque;
+
+    // Invalidate cache if subtype changed
+    if (opaque->cached_subtype != subtype)
+    {
+        for (uint16 i = 1; i <= BTMaxStrategyNumber; i++)
+            opaque->strategy_procinfos[i - 1].fn_oid = InvalidOid;
+        opaque->cached_subtype = subtype;
+    }
+
+    // Look up procedure if not cached
+    if (opaque->strategy_procinfos[strategynum - 1].fn_oid == InvalidOid)
+    {
+        Form_pg_attribute attr;
+        HeapTuple   tuple;
+        Oid         opfamily, oprid;
+
+        // Get operator family and attribute info
+        opfamily = bdesc->bd_index->rd_opfamily[attno - 1];
+        attr = TupleDescAttr(bdesc->bd_tupdesc, attno - 1);
+
+        // Look up operator in system catalog
+        tuple = SearchSysCache4(AMOPSTRATEGY, ObjectIdGetDatum(opfamily),
+                               ObjectIdGetDatum(attr->atttypid),
+                               ObjectIdGetDatum(subtype),
+                               Int16GetDatum(strategynum));
+
+        if (!HeapTupleIsValid(tuple))
+            elog(ERROR, "missing operator %d(%u,%u) in opfamily %u",
+                 strategynum, attr->atttypid, subtype, opfamily);
+
+        // Get procedure OID and initialize function info
+        oprid = DatumGetObjectId(SysCacheGetAttrNotNull(AMOPSTRATEGY, tuple,
+                                                       Anum_pg_amop_amopopr));
+        ReleaseSysCache(tuple);
+
+        fmgr_info_cxt(get_opcode(oprid),
+                     &opaque->strategy_procinfos[strategynum - 1],
+                     bdesc->bd_context);
+    }
+
+    return &opaque->strategy_procinfos[strategynum - 1];
+}
+```

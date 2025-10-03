@@ -44,3 +44,53 @@ The function uses planstate_tree_walker to recursively traverse the entire plan 
 - Some node types (HashState, SortState, IncrementalSortState, MemoizeState) have DSM state but explicitly require no reinitialization
 - The recursive tree walking ensures comprehensive coverage of all parallel-aware nodes in complex plan trees
 - Essential for proper parallel query restart semantics in PostgreSQL
+
+## Simplified Source
+
+```c
+static bool
+ExecParallelReInitializeDSM(PlanState *planstate, ParallelContext *pcxt)
+{
+    if (planstate == NULL)
+        return false;
+
+    // Call reinitializers for parallel-aware DSM-using plan nodes
+    if (planstate->plan->parallel_aware) {
+        switch (nodeTag(planstate)) {
+            case T_SeqScanState:
+                ExecSeqScanReInitializeDSM((SeqScanState *) planstate, pcxt);
+                break;
+            case T_IndexScanState:
+                ExecIndexScanReInitializeDSM((IndexScanState *) planstate, pcxt);
+                break;
+            case T_IndexOnlyScanState:
+                ExecIndexOnlyScanReInitializeDSM((IndexOnlyScanState *) planstate, pcxt);
+                break;
+            case T_ForeignScanState:
+                ExecForeignScanReInitializeDSM((ForeignScanState *) planstate, pcxt);
+                break;
+            case T_AppendState:
+                ExecAppendReInitializeDSM((AppendState *) planstate, pcxt);
+                break;
+            case T_CustomScanState:
+                ExecCustomScanReInitializeDSM((CustomScanState *) planstate, pcxt);
+                break;
+            case T_BitmapHeapScanState:
+                ExecBitmapHeapReInitializeDSM((BitmapHeapScanState *) planstate, pcxt);
+                break;
+            case T_HashJoinState:
+                ExecHashJoinReInitializeDSM((HashJoinState *) planstate, pcxt);
+                break;
+            case T_HashState:
+            case T_SortState:
+            case T_IncrementalSortState:
+            case T_MemoizeState:
+                // These nodes have DSM state but no reinitialization required
+                break;
+        }
+    }
+
+    // Recursively traverse plan tree
+    return planstate_tree_walker(planstate, ExecParallelReInitializeDSM, pcxt);
+}
+```

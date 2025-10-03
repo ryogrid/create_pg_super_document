@@ -30,3 +30,23 @@ This function estimates the amount of dynamic shared memory (DSM) space needed f
 - Estimates one shared memory key for the foreign scan coordination data
 - Part of PostgreSQL's parallel query execution framework
 - Located in src/backend/executor/nodeForeignscan.c:356-374
+
+## Simplified Source
+
+```c
+void ExecForeignScanEstimate(ForeignScanState *node, ParallelContext *pcxt)
+{
+    FdwRoutine *fdwroutine = node->fdwroutine;
+
+    // Check if foreign data wrapper supports parallel execution
+    if (fdwroutine->EstimateDSMForeignScan)
+    {
+        // Get estimated memory requirement from FDW
+        node->pscan_len = fdwroutine->EstimateDSMForeignScan(node, pcxt);
+
+        // Register memory requirements with shared memory estimator
+        shm_toc_estimate_chunk(&pcxt->estimator, node->pscan_len);
+        shm_toc_estimate_keys(&pcxt->estimator, 1);
+    }
+}
+```

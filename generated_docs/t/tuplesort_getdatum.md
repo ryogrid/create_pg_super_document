@@ -51,3 +51,46 @@ The function manages memory contexts carefully, switching to the sort context fo
 - Abbreviated keys can be used for efficient inequality comparisons without full datum evaluation
 - NULL values have zeroed abbreviated key representations
 - The function is extensively used in aggregate operations and sorting contexts throughout PostgreSQL
+
+## Simplified Source
+
+```c
+bool
+tuplesort_getdatum(Tuplesortstate *state, bool forward, bool copy,
+                   Datum *val, bool *isNull, Datum *abbrev)
+{
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    MemoryContext oldcontext = MemoryContextSwitchTo(base->sortcontext);
+    TuplesortDatumArg *arg = (TuplesortDatumArg *) base->arg;
+    SortTuple stup;
+
+    // Get next tuple from common retrieval function
+    if (!tuplesort_gettuple_common(state, forward, &stup)) {
+        MemoryContextSwitchTo(oldcontext);
+        return false;
+    }
+
+    // Switch back to caller's memory context
+    MemoryContextSwitchTo(oldcontext);
+
+    // Set abbreviated key if requested
+    if (base->sortKeys->abbrev_converter && abbrev)
+        *abbrev = stup.datum1;
+
+    // Handle null values or non-tuple case
+    if (stup.isnull1 || !base->tuples) {
+        *val = stup.datum1;
+        *isNull = stup.isnull1;
+    } else {
+        // Handle pass-by-ref datums with copy control
+        if (copy)
+            *val = datumCopy(PointerGetDatum(stup.tuple), false,
+                             arg->datumTypeLen);
+        else
+            *val = PointerGetDatum(stup.tuple);
+        *isNull = false;
+    }
+
+    return true;
+}
+```

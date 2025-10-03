@@ -41,3 +41,51 @@ When mismatches are detected, the function generates detailed error messages tha
 - Comprehensive error reporting includes ordinal positions and specific type information to aid in debugging
 - The validation supports scenarios with out-of-date cached plans by being flexible about dropped column types
 - Physical storage validation (attlen and attalign) ensures that even dropped columns maintain storage compatibility
+
+## Simplified Source
+
+```c
+static void
+tupledesc_match(TupleDesc dst_tupdesc, TupleDesc src_tupdesc)
+{
+    // First check: attribute count must match
+    if (dst_tupdesc->natts != src_tupdesc->natts)
+        ereport(ERROR,
+                (errcode(ERRCODE_DATATYPE_MISMATCH),
+                 errmsg("function return row and query-specified return row do not match"),
+                 errdetail_plural("Returned row contains %d attribute, but query expects %d.",
+                                 "Returned row contains %d attributes, but query expects %d.",
+                                 src_tupdesc->natts,
+                                 src_tupdesc->natts, dst_tupdesc->natts)));
+
+    // Check each attribute for type compatibility
+    for (int i = 0; i < dst_tupdesc->natts; i++)
+    {
+        Form_pg_attribute dattr = TupleDescAttr(dst_tupdesc, i);
+        Form_pg_attribute sattr = TupleDescAttr(src_tupdesc, i);
+
+        // Check if types are binary coercible (compatible)
+        if (IsBinaryCoercible(sattr->atttypid, dattr->atttypid))
+            continue;  // Types are compatible
+
+        // For non-dropped columns, type mismatch is an error
+        if (!dattr->attisdropped)
+            ereport(ERROR,
+                    (errcode(ERRCODE_DATATYPE_MISMATCH),
+                     errmsg("function return row and query-specified return row do not match"),
+                     errdetail("Returned type %s at ordinal position %d, but query expects %s.",
+                              format_type_be(sattr->atttypid),
+                              i + 1,
+                              format_type_be(dattr->atttypid))));
+
+        // For dropped columns, only check physical storage compatibility
+        if (dattr->attlen != sattr->attlen ||
+            dattr->attalign != sattr->attalign)
+            ereport(ERROR,
+                    (errcode(ERRCODE_DATATYPE_MISMATCH),
+                     errmsg("function return row and query-specified return row do not match"),
+                     errdetail("Physical storage mismatch on dropped attribute at ordinal position %d.",
+                              i + 1)));
+    }
+}
+```

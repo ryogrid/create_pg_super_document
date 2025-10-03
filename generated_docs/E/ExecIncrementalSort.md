@@ -59,3 +59,130 @@ The function dynamically switches between full sorting (for small groups) and pr
 - Critical for query performance when dealing with large datasets that are partially pre-sorted
 - The function maintains complex state across calls to handle streaming execution model
 - Memory usage is optimized by reusing sort states and minimizing tuple copying
+
+## Simplified Source
+
+```c
+// Simplified version of ExecIncrementalSort
+static TupleTableSlot *
+ExecIncrementalSort(PlanState *pstate)
+{
+    IncrementalSortState *node = castNode(IncrementalSortState, pstate);
+    EState *estate = node->ss.ps.state;
+    TupleTableSlot *slot;
+    PlanState *outerNode = outerPlanState(node);
+
+    // Return sorted tuples if we have them ready
+    if (node->execution_status == INCSORT_READFULLSORT ||
+        node->execution_status == INCSORT_READPREFIXSORT)
+    {
+        TuplesortState *read_sortstate = (node->execution_status == INCSORT_READFULLSORT) ?
+            node->fullsort_state : node->prefixsort_state;
+
+        slot = node->ss.ps.ps_ResultTupleSlot;
+        if (tuplesort_gettupleslot(read_sortstate, true, false, slot, NULL) ||
+            node->outerNodeDone)
+            return slot;
+
+        // Need to load next group
+        node->execution_status = INCSORT_LOADFULLSORT;
+    }
+
+    // Load and sort full groups (main algorithm)
+    if (node->execution_status == INCSORT_LOADFULLSORT)
+    {
+        // Initialize sort state if needed
+        if (node->fullsort_state == NULL)
+        {
+            preparePresortedCols(node);
+            node->fullsort_state = tuplesort_begin_heap(/* sort parameters */);
+        } else {
+            tuplesort_reset(node->fullsort_state);
+        }
+
+        int64 nTuples = 0;
+        int64 minGroupSize = DEFAULT_MIN_GROUP_SIZE;
+
+        // Add carry-over tuple if any
+        if (!TupIsNull(node->group_pivot))
+        {
+            tuplesort_puttupleslot(node->fullsort_state, node->group_pivot);
+            nTuples++;
+        }
+
+        // Collect tuples until group boundary or minimum size
+        for (;;)
+        {
+            slot = ExecProcNode(outerNode);
+            if (TupIsNull(slot))
+            {
+                node->outerNodeDone = true;
+                break;
+            }
+
+            // Check if we've reached minimum group size and found new group
+            if (nTuples >= minGroupSize &&
+                !isCurrentGroup(node, node->group_pivot, slot))
+            {
+                // Save tuple for next group and stop collecting
+                ExecCopySlot(node->group_pivot, slot);
+                break;
+            }
+
+            // Add tuple to current group
+            tuplesort_puttupleslot(node->fullsort_state, slot);
+            nTuples++;
+
+            // Set pivot when we reach minimum size
+            if (nTuples == minGroupSize)
+                ExecCopySlot(node->group_pivot, slot);
+
+            // Switch to prefix mode for very large groups
+            if (nTuples > DEFAULT_MAX_FULL_SORT_GROUP_SIZE)
+            {
+                tuplesort_performsort(node->fullsort_state);
+                node->n_fullsort_remaining = nTuples;
+                switchToPresortedPrefixMode(pstate);
+                break;
+            }
+        }
+
+        // Sort the collected group
+        if (node->execution_status == INCSORT_LOADFULLSORT)
+        {
+            tuplesort_performsort(node->fullsort_state);
+            node->execution_status = INCSORT_READFULLSORT;
+        }
+    }
+
+    // Handle prefix sort mode loading
+    if (node->execution_status == INCSORT_LOADPREFIXSORT)
+    {
+        // Load tuples with matching prefix until boundary found
+        for (;;)
+        {
+            slot = ExecProcNode(outerNode);
+            if (TupIsNull(slot) ||
+                !isCurrentGroup(node, node->group_pivot, slot))
+            {
+                if (!TupIsNull(slot))
+                    ExecCopySlot(node->group_pivot, slot);
+                else
+                    node->outerNodeDone = true;
+                break;
+            }
+            tuplesort_puttupleslot(node->prefixsort_state, slot);
+        }
+
+        tuplesort_performsort(node->prefixsort_state);
+        node->execution_status = INCSORT_READPREFIXSORT;
+    }
+
+    // Return first tuple from newly sorted group
+    TuplesortState *read_sortstate = (node->execution_status == INCSORT_READFULLSORT) ?
+        node->fullsort_state : node->prefixsort_state;
+    slot = node->ss.ps.ps_ResultTupleSlot;
+    tuplesort_gettupleslot(read_sortstate, true, false, slot, NULL);
+    return slot;
+}
+```

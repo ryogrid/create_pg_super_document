@@ -34,3 +34,14 @@ The function includes an assertion to verify that the hashesArr pointer is not N
 - Follows PostgreSQL memory management patterns using pfree() for cleanup
 - Essential for preventing memory leaks when HyperLogLog operations are completed
 - Typically called during cleanup phases of operations like hash aggregation spilling
+
+## Simplified Source
+
+```c
+void
+freeHyperLogLog(hyperLogLogState *cState)
+{
+    // Free the hash register array
+    pfree(cState->hashesArr);
+}
+```

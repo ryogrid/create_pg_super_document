@@ -60,3 +60,87 @@ The function implements deadlock prevention by locking only one page at a time a
 - Returns NULL on failure but throws an ERROR if the child page cannot be found
 - The returned insertion stack represents the path from the direct parent of the target child up to the root
 - Uses a FIFO queue implemented as a PostgreSQL List to manage the breadth-first traversal
+
+## Simplified Source
+```c
+static GISTInsertStack *
+gistFindPath(Relation r, BlockNumber child, OffsetNumber *downlinkoffnum) {
+    Page page;
+    Buffer buffer;
+    List *fifo;
+    GISTInsertStack *top, *ptr;
+    BlockNumber blkno;
+
+    // Initialize search from root
+    top = (GISTInsertStack *) palloc0(sizeof(GISTInsertStack));
+    top->blkno = GIST_ROOT_BLKNO;
+    top->downlinkoffnum = InvalidOffsetNumber;
+
+    // Use FIFO queue for breadth-first search
+    fifo = list_make1(top);
+
+    while (fifo != NIL) {
+        // Get next page to examine
+        top = linitial(fifo);
+        fifo = list_delete_first(fifo);
+
+        // Read and lock page
+        buffer = ReadBuffer(r, top->blkno);
+        LockBuffer(buffer, GIST_SHARE);
+        gistcheckpage(r, buffer);
+        page = BufferGetPage(buffer);
+
+        // Stop at leaf level - all remaining pages must be leaves
+        if (GistPageIsLeaf(page)) {
+            UnlockReleaseBuffer(buffer);
+            break;
+        }
+
+        Assert(!GistPageIsDeleted(page));  // Internal pages never deleted
+        top->lsn = BufferGetLSNAtomic(buffer);
+
+        // Check for incomplete splits
+        if (GistFollowRight(page))
+            elog(ERROR, "concurrent GiST page split was incomplete");
+
+        // Handle concurrent page splits - add right sibling if split detected
+        if (top->parent && top->parent->lsn < GistPageGetNSN(page) &&
+            GistPageGetOpaque(page)->rightlink != InvalidBlockNumber) {
+            ptr = (GISTInsertStack *) palloc0(sizeof(GISTInsertStack));
+            ptr->blkno = GistPageGetOpaque(page)->rightlink;
+            ptr->downlinkoffnum = InvalidOffsetNumber;
+            ptr->parent = top->parent;
+            fifo = lcons(ptr, fifo);  // Add to front of queue
+        }
+
+        // Scan all downlink tuples on this page
+        OffsetNumber maxoff = PageGetMaxOffsetNumber(page);
+        for (OffsetNumber i = FirstOffsetNumber; i <= maxoff; i++) {
+            ItemId iid = PageGetItemId(page, i);
+            IndexTuple idxtuple = (IndexTuple) PageGetItem(page, iid);
+            blkno = ItemPointerGetBlockNumber(&(idxtuple->t_tid));
+
+            if (blkno == child) {
+                // Found target child!
+                UnlockReleaseBuffer(buffer);
+                *downlinkoffnum = i;
+                return top;
+            } else {
+                // Add child to queue for later exploration
+                ptr = (GISTInsertStack *) palloc0(sizeof(GISTInsertStack));
+                ptr->blkno = blkno;
+                ptr->downlinkoffnum = i;
+                ptr->parent = top;
+                fifo = lappend(fifo, ptr);
+            }
+        }
+
+        UnlockReleaseBuffer(buffer);
+    }
+
+    // Child not found - this is an error condition
+    elog(ERROR, "failed to re-find parent of page in index \"%s\", block %u",
+         RelationGetRelationName(r), child);
+    return NULL;
+}
+```

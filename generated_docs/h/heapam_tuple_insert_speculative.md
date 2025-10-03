@@ -51,3 +51,35 @@ The function is similar to heapam_tuple_insert but adds speculative insertion su
 - Part of PostgreSQL's infrastructure for handling insertion conflicts and implementing upsert operations
 - The speculative tuple remains tentative until explicitly confirmed or rolled back
 - Enables more efficient handling of unique constraint violations compared to traditional insert-then-check approaches
+
+## Simplified Source
+
+```c
+static void
+heapam_tuple_insert_speculative(Relation relation, TupleTableSlot *slot,
+                                CommandId cid, int options,
+                                BulkInsertState bistate, uint32 specToken)
+{
+    // Extract heap tuple from slot
+    bool shouldFree = true;
+    HeapTuple tuple = ExecFetchSlotHeapTuple(slot, true, &shouldFree);
+
+    // Set table OID in both slot and tuple
+    slot->tts_tableOid = RelationGetRelid(relation);
+    tuple->t_tableOid = slot->tts_tableOid;
+
+    // Mark tuple as speculative with token
+    HeapTupleHeaderSetSpeculativeToken(tuple->t_data, specToken);
+    options |= HEAP_INSERT_SPECULATIVE;
+
+    // Perform the speculative insertion
+    heap_insert(relation, tuple, cid, options, bistate);
+
+    // Copy resulting location back to slot
+    ItemPointerCopy(&tuple->t_self, &slot->tts_tid);
+
+    // Clean up allocated memory if needed
+    if (shouldFree)
+        pfree(tuple);
+}
+```

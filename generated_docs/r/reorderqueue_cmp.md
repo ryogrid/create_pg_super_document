@@ -35,3 +35,23 @@ The function extracts ReorderTuple structures from the pairing heap nodes and co
 - The comment explicitly explains the rationale for inverting the sort order
 - The function is static, indicating it's only used within the nodeIndexscan.c file
 - Part of PostgreSQL's executor subsystem for efficient ordered result retrieval
+
+## Simplified Source
+
+```c
+// Simplified version of reorderqueue_cmp
+static int
+reorderqueue_cmp(const pairingheap_node *a, const pairingheap_node *b,
+                 void *arg)
+{
+    ReorderTuple *rta = (ReorderTuple *) a;
+    ReorderTuple *rtb = (ReorderTuple *) b;
+    IndexScanState *node = (IndexScanState *) arg;
+
+    // Swap arguments to invert sort order (pairing heap gives max element,
+    // but KNN needs ascending order)
+    return cmp_orderbyvals(rtb->orderbyvals, rtb->orderbynulls,
+                          rta->orderbyvals, rta->orderbynulls,
+                          node);
+}
+```

@@ -50,3 +50,158 @@ The function supports IF NOT EXISTS semantics and handles complex parameter comb
 - Performs extensive validation of parameter combinations and provider-specific requirements
 - Automatically determines collation version if not explicitly provided
 - Tests locale loading after creation to ensure the collation is functional
+
+## Simplified Source
+
+```c
+ObjectAddress
+DefineCollation(ParseState *pstate, List *names, List *parameters, bool if_not_exists)
+{
+    char *collName;
+    Oid collNamespace;
+
+    // Parse collation definition elements
+    DefElem *fromEl = NULL;
+    DefElem *localeEl = NULL;
+    DefElem *lccollateEl = NULL;
+    DefElem *lcctypeEl = NULL;
+    DefElem *providerEl = NULL;
+    DefElem *deterministicEl = NULL;
+    DefElem *rulesEl = NULL;
+    DefElem *versionEl = NULL;
+
+    // Collation properties
+    char *collcollate = NULL;
+    char *collctype = NULL;
+    const char *colllocale = NULL;
+    char *collicurules = NULL;
+    bool collisdeterministic = true;
+    char collprovider = COLLPROVIDER_LIBC;
+    char *collversion = NULL;
+    int collencoding;
+
+    // Extract name and validate namespace permissions
+    collNamespace = QualifiedNameGetCreationNamespace(names, &collName);
+    check_namespace_permissions(collNamespace);
+
+    // Parse all parameters from CREATE COLLATION command
+    foreach(pl, parameters) {
+        DefElem *defel = lfirst_node(DefElem, pl);
+
+        if (strcmp(defel->defname, "from") == 0)
+            fromEl = defel;
+        else if (strcmp(defel->defname, "locale") == 0)
+            localeEl = defel;
+        else if (strcmp(defel->defname, "lc_collate") == 0)
+            lccollateEl = defel;
+        else if (strcmp(defel->defname, "lc_ctype") == 0)
+            lcctypeEl = defel;
+        else if (strcmp(defel->defname, "provider") == 0)
+            providerEl = defel;
+        else if (strcmp(defel->defname, "deterministic") == 0)
+            deterministicEl = defel;
+        else if (strcmp(defel->defname, "rules") == 0)
+            rulesEl = defel;
+        else if (strcmp(defel->defname, "version") == 0)
+            versionEl = defel;
+        // Check for conflicts and duplicates
+    }
+
+    // Validate parameter combinations
+    if (localeEl && (lccollateEl || lcctypeEl))
+        ereport(ERROR, "LOCALE cannot be used with LC_COLLATE or LC_CTYPE");
+
+    if (fromEl && list_length(parameters) != 1)
+        ereport(ERROR, "FROM cannot be used with other options");
+
+    if (fromEl) {
+        // Copy from existing collation
+        Oid collid = get_collation_oid(defGetQualifiedName(fromEl), false);
+
+        // Get existing collation properties from system catalog
+        HeapTuple tp = SearchSysCache1(COLLOID, ObjectIdGetDatum(collid));
+
+        // Extract properties: provider, deterministic, encoding, locale info
+        collprovider = ((Form_pg_collation) GETSTRUCT(tp))->collprovider;
+        collisdeterministic = ((Form_pg_collation) GETSTRUCT(tp))->collisdeterministic;
+        collencoding = ((Form_pg_collation) GETSTRUCT(tp))->collencoding;
+
+        // Get locale strings from existing collation
+        extract_collation_locale_info(tp, &collcollate, &collctype,
+                                     &colllocale, &collicurules);
+
+        ReleaseSysCache(tp);
+
+        // Cannot copy the "default" collation
+        if (collprovider == COLLPROVIDER_DEFAULT)
+            ereport(ERROR, "collation \"default\" cannot be copied");
+    } else {
+        // Create with explicit parameters
+
+        // Set provider
+        if (providerEl) {
+            char *providerstr = defGetString(providerEl);
+            if (pg_strcasecmp(providerstr, "builtin") == 0)
+                collprovider = COLLPROVIDER_BUILTIN;
+            else if (pg_strcasecmp(providerstr, "icu") == 0)
+                collprovider = COLLPROVIDER_ICU;
+            else if (pg_strcasecmp(providerstr, "libc") == 0)
+                collprovider = COLLPROVIDER_LIBC;
+            else
+                ereport(ERROR, "unrecognized collation provider: %s", providerstr);
+        }
+
+        // Set deterministic flag
+        if (deterministicEl)
+            collisdeterministic = defGetBoolean(deterministicEl);
+
+        // Set locale information based on provider
+        if (localeEl) {
+            if (collprovider == COLLPROVIDER_LIBC) {
+                collcollate = defGetString(localeEl);
+                collctype = defGetString(localeEl);
+            } else {
+                colllocale = defGetString(localeEl);
+            }
+        }
+
+        // Set individual LC_COLLATE and LC_CTYPE if specified
+        if (lccollateEl)
+            collcollate = defGetString(lccollateEl);
+        if (lcctypeEl)
+            collctype = defGetString(lcctypeEl);
+
+        // Validate provider-specific requirements
+        validate_collation_parameters(collprovider, colllocale, collcollate,
+                                    collctype, collisdeterministic, rulesEl);
+
+        // Set encoding based on provider
+        determine_collation_encoding(collprovider, &collencoding);
+    }
+
+    // Get or generate collation version
+    if (!collversion) {
+        const char *locale = (collprovider == COLLPROVIDER_LIBC) ?
+                           collcollate : colllocale;
+        collversion = get_collation_actual_version(collprovider, locale);
+    }
+
+    // Create the collation in system catalog
+    Oid newoid = CollationCreate(collName, collNamespace, GetUserId(),
+                                collprovider, collisdeterministic, collencoding,
+                                collcollate, collctype, colllocale, collicurules,
+                                collversion, if_not_exists, false);
+
+    if (!OidIsValid(newoid))
+        return InvalidObjectAddress;
+
+    // Test that the locale can be loaded
+    CommandCounterIncrement();
+    if (!lc_collate_is_c(newoid) || !lc_ctype_is_c(newoid))
+        (void) pg_newlocale_from_collation(newoid);
+
+    ObjectAddress address;
+    ObjectAddressSet(address, CollationRelationId, newoid);
+    return address;
+}
+```

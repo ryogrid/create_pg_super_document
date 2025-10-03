@@ -36,3 +36,33 @@ For normal execution contexts, the function delegates to the lower-level index_r
 - The function includes assertion checks to validate EPQ state consistency during EPQ rechecks
 - Position restoration capability depends on the underlying index access method supporting the mark/restore operations
 - Located in src/backend/executor/nodeIndexscan.c:850-885
+
+## Simplified Source
+
+```c
+void ExecIndexRestrPos(IndexScanState *node)
+{
+    EState *estate = node->ss.ps.state;
+    EPQState *epqstate = estate->es_epq_active;
+
+    // Handle EvalPlanQual (EPQ) recheck scenarios
+    if (estate->es_epq_active != NULL)
+    {
+        Index scanrelid = ((Scan *) node->ss.ps.plan)->scanrelid;
+
+        Assert(scanrelid > 0);
+        // Skip index access if EPQ test tuples exist
+        if (epqstate->relsubs_slot[scanrelid - 1] != NULL ||
+            epqstate->relsubs_rowmark[scanrelid - 1] != NULL)
+        {
+            // Verify EPQ state consistency
+            if (!epqstate->relsubs_done[scanrelid - 1])
+                elog(ERROR, "unexpected ExecIndexRestrPos call in EPQ recheck");
+            return;
+        }
+    }
+
+    // Restore index scan to marked position
+    index_restrpos(node->iss_ScanDesc);
+}
+```

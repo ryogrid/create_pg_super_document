@@ -55,3 +55,59 @@ The function supports both `VAR OP CONST` and `CONST OP VAR` forms based on the 
 - MCV entries are stored with their frequency values, allowing precise selectivity calculation
 - Total MCV coverage (sumcommon) is essential for combining with histogram selectivity
 - Supports any operator that returns boolean values, not just standard comparison operators
+
+## Simplified Source
+
+```c
+double
+mcv_selectivity(VariableStatData *vardata, FmgrInfo *opproc, Oid collation,
+                Datum constval, bool varonleft, double *sumcommonp)
+{
+    double mcv_selec = 0.0;
+    double sumcommon = 0.0;
+    AttStatsSlot sslot;
+
+    // Check if MCV statistics are available and accessible
+    if (HeapTupleIsValid(vardata->statsTuple) &&
+        statistic_proc_security_check(vardata, opproc->fn_oid) &&
+        get_attstatsslot(&sslot, vardata->statsTuple, STATISTIC_KIND_MCV, InvalidOid,
+                         ATTSTATSSLOT_VALUES | ATTSTATSSLOT_NUMBERS))
+    {
+        LOCAL_FCINFO(fcinfo, 2);
+
+        // Initialize function call info for operator invocation
+        InitFunctionCallInfoData(*fcinfo, opproc, 2, collation, NULL, NULL);
+        fcinfo->args[0].isnull = false;
+        fcinfo->args[1].isnull = false;
+
+        // Set up constant value based on operator orientation
+        if (varonleft)
+            fcinfo->args[1].value = constval;
+        else
+            fcinfo->args[0].value = constval;
+
+        // Test each MCV entry against the predicate
+        for (int i = 0; i < sslot.nvalues; i++)
+        {
+            // Set variable value for this MCV entry
+            if (varonleft)
+                fcinfo->args[0].value = sslot.values[i];
+            else
+                fcinfo->args[1].value = sslot.values[i];
+
+            // Evaluate predicate and accumulate selectivity
+            fcinfo->isnull = false;
+            Datum result = FunctionCallInvoke(fcinfo);
+            if (!fcinfo->isnull && DatumGetBool(result))
+                mcv_selec += sslot.numbers[i];
+
+            sumcommon += sslot.numbers[i];
+        }
+
+        free_attstatsslot(&sslot);
+    }
+
+    *sumcommonp = sumcommon;
+    return mcv_selec;
+}
+```

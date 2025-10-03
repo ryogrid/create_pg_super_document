@@ -45,3 +45,56 @@ The build process uses the table_index_build_scan function with hashbuildCallbac
 - Temporary relations use NLocBuffer instead of NBuffers for the threshold calculation
 - Returns statistics including the number of heap tuples scanned and index tuples created
 - The function handles both sorted and unsorted insertion paths depending on index size
+
+## Simplified Source
+
+```c
+IndexBuildResult *hashbuild(Relation heap, Relation index, IndexInfo *indexInfo) {
+    IndexBuildResult *result;
+    BlockNumber relpages;
+    double reltuples, allvisfrac;
+    uint32 num_buckets;
+    long sort_threshold;
+    HashBuildState buildstate;
+
+    // Verify index is empty
+    if (RelationGetNumberOfBlocks(index) != 0)
+        elog(ERROR, "index \"%s\" already contains data", RelationGetRelationName(index));
+
+    // Estimate heap size and initialize hash index
+    estimate_rel_size(heap, NULL, &relpages, &reltuples, &allvisfrac);
+    num_buckets = _hash_init(index, reltuples, MAIN_FORKNUM);
+
+    // Determine if we should sort tuples to prevent thrashing
+    sort_threshold = (maintenance_work_mem * 1024L) / BLCKSZ;
+    if (index->rd_rel->relpersistence != RELPERSISTENCE_TEMP)
+        sort_threshold = Min(sort_threshold, NBuffers);
+    else
+        sort_threshold = Min(sort_threshold, NLocBuffer);
+
+    // Setup spooling if index is large
+    if (num_buckets >= (uint32) sort_threshold)
+        buildstate.spool = _h_spoolinit(heap, index, num_buckets);
+    else
+        buildstate.spool = NULL;
+
+    // Initialize build state and scan heap
+    buildstate.indtuples = 0;
+    buildstate.heapRel = heap;
+
+    reltuples = table_index_build_scan(heap, index, indexInfo, true, true,
+                                       hashbuildCallback, (void *) &buildstate, NULL);
+
+    // Process spooled tuples if sorting was used
+    if (buildstate.spool) {
+        _h_indexbuild(buildstate.spool, buildstate.heapRel);
+        _h_spooldestroy(buildstate.spool);
+    }
+
+    // Return build statistics
+    result = (IndexBuildResult *) palloc(sizeof(IndexBuildResult));
+    result->heap_tuples = reltuples;
+    result->index_tuples = buildstate.indtuples;
+    return result;
+}
+```

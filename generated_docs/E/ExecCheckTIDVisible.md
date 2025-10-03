@@ -44,3 +44,30 @@ This function encapsulates the common pattern of "fetch tuple by TID, then check
 - The temporary slot is cleaned up after use to ensure no resource leaks
 - Error handling includes a specific message for ON CONFLICT scenarios when tuple fetching fails
 - This function demonstrates PostgreSQL's layered approach to visibility checking, building higher-level convenience functions on top of core primitives
+
+## Simplified Source
+
+```c
+static void
+ExecCheckTIDVisible(EState *estate,
+                    ResultRelInfo *relinfo,
+                    ItemPointer tid,
+                    TupleTableSlot *tempSlot)
+{
+    Relation rel = relinfo->ri_RelationDesc;
+
+    // Skip check if not using transaction snapshots
+    if (!IsolationUsesXactSnapshot())
+        return;
+
+    // Fetch the tuple by TID using any snapshot
+    if (!table_tuple_fetch_row_version(rel, tid, SnapshotAny, tempSlot))
+        elog(ERROR, "failed to fetch conflicting tuple for ON CONFLICT");
+
+    // Check if tuple is visible according to MVCC rules
+    ExecCheckTupleVisible(estate, rel, tempSlot);
+
+    // Clean up temporary slot
+    ExecClearTuple(tempSlot);
+}
+```

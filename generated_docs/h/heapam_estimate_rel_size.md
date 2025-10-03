@@ -37,3 +37,16 @@ This function is part of the heap table access method interface and provides siz
 - It uses heap-specific constants for overhead calculations: HEAP_OVERHEAD_BYTES_PER_TUPLE and HEAP_USABLE_BYTES_PER_PAGE
 - The function is static, indicating it's only used within the heapam_handler.c file as part of the table access method dispatch
 - Size estimation is crucial for query planning and optimization decisions
+
+## Simplified Source
+
+```c
+static void heapam_estimate_rel_size(Relation rel, int32 *attr_widths,
+                                   BlockNumber *pages, double *tuples,
+                                   double *allvisfrac) {
+    // Delegate to generic table estimation function with heap-specific overhead constants
+    table_block_relation_estimate_size(rel, attr_widths, pages, tuples, allvisfrac,
+                                      HEAP_OVERHEAD_BYTES_PER_TUPLE,
+                                      HEAP_USABLE_BYTES_PER_PAGE);
+}
+```

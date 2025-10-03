@@ -41,3 +41,53 @@ ExecInitSubqueryScan is responsible for the complete initialization of a subquer
 - Sets both scan and result operations to the same values since subquery scans don't transform tuples
 - Part of PostgreSQL's executor initialization framework that ensures consistent setup across all node types
 - Located at src/backend/executor/nodeSubqueryscan.c:97-167
+
+## Simplified Source
+
+```c
+SubqueryScanState *
+ExecInitSubqueryScan(SubqueryScan *node, EState *estate, int eflags)
+{
+    SubqueryScanState *subquerystate;
+
+    // Validate input: MARK flag not supported, no normal children expected
+    Assert(!(eflags & EXEC_FLAG_MARK));
+    Assert(outerPlan(node) == NULL);
+    Assert(innerPlan(node) == NULL);
+
+    // Create and initialize the SubqueryScanState structure
+    subquerystate = makeNode(SubqueryScanState);
+    subquerystate->ss.ps.plan = (Plan *) node;
+    subquerystate->ss.ps.state = estate;
+    subquerystate->ss.ps.ExecProcNode = ExecSubqueryScan;
+
+    // Create expression evaluation context
+    ExecAssignExprContext(estate, &subquerystate->ss.ps);
+
+    // Initialize the underlying subplan
+    subquerystate->subplan = ExecInitNode(node->subplan, estate, eflags);
+
+    // Set up scan slot using subplan's result type and operations
+    ExecInitScanTupleSlot(estate, &subquerystate->ss,
+                          ExecGetResultType(subquerystate->subplan),
+                          ExecGetResultSlotOps(subquerystate->subplan, NULL));
+
+    // Optimize slot operations by reusing subplan's operations
+    subquerystate->ss.ps.scanopsset = true;
+    subquerystate->ss.ps.scanops = ExecGetResultSlotOps(subquerystate->subplan,
+                                                         &subquerystate->ss.ps.scanopsfixed);
+    subquerystate->ss.ps.resultopsset = true;
+    subquerystate->ss.ps.resultops = subquerystate->ss.ps.scanops;
+    subquerystate->ss.ps.resultopsfixed = subquerystate->ss.ps.scanopsfixed;
+
+    // Initialize result type and projection information
+    ExecInitResultTypeTL(&subquerystate->ss.ps);
+    ExecAssignScanProjectionInfo(&subquerystate->ss);
+
+    // Initialize qualification expressions
+    subquerystate->ss.ps.qual =
+        ExecInitQual(node->scan.plan.qual, (PlanState *) subquerystate);
+
+    return subquerystate;
+}
+```

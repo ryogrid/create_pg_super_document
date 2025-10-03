@@ -38,3 +38,24 @@ The function accesses the flag column using the flagColIdx stored in the SetOp p
 - Uses assertions to catch programming errors during development and debug builds
 - Essential for distinguishing tuple sources in UNION, INTERSECT, and EXCEPT operations
 - The flagColIdx is determined during plan creation and stored in the SetOp plan node
+
+## Simplified Source
+
+```c
+static int
+fetch_tuple_flag(SetOpState *setopstate, TupleTableSlot *inputslot)
+{
+    SetOp *node = (SetOp *) setopstate->ps.plan;
+    int flag;
+    bool isNull;
+
+    // Extract flag column value (0 = left input, 1 = right input)
+    flag = DatumGetInt32(slot_getattr(inputslot, node->flagColIdx, &isNull));
+
+    // Validate the flag value
+    Assert(!isNull);
+    Assert(flag == 0 || flag == 1);
+
+    return flag;
+}
+```

@@ -41,3 +41,54 @@ This function performs the core attribute extraction from a BRIN tuple's on-disk
 - Cannot cache offsets since attribute entries may be reused for multiple columns
 - Output arrays must be pre-allocated by the caller with proper sizes
 - Static inline function optimized for performance in tuple processing
+
+## Simplified Source
+
+```c
+static inline void brin_deconstruct_tuple(BrinDesc *brdesc, char *tp, bits8 *nullbits,
+                                         bool nulls, Datum *values, bool *allnulls,
+                                         bool *hasnulls) {
+    int attnum, stored, datumno;
+    TupleDesc diskdsc;
+    long off;
+
+    // Extract null flags for each attribute
+    for (attnum = 0; attnum < brdesc->bd_tupdesc->natts; attnum++) {
+        // "all nulls" means entire page range is null for this column
+        allnulls[attnum] = nulls && !att_isnull(attnum, nullbits);
+
+        // "has nulls" means some tuples have nulls, others don't
+        hasnulls[attnum] = nulls &&
+                          !att_isnull(brdesc->bd_tupdesc->natts + attnum, nullbits);
+    }
+
+    // Extract actual stored values
+    diskdsc = brtuple_disk_tupdesc(brdesc);
+    stored = 0;
+    off = 0;
+
+    for (attnum = 0; attnum < brdesc->bd_tupdesc->natts; attnum++) {
+        if (allnulls[attnum]) {
+            // Skip storage for all-null columns
+            stored += brdesc->bd_info[attnum]->oi_nstored;
+            continue;
+        }
+
+        // Extract each datum for this attribute
+        for (datumno = 0; datumno < brdesc->bd_info[attnum]->oi_nstored; datumno++) {
+            Form_pg_attribute thisatt = TupleDescAttr(diskdsc, stored);
+
+            // Handle alignment for variable vs fixed length attributes
+            if (thisatt->attlen == -1) {
+                off = att_align_pointer(off, thisatt->attalign, -1, tp + off);
+            } else {
+                off = att_align_nominal(off, thisatt->attalign);
+            }
+
+            // Extract the value and advance offset
+            values[stored++] = fetchatt(thisatt, tp + off);
+            off = att_addlength_pointer(off, thisatt->attlen, tp + off);
+        }
+    }
+}
+```

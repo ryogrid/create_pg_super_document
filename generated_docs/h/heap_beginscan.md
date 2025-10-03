@@ -49,3 +49,76 @@ This function serves as the entry point for heap table scanning operations. It a
 - Read streams are set up for sequential and TID range scans with different callbacks for parallel vs serial execution
 - The rs_strategy field is set later in initscan() rather than during initial allocation
 - Memory allocation for scan keys is done here rather than in initscan() to avoid reallocation during rescan operations
+
+## Simplified Source
+
+```c
+TableScanDesc heap_beginscan(Relation relation, Snapshot snapshot,
+                           int nkeys, ScanKey key,
+                           ParallelTableScanDesc parallel_scan,
+                           uint32 flags) {
+    HeapScanDesc scan;
+
+    // Increment reference count to protect relation
+    RelationIncrementReferenceCount(relation);
+
+    // Allocate and initialize scan descriptor
+    scan = (HeapScanDesc) palloc(sizeof(HeapScanDescData));
+
+    scan->rs_base.rs_rd = relation;
+    scan->rs_base.rs_snapshot = snapshot;
+    scan->rs_base.rs_nkeys = nkeys;
+    scan->rs_base.rs_flags = flags;
+    scan->rs_base.rs_parallel = parallel_scan;
+    scan->rs_strategy = NULL;  // Set in initscan
+    scan->rs_vmbuffer = InvalidBuffer;
+    scan->rs_empty_tuples_pending = 0;
+
+    // Disable page-at-a-time for non-MVCC snapshots
+    if (!(snapshot && IsMVCCSnapshot(snapshot)))
+        scan->rs_base.rs_flags &= ~SO_ALLOW_PAGEMODE;
+
+    // Acquire predicate lock for serializable transactions
+    if (scan->rs_base.rs_flags & (SO_TYPE_SEQSCAN | SO_TYPE_SAMPLESCAN)) {
+        Assert(snapshot);
+        PredicateLockRelation(relation, snapshot);
+    }
+
+    scan->rs_ctup.t_tableOid = RelationGetRelid(relation);
+
+    // Allocate parallel worker data if needed
+    if (parallel_scan != NULL)
+        scan->rs_parallelworkerdata = palloc(sizeof(ParallelBlockTableScanWorkerData));
+    else
+        scan->rs_parallelworkerdata = NULL;
+
+    // Allocate scan keys
+    if (nkeys > 0)
+        scan->rs_base.rs_key = (ScanKey) palloc(sizeof(ScanKeyData) * nkeys);
+    else
+        scan->rs_base.rs_key = NULL;
+
+    initscan(scan, key, false);
+
+    scan->rs_read_stream = NULL;
+
+    // Set up read stream for sequential and TID range scans
+    if (scan->rs_base.rs_flags & SO_TYPE_SEQSCAN ||
+        scan->rs_base.rs_flags & SO_TYPE_TIDRANGESCAN) {
+        ReadStreamBlockNumberCB cb;
+
+        if (scan->rs_base.rs_parallel)
+            cb = heap_scan_stream_read_next_parallel;
+        else
+            cb = heap_scan_stream_read_next_serial;
+
+        scan->rs_read_stream = read_stream_begin_relation(READ_STREAM_SEQUENTIAL,
+                                                         scan->rs_strategy,
+                                                         scan->rs_base.rs_rd,
+                                                         MAIN_FORKNUM,
+                                                         cb, scan, 0);
+    }
+
+    return (TableScanDesc) scan;
+}
+```

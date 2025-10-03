@@ -60,3 +60,126 @@ The function ensures that tuples are returned in the correct ORDER BY sequence e
 - Performance optimization: avoids unnecessary queuing when ORDER BY values are exact and no reordering is needed
 - Only supports forward scans due to the complexity of maintaining ordering in reverse with inexact ORDER BY values
 - The function properly handles interruption for long-running operations and maintains instrumentation counters
+
+## Simplified Source
+
+```c
+static TupleTableSlot *IndexNextWithReorder(IndexScanState *node)
+{
+    EState *estate = node->ss.ps.state;
+    IndexScanDesc scandesc = node->iss_ScanDesc;
+    ExprContext *econtext = node->ss.ps.ps_ExprContext;
+    TupleTableSlot *slot = node->ss.ss_ScanTupleSlot;
+    ReorderTuple *topmost = NULL;
+    bool was_exact;
+    Datum *lastfetched_vals;
+    bool *lastfetched_nulls;
+    int cmp;
+
+    // Only forward scans are supported with reordering
+    Assert(!ScanDirectionIsBackward(((IndexScan *) node->ss.ps.plan)->indexorderdir));
+    Assert(ScanDirectionIsForward(estate->es_direction));
+
+    // Initialize scan descriptor if needed
+    if (scandesc == NULL)
+    {
+        scandesc = index_beginscan(node->ss.ss_currentRelation,
+                                   node->iss_RelationDesc,
+                                   estate->es_snapshot,
+                                   node->iss_NumScanKeys,
+                                   node->iss_NumOrderByKeys);
+        node->iss_ScanDesc = scandesc;
+
+        if (node->iss_NumRuntimeKeys == 0 || node->iss_RuntimeKeysReady)
+            index_rescan(scandesc, node->iss_ScanKeys, node->iss_NumScanKeys,
+                         node->iss_OrderByKeys, node->iss_NumOrderByKeys);
+    }
+
+    for (;;)
+    {
+        CHECK_FOR_INTERRUPTS();
+
+        // Check reorder queue first - return smallest tuple if ready
+        if (!pairingheap_is_empty(node->iss_ReorderQueue))
+        {
+            topmost = (ReorderTuple *) pairingheap_first(node->iss_ReorderQueue);
+
+            if (node->iss_ReachedEnd ||
+                cmp_orderbyvals(topmost->orderbyvals, topmost->orderbynulls,
+                                scandesc->xs_orderbyvals, scandesc->xs_orderbynulls,
+                                node) <= 0)
+            {
+                HeapTuple tuple = reorderqueue_pop(node);
+                ExecForceStoreHeapTuple(tuple, slot, true);
+                return slot;
+            }
+        }
+        else if (node->iss_ReachedEnd)
+        {
+            // Queue empty and scan done
+            return ExecClearTuple(slot);
+        }
+
+        // Fetch next tuple from index
+        if (!index_getnext_slot(scandesc, ForwardScanDirection, slot))
+        {
+            node->iss_ReachedEnd = true;
+            continue; // Drain remaining queue tuples
+        }
+
+        // Recheck index quals for lossy indexes
+        if (scandesc->xs_recheck)
+        {
+            econtext->ecxt_scantuple = slot;
+            if (!ExecQualAndReset(node->indexqualorig, econtext))
+            {
+                InstrCountFiltered2(node, 1);
+                CHECK_FOR_INTERRUPTS();
+                continue;
+            }
+        }
+
+        // Handle ORDER BY rechecking if needed
+        if (scandesc->xs_recheckorderby)
+        {
+            econtext->ecxt_scantuple = slot;
+            ResetExprContext(econtext);
+            EvalOrderByExpressions(node, econtext);
+
+            // Compare index ORDER BY values with recalculated values
+            cmp = cmp_orderbyvals(node->iss_OrderByValues, node->iss_OrderByNulls,
+                                  scandesc->xs_orderbyvals, scandesc->xs_orderbynulls,
+                                  node);
+            if (cmp < 0)
+                elog(ERROR, "index returned tuples in wrong order");
+
+            was_exact = (cmp == 0);
+            lastfetched_vals = node->iss_OrderByValues;
+            lastfetched_nulls = node->iss_OrderByNulls;
+        }
+        else
+        {
+            was_exact = true;
+            lastfetched_vals = scandesc->xs_orderbyvals;
+            lastfetched_nulls = scandesc->xs_orderbynulls;
+        }
+
+        // Decide whether to queue tuple or return it immediately
+        if (!was_exact || (topmost && cmp_orderbyvals(lastfetched_vals, lastfetched_nulls,
+                                                      topmost->orderbyvals, topmost->orderbynulls,
+                                                      node) > 0))
+        {
+            // Queue tuple for proper ordering
+            reorderqueue_push(node, slot, lastfetched_vals, lastfetched_nulls);
+            continue;
+        }
+        else
+        {
+            // Can return immediately
+            return slot;
+        }
+    }
+
+    return ExecClearTuple(slot);
+}
+```

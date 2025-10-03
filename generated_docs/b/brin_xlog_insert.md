@@ -31,3 +31,16 @@ This function serves as a wrapper for BRIN index insertion replay operations. It
 - Part of PostgreSQL's crash recovery mechanism for BRIN indexes
 - Located at src/backend/access/brin/brin_xlog.c:124-134
 - Very concise implementation that primarily serves as an adapter between the WAL replay dispatcher and the shared insertion/update logic
+
+## Simplified Source
+
+```c
+static void brin_xlog_insert(XLogReaderState *record)
+{
+    // Extract BRIN insertion data from WAL record
+    xl_brin_insert *insert_data = (xl_brin_insert *) XLogRecGetData(record);
+
+    // Delegate to shared insertion/update logic
+    brin_xlog_insert_update(record, insert_data);
+}
+```

@@ -37,3 +37,46 @@ The function searches the target list for these specially named junk columns and
 
 ## Notes and Other Information
 This function is part of PostgreSQL's row locking infrastructure setup phase. The junk columns it searches for are added by the planner and have standardized naming conventions: 'ctid[N]', 'wholerow[N]', and 'tableoid[N]' where N is the rowmarkId. The function performs error checking to ensure all required junk columns are present, as their absence would indicate a planner bug or corrupted plan tree. The distinction between rti and prti helps identify child relations in inheritance hierarchies where tableoid is needed to determine the specific table.
+
+## Simplified Source
+
+```c
+// Simplified version of ExecBuildAuxRowMark
+ExecAuxRowMark *
+ExecBuildAuxRowMark(ExecRowMark *erm, List *targetlist)
+{
+    ExecAuxRowMark *aerm = (ExecAuxRowMark *) palloc0(sizeof(ExecAuxRowMark));
+    char resname[32];
+
+    aerm->rowmark = erm;
+
+    // Find junk columns based on row mark type
+    if (erm->markType != ROW_MARK_COPY)
+    {
+        // For most row marks, need ctid for tuple identification
+        snprintf(resname, sizeof(resname), "ctid%u", erm->rowmarkId);
+        aerm->ctidAttNo = ExecFindJunkAttributeInTlist(targetlist, resname);
+        if (!AttributeNumberIsValid(aerm->ctidAttNo))
+            elog(ERROR, "could not find junk %s column", resname);
+    }
+    else
+    {
+        // For COPY row marks, need complete row data
+        snprintf(resname, sizeof(resname), "wholerow%u", erm->rowmarkId);
+        aerm->wholeAttNo = ExecFindJunkAttributeInTlist(targetlist, resname);
+        if (!AttributeNumberIsValid(aerm->wholeAttNo))
+            elog(ERROR, "could not find junk %s column", resname);
+    }
+
+    // For child relations (inheritance), need table OID to identify source table
+    if (erm->rti != erm->prti)
+    {
+        snprintf(resname, sizeof(resname), "tableoid%u", erm->rowmarkId);
+        aerm->toidAttNo = ExecFindJunkAttributeInTlist(targetlist, resname);
+        if (!AttributeNumberIsValid(aerm->toidAttNo))
+            elog(ERROR, "could not find junk %s column", resname);
+    }
+
+    return aerm;
+}
+```

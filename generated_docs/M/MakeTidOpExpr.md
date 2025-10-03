@@ -42,3 +42,50 @@ This static function processes an OpExpr containing a CTID (tuple identifier) co
 - Operator inversion occurs when the CTID variable is on the right side of the comparison
 - The function will throw an error if it cannot identify the CTID variable or operator
 - Returns a newly allocated TidOpExpr structure with appropriate boundary settings
+
+## Simplified Source
+
+```c
+static TidOpExpr *
+MakeTidOpExpr(OpExpr *expr, TidRangeScanState *tidstate)
+{
+    Node *arg1 = get_leftop((Expr *) expr);
+    Node *arg2 = get_rightop((Expr *) expr);
+    ExprState *exprstate = NULL;
+    bool invert = false;
+
+    // Identify which operand is the CTID variable
+    if (IsCTIDVar(arg1))
+        exprstate = ExecInitExpr((Expr *) arg2, &tidstate->ss.ps);
+    else if (IsCTIDVar(arg2)) {
+        exprstate = ExecInitExpr((Expr *) arg1, &tidstate->ss.ps);
+        invert = true;
+    } else
+        elog(ERROR, "could not identify CTID variable");
+
+    // Create and initialize TidOpExpr
+    TidOpExpr *tidopexpr = (TidOpExpr *) palloc(sizeof(TidOpExpr));
+    tidopexpr->inclusive = false;
+
+    // Set boundary type based on operator and inversion
+    switch (expr->opno) {
+        case TIDLessEqOperator:
+            tidopexpr->inclusive = true;
+            // fall through
+        case TIDLessOperator:
+            tidopexpr->exprtype = invert ? TIDEXPR_LOWER_BOUND : TIDEXPR_UPPER_BOUND;
+            break;
+        case TIDGreaterEqOperator:
+            tidopexpr->inclusive = true;
+            // fall through
+        case TIDGreaterOperator:
+            tidopexpr->exprtype = invert ? TIDEXPR_UPPER_BOUND : TIDEXPR_LOWER_BOUND;
+            break;
+        default:
+            elog(ERROR, "could not identify CTID operator");
+    }
+
+    tidopexpr->exprstate = exprstate;
+    return tidopexpr;
+}
+```

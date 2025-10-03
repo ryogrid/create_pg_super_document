@@ -44,3 +44,27 @@ The comparison is performed using PostgreSQL's function call interface (Function
 - Handles collation-aware comparisons through the compare_context structure
 - Provides type-agnostic comparison capability for BRIN index operations
 - Used extensively throughout the BRIN minmax multi implementation for various sorting needs
+
+## Simplified Source
+
+```c
+static int
+compare_values(const void *a, const void *b, void *arg)
+{
+    Datum *da = (Datum *) a;
+    Datum *db = (Datum *) b;
+    compare_context *cxt = (compare_context *) arg;
+
+    // Check if first value is less than second value
+    Datum r = FunctionCall2Coll(cxt->cmpFn, cxt->colloid, *da, *db);
+    if (DatumGetBool(r))
+        return -1;
+
+    // Check if second value is less than first value
+    r = FunctionCall2Coll(cxt->cmpFn, cxt->colloid, *db, *da);
+    if (DatumGetBool(r))
+        return 1;
+
+    return 0;  // Values are equal
+}
+```

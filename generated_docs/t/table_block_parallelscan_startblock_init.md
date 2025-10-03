@@ -57,3 +57,44 @@ The function uses a retry mechanism when dealing with synchronized scans - it re
 - For synchronized scans, integrates with PostgreSQL's synchronized scan machinery to improve buffer cache locality
 - The function is designed to be called multiple times safely - only the first call will actually set the start block
 - Chunk size calculation balances parallelism (more chunks = better load distribution) with efficiency (larger chunks = less coordination overhead)
+
+## Simplified Source
+
+```c
+void
+table_block_parallelscan_startblock_init(Relation rel,
+                                        ParallelBlockTableScanWorker pbscanwork,
+                                        ParallelBlockTableScanDesc pbscan)
+{
+    BlockNumber sync_startpage = InvalidBlockNumber;
+
+    // Reset worker state
+    memset(pbscanwork, 0, sizeof(*pbscanwork));
+
+    // Calculate optimal chunk size (power of 2 for efficiency)
+    pbscanwork->phsw_chunk_size = pg_nextpower2_32(Max(pbscan->phs_nblocks /
+                                                       PARALLEL_SEQSCAN_NCHUNKS, 1));
+
+    // Cap chunk size to prevent performance issues
+    pbscanwork->phsw_chunk_size = Min(pbscanwork->phsw_chunk_size,
+                                      PARALLEL_SEQSCAN_MAX_CHUNK_SIZE);
+
+retry:
+    SpinLockAcquire(&pbscan->phs_mutex);
+
+    // Set start block if not already initialized
+    if (pbscan->phs_startblock == InvalidBlockNumber) {
+        if (!pbscan->base.phs_syncscan)
+            pbscan->phs_startblock = 0;  // Start at beginning for non-sync scans
+        else if (sync_startpage != InvalidBlockNumber)
+            pbscan->phs_startblock = sync_startpage;  // Use cached sync position
+        else {
+            // Get sync position (requires releasing lock)
+            SpinLockRelease(&pbscan->phs_mutex);
+            sync_startpage = ss_get_location(rel, pbscan->phs_nblocks);
+            goto retry;
+        }
+    }
+    SpinLockRelease(&pbscan->phs_mutex);
+}
+```

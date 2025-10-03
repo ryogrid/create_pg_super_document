@@ -51,3 +51,28 @@ This function serves as the critical decision point in the GIN entry insertion p
 - Part of the three-phase insertion pattern (begin/exec/finish) used throughout PostgreSQL index management
 - The function specifically handles both leaf and internal node insertions, with internal nodes requiring downlink updates
 - Return values follow the GinPlaceToPageRC enumeration to indicate the required action path
+
+## Simplified Source
+
+```c
+static GinPlaceToPageRC
+entryBeginPlaceToPage(GinBtree btree, Buffer buf, GinBtreeStack *stack,
+                      void *insertPayload, BlockNumber updateblkno,
+                      void **ptp_workspace,
+                      Page *newlpage, Page *newrpage)
+{
+    GinBtreeEntryInsertData *insertData = insertPayload;
+    OffsetNumber off = stack->off;
+
+    // Check if there's enough space for insertion
+    if (!entryIsEnoughSpace(btree, buf, off, insertData)) {
+        // Split the page if not enough space
+        entrySplitPage(btree, buf, stack, insertData, updateblkno,
+                       newlpage, newrpage);
+        return GPTP_SPLIT;
+    }
+
+    // Enough space - proceed with insertion
+    return GPTP_INSERT;
+}
+```

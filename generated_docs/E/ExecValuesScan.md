@@ -33,3 +33,24 @@ The function acts as a thin wrapper that casts the generic PlanState to a Values
 - The function is registered as the execution method when initializing VALUES scan nodes
 - Part of the executor's scan node hierarchy, providing a consistent interface for VALUES operations
 - The actual tuple generation logic is implemented in ValuesNext, while this function handles the executor integration
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecValuesScan(PlanState *pstate)
+{
+    // Cast generic plan state to VALUES scan specific state
+    ValuesScanState *node = castNode(ValuesScanState, pstate);
+
+    // Execute scan using VALUES-specific access methods
+    // ValuesNext: retrieves next tuple from VALUES list
+    // ValuesRecheck: handles EvalPlanQual operations
+    return ExecScan(&node->ss, ValuesNext, ValuesRecheck);
+}
+```
+
+This function is a simple wrapper that:
+1. Converts the generic plan state to VALUES scan state
+2. Delegates to the generic ExecScan framework with VALUES-specific methods
+3. Returns the next tuple from the VALUES clause scan operation

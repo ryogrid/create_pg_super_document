@@ -56,3 +56,116 @@ The function loads various operator class support functions:
 - For collation handling, the function uses the index's specified collation or defaults to DEFAULT_COLLATION_OID
 - The function performs extensive error checking to ensure all required operator class functions are available
 - The  flag optimizes handling for single-column indexes by reusing the original tuple descriptor
+
+## Simplified Source
+
+```c
+// Simplified version of initGinState
+void
+initGinState(GinState *state, Relation index)
+{
+    TupleDesc origTupdesc = RelationGetDescr(index);
+
+    // Initialize the state structure
+    MemSet(state, 0, sizeof(GinState));
+    state->index = index;
+    state->oneCol = (origTupdesc->natts == 1);
+    state->origTupdesc = origTupdesc;
+
+    // Setup tuple descriptors and support functions for each column
+    for (int i = 0; i < origTupdesc->natts; i++)
+    {
+        Form_pg_attribute attr = TupleDescAttr(origTupdesc, i);
+
+        // Create tuple descriptor for this column
+        if (state->oneCol)
+        {
+            // Single column: use original descriptor
+            state->tupdesc[i] = state->origTupdesc;
+        }
+        else
+        {
+            // Multi-column: create 2-attribute descriptor (column#, value)
+            state->tupdesc[i] = CreateTemplateTupleDesc(2);
+            TupleDescInitEntry(state->tupdesc[i], (AttrNumber) 1, NULL,
+                              INT2OID, -1, 0);
+            TupleDescInitEntry(state->tupdesc[i], (AttrNumber) 2, NULL,
+                              attr->atttypid, attr->atttypmod, attr->attndims);
+            TupleDescInitEntryCollation(state->tupdesc[i], (AttrNumber) 2,
+                                       attr->attcollation);
+        }
+
+        // Setup compare function (from opclass or default btree comparator)
+        if (index_getprocid(index, i + 1, GIN_COMPARE_PROC) != InvalidOid)
+        {
+            fmgr_info_copy(&(state->compareFn[i]),
+                          index_getprocinfo(index, i + 1, GIN_COMPARE_PROC),
+                          CurrentMemoryContext);
+        }
+        else
+        {
+            // Use default btree comparator for this type
+            TypeCacheEntry *typentry = lookup_type_cache(attr->atttypid,
+                                                         TYPECACHE_CMP_PROC_FINFO);
+            if (!OidIsValid(typentry->cmp_proc_finfo.fn_oid))
+                ereport(ERROR, (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                               errmsg("could not identify a comparison function for type %s",
+                                     format_type_be(attr->atttypid))));
+            fmgr_info_copy(&(state->compareFn[i]),
+                          &(typentry->cmp_proc_finfo),
+                          CurrentMemoryContext);
+        }
+
+        // Setup required extract functions
+        fmgr_info_copy(&(state->extractValueFn[i]),
+                      index_getprocinfo(index, i + 1, GIN_EXTRACTVALUE_PROC),
+                      CurrentMemoryContext);
+        fmgr_info_copy(&(state->extractQueryFn[i]),
+                      index_getprocinfo(index, i + 1, GIN_EXTRACTQUERY_PROC),
+                      CurrentMemoryContext);
+
+        // Setup optional tri-consistent and consistent functions
+        if (index_getprocid(index, i + 1, GIN_TRICONSISTENT_PROC) != InvalidOid)
+        {
+            fmgr_info_copy(&(state->triConsistentFn[i]),
+                          index_getprocinfo(index, i + 1, GIN_TRICONSISTENT_PROC),
+                          CurrentMemoryContext);
+        }
+
+        if (index_getprocid(index, i + 1, GIN_CONSISTENT_PROC) != InvalidOid)
+        {
+            fmgr_info_copy(&(state->consistentFn[i]),
+                          index_getprocinfo(index, i + 1, GIN_CONSISTENT_PROC),
+                          CurrentMemoryContext);
+        }
+
+        // Ensure at least one consistency function is available
+        if (state->consistentFn[i].fn_oid == InvalidOid &&
+            state->triConsistentFn[i].fn_oid == InvalidOid)
+        {
+            elog(ERROR, "missing GIN support function (%d or %d) for attribute %d of index \"%s\"",
+                 GIN_CONSISTENT_PROC, GIN_TRICONSISTENT_PROC,
+                 i + 1, RelationGetRelationName(index));
+        }
+
+        // Setup optional partial match function
+        if (index_getprocid(index, i + 1, GIN_COMPARE_PARTIAL_PROC) != InvalidOid)
+        {
+            fmgr_info_copy(&(state->comparePartialFn[i]),
+                          index_getprocinfo(index, i + 1, GIN_COMPARE_PARTIAL_PROC),
+                          CurrentMemoryContext);
+            state->canPartialMatch[i] = true;
+        }
+        else
+        {
+            state->canPartialMatch[i] = false;
+        }
+
+        // Setup collation for support functions
+        if (OidIsValid(index->rd_indcollation[i]))
+            state->supportCollation[i] = index->rd_indcollation[i];
+        else
+            state->supportCollation[i] = DEFAULT_COLLATION_OID;
+    }
+}
+```

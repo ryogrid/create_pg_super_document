@@ -41,3 +41,18 @@ This is commonly used in scenarios where GiST operations need to coordinate betw
 - The dummy integer content (value 0) is required because PostgreSQL's WAL system doesn't allow completely empty records except for special XLOG_SWITCH records
 - This pattern is used when GiST algorithms need LSN-based ordering or synchronization without requiring substantial data logging
 - The returned LSN can be used to set page LSNs for proper sequencing in concurrent operations
+
+## Simplified Source
+
+```c
+XLogRecPtr gistXLogAssignLSN(void) {
+    int dummy = 0;
+
+    // Create minimal WAL record just to get a unique LSN
+    XLogBeginInsert();
+    XLogSetRecordFlags(XLOG_MARK_UNIMPORTANT);
+    XLogRegisterData((char *) &dummy, sizeof(dummy));
+
+    return XLogInsert(RM_GIST_ID, XLOG_GIST_ASSIGN_LSN);
+}
+```

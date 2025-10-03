@@ -48,3 +48,23 @@ Like other tuplestore put functions, it maintains specific read pointer behavior
 - COPYTUP macro includes both copying and memory usage tracking
 - Memory operations occur in the tuplestore's context for proper cleanup
 - Maintains the same read pointer behavior as other tuplestore put functions
+
+## Simplified Source
+
+```c
+void
+tuplestore_puttuple(Tuplestorestate *state, HeapTuple tuple)
+{
+    // Switch to tuplestore's memory context for proper cleanup
+    MemoryContext oldcxt = MemoryContextSwitchTo(state->context);
+
+    // Copy the tuple (COPYTUP handles both copying and memory tracking)
+    tuple = COPYTUP(state, tuple);
+
+    // Store the tuple using common storage logic
+    tuplestore_puttuple_common(state, (void *) tuple);
+
+    // Restore original memory context
+    MemoryContextSwitchTo(oldcxt);
+}
+```

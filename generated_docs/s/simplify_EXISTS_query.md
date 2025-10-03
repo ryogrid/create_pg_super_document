@@ -42,3 +42,60 @@ The function includes safety checks and will not simplify queries that use compl
 - Specifically handles the common pattern of "SELECT * FROM ... LIMIT 1" in EXISTS clauses by recognizing and optimizing it
 - The LIMIT clause evaluation uses eval_const_expressions to handle cases like "LIMIT int8(1::int4)" which appear after parsing
 - Part of PostgreSQL's EXISTS optimization strategy that enables better join planning and execution
+
+## Simplified Source
+
+```c
+static bool
+simplify_EXISTS_query(PlannerInfo *root, Query *query)
+{
+    // Don't simplify complex queries with set operations, aggregates,
+    // grouping sets, window functions, SRFs, modifying CTEs, HAVING,
+    // OFFSET, or row locking
+    if (query->commandType != CMD_SELECT ||
+        query->setOperations ||
+        query->hasAggs ||
+        query->groupingSets ||
+        query->hasWindowFuncs ||
+        query->hasTargetSRFs ||
+        query->hasModifyingCTE ||
+        query->havingQual ||
+        query->limitOffset ||
+        query->rowMarks)
+        return false;
+
+    // Handle LIMIT clauses - allow positive constants like LIMIT 1
+    if (query->limitCount)
+    {
+        // Evaluate constant expressions in LIMIT clause
+        Node *node = eval_const_expressions(root, query->limitCount);
+        query->limitCount = node;
+
+        // Only accept constant LIMIT values
+        if (!IsA(node, Const))
+            return false;
+
+        Const *limit = (Const *) node;
+        Assert(limit->consttype == INT8OID);
+
+        // Reject zero or negative LIMIT
+        if (!limit->constisnull && DatumGetInt64(limit->constvalue) <= 0)
+            return false;
+
+        // Remove the LIMIT clause - it doesn't affect EXISTS semantics
+        query->limitCount = NULL;
+    }
+
+    // Remove all clauses that don't affect row existence:
+    // - Target list (column values don't matter for EXISTS)
+    // - GROUP BY, WINDOW, DISTINCT, ORDER BY (don't change whether rows exist)
+    query->targetList = NIL;
+    query->groupClause = NIL;
+    query->windowClause = NIL;
+    query->distinctClause = NIL;
+    query->sortClause = NIL;
+    query->hasDistinctOn = false;
+
+    return true;  // Successfully simplified
+}
+```

@@ -39,3 +39,27 @@ This is a convenience function that table access methods can use directly rather
 - Handles the special case of InvalidForkNumber to sum across all forks
 - Relies on the storage manager layer for the actual block counting
 - Part of the table access method framework introduced in PostgreSQL 12+
+
+## Simplified Source
+
+```c
+uint64
+table_block_relation_size(Relation rel, ForkNumber forkNumber)
+{
+    uint64 nblocks = 0;
+
+    // Calculate size for all forks or specific fork
+    if (forkNumber == InvalidForkNumber) {
+        // Sum all forks
+        for (int i = 0; i < MAX_FORKNUM; i++)
+            nblocks += smgrnblocks(RelationGetSmgr(rel), i);
+    }
+    else {
+        // Single fork
+        nblocks = smgrnblocks(RelationGetSmgr(rel), forkNumber);
+    }
+
+    // Convert blocks to bytes
+    return nblocks * BLCKSZ;
+}
+```

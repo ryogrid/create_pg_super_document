@@ -40,3 +40,22 @@ ExecInitScanTupleSlot is specifically designed for scan nodes in PostgreSQL's ex
 - Manages scan operation flags (scanopsfixed, scanopsset) for proper state tracking
 - Used across all types of scan operations including table scans, index scans, and function scans
 - Located in src/backend/executor/execTuples.c:1898-1917
+
+## Simplified Source
+
+```c
+void
+ExecInitScanTupleSlot(EState *estate, ScanState *scanstate,
+                      TupleDesc tupledesc, const TupleTableSlotOps *tts_ops)
+{
+    // Allocate scan tuple slot and add to tuple table
+    scanstate->ss_ScanTupleSlot = ExecAllocTableSlot(&estate->es_tupleTable,
+                                                     tupledesc, tts_ops);
+
+    // Set up scan descriptor and operation flags
+    scanstate->ps.scandesc = tupledesc;
+    scanstate->ps.scanopsfixed = (tupledesc != NULL);
+    scanstate->ps.scanops = tts_ops;
+    scanstate->ps.scanopsset = true;
+}
+```

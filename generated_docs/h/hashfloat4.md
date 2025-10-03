@@ -35,3 +35,24 @@ The `hashfloat4` function computes hash values for single-precision floating-poi
 - Uses `hash_any` on the 8-byte float8 representation rather than the original 4-byte value
 - Located in src/backend/access/hash/hashfunc.c at lines 140-175
 - Critical for hash indexes and hash joins involving float4 columns
+
+## Simplified Source
+```c
+Datum hashfloat4(PG_FUNCTION_ARGS) {
+    float4 key = PG_GETARG_FLOAT4(0);
+    float8 key8;
+
+    // Handle zero case: both positive and negative zero hash to 0
+    if (key == (float4) 0)
+        PG_RETURN_UINT32(0);
+
+    // Widen to float8 for cross-type hashing compatibility
+    key8 = key;
+
+    // Normalize NaN values to standard float8 NaN
+    if (isnan(key8))
+        key8 = get_float8_nan();
+
+    return hash_any((unsigned char *) &key8, sizeof(key8));
+}
+```

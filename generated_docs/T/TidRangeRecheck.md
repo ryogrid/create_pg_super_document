@@ -32,3 +32,14 @@ This function serves as the recheck routine for TID range scans during EvalPlanQ
 - Part of the executor node interface for handling concurrent transaction scenarios
 - The function signature matches the standard recheck interface used by other scan types
 - Used specifically during EvalPlanQual processing when tuple visibility needs verification
+
+## Simplified Source
+
+```c
+static bool
+TidRangeRecheck(TidRangeScanState *node, TupleTableSlot *slot)
+{
+    // TID range scans don't require complex recheck logic
+    return true;
+}
+```

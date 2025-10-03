@@ -40,3 +40,29 @@ The `numeric_float8_no_overflow` function is an internal helper that converts a 
 - Part of PostgreSQL's numeric type conversion system in `src/backend/utils/adt/numeric.c`
 - Primarily used in contexts where statistical calculations need to continue despite overflow conditions
 - The no-overflow behavior makes it suitable for selectivity estimation and other statistical functions
+
+## Simplified Source
+
+```c
+Datum numeric_float8_no_overflow(PG_FUNCTION_ARGS) {
+    Numeric num = PG_GETARG_NUMERIC(0);
+    double val;
+
+    // Handle special numeric values
+    if (NUMERIC_IS_SPECIAL(num)) {
+        if (NUMERIC_IS_PINF(num))
+            val = HUGE_VAL;          // Positive infinity
+        else if (NUMERIC_IS_NINF(num))
+            val = -HUGE_VAL;         // Negative infinity
+        else
+            val = get_float8_nan();  // NaN
+    } else {
+        // Convert regular numeric to double with overflow protection
+        NumericVar x;
+        init_var_from_num(num, &x);
+        val = numericvar_to_double_no_overflow(&x);
+    }
+
+    PG_RETURN_FLOAT8(val);
+}
+```

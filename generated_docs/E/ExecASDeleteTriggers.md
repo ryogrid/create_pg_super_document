@@ -42,3 +42,20 @@ The function also supports transition table capture, enabling triggers to access
 - Statement-level triggers execute once per DELETE statement regardless of how many rows are affected
 - The actual trigger execution happens during statement/transaction completion phase
 - NIL is passed for recheckIndexes since statement-level triggers don't affect individual rows
+
+## Simplified Source
+
+```c
+void ExecASDeleteTriggers(EState *estate, ResultRelInfo *relinfo,
+                         TransitionCaptureState *transition_capture)
+{
+    TriggerDesc *trigdesc = relinfo->ri_TrigDesc;
+
+    // Schedule AFTER STATEMENT DELETE triggers for deferred execution
+    if (trigdesc && trigdesc->trig_delete_after_statement)
+        AfterTriggerSaveEvent(estate, relinfo, NULL, NULL,
+                             TRIGGER_EVENT_DELETE,
+                             false, NULL, NULL, NIL, NULL, transition_capture,
+                             false);
+}
+```

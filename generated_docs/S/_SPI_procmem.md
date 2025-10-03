@@ -35,3 +35,12 @@ The procedure memory context typically has a longer lifetime than the execution 
 - Part of SPI's dual memory context strategy (execution vs procedure contexts)
 - Used for allocations that need to survive longer than individual query executions
 - Very simple wrapper function that encapsulates SPI-specific memory context access
+
+## Simplified Source
+
+```c
+static MemoryContext _SPI_procmem(void) {
+    // Switch to procedure memory context for current SPI connection
+    return MemoryContextSwitchTo(_SPI_current->procCxt);
+}
+```

@@ -29,3 +29,18 @@ This utility function ensures that the current length of a StringInfo buffer is 
 - The alignment is necessary because JsonPath items often contain series of int32 values that are read directly via pointer dereferencing
 - Padding with zero bytes maintains data integrity while achieving the required alignment
 - Performance optimization that prevents potential alignment-related penalties on certain hardware architectures
+
+## Simplified Source
+
+```c
+static void alignStringInfoInt(StringInfo buf)
+{
+    // Calculate how many padding bytes needed for integer alignment
+    int padding_needed = INTALIGN(buf->len) - buf->len;
+
+    // Add zero bytes for padding (0-3 bytes)
+    for (int i = 0; i < padding_needed; i++) {
+        appendStringInfoCharMacro(buf, 0);
+    }
+}
+```

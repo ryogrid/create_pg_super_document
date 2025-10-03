@@ -36,3 +36,33 @@ The entryIsMoveRight function implements the "move right" logic for GIN entry tr
 - Essential for efficient navigation in GIN entry tree B-tree structure
 - Part of the standard B-tree traversal pattern where pages are scanned left-to-right
 - Comparison result > 0 indicates search key is greater than page boundary, requiring rightward movement
+
+## Simplified Source
+
+```c
+static bool
+entryIsMoveRight(GinBtree btree, Page page)
+{
+    IndexTuple itup;
+    OffsetNumber attnum;
+    Datum key;
+    GinNullCategory category;
+
+    // No move needed if this is the rightmost page
+    if (GinPageRightMost(page))
+        return false;
+
+    // Get the rightmost key on this page
+    itup = getRightMostTuple(page);
+    attnum = gintuple_get_attrnum(btree->ginstate, itup);
+    key = gintuple_get_key(btree->ginstate, itup, &category);
+
+    // Move right if search key is greater than rightmost key on page
+    if (ginCompareAttEntries(btree->ginstate,
+                            btree->entryAttnum, btree->entryKey, btree->entryCategory,
+                            attnum, key, category) > 0)
+        return true;
+
+    return false;
+}
+```

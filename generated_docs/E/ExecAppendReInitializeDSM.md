@@ -33,3 +33,17 @@ The function is essential for supporting rescan operations in parallel query exe
 - The size of the `pa_finished` array is determined by `node->as_nplans` (number of subplans)
 - This function must be called before restarting parallel execution to ensure proper coordination between workers
 - Unlike the initial DSM setup, this function only modifies existing shared memory state rather than allocating new structures
+
+## Simplified Source
+
+```c
+void ExecAppendReInitializeDSM(AppendState *node, ParallelContext *pcxt) {
+    ParallelAppendState *pstate = node->as_pstate;
+
+    // Reset to start from first subplan
+    pstate->pa_next_plan = 0;
+
+    // Mark all subplans as not finished
+    memset(pstate->pa_finished, 0, sizeof(bool) * node->as_nplans);
+}
+```

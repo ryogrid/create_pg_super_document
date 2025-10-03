@@ -306,3 +306,19 @@ Text creation and manipulation
 - All actual deletion logic is delegated to gistvacuumscan for code reuse with gistvacuumcleanup
 - This is part of PostgreSQL's standard index access method interface for vacuum operations
 - The function is registered in the GiST access method handler structure
+
+## Simplified Source
+
+```c
+IndexBulkDeleteResult *gistbulkdelete(IndexVacuumInfo *info, IndexBulkDeleteResult *stats,
+                                      IndexBulkDeleteCallback callback, void *callback_state) {
+    // Allocate stats structure if not provided
+    if (stats == NULL)
+        stats = (IndexBulkDeleteResult *) palloc0(sizeof(IndexBulkDeleteResult));
+
+    // Delegate actual work to the scanning function
+    gistvacuumscan(info, stats, callback, callback_state);
+
+    return stats;
+}
+```

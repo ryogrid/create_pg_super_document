@@ -33,3 +33,12 @@ This function takes no parameters.
 - Memory context cleanup is crucial for preventing memory leaks in long-running processes
 - The function is defined in src/backend/access/gin/ginxlog.c at lines 783-787
 - This is a simple utility function with no return value or error handling, assuming MemoryContextDelete handles edge cases
+
+## Simplified Source
+```c
+void gin_xlog_cleanup(void) {
+    // Clean up the GIN WAL replay memory context
+    MemoryContextDelete(opCtx);
+    opCtx = NULL;  // Prevent dangling pointer
+}
+```

@@ -44,3 +44,44 @@ The function returns a boolean indicating whether the tuple was actually frozen.
 - Returns true if the tuple was actually frozen, false otherwise
 - Sets up complete freeze context internally including cutoffs and page freeze parameters
 - Does not need to fill in offset information in freeze record since it's not WAL-logged
+
+## Simplified Source
+
+```c
+bool heap_freeze_tuple(HeapTupleHeader tuple,
+                      TransactionId relfrozenxid, TransactionId relminmxid,
+                      TransactionId FreezeLimit, TransactionId MultiXactCutoff)
+{
+    HeapTupleFreeze frz;
+    bool do_freeze;
+    bool totally_frozen;
+
+    // Set up cutoff thresholds for freezing decisions
+    struct VacuumCutoffs cutoffs = {
+        .relfrozenxid = relfrozenxid,
+        .relminmxid = relminmxid,
+        .OldestXmin = FreezeLimit,
+        .OldestMxact = MultiXactCutoff,
+        .FreezeLimit = FreezeLimit,
+        .MultiXactCutoff = MultiXactCutoff
+    };
+
+    // Set up page freeze parameters
+    HeapPageFreeze pagefrz = {
+        .freeze_required = true,
+        .FreezePageRelfrozenXid = FreezeLimit,
+        .FreezePageRelminMxid = MultiXactCutoff,
+        .NoFreezePageRelfrozenXid = FreezeLimit,
+        .NoFreezePageRelminMxid = MultiXactCutoff
+    };
+
+    // Check if tuple needs freezing
+    do_freeze = heap_prepare_freeze_tuple(tuple, &cutoffs, &pagefrz, &frz, &totally_frozen);
+
+    // Execute freeze operation if needed
+    if (do_freeze)
+        heap_execute_freeze_tuple(tuple, &frz);
+
+    return do_freeze;
+}
+```

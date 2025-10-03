@@ -46,3 +46,30 @@ This provides efficient random access for operations that need to return to prev
 - Optimized to avoid unnecessary block reads when seeking within the currently loaded block
 - Essential for tuple sorting operations that need to restore previously saved tape positions
 - Throws error for invalid seek positions beyond block boundaries
+
+## Simplified Source
+
+```c
+void LogicalTapeSeek(LogicalTape *lt, int64 blocknum, int offset) {
+    Assert(lt->frozen);
+    Assert(offset >= 0 && offset <= TapeBlockPayloadSize);
+    Assert(lt->buffer_size == BLCKSZ);
+
+    // Initialize read buffer if needed
+    if (lt->buffer == NULL)
+        ltsInitReadBuffer(lt);
+
+    // Load target block if different from current
+    if (blocknum != lt->curBlockNumber) {
+        ltsReadBlock(lt->tapeSet, blocknum, lt->buffer);
+        lt->curBlockNumber = blocknum;
+        lt->nbytes = TapeBlockPayloadSize;
+        lt->nextBlockNumber = TapeBlockGetTrailer(lt->buffer)->next;
+    }
+
+    // Validate and set position
+    if (offset > lt->nbytes)
+        elog(ERROR, "invalid tape seek position");
+    lt->pos = offset;
+}
+```

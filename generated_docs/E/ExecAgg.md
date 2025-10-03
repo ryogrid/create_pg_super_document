@@ -45,3 +45,47 @@ The function maintains state through the AggState structure and continues proces
 - Returns NULL when aggregation is complete (agg_done is true) or when no more result tuples are available
 - The function includes interrupt checking to allow for query cancellation during long-running aggregations
 - Each aggregation strategy has its own specialized retrieval function for optimal performance
+
+## Simplified Source
+
+```c
+static TupleTableSlot *ExecAgg(PlanState *pstate) {
+    AggState *node = castNode(AggState, pstate);
+    TupleTableSlot *result = NULL;
+
+    // Check for query cancellation
+    CHECK_FOR_INTERRUPTS();
+
+    // Continue processing if aggregation is not complete
+    if (!node->agg_done) {
+        // Dispatch to appropriate strategy handler
+        switch (node->phase->aggstrategy) {
+            case AGG_HASHED:
+                // For hash aggregation, fill hash table first if needed
+                if (!node->table_filled) {
+                    agg_fill_hash_table(node);
+                }
+                // Fall through to retrieve from hash table
+
+            case AGG_MIXED:
+                // Retrieve results from hash table
+                result = agg_retrieve_hash_table(node);
+                break;
+
+            case AGG_PLAIN:
+            case AGG_SORTED:
+                // Direct aggregation (no hash table)
+                result = agg_retrieve_direct(node);
+                break;
+        }
+
+        // Return result if we got one
+        if (!TupIsNull(result)) {
+            return result;
+        }
+    }
+
+    // No more results available
+    return NULL;
+}
+```

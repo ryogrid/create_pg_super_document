@@ -33,3 +33,35 @@ SeqNext implements the fundamental tuple retrieval logic for sequential scans in
 - Handles the distinction between parallel and non-parallel scan execution
 - Returns NULL when no more tuples are available
 - The function manages scan descriptor initialization lazily for non-parallel scans
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+SeqNext(SeqScanState *node)
+{
+    TableScanDesc scandesc;
+    EState *estate;
+    ScanDirection direction;
+    TupleTableSlot *slot;
+
+    // Get scan information from estate and scan state
+    scandesc = node->ss.ss_currentScanDesc;
+    estate = node->ss.ps.state;
+    direction = estate->es_direction;
+    slot = node->ss.ss_ScanTupleSlot;
+
+    // Initialize scan descriptor if needed (non-parallel or serial execution)
+    if (scandesc == NULL) {
+        scandesc = table_beginscan(node->ss.ss_currentRelation,
+                                   estate->es_snapshot,
+                                   0, NULL);
+        node->ss.ss_currentScanDesc = scandesc;
+    }
+
+    // Get next tuple from table
+    if (table_scan_getnextslot(scandesc, direction, slot))
+        return slot;
+    return NULL;
+}
+```

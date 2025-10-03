@@ -34,3 +34,19 @@ The freed blocks are stored in a simple array structure and will be reused in LI
 - Static function, only accessible within the gistbuildbuffers.c module
 - Essential for preventing disk space waste during index construction
 - The freed blocks are added to the end of the array for LIFO reuse pattern
+
+## Simplified Source
+
+```c
+static void gistBuffersReleaseBlock(GISTBuildBuffers *gfbb, long blocknum) {
+    // Grow the free blocks array if needed (doubling strategy)
+    if (gfbb->nFreeBlocks >= gfbb->freeBlocksLen) {
+        gfbb->freeBlocksLen *= 2;
+        gfbb->freeBlocks = (long *) repalloc(gfbb->freeBlocks,
+                                            gfbb->freeBlocksLen * sizeof(long));
+    }
+
+    // Add the block to the free list
+    gfbb->freeBlocks[gfbb->nFreeBlocks++] = blocknum;
+}
+```

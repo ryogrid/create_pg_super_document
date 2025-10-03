@@ -34,3 +34,18 @@ The function uses BTLessStrategyNumber comparison semantics, meaning it expects 
 - The function assumes the comparison function follows PostgreSQL's BTLessStrategyNumber protocol
 - Part of the BRIN minmax-multi access method implementation in src/backend/access/brin/brin_minmax_multi.c
 - Critical for maintaining data integrity in block range indexes that store multiple values per range
+
+## Simplified Source
+
+```c
+static void
+AssertArrayOrder(FmgrInfo *cmp, Oid colloid, Datum *values, int nvalues)
+{
+    // Verify each pair of consecutive values is in sorted order
+    for (int i = 0; i < (nvalues - 1); i++)
+    {
+        Datum lt = FunctionCall2Coll(cmp, colloid, values[i], values[i + 1]);
+        Assert(DatumGetBool(lt));  // values[i] < values[i+1]
+    }
+}
+```

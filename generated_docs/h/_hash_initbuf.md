@@ -50,3 +50,27 @@ The hasho_prevblkno field is particularly important as it stores the max_bucket 
 - Can optionally skip page initialization if the page structure is already set up
 - Used primarily during index creation and WAL recovery operations
 - Sets up hash-specific metadata that distinguishes hash pages from other page types
+
+## Simplified Source
+
+```c
+void _hash_initbuf(Buffer buf, uint32 max_bucket, uint32 num_bucket,
+                   uint32 flag, bool initpage) {
+    Page page = BufferGetPage(buf);
+
+    // Initialize basic page structure if requested
+    if (initpage) {
+        _hash_pageinit(page, BufferGetPageSize(buf));
+    }
+
+    // Setup hash-specific metadata in page opaque area
+    HashPageOpaque pageopaque = HashPageGetOpaque(page);
+
+    // Store max_bucket for cache validation purposes
+    pageopaque->hasho_prevblkno = max_bucket;
+    pageopaque->hasho_nextblkno = InvalidBlockNumber;
+    pageopaque->hasho_bucket = num_bucket;
+    pageopaque->hasho_flag = flag;
+    pageopaque->hasho_page_id = HASHO_PAGE_ID;
+}
+```

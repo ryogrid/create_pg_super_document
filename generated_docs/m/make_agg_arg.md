@@ -39,3 +39,24 @@ The function creates PARAM_EXEC type parameters with a fixed paramid of -1, indi
 - Essential for aggregate function type resolution at runtime
 - Located in src/backend/parser/parse_agg.c:2183-2194
 - Widely used across all aggregate expression building functions
+
+## Simplified Source
+
+```c
+static Node *
+make_agg_arg(Oid argtype, Oid argcollation)
+{
+    // Create a dummy Param node for type information
+    Param *argp = makeNode(Param);
+
+    // Configure as execution parameter with dummy values
+    argp->paramkind = PARAM_EXEC;
+    argp->paramid = -1;           // Not a real parameter
+    argp->paramtype = argtype;
+    argp->paramtypmod = -1;
+    argp->paramcollid = argcollation;
+    argp->location = -1;
+
+    return (Node *) argp;
+}
+```

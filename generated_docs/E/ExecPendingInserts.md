@@ -47,3 +47,34 @@ This design optimizes performance for foreign tables by reducing the number of r
 - Memory is properly cleaned up after processing to prevent leaks
 - This mechanism is crucial for maintaining MVCC visibility semantics when batching is enabled
 - The function is called at strategic points to ensure data consistency requirements are met
+
+## Simplified Source
+
+```c
+static void
+ExecPendingInserts(EState *estate)
+{
+    ListCell *l1, *l2;
+
+    // Process all pending batch inserts to foreign tables
+    forboth(l1, estate->es_insert_pending_result_relations,
+            l2, estate->es_insert_pending_modifytables)
+    {
+        ResultRelInfo *resultRelInfo = (ResultRelInfo *) lfirst(l1);
+        ModifyTableState *mtstate = (ModifyTableState *) lfirst(l2);
+
+        // Flush the batch of accumulated tuples
+        ExecBatchInsert(mtstate, resultRelInfo,
+                        resultRelInfo->ri_Slots,
+                        resultRelInfo->ri_PlanSlots,
+                        resultRelInfo->ri_NumSlots,
+                        estate, mtstate->canSetTag);
+    }
+
+    // Clean up the pending lists
+    list_free(estate->es_insert_pending_result_relations);
+    list_free(estate->es_insert_pending_modifytables);
+    estate->es_insert_pending_result_relations = NIL;
+    estate->es_insert_pending_modifytables = NIL;
+}
+```

@@ -65,3 +65,90 @@ The function returns true if processing is complete (with or without an update),
 - The function handles the case where the target tuple might be modified during the execution of the ON CONFLICT clause itself
 - System relations are blocked from using ON CONFLICT operations at the parser level, so no special handling is needed for tuple locking tags
 - Memory management includes clearing the existing tuple slot to prevent resource leaks between conflicts
+
+## Simplified Source
+
+```c
+static bool
+ExecOnConflictUpdate(ModifyTableContext *context,
+                     ResultRelInfo *resultRelInfo,
+                     ItemPointer conflictTid,
+                     TupleTableSlot *excludedSlot,
+                     bool canSetTag,
+                     TupleTableSlot **returning)
+{
+    ModifyTableState *mtstate = context->mtstate;
+    ExprContext *econtext = mtstate->ps.ps_ExprContext;
+    Relation relation = resultRelInfo->ri_RelationDesc;
+    ExprState *onConflictSetWhere = resultRelInfo->ri_onConflict->oc_WhereClause;
+    TupleTableSlot *existing = resultRelInfo->ri_onConflict->oc_Existing;
+    TM_FailureData tmfd;
+    TM_Result test;
+
+    // Determine lock mode and attempt to lock the conflicting tuple
+    LockTupleMode lockmode = ExecUpdateLockMode(context->estate, resultRelInfo);
+    test = table_tuple_lock(relation, conflictTid,
+                           context->estate->es_snapshot,
+                           existing, context->estate->es_output_cid,
+                           lockmode, LockWaitBlock, 0, &tmfd);
+
+    switch (test) {
+        case TM_Ok:
+            // Success - tuple is locked
+            break;
+
+        case TM_Invisible:
+            // Handle case where tuple was already updated in same command
+            // Check if it's a self-modification and error appropriately
+            if (TransactionIdIsCurrentTransactionId(GetTupleXmin(existing)))
+                ereport(ERROR, "ON CONFLICT command cannot affect row a second time");
+            elog(ERROR, "attempted to lock invisible tuple");
+            break;
+
+        case TM_Updated:
+        case TM_Deleted:
+            // Concurrent modification - caller must retry from scratch
+            if (IsolationUsesXactSnapshot())
+                ereport(ERROR, "could not serialize access due to concurrent update/delete");
+            ExecClearTuple(existing);
+            return false;
+
+        default:
+            elog(ERROR, "unrecognized table_tuple_lock status: %u", test);
+    }
+
+    // Check tuple visibility according to MVCC snapshot
+    ExecCheckTupleVisible(context->estate, relation, existing);
+
+    // Set up expression context for condition evaluation
+    // EXCLUDED tuple goes in inner, existing tuple in scan
+    econtext->ecxt_scantuple = existing;
+    econtext->ecxt_innertuple = excludedSlot;
+    econtext->ecxt_outertuple = NULL;
+
+    // Check ON CONFLICT WHERE condition
+    if (!ExecQual(onConflictSetWhere, econtext)) {
+        ExecClearTuple(existing);
+        InstrCountFiltered1(&mtstate->ps, 1);
+        return true; // Condition not met, skip update
+    }
+
+    // Apply Row-Level Security checks for conflict resolution
+    if (resultRelInfo->ri_WithCheckOptions != NIL) {
+        ExecWithCheckOptions(WCO_RLS_CONFLICT_CHECK, resultRelInfo,
+                           existing, mtstate->ps.state);
+    }
+
+    // Project the new tuple values
+    ExecProject(resultRelInfo->ri_onConflict->oc_ProjInfo);
+
+    // Execute the actual UPDATE operation
+    *returning = ExecUpdate(context, resultRelInfo, conflictTid, NULL,
+                           resultRelInfo->ri_onConflict->oc_ProjSlot,
+                           canSetTag);
+
+    // Clean up existing tuple slot
+    ExecClearTuple(existing);
+    return true;
+}
+```

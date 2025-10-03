@@ -47,3 +47,44 @@ The function uses a temporary memory context to avoid memory leaks in the execut
 - The function works with complex partition hierarchies and handles both simple partitioned tables and multi-level partitioning schemes
 - Expression evaluation contexts are reset after use to free temporary memory
 - The returned bitmapset must be freed by the caller
+
+## Simplified Source
+
+```c
+Bitmapset *
+ExecFindMatchingSubPlans(PartitionPruneState *prunestate, bool initial_prune)
+{
+    Bitmapset *result = NULL;
+    MemoryContext oldcontext;
+
+    // Validate we can proceed with pruning
+    Assert(initial_prune || prunestate->do_exec_prune);
+
+    // Switch to temporary context to avoid memory leaks
+    oldcontext = MemoryContextSwitchTo(prunestate->prune_context);
+
+    // Process each partition hierarchy
+    for (int i = 0; i < prunestate->num_partprunedata; i++)
+    {
+        PartitionPruningData *prunedata = prunestate->partprunedata[i];
+        PartitionedRelPruningData *pprune = &prunedata->partrelprunedata[0];
+
+        // Find matching subplans for this hierarchy (recursive)
+        find_matching_subplans_recurse(prunedata, pprune, initial_prune, &result);
+
+        // Reset expression context if pruning steps were executed
+        if (pprune->exec_pruning_steps)
+            ResetExprContext(pprune->exec_context.exprcontext);
+    }
+
+    // Add any subplans not handled by partition pruning
+    result = bms_add_members(result, prunestate->other_subplans);
+
+    // Copy result out of temp context before cleanup
+    MemoryContextSwitchTo(oldcontext);
+    result = bms_copy(result);
+    MemoryContextReset(prunestate->prune_context);
+
+    return result;
+}
+```

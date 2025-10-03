@@ -30,3 +30,18 @@ This function orchestrates the unloading of all node buffers that currently have
 - After completion, loadedBuffersCount is reset to 0, indicating no buffers have active pages
 - This is typically called when memory pressure requires flushing all buffered data
 - Essential for managing memory usage during large index builds by ensuring buffered data is persisted
+
+## Simplified Source
+
+```c
+void
+gistUnloadNodeBuffers(GISTBuildBuffers *gfbb)
+{
+    // Unload all loaded buffers
+    for (int i = 0; i < gfbb->loadedBuffersCount; i++)
+        gistUnloadNodeBuffer(gfbb, gfbb->loadedBuffers[i]);
+
+    // Reset loaded buffer count
+    gfbb->loadedBuffersCount = 0;
+}
+```

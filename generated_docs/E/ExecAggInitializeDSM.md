@@ -39,3 +39,28 @@ The function calculates the required memory size based on the number of parallel
 - The shared_info pointer in the AggState node references the allocated shared memory
 - Part of PostgreSQL's parallel execution infrastructure for performance monitoring
 - Works in conjunction with ExecAggEstimate to properly size the shared memory allocation
+
+## Simplified Source
+
+```c
+void ExecAggInitializeDSM(AggState *node, ParallelContext *pcxt)
+{
+    Size size;
+
+    // Skip initialization if no instrumentation or workers
+    if (!node->ss.ps.instrument || pcxt->nworkers == 0)
+        return;
+
+    // Calculate total memory needed for shared aggregate info
+    size = offsetof(SharedAggInfo, sinstrument) +
+           pcxt->nworkers * sizeof(AggregateInstrumentation);
+
+    // Allocate and initialize shared memory
+    node->shared_info = shm_toc_allocate(pcxt->toc, size);
+    memset(node->shared_info, 0, size);
+    node->shared_info->num_workers = pcxt->nworkers;
+
+    // Register in shared memory table of contents
+    shm_toc_insert(pcxt->toc, node->ss.ps.plan->plan_node_id, node->shared_info);
+}
+```

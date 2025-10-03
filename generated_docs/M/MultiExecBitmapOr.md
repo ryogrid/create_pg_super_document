@@ -83,3 +83,73 @@ For non-BitmapIndexScan children, the function uses the standard approach of exe
 - Returns TIDBitmap rather than tuple slots, following the multi-execution interface pattern
 - Provides manual instrumentation support since it doesn't use standard execution framework
 - All child bitmaps except the first are freed after union operation to manage memory
+
+## Simplified Source
+
+```c
+Node *
+MultiExecBitmapOr(BitmapOrState *node)
+{
+    TIDBitmap *result = NULL;
+
+    // Start performance instrumentation
+    if (node->ps.instrument)
+        InstrStartNode(node->ps.instrument);
+
+    // Get subplan information
+    PlanState **bitmapplans = node->bitmapplans;
+    int nplans = node->nplans;
+
+    // Execute each subplan and OR their bitmaps together
+    for (int i = 0; i < nplans; i++)
+    {
+        PlanState *subnode = bitmapplans[i];
+        TIDBitmap *subresult;
+
+        // Optimization for BitmapIndexScan: let it OR directly into result
+        if (IsA(subnode, BitmapIndexScanState))
+        {
+            if (result == NULL)
+            {
+                // Create initial bitmap
+                result = tbm_create(work_mem * 1024L,
+                                   ((BitmapOr *) node->ps.plan)->isshared ?
+                                   node->ps.state->es_query_dsa : NULL);
+            }
+
+            // Pass result to child so it can OR directly into it
+            ((BitmapIndexScanState *) subnode)->biss_result = result;
+            subresult = (TIDBitmap *) MultiExecProcNode(subnode);
+
+            if (subresult != result)
+                elog(ERROR, "unrecognized result from subplan");
+        }
+        else
+        {
+            // Standard implementation for other node types
+            subresult = (TIDBitmap *) MultiExecProcNode(subnode);
+
+            if (!subresult || !IsA(subresult, TIDBitmap))
+                elog(ERROR, "unrecognized result from subplan");
+
+            if (result == NULL)
+                result = subresult;  // First subplan
+            else
+            {
+                // Union with previous results
+                tbm_union(result, subresult);
+                tbm_free(subresult);
+            }
+        }
+    }
+
+    if (result == NULL)
+        elog(ERROR, "BitmapOr doesn't support zero inputs");
+
+    // Stop instrumentation
+    if (node->ps.instrument)
+        InstrStopNode(node->ps.instrument, 0);
+
+    return (Node *) result;
+}
+```

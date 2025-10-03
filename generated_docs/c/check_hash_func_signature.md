@@ -33,6 +33,71 @@ The function implements special compatibility rules for built-in PostgreSQL hash
 - Called from (representative examples):
   - [hashvalidate](../h/hashvalidate.md) (during operator class validation)
 
+## Simplified Source
+```c
+static bool check_hash_func_signature(Oid funcid, int16 amprocnum, Oid argtype) {
+    bool result = true;
+    Oid expected_rettype;
+    int16 expected_nargs;
+
+    // Determine expected signature based on procedure number
+    switch (amprocnum) {
+        case HASHSTANDARD_PROC:
+            expected_rettype = INT4OID;  // 32-bit hash
+            expected_nargs = 1;
+            break;
+        case HASHEXTENDED_PROC:
+            expected_rettype = INT8OID;  // 64-bit hash
+            expected_nargs = 2;
+            break;
+        default:
+            elog(ERROR, "invalid amprocnum");
+    }
+
+    // Get function info from system catalog
+    HeapTuple tp = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcid));
+    Form_pg_proc procform = (Form_pg_proc) GETSTRUCT(tp);
+
+    // Check basic signature
+    if (procform->prorettype != expected_rettype ||
+        procform->proretset ||
+        procform->pronargs != expected_nargs) {
+        result = false;
+    }
+
+    // Check argument type compatibility
+    if (!IsBinaryCoercible(argtype, procform->proargtypes.values[0])) {
+        // Special exceptions for built-in hash opclasses
+        if ((funcid == F_HASHINT4 || funcid == F_HASHINT4EXTENDED) &&
+            (argtype == DATEOID || argtype == XIDOID || argtype == CIDOID)) {
+            // hashint4() allowed for dates, XIDs, CIDs
+        } else if ((funcid == F_HASHINT8 || funcid == F_HASHINT8EXTENDED) &&
+                   (argtype == XID8OID)) {
+            // hashint8() allowed for XID8
+        } else if ((funcid == F_TIMESTAMP_HASH || funcid == F_TIMESTAMP_HASH_EXTENDED) &&
+                   argtype == TIMESTAMPTZOID) {
+            // timestamp_hash() allowed for timestamptz
+        } else if ((funcid == F_HASHCHAR || funcid == F_HASHCHAREXTENDED) &&
+                   argtype == BOOLOID) {
+            // hashchar() allowed for boolean
+        } else if ((funcid == F_HASHVARLENA || funcid == F_HASHVARLENAEXTENDED) &&
+                   argtype == BYTEAOID) {
+            // hashvarlena() allowed for bytea
+        } else {
+            result = false;
+        }
+    }
+
+    // Extended functions must have int8 salt as second argument
+    if (expected_nargs == 2 && procform->proargtypes.values[1] != INT8OID) {
+        result = false;
+    }
+
+    ReleaseSysCache(tp);
+    return result;
+}
+```
+
 ## Notes and Other Information
 - This is a custom implementation needed because standard amproc signature validation is too strict for PostgreSQL's built-in hash operator classes.
 - The function includes hardcoded exceptions for specific function/type combinations that are known to be safe despite not passing formal coercibility checks.

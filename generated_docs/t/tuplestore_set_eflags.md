@@ -42,3 +42,29 @@ The function enforces strict timing constraints - it must be called while the tu
 - Setting BACKWARD without REWIND allows backward reading but only to the truncation point
 - More flexible than the randomAccess parameter in tuplestore_begin_heap, which sets both REWIND and BACKWARD together
 - Violation of timing constraints results in an ERROR-level log message and query termination
+
+## Simplified Source
+
+```c
+void
+tuplestore_set_eflags(Tuplestorestate *state, int eflags)
+{
+    int i;
+
+    // Must be called before any data insertion
+    if (state->status != TSS_INMEM || state->memtupcount != 0) {
+        elog(ERROR, "too late to call tuplestore_set_eflags");
+    }
+
+    // Set flags for read pointer 0
+    state->readptrs[0].eflags = eflags;
+
+    // Combine flags from all read pointers
+    for (i = 1; i < state->readptrcount; i++) {
+        eflags |= state->readptrs[i].eflags;
+    }
+
+    // Update global tuplestore flags
+    state->eflags = eflags;
+}
+```

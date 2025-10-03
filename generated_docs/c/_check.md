@@ -31,3 +31,17 @@ The  function performs a byte-by-byte inspection of a memory buffer to determine
 - Returns true only if ALL bytes in the specified range are 0xff
 - Used as a helper function in ECPG's null indicator validation logic
 - Part of the PostgreSQL ECPG (Embedded SQL in C) interface library
+
+## Simplified Source
+
+```c
+static bool _check(const unsigned char *ptr, int length) {
+    // Check all bytes from end to beginning
+    for (length--; length >= 0; length--) {
+        if (ptr[length] != 0xff)
+            return false;  // Found a byte that's not 0xff
+    }
+
+    return true;  // All bytes are 0xff
+}
+```

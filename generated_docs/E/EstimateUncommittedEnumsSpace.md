@@ -34,3 +34,22 @@ None - this function takes no parameters.
 - This is part of PostgreSQL's parallel query infrastructure
 - The function is safe to call even when the hash tables are NULL (uninitialized)
 - The returned size is used to allocate shared memory segments for parallel workers
+
+## Simplified Source
+
+```c
+Size EstimateUncommittedEnumsSpace(void) {
+    size_t total_entries = 0;
+
+    // Count uncommitted enum types
+    if (uncommitted_enum_types)
+        total_entries += hash_get_num_entries(uncommitted_enum_types);
+
+    // Count uncommitted enum values
+    if (uncommitted_enum_values)
+        total_entries += hash_get_num_entries(uncommitted_enum_values);
+
+    // Return space for entries plus two terminators
+    return sizeof(Oid) * (total_entries + 2);
+}
+```

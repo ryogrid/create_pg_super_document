@@ -45,3 +45,44 @@ This operation ensures that the BRIN index correctly reflects the invalidated st
 - Uses PageIndexTupleDeleteNoCompact instead of compact deletion to maintain page structure during recovery
 - Part of PostgreSQL's crash recovery mechanism for BRIN indexes
 - The desummarization process effectively invalidates summary data, which may trigger re-summarization during subsequent index operations
+
+## Simplified Source
+
+```c
+static void brin_xlog_desummarize_page(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    xl_brin_desummarize *desumm_data = (xl_brin_desummarize *) XLogRecGetData(record);
+    Buffer buffer;
+
+    // Step 1: Update the revmap to invalidate the entry
+    XLogRedoAction action = XLogReadBufferForRedo(record, 0, &buffer);
+    if (action == BLK_NEEDS_REDO) {
+        ItemPointerData invalid_ptr;
+
+        // Mark the revmap entry as invalid
+        ItemPointerSetInvalid(&invalid_ptr);
+        brinSetHeapBlockItemptr(buffer, desumm_data->pagesPerRange,
+                               desumm_data->heapBlk, invalid_ptr);
+
+        PageSetLSN(BufferGetPage(buffer), lsn);
+        MarkBufferDirty(buffer);
+    }
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+
+    // Step 2: Remove the leftover tuple from the regular page
+    action = XLogReadBufferForRedo(record, 1, &buffer);
+    if (action == BLK_NEEDS_REDO) {
+        Page regular_page = BufferGetPage(buffer);
+
+        // Delete the summary tuple without compacting
+        PageIndexTupleDeleteNoCompact(regular_page, desumm_data->regOffset);
+
+        PageSetLSN(regular_page, lsn);
+        MarkBufferDirty(buffer);
+    }
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+}
+```

@@ -36,3 +36,16 @@ This estimation is performed during the parallel query planning phase, before wo
 
 ## Notes and Other Information
 This function is called during parallel query setup, before any worker processes are created. The estimated memory is later allocated by ExecBitmapHeapInitializeDSM. The function follows PostgreSQL's standard pattern for parallel node estimation where each node type estimates its own shared memory needs.
+
+## Simplified Source
+
+```c
+void ExecBitmapHeapEstimate(BitmapHeapScanState *node, ParallelContext *pcxt)
+{
+    // Estimate space for ParallelBitmapHeapState structure
+    shm_toc_estimate_chunk(&pcxt->estimator, sizeof(ParallelBitmapHeapState));
+
+    // Reserve one key in shared memory table of contents
+    shm_toc_estimate_keys(&pcxt->estimator, 1);
+}
+```

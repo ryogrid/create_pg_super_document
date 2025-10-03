@@ -41,3 +41,18 @@ The function includes a safety check to prevent unexpected calls during logical 
 - Contains specific safety checks for logical decoding scenarios
 - Returns `false` if no tuples are found on the page, `true` otherwise
 - Part of the bitmap scan optimization pathway in PostgreSQL's executor
+
+## Simplified Source
+
+```c
+static inline bool
+table_scan_bitmap_next_block(TableScanDesc scan, struct TBMIterateResult *tbmres)
+{
+    // Safety check: prevent calls during logical decoding
+    if (unlikely(TransactionIdIsValid(CheckXidAlive) && !bsysscan))
+        elog(ERROR, "unexpected call during logical decoding");
+
+    // Delegate to table access method implementation
+    return scan->rs_rd->rd_tableam->scan_bitmap_next_block(scan, tbmres);
+}
+```

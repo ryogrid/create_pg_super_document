@@ -37,3 +37,17 @@ The restore functionality complements ExecSortMarkPos to provide complete mark/r
 - Works in conjunction with ExecSortMarkPos to provide complete mark/restore semantics
 - The underlying tuplesort module manages the actual position restoration mechanism
 - No-op if called before sorting is complete, ensuring safe usage regardless of execution state
+
+## Simplified Source
+
+```c
+void ExecSortRestrPos(SortState *node)
+{
+    // Skip if sorting hasn't completed yet
+    if (!node->sort_Done)
+        return;
+
+    // Restore scan to previously marked position
+    tuplesort_restorepos((Tuplesortstate *) node->tuplesortstate);
+}
+```

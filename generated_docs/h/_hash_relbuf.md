@@ -41,3 +41,12 @@ _hash_relbuf(Relation rel, Buffer buf)
 - Both lock and pin are released atomically, making it safe to use in error recovery paths
 - Widely used throughout hash index operations as the standard method for buffer cleanup
 - The function does not perform any validation - the caller must ensure the buffer is valid and properly locked before calling
+
+## Simplified Source
+
+```c
+void _hash_relbuf(Relation rel, Buffer buf) {
+    // Release both lock and pin on the buffer
+    UnlockReleaseBuffer(buf);
+}
+```

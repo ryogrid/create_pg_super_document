@@ -36,3 +36,25 @@ heapam_scan_analyze_next_block is a specialized function used during ANALYZE ope
 - Sets up rs_cbuf (current buffer), rs_cblock (current block number), and rs_cindex (starting at FirstOffsetNumber)
 - Designed to work in conjunction with heapam_scan_analyze_next_tuple() for complete block analysis
 - The shared lock is held throughout the entire block analysis to avoid lock traffic overhead for individual tuples
+
+## Simplified Source
+
+```c
+static bool heapam_scan_analyze_next_block(TableScanDesc scan, ReadStream *stream) {
+    HeapScanDesc hscan = (HeapScanDesc) scan;
+
+    // Get next buffer from stream (already pinned)
+    hscan->rs_cbuf = read_stream_next_buffer(stream, NULL);
+    if (!BufferIsValid(hscan->rs_cbuf))
+        return false;
+
+    // Lock buffer to prevent concurrent modifications during analysis
+    LockBuffer(hscan->rs_cbuf, BUFFER_LOCK_SHARE);
+
+    // Set up current block info for tuple scanning
+    hscan->rs_cblock = BufferGetBlockNumber(hscan->rs_cbuf);
+    hscan->rs_cindex = FirstOffsetNumber;
+
+    return true;
+}
+```

@@ -41,3 +41,22 @@ The calculated size is stored in the IndexScanState's iss_PscanLen field for lat
 - The function assumes the IndexScanState has been properly initialized with scan keys and order-by keys
 - The shared memory is used to coordinate scan progress between parallel workers
 - Located in src/backend/executor/nodeIndexscan.c:1641-1660
+
+## Simplified Source
+
+```c
+void ExecIndexScanEstimate(IndexScanState *node, ParallelContext *pcxt)
+{
+    EState *estate = node->ss.ps.state;
+
+    // Calculate shared memory needed for parallel index scan
+    node->iss_PscanLen = index_parallelscan_estimate(node->iss_RelationDesc,
+                                                     node->iss_NumScanKeys,
+                                                     node->iss_NumOrderByKeys,
+                                                     estate->es_snapshot);
+
+    // Register memory requirements with parallel context
+    shm_toc_estimate_chunk(&pcxt->estimator, node->iss_PscanLen);
+    shm_toc_estimate_keys(&pcxt->estimator, 1);
+}
+```

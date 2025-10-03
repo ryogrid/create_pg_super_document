@@ -43,3 +43,35 @@ Each shared structure maintains a reference count that is atomically decremented
 - Critical for preventing memory leaks in parallel bitmap heap scans
 - Works exclusively with DSA (Dynamic Shared Area) allocated memory, not regular memory contexts
 - Reference counting ensures safe cleanup even when multiple parallel workers are involved
+
+## Simplified Source
+
+```c
+void tbm_free_shared_area(dsa_area *dsa, dsa_pointer dp) {
+    TBMSharedIteratorState *istate = dsa_get_address(dsa, dp);
+
+    // Free shared pagetable if reference count drops to zero
+    if (DsaPointerIsValid(istate->pagetable)) {
+        PTEntryArray *ptbase = dsa_get_address(dsa, istate->pagetable);
+        if (pg_atomic_sub_fetch_u32(&ptbase->refcount, 1) == 0)
+            dsa_free(dsa, istate->pagetable);
+    }
+
+    // Free shared pages array if reference count drops to zero
+    if (DsaPointerIsValid(istate->spages)) {
+        PTIterationArray *ptpages = dsa_get_address(dsa, istate->spages);
+        if (pg_atomic_sub_fetch_u32(&ptpages->refcount, 1) == 0)
+            dsa_free(dsa, istate->spages);
+    }
+
+    // Free shared chunks array if reference count drops to zero
+    if (DsaPointerIsValid(istate->schunks)) {
+        PTIterationArray *ptchunks = dsa_get_address(dsa, istate->schunks);
+        if (pg_atomic_sub_fetch_u32(&ptchunks->refcount, 1) == 0)
+            dsa_free(dsa, istate->schunks);
+    }
+
+    // Always free the iterator state itself
+    dsa_free(dsa, dp);
+}
+```

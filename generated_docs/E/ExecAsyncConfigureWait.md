@@ -46,3 +46,30 @@ This is a critical component of PostgreSQL's asynchronous execution framework, e
 - This is part of the three-phase async execution model: Request → Configure Wait → Notify/Response
 - Essential for implementing efficient asynchronous I/O in PostgreSQL's foreign data wrapper architecture
 - The wait event registration enables PostgreSQL's event loop to efficiently handle multiple concurrent async operations
+
+## Simplified Source
+
+```c
+void
+ExecAsyncConfigureWait(AsyncRequest *areq)
+{
+    // Start performance instrumentation for configuration phase
+    if (areq->requestee->instrument)
+        InstrStartNode(areq->requestee->instrument);
+
+    // Dispatch to appropriate async-capable node type
+    switch (nodeTag(areq->requestee)) {
+        case T_ForeignScanState:
+            ExecAsyncForeignScanConfigureWait(areq);
+            break;
+        default:
+            // Only foreign scan nodes currently support async
+            elog(ERROR, "unrecognized node type: %d",
+                 (int) nodeTag(areq->requestee));
+    }
+
+    // Stop instrumentation (0.0 tuples since this is configuration)
+    if (areq->requestee->instrument)
+        InstrStopNode(areq->requestee->instrument, 0.0);
+}
+```

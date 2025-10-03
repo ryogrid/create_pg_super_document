@@ -39,3 +39,18 @@ The asymmetry between ExecResultMarkPos (which issues a debug message) and ExecR
 - The error behavior ensures that incorrect usage of mark/restore on constant Result nodes is caught immediately
 - Mark/restore operations are typically coordinated, so an attempt to restore without a corresponding mark indicates a logical error in the execution plan
 - This function is part of the executor's position management infrastructure used primarily by join algorithms
+
+## Simplified Source
+
+```c
+void ExecResultRestrPos(ResultState *node)
+{
+    PlanState *outerPlan = outerPlanState(node);
+
+    // Delegate to outer plan if present
+    if (outerPlan != NULL)
+        ExecRestrPos(outerPlan);
+    else
+        elog(ERROR, "Result nodes do not support mark/restore");
+}
+```

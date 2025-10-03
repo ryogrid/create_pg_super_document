@@ -47,3 +47,26 @@ The function delegates the actual recursive locking work to heap_lock_updated_tu
 - Critical for maintaining lock consistency across tuple update chains in PostgreSQL's MVCC system
 - The MultiXactId preparation step ensures proper concurrency control even when the operation might use only simple TransactionIds
 - Designed specifically for scenarios where the snapshot predates updates but transaction isolation allows continued processing
+
+## Simplified Source
+
+```c
+static TM_Result
+heap_lock_updated_tuple(Relation rel, HeapTuple tuple, ItemPointer ctid,
+                        TransactionId xid, LockTupleMode mode)
+{
+    // Check if there are updated versions to lock
+    if (!HeapTupleHeaderIndicatesMovedPartitions(tuple->t_data) &&
+        !ItemPointerEquals(&tuple->t_self, ctid)) {
+
+        // Prepare for potential MultiXact operations
+        MultiXactIdSetOldestMember();
+
+        // Recursively lock all updated versions in the chain
+        return heap_lock_updated_tuple_rec(rel, ctid, xid, mode);
+    }
+
+    // No updated versions exist - nothing to lock
+    return TM_Ok;
+}
+```

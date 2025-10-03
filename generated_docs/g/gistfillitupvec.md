@@ -35,3 +35,28 @@ The function also returns the total memory length through the memlen parameter, 
 - The returned pointer is cast to IndexTupleData* but points to a contiguous block containing multiple IndexTuples
 - This function is primarily used during GiST index construction and split operations where multiple IndexTuples need to be processed as a unit
 - The caller is responsible for understanding that the returned pointer points to a sequence of IndexTuples, not a single IndexTuple
+
+## Simplified Source
+
+```c
+IndexTupleData *gistfillitupvec(IndexTuple *vec, int veclen, int *memlen) {
+    char *ptr, *ret;
+
+    // Calculate total memory needed for all tuples
+    *memlen = 0;
+    for (int i = 0; i < veclen; i++) {
+        *memlen += IndexTupleSize(vec[i]);
+    }
+
+    // Allocate contiguous memory block
+    ptr = ret = palloc(*memlen);
+
+    // Copy each tuple sequentially into the block
+    for (int i = 0; i < veclen; i++) {
+        memcpy(ptr, vec[i], IndexTupleSize(vec[i]));
+        ptr += IndexTupleSize(vec[i]);
+    }
+
+    return (IndexTupleData *) ret;
+}
+```

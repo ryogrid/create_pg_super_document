@@ -51,3 +51,98 @@ When a page split occurs, the function recursively inserts downlink tuples to th
 - Handles special case of root splits by updating the root level and memorizing parent relationships for all new child pages
 - Uses recursive calls to propagate splits up the tree hierarchy
 - Critical for maintaining the parent map data structure used by the buffering algorithm to efficiently locate correct parent pages
+
+## Simplified Source
+
+```c
+static BlockNumber
+gistbufferinginserttuples(GISTBuildState *buildstate, Buffer buffer, int level,
+                          IndexTuple *itup, int ntup, OffsetNumber oldoffnum,
+                          BlockNumber parentblk, OffsetNumber downlinkoffnum)
+{
+    GISTBuildBuffers *gfbb = buildstate->gfbb;
+    List *splitinfo;
+    bool is_split;
+    BlockNumber placed_to_blk = InvalidBlockNumber;
+
+    // Insert tuples into page, potentially causing a split
+    is_split = gistplacetopage(buildstate->indexrel, buildstate->freespace,
+                               buildstate->giststate, buffer, itup, ntup, oldoffnum,
+                               &placed_to_blk, InvalidBuffer, &splitinfo,
+                               false, buildstate->heaprel, true);
+
+    // Handle root split - update root level tracking
+    if (is_split && BufferGetBlockNumber(buffer) == GIST_ROOT_BLKNO)
+    {
+        gfbb->rootlevel++;
+
+        // Memorize parent relationships for all new child pages
+        if (gfbb->rootlevel > 1)
+        {
+            Page page = BufferGetPage(buffer);
+            OffsetNumber maxoff = PageGetMaxOffsetNumber(page);
+
+            for (OffsetNumber off = FirstOffsetNumber; off <= maxoff; off++)
+            {
+                ItemId iid = PageGetItemId(page, off);
+                IndexTuple idxtuple = (IndexTuple) PageGetItem(page, iid);
+                BlockNumber childblkno = ItemPointerGetBlockNumber(&(idxtuple->t_tid));
+
+                Buffer childbuf = ReadBuffer(buildstate->indexrel, childblkno);
+                LockBuffer(childbuf, GIST_SHARE);
+                gistMemorizeAllDownlinks(buildstate, childbuf);
+                UnlockReleaseBuffer(childbuf);
+
+                gistMemorizeParent(buildstate, childblkno, GIST_ROOT_BLKNO);
+            }
+        }
+    }
+
+    // Handle page splits by inserting downlinks to parent
+    if (splitinfo)
+    {
+        Buffer parentBuffer = gistBufferingFindCorrectParent(buildstate,
+                                                             BufferGetBlockNumber(buffer),
+                                                             level, &parentblk,
+                                                             &downlinkoffnum);
+
+        // Relocate buffers affected by the split
+        gistRelocateBuildBuffersOnSplit(gfbb, buildstate->giststate,
+                                        buildstate->indexrel, level,
+                                        buffer, splitinfo);
+
+        // Create downlinks array and update parent mappings
+        int ndownlinks = list_length(splitinfo);
+        IndexTuple *downlinks = (IndexTuple *) palloc(sizeof(IndexTuple) * ndownlinks);
+
+        int i = 0;
+        ListCell *lc;
+        foreach(lc, splitinfo)
+        {
+            GISTPageSplitInfo *splitinfo = lfirst(lc);
+
+            // Update parent mappings
+            if (level > 0)
+                gistMemorizeParent(buildstate, BufferGetBlockNumber(splitinfo->buf),
+                                   BufferGetBlockNumber(parentBuffer));
+
+            if (level > 1)
+                gistMemorizeAllDownlinks(buildstate, splitinfo->buf);
+
+            UnlockReleaseBuffer(splitinfo->buf);
+            downlinks[i++] = splitinfo->downlink;
+        }
+
+        // Recursively insert downlinks to parent
+        gistbufferinginserttuples(buildstate, parentBuffer, level + 1,
+                                  downlinks, ndownlinks, downlinkoffnum,
+                                  InvalidBlockNumber, InvalidOffsetNumber);
+
+        list_free_deep(splitinfo);
+    }
+    else
+        UnlockReleaseBuffer(buffer);
+
+    return placed_to_blk;
+}
+```

@@ -40,3 +40,38 @@ When a page becomes empty after tuple removal, the function automatically fetche
 - Properly releases disk blocks for reuse to maintain efficient storage utilization
 - Part of the GiST index build buffer management system that enables memory-efficient construction of large indexes
 - The function maintains the backward-linked list structure of buffer pages
+
+## Simplified Source
+
+```c
+bool gistPopItupFromNodeBuffer(GISTBuildBuffers *gfbb, GISTNodeBuffer *nodeBuffer, IndexTuple *itup) {
+    // Return false if buffer is empty
+    if (nodeBuffer->blocksCount <= 0)
+        return false;
+
+    // Load page buffer from disk if needed
+    if (!nodeBuffer->pageBuffer)
+        gistLoadNodeBuffer(gfbb, nodeBuffer);
+
+    // Extract tuple from current page
+    gistGetItupFromPage(nodeBuffer->pageBuffer, itup);
+
+    // Handle page cleanup if it becomes empty
+    if (PAGE_IS_EMPTY(nodeBuffer->pageBuffer)) {
+        BlockNumber prevblkno = nodeBuffer->pageBuffer->prev;
+        nodeBuffer->blocksCount--;
+
+        if (prevblkno != InvalidBlockNumber) {
+            // Load previous page and release current block
+            ReadTempFileBlock(gfbb->pfile, prevblkno, nodeBuffer->pageBuffer);
+            gistBuffersReleaseBlock(gfbb, prevblkno);
+        } else {
+            // No more pages - free memory
+            pfree(nodeBuffer->pageBuffer);
+            nodeBuffer->pageBuffer = NULL;
+        }
+    }
+
+    return true;
+}
+```

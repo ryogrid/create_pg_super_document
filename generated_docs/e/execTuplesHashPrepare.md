@@ -41,3 +41,38 @@ This function is similar to execTuplesMatchPrepare but additionally handles hash
 - Essential for hash-based operations like hash joins, hash aggregation, and set operations
 - The initialized FmgrInfo structures allow efficient function calls during query execution
 - Related to TupleHashTable infrastructure for high-performance tuple hashing
+
+## Simplified Source
+
+```c
+void execTuplesHashPrepare(int numCols,
+                          const Oid *eqOperators,
+                          Oid **eqFuncOids,
+                          FmgrInfo **hashFunctions)
+{
+    // Allocate output arrays
+    *eqFuncOids = (Oid *) palloc(numCols * sizeof(Oid));
+    *hashFunctions = (FmgrInfo *) palloc(numCols * sizeof(FmgrInfo));
+
+    // Process each column's equality operator
+    for (int i = 0; i < numCols; i++)
+    {
+        Oid eq_opr = eqOperators[i];
+        Oid left_hash_function, right_hash_function;
+
+        // Get equality function from operator
+        Oid eq_function = get_opcode(eq_opr);
+
+        // Get hash functions for the operator
+        if (!get_op_hash_functions(eq_opr, &left_hash_function, &right_hash_function))
+            elog(ERROR, "could not find hash function for hash operator %u", eq_opr);
+
+        // Ensure no cross-type comparisons
+        Assert(left_hash_function == right_hash_function);
+
+        // Store results
+        (*eqFuncOids)[i] = eq_function;
+        fmgr_info(right_hash_function, &(*hashFunctions)[i]);
+    }
+}
+```

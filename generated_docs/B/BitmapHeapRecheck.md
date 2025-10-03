@@ -37,3 +37,18 @@ The function is essential for maintaining MVCC (Multi-Version Concurrency Contro
 - It reuses the original qualification conditions (bitmapqualorig) stored in the scan state
 - The function uses ExecQualAndReset to evaluate conditions and automatically reset the expression context
 - Part of PostgreSQL's MVCC implementation for handling concurrent tuple modifications during bitmap heap scans
+
+## Simplified Source
+
+```c
+static bool
+BitmapHeapRecheck(BitmapHeapScanState *node, TupleTableSlot *slot)
+{
+    // Get expression context from scan node
+    ExprContext *econtext = node->ss.ps.ps_ExprContext;
+
+    // Set the tuple to be checked and evaluate original qualification conditions
+    econtext->ecxt_scantuple = slot;
+    return ExecQualAndReset(node->bitmapqualorig, econtext);
+}
+```

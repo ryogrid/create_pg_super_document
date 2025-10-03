@@ -43,3 +43,24 @@ The function includes assertions to ensure proper usage: the scan must be a TID 
 - NoMovementScanDirection is explicitly not supported for actual tuple retrieval
 - Used as the core tuple fetching mechanism in TID range scan execution
 - The actual tuple retrieval logic is delegated to the table access method implementation
+
+## Simplified Source
+
+```c
+static inline bool
+table_scan_getnextslot_tidrange(TableScanDesc sscan, ScanDirection direction,
+                                TupleTableSlot *slot)
+{
+    // Validate this is a TID range scan
+    Assert((sscan->rs_flags & SO_TYPE_TIDRANGESCAN) != 0);
+
+    // Validate scan direction (forward or backward only)
+    Assert(direction == ForwardScanDirection ||
+           direction == BackwardScanDirection);
+
+    // Delegate to table access method to fetch next tuple
+    return sscan->rs_rd->rd_tableam->scan_getnextslot_tidrange(sscan,
+                                                              direction,
+                                                              slot);
+}
+```

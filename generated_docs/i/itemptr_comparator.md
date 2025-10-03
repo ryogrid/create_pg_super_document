@@ -47,3 +47,29 @@ The function returns standard qsort comparison values:
 - Implements lexicographic ordering: (block_number, offset_number)
 - Part of the TID scan optimization infrastructure that eliminates duplicates and ensures efficient heap traversal
 - The comparison is purely based on physical tuple location, not on tuple content or logical ordering
+
+## Simplified Source
+
+```c
+static int itemptr_comparator(const void *a, const void *b) {
+    const ItemPointerData *ipa = (const ItemPointerData *) a;
+    const ItemPointerData *ipb = (const ItemPointerData *) b;
+
+    // Get block numbers for comparison
+    BlockNumber ba = ItemPointerGetBlockNumber(ipa);
+    BlockNumber bb = ItemPointerGetBlockNumber(ipb);
+
+    // Primary ordering: compare block numbers
+    if (ba < bb) return -1;
+    if (ba > bb) return 1;
+
+    // Secondary ordering: compare offset numbers within same block
+    OffsetNumber oa = ItemPointerGetOffsetNumber(ipa);
+    OffsetNumber ob = ItemPointerGetOffsetNumber(ipb);
+
+    if (oa < ob) return -1;
+    if (oa > ob) return 1;
+
+    return 0; // Equal
+}
+```

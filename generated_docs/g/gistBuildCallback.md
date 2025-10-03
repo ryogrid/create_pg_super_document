@@ -59,3 +59,55 @@ The function implements adaptive behavior, starting with direct insertion and po
 - The function is performance-critical as it's called once for every tuple being indexed
 - Implements a feedback loop where buffer sizes are continuously optimized based on observed tuple characteristics
 - Mode switching logic prevents excessive calls to expensive operations like  by checking conditions only periodically
+
+## Simplified Source
+
+```c
+static void
+gistBuildCallback(Relation index, ItemPointer tid, Datum *values,
+                  bool *isnull, bool tupleIsAlive, void *state)
+{
+    GISTBuildState *buildstate = (GISTBuildState *) state;
+    MemoryContext oldCtx = MemoryContextSwitchTo(buildstate->giststate->tempCxt);
+
+    // Create index tuple from heap tuple
+    IndexTuple itup = gistFormTuple(buildstate->giststate, index, values, isnull, true);
+    itup->t_tid = *tid;
+
+    // Update build statistics
+    buildstate->indtuples += 1;
+    buildstate->indtuplesSize += IndexTupleSize(itup);
+
+    // Insert tuple using current build mode
+    if (buildstate->buildMode == GIST_BUFFERING_ACTIVE)
+    {
+        gistBufferingBuildInsert(buildstate, itup);
+    }
+    else
+    {
+        gistdoinsert(index, itup, buildstate->freespace,
+                     buildstate->giststate, buildstate->heaprel, true);
+    }
+
+    MemoryContextSwitchTo(oldCtx);
+    MemoryContextReset(buildstate->giststate->tempCxt);
+
+    // Adjust buffer sizes periodically in buffering mode
+    if (buildstate->buildMode == GIST_BUFFERING_ACTIVE &&
+        buildstate->indtuples % BUFFERING_MODE_TUPLE_SIZE_STATS_TARGET == 0)
+    {
+        buildstate->gfbb->pagesPerBuffer =
+            calculatePagesPerBuffer(buildstate, buildstate->gfbb->levelStep);
+    }
+
+    // Check if we should switch to buffering mode
+    if ((buildstate->buildMode == GIST_BUFFERING_AUTO &&
+         buildstate->indtuples % BUFFERING_MODE_SWITCH_CHECK_STEP == 0 &&
+         effective_cache_size < smgrnblocks(RelationGetSmgr(index), MAIN_FORKNUM)) ||
+        (buildstate->buildMode == GIST_BUFFERING_STATS &&
+         buildstate->indtuples >= BUFFERING_MODE_TUPLE_SIZE_STATS_TARGET))
+    {
+        gistInitBuffering(buildstate);
+    }
+}
+```

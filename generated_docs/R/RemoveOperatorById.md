@@ -42,3 +42,46 @@ The function operates at the catalog level and assumes all dependency checking a
 - Does not perform cascade deletion - that is handled by the dependency system
 - Uses system cache for efficient operator tuple lookup
 - The OperatorUpd() call ensures related operators have their back-references cleared
+
+## Simplified Source
+
+```c
+void RemoveOperatorById(Oid operOid)
+{
+    Relation relation;
+    HeapTuple tup;
+    Form_pg_operator op;
+
+    // Open operator catalog table
+    relation = table_open(OperatorRelationId, RowExclusiveLock);
+
+    // Look up the operator tuple
+    tup = SearchSysCache1(OPEROID, ObjectIdGetDatum(operOid));
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for operator %u", operOid);
+
+    op = (Form_pg_operator) GETSTRUCT(tup);
+
+    // Reset commutator and negator links in related operators
+    if (OidIsValid(op->oprcom) || OidIsValid(op->oprnegate))
+    {
+        OperatorUpd(operOid, op->oprcom, op->oprnegate, true);
+
+        // Re-fetch tuple if operator is self-commutative or self-negating
+        // (OperatorUpd may have modified our tuple)
+        if (operOid == op->oprcom || operOid == op->oprnegate)
+        {
+            ReleaseSysCache(tup);
+            tup = SearchSysCache1(OPEROID, ObjectIdGetDatum(operOid));
+            if (!HeapTupleIsValid(tup))
+                elog(ERROR, "cache lookup failed for operator %u", operOid);
+        }
+    }
+
+    // Delete the operator tuple from catalog
+    CatalogTupleDelete(relation, &tup->t_self);
+
+    ReleaseSysCache(tup);
+    table_close(relation, RowExclusiveLock);
+}
+```

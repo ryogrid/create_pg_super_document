@@ -37,3 +37,18 @@ This function takes no parameters.
 - Should be called by worker processes when they finish working on a particular session
 - Does not deallocate the CurrentSession object itself, only detaches from shared resources
 - Future worker reuse scenarios will require proper detachment before attaching to new sessions
+
+## Simplified Source
+
+```c
+void DetachSession(void)
+{
+    // Detach from DSM segment (runs detach hooks)
+    dsm_detach(CurrentSession->segment);
+    CurrentSession->segment = NULL;
+
+    // Detach from DSA area
+    dsa_detach(CurrentSession->area);
+    CurrentSession->area = NULL;
+}
+```

@@ -40,3 +40,19 @@ This function provides the public interface for adding integer-type relation opt
 - Options registered via this function become part of the global reloptions catalog and are available system-wide
 - Extensions and custom access methods commonly use this function to define their configurable parameters
 - The function assumes the caller has validated the parameter ranges and naming conventions
+
+## Simplified Source
+
+```c
+void add_int_reloption(bits32 kinds, const char *name, const char *desc,
+                       int default_val, int min_val, int max_val,
+                       LOCKMODE lockmode) {
+    // Create a new integer reloption with validation bounds
+    relopt_int *new_option = init_int_reloption(kinds, name, desc,
+                                                default_val, min_val,
+                                                max_val, lockmode);
+
+    // Register the option globally
+    add_reloption((relopt_gen *) new_option);
+}
+```

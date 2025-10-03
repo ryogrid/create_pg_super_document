@@ -44,3 +44,29 @@ This serialization mechanism is primarily used in parallel query processing to e
 - Used primarily in PostgreSQL's parallel processing infrastructure to synchronize configuration between leader and worker processes
 - The function assumes the provided buffer is large enough; callers should use `EstimateGUCStateSpace` to determine required buffer size
 - Part of PostgreSQL's mechanism for maintaining configuration consistency across process boundaries in parallel operations
+
+## Simplified Source
+
+```c
+void SerializeGUCState(Size maxsize, char *start_address) {
+    char *curptr;
+    Size actual_size;
+    Size bytes_left;
+    dlist_iter iter;
+
+    // Reserve space for actual size at beginning
+    curptr = start_address + sizeof(actual_size);
+    bytes_left = maxsize - sizeof(actual_size);
+
+    // Serialize all non-default GUC variables
+    dlist_foreach(iter, &guc_nondef_list) {
+        struct config_generic *gconf = dlist_container(struct config_generic,
+                                                       nondef_link, iter.cur);
+        serialize_variable(&curptr, &bytes_left, gconf);
+    }
+
+    // Store actual size at the beginning
+    actual_size = maxsize - bytes_left - sizeof(actual_size);
+    memcpy(start_address, &actual_size, sizeof(actual_size));
+}
+```

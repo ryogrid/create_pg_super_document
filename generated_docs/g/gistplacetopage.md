@@ -121,3 +121,163 @@ This function is the central workhorse for placing tuples onto GiST pages. It ha
 - Maintains predicate locks for serializable isolation level
 - Critical sections ensure atomic updates for crash safety
 - Located in src/backend/access/gist/gist.c:225-633
+
+## Simplified Source
+```c
+bool gistplacetopage(Relation rel, Size freespace, GISTSTATE *giststate,
+                     Buffer buffer, IndexTuple *itup, int ntup,
+                     OffsetNumber oldoffnum, BlockNumber *newblkno,
+                     Buffer leftchildbuf, List **splitinfo,
+                     bool markfollowright, Relation heapRel, bool is_build) {
+    BlockNumber blkno = BufferGetBlockNumber(buffer);
+    Page page = BufferGetPage(buffer);
+    bool is_leaf = GistPageIsLeaf(page);
+    bool is_split;
+    XLogRecPtr recptr;
+
+    // Validate page state
+    if (GistFollowRight(page))
+        elog(ERROR, "concurrent GiST page split was incomplete");
+    Assert(!GistPageIsDeleted(page));
+
+    *splitinfo = NIL;
+
+    // Check if page has enough space
+    is_split = gistnospace(page, itup, ntup, oldoffnum, freespace);
+
+    // Try garbage collection on full leaf pages
+    if (is_split && is_leaf && GistPageHasGarbage(page)) {
+        gistprunepage(rel, page, buffer, heapRel);
+        is_split = gistnospace(page, itup, ntup, oldoffnum, freespace);
+    }
+
+    if (is_split) {
+        // Page split required - complex path
+        IndexTuple *itvec;
+        int tlen;
+        SplitPageLayout *dist;
+        bool is_rootsplit = (blkno == GIST_ROOT_BLKNO);
+
+        // Extract existing tuples and remove old one if replacing
+        itvec = gistextractpage(page, &tlen);
+        if (OffsetNumberIsValid(oldoffnum)) {
+            // Remove old tuple from vector
+            int pos = oldoffnum - FirstOffsetNumber;
+            tlen--;
+            if (pos != tlen)
+                memmove(itvec + pos, itvec + pos + 1,
+                        sizeof(IndexTuple) * (tlen - pos));
+        }
+
+        // Combine with new tuples and split
+        itvec = gistjoinvector(itvec, &tlen, itup, ntup);
+        dist = gistSplit(rel, page, itvec, tlen, giststate);
+
+        // Allocate buffers for split pages
+        if (!is_rootsplit) {
+            // Regular split - reuse original buffer for leftmost page
+            dist->buffer = buffer;
+            dist->page = PageGetTempPageCopySpecial(page);
+            GistPageGetOpaque(dist->page)->flags = is_leaf ? F_LEAF : 0;
+        }
+
+        // Allocate new buffers for additional pages
+        for (SplitPageLayout *ptr = is_rootsplit ? dist : dist->next;
+             ptr; ptr = ptr->next) {
+            ptr->buffer = gistNewBuffer(rel, heapRel);
+            GISTInitBuffer(ptr->buffer, is_leaf ? F_LEAF : 0);
+            ptr->page = BufferGetPage(ptr->buffer);
+            ptr->block.blkno = BufferGetBlockNumber(ptr->buffer);
+        }
+
+        // Set up downlink tuples
+        for (SplitPageLayout *ptr = dist; ptr; ptr = ptr->next) {
+            ItemPointerSetBlockNumber(&(ptr->itup->t_tid), ptr->block.blkno);
+            GistTupleSetValid(ptr->itup);
+        }
+
+        // Handle root split specially
+        if (is_rootsplit) {
+            // Create new root with downlinks to child pages
+            // (Complex root page setup omitted for brevity)
+        } else {
+            // Prepare split info for caller
+            for (SplitPageLayout *ptr = dist; ptr; ptr = ptr->next) {
+                GISTPageSplitInfo *si = palloc(sizeof(GISTPageSplitInfo));
+                si->buf = ptr->buffer;
+                si->downlink = ptr->itup;
+                *splitinfo = lappend(*splitinfo, si);
+            }
+        }
+
+        // Fill all split pages with tuples
+        for (SplitPageLayout *ptr = dist; ptr; ptr = ptr->next) {
+            // Add tuples to page and set up page links
+            // (Page filling logic simplified)
+        }
+
+        START_CRIT_SECTION();
+
+        // Mark buffers dirty and log operation
+        for (SplitPageLayout *ptr = dist; ptr; ptr = ptr->next)
+            MarkBufferDirty(ptr->buffer);
+
+        // Write WAL record
+        if (is_build)
+            recptr = GistBuildLSN;
+        else if (RelationNeedsWAL(rel))
+            recptr = gistXLogSplit(is_leaf, dist, /* other args */);
+        else
+            recptr = gistGetFakeLSN(rel);
+
+        // Set LSN on all pages
+        for (SplitPageLayout *ptr = dist; ptr; ptr = ptr->next)
+            PageSetLSN(ptr->page, recptr);
+
+    } else {
+        // Simple case - enough space on page
+        START_CRIT_SECTION();
+
+        // Replace or append tuples
+        if (OffsetNumberIsValid(oldoffnum)) {
+            if (ntup == 1) {
+                // One-for-one replacement
+                PageIndexTupleOverwrite(page, oldoffnum, (Item) *itup,
+                                      IndexTupleSize(*itup));
+            } else {
+                // Delete old, add new
+                PageIndexTupleDelete(page, oldoffnum);
+                gistfillbuffer(page, itup, ntup, InvalidOffsetNumber);
+            }
+        } else {
+            // Just append new tuples
+            gistfillbuffer(page, itup, ntup, InvalidOffsetNumber);
+        }
+
+        MarkBufferDirty(buffer);
+
+        // Log update operation
+        if (is_build)
+            recptr = GistBuildLSN;
+        else if (RelationNeedsWAL(rel))
+            recptr = gistXLogUpdate(buffer, /* args */);
+        else
+            recptr = gistGetFakeLSN(rel);
+
+        PageSetLSN(page, recptr);
+        if (newblkno)
+            *newblkno = blkno;
+    }
+
+    // Update left child page if provided
+    if (BufferIsValid(leftchildbuf)) {
+        Page leftpg = BufferGetPage(leftchildbuf);
+        GistPageSetNSN(leftpg, recptr);
+        GistClearFollowRight(leftpg);
+        PageSetLSN(leftpg, recptr);
+    }
+
+    END_CRIT_SECTION();
+    return is_split;
+}
+```

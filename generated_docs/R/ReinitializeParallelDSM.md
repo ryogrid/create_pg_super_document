@@ -41,3 +41,43 @@ The function first ensures all previous workers have completed and exited, then 
 - More efficient than destroying and recreating the entire parallel context
 - Preserves the underlying DSM segment and most serialized state, only resetting runtime elements
 - Essential for multi-phase parallel operations that reuse the same worker pool
+
+## Simplified Source
+
+```c
+void
+ReinitializeParallelDSM(ParallelContext *pcxt)
+{
+    FixedParallelState *fps;
+
+    // Wait for any old workers to exit
+    if (pcxt->nworkers_launched > 0) {
+        WaitForParallelWorkersToFinish(pcxt);
+        WaitForParallelWorkersToExit(pcxt);
+        pcxt->nworkers_launched = 0;
+
+        // Clean up attached workers tracking
+        if (pcxt->known_attached_workers) {
+            pfree(pcxt->known_attached_workers);
+            pcxt->known_attached_workers = NULL;
+            pcxt->nknown_attached_workers = 0;
+        }
+    }
+
+    // Reset parallel state to clean state
+    fps = shm_toc_lookup(pcxt->toc, PARALLEL_KEY_FIXED, false);
+    fps->last_xlog_end = 0;
+
+    // Recreate error queues for new workers
+    if (pcxt->nworkers > 0) {
+        char *error_queue_space = shm_toc_lookup(pcxt->toc, PARALLEL_KEY_ERROR_QUEUE, false);
+
+        for (int i = 0; i < pcxt->nworkers; ++i) {
+            char *start = error_queue_space + i * PARALLEL_ERROR_QUEUE_SIZE;
+            shm_mq *mq = shm_mq_create(start, PARALLEL_ERROR_QUEUE_SIZE);
+            shm_mq_set_receiver(mq, MyProc);
+            pcxt->worker[i].error_mqh = shm_mq_attach(mq, pcxt->seg, NULL);
+        }
+    }
+}
+```

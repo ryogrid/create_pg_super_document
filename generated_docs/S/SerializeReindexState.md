@@ -42,3 +42,22 @@ The function populates a SerializedReindexState structure with:
 - The pendingReindexedIndexes list contains all indexes that are in the process of being reindexed
 - Located in src/backend/catalog/index.c at lines 4192-4209
 - Works in conjunction with EstimateReindexStateSpace() and RestoreReindexState()
+
+## Simplified Source
+
+```c
+void SerializeReindexState(Size maxsize, char *start_address) {
+    SerializedReindexState *sistate = (SerializedReindexState *) start_address;
+    int c = 0;
+    ListCell *lc;
+
+    // Copy current reindex state
+    sistate->currentlyReindexedHeap = currentlyReindexedHeap;
+    sistate->currentlyReindexedIndex = currentlyReindexedIndex;
+    sistate->numPendingReindexedIndexes = list_length(pendingReindexedIndexes);
+
+    // Copy pending reindexed index OIDs
+    foreach(lc, pendingReindexedIndexes)
+        sistate->pendingReindexedIndexes[c++] = lfirst_oid(lc);
+}
+```

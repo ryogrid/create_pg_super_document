@@ -47,3 +47,29 @@ This function is crucial for the buffer management system's ability to swap page
 - Uses the established ReadTempFileBlock function (referenced in related symbols) for file I/O
 - The pageBlocknum reset to InvalidBlockNumber serves as a flag indicating the page is memory-resident
 - Essential for the lazy-loading strategy that enables efficient memory usage during large index builds
+
+## Simplified Source
+
+```c
+static void
+gistLoadNodeBuffer(GISTBuildBuffers *gfbb, GISTNodeBuffer *nodeBuffer)
+{
+    // Only load if buffer has data but no page in memory
+    if (!nodeBuffer->pageBuffer && nodeBuffer->blocksCount > 0)
+    {
+        // Allocate memory for page
+        nodeBuffer->pageBuffer = gistAllocateNewPageBuffer(gfbb);
+
+        // Read page from temporary file
+        ReadTempFileBlock(gfbb->pfile, nodeBuffer->pageBlocknum,
+                         nodeBuffer->pageBuffer);
+
+        // Mark file block as free for reuse
+        gistBuffersReleaseBlock(gfbb, nodeBuffer->pageBlocknum);
+
+        // Track loaded buffer and reset page block number
+        gistAddLoadedBuffer(gfbb, nodeBuffer);
+        nodeBuffer->pageBlocknum = InvalidBlockNumber;
+    }
+}
+```

@@ -47,3 +47,53 @@ The function implements an optimized approach:
 - Critical for GROUPS frame mode performance as it defines peer group boundaries
 - Used both for frame boundary computation and window function exclusion processing
 - The grouptail_valid flag optimization prevents redundant computation for the same row
+
+## Simplified Source
+
+```c
+static void
+update_grouptailpos(WindowAggState *winstate)
+{
+    WindowAgg *node = (WindowAgg *) winstate->ss.ps.plan;
+
+    // Return if position already computed for current row
+    if (winstate->grouptail_valid)
+        return;
+
+    // Switch to persistent memory context
+    MemoryContext oldcontext = MemoryContextSwitchTo(
+        winstate->ss.ps.ps_ExprContext->ecxt_per_query_memory);
+
+    // If no ORDER BY, all rows are peers (one large group)
+    if (node->ordNumCols == 0) {
+        spool_tuples(winstate, -1);
+        winstate->grouptailpos = winstate->spooled_rows;
+        winstate->grouptailpos_valid = true;
+        MemoryContextSwitchTo(oldcontext);
+        return;
+    }
+
+    // Find end of current peer group
+    // grouptailpos always needs to advance from current position
+    tuplestore_select_read_pointer(winstate->buffer, winstate->grouptail_ptr);
+
+    for (;;) {
+        // Advance to next row
+        winstate->grouptailpos++;
+        spool_tuples(winstate, winstate->grouptailpos);
+
+        // Try to fetch next tuple
+        if (!tuplestore_gettupleslot(winstate->buffer, true, true, winstate->temp_slot_2))
+            break;  // End of partition
+
+        // Check if this row is still a peer of current row
+        if (winstate->grouptailpos > winstate->currentpos &&
+            !are_peers(winstate, winstate->temp_slot_2, winstate->ss.ss_ScanTupleSlot))
+            break;  // Found first non-peer
+    }
+
+    ExecClearTuple(winstate->temp_slot_2);
+    winstate->grouptail_valid = true;
+    MemoryContextSwitchTo(oldcontext);
+}
+```

@@ -48,3 +48,36 @@ The function also sets up the function manager info structures and collation inf
 - The choice between direct and shim implementations affects performance, with direct implementations being preferred when available
 - Located at src/backend/access/gin/ginlogic.c:227-250
 - The function sets up both boolean and tri-state consistent functions to support different query evaluation strategies
+
+## Simplified Source
+
+```c
+void
+ginInitConsistentFunction(GinState *ginstate, GinScanKey key)
+{
+    if (key->searchMode == GIN_SEARCH_MODE_EVERYTHING) {
+        // Special case: searching for all entries - use "always true" functions
+        key->boolConsistentFn = trueConsistentFn;
+        key->triConsistentFn = trueTriConsistentFn;
+    } else {
+        // Normal search mode: set up function pointers and metadata
+        key->consistentFmgrInfo = &ginstate->consistentFn[key->attnum - 1];
+        key->triConsistentFmgrInfo = &ginstate->triConsistentFn[key->attnum - 1];
+        key->collation = ginstate->supportCollation[key->attnum - 1];
+
+        // Choose boolean consistent function implementation
+        if (OidIsValid(ginstate->consistentFn[key->attnum - 1].fn_oid)) {
+            key->boolConsistentFn = directBoolConsistentFn;  // Use native boolean function
+        } else {
+            key->boolConsistentFn = shimBoolConsistentFn;    // Use ternary-to-boolean adapter
+        }
+
+        // Choose ternary consistent function implementation
+        if (OidIsValid(ginstate->triConsistentFn[key->attnum - 1].fn_oid)) {
+            key->triConsistentFn = directTriConsistentFn;    // Use native ternary function
+        } else {
+            key->triConsistentFn = shimTriConsistentFn;      // Use boolean-to-ternary adapter
+        }
+    }
+}
+```

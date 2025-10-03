@@ -36,3 +36,39 @@ The tuplesort_markpos function creates a position marker at the current location
 - Throws error if called on sort in invalid state
 - This is a public function exposed through tuplesort.h interface
 - Essential for algorithms requiring backtracking or multiple position bookmarks in sorted data
+
+## Simplified Source
+
+```c
+void tuplesort_markpos(Tuplesortstate *state) {
+    // Switch to sort context for consistent memory management
+    MemoryContext oldcontext = MemoryContextSwitchTo(state->base.sortcontext);
+
+    // Verify random access capability is enabled
+    Assert(state->base.sortopt & TUPLESORT_RANDOMACCESS);
+
+    // Save current position based on storage type
+    switch (state->status) {
+        case TSS_SORTEDINMEM:
+            // For in-memory sorts: save current tuple index
+            state->markpos_offset = state->current;
+            state->markpos_eof = state->eof_reached;
+            break;
+
+        case TSS_SORTEDONTAPE:
+            // For tape-based sorts: save current tape position
+            LogicalTapeTell(state->result_tape,
+                           &state->markpos_block,
+                           &state->markpos_offset);
+            state->markpos_eof = state->eof_reached;
+            break;
+
+        default:
+            elog(ERROR, "invalid tuplesort state");
+            break;
+    }
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldcontext);
+}
+```

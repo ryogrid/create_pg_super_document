@@ -36,3 +36,38 @@ This function is parallel to  in nodeAgg.c and is responsible for initializing w
 - When the initial value is not NULL, it creates a proper copy using datumCopy in the aggregate's memory context
 - All result state is reset to initial conditions (transValueCount=0, resultValue=0, resultValueIsNull=true)
 - This is a critical function in the window aggregate execution pipeline, ensuring clean state initialization
+
+## Simplified Source
+
+```c
+static void
+initialize_windowaggregate(WindowAggState *winstate,
+                          WindowStatePerFunc perfuncstate,
+                          WindowStatePerAgg peraggstate)
+{
+    MemoryContext oldContext;
+
+    // Reset private aggregate context if this aggregate has one
+    if (peraggstate->aggcontext != winstate->aggcontext)
+        MemoryContextReset(peraggstate->aggcontext);
+
+    // Set initial transition value
+    if (peraggstate->initValueIsNull)
+        peraggstate->transValue = peraggstate->initValue;
+    else
+    {
+        // Copy initial value into aggregate context
+        oldContext = MemoryContextSwitchTo(peraggstate->aggcontext);
+        peraggstate->transValue = datumCopy(peraggstate->initValue,
+                                           peraggstate->transtypeByVal,
+                                           peraggstate->transtypeLen);
+        MemoryContextSwitchTo(oldContext);
+    }
+
+    // Initialize all state variables
+    peraggstate->transValueIsNull = peraggstate->initValueIsNull;
+    peraggstate->transValueCount = 0;
+    peraggstate->resultValue = (Datum) 0;
+    peraggstate->resultValueIsNull = true;
+}
+```

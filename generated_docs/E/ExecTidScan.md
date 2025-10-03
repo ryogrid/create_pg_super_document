@@ -32,3 +32,24 @@ ExecTidScan is the main execution function for TID scan nodes in PostgreSQL's ex
 - Initial state requires the relation to be opened for scanning with cursor positioned before the first qualifying tuple
 - Uses the generic ExecScan framework with TID-specific access methods for consistency with other scan types
 - The tss_TidPtr should be initialized to -1 in initial states
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecTidScan(PlanState *pstate)
+{
+    // Cast plan state to TID scan specific state
+    TidScanState *node = castNode(TidScanState, pstate);
+
+    // Execute scan using TID-specific access methods
+    // TidNext: fetches next tuple by TID
+    // TidRecheck: rechecks tuple conditions
+    return ExecScan(&node->ss, TidNext, TidRecheck);
+}
+```
+
+This function is a simple wrapper that:
+1. Converts the generic plan state to TID scan state
+2. Delegates to the generic ExecScan framework with TID-specific methods
+3. Returns the next qualifying tuple from the TID scan operation

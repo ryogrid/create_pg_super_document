@@ -42,3 +42,79 @@ This function is a core component of PostgreSQL's EPQ (Eval Plan Qual) mechanism
 - Returns false for NULL values which can occur for relations on the inside of outer joins
 - Uses SnapshotAny for tuple fetching to get the most recent version
 - Part of PostgreSQL's MVCC concurrency control infrastructure
+
+## Simplified Source
+
+```c
+bool
+EvalPlanQualFetchRowMark(EPQState *epqstate, Index rti, TupleTableSlot *slot)
+{
+    ExecAuxRowMark *earm = epqstate->relsubs_rowmark[rti - 1];
+    ExecRowMark *erm = earm->rowmark;
+    Datum datum;
+    bool isNull;
+
+    Assert(earm != NULL);
+    Assert(epqstate->origslot != NULL);
+
+    // Error if trying to use locking row marks
+    if (RowMarkRequiresRowShareLock(erm->markType))
+        elog(ERROR, "EvalPlanQual doesn't support locking rowmarks");
+
+    // For child relations, verify this row belongs to the correct relation
+    if (erm->rti != erm->prti)
+    {
+        datum = ExecGetJunkAttribute(epqstate->origslot, earm->toidAttNo, &isNull);
+        if (isNull)
+            return false;  // Null tableoid (e.g., outer join)
+
+        Oid tableoid = DatumGetObjectId(datum);
+        if (tableoid != erm->relid)
+            return false;  // Wrong child relation
+    }
+
+    if (erm->markType == ROW_MARK_REFERENCE)
+    {
+        // Fetch tuple by ctid
+        datum = ExecGetJunkAttribute(epqstate->origslot, earm->ctidAttNo, &isNull);
+        if (isNull)
+            return false;
+
+        if (erm->relation->rd_rel->relkind == RELKIND_FOREIGN_TABLE)
+        {
+            // Foreign table: delegate to FDW
+            FdwRoutine *fdwroutine = GetFdwRoutineForRelation(erm->relation, false);
+            if (fdwroutine->RefetchForeignRow == NULL)
+                ereport(ERROR, "cannot lock rows in foreign table");
+
+            bool updated = false;
+            fdwroutine->RefetchForeignRow(epqstate->recheckestate, erm, datum, slot, &updated);
+
+            if (TupIsNull(slot))
+                elog(ERROR, "failed to fetch tuple for EvalPlanQual recheck");
+            return true;
+        }
+        else
+        {
+            // Regular table: fetch by ctid
+            if (!table_tuple_fetch_row_version(erm->relation,
+                                              (ItemPointer) DatumGetPointer(datum),
+                                              SnapshotAny, slot))
+                elog(ERROR, "failed to fetch tuple for EvalPlanQual recheck");
+            return true;
+        }
+    }
+    else
+    {
+        // ROW_MARK_COPY: use stored whole-row value
+        Assert(erm->markType == ROW_MARK_COPY);
+
+        datum = ExecGetJunkAttribute(epqstate->origslot, earm->wholeAttNo, &isNull);
+        if (isNull)
+            return false;
+
+        ExecStoreHeapTupleDatum(datum, slot);
+        return true;
+    }
+}
+```

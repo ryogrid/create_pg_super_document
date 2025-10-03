@@ -44,3 +44,43 @@ The traversal continues until it reaches the rightmost page of the posting tree,
 - Part of the GIN index bitmap collection infrastructure
 - Traverses posting trees in a left-to-right manner, ensuring all leaf pages are processed
 - Uses shared locks (GIN_SHARE) for read operations to allow concurrent access
+
+## Simplified Source
+
+```c
+static void scanPostingTree(Relation index, GinScanEntry scanEntry, BlockNumber rootPostingTree)
+{
+    GinBtreeData btree;
+    GinBtreeStack *stack;
+    Buffer buffer;
+    Page page;
+
+    // Start at leftmost leaf page of posting tree
+    stack = ginScanBeginPostingTree(&btree, index, rootPostingTree);
+    buffer = stack->buffer;
+
+    IncrBufferRefCount(buffer);  // Prevent premature release
+    freeGinBtreeStack(stack);
+
+    // Scan all leaf pages from left to right
+    for (;;) {
+        page = BufferGetPage(buffer);
+
+        // Process non-deleted pages only
+        if ((GinPageGetOpaque(page)->flags & GIN_DELETED) == 0) {
+            // Extract ItemPointers and add to match bitmap
+            int n = GinDataLeafPageGetItemsToTbm(page, scanEntry->matchBitmap);
+            scanEntry->predictNumberResult += n;
+        }
+
+        // Check if we've reached the end
+        if (GinPageRightMost(page))
+            break;  // No more pages
+
+        // Move to next page
+        buffer = ginStepRight(buffer, index, GIN_SHARE);
+    }
+
+    UnlockReleaseBuffer(buffer);
+}
+```

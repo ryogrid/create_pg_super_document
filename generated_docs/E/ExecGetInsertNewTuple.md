@@ -44,3 +44,30 @@ Key behavioral notes:
 - Optimizes the common case where no projection or slot copying is needed
 - The function design anticipates future scenarios where INSERT might need projection (though currently unused)
 - Returns either the original planSlot or the ri_newTupleSlot depending on type compatibility and projection needs
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecGetInsertNewTuple(ResultRelInfo *relinfo, TupleTableSlot *planSlot) {
+    ProjectionInfo *newProj = relinfo->ri_projectNew;
+
+    // No projection needed - handle slot type compatibility
+    if (newProj == NULL) {
+        // If slot types don't match, copy to appropriate slot
+        if (relinfo->ri_newTupleSlot->tts_ops != planSlot->tts_ops) {
+            ExecCopySlot(relinfo->ri_newTupleSlot, planSlot);
+            return relinfo->ri_newTupleSlot;
+        } else {
+            // Slot types match - use original slot
+            return planSlot;
+        }
+    }
+
+    // Apply projection to remove junk columns
+    // (Currently dead code for INSERT operations)
+    ExprContext *econtext = newProj->pi_exprContext;
+    econtext->ecxt_outertuple = planSlot;
+    return ExecProject(newProj);
+}
+```

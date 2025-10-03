@@ -43,3 +43,38 @@ The binary search optimization is particularly valuable for sampling operations 
 - Page-at-a-time mode significantly improves performance by avoiding repeated visibility checks for the same page
 - The function is part of the heap access method's table sampling infrastructure
 - Returns true if the tuple is visible according to the scan's snapshot, false otherwise
+
+## Simplified Source
+
+```c
+static bool
+SampleHeapTupleVisible(TableScanDesc scan, Buffer buffer,
+                       HeapTuple tuple, OffsetNumber tupoffset)
+{
+    HeapScanDesc hscan = (HeapScanDesc) scan;
+
+    if (scan->rs_flags & SO_ALLOW_PAGEMODE) {
+        // In pagemode, visibility was pre-computed by heap_prepare_pagescan
+        // Use binary search to find tuple in the sorted rs_vistuples array
+        int start = 0, end = hscan->rs_ntuples - 1;
+
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            OffsetNumber curoffset = hscan->rs_vistuples[mid];
+
+            if (tupoffset == curoffset)
+                return true;
+            else if (tupoffset < curoffset)
+                end = mid - 1;
+            else
+                start = mid + 1;
+        }
+
+        return false;
+    }
+    else {
+        // Check tuple visibility individually
+        return HeapTupleSatisfiesVisibility(tuple, scan->rs_snapshot, buffer);
+    }
+}
+```

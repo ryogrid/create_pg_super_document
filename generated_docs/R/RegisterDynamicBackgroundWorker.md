@@ -61,3 +61,72 @@ The function implements proper concurrency control using lightweight locks and m
 - Handles can be freed with pfree() when no longer needed
 - Parallel workers are subject to additional accounting to track registration and termination counts
 - The function performs immediate validation and slot allocation under exclusive lock
+
+## Simplified Source
+
+```c
+bool
+RegisterDynamicBackgroundWorker(BackgroundWorker *worker, BackgroundWorkerHandle **handle)
+{
+    int slotno;
+    bool success = false;
+    bool parallel;
+    uint64 generation = 0;
+
+    // Can't register from postmaster or standalone backend
+    if (!IsUnderPostmaster)
+        return false;
+
+    if (!SanityCheckBackgroundWorker(worker, ERROR))
+        return false;
+
+    parallel = (worker->bgw_flags & BGWORKER_CLASS_PARALLEL) != 0;
+
+    LWLockAcquire(BackgroundWorkerLock, LW_EXCLUSIVE);
+
+    // Check parallel worker limits
+    if (parallel && (BackgroundWorkerData->parallel_register_count -
+                     BackgroundWorkerData->parallel_terminate_count) >= max_parallel_workers) {
+        LWLockRelease(BackgroundWorkerLock);
+        return false;
+    }
+
+    // Look for an unused slot
+    for (slotno = 0; slotno < BackgroundWorkerData->total_slots; ++slotno) {
+        BackgroundWorkerSlot *slot = &BackgroundWorkerData->slot[slotno];
+
+        if (!slot->in_use) {
+            // Configure the slot
+            memcpy(&slot->worker, worker, sizeof(BackgroundWorker));
+            slot->pid = InvalidPid;
+            slot->generation++;
+            slot->terminate = false;
+            generation = slot->generation;
+
+            if (parallel)
+                BackgroundWorkerData->parallel_register_count++;
+
+            // Ensure postmaster sees new contents before marking in use
+            pg_write_barrier();
+            slot->in_use = true;
+            success = true;
+            break;
+        }
+    }
+
+    LWLockRelease(BackgroundWorkerLock);
+
+    // Notify postmaster of the change
+    if (success)
+        SendPostmasterSignal(PMSIGNAL_BACKGROUND_WORKER_CHANGE);
+
+    // Initialize handle if requested
+    if (success && handle) {
+        *handle = palloc(sizeof(BackgroundWorkerHandle));
+        (*handle)->slot = slotno;
+        (*handle)->generation = generation;
+    }
+
+    return success;
+}
+```

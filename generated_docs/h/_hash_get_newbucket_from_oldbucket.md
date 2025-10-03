@@ -31,5 +31,22 @@ The caller must ensure that no more than one split has occurred from the old buc
   - [hashbucketcleanup](hashbucketcleanup.md)
   - [_hash_get_newblock_from_oldbucket](_hash_get_newblock_from_oldbucket.md)
 
+## Simplified Source
+```c
+Bucket _hash_get_newbucket_from_oldbucket(Relation rel, Bucket old_bucket,
+                                         uint32 lowmask, uint32 maxbucket) {
+    // Calculate new bucket by OR'ing with MSB of current table half
+    Bucket new_bucket = CALC_NEW_BUCKET(old_bucket, lowmask);
+
+    // If new bucket exceeds table size, try with shifted mask
+    if (new_bucket > maxbucket) {
+        lowmask = lowmask >> 1;
+        new_bucket = CALC_NEW_BUCKET(old_bucket, lowmask);
+    }
+
+    return new_bucket;
+}
+```
+
 ## Notes and Other Information
 The function uses the CALC_NEW_BUCKET macro which performs the core operation of OR'ing the old bucket with the most significant bit of the lowmask. The two-step process (trying current lowmask, then shifting right if needed) ensures that the function always returns a valid new bucket number within the current table boundaries. This is crucial for maintaining consistency during hash table expansion operations.

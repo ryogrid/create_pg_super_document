@@ -54,3 +54,69 @@ The function implements a critical optimization heuristic by deferring clauseles
 - Uses overlap tests rather than subset tests when checking for partial SJ completion needs
 - Critical for ensuring plan construction succeeds in complex join scenarios with outer joins and subqueries
 - Implements important bushy join deferral optimization to avoid combinatorial explosion in join search
+
+## Simplified Source
+
+```c
+bool
+have_join_order_restriction(PlannerInfo *root, RelOptInfo *rel1, RelOptInfo *rel2)
+{
+    bool result = false;
+    ListCell *l;
+
+    // Check for direct lateral references between the relations
+    if (bms_overlap(rel1->relids, rel2->direct_lateral_relids) ||
+        bms_overlap(rel2->relids, rel1->direct_lateral_relids))
+        return true;
+
+    // Check if both relations are needed for some PlaceHolderVar
+    foreach(l, root->placeholder_list)
+    {
+        PlaceHolderInfo *phinfo = (PlaceHolderInfo *) lfirst(l);
+
+        if (bms_is_subset(rel1->relids, phinfo->ph_eval_at) &&
+            bms_is_subset(rel2->relids, phinfo->ph_eval_at))
+            return true;
+    }
+
+    // Check special join constraints
+    foreach(l, root->join_info_list)
+    {
+        SpecialJoinInfo *sjinfo = (SpecialJoinInfo *) lfirst(l);
+
+        // Skip full joins - handled elsewhere
+        if (sjinfo->jointype == JOIN_FULL)
+            continue;
+
+        // Check if we can perform the special join with these relations
+        if ((bms_is_subset(sjinfo->min_lefthand, rel1->relids) &&
+             bms_is_subset(sjinfo->min_righthand, rel2->relids)) ||
+            (bms_is_subset(sjinfo->min_lefthand, rel2->relids) &&
+             bms_is_subset(sjinfo->min_righthand, rel1->relids)))
+        {
+            result = true;
+            break;
+        }
+
+        // Check if we need to join these to complete LHS or RHS
+        if ((bms_overlap(sjinfo->min_righthand, rel1->relids) &&
+             bms_overlap(sjinfo->min_righthand, rel2->relids)) ||
+            (bms_overlap(sjinfo->min_lefthand, rel1->relids) &&
+             bms_overlap(sjinfo->min_lefthand, rel2->relids)))
+        {
+            result = true;
+            break;
+        }
+    }
+
+    // Defer clauseless bushy joins when possible
+    if (result)
+    {
+        if (has_legal_joinclause(root, rel1) ||
+            has_legal_joinclause(root, rel2))
+            result = false;
+    }
+
+    return result;
+}
+```

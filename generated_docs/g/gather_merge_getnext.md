@@ -49,3 +49,49 @@ The function returns the tuple from whichever source currently has the smallest/
 - The heap stores source indices (as Datums) rather than tuples themselves for efficient comparison and management
 - Returns TupleTableSlot pointers directly from the gm_slots array, avoiding unnecessary copying
 - Critical for maintaining sort order across parallel streams in complex query execution plans
+
+## Simplified Source
+
+```c
+static TupleTableSlot *gather_merge_getnext(GatherMergeState *gm_state)
+{
+    int source_index;
+
+    if (!gm_state->gm_initialized)
+    {
+        // First call: initialize all sources and build the initial heap
+        gather_merge_init(gm_state);
+    }
+    else
+    {
+        // Get the source that provided the last returned tuple
+        source_index = DatumGetInt32(binaryheap_first(gm_state->gm_heap));
+
+        // Try to read the next tuple from that source
+        if (gather_merge_readnext(gm_state, source_index, false))
+        {
+            // Source has more data: update its position in the heap
+            binaryheap_replace_first(gm_state->gm_heap, Int32GetDatum(source_index));
+        }
+        else
+        {
+            // Source is exhausted: remove it from the heap
+            binaryheap_remove_first(gm_state->gm_heap);
+        }
+    }
+
+    // Check if any sources remain
+    if (binaryheap_empty(gm_state->gm_heap))
+    {
+        // All sources exhausted - clean up and signal end of data
+        gather_merge_clear_tuples(gm_state);
+        return NULL;
+    }
+    else
+    {
+        // Return the tuple from the source with the smallest/leading value
+        source_index = DatumGetInt32(binaryheap_first(gm_state->gm_heap));
+        return gm_state->gm_slots[source_index];
+    }
+}
+```

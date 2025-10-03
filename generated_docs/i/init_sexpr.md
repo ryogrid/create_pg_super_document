@@ -56,3 +56,85 @@ The function handles memory management carefully, allocating long-lived structur
 - For RECORD-returning functions, may leave funcResultDesc as NULL if the function can determine its own result structure
 - Initializes additional state fields (funcResultStore, funcResultSlot, shutdown_reg) to safe defaults
 - The allowSRF parameter enables context-sensitive validation of set-returning function usage
+
+## Simplified Source
+
+```c
+static void
+init_sexpr(Oid foid, Oid input_collation, Expr *node,
+           SetExprState *sexpr, PlanState *parent,
+           MemoryContext sexprCxt, bool allowSRF, bool needDescForSRF)
+{
+    size_t numargs = list_length(sexpr->args);
+
+    // Security check: verify permission to execute function
+    AclResult aclresult = object_aclcheck(ProcedureRelationId, foid, GetUserId(), ACL_EXECUTE);
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error(aclresult, OBJECT_FUNCTION, get_func_name(foid));
+    InvokeFunctionExecuteHook(foid);
+
+    // Validate argument count doesn't exceed limits
+    if (list_length(sexpr->args) > FUNC_MAX_ARGS)
+        ereport(ERROR, (errcode(ERRCODE_TOO_MANY_ARGUMENTS),
+                        errmsg_plural("cannot pass more than %d argument to a function",
+                                     "cannot pass more than %d arguments to a function",
+                                     FUNC_MAX_ARGS, FUNC_MAX_ARGS)));
+
+    // Set up function manager lookup information
+    fmgr_info_cxt(foid, &(sexpr->func), sexprCxt);
+    fmgr_info_set_expr((Node *) sexpr->expr, &(sexpr->func));
+
+    // Initialize function call parameter structure
+    sexpr->fcinfo = (FunctionCallInfo) palloc(SizeForFunctionCallInfo(numargs));
+    InitFunctionCallInfoData(*sexpr->fcinfo, &(sexpr->func), numargs,
+                             input_collation, NULL, NULL);
+
+    // Check if set-returning function usage is allowed
+    if (sexpr->func.fn_retset && !allowSRF)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                        errmsg("set-valued function called in context that cannot accept a set"),
+                        parent ? executor_errposition(parent->state, exprLocation((Node *) node)) : 0));
+
+    Assert(sexpr->func.fn_retset == sexpr->funcReturnsSet);
+
+    // Create result descriptor for set-returning functions if needed
+    if (sexpr->func.fn_retset && needDescForSRF) {
+        TypeFuncClass functypclass;
+        Oid funcrettype;
+        TupleDesc tupdesc;
+
+        functypclass = get_expr_result_type(sexpr->func.fn_expr, &funcrettype, &tupdesc);
+
+        MemoryContext oldcontext = MemoryContextSwitchTo(sexprCxt);
+
+        if (functypclass == TYPEFUNC_COMPOSITE || functypclass == TYPEFUNC_COMPOSITE_DOMAIN) {
+            // Composite data type - copy existing descriptor
+            Assert(tupdesc);
+            sexpr->funcResultDesc = CreateTupleDescCopy(tupdesc);
+            sexpr->funcReturnsTuple = true;
+        } else if (functypclass == TYPEFUNC_SCALAR) {
+            // Scalar type - create single-column descriptor
+            tupdesc = CreateTemplateTupleDesc(1);
+            TupleDescInitEntry(tupdesc, (AttrNumber) 1, NULL, funcrettype, -1, 0);
+            sexpr->funcResultDesc = tupdesc;
+            sexpr->funcReturnsTuple = false;
+        } else if (functypclass == TYPEFUNC_RECORD) {
+            // Record type - may work without descriptor
+            sexpr->funcResultDesc = NULL;
+            sexpr->funcReturnsTuple = true;
+        } else {
+            // Other types - will fail if descriptor needed
+            sexpr->funcResultDesc = NULL;
+        }
+
+        MemoryContextSwitchTo(oldcontext);
+    } else {
+        sexpr->funcResultDesc = NULL;
+    }
+
+    // Initialize additional state to safe defaults
+    sexpr->funcResultStore = NULL;
+    sexpr->funcResultSlot = NULL;
+    sexpr->shutdown_reg = false;
+}
+```

@@ -32,3 +32,14 @@ SampleRecheck is an access method routine specifically designed for use during E
 - Part of the standard scan interface that all scan nodes must implement for EvalPlanQual support
 - The simplicity reflects that sampling is done at the storage/access level rather than through tuple-level filtering
 - Similar to SeqScan's recheck behavior, emphasizing the parallel between sequential and sample scanning
+
+## Simplified Source
+
+```c
+static bool
+SampleRecheck(SampleScanState *node, TupleTableSlot *slot)
+{
+    // Sample scans don't use checkable keys, so no recheck needed
+    return true;
+}
+```

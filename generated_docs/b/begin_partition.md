@@ -42,3 +42,114 @@ For the very first partition, it fetches the initial input row from the outer pl
 - Sets up specialized read pointers for peer group tracking when exclusion clauses (EXCLUDE GROUP/TIES) are present
 - The function assumes work_mem is available globally for tuplestore creation
 - Manages memory efficiently by only creating the read pointers that are actually needed based on the window specification
+
+## Simplified Source
+
+```c
+static void
+begin_partition(WindowAggState *winstate)
+{
+    WindowAgg *node = (WindowAgg *) winstate->ss.ps.plan;
+    PlanState *outerPlan = outerPlanState(winstate);
+    int frameOptions = winstate->frameOptions;
+    int numfuncs = winstate->numfuncs;
+
+    // Initialize all position tracking variables
+    winstate->partition_spooled = false;
+    winstate->framehead_valid = false;
+    winstate->frametail_valid = false;
+    winstate->grouptail_valid = false;
+    winstate->spooled_rows = 0;
+    winstate->currentpos = 0;
+    winstate->frameheadpos = 0;
+    winstate->frametailpos = 0;
+    winstate->currentgroup = 0;
+    winstate->frameheadgroup = 0;
+    winstate->frametailgroup = 0;
+    winstate->groupheadpos = 0;
+    winstate->grouptailpos = -1;
+
+    // Clear all tuple slots
+    ExecClearTuple(winstate->agg_row_slot);
+    if (winstate->framehead_slot)
+        ExecClearTuple(winstate->framehead_slot);
+    if (winstate->frametail_slot)
+        ExecClearTuple(winstate->frametail_slot);
+
+    // For the first partition, fetch the initial input row
+    if (TupIsNull(winstate->first_part_slot)) {
+        TupleTableSlot *outerslot = ExecProcNode(outerPlan);
+        if (!TupIsNull(outerslot))
+            ExecCopySlot(winstate->first_part_slot, outerslot);
+        else {
+            // No input data
+            winstate->partition_spooled = true;
+            winstate->more_partitions = false;
+            return;
+        }
+    }
+
+    // Create new tuplestore for this partition
+    winstate->buffer = tuplestore_begin_heap(false, false, work_mem);
+
+    // Set up basic read pointer
+    winstate->current_ptr = 0;
+    tuplestore_set_eflags(winstate->buffer, 0);
+
+    // Create read pointers for aggregates if needed
+    if (winstate->numaggs > 0) {
+        WindowObject agg_winobj = winstate->agg_winobj;
+        int readptr_flags = 0;
+
+        // Create mark pointer if frame head can move or exclusion is used
+        if (!(frameOptions & FRAMEOPTION_START_UNBOUNDED_PRECEDING) ||
+            (frameOptions & FRAMEOPTION_EXCLUSION)) {
+            agg_winobj->markptr = tuplestore_alloc_read_pointer(winstate->buffer, 0);
+            readptr_flags |= EXEC_FLAG_BACKWARD;
+        }
+
+        agg_winobj->readptr = tuplestore_alloc_read_pointer(winstate->buffer, readptr_flags);
+        agg_winobj->markpos = -1;
+        agg_winobj->seekpos = -1;
+
+        // Reset aggregate row counters
+        winstate->aggregatedbase = 0;
+        winstate->aggregatedupto = 0;
+    }
+
+    // Create read pointers for window functions
+    for (int i = 0; i < numfuncs; i++) {
+        WindowStatePerFunc perfuncstate = &(winstate->perfunc[i]);
+        if (!perfuncstate->plain_agg) {
+            WindowObject winobj = perfuncstate->winobj;
+            winobj->markptr = tuplestore_alloc_read_pointer(winstate->buffer, 0);
+            winobj->readptr = tuplestore_alloc_read_pointer(winstate->buffer, EXEC_FLAG_BACKWARD);
+            winobj->markpos = -1;
+            winobj->seekpos = -1;
+        }
+    }
+
+    // Create frame boundary read pointers for RANGE/GROUPS modes
+    winstate->framehead_ptr = winstate->frametail_ptr = -1;
+    if (frameOptions & (FRAMEOPTION_RANGE | FRAMEOPTION_GROUPS)) {
+        if (((frameOptions & FRAMEOPTION_START_CURRENT_ROW) && node->ordNumCols != 0) ||
+            (frameOptions & FRAMEOPTION_START_OFFSET))
+            winstate->framehead_ptr = tuplestore_alloc_read_pointer(winstate->buffer, 0);
+
+        if (((frameOptions & FRAMEOPTION_END_CURRENT_ROW) && node->ordNumCols != 0) ||
+            (frameOptions & FRAMEOPTION_END_OFFSET))
+            winstate->frametail_ptr = tuplestore_alloc_read_pointer(winstate->buffer, 0);
+    }
+
+    // Create group tail pointer for exclusion clauses
+    winstate->grouptail_ptr = -1;
+    if ((frameOptions & (FRAMEOPTION_EXCLUDE_GROUP | FRAMEOPTION_EXCLUDE_TIES)) &&
+        node->ordNumCols != 0) {
+        winstate->grouptail_ptr = tuplestore_alloc_read_pointer(winstate->buffer, 0);
+    }
+
+    // Store the first tuple and increment counter
+    tuplestore_puttupleslot(winstate->buffer, winstate->first_part_slot);
+    winstate->spooled_rows++;
+}
+```

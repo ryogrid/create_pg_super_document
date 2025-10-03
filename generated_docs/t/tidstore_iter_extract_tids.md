@@ -47,3 +47,45 @@ The function dynamically expands the output buffer if needed when processing bit
 - Dynamically grows the output offset array by doubling its size when capacity is exceeded
 - Sets result->num_offsets to track the count of extracted offsets
 - The function assumes the caller has already allocated the initial output buffer
+
+## Simplified Source
+
+```c
+static void tidstore_iter_extract_tids(TidStoreIter *iter, BlockNumber blkno,
+                                      BlocktableEntry *page)
+{
+    TidStoreIterResult *result = &iter->output;
+
+    result->num_offsets = 0;
+    result->blkno = blkno;
+
+    if (page->header.nwords == 0) {
+        // Offsets stored directly in header
+        for (int i = 0; i < NUM_FULL_OFFSETS; i++) {
+            if (page->header.full_offsets[i] != InvalidOffsetNumber)
+                result->offsets[result->num_offsets++] = page->header.full_offsets[i];
+        }
+    } else {
+        // Offsets stored in bitmap
+        for (int wordnum = 0; wordnum < page->header.nwords; wordnum++) {
+            bitmapword w = page->words[wordnum];
+            int off = wordnum * BITS_PER_BITMAPWORD;
+
+            // Ensure enough space for worst case (all bits set)
+            if ((result->num_offsets + BITS_PER_BITMAPWORD) > result->max_offset) {
+                result->max_offset *= 2;
+                result->offsets = repalloc(result->offsets,
+                                         sizeof(OffsetNumber) * result->max_offset);
+            }
+
+            // Extract set bits from bitmap word
+            while (w != 0) {
+                if (w & 1)
+                    result->offsets[result->num_offsets++] = (OffsetNumber) off;
+                off++;
+                w >>= 1;
+            }
+        }
+    }
+}
+```

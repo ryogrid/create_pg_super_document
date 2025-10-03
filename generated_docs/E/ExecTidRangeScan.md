@@ -33,3 +33,18 @@ The function delegates the actual scanning work to ExecScan, passing TidRangeNex
 - The function follows the standard PostgreSQL executor pattern by delegating to ExecScan with specialized access methods
 - The cursor positioning assumption is critical for correct operation - the AMI must maintain proper state between calls
 - The function requires that the relation be pre-opened for TID range scanning before execution begins
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecTidRangeScan(PlanState *pstate)
+{
+    TidRangeScanState *node = castNode(TidRangeScanState, pstate);
+
+    // Delegate to generic scan executor with TID range-specific methods
+    return ExecScan(&node->ss,
+                    (ExecScanAccessMtd) TidRangeNext,      // How to get next tuple
+                    (ExecScanRecheckMtd) TidRangeRecheck); // How to recheck tuples
+}
+```

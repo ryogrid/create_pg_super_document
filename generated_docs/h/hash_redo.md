@@ -65,3 +65,55 @@ This dispatcher pattern ensures that all hash index operations can be properly r
 - The function is part of PostgreSQL's access method interface for WAL recovery
 - All hash-specific WAL operations must be handled through this dispatcher to ensure proper recovery
 - The XLR_INFO_MASK is used to extract the operation type from the record's info field
+
+## Simplified Source
+
+```c
+void hash_redo(XLogReaderState *record) {
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    switch (info) {
+        case XLOG_HASH_INIT_META_PAGE:
+            hash_xlog_init_meta_page(record);
+            break;
+        case XLOG_HASH_INIT_BITMAP_PAGE:
+            hash_xlog_init_bitmap_page(record);
+            break;
+        case XLOG_HASH_INSERT:
+            hash_xlog_insert(record);
+            break;
+        case XLOG_HASH_ADD_OVFL_PAGE:
+            hash_xlog_add_ovfl_page(record);
+            break;
+        case XLOG_HASH_SPLIT_ALLOCATE_PAGE:
+            hash_xlog_split_allocate_page(record);
+            break;
+        case XLOG_HASH_SPLIT_PAGE:
+            hash_xlog_split_page(record);
+            break;
+        case XLOG_HASH_SPLIT_COMPLETE:
+            hash_xlog_split_complete(record);
+            break;
+        case XLOG_HASH_MOVE_PAGE_CONTENTS:
+            hash_xlog_move_page_contents(record);
+            break;
+        case XLOG_HASH_SQUEEZE_PAGE:
+            hash_xlog_squeeze_page(record);
+            break;
+        case XLOG_HASH_DELETE:
+            hash_xlog_delete(record);
+            break;
+        case XLOG_HASH_SPLIT_CLEANUP:
+            hash_xlog_split_cleanup(record);
+            break;
+        case XLOG_HASH_UPDATE_META_PAGE:
+            hash_xlog_update_meta_page(record);
+            break;
+        case XLOG_HASH_VACUUM_ONE_PAGE:
+            hash_xlog_vacuum_one_page(record);
+            break;
+        default:
+            elog(PANIC, "hash_redo: unknown op code %u", info);
+    }
+}
+```

@@ -42,3 +42,22 @@ Unlike revmap_get_blkno which returns InvalidBlockNumber for unallocated pages, 
 - Essential for operations that need to create new summary tuples for previously unsummarized ranges
 - The extension process involves physical allocation of new index pages and updating metadata
 - Used during index maintenance operations that require guaranteed revmap coverage
+
+## Simplified Source
+
+```c
+static BlockNumber revmap_extend_and_get_blkno(BrinRevmap *revmap, BlockNumber heapBlk)
+{
+    // Calculate which revmap block should contain this heap block's mapping
+    // Add 1 to skip the metapage (block 0)
+    BlockNumber targetblk = HEAPBLK_TO_REVMAP_BLK(revmap->rm_pagesPerRange, heapBlk) + 1;
+
+    // Extend the revmap until we have the target block
+    while (targetblk > revmap->rm_lastRevmapPage) {
+        CHECK_FOR_INTERRUPTS();
+        revmap_physical_extend(revmap);
+    }
+
+    return targetblk;
+}
+```

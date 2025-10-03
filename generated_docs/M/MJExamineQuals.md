@@ -55,3 +55,87 @@ The function ensures that abbreviation optimization is disabled for merge joins 
 - Prioritizes sort support functions over traditional comparison functions for better performance
 - Sets up proper sort ordering (ascending/descending) and null handling based on planner specifications
 - Memory allocation uses palloc0 to ensure proper initialization of the MergeJoinClause array
+
+## Simplified Source
+
+```c
+static MergeJoinClause
+MJExamineQuals(List *mergeclauses,
+               Oid *mergefamilies,
+               Oid *mergecollations,
+               int *mergestrategies,
+               bool *mergenullsfirst,
+               PlanState *parent)
+{
+    MergeJoinClause clauses;
+    int nClauses = list_length(mergeclauses);
+    int iClause = 0;
+    ListCell *cl;
+
+    clauses = (MergeJoinClause) palloc0(nClauses * sizeof(MergeJoinClauseData));
+
+    foreach(cl, mergeclauses) {
+        OpExpr *qual = (OpExpr *) lfirst(cl);
+        MergeJoinClause clause = &clauses[iClause];
+        Oid opfamily = mergefamilies[iClause];
+        Oid collation = mergecollations[iClause];
+        StrategyNumber opstrategy = mergestrategies[iClause];
+        bool nulls_first = mergenullsfirst[iClause];
+
+        if (!IsA(qual, OpExpr))
+            elog(ERROR, "mergejoin clause is not an OpExpr");
+
+        // Initialize expressions for execution
+        clause->lexpr = ExecInitExpr((Expr *) linitial(qual->args), parent);
+        clause->rexpr = ExecInitExpr((Expr *) lsecond(qual->args), parent);
+
+        // Set up sort support data
+        clause->ssup.ssup_cxt = CurrentMemoryContext;
+        clause->ssup.ssup_collation = collation;
+        clause->ssup.ssup_nulls_first = nulls_first;
+
+        // Determine sort direction
+        if (opstrategy == BTLessStrategyNumber)
+            clause->ssup.ssup_reverse = false;
+        else if (opstrategy == BTGreaterStrategyNumber)
+            clause->ssup.ssup_reverse = true;
+        else
+            elog(ERROR, "unsupported mergejoin strategy %d", opstrategy);
+
+        // Extract operator properties
+        int op_strategy;
+        Oid op_lefttype, op_righttype;
+        get_op_opfamily_properties(qual->opno, opfamily, false,
+                                 &op_strategy, &op_lefttype, &op_righttype);
+
+        if (op_strategy != BTEqualStrategyNumber)
+            elog(ERROR, "cannot merge using non-equality operator %u", qual->opno);
+
+        // Abbreviation not applicable for merge joins
+        clause->ssup.abbreviate = false;
+
+        // Get comparison function - prefer sort support over traditional btree comparator
+        Oid sortfunc = get_opfamily_proc(opfamily, op_lefttype, op_righttype,
+                                       BTSORTSUPPORT_PROC);
+
+        if (OidIsValid(sortfunc)) {
+            OidFunctionCall1(sortfunc, PointerGetDatum(&clause->ssup));
+        }
+
+        if (clause->ssup.comparator == NULL) {
+            // Fall back to traditional comparison function
+            sortfunc = get_opfamily_proc(opfamily, op_lefttype, op_righttype,
+                                       BTORDER_PROC);
+            if (!OidIsValid(sortfunc))
+                elog(ERROR, "missing support function %d(%u,%u) in opfamily %u",
+                     BTORDER_PROC, op_lefttype, op_righttype, opfamily);
+
+            PrepareSortSupportComparisonShim(sortfunc, &clause->ssup);
+        }
+
+        iClause++;
+    }
+
+    return clauses;
+}
+```

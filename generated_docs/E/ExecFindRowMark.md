@@ -27,3 +27,28 @@ ExecFindRowMark searches for the ExecRowMark structure corresponding to a specif
 
 ## Notes and Other Information
 This function is part of PostgreSQL's row locking infrastructure, used during query execution to manage concurrent access to rows. The range table index is 1-based in PostgreSQL's range table system, but the es_rowmarks array is 0-based, hence the `rti - 1` indexing. The function includes safety checks to prevent array bounds violations when accessing the es_rowmarks array.
+
+## Simplified Source
+
+```c
+ExecRowMark *
+ExecFindRowMark(EState *estate, Index rti, bool missing_ok)
+{
+    // Validate range table index and check if rowmarks array exists
+    if (rti > 0 && rti <= estate->es_range_table_size &&
+        estate->es_rowmarks != NULL) {
+
+        // Get the ExecRowMark for this range table entry (convert to 0-based index)
+        ExecRowMark *erm = estate->es_rowmarks[rti - 1];
+
+        if (erm)
+            return erm;
+    }
+
+    // Handle missing ExecRowMark based on missing_ok flag
+    if (!missing_ok)
+        elog(ERROR, "failed to find ExecRowMark for rangetable index %u", rti);
+
+    return NULL;
+}
+```

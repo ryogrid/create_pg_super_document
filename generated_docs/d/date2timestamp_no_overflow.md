@@ -38,3 +38,23 @@ The function handles special date values:
 - The conversion formula: result = dateVal * USECS_PER_DAY where dateVal is days since 2000-01-01
 - Primarily used in PostgreSQL's statistics and query planning subsystem rather than for general date/timestamp operations
 - Located in src/backend/utils/adt/date.c:720-742
+
+## Simplified Source
+
+```c
+double date2timestamp_no_overflow(DateADT dateVal) {
+    double result;
+
+    // Handle special date values
+    if (DATE_IS_NOBEGIN(dateVal))
+        result = -DBL_MAX;      // Negative infinity
+    else if (DATE_IS_NOEND(dateVal))
+        result = DBL_MAX;       // Positive infinity
+    else {
+        // Convert regular date: days since 2000 -> microseconds since 2000
+        result = dateVal * (double) USECS_PER_DAY;
+    }
+
+    return result;
+}
+```

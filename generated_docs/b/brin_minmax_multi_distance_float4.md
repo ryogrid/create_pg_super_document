@@ -48,3 +48,25 @@ The distance calculation is used by the range compaction algorithm to identify a
 - The cast to double precision prevents potential precision loss during subtraction of float4 values
 - Infinite distance for NaN cases prevents inappropriate merging of NaN ranges with normal value ranges
 - Used specifically by the distance-based compaction algorithms in build_distances and reduce_expanded_ranges functions
+
+## Simplified Source
+
+```c
+Datum
+brin_minmax_multi_distance_float4(PG_FUNCTION_ARGS)
+{
+    float a1 = PG_GETARG_FLOAT4(0);
+    float a2 = PG_GETARG_FLOAT4(1);
+
+    // Both values are NaN - consider them identical
+    if (isnan(a1) && isnan(a2))
+        PG_RETURN_FLOAT8(0.0);
+
+    // One value is NaN - use infinite distance
+    if (isnan(a1) || isnan(a2))
+        PG_RETURN_FLOAT8(get_float8_infinity());
+
+    // Normal case: simple subtraction (assumes a1 <= a2)
+    PG_RETURN_FLOAT8((double) a2 - (double) a1);
+}
+```

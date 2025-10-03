@@ -44,3 +44,51 @@ The union operation respects NULL semantics - the union of keys may be NULL if a
 - Implements early termination optimization - once neednew is set to true, attribute checking continues but equality checks are skipped
 - The function handles NULL attributes correctly according to GiST semantics
 - Critical for maintaining GiST index structure during insertions and node splits
+
+## Simplified Source
+
+```c
+IndexTuple gistgetadjusted(Relation r, IndexTuple oldtup, IndexTuple addtup, GISTSTATE *giststate) {
+    bool neednew = false;
+    GISTENTRY oldentries[INDEX_MAX_KEYS], addentries[INDEX_MAX_KEYS];
+    bool oldisnull[INDEX_MAX_KEYS], addisnull[INDEX_MAX_KEYS];
+    Datum attr[INDEX_MAX_KEYS];
+    bool isnull[INDEX_MAX_KEYS];
+
+    // Decompress both tuples
+    gistDeCompressAtt(giststate, r, oldtup, NULL, (OffsetNumber) 0, oldentries, oldisnull);
+    gistDeCompressAtt(giststate, r, addtup, NULL, (OffsetNumber) 0, addentries, addisnull);
+
+    // Process each key attribute
+    for (int i = 0; i < IndexRelationGetNumberOfKeyAttributes(r); i++) {
+        // Create union of old and new attribute values
+        gistMakeUnionKey(giststate, i,
+                        oldentries + i, oldisnull[i],
+                        addentries + i, addisnull[i],
+                        attr + i, isnull + i);
+
+        // Check if union differs from old value (if we don't already know we need new)
+        if (!neednew) {
+            if (isnull[i]) {
+                // Union is NULL only if both keys are NULL - continue
+                continue;
+            }
+
+            if (!addisnull[i]) {
+                if (oldisnull[i] || !gistKeyIsEQ(giststate, i, oldentries[i].key, attr[i])) {
+                    neednew = true;
+                }
+            }
+        }
+    }
+
+    // Create new tuple only if union differs from old tuple
+    if (neednew) {
+        IndexTuple newtup = gistFormTuple(giststate, r, attr, isnull, false);
+        newtup->t_tid = oldtup->t_tid;
+        return newtup;
+    }
+
+    return NULL; // No adjustment needed
+}
+```

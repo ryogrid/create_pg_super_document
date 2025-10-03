@@ -41,3 +41,31 @@ _hash_dropscanbuf(Relation rel, HashScanOpaque so)
 - Essential for proper resource management in hash index scans, especially during error recovery
 - The buffer comparison logic prevents releasing the same buffer multiple times when scan state variables point to the same underlying buffer
 - Used both for normal scan termination and for rescan operations where scan state needs to be reset
+
+## Simplified Source
+
+```c
+void _hash_dropscanbuf(Relation rel, HashScanOpaque so)
+{
+    // Release primary bucket buffer if valid and different from current position
+    if (BufferIsValid(so->hashso_bucket_buf) &&
+        so->hashso_bucket_buf != so->currPos.buf)
+        _hash_dropbuf(rel, so->hashso_bucket_buf);
+    so->hashso_bucket_buf = InvalidBuffer;
+
+    // Release split bucket buffer if valid and different from current position
+    if (BufferIsValid(so->hashso_split_bucket_buf) &&
+        so->hashso_split_bucket_buf != so->currPos.buf)
+        _hash_dropbuf(rel, so->hashso_split_bucket_buf);
+    so->hashso_split_bucket_buf = InvalidBuffer;
+
+    // Release current position buffer
+    if (BufferIsValid(so->currPos.buf))
+        _hash_dropbuf(rel, so->currPos.buf);
+    so->currPos.buf = InvalidBuffer;
+
+    // Reset scan state flags
+    so->hashso_buc_populated = false;
+    so->hashso_buc_split = false;
+}
+```

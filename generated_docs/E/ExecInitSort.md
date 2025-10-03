@@ -47,3 +47,45 @@ The function optimizes performance by selecting the most efficient sorting strat
 - Uses TTSOpsVirtual for scan slots and TTSOpsMinimalTuple for result slots for memory efficiency
 - Automatically determines datum vs tuple sort strategy based on the number of output columns (natts == 1 triggers datum sort)
 - Sets ps_ProjInfo to NULL since Sort nodes perform no projection operations
+
+## Simplified Source
+
+```c
+SortState *
+ExecInitSort(Sort *node, EState *estate, int eflags)
+{
+    SortState *sortstate;
+    TupleDesc outerTupDesc;
+
+    // Create and initialize the SortState structure
+    sortstate = makeNode(SortState);
+    sortstate->ss.ps.plan = (Plan *) node;
+    sortstate->ss.ps.state = estate;
+    sortstate->ss.ps.ExecProcNode = ExecSort;
+
+    // Determine if random access is needed for rewind/backward/mark operations
+    sortstate->randomAccess = (eflags & (EXEC_FLAG_REWIND |
+                                         EXEC_FLAG_BACKWARD |
+                                         EXEC_FLAG_MARK)) != 0;
+
+    // Initialize sort state variables
+    sortstate->bounded = false;
+    sortstate->sort_Done = false;
+    sortstate->tuplesortstate = NULL;
+
+    // Initialize child node, shielding it from complex access patterns
+    eflags &= ~(EXEC_FLAG_REWIND | EXEC_FLAG_BACKWARD | EXEC_FLAG_MARK);
+    outerPlanState(sortstate) = ExecInitNode(outerPlan(node), estate, eflags);
+
+    // Set up scan and result slots
+    ExecCreateScanSlotFromOuterPlan(estate, &sortstate->ss, &TTSOpsVirtual);
+    ExecInitResultTupleSlotTL(&sortstate->ss.ps, &TTSOpsMinimalTuple);
+    sortstate->ss.ps.ps_ProjInfo = NULL;
+
+    // Choose sort strategy: datum sort for single columns, tuple sort for multiple
+    outerTupDesc = ExecGetResultType(outerPlanState(sortstate));
+    sortstate->datumSort = (outerTupDesc->natts == 1);
+
+    return sortstate;
+}
+```

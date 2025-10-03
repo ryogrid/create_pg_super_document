@@ -46,3 +46,38 @@ This function computes the penalty for adding a new entry to an existing GiST in
 - [Result](../R/Result.md) validation ensures penalties are always non-negative finite values
 - Used extensively during index splits and node selection for insertions
 - The penalty value influences both insertion performance and index quality by minimizing key enlargement
+
+## Simplified Source
+
+```c
+float gistpenalty(GISTSTATE *giststate, int attno,
+                 GISTENTRY *orig, bool isNullOrig,
+                 GISTENTRY *add, bool isNullAdd) {
+    float penalty = 0.0;
+
+    // Call penalty function if allowed with NULL values or both are non-NULL
+    if (!giststate->penaltyFn[attno].fn_strict ||
+        (!isNullOrig && !isNullAdd)) {
+
+        FunctionCall3Coll(&giststate->penaltyFn[attno],
+                         giststate->supportCollation[attno],
+                         PointerGetDatum(orig),
+                         PointerGetDatum(add),
+                         PointerGetDatum(&penalty));
+
+        // Ensure penalty is valid (non-negative, not NaN)
+        if (isnan(penalty) || penalty < 0.0)
+            penalty = 0.0;
+    }
+    else if (isNullOrig && isNullAdd) {
+        // Both NULL - no penalty
+        penalty = 0.0;
+    }
+    else {
+        // One NULL, one non-NULL - discourage mixing
+        penalty = get_float4_infinity();
+    }
+
+    return penalty;
+}
+```

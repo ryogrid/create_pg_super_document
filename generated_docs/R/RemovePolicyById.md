@@ -65,3 +65,61 @@ The function is designed to maintain transactional consistency and handles both 
 - The function maintains the important distinction that relrowsecurity flag behavior is independent of policy existence - [when](../w/when.md) set by users, it enforces default-deny behavior even without explicit policies
 - Error handling includes specific error codes: ERRCODE_WRONG_OBJECT_TYPE for non-table relations, ERRCODE_INSUFFICIENT_PRIVILEGE for system catalog restrictions
 - The function is typically called through PostgreSQL's dependency management system during DROP POLICY operations or cascaded deletions
+
+## Simplified Source
+
+```c
+void RemovePolicyById(Oid policy_id)
+{
+    Relation pg_policy_rel;
+    SysScanDesc sscan;
+    ScanKeyData skey[1];
+    HeapTuple tuple;
+    Oid relid;
+    Relation rel;
+
+    // Open pg_policy catalog table
+    pg_policy_rel = table_open(PolicyRelationId, RowExclusiveLock);
+
+    // Scan for the policy by OID
+    ScanKeyInit(&skey[0], Anum_pg_policy_oid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(policy_id));
+
+    sscan = systable_beginscan(pg_policy_rel, PolicyOidIndexId, true,
+                               NULL, 1, skey);
+
+    tuple = systable_getnext(sscan);
+
+    // Verify policy exists
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "could not find tuple for policy %u", policy_id);
+
+    // Get the relation this policy belongs to and lock it exclusively
+    relid = ((Form_pg_policy) GETSTRUCT(tuple))->polrelid;
+    rel = table_open(relid, AccessExclusiveLock);
+
+    // Validate target is a table
+    if (rel->rd_rel->relkind != RELKIND_RELATION &&
+        rel->rd_rel->relkind != RELKIND_PARTITIONED_TABLE)
+        ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                       errmsg("\"%s\" is not a table", RelationGetRelationName(rel))));
+
+    // Check system table modification permissions
+    if (!allowSystemTableMods && IsSystemRelation(rel))
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                       errmsg("permission denied: \"%s\" is a system catalog",
+                             RelationGetRelationName(rel))));
+
+    // Delete the policy tuple
+    CatalogTupleDelete(pg_policy_rel, &tuple->t_self);
+
+    systable_endscan(sscan);
+
+    // Invalidate relation cache to propagate policy changes
+    CacheInvalidateRelcache(rel);
+
+    // Cleanup
+    table_close(rel, NoLock);
+    table_close(pg_policy_rel, RowExclusiveLock);
+}
+```

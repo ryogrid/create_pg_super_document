@@ -46,3 +46,31 @@ The function performs several masking operations:
 - The masking is necessary because certain page modifications can occur without generating WAL records, leading to legitimate differences between primary and standby servers
 - The F_FOLLOW_RIGHT flag masking addresses timing issues during page splits where the flag may be set at different times on primary vs standby
 - Line pointer flag masking in leaf pages accounts for the gistkillitems() function which can modify these flags without WAL logging
+
+## Simplified Source
+
+```c
+void gist_mask(char *pagedata, BlockNumber blkno) {
+    Page page = (Page) pagedata;
+
+    // Mask standard page elements for consistency checking
+    mask_page_lsn_and_checksum(page);
+    mask_page_hint_bits(page);
+    mask_unused_space(page);
+
+    // Mask GiST-specific elements that can differ legitimately
+    // NSN is like LSN - mask for same reasons
+    GistPageSetNSN(page, (uint64) MASK_MARKER);
+
+    // F_FOLLOW_RIGHT flag can be set at different times during splits
+    GistMarkFollowRight(page);
+
+    // For leaf pages, mask line pointer flags that can change without WAL
+    if (GistPageIsLeaf(page)) {
+        mask_lp_flags(page);
+    }
+
+    // Never set during redo, so mask to ignore differences
+    GistClearPageHasGarbage(page);
+}
+```

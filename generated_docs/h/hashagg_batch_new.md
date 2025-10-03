@@ -36,3 +36,24 @@ The HashAggBatch structure serves as a work item in the hash aggregation's multi
 - The batch structure is allocated using `palloc0` which zero-initializes all fields
 - This is a lightweight constructor function that prepares work items for later batch processing
 - The `used_bits` parameter is important for recursive partitioning when a batch itself needs to be spilled again
+
+## Simplified Source
+
+```c
+static HashAggBatch *
+hashagg_batch_new(LogicalTape *input_tape, int setno,
+                  int64 input_tuples, double input_card, int used_bits)
+{
+    // Allocate and initialize new batch structure
+    HashAggBatch *batch = palloc0(sizeof(HashAggBatch));
+
+    // Set batch parameters
+    batch->setno = setno;
+    batch->used_bits = used_bits;
+    batch->input_tape = input_tape;
+    batch->input_tuples = input_tuples;
+    batch->input_card = input_card;
+
+    return batch;
+}
+```

@@ -48,3 +48,26 @@ The returned phase number allows the new participant to understand which synchro
 - Used primarily in parallel hash operations when new workers join the synchronization group
 - Thread-safe operation protected by spinlock for concurrent access
 - Critical for dynamic parallel processing where the number of participants can change during execution
+
+## Simplified Source
+
+```c
+int
+BarrierAttach(Barrier *barrier)
+{
+    int phase;
+
+    // Only allow attachment to dynamic barriers
+    Assert(!barrier->static_party);
+
+    // Atomically increment participant count and get current phase
+    SpinLockAcquire(&barrier->mutex);
+    ++barrier->participants;
+    phase = barrier->phase;
+    SpinLockRelease(&barrier->mutex);
+
+    return phase;
+}
+```
+
+This simplified version shows the core barrier attachment: atomically increment the participant count and return the current phase for synchronization purposes.

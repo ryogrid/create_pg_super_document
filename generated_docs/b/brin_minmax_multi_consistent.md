@@ -52,3 +52,109 @@ The function deserializes the stored range summary data and systematically evalu
 - Part of the BRIN query execution pipeline for efficient page-range filtering
 - Critical for index scan performance - false positives are acceptable but false negatives would cause incorrect query results
 - Operates on serialized/compacted data for optimal storage and processing efficiency
+
+## Simplified Source
+
+```c
+Datum
+brin_minmax_multi_consistent(PG_FUNCTION_ARGS)
+{
+    BrinDesc *bdesc = (BrinDesc *) PG_GETARG_POINTER(0);
+    BrinValues *column = (BrinValues *) PG_GETARG_POINTER(1);
+    ScanKey *keys = (ScanKey *) PG_GETARG_POINTER(2);
+    int nkeys = PG_GETARG_INT32(3);
+
+    Oid colloid = PG_GET_COLLATION();
+    SerializedRanges *serialized = (SerializedRanges *)
+        PG_DETOAST_DATUM(column->bv_values[0]);
+    Ranges *ranges = brin_range_deserialize(serialized->maxvalues, serialized);
+
+    // Check each stored range for consistency with scan keys
+    for (int rangeno = 0; rangeno < ranges->nranges; rangeno++) {
+        Datum minval = ranges->values[2 * rangeno];
+        Datum maxval = ranges->values[2 * rangeno + 1];
+        bool matching = true;
+
+        // Test all scan keys against this range
+        for (int keyno = 0; keyno < nkeys; keyno++) {
+            ScanKey key = keys[keyno];
+            AttrNumber attno = key->sk_attno;
+            Oid subtype = key->sk_subtype;
+            Datum value = key->sk_argument;
+            bool matches = false;
+
+            switch (key->sk_strategy) {
+                case BTLessStrategyNumber:
+                case BTLessEqualStrategyNumber:
+                    // Test against range minimum
+                    FmgrInfo *finfo = minmax_multi_get_strategy_procinfo(bdesc, attno,
+                                                                        subtype, key->sk_strategy);
+                    matches = DatumGetBool(FunctionCall2Coll(finfo, colloid, minval, value));
+                    break;
+
+                case BTEqualStrategyNumber:
+                    // Check if value could fall within range boundaries
+                    FmgrInfo *cmpFn = minmax_multi_get_strategy_procinfo(bdesc, attno,
+                                                                        subtype, BTGreaterStrategyNumber);
+                    Datum compar = FunctionCall2Coll(cmpFn, colloid, minval, value);
+                    if (DatumGetBool(compar))  // value < minval
+                        break;
+
+                    cmpFn = minmax_multi_get_strategy_procinfo(bdesc, attno, subtype,
+                                                              BTLessStrategyNumber);
+                    compar = FunctionCall2Coll(cmpFn, colloid, maxval, value);
+                    if (DatumGetBool(compar))  // value > maxval
+                        break;
+
+                    matches = true;  // Value could be in range
+                    break;
+
+                case BTGreaterEqualStrategyNumber:
+                case BTGreaterStrategyNumber:
+                    // Test against range maximum
+                    finfo = minmax_multi_get_strategy_procinfo(bdesc, attno, subtype,
+                                                              key->sk_strategy);
+                    matches = DatumGetBool(FunctionCall2Coll(finfo, colloid, maxval, value));
+                    break;
+            }
+
+            matching &= matches;
+            if (!matching)
+                break;  // Range fails, try next
+        }
+
+        if (matching)
+            PG_RETURN_BOOL(true);  // Found matching range
+    }
+
+    // Check individual stored values
+    for (int i = 0; i < ranges->nvalues; i++) {
+        Datum val = ranges->values[2 * ranges->nranges + i];
+        bool matching = true;
+
+        for (int keyno = 0; keyno < nkeys; keyno++) {
+            ScanKey key = keys[keyno];
+            if (key->sk_flags & SK_ISNULL)
+                continue;
+
+            AttrNumber attno = key->sk_attno;
+            Oid subtype = key->sk_subtype;
+            Datum value = key->sk_argument;
+
+            // Direct comparison with stored value
+            FmgrInfo *finfo = minmax_multi_get_strategy_procinfo(bdesc, attno,
+                                                                subtype, key->sk_strategy);
+            bool matches = DatumGetBool(FunctionCall2Coll(finfo, colloid, val, value));
+
+            matching &= matches;
+            if (!matching)
+                break;
+        }
+
+        if (matching)
+            PG_RETURN_BOOL(true);  // Found matching value
+    }
+
+    PG_RETURN_BOOL(false);  // No matches found
+}
+```

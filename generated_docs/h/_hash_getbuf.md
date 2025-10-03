@@ -45,3 +45,27 @@ The returned buffer is both "locked and pinned" - meaning it has an incremented 
 - The buffer is returned in a "locked and pinned" state requiring proper cleanup
 - Page validation is always performed to ensure data integrity
 - Commonly used throughout hash index operations for accessing existing pages
+
+## Simplified Source
+
+```c
+Buffer _hash_getbuf(Relation rel, BlockNumber blkno, int access, int flags) {
+    // P_NEW not allowed - this function only accesses existing pages
+    if (blkno == P_NEW) {
+        elog(ERROR, "hash AM does not use P_NEW");
+    }
+
+    // Read the buffer from disk
+    Buffer buf = ReadBuffer(rel, blkno);
+
+    // Apply requested lock (unless HASH_NOLOCK)
+    if (access != HASH_NOLOCK) {
+        LockBuffer(buf, access);
+    }
+
+    // Validate page contents and type
+    _hash_checkpage(rel, buf, flags);
+
+    return buf;  // Buffer is now locked and pinned
+}
+```

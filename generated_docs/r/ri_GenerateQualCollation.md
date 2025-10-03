@@ -55,3 +55,34 @@ The function intentionally avoids being used for queries comparing variables to 
 - The SQL standard requires RI comparisons to use the referenced column's collation, but PostgreSQL optimizes by using the referencing column's collation when possible for better index usage
 - Essential for resolving collation conflicts when directly comparing columns with different collations in referential integrity constraints
 - Uses the system catalog cache for efficient collation lookup and includes proper error handling for missing collations
+
+## Simplified Source
+
+```c
+static void ri_GenerateQualCollation(StringInfo buf, Oid collation) {
+    HeapTuple tp;
+    Form_pg_collation colltup;
+    char *collname;
+    char onename[MAX_QUOTED_NAME_LEN];
+
+    // Skip if data type is not collatable
+    if (!OidIsValid(collation))
+        return;
+
+    // Look up collation information in system catalog
+    tp = SearchSysCache1(COLLOID, ObjectIdGetDatum(collation));
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for collation %u", collation);
+
+    colltup = (Form_pg_collation) GETSTRUCT(tp);
+    collname = NameStr(colltup->collname);
+
+    // Generate fully qualified COLLATE clause: schema.collation
+    quoteOneName(onename, get_namespace_name(colltup->collnamespace));
+    appendStringInfo(buf, " COLLATE %s", onename);
+    quoteOneName(onename, collname);
+    appendStringInfo(buf, ".%s", onename);
+
+    ReleaseSysCache(tp);
+}
+```

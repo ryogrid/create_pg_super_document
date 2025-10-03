@@ -40,3 +40,40 @@ The function uses the SPICallbackArg structure to access the query string and pa
 - Provides different context messages for PL/pgSQL expressions vs assignments vs regular SQL
 - Uses RAW_PARSE_PLPGSQL_* constants to determine appropriate error context formatting
 - Essential for debugging SPI-executed queries by providing meaningful error context
+
+## Simplified Source
+
+```c
+static void _SPI_error_callback(void *arg) {
+    SPICallbackArg *callback_arg = (SPICallbackArg *) arg;
+    const char *query = callback_arg->query;
+
+    // Return early if query not available
+    if (query == NULL) {
+        return;
+    }
+
+    // Handle syntax errors with position information
+    int syntax_pos = geterrposition();
+    if (syntax_pos > 0) {
+        errposition(0);                     // Clear external position
+        internalerrposition(syntax_pos);    // Set internal position
+        internalerrquery(query);            // Attach query text
+    } else {
+        // Add context based on query type
+        switch (callback_arg->mode) {
+            case RAW_PARSE_PLPGSQL_EXPR:
+                errcontext("SQL expression \"%s\"", query);
+                break;
+            case RAW_PARSE_PLPGSQL_ASSIGN1:
+            case RAW_PARSE_PLPGSQL_ASSIGN2:
+            case RAW_PARSE_PLPGSQL_ASSIGN3:
+                errcontext("PL/pgSQL assignment \"%s\"", query);
+                break;
+            default:
+                errcontext("SQL statement \"%s\"", query);
+                break;
+        }
+    }
+}
+```

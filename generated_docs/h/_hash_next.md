@@ -149,3 +149,79 @@ write_data_to_archive_lz4_doc.md: ScanDirection indicating whether to scan forwa
 
 ## Notes and Other Information
 The function ensures proper cleanup of killed items before page transitions and maintains buffer pins appropriately. For backward scans, special handling is required for bucket page pins to avoid double-pinning. The function returns false when the scan is exhausted and true when a valid next tuple is found, setting scan->xs_heaptid to the result tuple's TID.
+
+## Simplified Source
+
+```c
+bool
+_hash_next(IndexScanDesc scan, ScanDirection dir)
+{
+    Relation rel = scan->indexRelation;
+    HashScanOpaque so = (HashScanOpaque) scan->opaque;
+    HashScanPosItem *currItem;
+    BlockNumber blkno;
+    Buffer buf;
+    bool end_of_scan = false;
+
+    // Advance to next tuple based on scan direction
+    if (ScanDirectionIsForward(dir))
+    {
+        if (++so->currPos.itemIndex > so->currPos.lastItem)
+        {
+            // End of current page - kill items and move to next page
+            if (so->numKilled > 0)
+                _hash_kill_items(scan);
+
+            blkno = so->currPos.nextPage;
+            if (BlockNumberIsValid(blkno))
+            {
+                buf = _hash_getbuf(rel, blkno, HASH_READ, LH_OVERFLOW_PAGE);
+                if (!_hash_readpage(scan, &buf, dir))
+                    end_of_scan = true;
+            }
+            else
+                end_of_scan = true;
+        }
+    }
+    else
+    {
+        if (--so->currPos.itemIndex < so->currPos.firstItem)
+        {
+            // End of current page - kill items and move to previous page
+            if (so->numKilled > 0)
+                _hash_kill_items(scan);
+
+            blkno = so->currPos.prevPage;
+            if (BlockNumberIsValid(blkno))
+            {
+                buf = _hash_getbuf(rel, blkno, HASH_READ,
+                                   LH_BUCKET_PAGE | LH_OVERFLOW_PAGE);
+
+                // Release extra pin if this is a bucket page we already have pinned
+                if (buf == so->hashso_bucket_buf ||
+                    buf == so->hashso_split_bucket_buf)
+                    _hash_dropbuf(rel, buf);
+
+                if (!_hash_readpage(scan, &buf, dir))
+                    end_of_scan = true;
+            }
+            else
+                end_of_scan = true;
+        }
+    }
+
+    // Check if scan is complete
+    if (end_of_scan)
+    {
+        _hash_dropscanbuf(rel, so);
+        HashScanPosInvalidate(so->currPos);
+        return false;
+    }
+
+    // Return current item
+    currItem = &so->currPos.items[so->currPos.itemIndex];
+    scan->xs_heaptid = currItem->heapTid;
+
+    return true;
+}
+```

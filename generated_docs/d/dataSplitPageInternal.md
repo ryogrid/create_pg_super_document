@@ -55,3 +55,70 @@ The split strategy varies based on whether this is an index build operation on a
 - Updates both maxoff counters and pd_lower values to maintain page consistency
 - The original buffer remains untouched, with all work done on temporary page copies
 - Handles the downlink update as part of the split process using PostingItemSetBlockNumber
+
+## Simplified Source
+
+```c
+static void
+dataSplitPageInternal(GinBtree btree, Buffer origbuf,
+                     GinBtreeStack *stack,
+                     void *insertdata, BlockNumber updateblkno,
+                     Page *newlpage, Page *newrpage)
+{
+    Page oldpage = BufferGetPage(origbuf);
+    OffsetNumber off = stack->off;
+    int nitems = GinPageGetOpaque(oldpage)->maxoff;
+    int nleftitems, nrightitems;
+    Size pageSize = PageGetPageSize(oldpage);
+    ItemPointerData oldbound = *GinDataPageGetRightBound(oldpage);
+    Page lpage, rpage;
+    OffsetNumber separator;
+    PostingItem allitems[(BLCKSZ / sizeof(PostingItem)) + 1];
+
+    // Create temporary pages
+    lpage = PageGetTempPage(oldpage);
+    rpage = PageGetTempPage(oldpage);
+    GinInitPage(lpage, GinPageGetOpaque(oldpage)->flags, pageSize);
+    GinInitPage(rpage, GinPageGetOpaque(oldpage)->flags, pageSize);
+
+    // Build merged item list including new item
+    memcpy(allitems, GinDataPageGetPostingItem(oldpage, FirstOffsetNumber),
+           (off - 1) * sizeof(PostingItem));
+
+    allitems[off - 1] = *((PostingItem *) insertdata);
+    memcpy(&allitems[off], GinDataPageGetPostingItem(oldpage, off),
+           (nitems - (off - 1)) * sizeof(PostingItem));
+    nitems++;
+
+    // Update existing downlink to point to next page
+    PostingItemSetBlockNumber(&allitems[off], updateblkno);
+
+    // Determine split point - during build, pack left page tight on rightmost pages
+    if (btree->isBuild && GinPageRightMost(oldpage))
+        separator = GinNonLeafDataPageGetFreeSpace(rpage) / sizeof(PostingItem);
+    else
+        separator = nitems / 2;
+
+    nleftitems = separator;
+    nrightitems = nitems - separator;
+
+    // Distribute items between left and right pages
+    memcpy(GinDataPageGetPostingItem(lpage, FirstOffsetNumber),
+           allitems, nleftitems * sizeof(PostingItem));
+    GinPageGetOpaque(lpage)->maxoff = nleftitems;
+
+    memcpy(GinDataPageGetPostingItem(rpage, FirstOffsetNumber),
+           &allitems[separator], nrightitems * sizeof(PostingItem));
+    GinPageGetOpaque(rpage)->maxoff = nrightitems;
+
+    // Set page sizes and boundaries
+    GinDataPageSetDataSize(lpage, nleftitems * sizeof(PostingItem));
+    GinDataPageSetDataSize(rpage, nrightitems * sizeof(PostingItem));
+
+    *GinDataPageGetRightBound(lpage) = GinDataPageGetPostingItem(lpage, nleftitems)->key;
+    *GinDataPageGetRightBound(rpage) = oldbound;
+
+    *newlpage = lpage;
+    *newrpage = rpage;
+}
+```

@@ -40,3 +40,19 @@ This function registers a new string-type reloption in PostgreSQL's reloption sy
 - The default value must pass validation if a validator is specified
 - This is part of PostgreSQL's extensible reloption system that allows plugins and extensions to define custom relation parameters
 - The function is defined in src/backend/access/common/reloptions.c:1098-1117
+
+## Simplified Source
+
+```c
+void add_string_reloption(bits32 kinds, const char *name, const char *desc,
+                          const char *default_val, validate_string_relopt validator,
+                          LOCKMODE lockmode) {
+    // Create a new string reloption with optional validation
+    relopt_string *new_option = init_string_reloption(kinds, name, desc,
+                                                      default_val, validator,
+                                                      NULL, lockmode);
+
+    // Register the option globally
+    add_reloption((relopt_gen *) new_option);
+}
+```

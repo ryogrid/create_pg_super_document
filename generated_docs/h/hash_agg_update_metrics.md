@@ -42,3 +42,44 @@ The function only operates when the aggregation strategy is either AGG_MIXED or 
 - [Hash](../H/Hash.md) entry size estimation is dynamically updated based on actual memory usage per group, improving future planning
 - Buffer memory calculation includes write buffers for all partitions and optionally a read buffer when reading from tape
 - Disk usage is measured in kilobytes and only tracked when a tape set exists
+
+## Simplified Source
+
+```c
+static void
+hash_agg_update_metrics(AggState *aggstate, bool from_tape, int npartitions)
+{
+    Size meta_mem, hashkey_mem, buffer_mem, total_mem;
+
+    // Only update metrics for hash-based aggregation strategies
+    if (aggstate->aggstrategy != AGG_MIXED && aggstate->aggstrategy != AGG_HASHED)
+        return;
+
+    // Calculate memory usage by component
+    meta_mem = MemoryContextMemAllocated(aggstate->hash_metacxt, true);
+    hashkey_mem = MemoryContextMemAllocated(aggstate->hashcontext->ecxt_per_tuple_memory, true);
+
+    // Buffer memory for tape operations
+    buffer_mem = npartitions * HASHAGG_WRITE_BUFFER_SIZE;
+    if (from_tape)
+        buffer_mem += HASHAGG_READ_BUFFER_SIZE;
+
+    // Update peak memory usage
+    total_mem = meta_mem + hashkey_mem + buffer_mem;
+    if (total_mem > aggstate->hash_mem_peak)
+        aggstate->hash_mem_peak = total_mem;
+
+    // Update disk usage if using tapes
+    if (aggstate->hash_tapeset != NULL) {
+        uint64 disk_used = LogicalTapeSetBlocks(aggstate->hash_tapeset) * (BLCKSZ / 1024);
+        if (aggstate->hash_disk_used < disk_used)
+            aggstate->hash_disk_used = disk_used;
+    }
+
+    // Update hash entry size estimate
+    if (aggstate->hash_ngroups_current > 0) {
+        aggstate->hashentrysize = sizeof(TupleHashEntryData) +
+            (hashkey_mem / (double) aggstate->hash_ngroups_current);
+    }
+}
+```

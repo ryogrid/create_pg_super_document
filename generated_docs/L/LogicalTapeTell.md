@@ -41,3 +41,21 @@ This capability is essential for sorting operations that need to mark positions 
 - Works with both frozen and unfrozen tapes, unlike seek and backspace operations
 - Essential counterpart to LogicalTapeSeek for implementing tape position save/restore functionality
 - Position coordinates remain valid as long as the tape structure exists
+
+## Simplified Source
+
+```c
+void LogicalTapeTell(LogicalTape *lt, int64 *blocknum, int *offset) {
+    // Initialize read buffer if needed
+    if (lt->buffer == NULL)
+        ltsInitReadBuffer(lt);
+
+    // Validate assumptions for position accuracy
+    Assert(lt->offsetBlockNumber == 0L);
+    Assert(lt->buffer_size == BLCKSZ);
+
+    // Return current position
+    *blocknum = lt->curBlockNumber;
+    *offset = lt->pos;
+}
+```

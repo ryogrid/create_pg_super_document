@@ -48,3 +48,99 @@ The function automatically detects the appropriate conversion method based on th
 - The function assumes database character encoding matches LC_CTYPE encoding
 - Memory allocation is carefully managed with overflow protection for large strings
 - Special handling ensures ASCII I/i behavior in default collations while respecting locale-specific rules in non-default collations
+
+## Simplified Source
+
+```c
+char *
+str_tolower(const char *buff, size_t nbytes, Oid collid)
+{
+    char *result;
+
+    if (!buff)
+        return NULL;
+
+    // Validate collation OID
+    if (!OidIsValid(collid))
+        ereport(ERROR, (errcode(ERRCODE_INDETERMINATE_COLLATION),
+                       errmsg("could not determine which collation to use for lower() function")));
+
+    // Handle C/POSIX collations with ASCII conversion
+    if (lc_ctype_is_c(collid))
+    {
+        result = asc_tolower(buff, nbytes);
+    }
+    else
+    {
+        pg_locale_t mylocale = pg_newlocale_from_collation(collid);
+
+#ifdef USE_ICU
+        // ICU provider: use ICU case conversion
+        if (mylocale && mylocale->provider == COLLPROVIDER_ICU)
+        {
+            UChar *buff_uchar, *buff_conv;
+            int32_t len_uchar = icu_to_uchar(&buff_uchar, buff, nbytes);
+            int32_t len_conv = icu_convert_case(u_strToLower, mylocale,
+                                              &buff_conv, buff_uchar, len_uchar);
+            icu_from_uchar(&result, buff_conv, len_conv);
+            pfree(buff_uchar);
+            pfree(buff_conv);
+        }
+        else
+#endif
+        // Built-in provider: use Unicode conversion for UTF-8
+        if (mylocale && mylocale->provider == COLLPROVIDER_BUILTIN)
+        {
+            size_t dstsize = nbytes + 1;
+            char *dst = palloc(dstsize);
+            size_t needed = unicode_strlower(dst, dstsize, buff, nbytes);
+
+            // Resize buffer if needed
+            if (needed + 1 > dstsize)
+            {
+                dstsize = needed + 1;
+                dst = repalloc(dst, dstsize);
+                unicode_strlower(dst, dstsize, buff, nbytes);
+            }
+            result = dst;
+        }
+        else
+        {
+            // libc provider: handle multibyte vs single-byte encodings
+            if (pg_database_encoding_max_length() > 1)
+            {
+                // Multibyte encoding: use wide character functions
+                wchar_t *workspace = palloc((nbytes + 1) * sizeof(wchar_t));
+                char2wchar(workspace, nbytes + 1, buff, nbytes, mylocale);
+
+                // Convert each character to lowercase
+                for (size_t i = 0; workspace[i] != 0; i++)
+                {
+                    workspace[i] = mylocale ?
+                        towlower_l(workspace[i], mylocale->info.lt) :
+                        towlower(workspace[i]);
+                }
+
+                // Convert back to multibyte
+                size_t result_size = nbytes * pg_database_encoding_max_length() + 1;
+                result = palloc(result_size);
+                wchar2char(result, workspace, result_size, mylocale);
+                pfree(workspace);
+            }
+            else
+            {
+                // Single-byte encoding: convert in place
+                result = pnstrdup(buff, nbytes);
+                for (char *p = result; *p; p++)
+                {
+                    *p = mylocale ?
+                        tolower_l((unsigned char) *p, mylocale->info.lt) :
+                        pg_tolower((unsigned char) *p);
+                }
+            }
+        }
+    }
+
+    return result;
+}
+```

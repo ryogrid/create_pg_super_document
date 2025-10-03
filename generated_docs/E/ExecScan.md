@@ -54,3 +54,57 @@ The function employs several optimizations: it bypasses qualification and projec
 - [Instrumentation](../I/Instrumentation.md) support tracks filtered tuple counts for query performance analysis
 - The function maintains cursor semantics as required by the access method interface
 - Projection result slot is used for consistent tuple descriptor handling when returning empty results
+
+## Simplified Source
+
+```c
+TupleTableSlot *
+ExecScan(ScanState *node,
+         ExecScanAccessMtd accessMtd,
+         ExecScanRecheckMtd recheckMtd)
+{
+    ExprContext *econtext = node->ps.ps_ExprContext;
+    ExprState *qual = node->ps.qual;
+    ProjectionInfo *projInfo = node->ps.ps_ProjInfo;
+
+    // Fast path: if no qualification or projection needed, return raw tuple
+    if (!qual && !projInfo) {
+        ResetExprContext(econtext);
+        return ExecScanFetch(node, accessMtd, recheckMtd);
+    }
+
+    ResetExprContext(econtext);
+
+    // Main scan loop: fetch tuples and check qualifications
+    for (;;) {
+        TupleTableSlot *slot = ExecScanFetch(node, accessMtd, recheckMtd);
+
+        // End of scan reached
+        if (TupIsNull(slot)) {
+            if (projInfo)
+                return ExecClearTuple(projInfo->pi_state.resultslot);
+            else
+                return slot;
+        }
+
+        // Set current tuple in expression context
+        econtext->ecxt_scantuple = slot;
+
+        // Check if tuple satisfies WHERE clause conditions
+        if (qual == NULL || ExecQual(qual, econtext)) {
+            // Tuple qualifies - apply projection if needed
+            if (projInfo) {
+                return ExecProject(projInfo);
+            } else {
+                return slot; // Return raw tuple
+            }
+        } else {
+            // Tuple doesn't qualify - count as filtered and continue
+            InstrCountFiltered1(node, 1);
+        }
+
+        // Reset memory context before next iteration
+        ResetExprContext(econtext);
+    }
+}
+```

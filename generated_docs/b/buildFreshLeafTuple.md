@@ -55,3 +55,43 @@ This dual approach ensures efficient storage for small posting lists while seaml
 - Memory management: Properly frees compressed posting list after tuple creation
 - Part of GIN's adaptive storage strategy for handling variable-sized posting collections
 - Function is static, indicating internal implementation detail of GIN insertion logic
+
+## Simplified Source
+```c
+static IndexTuple buildFreshLeafTuple(GinState *ginstate,
+                                     OffsetNumber attnum, Datum key, GinNullCategory category,
+                                     ItemPointerData *items, uint32 nitem,
+                                     GinStatsData *buildStats, Buffer buffer) {
+    IndexTuple res = NULL;
+    GinPostingList *compressedList;
+
+    // Try to create tuple with compressed posting list
+    compressedList = ginCompressPostingList(items, nitem, GinMaxItemSize, NULL);
+
+    if (compressedList) {
+        // Posting list fits - create compressed posting list tuple
+        res = GinFormTuple(ginstate, attnum, key, category,
+                          (char *) compressedList,
+                          SizeOfGinPostingList(compressedList),
+                          nitem, false);
+        pfree(compressedList);
+    }
+
+    if (!res) {
+        // Posting list too big - create posting tree instead
+        BlockNumber postingRoot;
+
+        // Create tuple structure first (fails quickly if key too big)
+        res = GinFormTuple(ginstate, attnum, key, category, NULL, 0, 0, true);
+
+        // Initialize posting tree with all item pointers
+        postingRoot = createPostingTree(ginstate->index, items, nitem,
+                                       buildStats, buffer);
+
+        // Link posting tree to tuple
+        GinSetPostingTree(res, postingRoot);
+    }
+
+    return res;
+}
+```

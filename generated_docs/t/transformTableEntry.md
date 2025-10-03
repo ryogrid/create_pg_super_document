@@ -32,3 +32,15 @@ The transformTableEntry function is a wrapper function that simplifies the trans
 - The function passes r->alias, r->inh (inheritance flag), and true (for the visible parameter) to addRangeTableEntry
 - This function represents the simplest case of range table entry transformation, handling basic table references without subqueries, functions, or other complex constructs
 - The delegation pattern used here allows for clean separation of concerns between different types of range table transformations
+
+## Simplified Source
+
+```c
+static ParseNamespaceItem *
+transformTableEntry(ParseState *pstate, RangeVar *r)
+{
+    // Transform simple table reference by delegating to addRangeTableEntry
+    // Pass alias, inheritance flag, and visibility=true
+    return addRangeTableEntry(pstate, r, r->alias, r->inh, true);
+}
+```

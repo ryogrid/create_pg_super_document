@@ -33,3 +33,18 @@ The function delegates the actual wait configuration to the FDW's ForeignAsyncCo
 - Part of the asynchronous foreign scan framework that enables efficient concurrent operations
 - The specific wait configuration details are entirely FDW-dependent and may involve network sockets, file descriptors, or other platform-specific mechanisms
 - Located in src/backend/executor/nodeForeignscan.c:472-487
+
+## Simplified Source
+
+```c
+void ExecAsyncForeignScanConfigureWait(AsyncRequest *areq) {
+    ForeignScanState *node = (ForeignScanState *) areq->requestee;
+    FdwRoutine *fdwroutine = node->fdwroutine;
+
+    // Ensure FDW supports async wait configuration
+    Assert(fdwroutine->ForeignAsyncConfigureWait != NULL);
+
+    // Delegate to FDW-specific wait configuration handler
+    fdwroutine->ForeignAsyncConfigureWait(areq);
+}
+```

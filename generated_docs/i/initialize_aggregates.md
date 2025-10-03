@@ -31,3 +31,35 @@ This function orchestrates the initialization of all aggregate functions for a n
 
 ## Notes and Other Information
 The function includes an important restriction: it cannot be used for hash aggregates because those require the grouping set number to be specified from higher-level calling code. The function uses Max() to handle cases where there might be no explicit grouping sets (defaulting to 1). The nested loop structure (grouping sets outer, transitions inner) ensures that all aggregates within each relevant grouping set are properly initialized. The function assumes CurrentMemoryContext is the per-query context when called, which is important for proper memory management during initialization.
+
+## Simplified Source
+
+```c
+static void initialize_aggregates(AggState *aggstate,
+                                  AggStatePerGroup *pergroups,
+                                  int numReset) {
+    int transno;
+    int numGroupingSets = Max(aggstate->phase->numsets, 1);
+    int setno = 0;
+    int numTrans = aggstate->numtrans;
+    AggStatePerTrans transstates = aggstate->pertrans;
+
+    if (numReset == 0)
+        numReset = numGroupingSets;
+
+    // Initialize aggregates for each grouping set
+    for (setno = 0; setno < numReset; setno++) {
+        AggStatePerGroup pergroup = pergroups[setno];
+
+        select_current_set(aggstate, setno, false);
+
+        // Initialize each aggregate transition state
+        for (transno = 0; transno < numTrans; transno++) {
+            AggStatePerTrans pertrans = &transstates[transno];
+            AggStatePerGroup pergroupstate = &pergroup[transno];
+
+            initialize_aggregate(aggstate, pertrans, pergroupstate);
+        }
+    }
+}
+```

@@ -30,3 +30,14 @@ SeqRecheck is part of PostgreSQL's EvalPlanQual (EPQ) mechanism, which is used t
 - Part of the EvalPlanQual mechanism for handling concurrent tuple modifications
 - The comment notes that SeqScan never uses keys in heap_beginscan, which is considered 'very bad' from a design perspective
 - Contrasts with IndexScan which performs actual key validation during recheck operations
+
+## Simplified Source
+
+```c
+static bool
+SeqRecheck(SeqScanState *node, TupleTableSlot *slot)
+{
+    // Sequential scans don't use keys, so no recheck needed
+    return true;
+}
+```

@@ -9,14 +9,8 @@ Estimates the amount of memory space required to serialize a ParamListInfo struc
 ## Definition
 
 ```c
-structure into caller-provided storage.
- *
- * We write the number of parameters first, as a 4-byte integer, and then
- * write details for each parameter in turn.  The details for each parameter
- * consist of a 4-byte type OID, 2 bytes of flags, and then the datum as
- * serialized by datumSerialize().  The caller is responsible for ensuring
- * that there is enough storage to store the number of bytes that will be
- * written;
+Size
+EstimateParamListSpace(ParamListInfo paramLI)
 ```
 ## Detailed Description
 The EstimateParamListSpace function calculates the total memory space needed to serialize a ParamListInfo structure and all its parameter data. This is typically used in parallel query execution where parameter lists need to be shared between processes. The function iterates through all parameters in the list, accounting for the space needed to store each parameter's type OID, flags, and datum value. For dynamic parameters, it uses the paramFetch hook to get current values. The calculation handles both pass-by-value and pass-by-reference datatypes appropriately, using datumEstimateSpace for accurate size estimation of variable-length data.
@@ -42,3 +36,51 @@ The EstimateParamListSpace function calculates the total memory space needed to 
 - The estimation includes space for type OID, parameter flags, and the actual datum value
 - This function is essential for parallel query execution where parameters must be serialized
 - The function is located in src/backend/nodes/params.c at lines 167-228
+
+## Simplified Source
+
+```c
+Size
+EstimateParamListSpace(ParamListInfo paramLI)
+{
+    int i;
+    Size sz = sizeof(int);  // Space for parameter count
+
+    if (paramLI == NULL || paramLI->numParams <= 0)
+        return sz;
+
+    for (i = 0; i < paramLI->numParams; i++) {
+        ParamExternData *prm;
+        ParamExternData prmdata;
+        Oid typeOid;
+        int16 typLen;
+        bool typByVal;
+
+        // Handle dynamic parameters via fetch hook
+        if (paramLI->paramFetch != NULL)
+            prm = paramLI->paramFetch(paramLI, i + 1, false, &prmdata);
+        else
+            prm = &paramLI->params[i];
+
+        typeOid = prm->ptype;
+
+        // Add space for type OID and flags
+        sz = add_size(sz, sizeof(Oid));     // Type OID
+        sz = add_size(sz, sizeof(uint16));  // Parameter flags
+
+        // Get type properties for space calculation
+        if (OidIsValid(typeOid))
+            get_typlenbyval(typeOid, &typLen, &typByVal);
+        else {
+            // Default for unknown types (like copyParamList)
+            typLen = sizeof(Datum);
+            typByVal = true;
+        }
+
+        // Add space for the actual datum value
+        sz = add_size(sz, datumEstimateSpace(prm->value, prm->isnull, typByVal, typLen));
+    }
+
+    return sz;
+}
+```

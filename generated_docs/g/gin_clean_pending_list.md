@@ -45,3 +45,60 @@ This function provides a SQL interface for manually triggering cleanup of a GIN 
 - Handles error reporting with appropriate error codes and user-friendly messages
 - Comparable to VACUUM in terms of required privileges and system impact
 - Useful for manual maintenance when automatic cleanup is insufficient
+
+## Simplified Source
+
+```c
+// Simplified version of gin_clean_pending_list
+Datum gin_clean_pending_list(PG_FUNCTION_ARGS)
+{
+    Oid indexoid = PG_GETARG_OID(0);
+    Relation indexRel = index_open(indexoid, RowExclusiveLock);
+    IndexBulkDeleteResult stats;
+
+    // Check if recovery is in progress
+    if (RecoveryInProgress())
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("recovery is in progress"),
+                 errhint("GIN pending list cannot be cleaned up during recovery.")));
+
+    // Verify it's a GIN index
+    if (indexRel->rd_rel->relkind != RELKIND_INDEX ||
+        indexRel->rd_rel->relam != GIN_AM_OID)
+        ereport(ERROR,
+                (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                 errmsg("\"%s\" is not a GIN index",
+                        RelationGetRelationName(indexRel))));
+
+    // Check for temporary relations from other sessions
+    if (RELATION_IS_OTHER_TEMP(indexRel))
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("cannot access temporary indexes of other sessions")));
+
+    // Verify ownership
+    if (!object_ownercheck(RelationRelationId, indexoid, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_INDEX,
+                       RelationGetRelationName(indexRel));
+
+    memset(&stats, 0, sizeof(stats));
+
+    // Perform cleanup if index is valid
+    if (indexRel->rd_index->indisvalid) {
+        GinState ginstate;
+
+        initGinState(&ginstate, indexRel);
+        ginInsertCleanup(&ginstate, true, true, true, &stats);
+    } else {
+        ereport(DEBUG1,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("index \"%s\" is not valid",
+                        RelationGetRelationName(indexRel))));
+    }
+
+    index_close(indexRel, RowExclusiveLock);
+
+    PG_RETURN_INT64((int64) stats.pages_deleted);
+}
+```

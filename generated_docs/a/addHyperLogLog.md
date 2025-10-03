@@ -43,3 +43,21 @@ It is critical that the input hash values have uniform bit distribution, as the 
 - Widely used in PostgreSQL abbreviation conversion functions for different data types
 - The register update follows the classic HyperLogLog algorithm where each bucket maintains the maximum rank
 - Performance-critical function as its called once per distinct value being tracked
+
+## Simplified Source
+
+```c
+void
+addHyperLogLog(hyperLogLogState *cState, uint32 hash)
+{
+    // Extract register index from high-order bits
+    uint32 index = hash >> (BITS_PER_BYTE * sizeof(uint32) - cState->registerWidth);
+
+    // Calculate rank (position of first set bit) in remaining bits
+    uint8 count = rho(hash << cState->registerWidth,
+                      BITS_PER_BYTE * sizeof(uint32) - cState->registerWidth);
+
+    // Keep maximum rank seen for this register
+    cState->hashesArr[index] = Max(count, cState->hashesArr[index]);
+}
+```

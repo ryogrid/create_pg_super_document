@@ -52,3 +52,44 @@ The returned buffer is guaranteed to be both pinned (preventing it from being ev
 - This function is critical for GIN index growth and maintenance operations
 - The function handles the complexity of concurrent access to free pages in a multi-user environment
 - Caller must ensure proper cleanup (unlocking and unpinning) of the returned buffer when done
+
+## Simplified Source
+
+```c
+// Simplified version of GinNewBuffer
+Buffer
+GinNewBuffer(Relation index)
+{
+    Buffer buffer;
+
+    // Try to recycle pages from Free Space Map first
+    for (;;)
+    {
+        BlockNumber blkno = GetFreeIndexPage(index);
+
+        if (blkno == InvalidBlockNumber)
+            break;  // No more free pages available
+
+        buffer = ReadBuffer(index, blkno);
+
+        // Try to lock the buffer conditionally (non-blocking)
+        if (ConditionalLockBuffer(buffer))
+        {
+            // Check if page is actually recyclable
+            if (GinPageIsRecyclable(BufferGetPage(buffer)))
+                return buffer;  // Found a recyclable page
+
+            LockBuffer(buffer, GIN_UNLOCK);
+        }
+
+        // Page not usable, release and try next
+        ReleaseBuffer(buffer);
+    }
+
+    // No recyclable pages found, extend the index file
+    buffer = ExtendBufferedRel(BMR_REL(index), MAIN_FORKNUM, NULL,
+                              EB_LOCK_FIRST);
+
+    return buffer;
+}
+```

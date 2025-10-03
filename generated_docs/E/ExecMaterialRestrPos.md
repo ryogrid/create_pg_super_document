@@ -34,3 +34,20 @@ The function is the counterpart to ExecMaterialMarkPos and provides the restore 
 - Returns immediately if no tuplestore has been created yet (consistent with lazy initialization)
 - Does not perform tuplestore_trim like the mark function since restoring doesn't advance any positions
 - The restore operation can be called multiple times to return to the same marked position
+
+## Simplified Source
+
+```c
+void ExecMaterialRestrPos(MaterialState *node)
+{
+    // Verify mark/restore capability was requested
+    Assert(node->eflags & EXEC_FLAG_MARK);
+
+    // Skip if tuplestore not materialized yet
+    if (!node->tuplestorestate)
+        return;
+
+    // Copy mark position back to active read pointer
+    tuplestore_copy_read_pointer(node->tuplestorestate, 1, 0);
+}
+```

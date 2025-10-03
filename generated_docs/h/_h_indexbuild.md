@@ -39,3 +39,27 @@ This function completes the hash index construction process by first performing 
 - Can be interrupted via CHECK_FOR_INTERRUPTS() calls
 - The 'sorted' parameter to  is always true since tuples come pre-sorted
 - Part of the final phase of hash index construction after all tuples have been spooled
+
+## Simplified Source
+
+```c
+void _h_indexbuild(HSpool *hspool, Relation heapRel)
+{
+    IndexTuple itup;
+    int64 tups_done = 0;
+
+    // Sort all spooled tuples for better insertion locality
+    tuplesort_performsort(hspool->sortstate);
+
+    // Insert each sorted tuple into the hash index
+    while ((itup = tuplesort_getindextuple(hspool->sortstate, true)) != NULL)
+    {
+        // Insert tuple into hash index (sorted=true for performance)
+        _hash_doinsert(hspool->index, itup, heapRel, true);
+
+        // Allow interruption and track progress
+        CHECK_FOR_INTERRUPTS();
+        pgstat_progress_update_param(PROGRESS_CREATEIDX_TUPLES_DONE, ++tups_done);
+    }
+}
+```

@@ -37,3 +37,22 @@ This function serves as a wrapper for calling user-defined ternary consistent fu
 - Passes 7 parameters to the ternary consistent function: entry results, strategy, query, number of user entries, extra data, query values, and query categories
 - No recheckCurItem handling since ternary logic can express uncertainty directly through GIN_MAYBE
 - Located in src/backend/access/gin/ginlogic.c:89-107
+
+## Simplified Source
+
+```c
+static GinTernaryValue
+directTriConsistentFn(GinScanKey key)
+{
+    // Call user's ternary consistent function directly
+    return DatumGetGinTernaryValue(FunctionCall7Coll(key->triConsistentFmgrInfo,
+                                                     key->collation,
+                                                     PointerGetDatum(key->entryRes),
+                                                     UInt16GetDatum(key->strategy),
+                                                     key->query,
+                                                     UInt32GetDatum(key->nuserentries),
+                                                     PointerGetDatum(key->extra_data),
+                                                     PointerGetDatum(key->queryValues),
+                                                     PointerGetDatum(key->queryCategories)));
+}
+```

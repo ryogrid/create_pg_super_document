@@ -47,3 +47,24 @@ These modifications ensure that pages can be compared based on their actual data
 - The all-visible flag indicates whether all tuples on the page are visible to all transactions
 - This masking is essential for WAL consistency verification since hint bits can differ between original and replayed pages
 - The function modifies the page in-place and does not return any value
+
+## Simplified Source
+
+```c
+void mask_page_hint_bits(Page page)
+{
+    PageHeader page_header = (PageHeader) page;
+
+    // Clear hint bits that can be set without WAL logging
+
+    // 1. Clear prune XID (oldest XID that might have dead tuples)
+    page_header->pd_prune_xid = MASK_MARKER;
+
+    // 2. Clear page fullness flags (just performance hints)
+    PageClearFull(page);
+    PageClearHasFreeLinePointers(page);
+
+    // 3. Clear all-visible flag (can be set during replay)
+    PageClearAllVisible(page);
+}
+```

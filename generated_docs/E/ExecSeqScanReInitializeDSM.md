@@ -35,3 +35,16 @@ This function reinitializes the Dynamic Shared Memory (DSM) structures used for 
 - The ParallelContext parameter is currently unused but maintained for interface consistency
 - This is more efficient than completely destroying and recreating the parallel scan structures
 - Located in src/backend/executor/nodeSeqscan.c at lines 278-293
+
+## Simplified Source
+```c
+void ExecSeqScanReInitializeDSM(SeqScanState *node, ParallelContext *pcxt) {
+    ParallelTableScanDesc pscan;
+
+    // Get the existing parallel scan descriptor
+    pscan = node->ss.ss_currentScanDesc->rs_parallel;
+
+    // Reset the parallel scan to start fresh
+    table_parallelscan_reinitialize(node->ss.ss_currentRelation, pscan);
+}
+```

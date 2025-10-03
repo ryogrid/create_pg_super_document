@@ -52,3 +52,56 @@ Key behaviors:
 - Uses assertions to validate that the expected number of tuples are processed
 - The follow-right data fix must be done while holding the lock on the target page
 - Part of the comprehensive GiST WAL recovery system
+
+## Simplified Source
+
+```c
+static void gistRedoPageUpdateRecord(XLogReaderState *record) {
+    XLogRecPtr lsn = record->EndRecPtr;
+    gistxlogPageUpdate *xldata = (gistxlogPageUpdate *) XLogRecGetData(record);
+    Buffer buffer;
+    Page page;
+
+    if (XLogReadBufferForRedo(record, 0, &buffer) == BLK_NEEDS_REDO) {
+        char *data = XLogRecGetBlockData(record, 0, &datalen);
+        page = (Page) BufferGetPage(buffer);
+
+        // Handle single tuple replacement (special case)
+        if (xldata->ntodelete == 1 && xldata->ntoinsert == 1) {
+            OffsetNumber offnum = *((OffsetNumber *) data);
+            data += sizeof(OffsetNumber);
+            IndexTuple itup = (IndexTuple) data;
+            PageIndexTupleOverwrite(page, offnum, (Item) itup, IndexTupleSize(itup));
+        }
+        // Handle multiple deletions
+        else if (xldata->ntodelete > 0) {
+            OffsetNumber *todelete = (OffsetNumber *) data;
+            data += sizeof(OffsetNumber) * xldata->ntodelete;
+            PageIndexMultiDelete(page, todelete, xldata->ntodelete);
+            if (GistPageIsLeaf(page))
+                GistMarkTuplesDeleted(page);
+        }
+
+        // Add new tuples
+        OffsetNumber off = PageIsEmpty(page) ? FirstOffsetNumber :
+                          OffsetNumberNext(PageGetMaxOffsetNumber(page));
+        while (data - begin < datalen) {
+            IndexTuple itup = (IndexTuple) data;
+            Size sz = IndexTupleSize(itup);
+            data += sz;
+            PageAddItem(page, (Item) itup, sz, off, false, false);
+            off++;
+        }
+
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buffer);
+    }
+
+    // Fix follow-right data on child page if needed
+    if (XLogRecHasBlockRef(record, 1))
+        gistRedoClearFollowRight(record, 1);
+
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+}
+```

@@ -53,3 +53,86 @@ When no more pages are available for prefetching, the function cleanly terminate
 - In parallel mode, uses optimistic concurrency to minimize spinlock contention while ensuring work coordination
 - Visibility map optimization prevents unnecessary I/O for pages that are known to be fully visible
 - The function gracefully handles iterator exhaustion by cleaning up state and preventing further prefetch attempts
+
+## Simplified Source
+
+```c
+static inline void
+BitmapPrefetch(BitmapHeapScanState *node, TableScanDesc scan)
+{
+#ifdef USE_PREFETCH
+    ParallelBitmapHeapState *pstate = node->pstate;
+
+    if (pstate == NULL) {
+        // Non-parallel mode: use local prefetch iterator
+        TBMIterator *prefetch_iterator = node->prefetch_iterator;
+
+        if (prefetch_iterator) {
+            while (node->prefetch_pages < node->prefetch_target) {
+                TBMIterateResult *tbmpre = tbm_iterate(prefetch_iterator);
+
+                if (tbmpre == NULL) {
+                    // No more pages - cleanup and exit
+                    tbm_end_iterate(prefetch_iterator);
+                    node->prefetch_iterator = NULL;
+                    break;
+                }
+
+                node->prefetch_pages++;
+
+                // Skip prefetch if page likely won't be needed
+                bool skip_fetch = (!(scan->rs_flags & SO_NEED_TUPLES) &&
+                                 !tbmpre->recheck &&
+                                 VM_ALL_VISIBLE(node->ss.ss_currentRelation,
+                                              tbmpre->blockno,
+                                              &node->pvmbuffer));
+
+                if (!skip_fetch)
+                    PrefetchBuffer(scan->rs_rd, MAIN_FORKNUM, tbmpre->blockno);
+            }
+        }
+        return;
+    }
+
+    // Parallel mode: coordinate prefetching across workers
+    if (pstate->prefetch_pages < pstate->prefetch_target) {
+        TBMSharedIterator *prefetch_iterator = node->shared_prefetch_iterator;
+
+        if (prefetch_iterator) {
+            while (1) {
+                bool do_prefetch = false;
+
+                // Atomically claim prefetch work
+                SpinLockAcquire(&pstate->mutex);
+                if (pstate->prefetch_pages < pstate->prefetch_target) {
+                    pstate->prefetch_pages++;
+                    do_prefetch = true;
+                }
+                SpinLockRelease(&pstate->mutex);
+
+                if (!do_prefetch)
+                    return;
+
+                TBMIterateResult *tbmpre = tbm_shared_iterate(prefetch_iterator);
+                if (tbmpre == NULL) {
+                    // No more pages - cleanup and exit
+                    tbm_end_shared_iterate(prefetch_iterator);
+                    node->shared_prefetch_iterator = NULL;
+                    break;
+                }
+
+                // Skip prefetch if page likely won't be needed
+                bool skip_fetch = (!(scan->rs_flags & SO_NEED_TUPLES) &&
+                                 !tbmpre->recheck &&
+                                 VM_ALL_VISIBLE(node->ss.ss_currentRelation,
+                                              tbmpre->blockno,
+                                              &node->pvmbuffer));
+
+                if (!skip_fetch)
+                    PrefetchBuffer(scan->rs_rd, MAIN_FORKNUM, tbmpre->blockno);
+            }
+        }
+    }
+#endif
+}
+```

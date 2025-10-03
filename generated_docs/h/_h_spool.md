@@ -33,3 +33,14 @@ This function serves as an interface to add index tuples to the sorting mechanis
 - The actual sorting and spooling to disk is handled by the tuplesort subsystem
 - Part of the hash index building pipeline that processes each heap tuple
 - Values and isnull arrays must correspond to the index's key attributes
+
+## Simplified Source
+
+```c
+void _h_spool(HSpool *hspool, ItemPointer self, const Datum *values, const bool *isnull)
+{
+    // Add index tuple to sort state for later processing
+    tuplesort_putindextuplevalues(hspool->sortstate, hspool->index,
+                                  self, values, isnull);
+}
+```

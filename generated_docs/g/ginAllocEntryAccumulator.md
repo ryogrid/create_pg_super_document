@@ -34,3 +34,24 @@ This function serves as a memory allocator callback for the red-black tree imple
 - Tracks allocated memory for memory usage monitoring
 - No individual deallocation needed as memory is freed in bulk
 - Part of the GIN access method's bulk loading optimization
+
+## Simplified Source
+
+```c
+static RBTNode *ginAllocEntryAccumulator(void *arg) {
+    BuildAccumulator *accum = (BuildAccumulator *) arg;
+
+    // If we need a new chunk, allocate DEF_NENTRY entries at once
+    if (accum->entryallocator == NULL || accum->eas_used >= DEF_NENTRY) {
+        accum->entryallocator = palloc(sizeof(GinEntryAccumulator) * DEF_NENTRY);
+        accum->allocatedMemory += GetMemoryChunkSpace(accum->entryallocator);
+        accum->eas_used = 0;
+    }
+
+    // Return next available entry from current chunk
+    GinEntryAccumulator *ea = accum->entryallocator + accum->eas_used;
+    accum->eas_used++;
+
+    return (RBTNode *) ea;
+}
+```

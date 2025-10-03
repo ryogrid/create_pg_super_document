@@ -51,3 +51,70 @@ The all-visible fraction calculation assumes newly added pages since the last VA
 - Uses integer division deliberately for density calculation
 - Applies clamp_row_est to ensure at least one tuple per page
 - Part of the table access method infrastructure for query planning optimization
+
+## Simplified Source
+
+```c
+void
+table_block_relation_estimate_size(Relation rel, int32 *attr_widths,
+                                   BlockNumber *pages, double *tuples,
+                                   double *allvisfrac,
+                                   Size overhead_bytes_per_tuple,
+                                   Size usable_bytes_per_page)
+{
+    BlockNumber curpages;
+    BlockNumber relpages;
+    double reltuples;
+    BlockNumber relallvisible;
+    double density;
+
+    // Get current physical size
+    curpages = RelationGetNumberOfBlocks(rel);
+
+    // Extract statistics from pg_class
+    relpages = (BlockNumber) rel->rd_rel->relpages;
+    reltuples = (double) rel->rd_rel->reltuples;
+    relallvisible = (BlockNumber) rel->rd_rel->relallvisible;
+
+    // Heuristic: assume minimum 10 pages for never-vacuumed tables
+    if (curpages < 10 && reltuples < 0 && !rel->rd_rel->relhassubclass)
+        curpages = 10;
+
+    *pages = curpages;
+
+    // Quick exit for empty relations
+    if (curpages == 0) {
+        *tuples = 0;
+        *allvisfrac = 0;
+        return;
+    }
+
+    // Calculate tuple density
+    if (reltuples >= 0 && relpages > 0) {
+        // Use historical density from statistics
+        density = reltuples / (double) relpages;
+    }
+    else {
+        // Estimate from tuple width and fillfactor
+        int32 tuple_width;
+        int fillfactor;
+
+        fillfactor = RelationGetFillFactor(rel, HEAP_DEFAULT_FILLFACTOR);
+        tuple_width = get_rel_data_width(rel, attr_widths);
+        tuple_width += overhead_bytes_per_tuple;
+
+        density = (usable_bytes_per_page * fillfactor / 100) / tuple_width;
+        density = clamp_row_est(density);  // Ensure at least one tuple per page
+    }
+
+    *tuples = rint(density * (double) curpages);
+
+    // Calculate all-visible fraction (assume new pages aren't all-visible)
+    if (relallvisible == 0 || curpages <= 0)
+        *allvisfrac = 0;
+    else if ((double) relallvisible >= curpages)
+        *allvisfrac = 1;
+    else
+        *allvisfrac = (double) relallvisible / curpages;
+}
+```

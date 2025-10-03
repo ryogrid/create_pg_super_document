@@ -41,3 +41,17 @@ This design follows PostgreSQL's consistent pattern across all scan node types, 
 - The actual tuple retrieval and processing is handled by FunctionNext
 - Integrates seamlessly with PostgreSQL's qualification testing and projection mechanisms
 - Part of the executor's scan node hierarchy alongside table scans, index scans, etc.
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecFunctionScan(PlanState *pstate)
+{
+    // Cast to function scan state
+    FunctionScanState *node = castNode(FunctionScanState, pstate);
+
+    // Delegate to generic scan framework with function-specific methods
+    return ExecScan(&node->ss, FunctionNext, FunctionRecheck);
+}
+```

@@ -36,3 +36,80 @@ ginFindLeafPage is a fundamental tree traversal function in PostgreSQL's GIN ind
 
 ## Notes and Other Information
 The function implements an optimized traversal strategy where search operations don't maintain the full path stack to reduce memory overhead. The right-link following logic handles the case where concurrent operations may cause the search to land on the wrong page initially. The incomplete split handling ensures index consistency even in the presence of interrupted operations. The predictNumber field in the stack is used for buffer prefetching optimization during tree traversal.
+
+## Simplified Source
+
+```c
+GinBtreeStack *
+ginFindLeafPage(GinBtree btree, bool searchMode, bool rootConflictCheck)
+{
+    // Initialize stack starting from root
+    GinBtreeStack *stack = (GinBtreeStack *) palloc(sizeof(GinBtreeStack));
+    stack->blkno = btree->rootBlkno;
+    stack->buffer = ReadBuffer(btree->index, btree->rootBlkno);
+    stack->parent = NULL;
+    stack->predictNumber = 1;
+
+    // Check for serialization conflicts if requested
+    if (rootConflictCheck)
+        CheckForSerializableConflictIn(btree->index, NULL, btree->rootBlkno);
+
+    // Descend tree until we reach a leaf page
+    for (;;)
+    {
+        Page page;
+        BlockNumber child;
+
+        stack->off = InvalidOffsetNumber;
+        page = BufferGetPage(stack->buffer);
+
+        // Acquire appropriate lock for operation type
+        int access = ginTraverseLock(stack->buffer, searchMode);
+
+        // Complete any incomplete splits encountered
+        if (!searchMode && GinPageIsIncompleteSplit(page))
+            ginFinishOldSplit(btree, stack, NULL, access);
+
+        // Move right if needed to find correct page
+        while (btree->fullScan == false && stack->blkno != btree->rootBlkno &&
+               btree->isMoveRight(btree, page))
+        {
+            BlockNumber rightlink = GinPageGetOpaque(page)->rightlink;
+            if (rightlink == InvalidBlockNumber)
+                break;
+
+            stack->buffer = ginStepRight(stack->buffer, btree->index, access);
+            stack->blkno = rightlink;
+            page = BufferGetPage(stack->buffer);
+
+            if (!searchMode && GinPageIsIncompleteSplit(page))
+                ginFinishOldSplit(btree, stack, NULL, access);
+        }
+
+        // Return if we found a leaf page
+        if (GinPageIsLeaf(page))
+            return stack;
+
+        // Find child page to descend to
+        child = btree->findChildPage(btree, stack);
+        LockBuffer(stack->buffer, GIN_UNLOCK);
+
+        if (searchMode)
+        {
+            // In search mode, don't maintain full path
+            stack->blkno = child;
+            stack->buffer = ReleaseAndReadBuffer(stack->buffer, btree->index, stack->blkno);
+        }
+        else
+        {
+            // In modification mode, maintain full path stack
+            GinBtreeStack *ptr = (GinBtreeStack *) palloc(sizeof(GinBtreeStack));
+            ptr->parent = stack;
+            stack = ptr;
+            stack->blkno = child;
+            stack->buffer = ReadBuffer(btree->index, stack->blkno);
+            stack->predictNumber = 1;
+        }
+    }
+}
+```

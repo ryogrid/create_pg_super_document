@@ -56,3 +56,98 @@ The function maintains hashkey ordering when inserting moved tuples and uses WAL
 - Empty overflow pages encountered during the process are automatically freed
 - The algorithm terminates when read and write pointers meet at the same page
 - Critical sections protect the tuple movement operations for crash safety
+
+## Simplified Source
+
+```c
+void _hash_squeezebucket(Relation rel, Bucket bucket, BlockNumber bucket_blkno,
+                        Buffer bucket_buf, BufferAccessStrategy bstrategy) {
+    Buffer wbuf = bucket_buf;  // write buffer (starts at primary page)
+    Buffer rbuf;               // read buffer (starts at last page)
+    Page wpage, rpage;
+    HashPageOpaque wopaque, ropaque;
+
+    // Setup write pointer at primary bucket page
+    wpage = BufferGetPage(wbuf);
+    wopaque = HashPageGetOpaque(wpage);
+
+    // Exit if no overflow pages exist
+    if (!BlockNumberIsValid(wopaque->hasho_nextblkno)) {
+        LockBuffer(wbuf, BUFFER_LOCK_UNLOCK);
+        return;
+    }
+
+    // Find last page in bucket chain for read pointer
+    rbuf = wbuf;
+    ropaque = wopaque;
+    do {
+        BlockNumber next_blkno = ropaque->hasho_nextblkno;
+        if (rbuf != wbuf) _hash_relbuf(rel, rbuf);
+        rbuf = _hash_getbuf_with_strategy(rel, next_blkno, HASH_WRITE,
+                                         LH_OVERFLOW_PAGE, bstrategy);
+        rpage = BufferGetPage(rbuf);
+        ropaque = HashPageGetOpaque(rpage);
+    } while (BlockNumberIsValid(ropaque->hasho_nextblkno));
+
+    // Main squeeze loop: move tuples from read pages to write pages
+    for (;;) {
+        IndexTuple itups[MaxIndexTuplesPerPage];
+        OffsetNumber deletable[MaxOffsetNumber];
+        Size tups_size[MaxIndexTuplesPerPage];
+        uint16 nitups = 0, ndeletable = 0;
+        Size all_tups_size = 0;
+
+        // Collect live tuples from current read page
+        OffsetNumber maxroffnum = PageGetMaxOffsetNumber(rpage);
+        for (OffsetNumber roffnum = FirstOffsetNumber; roffnum <= maxroffnum; roffnum++) {
+            if (ItemIdIsDead(PageGetItemId(rpage, roffnum))) continue;
+
+            IndexTuple itup = (IndexTuple) PageGetItem(rpage, PageGetItemId(rpage, roffnum));
+            Size itemsz = MAXALIGN(IndexTupleSize(itup));
+
+            // Find write page with enough space
+            while (PageGetFreeSpaceForMultipleTuples(wpage, nitups + 1) < (all_tups_size + itemsz)) {
+                // Move accumulated tuples to current write page
+                if (nitups > 0) {
+                    _hash_pgaddmultitup(rel, wbuf, itups, itup_offsets, nitups);
+                    PageIndexMultiDelete(rpage, deletable, ndeletable);
+                    // WAL logging for tuple movement
+                    if (RelationNeedsWAL(rel)) {
+                        // [WAL logging code simplified...]
+                    }
+                }
+
+                // Advance to next write page
+                wbuf = _hash_getbuf_with_strategy(rel, wopaque->hasho_nextblkno,
+                                                 HASH_WRITE, LH_OVERFLOW_PAGE, bstrategy);
+                wpage = BufferGetPage(wbuf);
+                wopaque = HashPageGetOpaque(wpage);
+
+                // Reset tuple collection for next page
+                nitups = ndeletable = 0;
+                all_tups_size = 0;
+            }
+
+            // Add tuple to collection for moving
+            deletable[ndeletable++] = roffnum;
+            itups[nitups] = CopyIndexTuple(itup);
+            tups_size[nitups++] = itemsz;
+            all_tups_size += itemsz;
+        }
+
+        // Free empty read page and move to previous page
+        BlockNumber prev_rblkno = ropaque->hasho_prevblkno;
+        _hash_freeovflpage(rel, bucket_buf, rbuf, wbuf, itups, itup_offsets,
+                          tups_size, nitups, bstrategy);
+
+        // Check if squeeze is complete
+        if (prev_rblkno == wblkno) return;
+
+        // Move to previous read page
+        rbuf = _hash_getbuf_with_strategy(rel, prev_rblkno, HASH_WRITE,
+                                         LH_OVERFLOW_PAGE, bstrategy);
+        rpage = BufferGetPage(rbuf);
+        ropaque = HashPageGetOpaque(rpage);
+    }
+}
+```

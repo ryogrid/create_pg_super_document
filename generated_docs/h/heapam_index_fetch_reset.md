@@ -34,3 +34,17 @@ This function provides cleanup and reset functionality for heap index fetch oper
 - Part of the index fetch operation lifecycle (begin, fetch, reset, end)
 - Prevents buffer leaks by ensuring pinned buffers are properly released
 - The function is idempotent - calling it multiple times has no adverse effects
+
+## Simplified Source
+
+```c
+static void heapam_index_fetch_reset(IndexFetchTableData *scan) {
+    IndexFetchHeapData *hscan = (IndexFetchHeapData *) scan;
+
+    // Release any currently held buffer
+    if (BufferIsValid(hscan->xs_cbuf)) {
+        ReleaseBuffer(hscan->xs_cbuf);
+        hscan->xs_cbuf = InvalidBuffer;
+    }
+}
+```

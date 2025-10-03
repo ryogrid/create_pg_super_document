@@ -39,3 +39,52 @@ The leader starts from the last (cheapest) subplan and works backward, immediate
 - Integrates with runtime partition pruning by calling `ExecFindMatchingSubPlans` and marking invalid subplans as finished
 - Sets `pa_next_plan` to `INVALID_SUBPLAN_INDEX` when no more work is available to signal completion to workers
 - The function is static and used as a function pointer set during DSM initialization
+
+## Simplified Source
+
+```c
+static bool choose_next_subplan_for_leader(AppendState *node) {
+    ParallelAppendState *pstate = node->as_pstate;
+
+    // Only forward scans supported in parallel execution
+    Assert(ScanDirectionIsForward(node->ps.state->es_direction));
+    Assert(node->as_nplans > 0);
+
+    LWLockAcquire(&pstate->pa_lock, LW_EXCLUSIVE);
+
+    if (node->as_whichplan != INVALID_SUBPLAN_INDEX) {
+        // Mark completed subplan as finished
+        node->as_pstate->pa_finished[node->as_whichplan] = true;
+    } else {
+        // First time: start with last (cheapest) subplan
+        node->as_whichplan = node->as_nplans - 1;
+
+        // Handle runtime partition pruning if needed
+        if (!node->as_valid_subplans_identified) {
+            node->as_valid_subplans = ExecFindMatchingSubPlans(node->as_prune_state, false);
+            node->as_valid_subplans_identified = true;
+            mark_invalid_subplans_as_finished(node);
+        }
+    }
+
+    // Find next available subplan, working backward from cheapest
+    while (pstate->pa_finished[node->as_whichplan]) {
+        if (node->as_whichplan == 0) {
+            // No more work available
+            pstate->pa_next_plan = INVALID_SUBPLAN_INDEX;
+            node->as_whichplan = INVALID_SUBPLAN_INDEX;
+            LWLockRelease(&pstate->pa_lock);
+            return false;
+        }
+        node->as_whichplan--;
+    }
+
+    // Mark non-partial plans as immediately finished (can't be shared)
+    if (node->as_whichplan < node->as_first_partial_plan) {
+        node->as_pstate->pa_finished[node->as_whichplan] = true;
+    }
+
+    LWLockRelease(&pstate->pa_lock);
+    return true;
+}
+```

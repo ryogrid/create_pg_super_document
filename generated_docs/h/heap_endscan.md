@@ -43,3 +43,44 @@ The  function performs cleanup operations to terminate a heap table scan and fre
 - Temporary snapshots (marked with  flag) are explicitly unregistered
 - All dynamically allocated memory including scan keys, parallel worker data, and the scan descriptor itself is freed
 - The function handles NULL pointers gracefully and only frees resources that were actually allocated
+
+## Simplified Source
+
+```c
+void heap_endscan(TableScanDesc sscan) {
+    HeapScanDesc scan = (HeapScanDesc) sscan;
+
+    // Release scan buffers
+    if (BufferIsValid(scan->rs_cbuf))
+        ReleaseBuffer(scan->rs_cbuf);
+
+    if (BufferIsValid(scan->rs_vmbuffer))
+        ReleaseBuffer(scan->rs_vmbuffer);
+
+    // End read stream before freeing access strategy
+    if (scan->rs_read_stream)
+        read_stream_end(scan->rs_read_stream);
+
+    // Decrement relation reference count
+    RelationDecrementReferenceCount(scan->rs_base.rs_rd);
+
+    // Free scan keys
+    if (scan->rs_base.rs_key)
+        pfree(scan->rs_base.rs_key);
+
+    // Free access strategy
+    if (scan->rs_strategy != NULL)
+        FreeAccessStrategy(scan->rs_strategy);
+
+    // Free parallel worker data
+    if (scan->rs_parallelworkerdata != NULL)
+        pfree(scan->rs_parallelworkerdata);
+
+    // Unregister temporary snapshot
+    if (scan->rs_base.rs_flags & SO_TEMP_SNAPSHOT)
+        UnregisterSnapshot(scan->rs_base.rs_snapshot);
+
+    // Free scan descriptor
+    pfree(scan);
+}
+```

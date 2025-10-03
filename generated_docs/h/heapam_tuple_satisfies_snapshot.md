@@ -41,3 +41,28 @@ The function implements proper concurrency control by acquiring a shared lock on
 - Returns true if the tuple is visible according to the snapshot, false otherwise
 - Part of the heap access method's MVCC infrastructure for transaction isolation
 - The buffer locking ensures that concurrent modifications don't interfere with visibility determination
+
+## Simplified Source
+
+```c
+static bool heapam_tuple_satisfies_snapshot(Relation rel, TupleTableSlot *slot,
+                                          Snapshot snapshot) {
+    BufferHeapTupleTableSlot *bslot = (BufferHeapTupleTableSlot *) slot;
+    bool res;
+
+    Assert(TTS_IS_BUFFERTUPLE(slot));
+    Assert(BufferIsValid(bslot->buffer));
+
+    // Lock buffer for safe visibility check
+    // Caller holds pin but not lock
+    LockBuffer(bslot->buffer, BUFFER_LOCK_SHARE);
+
+    // Check if tuple is visible to the given snapshot
+    res = HeapTupleSatisfiesVisibility(bslot->base.tuple, snapshot, bslot->buffer);
+
+    // Release lock
+    LockBuffer(bslot->buffer, BUFFER_LOCK_UNLOCK);
+
+    return res;
+}
+```

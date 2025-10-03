@@ -48,3 +48,35 @@ The function decomposes the original tuple into its component Datums, nullifies 
 - The function ensures that dropped columns are properly nullified in the new tuple structure
 - Memory management is handled carefully - the reconstructed tuple is freed after being passed to the rewrite module
 - This function is essential for maintaining data integrity during table structure modifications while optimizing storage space
+
+## Simplified Source
+
+```c
+static void
+reform_and_rewrite_tuple(HeapTuple tuple,
+                         Relation OldHeap, Relation NewHeap,
+                         Datum *values, bool *isnull, RewriteState rwstate)
+{
+    TupleDesc oldTupDesc = RelationGetDescr(OldHeap);
+    TupleDesc newTupDesc = RelationGetDescr(NewHeap);
+    HeapTuple copiedTuple;
+
+    // Extract all attribute values from the old tuple
+    heap_deform_tuple(tuple, oldTupDesc, values, isnull);
+
+    // Null out any dropped columns in the new table structure
+    for (int i = 0; i < newTupDesc->natts; i++) {
+        if (TupleDescAttr(newTupDesc, i)->attisdropped)
+            isnull[i] = true;
+    }
+
+    // Reconstruct tuple according to new table structure
+    copiedTuple = heap_form_tuple(newTupDesc, values, isnull);
+
+    // Hand off to heap rewrite module for actual writing
+    rewrite_heap_tuple(rwstate, tuple, copiedTuple);
+
+    // Clean up the temporary tuple
+    heap_freetuple(copiedTuple);
+}
+```

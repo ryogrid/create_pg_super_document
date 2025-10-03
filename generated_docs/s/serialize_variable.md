@@ -51,3 +51,61 @@ Additionally, the function serializes metadata including the source file path, s
 - Source file and line number information is only serialized if a source file is specified
 - The serialization format includes both text and binary components for efficient storage and parsing
 - Part of PostgreSQL's mechanism for preserving configuration state across process boundaries
+
+## Simplified Source
+
+```c
+static void serialize_variable(char **destptr, Size *maxbytes, struct config_generic *gconf) {
+    // Skip variables that don't need serialization
+    if (can_skip_gucvar(gconf))
+        return;
+
+    // Serialize variable name
+    do_serialize(destptr, maxbytes, "%s", gconf->name);
+
+    // Serialize value based on type
+    switch (gconf->vartype) {
+        case PGC_BOOL:
+            {
+                struct config_bool *conf = (struct config_bool *) gconf;
+                do_serialize(destptr, maxbytes, (*conf->variable ? "true" : "false"));
+            }
+            break;
+        case PGC_INT:
+            {
+                struct config_int *conf = (struct config_int *) gconf;
+                do_serialize(destptr, maxbytes, "%d", *conf->variable);
+            }
+            break;
+        case PGC_REAL:
+            {
+                struct config_real *conf = (struct config_real *) gconf;
+                do_serialize(destptr, maxbytes, "%.*e", REALTYPE_PRECISION, *conf->variable);
+            }
+            break;
+        case PGC_STRING:
+            {
+                struct config_string *conf = (struct config_string *) gconf;
+                do_serialize(destptr, maxbytes, "%s", *conf->variable ? *conf->variable : "");
+            }
+            break;
+        case PGC_ENUM:
+            {
+                struct config_enum *conf = (struct config_enum *) gconf;
+                do_serialize(destptr, maxbytes, "%s",
+                           config_enum_lookup_by_value(conf, *conf->variable));
+            }
+            break;
+    }
+
+    // Serialize metadata: source file, line number, context, and role
+    do_serialize(destptr, maxbytes, "%s", (gconf->sourcefile ? gconf->sourcefile : ""));
+
+    if (gconf->sourcefile && gconf->sourcefile[0])
+        do_serialize_binary(destptr, maxbytes, &gconf->sourceline, sizeof(gconf->sourceline));
+
+    do_serialize_binary(destptr, maxbytes, &gconf->source, sizeof(gconf->source));
+    do_serialize_binary(destptr, maxbytes, &gconf->scontext, sizeof(gconf->scontext));
+    do_serialize_binary(destptr, maxbytes, &gconf->srole, sizeof(gconf->srole));
+}
+```

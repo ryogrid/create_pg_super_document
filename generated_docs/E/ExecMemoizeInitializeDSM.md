@@ -39,3 +39,27 @@ The function calculates the required memory size, allocates it from the shared m
 - Uses memset to ensure all uninitialized slots contain zeroes for reliable statistics collection
 - The shared memory segment is registered using the plan node ID as the key, allowing workers to locate it later
 - Sets up the shared_info pointer in the MemoizeState for later access during execution and statistics retrieval
+
+## Simplified Source
+
+```c
+void ExecMemoizeInitializeDSM(MemoizeState *node, ParallelContext *pcxt) {
+    // Skip if no instrumentation or no workers
+    if (!node->ss.ps.instrument || pcxt->nworkers == 0)
+        return;
+
+    // Calculate size: header + per-worker instrumentation array
+    Size size = offsetof(SharedMemoizeInfo, sinstrument) +
+                pcxt->nworkers * sizeof(MemoizeInstrumentation);
+
+    // Allocate shared memory for statistics collection
+    node->shared_info = shm_toc_allocate(pcxt->toc, size);
+
+    // Initialize to zero for clean starting state
+    memset(node->shared_info, 0, size);
+
+    // Set worker count and register in shared memory TOC
+    node->shared_info->num_workers = pcxt->nworkers;
+    shm_toc_insert(pcxt->toc, node->ss.ps.plan->plan_node_id, node->shared_info);
+}
+```

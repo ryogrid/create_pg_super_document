@@ -48,3 +48,51 @@ The function is designed to be more efficient than full range consolidation beca
 - Assumes values don't duplicate with existing ranges due to pre-insertion validation
 - Located in src/backend/access/brin/brin_minmax_multi.c:516-575
 - Updates both nvalues and nsorted to reflect the new state after deduplication
+
+## Simplified Source
+
+```c
+static void
+range_deduplicate_values(Ranges *range)
+{
+    int start;
+    compare_context cxt;
+
+    // Early exit if all values are already sorted
+    if (range->nsorted == range->nvalues)
+        return;
+
+    // Set up comparison context
+    cxt.colloid = range->colloid;
+    cxt.cmpFn = range->cmp;
+
+    // Values start after the range boundaries
+    start = 2 * range->nranges;
+
+    // Sort all values (including previously sorted ones)
+    qsort_arg(&range->values[start],
+              range->nvalues, sizeof(Datum),
+              compare_values, &cxt);
+
+    // Deduplicate by compacting array
+    int n = 1;
+    for (int i = 1; i < range->nvalues; i++)
+    {
+        // Skip duplicate values
+        if (compare_values(&range->values[start + i - 1],
+                          &range->values[start + i],
+                          (void *) &cxt) == 0)
+            continue;
+
+        // Keep unique value
+        range->values[start + n] = range->values[start + i];
+        n++;
+    }
+
+    // Update counts - all values are now sorted and deduplicated
+    range->nvalues = n;
+    range->nsorted = n;
+
+    AssertCheckRanges(range, range->cmp, range->colloid);
+}
+```

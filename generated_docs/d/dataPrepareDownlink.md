@@ -36,3 +36,22 @@ The function is part of the GIN data page management infrastructure and is speci
 - The function allocates memory using palloc(), so the caller is responsible for proper memory management
 - The PostingItem structure contains both a block number (for navigation) and a key (for ordering/searching)
 - Located in src/backend/access/gin/gindatapage.c at lines 1333-1348
+
+## Simplified Source
+
+```c
+static void *
+dataPrepareDownlink(GinBtree btree, Buffer lbuf)
+{
+    PostingItem *pitem = palloc(sizeof(PostingItem));
+    Page lpage = BufferGetPage(lbuf);
+
+    // Set downlink to point to this buffer
+    PostingItemSetBlockNumber(pitem, BufferGetBlockNumber(lbuf));
+
+    // Set key to the right boundary of the page
+    pitem->key = *GinDataPageGetRightBound(lpage);
+
+    return pitem;
+}
+```

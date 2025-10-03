@@ -50,3 +50,50 @@ The function first updates scan flags based on the provided parameters if  is tr
 - Read stream state is reset before calling  because some state used by  is modified by 
 - Page mode scanning is only enabled if an MVCC snapshot is being used, ensuring consistency requirements are met
 - The function preserves the scan descriptor structure while completely reinitializing its scan state
+
+## Simplified Source
+
+```c
+void heap_rescan(TableScanDesc sscan, ScanKey key, bool set_params,
+               bool allow_strat, bool allow_sync, bool allow_pagemode) {
+    HeapScanDesc scan = (HeapScanDesc) sscan;
+
+    // Update scan parameters if requested
+    if (set_params) {
+        if (allow_strat)
+            scan->rs_base.rs_flags |= SO_ALLOW_STRAT;
+        else
+            scan->rs_base.rs_flags &= ~SO_ALLOW_STRAT;
+
+        if (allow_sync)
+            scan->rs_base.rs_flags |= SO_ALLOW_SYNC;
+        else
+            scan->rs_base.rs_flags &= ~SO_ALLOW_SYNC;
+
+        if (allow_pagemode && scan->rs_base.rs_snapshot &&
+            IsMVCCSnapshot(scan->rs_base.rs_snapshot))
+            scan->rs_base.rs_flags |= SO_ALLOW_PAGEMODE;
+        else
+            scan->rs_base.rs_flags &= ~SO_ALLOW_PAGEMODE;
+    }
+
+    // Release scan buffers
+    if (BufferIsValid(scan->rs_cbuf))
+        ReleaseBuffer(scan->rs_cbuf);
+
+    if (BufferIsValid(scan->rs_vmbuffer)) {
+        ReleaseBuffer(scan->rs_vmbuffer);
+        scan->rs_vmbuffer = InvalidBuffer;
+    }
+
+    // Reset bitmap scan state
+    scan->rs_empty_tuples_pending = 0;
+
+    // Reset read stream before reinitializing scan
+    if (scan->rs_read_stream)
+        read_stream_reset(scan->rs_read_stream);
+
+    // Reinitialize scan from beginning
+    initscan(scan, key, true);
+}
+```

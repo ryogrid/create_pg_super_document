@@ -54,3 +54,183 @@ The function handles complex scenarios including duplicate values across join bo
 - The function can be interrupted via CHECK_FOR_INTERRUPTS() for query cancellation
 - Performance depends heavily on the sort order and distribution of join keys
 - State transitions are carefully designed to handle edge cases like end-of-stream conditions
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecMergeJoin(PlanState *pstate)
+{
+    MergeJoinState *node = castNode(MergeJoinState, pstate);
+    ExprState *joinqual = node->js.joinqual;
+    ExprState *otherqual = node->js.ps.qual;
+    PlanState *innerPlan = innerPlanState(node);
+    PlanState *outerPlan = outerPlanState(node);
+    ExprContext *econtext = node->js.ps.ps_ExprContext;
+    bool doFillOuter = node->mj_FillOuter;
+    bool doFillInner = node->mj_FillInner;
+
+    CHECK_FOR_INTERRUPTS();
+    ResetExprContext(econtext);
+
+    for (;;) {
+        switch (node->mj_JoinState) {
+            case EXEC_MJ_INITIALIZE_OUTER:
+                // Get first outer tuple and evaluate join values
+                outerTupleSlot = ExecProcNode(outerPlan);
+                node->mj_OuterTupleSlot = outerTupleSlot;
+
+                switch (MJEvalOuterValues(node)) {
+                    case MJEVAL_MATCHABLE:
+                        node->mj_JoinState = EXEC_MJ_INITIALIZE_INNER;
+                        break;
+                    case MJEVAL_NONMATCHABLE:
+                        if (doFillOuter) {
+                            TupleTableSlot *result = MJFillOuter(node);
+                            if (result) return result;
+                        }
+                        break;
+                    case MJEVAL_ENDOFJOIN:
+                        if (doFillInner) {
+                            node->mj_JoinState = EXEC_MJ_ENDOUTER;
+                            node->mj_MatchedInner = true;
+                            break;
+                        }
+                        return NULL;
+                }
+                break;
+
+            case EXEC_MJ_INITIALIZE_INNER:
+                // Get first inner tuple and evaluate join values
+                innerTupleSlot = ExecProcNode(innerPlan);
+                node->mj_InnerTupleSlot = innerTupleSlot;
+
+                switch (MJEvalInnerValues(node, innerTupleSlot)) {
+                    case MJEVAL_MATCHABLE:
+                        node->mj_JoinState = EXEC_MJ_SKIP_TEST;
+                        break;
+                    case MJEVAL_NONMATCHABLE:
+                        if (doFillInner) {
+                            TupleTableSlot *result = MJFillInner(node);
+                            if (result) return result;
+                        }
+                        break;
+                    case MJEVAL_ENDOFJOIN:
+                        if (doFillOuter) {
+                            node->mj_JoinState = EXEC_MJ_ENDINNER;
+                            node->mj_MatchedOuter = false;
+                            break;
+                        }
+                        return NULL;
+                }
+                break;
+
+            case EXEC_MJ_JOINTUPLES:
+                // Join matching tuples
+                node->mj_JoinState = EXEC_MJ_NEXTINNER;
+
+                outerTupleSlot = node->mj_OuterTupleSlot;
+                innerTupleSlot = node->mj_InnerTupleSlot;
+                econtext->ecxt_outertuple = outerTupleSlot;
+                econtext->ecxt_innertuple = innerTupleSlot;
+
+                bool qualResult = (joinqual == NULL || ExecQual(joinqual, econtext));
+
+                if (qualResult) {
+                    node->mj_MatchedOuter = true;
+                    node->mj_MatchedInner = true;
+
+                    // Handle special join types
+                    if (node->js.jointype == JOIN_ANTI) {
+                        node->mj_JoinState = EXEC_MJ_NEXTOUTER;
+                        break;
+                    }
+
+                    if (node->js.single_match)
+                        node->mj_JoinState = EXEC_MJ_NEXTOUTER;
+
+                    if (node->js.jointype == JOIN_RIGHT_ANTI)
+                        break;
+
+                    qualResult = (otherqual == NULL || ExecQual(otherqual, econtext));
+
+                    if (qualResult)
+                        return ExecProject(node->js.ps.ps_ProjInfo);
+                }
+                break;
+
+            case EXEC_MJ_SKIP_TEST:
+                // Compare tuples and skip non-matching ones
+                int compareResult = MJCompare(node);
+
+                if (compareResult == 0) {
+                    if (!node->mj_SkipMarkRestore)
+                        ExecMarkPos(innerPlan);
+                    MarkInnerTuple(node->mj_InnerTupleSlot, node);
+                    node->mj_JoinState = EXEC_MJ_JOINTUPLES;
+                } else if (compareResult < 0) {
+                    node->mj_JoinState = EXEC_MJ_SKIPOUTER_ADVANCE;
+                } else {
+                    node->mj_JoinState = EXEC_MJ_SKIPINNER_ADVANCE;
+                }
+                break;
+
+            case EXEC_MJ_SKIPOUTER_ADVANCE:
+                // Skip to next outer tuple
+                if (doFillOuter && !node->mj_MatchedOuter) {
+                    node->mj_MatchedOuter = true;
+                    TupleTableSlot *result = MJFillOuter(node);
+                    if (result) return result;
+                }
+
+                outerTupleSlot = ExecProcNode(outerPlan);
+                node->mj_OuterTupleSlot = outerTupleSlot;
+                node->mj_MatchedOuter = false;
+
+                switch (MJEvalOuterValues(node)) {
+                    case MJEVAL_MATCHABLE:
+                        node->mj_JoinState = EXEC_MJ_SKIP_TEST;
+                        break;
+                    case MJEVAL_ENDOFJOIN:
+                        if (doFillInner && !TupIsNull(node->mj_InnerTupleSlot)) {
+                            node->mj_JoinState = EXEC_MJ_ENDOUTER;
+                            break;
+                        }
+                        return NULL;
+                }
+                break;
+
+            case EXEC_MJ_SKIPINNER_ADVANCE:
+                // Skip to next inner tuple
+                if (doFillInner && !node->mj_MatchedInner) {
+                    node->mj_MatchedInner = true;
+                    TupleTableSlot *result = MJFillInner(node);
+                    if (result) return result;
+                }
+
+                innerTupleSlot = ExecProcNode(innerPlan);
+                node->mj_InnerTupleSlot = innerTupleSlot;
+                node->mj_MatchedInner = false;
+
+                switch (MJEvalInnerValues(node, innerTupleSlot)) {
+                    case MJEVAL_MATCHABLE:
+                        node->mj_JoinState = EXEC_MJ_SKIP_TEST;
+                        break;
+                    case MJEVAL_ENDOFJOIN:
+                        if (doFillOuter && !TupIsNull(node->mj_OuterTupleSlot)) {
+                            node->mj_JoinState = EXEC_MJ_ENDINNER;
+                            break;
+                        }
+                        return NULL;
+                }
+                break;
+
+            // Additional states (ENDOUTER, ENDINNER, etc.) handle outer join null-filling
+            // when one input stream is exhausted but the other still has unmatched tuples
+
+            default:
+                elog(ERROR, "unrecognized mergejoin state: %d", (int) node->mj_JoinState);
+        }
+    }
+}
+```

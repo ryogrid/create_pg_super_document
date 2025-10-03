@@ -49,3 +49,33 @@ The function handles both simple final functions (that only take the state) and 
 - Part of PostgreSQL aggregate execution infrastructure
 - Located in src/backend/parser/parse_agg.c:2143-2182
 - Handles both simple and complex final function signatures dynamically
+
+## Simplified Source
+
+```c
+void build_aggregate_finalfn_expr(Oid *agg_input_types,
+                                  int num_finalfn_inputs,
+                                  Oid agg_state_type,
+                                  Oid agg_result_type,
+                                  Oid agg_input_collation,
+                                  Oid finalfn_oid,
+                                  Expr **finalfnexpr) {
+
+    // Start with aggregate state as first argument
+    List *function_args = list_make1(make_agg_arg(agg_state_type, agg_input_collation));
+
+    // Add additional arguments matching aggregate input types (if any)
+    for (int i = 0; i < num_finalfn_inputs - 1; i++) {
+        function_args = lappend(function_args,
+                               make_agg_arg(agg_input_types[i], agg_input_collation));
+    }
+
+    // Create the final function expression tree
+    *finalfnexpr = (Expr *) makeFuncExpr(finalfn_oid,
+                                         agg_result_type,
+                                         function_args,
+                                         InvalidOid,
+                                         agg_input_collation,
+                                         COERCE_EXPLICIT_CALL);
+}
+```

@@ -44,3 +44,47 @@ For parallel scans, the function uses optimistic concurrency control with an unl
 - The inline designation indicates this is called frequently during bitmap scans
 - Prefetch target adjustments are made per-block rather than per-tuple to avoid excessive overhead
 - The algorithm prevents target from exceeding the configured maximum to avoid unbounded resource consumption
+
+## Simplified Source
+
+```c
+static inline void
+BitmapAdjustPrefetchTarget(BitmapHeapScanState *node)
+{
+#ifdef USE_PREFETCH
+    ParallelBitmapHeapState *pstate = node->pstate;
+
+    if (pstate == NULL) {
+        // Non-parallel mode: adjust local prefetch target
+        if (node->prefetch_target >= node->prefetch_maximum) {
+            /* don't increase any further */
+        } else if (node->prefetch_target >= node->prefetch_maximum / 2) {
+            node->prefetch_target = node->prefetch_maximum;
+        } else if (node->prefetch_target > 0) {
+            node->prefetch_target *= 2;  // Double the target
+        } else {
+            node->prefetch_target++;     // Start with 0
+        }
+        return;
+    }
+
+    // Parallel mode: adjust shared prefetch target
+    // Optimistic check first to avoid unnecessary spinlock acquisition
+    if (pstate->prefetch_target < node->prefetch_maximum) {
+        SpinLockAcquire(&pstate->mutex);
+
+        if (pstate->prefetch_target >= node->prefetch_maximum) {
+            /* don't increase any further */
+        } else if (pstate->prefetch_target >= node->prefetch_maximum / 2) {
+            pstate->prefetch_target = node->prefetch_maximum;
+        } else if (pstate->prefetch_target > 0) {
+            pstate->prefetch_target *= 2;  // Double the target
+        } else {
+            pstate->prefetch_target++;     // Start with 0
+        }
+
+        SpinLockRelease(&pstate->mutex);
+    }
+#endif /* USE_PREFETCH */
+}
+```

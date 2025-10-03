@@ -51,6 +51,59 @@ The function includes important concurrency considerations: it only requires a r
   - [_hash_next](_hash_next.md) (src/backend/access/hash/hashsearch.c:68, 86)
   - [_hash_readpage](_hash_readpage.md) (src/backend/access/hash/hashsearch.c:485, 544)
 
+## Simplified Source
+```c
+void _hash_kill_items(IndexScanDesc scan) {
+    HashScanOpaque so = (HashScanOpaque) scan->opaque;
+    Relation rel = scan->indexRelation;
+    int numKilled = so->numKilled;
+    bool killedsomething = false;
+
+    // Reset scan state
+    so->numKilled = 0;
+
+    // Get the page buffer (may already be pinned)
+    Buffer buf;
+    if (HashScanPosIsPinned(so->currPos)) {
+        buf = so->currPos.buf;
+        LockBuffer(buf, BUFFER_LOCK_SHARE);
+    } else {
+        buf = _hash_getbuf(rel, so->currPos.currPage, HASH_READ, LH_OVERFLOW_PAGE);
+    }
+
+    Page page = BufferGetPage(buf);
+    OffsetNumber maxoff = PageGetMaxOffsetNumber(page);
+
+    // Mark each killed item as dead by matching heap TIDs
+    for (int i = 0; i < numKilled; i++) {
+        HashScanPosItem *currItem = &so->currPos.items[so->killedItems[i]];
+
+        for (OffsetNumber offnum = currItem->indexOffset; offnum <= maxoff; offnum++) {
+            ItemId iid = PageGetItemId(page, offnum);
+            IndexTuple ituple = (IndexTuple) PageGetItem(page, iid);
+
+            if (ItemPointerEquals(&ituple->t_tid, &currItem->heapTid)) {
+                ItemIdMarkDead(iid);
+                killedsomething = true;
+                break;
+            }
+        }
+    }
+
+    // Mark page as having dead tuples if any were killed
+    if (killedsomething) {
+        HashPageGetOpaque(page)->hasho_flag |= LH_PAGE_HAS_DEAD_TUPLES;
+        MarkBufferDirtyHint(buf, true);
+    }
+
+    // Release buffer lock/pin appropriately
+    if (so->hashso_bucket_buf == so->currPos.buf || HashScanPosIsPinned(so->currPos))
+        LockBuffer(so->currPos.buf, BUFFER_LOCK_UNLOCK);
+    else
+        _hash_relbuf(rel, buf);
+}
+```
+
 ## Notes and Other Information
 - The function assumes so->numKilled > 0 and resets this counter to 0 after processing
 - Buffer management is carefully handled - the function may or may not have the page pinned initially

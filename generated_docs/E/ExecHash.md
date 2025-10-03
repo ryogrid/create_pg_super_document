@@ -31,3 +31,17 @@ The Hash node's execution model is fundamentally different from other executor n
 - The real Hash node execution happens through MultiExecHash, which is called by the parent HashJoin node
 - The error message "Hash node does not support ExecProcNode call convention" clearly indicates the intended usage pattern
 - Located in src/backend/executor/nodeHash.c:91-104
+
+## Simplified Source
+
+```c
+// Simplified version of ExecHash
+static TupleTableSlot *
+ExecHash(PlanState *pstate)
+{
+    // Hash nodes don't support standard tuple-by-tuple execution
+    // They use MultiExecHash instead for building complete hash tables
+    elog(ERROR, "Hash node does not support ExecProcNode call convention");
+    return NULL;
+}
+```

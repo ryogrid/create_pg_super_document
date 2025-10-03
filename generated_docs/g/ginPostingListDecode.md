@@ -39,3 +39,14 @@ The function takes a compressed posting list and returns a newly allocated array
 - The returned ItemPointer array must be freed by the caller using pfree()
 - The function handles all segments of the posting list automatically by determining the total size
 - Used extensively throughout the GIN access method for various operations including vacuum, page reorganization, and tuple reading
+
+## Simplified Source
+
+```c
+ItemPointer ginPostingListDecode(GinPostingList *plist, int *ndecoded_out) {
+    // Delegate to the full segment decoder with complete posting list size
+    return ginPostingListDecodeAllSegments(plist,
+                                         SizeOfGinPostingList(plist),
+                                         ndecoded_out);
+}
+```

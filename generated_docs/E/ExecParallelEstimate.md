@@ -52,3 +52,48 @@ The function operates as a tree walker, recursively processing all nodes in the 
 - The recursive nature allows it to handle complex nested plan structures
 - The node count is used later to allocate instrumentation arrays for performance monitoring
 - Located in src/backend/executor/execParallel.c:229-309
+
+## Simplified Source
+
+```c
+static bool ExecParallelEstimate(PlanState *planstate, ExecParallelEstimateContext *e)
+{
+    if (planstate == NULL)
+        return false;
+
+    // Count this node for instrumentation allocation
+    e->nnodes++;
+
+    // Call appropriate estimation function for parallel-aware nodes
+    switch (nodeTag(planstate))
+    {
+        case T_SeqScanState:
+        case T_IndexScanState:
+        case T_IndexOnlyScanState:
+        case T_ForeignScanState:
+        case T_AppendState:
+        case T_CustomScanState:
+        case T_BitmapHeapScanState:
+        case T_HashJoinState:
+            // Only estimate if node is parallel-aware
+            if (planstate->plan->parallel_aware)
+                call_node_specific_estimate_function(planstate, e->pcxt);
+            break;
+
+        case T_HashState:
+        case T_SortState:
+        case T_IncrementalSortState:
+        case T_AggState:
+        case T_MemoizeState:
+            // Always estimate for EXPLAIN ANALYZE support
+            call_node_specific_estimate_function(planstate, e->pcxt);
+            break;
+
+        default:
+            break;
+    }
+
+    // Recursively process child nodes
+    return planstate_tree_walker(planstate, ExecParallelEstimate, e);
+}
+```

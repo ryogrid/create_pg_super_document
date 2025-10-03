@@ -61,3 +61,82 @@ After processing all segments, if any modifications were made, the function reco
 - Critical sections ensure atomicity of page modifications
 - Empty segments after vacuuming are marked for deletion rather than kept as zero-length segments
 - The function handles both compressed and uncompressed posting list formats
+
+## Simplified Source
+
+```c
+void
+ginVacuumPostingTreeLeaf(Relation indexrel, Buffer buffer, GinVacuumState *gvs)
+{
+    Page page = BufferGetPage(buffer);
+    disassembledLeaf *leaf;
+    bool removedsomething = false;
+    dlist_iter iter;
+
+    // Break page into manageable segments
+    leaf = disassembleLeaf(page);
+
+    // Process each segment to remove dead tuples
+    dlist_foreach(iter, &leaf->segments)
+    {
+        leafSegmentInfo *seginfo = dlist_container(leafSegmentInfo, node, iter.cur);
+        ItemPointer cleaned;
+        int ncleaned;
+
+        // Decode posting list if needed
+        if (!seginfo->items)
+            seginfo->items = ginPostingListDecode(seginfo->seg, &seginfo->nitems);
+
+        // Remove dead tuples from this segment
+        cleaned = ginVacuumItemPointers(gvs, seginfo->items, seginfo->nitems, &ncleaned);
+
+        pfree(seginfo->items);
+        seginfo->items = NULL;
+
+        if (cleaned)
+        {
+            if (ncleaned > 0)
+            {
+                // Recompress cleaned data
+                seginfo->seg = ginCompressPostingList(cleaned, ncleaned,
+                                                     SizeOfGinPostingList(seginfo->seg), &npacked);
+                seginfo->action = GIN_SEGMENT_REPLACE;
+            }
+            else
+            {
+                // Mark empty segment for deletion
+                seginfo->seg = NULL;
+                seginfo->action = GIN_SEGMENT_DELETE;
+            }
+            seginfo->nitems = ncleaned;
+            removedsomething = true;
+        }
+    }
+
+    // Rebuild page if anything was removed
+    if (removedsomething)
+    {
+        // Prepare WAL data and apply changes
+        if (RelationNeedsWAL(indexrel))
+            computeLeafRecompressWALData(leaf);
+
+        START_CRIT_SECTION();
+
+        dataPlaceToPageLeafRecompress(buffer, leaf);
+        MarkBufferDirty(buffer);
+
+        // Log the vacuum operation
+        if (RelationNeedsWAL(indexrel))
+        {
+            XLogRecPtr recptr;
+            XLogBeginInsert();
+            XLogRegisterBuffer(0, buffer, REGBUF_STANDARD);
+            XLogRegisterBufData(0, leaf->walinfo, leaf->walinfolen);
+            recptr = XLogInsert(RM_GIN_ID, XLOG_GIN_VACUUM_DATA_LEAF_PAGE);
+            PageSetLSN(page, recptr);
+        }
+
+        END_CRIT_SECTION();
+    }
+}
+```

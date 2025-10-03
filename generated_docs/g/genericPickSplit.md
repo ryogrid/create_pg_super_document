@@ -53,3 +53,58 @@ This trivial approach ensures that the split operation can complete successfully
 - Union datums are properly computed for both sides to maintain valid index structure
 - Memory allocation is performed for both left and right offset arrays to store the split results
 - The function handles the edge case gracefully, preventing index corruption from buggy user-defined methods
+
+## Simplified Source
+
+```c
+static void
+genericPickSplit(GISTSTATE *giststate, GistEntryVector *entryvec,
+                 GIST_SPLITVEC *v, int attno)
+{
+    OffsetNumber i, maxoff;
+    int nbytes;
+    GistEntryVector *evec;
+
+    maxoff = entryvec->n - 1;
+    nbytes = (maxoff + 2) * sizeof(OffsetNumber);
+
+    // Allocate arrays for left and right split sides
+    v->spl_left = (OffsetNumber *) palloc(nbytes);
+    v->spl_right = (OffsetNumber *) palloc(nbytes);
+    v->spl_nleft = v->spl_nright = 0;
+
+    // Split entries evenly: first half to left, second half to right
+    for (i = FirstOffsetNumber; i <= maxoff; i = OffsetNumberNext(i)) {
+        if (i <= (maxoff - FirstOffsetNumber + 1) / 2) {
+            // Add to left side
+            v->spl_left[v->spl_nleft] = i;
+            v->spl_nleft++;
+        } else {
+            // Add to right side
+            v->spl_right[v->spl_nright] = i;
+            v->spl_nright++;
+        }
+    }
+
+    // Create temporary vector for union computation
+    evec = palloc(sizeof(GISTENTRY) * entryvec->n + GEVHDRSZ);
+
+    // Compute union datum for left side
+    evec->n = v->spl_nleft;
+    memcpy(evec->vector, entryvec->vector + FirstOffsetNumber,
+           sizeof(GISTENTRY) * evec->n);
+    v->spl_ldatum = FunctionCall2Coll(&giststate->unionFn[attno],
+                                     giststate->supportCollation[attno],
+                                     PointerGetDatum(evec),
+                                     PointerGetDatum(&nbytes));
+
+    // Compute union datum for right side
+    evec->n = v->spl_nright;
+    memcpy(evec->vector, entryvec->vector + FirstOffsetNumber + v->spl_nleft,
+           sizeof(GISTENTRY) * evec->n);
+    v->spl_rdatum = FunctionCall2Coll(&giststate->unionFn[attno],
+                                     giststate->supportCollation[attno],
+                                     PointerGetDatum(evec),
+                                     PointerGetDatum(&nbytes));
+}
+```

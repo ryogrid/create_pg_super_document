@@ -29,5 +29,19 @@ This function performs cleanup operations for an HSpool structure that was previ
 ## Notes and Other Information
 - Must be called after hash index construction is complete to prevent memory leaks
 - The function handles cleanup in the correct order: first the tuplesort state, then the main structure
-- Should always be paired with a corresponding  call
+- Should always be paired with a corresponding _h_spoolinit call
 - Part of the hash index construction cleanup sequence
+
+## Simplified Source
+
+```c
+void
+_h_spooldestroy(HSpool *hspool)
+{
+    // Clean up tuplesort state and release its resources
+    tuplesort_end(hspool->sortstate);
+
+    // Free the spool structure itself
+    pfree(hspool);
+}
+```

@@ -40,3 +40,38 @@ The function iterates through any remaining entries in the unresolved tuples has
 - Performs complete resource cleanup by deleting the entire memory context, which frees all subsidiary data structures
 - Should always be called to properly complete a rewrite operation and prevent resource leaks
 - Remaining unresolved tuples are typically dead but are inserted for safety
+
+## Simplified Source
+
+```c
+void
+end_heap_rewrite(RewriteState state)
+{
+    HASH_SEQ_STATUS seq_status;
+    UnresolvedTup unresolved;
+
+    // Process any remaining unresolved tuples from hash table
+    hash_seq_init(&seq_status, state->rs_unresolved_tups);
+
+    while ((unresolved = hash_seq_search(&seq_status)) != NULL) {
+        // Mark ctid as invalid and insert the tuple
+        ItemPointerSetInvalid(&unresolved->tuple->t_data->t_ctid);
+        raw_heap_insert(state, unresolved->tuple);
+    }
+
+    // Write any remaining buffered page to storage
+    if (state->rs_buffer) {
+        smgr_bulk_write(state->rs_bulkstate, state->rs_blockno, state->rs_buffer, true);
+        state->rs_buffer = NULL;
+    }
+
+    // Finish bulk write operations
+    smgr_bulk_finish(state->rs_bulkstate);
+
+    // Complete logical replication tracking
+    logical_end_heap_rewrite(state);
+
+    // Clean up by deleting the entire memory context
+    MemoryContextDelete(state->rs_cxt);
+}
+```

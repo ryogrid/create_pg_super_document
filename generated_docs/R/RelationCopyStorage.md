@@ -56,3 +56,55 @@ The function handles different relation persistence types:
 - Supports interruption via CHECK_FOR_INTERRUPTS() for long-running operations
 - Safe to call with RelationGetSmgr(rel) patterns since it only uses smgr and WAL operations
 - Init forks of unlogged relations receive special treatment and are WAL-logged like permanent relations
+
+## Simplified Source
+
+```c
+void RelationCopyStorage(SMgrRelation src, SMgrRelation dst,
+                        ForkNumber forkNum, char relpersistence) {
+    bool use_wal;
+    bool copying_initfork;
+    BlockNumber nblocks;
+    BlockNumber blkno;
+    BulkWriteState *bulkstate;
+
+    // Special handling for init forks of unlogged relations
+    copying_initfork = relpersistence == RELPERSISTENCE_UNLOGGED && forkNum == INIT_FORKNUM;
+
+    // Determine if WAL logging is needed
+    use_wal = XLogIsNeeded() && (relpersistence == RELPERSISTENCE_PERMANENT || copying_initfork);
+
+    // Initialize bulk write operation
+    bulkstate = smgr_bulk_start_smgr(dst, forkNum, use_wal);
+
+    // Get number of blocks to copy
+    nblocks = smgrnblocks(src, forkNum);
+
+    // Copy each block
+    for (blkno = 0; blkno < nblocks; blkno++) {
+        BulkWriteBuffer buf;
+
+        // Check for cancellation
+        CHECK_FOR_INTERRUPTS();
+
+        // Read the source block
+        buf = smgr_bulk_get_buf(bulkstate);
+        smgrread(src, forkNum, blkno, (Page) buf);
+
+        // Validate the page data
+        if (!PageIsVerifiedExtended((Page) buf, blkno, PIV_LOG_WARNING | PIV_REPORT_STAT)) {
+            char *relpath = relpathbackend(src->smgr_rlocator.locator,
+                                          src->smgr_rlocator.backend, forkNum);
+            ereport(ERROR,
+                    (errcode(ERRCODE_DATA_CORRUPTED),
+                     errmsg("invalid page in block %u of relation %s", blkno, relpath)));
+        }
+
+        // Write the block to destination with WAL logging
+        smgr_bulk_write(bulkstate, blkno, buf, false);
+    }
+
+    // Finalize the bulk write operation
+    smgr_bulk_finish(bulkstate);
+}
+```

@@ -52,3 +52,47 @@ The function performs parameter change detection via chgParam and automatically 
 - Handles parameter changes by automatically triggering node rescanning
 - Stack depth and interrupt checking provide safety during potentially long-running bulk operations
 - Used primarily for hash table construction and bitmap index operations
+
+## Simplified Source
+
+```c
+Node *
+MultiExecProcNode(PlanState *node)
+{
+    Node *result;
+
+    // Safety checks
+    check_stack_depth();
+    CHECK_FOR_INTERRUPTS();
+
+    // Handle parameter changes by rescanning
+    if (node->chgParam != NULL)
+        ExecReScan(node);
+
+    // Dispatch to appropriate multi-exec function based on node type
+    switch (nodeTag(node)) {
+        case T_HashState:
+            result = MultiExecHash((HashState *) node);
+            break;
+
+        case T_BitmapIndexScanState:
+            result = MultiExecBitmapIndexScan((BitmapIndexScanState *) node);
+            break;
+
+        case T_BitmapAndState:
+            result = MultiExecBitmapAnd((BitmapAndState *) node);
+            break;
+
+        case T_BitmapOrState:
+            result = MultiExecBitmapOr((BitmapOrState *) node);
+            break;
+
+        default:
+            elog(ERROR, "unrecognized node type: %d", (int) nodeTag(node));
+            result = NULL;
+            break;
+    }
+
+    return result;
+}
+```

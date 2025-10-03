@@ -44,3 +44,47 @@ This design optimizes for both latency (by returning cached results immediately)
 - Part of PostgreSQL's async execution infrastructure for foreign tables and parallel operations
 - Enables efficient pipeline processing where new requests can be issued while previous results are being consumed
 - Essential for achieving high throughput in scenarios with multiple async-capable data sources
+
+## Simplified Source
+
+```c
+static bool
+ExecAppendAsyncRequest(AppendState *node, TupleTableSlot **result)
+{
+    Bitmapset *needrequest;
+    int i;
+
+    // Nothing to do if no async subplans need requests
+    if (bms_is_empty(node->as_needrequest)) {
+        Assert(node->as_nasyncresults == 0);
+        return false;
+    }
+
+    // Return cached result if available
+    if (node->as_nasyncresults > 0) {
+        --node->as_nasyncresults;
+        *result = node->as_asyncresults[node->as_nasyncresults];
+        return true;
+    }
+
+    // Issue new requests for all subplans that need them
+    needrequest = node->as_needrequest;
+    node->as_needrequest = NULL;
+
+    i = -1;
+    while ((i = bms_next_member(needrequest, i)) >= 0) {
+        AsyncRequest *areq = node->as_asyncrequests[i];
+        ExecAsyncRequest(areq);
+    }
+    bms_free(needrequest);
+
+    // Return any immediately available result
+    if (node->as_nasyncresults > 0) {
+        --node->as_nasyncresults;
+        *result = node->as_asyncresults[node->as_nasyncresults];
+        return true;
+    }
+
+    return false;
+}
+```

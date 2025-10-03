@@ -38,3 +38,18 @@ The function implements intelligent prefixing logic: it uses table prefixes when
 - Heavily used throughout ExplainNode for various scan types including SeqScan, IndexScan, BitmapScan, etc.
 - Part of PostgreSQL's layered approach to EXPLAIN formatting, providing scan-specific intelligence while reusing general qualification logic
 - The useprefix decision helps balance readability (shorter output) with clarity (unambiguous references)
+
+## Simplified Source
+
+```c
+static void show_scan_qual(List *qual, const char *qlabel,
+                          PlanState *planstate, List *ancestors,
+                          ExplainState *es) {
+    // Determine if table prefixes should be used
+    // Use prefixes for subqueries or when verbose output requested
+    bool useprefix = (IsA(planstate->plan, SubqueryScan) || es->verbose);
+
+    // Delegate to general qualification display function
+    show_qual(qual, qlabel, planstate, ancestors, useprefix, es);
+}
+```

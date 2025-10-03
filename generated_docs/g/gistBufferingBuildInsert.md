@@ -41,3 +41,17 @@ The buffering approach groups tuples by their target locations in the index tree
 - Buffer emptying is performed after every tuple insertion to maintain optimal buffer utilization
 - The rootlevel parameter (0) passed to gistProcessItup indicates processing should start from the root level
 - Part of the sophisticated buffering algorithm that can significantly improve build performance for large indexes
+
+## Simplified Source
+
+```c
+static void
+gistBufferingBuildInsert(GISTBuildState *buildstate, IndexTuple itup)
+{
+    // Route tuple to appropriate buffer and process
+    gistProcessItup(buildstate, itup, 0, buildstate->gfbb->rootlevel);
+
+    // Handle any buffer overflow conditions
+    gistProcessEmptyingQueue(buildstate);
+}
+```

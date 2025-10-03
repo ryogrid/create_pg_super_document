@@ -43,3 +43,19 @@ The calculated space will be used to store synchronization information between p
 - The function registers exactly one table-of-contents key for the parallel state data
 - This is part of the parallel query infrastructure and only relevant for queries that can benefit from parallel execution
 - The estimated memory will be used to coordinate which subplans have been completed by parallel workers
+
+## Simplified Source
+
+```c
+void ExecAppendEstimate(AppendState *node, ParallelContext *pcxt)
+{
+    // Calculate space needed for ParallelAppendState structure
+    // Base structure plus boolean array for tracking subplan completion
+    node->pstate_len = add_size(offsetof(ParallelAppendState, pa_finished),
+                               sizeof(bool) * node->as_nplans);
+
+    // Register shared memory requirements
+    shm_toc_estimate_chunk(&pcxt->estimator, node->pstate_len);
+    shm_toc_estimate_keys(&pcxt->estimator, 1);
+}
+```

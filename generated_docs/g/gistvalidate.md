@@ -48,3 +48,91 @@ For each support function (GIST_CONSISTENT_PROC through GIST_SORTSUPPORT_PROC), 
 - All GiST support functions must have matching left and right input types
 - ORDER BY operators require corresponding distance functions and compatible btree operator families
 - The validation leverages the processed symbols , , , , and  for comprehensive signature and compatibility checking
+
+## Simplified Source
+
+```c
+bool gistvalidate(Oid opclassoid) {
+    bool result = true;
+
+    // Get operator class and family information
+    HeapTuple classtup = SearchSysCache1(CLAOID, ObjectIdGetDatum(opclassoid));
+    if (!HeapTupleIsValid(classtup))
+        elog(ERROR, "cache lookup failed for operator class %u", opclassoid);
+
+    Form_pg_opclass classform = (Form_pg_opclass) GETSTRUCT(classtup);
+    Oid opfamilyoid = classform->opcfamily;
+    Oid opcintype = classform->opcintype;
+    Oid opckeytype = OidIsValid(classform->opckeytype) ? classform->opckeytype : opcintype;
+
+    // Get all operators and support functions
+    CatCList *oprlist = SearchSysCacheList1(AMOPSTRATEGY, ObjectIdGetDatum(opfamilyoid));
+    CatCList *proclist = SearchSysCacheList1(AMPROCNUM, ObjectIdGetDatum(opfamilyoid));
+
+    // Validate each support function
+    for (int i = 0; i < proclist->n_members; i++) {
+        Form_pg_amproc procform = (Form_pg_amproc) GETSTRUCT(&proclist->members[i]->tuple);
+
+        // Check matching left/right types
+        if (procform->amproclefttype != procform->amprocrighttype) {
+            ereport(INFO, (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                          errmsg("support function has different left and right input types")));
+            result = false;
+        }
+
+        // Validate function signatures based on procedure number
+        bool ok = true;
+        switch (procform->amprocnum) {
+            case GIST_CONSISTENT_PROC:
+                ok = check_amproc_signature(procform->amproc, BOOLOID, false, 5, 5, ...);
+                break;
+            case GIST_UNION_PROC:
+                ok = check_amproc_signature(procform->amproc, opckeytype, false, 2, 2, ...);
+                break;
+            // ... other procedure types
+            default:
+                result = false;
+                continue;
+        }
+
+        if (!ok) {
+            ereport(INFO, (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                          errmsg("function has wrong signature")));
+            result = false;
+        }
+    }
+
+    // Validate operators
+    for (int i = 0; i < oprlist->n_members; i++) {
+        Form_pg_amop oprform = (Form_pg_amop) GETSTRUCT(&oprlist->members[i]->tuple);
+
+        // Validate strategy numbers and signatures
+        if (oprform->amopstrategy < 1) {
+            ereport(INFO, (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                          errmsg("operator has invalid strategy number")));
+            result = false;
+        }
+
+        // Additional ORDER BY operator validation...
+    }
+
+    // Check operator class completeness
+    List *grouplist = identify_opfamily_groups(oprlist, proclist);
+    OpFamilyOpFuncGroup *opclassgroup = find_opclass_group(grouplist, opcintype);
+
+    for (int i = 1; i <= GISTNProcs; i++) {
+        if (is_required_proc(i) && !has_proc(opclassgroup, i)) {
+            ereport(INFO, (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                          errmsg("operator class missing support function %d", i)));
+            result = false;
+        }
+    }
+
+    // Cleanup
+    ReleaseCatCacheList(proclist);
+    ReleaseCatCacheList(oprlist);
+    ReleaseSysCache(classtup);
+
+    return result;
+}
+```

@@ -46,3 +46,33 @@ This function builds an expression that can be evaluated using ExecQual() to det
 - Uses both inner and outer tuple descriptors (same desc parameter) for comparison
 - Essential for implementing SQL GROUP BY, DISTINCT, and similar operations that require tuple equality testing
 - The returned ExprState can be efficiently evaluated during query execution using ExecQual()
+
+## Simplified Source
+
+```c
+ExprState *execTuplesMatchPrepare(TupleDesc desc,
+                                  int numCols,
+                                  const AttrNumber *keyColIdx,
+                                  const Oid *eqOperators,
+                                  const Oid *collations,
+                                  PlanState *parent) {
+
+    // No columns to compare means no grouping needed
+    if (numCols == 0)
+        return NULL;
+
+    // Convert equality operators to their corresponding function OIDs
+    Oid *equality_functions = (Oid *) palloc(numCols * sizeof(Oid));
+    for (int i = 0; i < numCols; i++) {
+        equality_functions[i] = get_opcode(eqOperators[i]);
+    }
+
+    // Build the actual expression for tuple comparison
+    ExprState *comparison_expr = ExecBuildGroupingEqual(desc, desc, NULL, NULL,
+                                                       numCols, keyColIdx,
+                                                       equality_functions,
+                                                       collations, parent);
+
+    return comparison_expr;
+}
+```

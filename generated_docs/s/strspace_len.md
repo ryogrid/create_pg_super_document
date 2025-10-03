@@ -30,3 +30,19 @@ This static function scans through the beginning of a string and counts consecut
 - Returns the count of leading whitespace characters as an integer
 - Uses  cast for  to handle potential negative char values safely
 - Part of PostgreSQL's date/time and numeric formatting infrastructure
+
+## Simplified Source
+
+```c
+static int strspace_len(const char *str) {
+    int whitespace_count = 0;
+
+    // Count consecutive whitespace characters from start of string
+    while (*str && isspace((unsigned char) *str)) {
+        str++;
+        whitespace_count++;
+    }
+
+    return whitespace_count;
+}
+```

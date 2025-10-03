@@ -50,3 +50,62 @@ The mapping files are created in the pg_logical/mappings directory with a specif
 - The mapping files are created in exclusive mode (O_CREAT | O_EXCL) to prevent conflicts
 - Critical component of PostgreSQL's logical replication system that ensures consistency during DDL operations
 - Handles both shared and non-shared relations by appropriately setting the database OID in the filename
+
+## Simplified Source
+
+```c
+static void
+logical_rewrite_log_mapping(RewriteState state, TransactionId xid,
+                            LogicalRewriteMappingData *map)
+{
+    RewriteMappingFile *src;
+    RewriteMappingDataEntry *pmap;
+    Oid relid;
+    bool found;
+
+    relid = RelationGetRelid(state->rs_old_rel);
+
+    // Look for existing mapping file for this transaction
+    src = hash_search(state->rs_logical_mappings, &xid, HASH_ENTER, &found);
+
+    // Create new mapping file if this is first mapping for this xid
+    if (!found) {
+        char path[MAXPGPATH];
+        Oid dboid;
+
+        // Set database OID (InvalidOid for shared relations)
+        if (state->rs_old_rel->rd_rel->relisshared)
+            dboid = InvalidOid;
+        else
+            dboid = MyDatabaseId;
+
+        // Generate unique filename with db, rel, LSN, and transaction IDs
+        snprintf(path, MAXPGPATH,
+                 "pg_logical/mappings/" LOGICAL_REWRITE_FORMAT,
+                 dboid, relid,
+                 LSN_FORMAT_ARGS(state->rs_begin_lsn),
+                 xid, GetCurrentTransactionId());
+
+        // Initialize new mapping file structure
+        dclist_init(&src->mappings);
+        src->off = 0;
+        memcpy(src->path, path, sizeof(path));
+
+        // Create the mapping file
+        src->vfd = PathNameOpenFile(path, O_CREAT | O_EXCL | O_WRONLY | PG_BINARY);
+        if (src->vfd < 0)
+            ereport(ERROR, (errmsg("could not create file \"%s\": %m", path)));
+    }
+
+    // Add this mapping to the transaction's mapping list
+    pmap = MemoryContextAlloc(state->rs_cxt, sizeof(RewriteMappingDataEntry));
+    memcpy(&pmap->map, map, sizeof(LogicalRewriteMappingData));
+    dclist_push_tail(&src->mappings, &pmap->node);
+    state->rs_num_rewrite_mappings++;
+
+    // Flush mappings to disk if we have too many in memory
+    if (state->rs_num_rewrite_mappings >= 1000) {
+        logical_heap_rewrite_flush_mappings(state);
+    }
+}
+```

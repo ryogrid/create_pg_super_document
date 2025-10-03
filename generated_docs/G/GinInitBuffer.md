@@ -39,3 +39,14 @@ The function is commonly used during index creation, WAL replay operations, and 
 - Automatically handles the buffer-to-page conversion, making it more convenient for buffer-based operations
 - Commonly used in WAL (Write-Ahead Logging) replay functions where buffers are the primary interface
 - The function assumes the buffer is already properly allocated and accessible
+
+## Simplified Source
+
+```c
+// Simplified version of GinInitBuffer
+void
+GinInitBuffer(Buffer b, uint32 f)
+{
+    GinInitPage(BufferGetPage(b), f, BufferGetPageSize(b));
+}
+```

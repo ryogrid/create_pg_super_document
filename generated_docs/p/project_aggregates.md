@@ -35,3 +35,22 @@ This function performs the final step in aggregate processing by projecting the 
 - Includes instrumentation to count filtered tuples for query planning feedback
 - The final step in the aggregate pipeline before returning results to the caller
 - Works with both the representative input tuple and computed aggregate values to form complete output rows
+
+## Simplified Source
+
+```c
+static TupleTableSlot *project_aggregates(AggState *aggstate) {
+    ExprContext *econtext = aggstate->ss.ps.ps_ExprContext;
+
+    // Check HAVING clause
+    if (ExecQual(aggstate->ss.ps.qual, econtext)) {
+        // Form and return projection tuple with aggregate results
+        return ExecProject(aggstate->ss.ps.ps_ProjInfo);
+    } else {
+        // Group filtered out by HAVING clause
+        InstrCountFiltered1(aggstate, 1);
+    }
+
+    return NULL;
+}
+```

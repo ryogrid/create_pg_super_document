@@ -40,3 +40,72 @@ This function performs the common operations needed for both BRIN tuple insertio
 - Includes error handling with PANIC for invalid operations
 - Located at src/backend/access/brin/brin_xlog.c:46-123
 - No FSM (Free Space Map) updates are performed as noted in the comment
+
+## Simplified Source
+
+```c
+static void brin_xlog_insert_update(XLogReaderState *record, xl_brin_insert *xlrec) {
+    XLogRecPtr lsn = record->EndRecPtr;
+    Buffer buffer;
+    BlockNumber regpgno;
+    Page page;
+    XLogRedoAction action;
+
+    // Handle page initialization if needed
+    if (XLogRecGetInfo(record) & XLOG_BRIN_INIT_PAGE) {
+        buffer = XLogInitBufferForRedo(record, 0);
+        page = BufferGetPage(buffer);
+        brin_page_init(page, BRIN_PAGETYPE_REGULAR);
+        action = BLK_NEEDS_REDO;
+    } else {
+        action = XLogReadBufferForRedo(record, 0, &buffer);
+    }
+
+    regpgno = BufferGetBlockNumber(buffer);
+
+    // Insert the tuple if redo is needed
+    if (action == BLK_NEEDS_REDO) {
+        OffsetNumber offnum;
+        BrinTuple *tuple;
+        Size tuplen;
+
+        // Extract tuple from WAL record
+        tuple = (BrinTuple *) XLogRecGetBlockData(record, 0, &tuplen);
+        Assert(tuple->bt_blkno == xlrec->heapBlk);
+
+        page = (Page) BufferGetPage(buffer);
+        offnum = xlrec->offnum;
+
+        // Validate offset and add tuple to page
+        if (PageGetMaxOffsetNumber(page) + 1 < offnum)
+            elog(PANIC, "brin_xlog_insert_update: invalid max offset number");
+
+        offnum = PageAddItem(page, (Item) tuple, tuplen, offnum, true, false);
+        if (offnum == InvalidOffsetNumber)
+            elog(PANIC, "brin_xlog_insert_update: failed to add tuple");
+
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buffer);
+    }
+
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+
+    // Update the revmap
+    action = XLogReadBufferForRedo(record, 1, &buffer);
+    if (action == BLK_NEEDS_REDO) {
+        ItemPointerData tid;
+
+        ItemPointerSet(&tid, regpgno, xlrec->offnum);
+        page = (Page) BufferGetPage(buffer);
+
+        // Set heap block to tuple mapping in revmap
+        brinSetHeapBlockItemptr(buffer, xlrec->pagesPerRange, xlrec->heapBlk, tid);
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buffer);
+    }
+
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+}
+```

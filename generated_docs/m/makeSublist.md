@@ -42,3 +42,62 @@ This function is responsible for organizing index tuples into a chain of pending
 - Always sets nPendingHeapTuples to 1 (represents one heap tuple generating multiple index tuples)
 - Uses InvalidBlockNumber as rightlink for the final page to mark end of list
 - Part of GIN's fast insertion mechanism for handling large tuple sets
+
+## Simplified Source
+
+```c
+// Simplified version of makeSublist
+static void makeSublist(Relation index, IndexTuple *tuples, int32 ntuples,
+                       GinMetaPageData *res)
+{
+    Buffer curBuffer = InvalidBuffer;
+    Buffer prevBuffer = InvalidBuffer;
+    int i, size = 0, tupsize;
+    int startTuple = 0;
+
+    Assert(ntuples > 0);
+
+    // Split tuples into pages
+    for (i = 0; i < ntuples; i++) {
+        if (curBuffer == InvalidBuffer) {
+            // Get new buffer
+            curBuffer = GinNewBuffer(index);
+
+            if (prevBuffer != InvalidBuffer) {
+                // Write previous page with link to current
+                res->nPendingPages++;
+                writeListPage(index, prevBuffer,
+                             tuples + startTuple,
+                             i - startTuple,
+                             BufferGetBlockNumber(curBuffer));
+            } else {
+                // First page becomes head
+                res->head = BufferGetBlockNumber(curBuffer);
+            }
+
+            prevBuffer = curBuffer;
+            startTuple = i;
+            size = 0;
+        }
+
+        tupsize = MAXALIGN(IndexTupleSize(tuples[i])) + sizeof(ItemIdData);
+
+        if (size + tupsize > GinListPageSize) {
+            // Won't fit, start new page
+            i--;
+            curBuffer = InvalidBuffer;
+        } else {
+            size += tupsize;
+        }
+    }
+
+    // Write last page
+    res->tail = BufferGetBlockNumber(curBuffer);
+    res->tailFreeSize = writeListPage(index, curBuffer,
+                                     tuples + startTuple,
+                                     ntuples - startTuple,
+                                     InvalidBlockNumber);
+    res->nPendingPages++;
+    res->nPendingHeapTuples = 1;
+}
+```

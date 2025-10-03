@@ -43,3 +43,88 @@ The `ECPGis_noind_null` function performs type-aware null detection for ECPG (Em
   - [Complex](../C/Complex.md) types (interval, timestamp): uses `_check` with sizeof
 - Returns false for unknown or unsupported types
 - Essential for proper null handling in ECPG applications
+
+## Simplified Source
+
+```c
+bool ECPGis_noind_null(enum ECPGttype type, const void *ptr) {
+    switch (type) {
+        // Character types: check for null terminator
+        case ECPGt_char:
+        case ECPGt_unsigned_char:
+        case ECPGt_string:
+            if (*((const char *) ptr) == '\0') {
+                return true;
+            }
+            break;
+
+        // Integer types: check for minimum values
+        case ECPGt_short:
+        case ECPGt_unsigned_short:
+            if (*((const short int *) ptr) == SHRT_MIN) {
+                return true;
+            }
+            break;
+
+        case ECPGt_int:
+        case ECPGt_unsigned_int:
+            if (*((const int *) ptr) == INT_MIN) {
+                return true;
+            }
+            break;
+
+        case ECPGt_long:
+        case ECPGt_unsigned_long:
+        case ECPGt_date:
+            if (*((const long *) ptr) == LONG_MIN) {
+                return true;
+            }
+            break;
+
+        case ECPGt_long_long:
+        case ECPGt_unsigned_long_long:
+            if (*((const long long *) ptr) == LONG_LONG_MIN) {
+                return true;
+            }
+            break;
+
+        // Floating-point types: use bit pattern check
+        case ECPGt_float:
+            return _check(ptr, sizeof(float));
+        case ECPGt_double:
+            return _check(ptr, sizeof(double));
+
+        // String types: check specific null indicators
+        case ECPGt_varchar:
+            if (*(((const struct ECPGgeneric_varchar *) ptr)->arr) == 0x00) {
+                return true;
+            }
+            break;
+
+        case ECPGt_bytea:
+            if (((const struct ECPGgeneric_bytea *) ptr)->len == 0) {
+                return true;
+            }
+            break;
+
+        // Numeric types: check for special null indicator
+        case ECPGt_decimal:
+        case ECPGt_numeric:
+            if (((const decimal *) ptr)->sign == NUMERIC_NULL) {
+                return true;
+            }
+            break;
+
+        // Complex types: use bit pattern check
+        case ECPGt_interval:
+            return _check(ptr, sizeof(interval));
+        case ECPGt_timestamp:
+            return _check(ptr, sizeof(timestamp));
+
+        default:
+            break;
+    }
+
+    return false;
+}
+```

@@ -36,3 +36,20 @@ This function is part of PostgreSQL's parallel scan support infrastructure. It e
 - The function accesses the current relation and snapshot from the node's state
 - The estimated length is stored in node->pscan_len for later use
 - Located in src/backend/executor/nodeSeqscan.c at lines 238-255
+
+## Simplified Source
+
+```c
+void ExecSeqScanEstimate(SeqScanState *node, ParallelContext *pcxt)
+{
+    EState *estate = node->ss.ps.state;
+
+    // Calculate shared memory needed for parallel table scan
+    node->pscan_len = table_parallelscan_estimate(node->ss.ss_currentRelation,
+                                                  estate->es_snapshot);
+
+    // Register memory requirements with parallel context
+    shm_toc_estimate_chunk(&pcxt->estimator, node->pscan_len);
+    shm_toc_estimate_keys(&pcxt->estimator, 1);
+}
+```

@@ -45,3 +45,40 @@ The function assumes that mergejoin operators are strict (return NULL when any i
 - The early termination optimization is only applied when not in FillOuter mode, since FillOuter requires visiting all outer tuples
 - Returns MJEvalResult enum values to indicate the evaluation outcome to the caller
 - Critical for merge join performance as it can eliminate unnecessary tuple processing
+
+## Simplified Source
+
+```c
+static MJEvalResult
+MJEvalOuterValues(MergeJoinState *mergestate) {
+    ExprContext *econtext = mergestate->mj_OuterEContext;
+    MJEvalResult result = MJEVAL_MATCHABLE;
+
+    // Check for end of outer tuples
+    if (TupIsNull(mergestate->mj_OuterTupleSlot))
+        return MJEVAL_ENDOFJOIN;
+
+    // Reset context and set up outer tuple for evaluation
+    ResetExprContext(econtext);
+    econtext->ecxt_outertuple = mergestate->mj_OuterTupleSlot;
+
+    // Evaluate each merge join clause
+    for (int i = 0; i < mergestate->mj_NumClauses; i++) {
+        MergeJoinClause clause = &mergestate->mj_Clauses[i];
+
+        // Evaluate the left expression from outer tuple
+        clause->ldatum = ExecEvalExpr(clause->lexpr, econtext, &clause->lisnull);
+
+        // Handle NULL values - determine if join can continue
+        if (clause->lisnull) {
+            // If first column NULL and nulls sort last, end join early
+            if (i == 0 && !clause->ssup.ssup_nulls_first && !mergestate->mj_FillOuter)
+                result = MJEVAL_ENDOFJOIN;
+            else if (result == MJEVAL_MATCHABLE)
+                result = MJEVAL_NONMATCHABLE;
+        }
+    }
+
+    return result;
+}
+```

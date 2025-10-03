@@ -55,3 +55,42 @@ The function implements a specific locking strategy during replay that differs f
 - Right-links of deleted pages don't need to be preserved since no new readers can access them
 - The function handles bulk deletion of multiple pages in a single operation
 - Located in src/backend/access/gin/ginxlog.c:675-725
+
+## Simplified Source
+
+```c
+static void ginRedoDeleteListPages(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    ginxlogDeleteListPages *data = (ginxlogDeleteListPages *) XLogRecGetData(record);
+    Buffer metabuffer;
+    Page metapage;
+
+    // Update metapage with new metadata
+    metabuffer = XLogInitBufferForRedo(record, 0);
+    metapage = BufferGetPage(metabuffer);
+
+    GinInitMetabuffer(metabuffer);
+    memcpy(GinPageGetMeta(metapage), &data->metadata, sizeof(GinMetaPageData));
+    PageSetLSN(metapage, lsn);
+    MarkBufferDirty(metabuffer);
+
+    // Re-initialize each deleted page as empty, deleted page
+    for (int i = 0; i < data->ndeleted; i++) {
+        Buffer buffer;
+        Page page;
+
+        buffer = XLogInitBufferForRedo(record, i + 1);
+        page = BufferGetPage(buffer);
+
+        // Mark page as deleted
+        GinInitBuffer(buffer, GIN_DELETED);
+
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buffer);
+        UnlockReleaseBuffer(buffer);
+    }
+
+    UnlockReleaseBuffer(metabuffer);
+}
+```

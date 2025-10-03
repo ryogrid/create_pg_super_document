@@ -37,3 +37,36 @@ This function allocates and initializes a complete BrinMemTuple structure for in
 - The function comment warns about using temporary memory contexts since no cleanup function is provided
 - Memory layout includes space for BrinMemTuple structure, BrinValues array, and Datum storage
 - Automatically calls brin_memtuple_initialize to complete the initialization process
+
+## Simplified Source
+
+```c
+BrinMemTuple *brin_new_memtuple(BrinDesc *brdesc) {
+    BrinMemTuple *dtup;
+    long basesize;
+
+    // Calculate required memory size
+    basesize = MAXALIGN(sizeof(BrinMemTuple) +
+                        sizeof(BrinValues) * brdesc->bd_tupdesc->natts);
+
+    // Allocate main structure plus datum storage
+    dtup = palloc0(basesize + sizeof(Datum) * brdesc->bd_totalstored);
+
+    // Allocate arrays for tuple data
+    dtup->bt_values = palloc(sizeof(Datum) * brdesc->bd_totalstored);
+    dtup->bt_allnulls = palloc(sizeof(bool) * brdesc->bd_tupdesc->natts);
+    dtup->bt_hasnulls = palloc(sizeof(bool) * brdesc->bd_tupdesc->natts);
+
+    // Initialize as empty range
+    dtup->bt_empty_range = true;
+
+    // Create dedicated memory context for this tuple
+    dtup->bt_context = AllocSetContextCreate(CurrentMemoryContext,
+                                            "brin dtuple",
+                                            ALLOCSET_DEFAULT_SIZES);
+
+    // Complete initialization and return
+    brin_memtuple_initialize(dtup, brdesc);
+    return dtup;
+}
+```

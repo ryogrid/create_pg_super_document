@@ -52,3 +52,45 @@ The function serves as a critical preparation phase that ensures all prerequisit
 - Handles special logic for MERGE operations in trigger execution
 - Ensures pending inserts are flushed before trigger execution to maintain data visibility
 - Part of PostgreSQL's execution engine for DML operations, specifically the UPDATE workflow
+
+## Simplified Source
+
+```c
+static bool
+ExecUpdatePrologue(ModifyTableContext *context, ResultRelInfo *resultRelInfo,
+                   ItemPointer tupleid, HeapTuple oldtuple, TupleTableSlot *slot,
+                   TM_Result *result)
+{
+    Relation resultRelationDesc = resultRelInfo->ri_RelationDesc;
+
+    // Initialize result to success
+    if (result)
+        *result = TM_Ok;
+
+    // Ensure the new tuple data is materialized
+    ExecMaterializeSlot(slot);
+
+    // Open table's indexes if not already done (for index entry updates)
+    if (resultRelationDesc->rd_rel->relhasindex &&
+        resultRelInfo->ri_IndexRelationDescs == NULL) {
+        ExecOpenIndices(resultRelInfo, false);
+    }
+
+    // Execute BEFORE ROW UPDATE triggers if present
+    if (resultRelInfo->ri_TrigDesc &&
+        resultRelInfo->ri_TrigDesc->trig_update_before_row) {
+
+        // Flush any pending inserts so they're visible to triggers
+        if (context->estate->es_insert_pending_result_relations != NIL)
+            ExecPendingInserts(context->estate);
+
+        // Execute triggers - they may modify the tuple or cancel the update
+        return ExecBRUpdateTriggersNew(context->estate, context->epqstate,
+                                     resultRelInfo, tupleid, oldtuple, slot,
+                                     result, &context->tmfd,
+                                     context->mtstate->operation == CMD_MERGE);
+    }
+
+    return true; // No triggers to execute, proceed with update
+}
+```

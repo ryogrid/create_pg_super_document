@@ -45,6 +45,84 @@ The function reports validation errors as INFO messages and returns false if any
 - Called from (representative examples):
   - [hashhandler](hashhandler.md) (in hash access method interface)
 
+## Simplified Source
+```c
+bool hashvalidate(Oid opclassoid) {
+    bool result = true;
+    List *hashabletypes = NIL;
+
+    // Fetch opclass and opfamily information
+    HeapTuple classtup = SearchSysCache1(CLAOID, ObjectIdGetDatum(opclassoid));
+    Form_pg_opclass classform = (Form_pg_opclass) GETSTRUCT(classtup);
+    Oid opfamilyoid = classform->opcfamily;
+
+    HeapTuple familytup = SearchSysCache1(OPFAMILYOID, ObjectIdGetDatum(opfamilyoid));
+    Form_pg_opfamily familyform = (Form_pg_opfamily) GETSTRUCT(familytup);
+
+    // Get all operators and support functions
+    CatCList *oprlist = SearchSysCacheList1(AMOPSTRATEGY, ObjectIdGetDatum(opfamilyoid));
+    CatCList *proclist = SearchSysCacheList1(AMPROCNUM, ObjectIdGetDatum(opfamilyoid));
+
+    // Validate support functions
+    for (int i = 0; i < proclist->n_members; i++) {
+        Form_pg_amproc procform = (Form_pg_amproc) GETSTRUCT(&proclist->members[i]->tuple);
+
+        // Check left/right types match
+        if (procform->amproclefttype != procform->amprocrighttype) {
+            result = false;
+            continue;
+        }
+
+        // Validate function signatures based on procedure number
+        switch (procform->amprocnum) {
+            case HASHSTANDARD_PROC:
+            case HASHEXTENDED_PROC:
+                if (check_hash_func_signature(procform->amproc, procform->amprocnum,
+                                             procform->amproclefttype)) {
+                    hashabletypes = list_append_unique_oid(hashabletypes,
+                                                          procform->amproclefttype);
+                } else {
+                    result = false;
+                }
+                break;
+            default:
+                result = false;
+                break;
+        }
+    }
+
+    // Validate operators
+    for (int i = 0; i < oprlist->n_members; i++) {
+        Form_pg_amop oprform = (Form_pg_amop) GETSTRUCT(&oprlist->members[i]->tuple);
+
+        // Check strategy numbers and signatures
+        if (oprform->amopstrategy < 1 || oprform->amopstrategy > HTMaxStrategyNumber ||
+            oprform->amoppurpose != AMOP_SEARCH ||
+            !check_amop_signature(oprform->amopopr, BOOLOID,
+                                 oprform->amoplefttype, oprform->amoprighttype)) {
+            result = false;
+        }
+
+        // Ensure hash functions exist for operator types
+        if (!list_member_oid(hashabletypes, oprform->amoplefttype) ||
+            !list_member_oid(hashabletypes, oprform->amoprighttype)) {
+            result = false;
+        }
+    }
+
+    // Check for complete operator/function groups
+    List *grouplist = identify_opfamily_groups(oprlist, proclist);
+    // ... additional group validation logic ...
+
+    ReleaseCatCacheList(proclist);
+    ReleaseCatCacheList(oprlist);
+    ReleaseSysCache(familytup);
+    ReleaseSysCache(classtup);
+
+    return result;
+}
+```
+
 ## Notes and Other Information
 - The validation covers the entire operator family, so some checks are redundant when validating multiple operator classes in the same family, but this duplication is accepted to keep the amvalidate API simple.
 - The function expects hash operator families to be complete with all cross-type operators for built-in types.

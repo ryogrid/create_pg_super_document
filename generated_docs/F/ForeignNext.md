@@ -40,3 +40,36 @@ Memory management is carefully handled by switching to the per-tuple memory cont
 - The function ensures proper memory context management to prevent memory leaks during FDW operations
 - System column handling is conditional on plan->fsSystemCol flag and non-null tuple results
 - Direct modifications are not compatible with EvalPlanQual processing due to their non-re-evaluatable nature
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ForeignNext(ForeignScanState *node)
+{
+    ForeignScan *plan = (ForeignScan *) node->ss.ps.plan;
+    ExprContext *econtext = node->ss.ps.ps_ExprContext;
+    TupleTableSlot *slot;
+
+    // Switch to per-tuple memory context for FDW calls
+    MemoryContext oldcontext = MemoryContextSwitchTo(econtext->ecxt_per_tuple_memory);
+
+    // Choose appropriate FDW iteration function based on operation type
+    if (plan->operation != CMD_SELECT) {
+        // Direct modifications (INSERT/UPDATE/DELETE) cannot be re-evaluated
+        Assert(node->ss.ps.state->es_epq_active == NULL);
+        slot = node->fdwroutine->IterateDirectModify(node);
+    } else {
+        // Regular SELECT operation
+        slot = node->fdwroutine->IterateForeignScan(node);
+    }
+
+    MemoryContextSwitchTo(oldcontext);
+
+    // Set tableoid system column if requested and tuple is valid
+    if (plan->fsSystemCol && !TupIsNull(slot))
+        slot->tts_tableOid = RelationGetRelid(node->ss.ss_currentRelation);
+
+    return slot;
+}
+```

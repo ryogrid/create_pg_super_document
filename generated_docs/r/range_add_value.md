@@ -47,3 +47,40 @@ The function includes extensive assertions to verify the integrity of the range 
 - Uses datumCopy to properly handle both pass-by-value and pass-by-reference data types
 - Critical entry point for value insertion in BRIN minmax-multi indexes, ensuring data integrity through comprehensive validation
 - The space management occurs before containment checking to handle values that might exist in the unsorted portion
+
+## Simplified Source
+
+```c
+static bool
+range_add_value(BrinDesc *bdesc, Oid colloid,
+                AttrNumber attno, Form_pg_attribute attr,
+                Ranges *ranges, Datum newval)
+{
+    bool modified = false;
+
+    // Get comparator function for this data type
+    FmgrInfo *cmpFn = minmax_multi_get_strategy_procinfo(bdesc, attno,
+                                                        attr->atttypid,
+                                                        BTLessStrategyNumber);
+
+    // Ensure buffer has enough space (may trigger compaction)
+    modified = ensure_free_space_in_buffer(bdesc, colloid, attno, attr, ranges);
+
+    // Skip if value already covered by existing ranges
+    if (range_contains_value(bdesc, colloid, attno, attr, ranges, newval, false))
+        return modified;
+
+    // Make a copy of the value for storage
+    newval = datumCopy(newval, attr->attbyval, attr->attlen);
+
+    // Add value to the values array
+    ranges->values[2 * ranges->nranges + ranges->nvalues] = newval;
+    ranges->nvalues++;
+
+    // If this is the first value, mark it as sorted
+    if (ranges->nvalues == 1)
+        ranges->nsorted = 1;
+
+    return true;
+}
+```

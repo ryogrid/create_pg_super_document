@@ -40,3 +40,24 @@ The function performs memory size calculations using PostgreSQL's safe arithmeti
 - The estimated memory size includes space for one MemoizeInstrumentation structure per worker plus the SharedMemoizeInfo header
 - Uses PostgreSQL's safe arithmetic functions (mul_size, add_size) to prevent integer overflow in size calculations
 - Part of PostgreSQL's parallel query execution framework for memoize operations
+
+## Simplified Source
+
+```c
+void ExecMemoizeEstimate(MemoizeState *node, ParallelContext *pcxt)
+{
+    Size size;
+
+    // Skip estimation if no instrumentation or workers
+    if (!node->ss.ps.instrument || pcxt->nworkers == 0)
+        return;
+
+    // Calculate memory needed: worker count * instrumentation size + shared header
+    size = mul_size(pcxt->nworkers, sizeof(MemoizeInstrumentation));
+    size = add_size(size, offsetof(SharedMemoizeInfo, sinstrument));
+
+    // Register memory requirements with shared memory allocator
+    shm_toc_estimate_chunk(&pcxt->estimator, size);
+    shm_toc_estimate_keys(&pcxt->estimator, 1);
+}
+```

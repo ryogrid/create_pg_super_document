@@ -36,3 +36,34 @@ The function iterates through each attribute in the BRIN descriptor and for each
 - Memory allocation is carefully managed using the BrinDesc's memory context
 - The function handles variable numbers of stored values per attribute as defined by the BRIN opclass
 - Essential for BRIN tuple serialization and deserialization operations
+
+## Simplified Source
+
+```c
+static TupleDesc brtuple_disk_tupdesc(BrinDesc *brdesc)
+{
+    // Use cached version if available
+    if (brdesc->bd_disktdesc == NULL) {
+        // Switch to BrinDesc's memory context for persistence
+        MemoryContext oldcxt = MemoryContextSwitchTo(brdesc->bd_context);
+
+        // Create template with total number of stored attributes
+        TupleDesc tupdesc = CreateTemplateTupleDesc(brdesc->bd_totalstored);
+
+        // Build tuple descriptor entries for each stored value
+        AttrNumber attno = 1;
+        for (int i = 0; i < brdesc->bd_tupdesc->natts; i++) {
+            for (int j = 0; j < brdesc->bd_info[i]->oi_nstored; j++) {
+                TupleDescInitEntry(tupdesc, attno++, NULL,
+                                 brdesc->bd_info[i]->oi_typcache[j]->type_id,
+                                 -1, 0);
+            }
+        }
+
+        MemoryContextSwitchTo(oldcxt);
+        brdesc->bd_disktdesc = tupdesc;
+    }
+
+    return brdesc->bd_disktdesc;
+}
+```

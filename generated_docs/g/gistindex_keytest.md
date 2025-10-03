@@ -45,3 +45,104 @@ The function handles special cases like invalid tuples from pre-9.1 installation
 - Invalid tuples are treated as matches to ensure compatibility with pre-9.1 indexes
 - Recheck flags allow for lossy index operations that require heap verification
 - Distance functions were enhanced in version 9.5 to support recheck flags
+
+## Simplified Source
+
+```c
+static bool gistindex_keytest(IndexScanDesc scan, IndexTuple tuple, Page page,
+                             OffsetNumber offset, bool *recheck_p, bool *recheck_distances_p) {
+    GISTScanOpaque so = (GISTScanOpaque) scan->opaque;
+    GISTSTATE *giststate = so->giststate;
+    ScanKey key = scan->keyData;
+    int keySize = scan->numberOfKeys;
+
+    *recheck_p = false;
+    *recheck_distances_p = false;
+
+    // Handle invalid tuples from pre-9.1 (treat as matches with min distance)
+    if (GistTupleIsInvalid(tuple)) {
+        if (GistPageIsLeaf(page))
+            elog(ERROR, "invalid GiST tuple found on leaf page");
+
+        for (int i = 0; i < scan->numberOfOrderBys; i++) {
+            so->distances[i].value = -get_float8_infinity();
+            so->distances[i].isnull = false;
+        }
+        return true;
+    }
+
+    // Test consistency against all scan keys
+    while (keySize > 0) {
+        Datum datum = index_getattr(tuple, key->sk_attno, giststate->leafTupdesc, &isNull);
+
+        // Handle NULL key searches
+        if (key->sk_flags & SK_ISNULL) {
+            if (key->sk_flags & SK_SEARCHNULL) {
+                if (GistPageIsLeaf(page) && !isNull)
+                    return false;
+            } else if (isNull) {
+                return false;
+            }
+        } else if (isNull) {
+            return false;
+        } else {
+            // Call the Consistent function
+            GISTENTRY de;
+            bool recheck = true;
+
+            gistdentryinit(giststate, key->sk_attno - 1, &de, datum,
+                          scan->indexRelation, page, offset, false, isNull);
+
+            Datum test = FunctionCall5Coll(&key->sk_func, key->sk_collation,
+                                         PointerGetDatum(&de), key->sk_argument,
+                                         Int16GetDatum(key->sk_strategy),
+                                         ObjectIdGetDatum(key->sk_subtype),
+                                         PointerGetDatum(&recheck));
+
+            if (!DatumGetBool(test))
+                return false;
+            *recheck_p |= recheck;
+        }
+
+        key++;
+        keySize--;
+    }
+
+    // Calculate distances for ordered scans
+    key = scan->orderByData;
+    IndexOrderByDistance *distance_p = so->distances;
+    keySize = scan->numberOfOrderBys;
+
+    while (keySize > 0) {
+        Datum datum = index_getattr(tuple, key->sk_attno, giststate->leafTupdesc, &isNull);
+
+        if ((key->sk_flags & SK_ISNULL) || isNull) {
+            distance_p->value = 0.0;
+            distance_p->isnull = true;
+        } else {
+            // Call the Distance function
+            GISTENTRY de;
+            bool recheck = false;
+
+            gistdentryinit(giststate, key->sk_attno - 1, &de, datum,
+                          scan->indexRelation, page, offset, false, isNull);
+
+            Datum dist = FunctionCall5Coll(&key->sk_func, key->sk_collation,
+                                         PointerGetDatum(&de), key->sk_argument,
+                                         Int16GetDatum(key->sk_strategy),
+                                         ObjectIdGetDatum(key->sk_subtype),
+                                         PointerGetDatum(&recheck));
+
+            *recheck_distances_p |= recheck;
+            distance_p->value = DatumGetFloat8(dist);
+            distance_p->isnull = false;
+        }
+
+        key++;
+        distance_p++;
+        keySize--;
+    }
+
+    return true;
+}
+```

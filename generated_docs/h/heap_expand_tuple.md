@@ -37,3 +37,15 @@ This function is essential for schema evolution scenarios where existing tuples 
 - Essential for handling schema evolution in PostgreSQL
 - Part of the public tuple manipulation API
 - Located in src/backend/access/common/heaptuple.c:1065-1079
+
+## Simplified Source
+
+```c
+HeapTuple heap_expand_tuple(HeapTuple sourceTuple, TupleDesc tupleDesc) {
+    HeapTuple heapTuple;
+
+    // Delegate to internal expansion function
+    expand_tuple(&heapTuple, NULL, sourceTuple, tupleDesc);
+    return heapTuple;
+}
+```

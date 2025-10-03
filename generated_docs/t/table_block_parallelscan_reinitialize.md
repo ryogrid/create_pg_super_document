@@ -39,3 +39,16 @@ This is more efficient than completely reinitializing the descriptor, as it pres
 - Uses atomic write operation to ensure thread-safety when resetting the counter
 - Allows efficient reuse of parallel scan descriptors for multiple passes over the same data
 - Does not reset other fields like phs_nblocks, phs_syncscan, or phs_startblock which remain valid for the same relation
+
+## Simplified Source
+
+```c
+void
+table_block_parallelscan_reinitialize(Relation rel, ParallelTableScanDesc pscan)
+{
+    ParallelBlockTableScanDesc bpscan = (ParallelBlockTableScanDesc) pscan;
+
+    // Reset allocation counter to restart scan from beginning
+    pg_atomic_write_u64(&bpscan->phs_nallocated, 0);
+}
+```

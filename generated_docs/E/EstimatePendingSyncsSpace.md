@@ -41,3 +41,17 @@ None - this function takes no parameters
 - Critical for ensuring parallel workers have complete information about WAL-skipping relations
 - Used during dynamic shared memory (DSM) setup for parallel operations
 - Ensures data consistency across parallel worker processes handling bulk operations
+
+## Simplified Source
+
+```c
+Size EstimatePendingSyncsSpace(void) {
+    long entries;
+
+    // Get number of entries in pendingSyncHash (0 if no hash exists)
+    entries = pendingSyncHash ? hash_get_num_entries(pendingSyncHash) : 0;
+
+    // Calculate space for all entries plus one additional entry
+    return mul_size(1 + entries, sizeof(RelFileLocator));
+}
+```

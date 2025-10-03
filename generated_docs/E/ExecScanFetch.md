@@ -44,3 +44,72 @@ The function first checks for interrupts, then examines if an EPQ recheck is act
 - The function handles three distinct EPQ scenarios: pushed-down joins in foreign/custom scans, pre-provided replacement tuples, and rowmark-based tuple fetching
 - scanrelid of 0 indicates a ForeignScan or CustomScan with pushed-down operations
 - The function maintains proper slot management by clearing tuples that don't meet recheck conditions
+
+## Simplified Source
+
+```c
+static inline TupleTableSlot *
+ExecScanFetch(ScanState *node,
+              ExecScanAccessMtd accessMtd,
+              ExecScanRecheckMtd recheckMtd)
+{
+    EState *estate = node->ps.state;
+
+    CHECK_FOR_INTERRUPTS();
+
+    // Handle EPQ (EvalPlanQual) recheck if active
+    if (estate->es_epq_active != NULL) {
+        EPQState *epqstate = estate->es_epq_active;
+        Index scanrelid = ((Scan *) node->ps.plan)->scanrelid;
+
+        if (scanrelid == 0) {
+            // ForeignScan/CustomScan with pushed-down join
+            TupleTableSlot *slot = node->ss_ScanTupleSlot;
+
+            if (!(*recheckMtd) (node, slot))
+                ExecClearTuple(slot);  // Failed recheck
+            return slot;
+        }
+        else if (epqstate->relsubs_done[scanrelid - 1]) {
+            // Already processed EPQ tuple for this relation
+            TupleTableSlot *slot = node->ss_ScanTupleSlot;
+            return ExecClearTuple(slot);
+        }
+        else if (epqstate->relsubs_slot[scanrelid - 1] != NULL) {
+            // Use replacement tuple provided by EPQ caller
+            TupleTableSlot *slot = epqstate->relsubs_slot[scanrelid - 1];
+
+            // Mark as done to avoid returning again
+            epqstate->relsubs_done[scanrelid - 1] = true;
+
+            if (TupIsNull(slot))
+                return NULL;
+
+            // Check if it meets access-method conditions
+            if (!(*recheckMtd) (node, slot))
+                return ExecClearTuple(slot);
+            return slot;
+        }
+        else if (epqstate->relsubs_rowmark[scanrelid - 1] != NULL) {
+            // Fetch replacement tuple using non-locking rowmark
+            TupleTableSlot *slot = node->ss_ScanTupleSlot;
+
+            epqstate->relsubs_done[scanrelid - 1] = true;
+
+            if (!EvalPlanQualFetchRowMark(epqstate, scanrelid, slot))
+                return NULL;
+
+            if (TupIsNull(slot))
+                return NULL;
+
+            // Check if it meets access-method conditions
+            if (!(*recheckMtd) (node, slot))
+                return ExecClearTuple(slot);
+            return slot;
+        }
+    }
+
+    // Normal case: get next tuple from access method
+    return (*accessMtd) (node);
+}
+```

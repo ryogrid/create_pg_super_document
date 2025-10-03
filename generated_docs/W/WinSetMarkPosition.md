@@ -39,3 +39,40 @@ This function establishes a lower bound for tuple access within a partition by s
 - Prevents access to rows before the mark position via window_gettupleslot
 - Uses tuplestore_skiptuples to efficiently advance pointer positions
 - Part of the window function memory management strategy
+
+## Simplified Source
+
+```c
+void
+WinSetMarkPosition(WindowObject winobj, int64 markpos)
+{
+    WindowAggState *winstate;
+
+    Assert(WindowObjectIsValid(winobj));
+    winstate = winobj->winstate;
+
+    // Ensure mark can only move forward
+    if (markpos < winobj->markpos)
+        elog(ERROR, "cannot move WindowObject's mark position backward");
+
+    // Update mark pointer position if moving forward
+    tuplestore_select_read_pointer(winstate->buffer, winobj->markptr);
+    if (markpos > winobj->markpos)
+    {
+        tuplestore_skiptuples(winstate->buffer,
+                             markpos - winobj->markpos,
+                             true);
+        winobj->markpos = markpos;
+    }
+
+    // Update read pointer position if needed
+    tuplestore_select_read_pointer(winstate->buffer, winobj->readptr);
+    if (markpos > winobj->seekpos)
+    {
+        tuplestore_skiptuples(winstate->buffer,
+                             markpos - winobj->seekpos,
+                             true);
+        winobj->seekpos = markpos;
+    }
+}
+```

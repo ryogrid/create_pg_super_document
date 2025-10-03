@@ -37,3 +37,45 @@ The fireBSTriggers function is responsible for firing BEFORE EACH STATEMENT trig
 - For MERGE operations, it dynamically determines which triggers to fire based on the subcommands present in the MERGE statement
 - INSERT operations with ON CONFLICT UPDATE clauses require both INSERT and UPDATE triggers to be fired
 - Located in src/backend/executor/nodeModifyTable.c:3782-3818
+
+## Simplified Source
+
+```c
+static void
+fireBSTriggers(ModifyTableState *node)
+{
+    ModifyTable *plan = (ModifyTable *) node->ps.plan;
+    ResultRelInfo *resultRelInfo = node->rootResultRelInfo;
+
+    switch (node->operation) {
+        case CMD_INSERT:
+            ExecBSInsertTriggers(node->ps.state, resultRelInfo);
+            // Handle INSERT with ON CONFLICT UPDATE
+            if (plan->onConflictAction == ONCONFLICT_UPDATE)
+                ExecBSUpdateTriggers(node->ps.state, resultRelInfo);
+            break;
+
+        case CMD_UPDATE:
+            ExecBSUpdateTriggers(node->ps.state, resultRelInfo);
+            break;
+
+        case CMD_DELETE:
+            ExecBSDeleteTriggers(node->ps.state, resultRelInfo);
+            break;
+
+        case CMD_MERGE:
+            // Fire triggers for each MERGE subcommand present
+            if (node->mt_merge_subcommands & MERGE_INSERT)
+                ExecBSInsertTriggers(node->ps.state, resultRelInfo);
+            if (node->mt_merge_subcommands & MERGE_UPDATE)
+                ExecBSUpdateTriggers(node->ps.state, resultRelInfo);
+            if (node->mt_merge_subcommands & MERGE_DELETE)
+                ExecBSDeleteTriggers(node->ps.state, resultRelInfo);
+            break;
+
+        default:
+            elog(ERROR, "unknown operation");
+            break;
+    }
+}
+```

@@ -53,3 +53,91 @@ For internal pages, the function recursively processes all child pages. For leaf
 - Reuses DataPageDeleteStack structures to minimize memory allocation
 - Handles special unlocking of leftBuffer when reaching rightmost pages
 - Critical for maintaining posting tree integrity during vacuum operations
+
+## Simplified Source
+
+```c
+static bool
+ginScanToDelete(GinVacuumState *gvs, BlockNumber blkno, bool isRoot,
+                DataPageDeleteStack *parent, OffsetNumber myoff)
+{
+    DataPageDeleteStack *me;
+    Buffer buffer;
+    Page page;
+    bool meDelete = false;
+    bool isempty;
+
+    // Setup deletion stack entry (reuse existing or create new)
+    if (isRoot) {
+        me = parent;
+    } else {
+        if (!parent->child) {
+            me = (DataPageDeleteStack *) palloc0(sizeof(DataPageDeleteStack));
+            me->parent = parent;
+            parent->child = me;
+            me->leftBuffer = InvalidBuffer;
+        } else {
+            me = parent->child;
+        }
+    }
+
+    // Read and lock the current page
+    buffer = ReadBufferExtended(gvs->index, MAIN_FORKNUM, blkno,
+                                RBM_NORMAL, gvs->strategy);
+    if (!isRoot)
+        LockBuffer(buffer, GIN_EXCLUSIVE);
+
+    page = BufferGetPage(buffer);
+
+    // For internal pages, recursively process all children
+    if (!GinPageIsLeaf(page)) {
+        OffsetNumber i;
+        me->blkno = blkno;
+
+        for (i = FirstOffsetNumber; i <= GinPageGetOpaque(page)->maxoff; i++) {
+            PostingItem *pitem = GinDataPageGetPostingItem(page, i);
+            // Recursive call - if child was deleted, decrement i to reprocess
+            if (ginScanToDelete(gvs, PostingItemGetBlockNumber(pitem), false, me, i))
+                i--;
+        }
+
+        // Handle rightmost page cleanup
+        if (GinPageRightMost(page) && BufferIsValid(me->child->leftBuffer)) {
+            UnlockReleaseBuffer(me->child->leftBuffer);
+            me->child->leftBuffer = InvalidBuffer;
+        }
+    }
+
+    // Check if page is empty
+    if (GinPageIsLeaf(page))
+        isempty = GinDataLeafPageIsEmpty(page);
+    else
+        isempty = GinPageGetOpaque(page)->maxoff < FirstOffsetNumber;
+
+    // Delete page if empty and safe to delete
+    if (isempty) {
+        // Never delete leftmost or rightmost pages
+        if (BufferIsValid(me->leftBuffer) && !GinPageRightMost(page)) {
+            ginDeletePage(gvs, blkno, BufferGetBlockNumber(me->leftBuffer),
+                         me->parent->blkno, myoff, me->parent->isRoot);
+            meDelete = true;
+        }
+    }
+
+    // Manage leftBuffer for next iteration
+    if (!meDelete) {
+        if (BufferIsValid(me->leftBuffer))
+            UnlockReleaseBuffer(me->leftBuffer);
+        me->leftBuffer = buffer;
+    } else {
+        if (!isRoot)
+            LockBuffer(buffer, GIN_UNLOCK);
+        ReleaseBuffer(buffer);
+    }
+
+    if (isRoot)
+        ReleaseBuffer(buffer);
+
+    return meDelete;
+}
+```

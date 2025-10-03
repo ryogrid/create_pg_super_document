@@ -50,3 +50,35 @@ Special handling is provided for page splits: if the update inserts a downlink f
 - The function includes a full page image of the child buffer only when necessary (typically after a checkpoint following a page split)
 - Returns an XLogRecPtr representing the LSN (Log Sequence Number) of the inserted WAL record
 - The WAL record type used is XLOG_GIST_PAGE_UPDATE with resource manager RM_GIST_ID
+
+## Simplified Source
+
+```c
+XLogRecPtr gistXLogUpdate(Buffer buffer,
+                         OffsetNumber *todelete, int ntodelete,
+                         IndexTuple *itup, int ituplen,
+                         Buffer leftchildbuf) {
+    gistxlogPageUpdate xlrec;
+
+    // Setup update record with deletion and insertion counts
+    xlrec.ntodelete = ntodelete;
+    xlrec.ntoinsert = ituplen;
+
+    XLogBeginInsert();
+    XLogRegisterData((char *) &xlrec, sizeof(gistxlogPageUpdate));
+
+    // Register target buffer and deletion data
+    XLogRegisterBuffer(0, buffer, REGBUF_STANDARD);
+    XLogRegisterBufData(0, (char *) todelete, sizeof(OffsetNumber) * ntodelete);
+
+    // Register new tuples to insert
+    for (int i = 0; i < ituplen; i++)
+        XLogRegisterBufData(0, (char *) (itup[i]), IndexTupleSize(itup[i]));
+
+    // Include left child buffer if provided (for page splits)
+    if (BufferIsValid(leftchildbuf))
+        XLogRegisterBuffer(1, leftchildbuf, REGBUF_STANDARD);
+
+    return XLogInsert(RM_GIST_ID, XLOG_GIST_PAGE_UPDATE);
+}
+```

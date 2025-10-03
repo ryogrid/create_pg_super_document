@@ -53,3 +53,29 @@ The synchronized scanning decision follows similar logic to sequential scans - i
 - Returns the size of the descriptor structure, consistent with the estimate function
 - The phs_startblock is set to InvalidBlockNumber initially and gets set by the startblock_init function
 - Uses atomic operations for the allocated blocks counter to ensure thread-safety across parallel workers
+
+## Simplified Source
+
+```c
+Size
+table_block_parallelscan_initialize(Relation rel, ParallelTableScanDesc pscan)
+{
+    ParallelBlockTableScanDesc bpscan = (ParallelBlockTableScanDesc) pscan;
+
+    // Set relation ID and get total blocks
+    bpscan->base.phs_relid = RelationGetRelid(rel);
+    bpscan->phs_nblocks = RelationGetNumberOfBlocks(rel);
+
+    // Enable sync scan for large relations (> 1/4 buffer pool)
+    bpscan->base.phs_syncscan = synchronize_seqscans &&
+        !RelationUsesLocalBuffers(rel) &&
+        bpscan->phs_nblocks > NBuffers / 4;
+
+    // Initialize coordination structures
+    SpinLockInit(&bpscan->phs_mutex);
+    bpscan->phs_startblock = InvalidBlockNumber;
+    pg_atomic_init_u64(&bpscan->phs_nallocated, 0);
+
+    return sizeof(ParallelBlockTableScanDescData);
+}
+```

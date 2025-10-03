@@ -46,3 +46,47 @@ The function uses a singly-linked list to track tuple tables within each SPI con
 - The function only searches the topmost SPI context, not nested contexts, which enforces proper scoping rules.
 - This function is essential for preventing memory leaks in SPI-based applications and procedural languages.
 - The tuple table's memory context deletion ensures all related memory (including tuple data) is properly freed.
+
+## Simplified Source
+
+```c
+void SPI_freetuptable(SPITupleTable *tuptable) {
+    // Handle NULL input gracefully
+    if (tuptable == NULL) {
+        return;
+    }
+
+    bool found = false;
+
+    // Search for tuple table in current SPI context
+    if (_SPI_current != NULL) {
+        slist_mutable_iter iterator;
+        slist_foreach_modify(iterator, &_SPI_current->tuptables) {
+            SPITupleTable *current_table = slist_container(SPITupleTable, next, iterator.cur);
+
+            if (current_table == tuptable) {
+                slist_delete_current(&iterator);  // Remove from list
+                found = true;
+                break;
+            }
+        }
+    }
+
+    // Guard against double deletion or invalid pointers
+    if (!found) {
+        elog(WARNING, "attempt to delete invalid SPITupleTable %p", tuptable);
+        return;
+    }
+
+    // Reset global variables that might point to this table
+    if (tuptable == _SPI_current->tuptable) {
+        _SPI_current->tuptable = NULL;
+    }
+    if (tuptable == SPI_tuptable) {
+        SPI_tuptable = NULL;
+    }
+
+    // Free all memory associated with the tuple table
+    MemoryContextDelete(tuptable->tuptabcxt);
+}
+```

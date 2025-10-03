@@ -64,3 +64,93 @@ The function ensures balanced page utilization while preserving the original buf
 - The function handles edge cases for insertions at the beginning, middle, or end of the page
 - Error handling ensures insertion failures are reported with the relation name for debugging
 - Part of the GIN index maintenance system ensuring balanced tree structure as data grows
+
+## Simplified Source
+
+```c
+static void
+entrySplitPage(GinBtree btree, Buffer origbuf,
+               GinBtreeStack *stack,
+               GinBtreeEntryInsertData *insertData,
+               BlockNumber updateblkno,
+               Page *newlpage, Page *newrpage)
+{
+    OffsetNumber off = stack->off;
+    OffsetNumber i, maxoff, separator = InvalidOffsetNumber;
+    Size totalsize = 0, lsize = 0, size;
+    char *ptr;
+    IndexTuple tuple;
+    Page page;
+    Page lpage = PageGetTempPageCopy(BufferGetPage(origbuf));
+    Page rpage = PageGetTempPageCopy(BufferGetPage(origbuf));
+    Size pageSize = PageGetPageSize(lpage);
+    PGAlignedBlock tupstore[2]; // workspace for tuples
+
+    // Prepare the page (handle deletions/updates)
+    entryPreparePage(btree, lpage, off, insertData, updateblkno);
+
+    // Collect all existing tuples + new tuple in workspace
+    maxoff = PageGetMaxOffsetNumber(lpage);
+    ptr = tupstore[0].data;
+
+    for (i = FirstOffsetNumber; i <= maxoff; i++) {
+        // Insert new tuple at correct position
+        if (i == off) {
+            size = MAXALIGN(IndexTupleSize(insertData->entry));
+            memcpy(ptr, insertData->entry, size);
+            ptr += size;
+            totalsize += size + sizeof(ItemIdData);
+        }
+
+        // Copy existing tuple
+        tuple = (IndexTuple) PageGetItem(lpage, PageGetItemId(lpage, i));
+        size = MAXALIGN(IndexTupleSize(tuple));
+        memcpy(ptr, tuple, size);
+        ptr += size;
+        totalsize += size + sizeof(ItemIdData);
+    }
+
+    // Handle insertion at end of page
+    if (off == maxoff + 1) {
+        size = MAXALIGN(IndexTupleSize(insertData->entry));
+        memcpy(ptr, insertData->entry, size);
+        ptr += size;
+        totalsize += size + sizeof(ItemIdData);
+    }
+
+    // Initialize both new pages
+    GinInitPage(rpage, GinPageGetOpaque(lpage)->flags, pageSize);
+    GinInitPage(lpage, GinPageGetOpaque(rpage)->flags, pageSize);
+
+    // Distribute tuples between left and right pages
+    ptr = tupstore[0].data;
+    maxoff++;
+    lsize = 0;
+    page = lpage;
+
+    for (i = FirstOffsetNumber; i <= maxoff; i++) {
+        tuple = (IndexTuple) ptr;
+
+        // Switch to right page when left page gets > 50% of data
+        if (lsize > totalsize / 2) {
+            if (separator == InvalidOffsetNumber)
+                separator = i - 1;
+            page = rpage;
+        } else {
+            lsize += MAXALIGN(IndexTupleSize(tuple)) + sizeof(ItemIdData);
+        }
+
+        // Add tuple to current page
+        if (PageAddItem(page, (Item) tuple, IndexTupleSize(tuple),
+                        InvalidOffsetNumber, false, false) == InvalidOffsetNumber)
+            elog(ERROR, "failed to add item to index page in \"%s\"",
+                 RelationGetRelationName(btree->index));
+
+        ptr += MAXALIGN(IndexTupleSize(tuple));
+    }
+
+    // Return the two new pages
+    *newlpage = lpage;
+    *newrpage = rpage;
+}
+```

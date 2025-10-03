@@ -42,3 +42,30 @@ The function ensures that the slot is of the correct type (BufferHeapTupleTableS
 - On successful fetch, the function transfers the buffer pin from heap_fetch to the slot, ensuring proper buffer reference management
 - Returns true if the tuple was successfully fetched and is visible according to the snapshot, false otherwise
 - Part of the heap access method handler callbacks for non-modifying tuple operations
+
+## Simplified Source
+
+```c
+static bool heapam_fetch_row_version(Relation relation,
+                                   ItemPointer tid,
+                                   Snapshot snapshot,
+                                   TupleTableSlot *slot) {
+    BufferHeapTupleTableSlot *bslot = (BufferHeapTupleTableSlot *) slot;
+    Buffer buffer;
+
+    Assert(TTS_IS_BUFFERTUPLE(slot));
+
+    // Set the TID in the tuple data
+    bslot->base.tupdata.t_self = *tid;
+
+    // Fetch the tuple from heap storage
+    if (heap_fetch(relation, snapshot, &bslot->base.tupdata, &buffer, false)) {
+        // Store in slot, transferring buffer pin ownership
+        ExecStorePinnedBufferHeapTuple(&bslot->base.tupdata, slot, buffer);
+        slot->tts_tableOid = RelationGetRelid(relation);
+        return true;
+    }
+
+    return false;  // Tuple not found or not visible
+}
+```

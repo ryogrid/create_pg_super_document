@@ -45,4 +45,31 @@ The strategy_procinfos in the opaque structure is noted to be lazily initialized
 - Memory layout places the opaque structure immediately after the main BrinOpcInfo structure for efficiency
 - Critical infrastructure function that enables the BRIN minmax-multi operator class to integrate with PostgreSQL's index access method framework
 - The oi_nstored value of 1 indicates that each page range summary consists of a single complex value (the ranges structure)
+
+## Simplified Source
+
+```c
+Datum
+brin_minmax_multi_opcinfo(PG_FUNCTION_ARGS)
+{
+    BrinOpcInfo *result;
+
+    // Allocate space for BrinOpcInfo and MinmaxMultiOpaque structures
+    result = palloc0(MAXALIGN(SizeofBrinOpcInfo(1)) +
+                     sizeof(MinmaxMultiOpaque));
+
+    // Configure basic operator class properties
+    result->oi_nstored = 1;                    // One summary per attribute
+    result->oi_regular_nulls = true;           // Use standard NULL handling
+
+    // Set up opaque data pointer
+    result->oi_opaque = (MinmaxMultiOpaque *)
+        MAXALIGN((char *) result + SizeofBrinOpcInfo(1));
+
+    // Initialize type cache for summary data type
+    result->oi_typcache[0] = lookup_type_cache(PG_BRIN_MINMAX_MULTI_SUMMARYOID, 0);
+
+    PG_RETURN_POINTER(result);
+}
+```
 - Standard NULL handling (oi_regular_nulls = true) means the index can handle NULL values using PostgreSQL's built-in mechanisms

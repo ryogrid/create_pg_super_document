@@ -47,3 +47,35 @@ The function uses the GinState structure to determine whether this is a single-c
 - This is a fundamental utility function used throughout the GIN access method implementation for tuple processing
 - The function assumes that multi-column GIN tuples follow the standard format where the first attribute is the column number
 - Return type is , which is typically a 16-bit integer type used for attribute numbering in PostgreSQL
+
+## Simplified Source
+
+```c
+// Simplified version of gintuple_get_attrnum
+OffsetNumber
+gintuple_get_attrnum(GinState *ginstate, IndexTuple tuple)
+{
+    OffsetNumber colN;
+
+    if (ginstate->oneCol)
+    {
+        // Single column index: always the first column
+        colN = FirstOffsetNumber;
+    }
+    else
+    {
+        // Multi-column index: extract column number from first attribute
+        Datum res;
+        bool isnull;
+
+        res = index_getattr(tuple, FirstOffsetNumber, ginstate->tupdesc[0],
+                           &isnull);
+        Assert(!isnull);
+
+        colN = DatumGetUInt16(res);
+        Assert(colN >= FirstOffsetNumber && colN <= ginstate->origTupdesc->natts);
+    }
+
+    return colN;
+}
+```

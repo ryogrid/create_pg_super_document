@@ -49,3 +49,63 @@ The function first attempts to verify the downlink at the previously known locat
 - Optimized to check the previously known location first before performing a full page scan
 - Simpler than the concurrent version since buffering build has no concurrent access concerns
 - Will error if the downlink cannot be found, as this indicates a serious internal inconsistency during build
+
+## Simplified Source
+
+```c
+static Buffer
+gistBufferingFindCorrectParent(GISTBuildState *buildstate,
+                               BlockNumber childblkno, int level,
+                               BlockNumber *parentblkno,
+                               OffsetNumber *downlinkoffnum)
+{
+    BlockNumber parent;
+
+    // Find parent block number
+    if (level > 0)
+        parent = gistGetParent(buildstate, childblkno);
+    else
+    {
+        if (*parentblkno == InvalidBlockNumber)
+            elog(ERROR, "no parent buffer provided of child %u", childblkno);
+        parent = *parentblkno;
+    }
+
+    // Read and lock parent page
+    Buffer buffer = ReadBuffer(buildstate->indexrel, parent);
+    LockBuffer(buffer, GIST_EXCLUSIVE);
+    Page page = BufferGetPage(buffer);
+    gistcheckpage(buildstate->indexrel, buffer);
+    OffsetNumber maxoff = PageGetMaxOffsetNumber(page);
+
+    // Check if downlink is still at expected location
+    if (parent == *parentblkno && *parentblkno != InvalidBlockNumber &&
+        *downlinkoffnum != InvalidOffsetNumber && *downlinkoffnum <= maxoff)
+    {
+        ItemId iid = PageGetItemId(page, *downlinkoffnum);
+        IndexTuple idxtuple = (IndexTuple) PageGetItem(page, iid);
+
+        if (ItemPointerGetBlockNumber(&(idxtuple->t_tid)) == childblkno)
+        {
+            // Found at expected location
+            return buffer;
+        }
+    }
+
+    // Search entire page for the downlink
+    for (OffsetNumber off = FirstOffsetNumber; off <= maxoff; off = OffsetNumberNext(off))
+    {
+        ItemId iid = PageGetItemId(page, off);
+        IndexTuple idxtuple = (IndexTuple) PageGetItem(page, iid);
+
+        if (ItemPointerGetBlockNumber(&(idxtuple->t_tid)) == childblkno)
+        {
+            *downlinkoffnum = off;
+            return buffer;
+        }
+    }
+
+    elog(ERROR, "failed to re-find parent for block %u", childblkno);
+    return InvalidBuffer;
+}
+```

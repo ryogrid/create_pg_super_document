@@ -49,3 +49,105 @@ The function also handles the complex memory management involved in buffer reloc
 - Updates downlink tuples when necessary to maintain index consistency
 - Critical for maintaining buffer organization during dynamic page splits
 - Implements sophisticated memory management to handle buffer relocation safely
+
+## Simplified Source
+
+```c
+void gistRelocateBuildBuffersOnSplit(GISTBuildBuffers *gfbb, GISTSTATE *giststate,
+                                   Relation r, int level, Buffer buffer, List *splitinfo) {
+    // Early exit if level doesn't use buffers
+    if (!LEVEL_HAS_BUFFERS(level, gfbb))
+        return;
+
+    // Find the node buffer for the split page
+    BlockNumber blocknum = BufferGetBlockNumber(buffer);
+    GISTNodeBuffer *nodeBuffer = hash_search(gfbb->nodeBuffersTab, &blocknum, HASH_FIND, &found);
+    if (!found)
+        return;  // No buffer exists for this page
+
+    // Make a copy of the old buffer and reset the original
+    GISTNodeBuffer oldBuf;
+    memcpy(&oldBuf, nodeBuffer, sizeof(GISTNodeBuffer));
+    oldBuf.isTemp = true;
+
+    nodeBuffer->blocksCount = 0;
+    nodeBuffer->pageBuffer = NULL;
+
+    // Prepare relocation info for each split page
+    int splitPagesCount = list_length(splitinfo);
+    RelocationBufferInfo *relocationBuffersInfos =
+        (RelocationBufferInfo *) palloc(sizeof(RelocationBufferInfo) * splitPagesCount);
+
+    // Initialize buffers for each split page
+    foreach(lc, splitinfo) {
+        GISTPageSplitInfo *si = (GISTPageSplitInfo *) lfirst(lc);
+        int i = foreach_current_index(lc);
+
+        // Decompress downlink entry for penalty calculation
+        gistDeCompressAtt(giststate, r, si->downlink, NULL, 0,
+                         relocationBuffersInfos[i].entry,
+                         relocationBuffersInfos[i].isnull);
+
+        // Get node buffer for this split page
+        relocationBuffersInfos[i].nodeBuffer =
+            gistGetNodeBuffer(gfbb, giststate, BufferGetBlockNumber(si->buf), level);
+        relocationBuffersInfos[i].splitinfo = si;
+    }
+
+    // Redistribute all tuples from old buffer to new buffers
+    IndexTuple itup;
+    while (gistPopItupFromNodeBuffer(gfbb, &oldBuf, &itup)) {
+        GISTENTRY entry[INDEX_MAX_KEYS];
+        bool isnull[INDEX_MAX_KEYS];
+        float best_penalty[INDEX_MAX_KEYS];
+        int which = 0;  // Default to first page
+
+        // Decompress tuple for penalty calculation
+        gistDeCompressAtt(giststate, r, itup, NULL, 0, entry, isnull);
+        best_penalty[0] = -1;
+
+        // Find the page with minimum penalty
+        for (int i = 0; i < splitPagesCount; i++) {
+            RelocationBufferInfo *splitPageInfo = &relocationBuffersInfos[i];
+            bool zero_penalty = true;
+
+            // Calculate penalty for each index attribute
+            for (int j = 0; j < IndexRelationGetNumberOfKeyAttributes(r); j++) {
+                float usize = gistpenalty(giststate, j,
+                                        &splitPageInfo->entry[j],
+                                        splitPageInfo->isnull[j],
+                                        &entry[j], isnull[j]);
+                if (usize > 0)
+                    zero_penalty = false;
+
+                // Update best penalty and target page
+                if (best_penalty[j] < 0 || usize < best_penalty[j]) {
+                    which = i;
+                    best_penalty[j] = usize;
+                    if (j < IndexRelationGetNumberOfKeyAttributes(r) - 1)
+                        best_penalty[j + 1] = -1;
+                } else if (best_penalty[j] != usize) {
+                    break;  // This page is worse, try next page
+                }
+            }
+
+            if (zero_penalty)
+                break;  // Perfect match found
+        }
+
+        // Place tuple in selected buffer and update downlink if needed
+        RelocationBufferInfo *targetBufferInfo = &relocationBuffersInfos[which];
+        gistPushItupToNodeBuffer(gfbb, targetBufferInfo->nodeBuffer, itup);
+
+        IndexTuple newtup = gistgetadjusted(r, targetBufferInfo->splitinfo->downlink,
+                                           itup, giststate);
+        if (newtup) {
+            gistDeCompressAtt(giststate, r, newtup, NULL, 0,
+                             targetBufferInfo->entry, targetBufferInfo->isnull);
+            targetBufferInfo->splitinfo->downlink = newtup;
+        }
+    }
+
+    pfree(relocationBuffersInfos);
+}
+```

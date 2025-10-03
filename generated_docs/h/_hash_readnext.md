@@ -40,3 +40,55 @@ When reaching the end of a bucket during a split operation, the function transit
 
 ## Notes and Other Information
 The function maintains pins on primary bucket pages throughout the scan operation for efficiency. During bucket splits, it handles the transition from the populated bucket to the split bucket seamlessly. Interrupt checking is performed while no buffer locks are held to ensure responsiveness. The hashso_buc_split flag tracks whether the scan has transitioned to scanning the split bucket.
+
+## Simplified Source
+
+```c
+static void
+_hash_readnext(IndexScanDesc scan,
+               Buffer *bufp, Page *pagep, HashPageOpaque *opaquep)
+{
+    BlockNumber blkno;
+    Relation rel = scan->indexRelation;
+    HashScanOpaque so = (HashScanOpaque) scan->opaque;
+    bool block_found = false;
+
+    blkno = (*opaquep)->hasho_nextblkno;
+
+    // Release current buffer but keep pin on bucket pages
+    if (*bufp == so->hashso_bucket_buf || *bufp == so->hashso_split_bucket_buf)
+        LockBuffer(*bufp, BUFFER_LOCK_UNLOCK);
+    else
+        _hash_relbuf(rel, *bufp);
+
+    *bufp = InvalidBuffer;
+    CHECK_FOR_INTERRUPTS();
+
+    // Try to get next overflow page
+    if (BlockNumberIsValid(blkno))
+    {
+        *bufp = _hash_getbuf(rel, blkno, HASH_READ, LH_OVERFLOW_PAGE);
+        block_found = true;
+    }
+    // Handle bucket split case - transition to split bucket
+    else if (so->hashso_buc_populated && !so->hashso_buc_split)
+    {
+        // End of populated bucket - switch to split bucket
+        *bufp = so->hashso_split_bucket_buf;
+
+        LockBuffer(*bufp, BUFFER_LOCK_SHARE);
+        PredicateLockPage(rel, BufferGetBlockNumber(*bufp), scan->xs_snapshot);
+
+        // Mark that we're now scanning the split bucket
+        so->hashso_buc_split = true;
+        block_found = true;
+    }
+
+    // Update page pointers if we found a valid block
+    if (block_found)
+    {
+        *pagep = BufferGetPage(*bufp);
+        *opaquep = HashPageGetOpaque(*pagep);
+    }
+}
+```

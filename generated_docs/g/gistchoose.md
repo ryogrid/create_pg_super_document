@@ -49,3 +49,76 @@ The penalty calculation respects the hierarchical nature of multi-column GiST in
 - Supports early termination optimization when zero penalty is found across all columns
 - The best_penalty array uses -1 to indicate unexamined columns, with undefined values to the right of the first -1
 - Critical component of GiST insertion performance, determining the traversal path down the index tree
+
+## Simplified Source
+
+```c
+OffsetNumber gistchoose(Relation r, Page p, IndexTuple it, GISTSTATE *giststate) {
+    OffsetNumber result = FirstOffsetNumber;
+    OffsetNumber maxoff = PageGetMaxOffsetNumber(p);
+    float best_penalty[INDEX_MAX_KEYS];
+    GISTENTRY entry, identry[INDEX_MAX_KEYS];
+    bool isnull[INDEX_MAX_KEYS];
+    int keep_current_best = -1;
+
+    // Decompress new tuple to be inserted
+    gistDeCompressAtt(giststate, r, it, NULL, (OffsetNumber) 0, identry, isnull);
+
+    best_penalty[0] = -1; // Initialize first column as unexamined
+
+    // Examine each tuple on the page
+    for (OffsetNumber i = FirstOffsetNumber; i <= maxoff; i++) {
+        IndexTuple itup = (IndexTuple) PageGetItem(p, PageGetItemId(p, i));
+        bool zero_penalty = true;
+
+        // Calculate penalty for each index column
+        for (int j = 0; j < IndexRelationGetNumberOfKeyAttributes(r); j++) {
+            Datum datum;
+            float penalty;
+            bool IsNull;
+
+            // Get attribute and calculate penalty
+            datum = index_getattr(itup, j + 1, giststate->leafTupdesc, &IsNull);
+            gistdentryinit(giststate, j, &entry, datum, r, p, i, false, IsNull);
+            penalty = gistpenalty(giststate, j, &entry, IsNull, &identry[j], isnull[j]);
+
+            if (penalty > 0) zero_penalty = false;
+
+            if (best_penalty[j] < 0 || penalty < best_penalty[j]) {
+                // New best penalty - select this tuple
+                result = i;
+                best_penalty[j] = penalty;
+                if (j < IndexRelationGetNumberOfKeyAttributes(r) - 1)
+                    best_penalty[j + 1] = -1;
+                keep_current_best = -1;
+            } else if (best_penalty[j] == penalty) {
+                // Equal penalty - continue to next column
+                continue;
+            } else {
+                // Worse penalty - skip this tuple
+                zero_penalty = false;
+                break;
+            }
+        }
+
+        // Handle ties with randomization for load balancing
+        if (j == IndexRelationGetNumberOfKeyAttributes(r) && result != i) {
+            if (keep_current_best == -1)
+                keep_current_best = pg_prng_bool(&pg_global_prng_state) ? 1 : 0;
+            if (keep_current_best == 0) {
+                result = i;
+                keep_current_best = -1;
+            }
+        }
+
+        // Early termination for zero penalty
+        if (zero_penalty) {
+            if (keep_current_best == -1)
+                keep_current_best = pg_prng_bool(&pg_global_prng_state) ? 1 : 0;
+            if (keep_current_best == 1) break;
+        }
+    }
+
+    return result;
+}
+```

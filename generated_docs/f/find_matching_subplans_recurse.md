@@ -48,3 +48,56 @@ For each partition found to be valid, the function either adds the corresponding
 - The function modifies the validsubplans bitmapset in-place, accumulating results across recursive calls
 - Static function scope indicates it's an internal implementation detail of the partition pruning system
 - Properly handles partition-to-subplan mapping through the subplan_map and subpart_map arrays
+
+## Simplified Source
+
+```c
+static void
+find_matching_subplans_recurse(PartitionPruningData *prunedata,
+                               PartitionedRelPruningData *pprune,
+                               bool initial_prune,
+                               Bitmapset **validsubplans)
+{
+    Bitmapset *partset;
+    int i;
+
+    // Guard against stack overflow in deep partition hierarchies
+    check_stack_depth();
+
+    // Determine which partitions to include based on pruning context
+    if (initial_prune && pprune->initial_pruning_steps) {
+        // Use initial pruning steps when parameters not yet available
+        partset = get_matching_partitions(&pprune->initial_context,
+                                          pprune->initial_pruning_steps);
+    } else if (!initial_prune && pprune->exec_pruning_steps) {
+        // Use runtime pruning steps when all parameters available
+        partset = get_matching_partitions(&pprune->exec_context,
+                                          pprune->exec_pruning_steps);
+    } else {
+        // No pruning steps available, include all present partitions
+        partset = pprune->present_parts;
+    }
+
+    // Process each partition in the result set
+    i = -1;
+    while ((i = bms_next_member(partset, i)) >= 0) {
+        if (pprune->subplan_map[i] >= 0) {
+            // Direct mapping to subplan - add to result set
+            *validsubplans = bms_add_member(*validsubplans,
+                                            pprune->subplan_map[i]);
+        } else {
+            // This partition has sub-partitions
+            int partidx = pprune->subpart_map[i];
+
+            if (partidx >= 0) {
+                // Recursively process sub-partitions
+                find_matching_subplans_recurse(prunedata,
+                                               &prunedata->partrelprunedata[partidx],
+                                               initial_prune, validsubplans);
+            }
+            // If partidx < 0, planner already pruned all sub-partitions
+            // Silently ignore this case
+        }
+    }
+}
+```

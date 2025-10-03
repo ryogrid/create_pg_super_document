@@ -40,3 +40,23 @@ The function uses index_get_partition() to search for an existing index on the p
 - The function uses ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE to indicate the precondition violation
 - This validation helps maintain the integrity of the partitioned index hierarchy
 - The function is called before any actual attachment operations to prevent partial state changes
+
+## Simplified Source
+```c
+static void refuseDupeIndexAttach(Relation parentIdx, Relation partIdx, Relation partitionTbl) {
+    Oid existingIdx;
+
+    // Check if partition already has an index attached to this parent
+    existingIdx = index_get_partition(partitionTbl, RelationGetRelid(parentIdx));
+
+    if (OidIsValid(existingIdx)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("cannot attach index \"%s\" as a partition of index \"%s\"",
+                        RelationGetRelationName(partIdx),
+                        RelationGetRelationName(parentIdx)),
+                 errdetail("Another index is already attached for partition \"%s\".",
+                          RelationGetRelationName(partitionTbl))));
+    }
+}
+```

@@ -45,3 +45,74 @@ The lock replay ensures that the tuple's visibility and locking state are correc
 - **Transaction Consistency**: Properly sets xmax to the locking transaction and cmax for command ordering within transactions
 - **Error Handling**: Includes PANIC-level validation to ensure tuple consistency during recovery
 - **Metadata Focus**: Unlike update operations, this function only modifies tuple header metadata, not the tuple data itself
+
+## Simplified Source
+
+```c
+static void
+heap_xlog_lock(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    xl_heap_lock *xlrec = (xl_heap_lock *) XLogRecGetData(record);
+    Buffer buffer;
+    Page page;
+    OffsetNumber offnum;
+    ItemId lp;
+    HeapTupleHeader htup;
+
+    // Clear visibility map if frozen status is affected
+    if (xlrec->flags & XLH_LOCK_ALL_FROZEN_CLEARED) {
+        RelFileLocator rlocator;
+        Buffer vmbuffer = InvalidBuffer;
+        BlockNumber block;
+        Relation reln;
+
+        XLogRecGetBlockTag(record, 0, &rlocator, NULL, &block);
+        reln = CreateFakeRelcacheEntry(rlocator);
+
+        visibilitymap_pin(reln, block, &vmbuffer);
+        visibilitymap_clear(reln, block, vmbuffer, VISIBILITYMAP_ALL_FROZEN);
+
+        ReleaseBuffer(vmbuffer);
+        FreeFakeRelcacheEntry(reln);
+    }
+
+    if (XLogReadBufferForRedo(record, 0, &buffer) == BLK_NEEDS_REDO) {
+        page = BufferGetPage(buffer);
+        offnum = xlrec->offnum;
+
+        // Validate tuple location
+        if (PageGetMaxOffsetNumber(page) >= offnum)
+            lp = PageGetItemId(page, offnum);
+
+        if (PageGetMaxOffsetNumber(page) < offnum || !ItemIdIsNormal(lp))
+            elog(PANIC, "invalid lp");
+
+        htup = (HeapTupleHeader) PageGetItem(page, lp);
+
+        // Update tuple header for lock
+        htup->t_infomask &= ~(HEAP_XMAX_BITS | HEAP_MOVED);
+        htup->t_infomask2 &= ~HEAP_KEYS_UPDATED;
+        fix_infomask_from_infobits(xlrec->infobits_set,
+                                 &htup->t_infomask, &htup->t_infomask2);
+
+        // Handle lock-only operations
+        if (HEAP_XMAX_IS_LOCKED_ONLY(htup->t_infomask)) {
+            HeapTupleHeaderClearHotUpdated(htup);
+            // Make sure t_ctid points to self for lock-only
+            ItemPointerSet(&htup->t_ctid,
+                          BufferGetBlockNumber(buffer),
+                          offnum);
+        }
+
+        HeapTupleHeaderSetXmax(htup, xlrec->xmax);
+        HeapTupleHeaderSetCmax(htup, FirstCommandId, false);
+
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buffer);
+    }
+
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+}
+```

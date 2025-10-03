@@ -30,3 +30,25 @@ This function initializes the shared memory segment used for coordinating parall
 - The plan_node_id is used as a unique key to identify this foreign scan's coordination data in shared memory
 - Part of PostgreSQL's parallel query execution framework
 - Located in src/backend/executor/nodeForeignscan.c:375-396
+
+## Simplified Source
+
+```c
+void ExecForeignScanInitializeDSM(ForeignScanState *node, ParallelContext *pcxt) {
+    FdwRoutine *fdwroutine = node->fdwroutine;
+
+    // Initialize parallel coordination if FDW supports it
+    if (fdwroutine->InitializeDSMForeignScan) {
+        int plan_node_id = node->ss.ps.plan->plan_node_id;
+
+        // Allocate shared memory for coordination
+        void *coordinate = shm_toc_allocate(pcxt->toc, node->pscan_len);
+
+        // Let FDW initialize its coordination data
+        fdwroutine->InitializeDSMForeignScan(node, pcxt, coordinate);
+
+        // Register coordination segment with plan node ID
+        shm_toc_insert(pcxt->toc, plan_node_id, coordinate);
+    }
+}
+```

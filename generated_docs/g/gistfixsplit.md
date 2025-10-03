@@ -53,3 +53,52 @@ The function ensures that the tree remains consistent and accessible even after 
 - The function only handles splits that were interrupted before downlink insertion
 - Works by collecting information about all split pages before attempting to fix the parent
 - Critical for ensuring that split pages become properly accessible through normal tree traversal after recovery
+
+## Simplified Source
+```c
+static void gistfixsplit(GISTInsertState *state, GISTSTATE *giststate) {
+    GISTInsertStack *stack = state->stack;
+    Buffer buf;
+    Page page;
+    List *splitinfo = NIL;
+
+    // Log the recovery operation
+    ereport(LOG,
+            (errmsg("fixing incomplete split in index \"%s\", block %u",
+                    RelationGetRelationName(state->r), stack->blkno)));
+
+    // Validate this is actually an incomplete split
+    Assert(GistFollowRight(stack->page));
+    Assert(OffsetNumberIsValid(stack->downlinkoffnum));
+
+    buf = stack->buffer;
+
+    // Traverse the chain of split pages and create downlinks
+    for (;;) {
+        GISTPageSplitInfo *si = palloc(sizeof(GISTPageSplitInfo));
+        IndexTuple downlink;
+
+        page = BufferGetPage(buf);
+
+        // Create downlink tuple for this page
+        downlink = gistformdownlink(state->r, buf, giststate, stack,
+                                   state->is_build);
+
+        // Add to split info list
+        si->buf = buf;
+        si->downlink = downlink;
+        splitinfo = lappend(splitinfo, si);
+
+        // Follow right link to next split page if it exists
+        if (GistFollowRight(page)) {
+            buf = ReadBuffer(state->r, GistPageGetOpaque(page)->rightlink);
+            LockBuffer(buf, GIST_EXCLUSIVE);
+        } else {
+            break;  // End of split chain
+        }
+    }
+
+    // Insert all the downlinks to complete the split
+    gistfinishsplit(state, stack, giststate, splitinfo, false);
+}
+```

@@ -41,3 +41,32 @@ The callback increments the build state's tuple counter to track the total numbe
 - Tuple compression is applied before sorting to ensure the sorted order matches the final index structure
 - The tupleIsAlive parameter is handled by the tuplesort infrastructure for MVCC compliance
 - Statistics tracking via indtuples counter provides feedback for query planner cost estimation
+
+## Simplified Source
+
+```c
+static void
+gistSortedBuildCallback(Relation index, ItemPointer tid, Datum *values,
+                       bool *isnull, bool tupleIsAlive, void *state)
+{
+    GISTBuildState *buildstate = (GISTBuildState *) state;
+    MemoryContext oldCtx;
+    Datum compressed_values[INDEX_MAX_KEYS];
+
+    // Switch to temporary context for memory management
+    oldCtx = MemoryContextSwitchTo(buildstate->giststate->tempCxt);
+
+    // Compress index key values using GiST compress functions
+    gistCompressValues(buildstate->giststate, index, values, isnull,
+                      true, compressed_values);
+
+    // Add compressed tuple to tuplesort for later sorting
+    tuplesort_putindextuplevalues(buildstate->sortstate, buildstate->indexrel,
+                                 tid, compressed_values, isnull);
+
+    // Clean up temporary memory and update statistics
+    MemoryContextSwitchTo(oldCtx);
+    MemoryContextReset(buildstate->giststate->tempCxt);
+    buildstate->indtuples += 1;
+}
+```

@@ -58,3 +58,38 @@ The function is designed to be safe for use while holding buffer locks since it 
 - If PostgreSQL ever supports EXTERNAL TOAST values in index tuples, this function would need to be revisited
 - The function preserves the tuple identifier (t_tid) from the source tuple
 - Located in src/backend/access/common/indextuple.c at lines 576-608
+
+## Simplified Source
+
+```c
+IndexTuple index_truncate_tuple(TupleDesc sourceDescriptor, IndexTuple source,
+                               int leavenatts) {
+    TupleDesc truncdesc;
+    Datum values[INDEX_MAX_KEYS];
+    bool isnull[INDEX_MAX_KEYS];
+    IndexTuple truncated;
+
+    Assert(leavenatts <= sourceDescriptor->natts);
+
+    // Easy case: no truncation needed
+    if (leavenatts == sourceDescriptor->natts)
+        return CopyIndexTuple(source);
+
+    // Create temporary descriptor with reduced attribute count
+    truncdesc = palloc(TupleDescSize(sourceDescriptor));
+    TupleDescCopy(truncdesc, sourceDescriptor);
+    truncdesc->natts = leavenatts;
+
+    // Deform original tuple and form truncated copy
+    index_deform_tuple(source, truncdesc, values, isnull);
+    truncated = index_form_tuple(truncdesc, values, isnull);
+    truncated->t_tid = source->t_tid;
+
+    Assert(IndexTupleSize(truncated) <= IndexTupleSize(source));
+
+    // Clean up temporary descriptor
+    pfree(truncdesc);
+
+    return truncated;
+}
+```

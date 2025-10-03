@@ -33,3 +33,26 @@ This function takes the global list of loaded dynamic libraries and serializes t
 - Includes Assert() calls to verify buffer bounds are not exceeded
 - Part of the parallel query infrastructure working with EstimateLibraryStateSpace and RestoreLibraryState
 - The maxsize parameter should typically be the value returned by EstimateLibraryStateSpace()
+
+## Simplified Source
+
+```c
+void SerializeLibraryState(Size maxsize, char *start_address) {
+    DynamicFileList *file_scanner;
+
+    // Copy each loaded library filename
+    for (file_scanner = file_list;
+         file_scanner != NULL;
+         file_scanner = file_scanner->next) {
+        Size len;
+
+        // Copy filename with null terminator
+        len = strlcpy(start_address, file_scanner->filename, maxsize) + 1;
+        maxsize -= len;
+        start_address += len;
+    }
+
+    // End with double null terminator
+    start_address[0] = '\0';
+}
+```

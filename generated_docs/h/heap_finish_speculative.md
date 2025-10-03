@@ -57,3 +57,62 @@ This operation is critical for UPSERT functionality where speculative insertions
 - Part of PostgreSQL's speculative insertion mechanism used in UPSERT operations
 - It is mandatory to either finish or abort every speculative insertion - leaving them uncommitted is not permitted
 - The function assumes the tuple is already validated as speculative via HeapTupleHeaderIsSpeculative assertion
+
+## Simplified Source
+
+```c
+void
+heap_finish_speculative(Relation relation, ItemPointer tid)
+{
+    Buffer buffer;
+    Page page;
+    OffsetNumber offnum;
+    ItemId lp = NULL;
+    HeapTupleHeader htup;
+
+    // Read and lock the buffer containing the speculative tuple
+    buffer = ReadBuffer(relation, ItemPointerGetBlockNumber(tid));
+    LockBuffer(buffer, BUFFER_LOCK_EXCLUSIVE);
+    page = (Page) BufferGetPage(buffer);
+
+    // Validate tuple location
+    offnum = ItemPointerGetOffsetNumber(tid);
+    if (PageGetMaxOffsetNumber(page) >= offnum)
+        lp = PageGetItemId(page, offnum);
+
+    if (PageGetMaxOffsetNumber(page) < offnum || !ItemIdIsNormal(lp))
+        elog(ERROR, "invalid lp");
+
+    htup = (HeapTupleHeader) PageGetItem(page, lp);
+
+    START_CRIT_SECTION();
+
+    // Verify this is actually a speculative tuple
+    Assert(HeapTupleHeaderIsSpeculative(htup));
+
+    MarkBufferDirty(buffer);
+
+    // Replace speculative token with self-referencing t_ctid
+    htup->t_ctid = *tid;
+
+    // WAL logging for crash recovery
+    if (RelationNeedsWAL(relation)) {
+        xl_heap_confirm xlrec;
+        XLogRecPtr recptr;
+
+        xlrec.offnum = ItemPointerGetOffsetNumber(tid);
+
+        XLogBeginInsert();
+        XLogSetRecordFlags(XLOG_INCLUDE_ORIGIN);
+        XLogRegisterData((char *) &xlrec, SizeOfHeapConfirm);
+        XLogRegisterBuffer(0, buffer, REGBUF_STANDARD);
+
+        recptr = XLogInsert(RM_HEAP_ID, XLOG_HEAP_CONFIRM);
+        PageSetLSN(page, recptr);
+    }
+
+    END_CRIT_SECTION();
+
+    UnlockReleaseBuffer(buffer);
+}
+```

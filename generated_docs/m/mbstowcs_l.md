@@ -34,3 +34,23 @@ This function provides a portable implementation of locale-specific multibyte to
 - The function handles platform differences between Windows and POSIX systems for locale-specific character conversion
 - On non-Windows platforms, the function saves and restores the current locale to ensure thread safety
 - Returns the number of wide characters written to the destination array, or (size_t)-1 on error
+
+## Simplified Source
+
+```c
+static size_t
+mbstowcs_l(wchar_t *dest, const char *src, size_t n, locale_t loc)
+{
+#ifdef WIN32
+    return _mbstowcs_l(dest, src, n, loc);
+#else
+    // Save current locale, switch to specified locale, convert, then restore
+    size_t result;
+    locale_t save_locale = uselocale(loc);
+
+    result = mbstowcs(dest, src, n);
+    uselocale(save_locale);
+    return result;
+#endif
+}
+```

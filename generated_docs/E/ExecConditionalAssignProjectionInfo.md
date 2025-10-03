@@ -48,3 +48,29 @@ This optimization is particularly valuable for scan nodes where the output often
 - Sets up result slot operations to match scan slot operations when no projection is needed
 - Ensures proper fallback to full projection setup when transformation is required
 - The varno parameter helps identify which input columns correspond to target list entries
+
+## Simplified Source
+
+```c
+void
+ExecConditionalAssignProjectionInfo(PlanState *planstate, TupleDesc inputDesc, int varno)
+{
+    // Check if target list exactly matches input descriptor
+    if (tlist_matches_tupdesc(planstate, planstate->plan->targetlist, varno, inputDesc)) {
+        // No projection needed - use input slots directly
+        planstate->ps_ProjInfo = NULL;
+        planstate->resultopsset = planstate->scanopsset;
+        planstate->resultopsfixed = planstate->scanopsfixed;
+        planstate->resultops = planstate->scanops;
+    } else {
+        // Projection required - set up result slot and projection info
+        if (!planstate->ps_ResultTupleSlot) {
+            ExecInitResultSlot(planstate, &TTSOpsVirtual);
+            planstate->resultops = &TTSOpsVirtual;
+            planstate->resultopsfixed = true;
+            planstate->resultopsset = true;
+        }
+        ExecAssignProjectionInfo(planstate, inputDesc);
+    }
+}
+```

@@ -64,3 +64,124 @@ The function includes restart logic to handle cases where bucket splits occur du
 - Critical sections protect the actual tuple insertion and metadata updates to ensure atomicity
 - Buffer management carefully distinguishes between primary bucket pages (pin retained) and overflow pages (pin released)
 - The  parameter is an optimization hint for bulk loading scenarios where tuples arrive in hash key order
+
+## Simplified Source
+
+```c
+void _hash_doinsert(Relation rel, IndexTuple itup, Relation heapRel, bool sorted) {
+    Buffer buf, bucket_buf, metabuf;
+    HashMetaPage metap, usedmetap = NULL;
+    Page metapage, page;
+    HashPageOpaque pageopaque;
+    Size itemsz;
+    bool do_expand;
+    uint32 hashkey;
+    Bucket bucket;
+    OffsetNumber itup_off;
+
+    // Get hash key from the index tuple
+    hashkey = _hash_get_indextuple_hashkey(itup);
+
+    // Calculate aligned item size
+    itemsz = MAXALIGN(IndexTupleSize(itup));
+
+restart_insert:
+    // Read metapage and check if item fits
+    metabuf = _hash_getbuf(rel, HASH_METAPAGE, HASH_NOLOCK, LH_META_PAGE);
+    metapage = BufferGetPage(metabuf);
+
+    if (itemsz > HashMaxItemSize(metapage))
+        ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                       errmsg("index row size %zu exceeds hash maximum %zu",
+                             itemsz, HashMaxItemSize(metapage))));
+
+    // Lock the target bucket page
+    buf = _hash_getbucketbuf_from_hashkey(rel, hashkey, HASH_WRITE, &usedmetap);
+    bucket_buf = buf;
+    page = BufferGetPage(buf);
+    pageopaque = HashPageGetOpaque(page);
+    bucket = pageopaque->hasho_bucket;
+
+    // Complete bucket split if in progress
+    if (H_BUCKET_BEING_SPLIT(pageopaque) && IsBufferCleanupOK(buf)) {
+        LockBuffer(buf, BUFFER_LOCK_UNLOCK);
+        _hash_finish_split(rel, metabuf, buf, bucket,
+                          usedmetap->hashm_maxbucket,
+                          usedmetap->hashm_highmask,
+                          usedmetap->hashm_lowmask);
+        _hash_dropbuf(rel, buf);
+        _hash_dropbuf(rel, metabuf);
+        goto restart_insert;
+    }
+
+    // Find space for insertion - traverse bucket chain
+    while (PageGetFreeSpace(page) < itemsz) {
+        // Try to clean dead tuples first
+        if (H_HAS_DEAD_TUPLES(pageopaque) && IsBufferCleanupOK(buf)) {
+            _hash_vacuum_one_page(rel, heapRel, metabuf, buf);
+            if (PageGetFreeSpace(page) >= itemsz)
+                break;
+        }
+
+        // Move to next page in chain or create overflow page
+        BlockNumber nextblkno = pageopaque->hasho_nextblkno;
+        if (BlockNumberIsValid(nextblkno)) {
+            // Move to existing overflow page
+            if (buf != bucket_buf)
+                _hash_relbuf(rel, buf);
+            else
+                LockBuffer(buf, BUFFER_LOCK_UNLOCK);
+            buf = _hash_getbuf(rel, nextblkno, HASH_WRITE, LH_OVERFLOW_PAGE);
+            page = BufferGetPage(buf);
+        } else {
+            // Create new overflow page
+            LockBuffer(buf, BUFFER_LOCK_UNLOCK);
+            buf = _hash_addovflpage(rel, metabuf, buf, (buf == bucket_buf));
+            page = BufferGetPage(buf);
+        }
+        pageopaque = HashPageGetOpaque(page);
+    }
+
+    // Insert tuple and update metadata
+    LockBuffer(metabuf, BUFFER_LOCK_EXCLUSIVE);
+    START_CRIT_SECTION();
+
+    // Add tuple to page
+    itup_off = _hash_pgaddtup(rel, buf, itemsz, itup, sorted);
+    MarkBufferDirty(buf);
+
+    // Update tuple count and check for expansion
+    metap = HashPageGetMeta(metapage);
+    metap->hashm_ntuples += 1;
+    do_expand = metap->hashm_ntuples >
+                (double) metap->hashm_ffactor * (metap->hashm_maxbucket + 1);
+    MarkBufferDirty(metabuf);
+
+    // WAL logging
+    if (RelationNeedsWAL(rel)) {
+        xl_hash_insert xlrec;
+        xlrec.offnum = itup_off;
+        XLogBeginInsert();
+        XLogRegisterData((char *) &xlrec, SizeOfHashInsert);
+        XLogRegisterBuffer(1, metabuf, REGBUF_STANDARD);
+        XLogRegisterBuffer(0, buf, REGBUF_STANDARD);
+        XLogRegisterBufData(0, (char *) itup, IndexTupleSize(itup));
+        XLogRecPtr recptr = XLogInsert(RM_HASH_ID, XLOG_HASH_INSERT);
+        PageSetLSN(BufferGetPage(buf), recptr);
+        PageSetLSN(BufferGetPage(metabuf), recptr);
+    }
+
+    END_CRIT_SECTION();
+
+    // Release buffers and expand table if needed
+    LockBuffer(metabuf, BUFFER_LOCK_UNLOCK);
+    _hash_relbuf(rel, buf);
+    if (buf != bucket_buf)
+        _hash_dropbuf(rel, bucket_buf);
+
+    if (do_expand)
+        _hash_expandtable(rel, metabuf);
+
+    _hash_dropbuf(rel, metabuf);
+}
+```

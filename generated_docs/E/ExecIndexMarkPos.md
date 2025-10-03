@@ -45,3 +45,35 @@ The function assumes that at least one tuple has been read before marking is att
 - Part of the broader position marking/restoration framework used in cursor operations
 - Critical for implementing MVCC-compliant query execution in concurrent environments
 - Works in conjunction with ExecIndexRestrPos to restore marked positions
+
+## Simplified Source
+
+```c
+void
+ExecIndexMarkPos(IndexScanState *node)
+{
+    EState *estate = node->ss.ps.state;
+    EPQState *epqstate = estate->es_epq_active;
+
+    // Handle EPQ recheck scenarios
+    if (epqstate != NULL)
+    {
+        Index scanrelid = ((Scan *) node->ss.ps.plan)->scanrelid;
+
+        Assert(scanrelid > 0);
+
+        // If test tuple exists for this relation, skip index marking
+        if (epqstate->relsubs_slot[scanrelid - 1] != NULL ||
+            epqstate->relsubs_rowmark[scanrelid - 1] != NULL)
+        {
+            // Verify EPQ state consistency
+            if (!epqstate->relsubs_done[scanrelid - 1])
+                elog(ERROR, "unexpected ExecIndexMarkPos call in EPQ recheck");
+            return;
+        }
+    }
+
+    // Mark the current index position
+    index_markpos(node->iss_ScanDesc);
+}
+```

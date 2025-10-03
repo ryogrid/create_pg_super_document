@@ -34,3 +34,27 @@ This function performs a space availability check for inserting a vector of inde
 
 ## Notes and Other Information
 The function name follows a negative logic pattern - it returns true when there is NO space available, which makes it convenient for use in conditional statements like "if (gistnospace(...)) then split page". The calculation includes ItemIdData overhead for each tuple, which is essential for accurate space accounting in PostgreSQL's page layout. When todelete is specified, the function accounts for the space that would be reclaimed by removing that tuple, allowing for more precise space calculations during tuple replacement operations.
+
+## Simplified Source
+
+```c
+bool
+gistnospace(Page page, IndexTuple *itvec, int len, OffsetNumber todelete, Size freespace)
+{
+    unsigned int size = freespace, deleted = 0;
+    int i;
+
+    // Calculate total space needed for all new tuples
+    for (i = 0; i < len; i++)
+        size += IndexTupleSize(itvec[i]) + sizeof(ItemIdData);
+
+    // Calculate space that would be freed by deletion
+    if (todelete != InvalidOffsetNumber) {
+        IndexTuple itup = (IndexTuple) PageGetItem(page, PageGetItemId(page, todelete));
+        deleted = IndexTupleSize(itup) + sizeof(ItemIdData);
+    }
+
+    // Return true if there's insufficient space
+    return (PageGetFreeSpace(page) + deleted < size);
+}
+```

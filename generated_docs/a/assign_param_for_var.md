@@ -37,3 +37,54 @@ The function navigates up the planner hierarchy to find the appropriate query le
 - The copied Var has its varlevelsup reset to 0 since it will be used as a parameter
 - Parameter IDs are assigned sequentially based on the length of glob->paramExecTypes
 - This is a static function within paramassign.c, indicating it's used internally for parameter assignment logic
+
+## Simplified Source
+
+```c
+static int
+assign_param_for_var(PlannerInfo *root, Var *var)
+{
+    ListCell *ppl;
+    PlannerParamItem *pitem;
+    Index levelsup;
+
+    // Navigate to the query level where this Var belongs
+    for (levelsup = var->varlevelsup; levelsup > 0; levelsup--)
+        root = root->parent_root;
+
+    // Check if we already have a parameter for this Var
+    foreach(ppl, root->plan_params)
+    {
+        pitem = (PlannerParamItem *) lfirst(ppl);
+        if (IsA(pitem->item, Var))
+        {
+            Var *existing_var = (Var *) pitem->item;
+
+            // Compare Var fields (matches _equalVar() except varlevelsup)
+            if (existing_var->varno == var->varno &&
+                existing_var->varattno == var->varattno &&
+                existing_var->vartype == var->vartype &&
+                existing_var->vartypmod == var->vartypmod &&
+                existing_var->varcollid == var->varcollid &&
+                bms_equal(existing_var->varnullingrels, var->varnullingrels))
+                return pitem->paramId;
+        }
+    }
+
+    // Create new parameter entry for this Var
+    var = copyObject(var);
+    var->varlevelsup = 0;  // Reset since it becomes a parameter
+
+    // Create and initialize new parameter item
+    pitem = makeNode(PlannerParamItem);
+    pitem->item = (Node *) var;
+    pitem->paramId = list_length(root->glob->paramExecTypes);
+
+    // Record parameter type and add to lists
+    root->glob->paramExecTypes = lappend_oid(root->glob->paramExecTypes,
+                                            var->vartype);
+    root->plan_params = lappend(root->plan_params, pitem);
+
+    return pitem->paramId;
+}
+```

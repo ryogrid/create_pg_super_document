@@ -48,3 +48,51 @@ This ensures that the resulting summary correctly represents the union of all va
 - Proper memory management is performed, freeing old values before copying new ones for pass-by-reference types
 - The function returns void since the result is stored in the first parameter
 - This operation is commutative: union(A,B) produces the same range as union(B,A), though the function updates only the first parameter
+
+## Simplified Source
+
+```c
+Datum
+brin_minmax_union(PG_FUNCTION_ARGS)
+{
+    BrinDesc   *bdesc = (BrinDesc *) PG_GETARG_POINTER(0);
+    BrinValues *col_a = (BrinValues *) PG_GETARG_POINTER(1);
+    BrinValues *col_b = (BrinValues *) PG_GETARG_POINTER(2);
+    Oid         colloid = PG_GET_COLLATION();
+    AttrNumber  attno;
+    Form_pg_attribute attr;
+    FmgrInfo   *finfo;
+    bool        needsadj;
+
+    attno = col_a->bv_attno;
+    attr = TupleDescAttr(bdesc->bd_tupdesc, attno - 1);
+
+    // Update minimum if B's min is smaller than A's min
+    finfo = minmax_get_strategy_procinfo(bdesc, attno, attr->atttypid,
+                                        BTLessStrategyNumber);
+    needsadj = FunctionCall2Coll(finfo, colloid, col_b->bv_values[0],
+                                col_a->bv_values[0]);
+    if (needsadj)
+    {
+        if (!attr->attbyval)
+            pfree(DatumGetPointer(col_a->bv_values[0]));
+        col_a->bv_values[0] = datumCopy(col_b->bv_values[0],
+                                       attr->attbyval, attr->attlen);
+    }
+
+    // Update maximum if B's max is larger than A's max
+    finfo = minmax_get_strategy_procinfo(bdesc, attno, attr->atttypid,
+                                        BTGreaterStrategyNumber);
+    needsadj = FunctionCall2Coll(finfo, colloid, col_b->bv_values[1],
+                                col_a->bv_values[1]);
+    if (needsadj)
+    {
+        if (!attr->attbyval)
+            pfree(DatumGetPointer(col_a->bv_values[1]));
+        col_a->bv_values[1] = datumCopy(col_b->bv_values[1],
+                                       attr->attbyval, attr->attlen);
+    }
+
+    PG_RETURN_VOID();
+}
+```

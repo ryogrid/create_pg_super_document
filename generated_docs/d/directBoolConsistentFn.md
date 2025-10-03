@@ -37,3 +37,26 @@ This function serves as a wrapper for calling user-defined consistent functions 
 - Passes 8 parameters to the consistent function: entry results, strategy, query, number of user entries, extra data, recheck flag pointer, query values, and query categories
 - The function assumes the user's consistent function returns a boolean value
 - Located in src/backend/access/gin/ginlogic.c:65-88
+
+## Simplified Source
+
+```c
+static bool
+directBoolConsistentFn(GinScanKey key)
+{
+    // Set recheck flag to true as safe default (forces heap-level rechecking)
+    key->recheckCurItem = true;
+
+    // Call user's consistent function with all required parameters
+    return DatumGetBool(FunctionCall8Coll(key->consistentFmgrInfo,
+                                          key->collation,
+                                          PointerGetDatum(key->entryRes),
+                                          UInt16GetDatum(key->strategy),
+                                          key->query,
+                                          UInt32GetDatum(key->nuserentries),
+                                          PointerGetDatum(key->extra_data),
+                                          PointerGetDatum(&key->recheckCurItem),
+                                          PointerGetDatum(key->queryValues),
+                                          PointerGetDatum(key->queryCategories)));
+}
+```

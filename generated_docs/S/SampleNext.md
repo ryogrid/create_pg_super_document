@@ -31,3 +31,18 @@ SampleNext serves as the core workhorse function for sample scanning operations 
 - Uses lazy initialization pattern - the sampling operation is only initialized on the first call via the  flag in the SampleScanState
 - Acts as an abstraction layer between the executor's sample scan node and the specific table sampling method implementation
 - The function's simplicity allows different sampling methods to plug into the same interface
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+SampleNext(SampleScanState *node)
+{
+    // Initialize sampling on first call
+    if (!node->begun)
+        tablesample_init(node);
+
+    // Get next tuple from sampling method
+    return tablesample_getnext(node);
+}
+```

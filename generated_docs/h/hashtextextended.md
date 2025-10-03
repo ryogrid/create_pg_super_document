@@ -39,3 +39,47 @@ The hashtextextended function is the extended variant of hashtext that accepts a
 - Uses hash_any_extended instead of hash_any to incorporate the seed parameter
 - Follows identical error handling and memory management patterns as hashtext
 - Located at src/backend/access/hash/hashfunc.c:323-382
+
+## Simplified Source
+
+```c
+Datum hashtextextended(PG_FUNCTION_ARGS) {
+    text *key = PG_GETARG_TEXT_PP(0);
+    Oid collid = PG_GET_COLLATION();
+    pg_locale_t mylocale = 0;
+    Datum result;
+
+    // Check that collation is specified
+    if (!collid)
+        ereport(ERROR, (errcode(ERRCODE_INDETERMINATE_COLLATION),
+                       errmsg("could not determine which collation to use for string hashing")));
+
+    // Get locale for non-C collations
+    if (!lc_collate_is_c(collid))
+        mylocale = pg_newlocale_from_collation(collid);
+
+    if (pg_locale_deterministic(mylocale)) {
+        // For deterministic locales, hash the text directly
+        result = hash_any_extended((unsigned char *) VARDATA_ANY(key),
+                                  VARSIZE_ANY_EXHDR(key),
+                                  PG_GETARG_INT64(1));
+    } else {
+        // For non-deterministic locales, transform text first
+        const char *keydata = VARDATA_ANY(key);
+        size_t keylen = VARSIZE_ANY_EXHDR(key);
+
+        Size bsize = pg_strnxfrm(NULL, 0, keydata, keylen, mylocale);
+        char *buf = palloc(bsize + 1);
+
+        pg_strnxfrm(buf, bsize + 1, keydata, keylen, mylocale);
+
+        // Hash the transformed string (including NUL terminator)
+        result = hash_any_extended((uint8_t *) buf, bsize + 1,
+                                  PG_GETARG_INT64(1));
+        pfree(buf);
+    }
+
+    PG_FREE_IF_COPY(key, 0);
+    return result;
+}
+```

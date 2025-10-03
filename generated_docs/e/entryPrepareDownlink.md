@@ -46,3 +46,26 @@ This function is essential for maintaining the hierarchical structure of GIN ent
 - Critical for maintaining tree balance and navigation in GIN indexes
 - The rightmost tuple from the child page serves as the high key or separator for routing searches
 - Part of the GIN index internal node maintenance ensuring proper tree structure during splits and growth
+
+## Simplified Source
+
+```c
+static void *
+entryPrepareDownlink(GinBtree btree, Buffer lbuf)
+{
+    GinBtreeEntryInsertData *insertData;
+    Page lpage = BufferGetPage(lbuf);
+    BlockNumber lblkno = BufferGetBlockNumber(lbuf);
+    IndexTuple tuple;
+
+    // Get the rightmost tuple from child page (serves as separator key)
+    tuple = getRightMostTuple(lpage);
+
+    // Create insertion data for the downlink
+    insertData = palloc(sizeof(GinBtreeEntryInsertData));
+    insertData->entry = GinFormInteriorTuple(tuple, lpage, lblkno);
+    insertData->isDelete = false;
+
+    return insertData;
+}
+```

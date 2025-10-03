@@ -44,3 +44,24 @@ This preparation is essential because constraints and generated column expressio
 - Split out as a separate function to allow reuse in both regular table and foreign table update paths
 - The tableOid setting is crucial for expressions that reference the tableoid system column
 - Part of PostgreSQL's UPDATE execution pipeline, specifically handling tuple preparation
+
+## Simplified Source
+
+```c
+static void
+ExecUpdatePrepareSlot(ResultRelInfo *resultRelInfo,
+                      TupleTableSlot *slot,
+                      EState *estate)
+{
+    Relation resultRelationDesc = resultRelInfo->ri_RelationDesc;
+
+    // Set table OID for constraints and GENERATED expressions that might reference it
+    slot->tts_tableOid = RelationGetRelid(resultRelationDesc);
+
+    // Compute stored generated columns if table has them
+    if (resultRelationDesc->rd_att->constr &&
+        resultRelationDesc->rd_att->constr->has_generated_stored) {
+        ExecComputeStoredGenerated(resultRelInfo, estate, slot, CMD_UPDATE);
+    }
+}
+```

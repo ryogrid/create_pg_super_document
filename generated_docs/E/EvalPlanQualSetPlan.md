@@ -33,3 +33,17 @@ This function is part of PostgreSQL's EPQ (Eval Plan Qual) infrastructure, which
 - The implementation suggests this could be refactored out of existence in modern PostgreSQL versions
 - The function ensures proper cleanup by calling EvalPlanQualEnd before making changes
 - Row marks are plan-dependent and must be updated together with the plan change
+
+## Simplified Source
+
+```c
+void EvalPlanQualSetPlan(EPQState *epqstate, Plan *subplan, List *auxrowmarks)
+{
+    // Shut down any active EPQ query to ensure clean state
+    EvalPlanQualEnd(epqstate);
+
+    // Update the plan pointer and dependent row marks
+    epqstate->plan = subplan;
+    epqstate->arowMarks = auxrowmarks;
+}
+```

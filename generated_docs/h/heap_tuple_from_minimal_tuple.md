@@ -51,3 +51,27 @@ The result includes a complete HeapTupleData header with system columns set to z
 - The resulting HeapTuple must be freed using `heap_freetuple()` when no longer needed
 - More expensive than working directly with MinimalTuples due to additional header overhead
 - Essential for interfacing between subsystems that use different tuple formats
+
+## Simplified Source
+
+```c
+HeapTuple heap_tuple_from_minimal_tuple(MinimalTuple mtup) {
+    HeapTuple result;
+    uint32 len = mtup->t_len + MINIMAL_TUPLE_OFFSET;
+
+    // Allocate HeapTuple struct and data in single block
+    result = (HeapTuple) palloc(HEAPTUPLESIZE + len);
+    result->t_len = len;
+
+    // Initialize system fields with defaults
+    ItemPointerSetInvalid(&(result->t_self));
+    result->t_tableOid = InvalidOid;
+    result->t_data = (HeapTupleHeader) ((char *) result + HEAPTUPLESIZE);
+
+    // Copy minimal tuple data and zero system columns
+    memcpy((char *) result->t_data + MINIMAL_TUPLE_OFFSET, mtup, mtup->t_len);
+    memset(result->t_data, 0, offsetof(HeapTupleHeaderData, t_infomask2));
+
+    return result;
+}
+```

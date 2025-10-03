@@ -46,3 +46,41 @@ The function performs several key operations:
 - The function sets xs_want_itup to true to indicate that index tuples should be returned rather than heap tuples
 - Runtime keys handling is deferred - the scan is only started immediately if runtime keys are not needed or already computed
 - The InvalidBuffer assignment to ioss_VMBuffer indicates that visibility map buffer management will be handled separately for each worker
+
+## Simplified Source
+
+```c
+void ExecIndexOnlyScanInitializeDSM(IndexOnlyScanState *node, ParallelContext *pcxt) {
+    EState *estate = node->ss.ps.state;
+
+    // Allocate shared memory for parallel index scan descriptor
+    ParallelIndexScanDesc piscan = shm_toc_allocate(pcxt->toc, node->ioss_PscanLen);
+
+    // Initialize parallel scan with relation and snapshot info
+    index_parallelscan_initialize(node->ss.ss_currentRelation,
+                                  node->ioss_RelationDesc,
+                                  estate->es_snapshot,
+                                  piscan);
+
+    // Register parallel scan descriptor in shared memory TOC
+    shm_toc_insert(pcxt->toc, node->ss.ps.plan->plan_node_id, piscan);
+
+    // Create index scan descriptor for parallel execution
+    node->ioss_ScanDesc = index_beginscan_parallel(node->ss.ss_currentRelation,
+                                                   node->ioss_RelationDesc,
+                                                   node->ioss_NumScanKeys,
+                                                   node->ioss_NumOrderByKeys,
+                                                   piscan);
+
+    // Configure for index-only scan (return index tuples)
+    node->ioss_ScanDesc->xs_want_itup = true;
+    node->ioss_VMBuffer = InvalidBuffer;
+
+    // Start scan if runtime keys are ready
+    if (node->ioss_NumRuntimeKeys == 0 || node->ioss_RuntimeKeysReady) {
+        index_rescan(node->ioss_ScanDesc,
+                     node->ioss_ScanKeys, node->ioss_NumScanKeys,
+                     node->ioss_OrderByKeys, node->ioss_NumOrderByKeys);
+    }
+}
+```

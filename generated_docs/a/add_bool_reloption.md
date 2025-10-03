@@ -36,3 +36,17 @@ This public function creates and registers a new boolean reloption in the global
 - The function follows the two-step pattern: initialize the specific type, then register globally
 - Once registered, the reloption becomes available for use in CREATE and ALTER statements
 - The function is commonly used during server startup or extension loading to register custom options
+
+## Simplified Source
+
+```c
+void add_bool_reloption(bits32 kinds, const char *name, const char *desc,
+                        bool default_val, LOCKMODE lockmode) {
+    // Create a new boolean reloption with the specified parameters
+    relopt_bool *new_option = init_bool_reloption(kinds, name, desc,
+                                                  default_val, lockmode);
+
+    // Register the option globally so it becomes available system-wide
+    add_reloption((relopt_gen *) new_option);
+}
+```

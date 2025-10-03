@@ -33,3 +33,21 @@ The function operates as a workhorse for ExecTableFuncScan, handling the low-lev
 - The function is static, indicating it's only used within the nodeTableFuncscan.c file
 - Implements a pull-based model where tuples are retrieved on demand from a pre-populated store
 - The tuplestore approach allows for potential rewind operations and multiple scans of the same result set
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+TableFuncNext(TableFuncScanState *node)
+{
+    TupleTableSlot *scanslot = node->ss.ss_ScanTupleSlot;
+
+    // First call: execute table function and store all tuples
+    if (node->tupstore == NULL)
+        tfuncFetchRows(node, node->ss.ps.ps_ExprContext);
+
+    // Get next tuple from tuplestore
+    tuplestore_gettupleslot(node->tupstore, true, false, scanslot);
+    return scanslot;
+}
+```

@@ -43,3 +43,25 @@ The function includes bounds checking to ensure the provided buffer is large eno
 - Only copies data if usedComboCids > 0, avoiding unnecessary memcpy operations
 - Throws ERROR (not a return code) if the buffer is too small, ensuring data integrity
 - Essential for maintaining transaction visibility consistency across parallel workers
+
+## Simplified Source
+
+```c
+void SerializeComboCIDState(Size maxsize, char *start_address) {
+    char *endptr;
+
+    // Store count of combo CIDs first
+    *(int *) start_address = usedComboCids;
+
+    // Check if buffer is large enough
+    endptr = start_address + sizeof(int) +
+             (sizeof(ComboCidKeyData) * usedComboCids);
+    if (endptr < start_address || endptr > start_address + maxsize)
+        elog(ERROR, "not enough space to serialize ComboCID state");
+
+    // Copy the actual cmin/cmax pairs if any exist
+    if (usedComboCids > 0)
+        memcpy(start_address + sizeof(int), comboCids,
+               sizeof(ComboCidKeyData) * usedComboCids);
+}
+```

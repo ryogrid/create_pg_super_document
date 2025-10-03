@@ -52,3 +52,58 @@ The function assumes that a cache entry has already been established via cache_l
 - Includes sophisticated error recovery for hash table element shuffling during memory reduction
 - The tuple storage uses minimal tuple format for space efficiency
 - Supports building cache entries incrementally by appending tuples one at a time
+
+## Simplified Source
+
+```c
+static bool
+cache_store_tuple(MemoizeState *mstate, TupleTableSlot *slot)
+{
+    MemoizeTuple *tuple;
+    MemoizeEntry *entry = mstate->entry;
+    MemoryContext oldcontext;
+
+    Assert(slot != NULL);
+    Assert(entry != NULL);
+
+    // Switch to table context for allocation
+    oldcontext = MemoryContextSwitchTo(mstate->tableContext);
+
+    // Create new tuple and copy data
+    tuple = (MemoizeTuple *) palloc(sizeof(MemoizeTuple));
+    tuple->mintuple = ExecCopySlotMinimalTuple(slot);
+    tuple->next = NULL;
+
+    // Update memory usage
+    mstate->mem_used += CACHE_TUPLE_BYTES(tuple);
+
+    // Add tuple to linked list
+    if (entry->tuplehead == NULL) {
+        // First tuple - set as head
+        entry->tuplehead = tuple;
+    } else {
+        // Append to tail
+        mstate->last_tuple->next = tuple;
+    }
+
+    mstate->last_tuple = tuple;
+    MemoryContextSwitchTo(oldcontext);
+
+    // Handle memory limit by evicting entries if needed
+    if (mstate->mem_used > mstate->mem_limit) {
+        MemoizeKey *key = entry->key;
+
+        if (!cache_reduce_memory(mstate, key))
+            return false;
+
+        // Hash table may have been reorganized, re-find entry if needed
+        if (entry->status != memoize_SH_IN_USE || entry->key != key) {
+            prepare_probe_slot(mstate, key);
+            mstate->entry = entry = memoize_lookup(mstate->hashtable, NULL);
+            Assert(entry != NULL);
+        }
+    }
+
+    return true;
+}
+```

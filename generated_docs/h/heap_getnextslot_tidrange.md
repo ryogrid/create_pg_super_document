@@ -42,3 +42,54 @@ The function performs TID range filtering by comparing each retrieved tuple's TI
 - Uses either pagemode or standard tuple retrieval based on the SO_ALLOW_PAGEMODE flag
 - Statistics are collected via pgstat_count_heap_getnext for performance monitoring
 - Returns false when no more tuples are available within the TID range
+
+## Simplified Source
+
+```c
+bool heap_getnextslot_tidrange(TableScanDesc sscan, ScanDirection direction,
+                              TupleTableSlot *slot) {
+    HeapScanDesc scan = (HeapScanDesc) sscan;
+    ItemPointer mintid = &sscan->rs_mintid;
+    ItemPointer maxtid = &sscan->rs_maxtid;
+
+    for (;;) {
+        // Get next tuple using appropriate scan method
+        if (sscan->rs_flags & SO_ALLOW_PAGEMODE)
+            heapgettup_pagemode(scan, direction, sscan->rs_nkeys, sscan->rs_key);
+        else
+            heapgettup(scan, direction, sscan->rs_nkeys, sscan->rs_key);
+
+        // No more tuples
+        if (scan->rs_ctup.t_data == NULL) {
+            ExecClearTuple(slot);
+            return false;
+        }
+
+        // Filter: TID too low
+        if (ItemPointerCompare(&scan->rs_ctup.t_self, mintid) < 0) {
+            ExecClearTuple(slot);
+            // Backward scan: no more valid tuples possible
+            if (ScanDirectionIsBackward(direction))
+                return false;
+            continue;
+        }
+
+        // Filter: TID too high
+        if (ItemPointerCompare(&scan->rs_ctup.t_self, maxtid) > 0) {
+            ExecClearTuple(slot);
+            // Forward scan: no more valid tuples possible
+            if (ScanDirectionIsForward(direction))
+                return false;
+            continue;
+        }
+
+        // Valid tuple found
+        break;
+    }
+
+    // Store tuple and update statistics
+    pgstat_count_heap_getnext(scan->rs_base.rs_rd);
+    ExecStoreBufferHeapTuple(&scan->rs_ctup, slot, scan->rs_cbuf);
+    return true;
+}
+```

@@ -47,3 +47,44 @@ The function leverages the assumption that mergejoin operators are strict to ena
 - Early termination optimization respects FillInner mode, ensuring all required inner tuples are processed when necessary
 - Symmetric functionality to MJEvalOuterValues but operates on right expressions (rexpr) and inner tuple context
 - Critical for merge join performance, especially in cases with many NULL values or early termination opportunities
+
+## Simplified Source
+
+```c
+static MJEvalResult
+MJEvalInnerValues(MergeJoinState *mergestate, TupleTableSlot *innerslot)
+{
+    ExprContext *econtext = mergestate->mj_InnerEContext;
+    MJEvalResult result = MJEVAL_MATCHABLE;
+    int i;
+    MemoryContext oldContext;
+
+    // Check for end of inner subplan
+    if (TupIsNull(innerslot))
+        return MJEVAL_ENDOFJOIN;
+
+    // Set up evaluation context
+    ResetExprContext(econtext);
+    oldContext = MemoryContextSwitchTo(econtext->ecxt_per_tuple_memory);
+    econtext->ecxt_innertuple = innerslot;
+
+    // Evaluate all merge clause expressions
+    for (i = 0; i < mergestate->mj_NumClauses; i++) {
+        MergeJoinClause clause = &mergestate->mj_Clauses[i];
+
+        // Evaluate right expression for this clause
+        clause->rdatum = ExecEvalExpr(clause->rexpr, econtext, &clause->risnull);
+
+        if (clause->risnull) {
+            // NULL found - check for early termination
+            if (i == 0 && !clause->ssup.ssup_nulls_first && !mergestate->mj_FillInner)
+                result = MJEVAL_ENDOFJOIN;  // Can end join early
+            else if (result == MJEVAL_MATCHABLE)
+                result = MJEVAL_NONMATCHABLE;  // This tuple can't match
+        }
+    }
+
+    MemoryContextSwitchTo(oldContext);
+    return result;
+}
+```

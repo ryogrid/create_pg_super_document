@@ -54,3 +54,53 @@ The function ensures proper page structure and tuple placement for GIN list page
 - Handles both tail pages (end of sublist) and intermediate list pages differently through rightlink and maxoff settings
 - Proper error handling ensures that failed tuple insertions are reported
 - Located in src/backend/access/gin/ginxlog.c:620-674
+
+## Simplified Source
+
+```c
+static void ginRedoInsertListPage(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    ginxlogInsertListPage *data = (ginxlogInsertListPage *) XLogRecGetData(record);
+    Buffer buffer;
+    Page page;
+
+    // Always re-initialize the page as a GIN list page
+    buffer = XLogInitBufferForRedo(record, 0);
+    page = BufferGetPage(buffer);
+
+    GinInitBuffer(buffer, GIN_LIST);
+    GinPageGetOpaque(page)->rightlink = data->rightlink;
+
+    // Configure page based on whether it's tail of sublist
+    if (data->rightlink == InvalidBlockNumber) {
+        // Tail of sublist
+        GinPageSetFullRow(page);
+        GinPageGetOpaque(page)->maxoff = 1;
+    } else {
+        // Regular list page
+        GinPageGetOpaque(page)->maxoff = 0;
+    }
+
+    // Extract and insert all tuples from WAL record
+    Size totaltupsize;
+    char *payload = XLogRecGetBlockData(record, 0, &totaltupsize);
+    IndexTuple tuples = (IndexTuple) payload;
+    OffsetNumber off = FirstOffsetNumber;
+
+    for (int i = 0; i < data->ntuples; i++) {
+        int tupsize = IndexTupleSize(tuples);
+
+        if (PageAddItem(page, (Item) tuples, tupsize, off, false, false) == InvalidOffsetNumber)
+            elog(ERROR, "failed to add item to index page");
+
+        tuples = (IndexTuple) (((char *) tuples) + tupsize);
+        off++;
+    }
+
+    // Complete WAL replay
+    PageSetLSN(page, lsn);
+    MarkBufferDirty(buffer);
+    UnlockReleaseBuffer(buffer);
+}
+```

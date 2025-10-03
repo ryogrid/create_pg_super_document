@@ -41,3 +41,24 @@ The function includes an early exit optimization: if instrumentation is not enab
 - The estimated space is registered with the shared memory table of contents (TOC)
 - Estimates exactly one key in the shared memory TOC for the aggregate instrumentation data
 - Returns early without estimation if instrumentation is disabled or no workers are configured
+
+## Simplified Source
+
+```c
+void ExecAggEstimate(AggState *node, ParallelContext *pcxt)
+{
+    Size size;
+
+    // Skip if no instrumentation enabled or no workers
+    if (!node->ss.ps.instrument || pcxt->nworkers == 0)
+        return;
+
+    // Calculate space for instrumentation data per worker
+    size = mul_size(pcxt->nworkers, sizeof(AggregateInstrumentation));
+    size = add_size(size, offsetof(SharedAggInfo, sinstrument));
+
+    // Register memory requirements with shared memory estimator
+    shm_toc_estimate_chunk(&pcxt->estimator, size);
+    shm_toc_estimate_keys(&pcxt->estimator, 1);
+}
+```

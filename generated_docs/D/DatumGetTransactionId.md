@@ -32,3 +32,13 @@ DatumGetTransactionId performs a simple type cast from a Datum to a TransactionI
 - The function assumes the input Datum actually contains a valid TransactionId value - no type checking is performed
 - Commonly used in conjunction with PG_GETARG_TRANSACTIONID macro for extracting transaction ID arguments from PostgreSQL functions
 - Essential for operations that need to work with transaction timestamps and visibility information
+
+## Simplified Source
+
+```c
+static inline TransactionId DatumGetTransactionId(Datum X) {
+    // Simple cast from generic Datum to TransactionId type
+    // No validation - assumes input contains valid transaction ID
+    return (TransactionId) X;
+}
+```

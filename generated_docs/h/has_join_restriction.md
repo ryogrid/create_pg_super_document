@@ -39,3 +39,49 @@ The function is designed to be conservative, occasionally returning true when re
 - Tests for overlap rather than containment for partial special join participation
 - More efficient than calling have_join_order_restriction() with all possible partners
 - Critical for early identification of constrained relations during join enumeration
+
+## Simplified Source
+
+```c
+static bool
+has_join_restriction(PlannerInfo *root, RelOptInfo *rel)
+{
+    ListCell *l;
+
+    // Check for lateral references
+    if (rel->lateral_relids != NULL || rel->lateral_referencers != NULL)
+        return true;
+
+    // Check PlaceHolderVars that span multiple relations
+    foreach(l, root->placeholder_list)
+    {
+        PlaceHolderInfo *phinfo = (PlaceHolderInfo *) lfirst(l);
+
+        if (bms_is_subset(rel->relids, phinfo->ph_eval_at) &&
+            !bms_equal(rel->relids, phinfo->ph_eval_at))
+            return true;
+    }
+
+    // Check special join constraints
+    foreach(l, root->join_info_list)
+    {
+        SpecialJoinInfo *sjinfo = (SpecialJoinInfo *) lfirst(l);
+
+        // Skip full joins - handled separately
+        if (sjinfo->jointype == JOIN_FULL)
+            continue;
+
+        // Skip if special join is already contained in this relation
+        if (bms_is_subset(sjinfo->min_lefthand, rel->relids) &&
+            bms_is_subset(sjinfo->min_righthand, rel->relids))
+            continue;
+
+        // Restriction exists if relation overlaps but doesn't contain the special join
+        if (bms_overlap(sjinfo->min_lefthand, rel->relids) ||
+            bms_overlap(sjinfo->min_righthand, rel->relids))
+            return true;
+    }
+
+    return false;
+}
+```

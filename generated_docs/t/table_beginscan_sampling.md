@@ -46,3 +46,29 @@ The function sets the SO_TYPE_SAMPLESCAN flag to indicate the specialized scan t
 - The allow_pagemode parameter is unique to this function and crucial for certain sampling algorithms
 - TABLESAMPLE scans are used for statistical analysis and approximate query processing
 - The flexibility in controlling scan options allows for implementation of different sampling strategies (SYSTEM, BERNOULLI, etc.)
+
+## Simplified Source
+
+```c
+static inline TableScanDesc table_beginscan_sampling(Relation rel, Snapshot snapshot,
+                                                    int nkeys, struct ScanKeyData *key,
+                                                    bool allow_strat, bool allow_sync,
+                                                    bool allow_pagemode) {
+    // Start with sample scan type flag
+    uint32 flags = SO_TYPE_SAMPLESCAN;
+
+    // Add conditional flags based on parameters
+    if (allow_strat) {
+        flags |= SO_ALLOW_STRAT;        // Allow nondefault buffer access strategies
+    }
+    if (allow_sync) {
+        flags |= SO_ALLOW_SYNC;         // Allow synchronized scanning
+    }
+    if (allow_pagemode) {
+        flags |= SO_ALLOW_PAGEMODE;     // Allow page-mode visibility checking
+    }
+
+    // Delegate to table access method with configured flags
+    return rel->rd_tableam->scan_begin(rel, snapshot, nkeys, key, NULL, flags);
+}
+```

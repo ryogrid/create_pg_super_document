@@ -34,3 +34,11 @@ This cleanup function is part of the WAL resource manager interface and is calle
 - Deleting the memory context automatically frees all memory allocated within it during recovery
 - Ensures no memory leaks from GiST WAL recovery operations
 - The `opCtx` global variable becomes invalid after this function completes
+
+## Simplified Source
+
+```c
+void gist_xlog_cleanup(void) {
+    MemoryContextDelete(opCtx);
+}
+```

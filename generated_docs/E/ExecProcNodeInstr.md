@@ -42,3 +42,19 @@ By keeping instrumentation in a separate wrapper function, PostgreSQL avoids any
 - Tuple counting uses 1.0 for valid tuples and 0.0 for null results
 - Only used when estate->es_instrument is enabled during node initialization
 - Separating instrumentation into its own wrapper avoids overhead when monitoring is disabled
+
+## Simplified Source
+```c
+static TupleTableSlot *ExecProcNodeInstr(PlanState *node) {
+    // Start performance instrumentation timing
+    InstrStartNode(node->instrument);
+
+    // Execute the actual plan node
+    TupleTableSlot *result = node->ExecProcNodeReal(node);
+
+    // Stop instrumentation and record tuple count (1 for valid tuple, 0 for null)
+    InstrStopNode(node->instrument, TupIsNull(result) ? 0.0 : 1.0);
+
+    return result;
+}
+```

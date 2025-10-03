@@ -38,3 +38,13 @@ ExecInitResultTupleSlotTL provides a complete initialization sequence for a plan
 - The 'TL' suffix indicates it uses the Target List approach for determining result structure
 - Used extensively across different types of executor nodes (joins, sorts, aggregates, etc.)
 - Located in src/backend/executor/execTuples.c:1886-1897
+
+## Simplified Source
+
+```c
+void ExecInitResultTupleSlotTL(PlanState *planstate, const TupleTableSlotOps *tts_ops) {
+    // Initialize result type from target list, then create the slot
+    ExecInitResultTypeTL(planstate);
+    ExecInitResultSlot(planstate, tts_ops);
+}
+```

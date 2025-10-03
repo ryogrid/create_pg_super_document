@@ -30,3 +30,25 @@ freeGinBtreeStack is a cleanup utility function that traverses and deallocates a
 
 ## Notes and Other Information
 The function implements a safe traversal pattern that handles the stack destruction without corrupting the linked list structure. It checks for InvalidBuffer before attempting to release buffers, ensuring robustness when dealing with partially constructed stacks or error conditions. This function is essential for preventing resource leaks in GIN operations and is called whenever a GinBtreeStack is no longer needed, regardless of whether the operation completed successfully or encountered an error.
+
+## Simplified Source
+
+```c
+void
+freeGinBtreeStack(GinBtreeStack *stack)
+{
+    // Traverse stack from leaf to root, freeing resources
+    while (stack)
+    {
+        GinBtreeStack *tmp = stack->parent;
+
+        // Release buffer if valid
+        if (stack->buffer != InvalidBuffer)
+            ReleaseBuffer(stack->buffer);
+
+        // Free current stack node
+        pfree(stack);
+        stack = tmp;
+    }
+}
+```

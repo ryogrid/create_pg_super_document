@@ -36,3 +36,17 @@ This function is commonly used in execution contexts where the executor needs to
 - The Assert(attno > 0) ensures that only positive attribute numbers are accessed, preventing access to invalid attribute positions
 - Junk attributes typically include system columns like ctid, tableoid, or intermediate values needed for query execution but not returned to the client
 - The function maintains the same return semantics as slot_getattr, returning a Datum value and setting the isNull flag appropriately
+
+## Simplified Source
+
+```c
+static inline Datum
+ExecGetJunkAttribute(TupleTableSlot *slot, AttrNumber attno, bool *isNull)
+{
+    // Ensure valid attribute number
+    Assert(attno > 0);
+
+    // Get attribute value from slot
+    return slot_getattr(slot, attno, isNull);
+}
+```

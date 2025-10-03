@@ -59,3 +59,91 @@ The function handles concurrent operations gracefully by detecting when range ma
 - Includes optimization for reusing pinned buffers across multiple calls
 - Contains corruption detection logic that reports INDEX_CORRUPTED errors for infinite loops
 - Handles concurrent desummarization by returning NULL when tuples are not found
+
+## Simplified Source
+
+```c
+BrinTuple *
+brinGetTupleForHeapBlock(BrinRevmap *revmap, BlockNumber heapBlk,
+                        Buffer *buf, OffsetNumber *off, Size *size, int mode)
+{
+    // Normalize heap block to first page in range
+    heapBlk = (heapBlk / revmap->rm_pagesPerRange) * revmap->rm_pagesPerRange;
+
+    // Get the revmap page that contains this heap block's entry
+    BlockNumber mapBlk = revmap_get_blkno(revmap, heapBlk);
+    if (mapBlk == InvalidBlockNumber) {
+        *off = InvalidOffsetNumber;
+        return NULL;  // Range not summarized
+    }
+
+    ItemPointerData previptr;
+    ItemPointerSetInvalid(&previptr);
+
+    for (;;) {
+        CHECK_FOR_INTERRUPTS();
+
+        // Read revmap page if needed
+        if (revmap->rm_currBuf == InvalidBuffer ||
+            BufferGetBlockNumber(revmap->rm_currBuf) != mapBlk) {
+            if (revmap->rm_currBuf != InvalidBuffer)
+                ReleaseBuffer(revmap->rm_currBuf);
+            revmap->rm_currBuf = ReadBuffer(revmap->rm_irel, mapBlk);
+        }
+
+        // Get TID for this heap block from revmap
+        LockBuffer(revmap->rm_currBuf, BUFFER_LOCK_SHARE);
+        RevmapContents *contents =
+            (RevmapContents *) PageGetContents(BufferGetPage(revmap->rm_currBuf));
+        ItemPointerData *iptr = contents->rm_tids +
+                               HEAPBLK_TO_REVMAP_INDEX(revmap->rm_pagesPerRange, heapBlk);
+
+        if (!ItemPointerIsValid(iptr)) {
+            LockBuffer(revmap->rm_currBuf, BUFFER_LOCK_UNLOCK);
+            return NULL;  // No tuple for this range
+        }
+
+        // Detect infinite loops (corruption)
+        if (ItemPointerIsValid(&previptr) && ItemPointerEquals(&previptr, iptr))
+            ereport(ERROR, (errcode(ERRCODE_INDEX_CORRUPTED),
+                           errmsg_internal("corrupted BRIN index: inconsistent range map")));
+        previptr = *iptr;
+
+        // Extract block and offset from TID
+        BlockNumber blk = ItemPointerGetBlockNumber(iptr);
+        *off = ItemPointerGetOffsetNumber(iptr);
+        LockBuffer(revmap->rm_currBuf, BUFFER_LOCK_UNLOCK);
+
+        // Read the actual BRIN tuple page
+        if (!BufferIsValid(*buf) || BufferGetBlockNumber(*buf) != blk) {
+            if (BufferIsValid(*buf))
+                ReleaseBuffer(*buf);
+            *buf = ReadBuffer(revmap->rm_irel, blk);
+        }
+
+        LockBuffer(*buf, mode);
+        Page page = BufferGetPage(*buf);
+
+        // Validate and extract tuple
+        if (BRIN_IS_REGULAR_PAGE(page)) {
+            if (*off > PageGetMaxOffsetNumber(page)) {
+                LockBuffer(*buf, BUFFER_LOCK_UNLOCK);
+                return NULL;  // Concurrent desummarization
+            }
+
+            ItemId lp = PageGetItemId(page, *off);
+            if (ItemIdIsUsed(lp)) {
+                BrinTuple *tup = (BrinTuple *) PageGetItem(page, lp);
+                if (tup->bt_blkno == heapBlk) {
+                    if (size)
+                        *size = ItemIdGetLength(lp);
+                    return tup;  // Found it!
+                }
+            }
+        }
+
+        // Concurrent update detected, retry
+        LockBuffer(*buf, BUFFER_LOCK_UNLOCK);
+    }
+}
+```

@@ -55,3 +55,46 @@ This function processes spilled partitions from hash aggregation by converting e
 - Each processed partition becomes a separate batch in the aggstate->hash_batches list
 - Increments hash_batches_used counter to track active batch count
 - Part of PostgreSQL's disk-based hash aggregation strategy for handling large datasets
+
+## Simplified Source
+
+```c
+static void
+hashagg_spill_finish(AggState *aggstate, HashAggSpill *spill, int setno)
+{
+    int used_bits = 32 - spill->shift;
+
+    // Early return if no partitions were spilled
+    if (spill->npartitions == 0)
+        return;
+
+    // Process each spilled partition
+    for (int i = 0; i < spill->npartitions; i++)
+    {
+        LogicalTape *tape = spill->partitions[i];
+
+        // Skip empty partitions
+        if (spill->ntuples[i] == 0)
+            continue;
+
+        // Estimate cardinality and clean up HyperLogLog
+        double cardinality = estimateHyperLogLog(&spill->hll_card[i]);
+        freeHyperLogLog(&spill->hll_card[i]);
+
+        // Prepare tape for reading
+        LogicalTapeRewindForRead(tape, HASHAGG_READ_BUFFER_SIZE);
+
+        // Create new batch and add to processing queue
+        HashAggBatch *new_batch = hashagg_batch_new(tape, setno,
+                                                   spill->ntuples[i],
+                                                   cardinality, used_bits);
+        aggstate->hash_batches = lappend(aggstate->hash_batches, new_batch);
+        aggstate->hash_batches_used++;
+    }
+
+    // Clean up spill structure
+    pfree(spill->ntuples);
+    pfree(spill->hll_card);
+    pfree(spill->partitions);
+}
+```

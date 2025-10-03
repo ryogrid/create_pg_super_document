@@ -47,3 +47,53 @@ The search algorithm:
 - Used primarily for international date/time formatting in PostgreSQL
 - Returns -1 and sets *len to 0 when no match is found or input is empty
 - The collation parameter allows for proper handling of different linguistic rules
+
+## Simplified Source
+
+```c
+static int seq_search_localized(const char *name, char **array, int *len, Oid collid) {
+    *len = 0;
+
+    // Empty string can't match anything
+    if (!*name)
+        return -1;
+
+    // First pass: try exact match for performance
+    for (char **current_item = array; *current_item != NULL; current_item++) {
+        int element_length = strlen(*current_item);
+        if (strncmp(name, *current_item, element_length) == 0) {
+            *len = element_length;
+            return current_item - array;
+        }
+    }
+
+    // No exact match found, proceed with case-insensitive search
+    // Apply double case-folding to input name (upper then lower for reliability)
+    char *upper_name = str_toupper(unconstify(char *, name), strlen(name), collid);
+    char *lower_name = str_tolower(upper_name, strlen(upper_name), collid);
+    pfree(upper_name);
+
+    // Search through array with case-insensitive comparison
+    for (char **current_item = array; *current_item != NULL; current_item++) {
+        // Apply same double case-folding to array element
+        char *upper_element = str_toupper(*current_item, strlen(*current_item), collid);
+        char *lower_element = str_tolower(upper_element, strlen(upper_element), collid);
+        pfree(upper_element);
+
+        int element_length = strlen(lower_element);
+
+        // Compare case-folded strings
+        if (strncmp(lower_name, lower_element, element_length) == 0) {
+            *len = element_length;
+            pfree(lower_element);
+            pfree(lower_name);
+            return current_item - array;
+        }
+
+        pfree(lower_element);
+    }
+
+    pfree(lower_name);
+    return -1; // No match found
+}
+```

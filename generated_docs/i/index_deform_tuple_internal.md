@@ -57,3 +57,62 @@ Key optimizations include:
 - Once a null attribute or problematic alignment is encountered, the function switches to "slow" mode and stops caching offsets
 - Used by both regular index tuple deformation and specialized access methods like SP-GiST
 - The flexible interface allows it to work with different tuple header layouts and external null bitmap arrangements
+
+## Simplified Source
+
+```c
+void index_deform_tuple_internal(TupleDesc tupleDescriptor, Datum *values, bool *isnull,
+                                char *tp, bits8 *bp, int hasnulls) {
+    int natts = tupleDescriptor->natts;
+    int attnum;
+    int off = 0;          // Current offset in tuple data
+    bool slow = false;    // Whether we can use cached offsets
+
+    Assert(natts <= INDEX_MAX_KEYS);
+
+    // Process each attribute
+    for (attnum = 0; attnum < natts; attnum++) {
+        Form_pg_attribute thisatt = TupleDescAttr(tupleDescriptor, attnum);
+
+        // Handle null values
+        if (hasnulls && att_isnull(attnum, bp)) {
+            values[attnum] = (Datum) 0;
+            isnull[attnum] = true;
+            slow = true;  // Can't cache offsets anymore
+            continue;
+        }
+
+        isnull[attnum] = false;
+
+        // Use cached offset if available and we're still in fast mode
+        if (!slow && thisatt->attcacheoff >= 0) {
+            off = thisatt->attcacheoff;
+        }
+        // Handle variable-length attributes with special alignment
+        else if (thisatt->attlen == -1) {
+            if (!slow && off == att_align_nominal(off, thisatt->attalign))
+                thisatt->attcacheoff = off;
+            else {
+                off = att_align_pointer(off, thisatt->attalign, -1, tp + off);
+                slow = true;
+            }
+        }
+        // Handle fixed-length attributes
+        else {
+            off = att_align_nominal(off, thisatt->attalign);
+            if (!slow)
+                thisatt->attcacheoff = off;
+        }
+
+        // Extract the attribute value
+        values[attnum] = fetchatt(thisatt, tp + off);
+
+        // Move to next attribute position
+        off = att_addlength_pointer(off, thisatt->attlen, tp + off);
+
+        // Variable-length attributes disable caching
+        if (thisatt->attlen <= 0)
+            slow = true;
+    }
+}
+```

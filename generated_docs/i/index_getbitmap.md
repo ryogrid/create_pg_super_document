@@ -38,3 +38,27 @@ The function delegates the actual work to the access method's specific `amgetbit
 - The function includes statistics collection via `pgstat_count_index_tuples` to track index usage
 - Only safe with MVCC snapshots due to lack of interlock between index scan and heap access
 - Essential component of PostgreSQL's bitmap scan execution strategy for efficient multi-index queries
+
+## Simplified Source
+
+```c
+int64 index_getbitmap(IndexScanDesc scan, TIDBitmap *bitmap)
+{
+    int64 ntids;
+
+    // Ensure scan is valid and has amgetbitmap procedure
+    SCAN_CHECKS;
+    CHECK_SCAN_PROCEDURE(amgetbitmap);
+
+    // Disable tuple killing for bitmap scans
+    scan->kill_prior_tuple = false;
+
+    // Delegate to access method's bitmap collection procedure
+    ntids = scan->indexRelation->rd_indam->amgetbitmap(scan, bitmap);
+
+    // Update statistics
+    pgstat_count_index_tuples(scan->indexRelation, ntids);
+
+    return ntids;
+}
+```

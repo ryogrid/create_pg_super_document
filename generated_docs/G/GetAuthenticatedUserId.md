@@ -39,3 +39,15 @@ The function includes an assertion to ensure that the AuthenticatedUserId has be
 - The function is part of PostgreSQL's three-tier user identity system (authenticated, session, and current user)
 - Unlike SessionUserId or current user ID, this value cannot be changed by SQL commands
 - Critical for maintaining security context in scenarios involving role switching or privilege escalation
+
+## Simplified Source
+
+```c
+Oid GetAuthenticatedUserId(void) {
+    // Verify the authenticated user ID is valid
+    Assert(OidIsValid(AuthenticatedUserId));
+
+    // Return the immutable authenticated user ID
+    return AuthenticatedUserId;
+}
+```

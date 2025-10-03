@@ -46,3 +46,59 @@ This logic handles dump/reload scenarios and prevents creation of incomplete ope
 - The dependency choices made here can affect dump/reload behavior, but pg_dump's existing logic preserves most dependency relationships correctly.
 - Cross-type operators that were incorrectly bound tightly to an opclass will be "silently fixed" to use soft family dependencies.
 - Located in src/backend/access/hash/hashvalidate.c:352-439.
+
+## Simplified Source
+
+```c
+void hashadjustmembers(Oid opfamilyoid, Oid opclassoid,
+                      List *operators, List *functions) {
+    Oid opcintype;
+    ListCell *lc;
+
+    // Get opclass input type if opclass is provided
+    if (OidIsValid(opclassoid)) {
+        CommandCounterIncrement();  // Ensure visibility during CREATE OPERATOR CLASS
+        opcintype = get_opclass_input_type(opclassoid);
+    } else {
+        opcintype = InvalidOid;
+    }
+
+    // Process all operators and functions together
+    foreach(lc, list_concat_copy(operators, functions)) {
+        OpFamilyMember *op = (OpFamilyMember *) lfirst(lc);
+
+        if (op->is_func && op->number != HASHSTANDARD_PROC) {
+            // Optional support functions: always soft family dependency
+            op->ref_is_hard = false;
+            op->ref_is_family = true;
+            op->refobjid = opfamilyoid;
+        }
+        else if (op->lefttype != op->righttype) {
+            // Cross-type operators: always soft family dependency
+            op->ref_is_hard = false;
+            op->ref_is_family = true;
+            op->refobjid = opfamilyoid;
+        }
+        else {
+            // Same-type operators: try to bind to opclass, fallback to family
+            if (op->lefttype != opcintype) {
+                opcintype = op->lefttype;
+                opclassoid = opclass_for_family_datatype(HASH_AM_OID,
+                                                        opfamilyoid, opcintype);
+            }
+
+            if (OidIsValid(opclassoid)) {
+                // Hard dependency on opclass
+                op->ref_is_hard = true;
+                op->ref_is_family = false;
+                op->refobjid = opclassoid;
+            } else {
+                // Fallback: soft dependency on family
+                op->ref_is_hard = false;
+                op->ref_is_family = true;
+                op->refobjid = opfamilyoid;
+            }
+        }
+    }
+}
+```

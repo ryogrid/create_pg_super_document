@@ -41,3 +41,51 @@ The search algorithm:
 - Used primarily in PostgreSQL's date/time formatting functionality
 - Returns -1 and sets *len to 0 when no match is found or when input name is empty
 - The matched length can be shorter than the full input string if a shorter array element matches
+
+## Simplified Source
+
+```c
+static int seq_search_ascii(const char *name, const char *const *array, int *len) {
+    *len = 0;
+
+    // Empty string can't match anything
+    if (!*name)
+        return -1;
+
+    // Convert first character to lowercase for comparison optimization
+    unsigned char first_char_lower = pg_ascii_tolower((unsigned char) *name);
+
+    // Search through each string in the array
+    for (const char *const *current_array_item = array; *current_array_item != NULL; current_array_item++) {
+        // Quick check: compare first characters (case-insensitive)
+        if (pg_ascii_tolower((unsigned char) **current_array_item) != first_char_lower)
+            continue;
+
+        // First chars match, now compare the rest character by character
+        const char *array_ptr = *current_array_item + 1;
+        const char *name_ptr = name + 1;
+
+        while (true) {
+            // Found complete match of array entry
+            if (*array_ptr == '\0') {
+                *len = name_ptr - name;
+                return current_array_item - array;
+            }
+
+            // Input string ended before array entry - no match
+            if (*name_ptr == '\0')
+                break;
+
+            // Characters don't match - try next array entry
+            if (pg_ascii_tolower((unsigned char) *array_ptr) !=
+                pg_ascii_tolower((unsigned char) *name_ptr))
+                break;
+
+            array_ptr++;
+            name_ptr++;
+        }
+    }
+
+    return -1; // No match found
+}
+```

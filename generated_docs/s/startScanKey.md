@@ -45,3 +45,75 @@ For exclude-only scan keys, all entries are placed in the additional set since n
 - Implements an interruptible loop to handle cases with many scan keys
 - Critical for GIN index performance optimization, especially for complex boolean queries
 - The required/additional partitioning directly impacts scan efficiency by enabling selective item skipping
+
+## Simplified Source
+
+```c
+static void startScanKey(GinState *ginstate, GinScanOpaque so, GinScanKey key)
+{
+    MemoryContext oldCtx = CurrentMemoryContext;
+    int i, j;
+    int *entryIndexes;
+
+    // Initialize scan key state
+    ItemPointerSetMin(&key->curItem);
+    key->curItemMatches = false;
+    key->recheckCurItem = false;
+    key->isFinished = false;
+
+    if (key->excludeOnly) {
+        // Exclude-only keys: all entries are additional
+        MemoryContextSwitchTo(so->keyCtx);
+        key->nrequired = 0;
+        key->nadditional = key->nentries;
+        key->additionalEntries = palloc(key->nadditional * sizeof(GinScanEntry));
+        for (i = 0; i < key->nadditional; i++)
+            key->additionalEntries[i] = key->scanEntry[i];
+    } else if (key->nentries > 1) {
+        // Multiple entries: partition into required and additional sets
+        MemoryContextSwitchTo(so->tempCtx);
+
+        // Sort entries by frequency (least frequent first)
+        entryIndexes = (int *) palloc(sizeof(int) * key->nentries);
+        for (i = 0; i < key->nentries; i++)
+            entryIndexes[i] = i;
+        qsort_arg(entryIndexes, key->nentries, sizeof(int),
+                  entryIndexByFrequencyCmp, key);
+
+        // Find minimum required set using triConsistentFn
+        for (i = 1; i < key->nentries; i++)
+            key->entryRes[entryIndexes[i]] = GIN_MAYBE;
+
+        for (i = 0; i < key->nentries - 1; i++) {
+            key->entryRes[entryIndexes[i]] = GIN_FALSE;
+            if (key->triConsistentFn(key) == GIN_FALSE)
+                break;
+            CHECK_FOR_INTERRUPTS();
+        }
+
+        // Set up required and additional entry arrays
+        MemoryContextSwitchTo(so->keyCtx);
+        key->nrequired = i + 1;
+        key->nadditional = key->nentries - key->nrequired;
+        key->requiredEntries = palloc(key->nrequired * sizeof(GinScanEntry));
+        key->additionalEntries = palloc(key->nadditional * sizeof(GinScanEntry));
+
+        j = 0;
+        for (i = 0; i < key->nrequired; i++)
+            key->requiredEntries[i] = key->scanEntry[entryIndexes[j++]];
+        for (i = 0; i < key->nadditional; i++)
+            key->additionalEntries[i] = key->scanEntry[entryIndexes[j++]];
+
+        MemoryContextReset(so->tempCtx);
+    } else {
+        // Single entry: it's required
+        MemoryContextSwitchTo(so->keyCtx);
+        key->nrequired = 1;
+        key->nadditional = 0;
+        key->requiredEntries = palloc(1 * sizeof(GinScanEntry));
+        key->requiredEntries[0] = key->scanEntry[0];
+    }
+
+    MemoryContextSwitchTo(oldCtx);
+}
+```

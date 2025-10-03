@@ -40,3 +40,22 @@ The function includes a debug check at the end using `dlist_check` to verify lis
 - The function performs integrity checking in debug builds via `dlist_check`
 - This operation maintains the total number of nodes in the list - it's purely a repositioning operation
 - Complementary to `dlist_move_head` for complete list reorganization capabilities
+
+## Simplified Source
+
+```c
+static inline void
+dlist_move_tail(dlist_head *head, dlist_node *node)
+{
+    // Fast path: if already at tail, do nothing
+    if (head->head.prev == node)
+        return;
+
+    // Remove from current position and add to tail
+    dlist_delete(node);
+    dlist_push_tail(head, node);
+
+    // Debug integrity check
+    dlist_check(head);
+}
+```

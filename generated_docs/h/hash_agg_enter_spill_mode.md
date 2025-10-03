@@ -39,7 +39,44 @@ The function ensures that hash aggregation can continue processing even when mem
 
 ## Notes and Other Information
 - Once spill mode is activated, no new groups can be created in any hash table during the current phase
-- The function includes assertion checks to ensure clean state during first-time spill initialization  
+- The function includes assertion checks to ensure clean state during first-time spill initialization
 - Spill structures are initialized for each hash table (setno) with appropriate parameters for group estimation and entry sizing
 - This is a one-way transition - once entered, spill mode remains active for the current aggregation phase
 - Critical for PostgreSQL's ability to handle large aggregation operations that exceed available memory
+
+## Simplified Source
+
+```c
+static void
+hash_agg_enter_spill_mode(AggState *aggstate)
+{
+    // Activate spill mode - no more new groups in hash tables
+    aggstate->hash_spill_mode = true;
+    hashagg_recompile_expressions(aggstate, aggstate->table_filled, true);
+
+    // Initialize spill infrastructure on first use
+    if (!aggstate->hash_ever_spilled)
+    {
+        aggstate->hash_ever_spilled = true;
+
+        // Create tape set for disk storage
+        aggstate->hash_tapeset = LogicalTapeSetCreate(true, NULL, -1);
+
+        // Allocate spill structures for each hash table
+        aggstate->hash_spills = palloc(sizeof(HashAggSpill) * aggstate->num_hashes);
+
+        // Initialize each spill context
+        for (int setno = 0; setno < aggstate->num_hashes; setno++)
+        {
+            AggStatePerHash perhash = &aggstate->perhash[setno];
+            HashAggSpill *spill = &aggstate->hash_spills[setno];
+
+            hashagg_spill_init(spill, aggstate->hash_tapeset, 0,
+                             perhash->aggnode->numGroups,
+                             aggstate->hashentrysize);
+        }
+    }
+}
+```
+
+This simplified version shows the two-phase spill mode activation: first enabling spill mode and recompiling expressions, then initializing the disk-based spill infrastructure on first use.

@@ -36,3 +36,31 @@ ginStepRight implements a critical page navigation operation in GIN B-trees that
 
 ## Notes and Other Information
 The lock-coupling strategy is essential for maintaining consistency in concurrent environments, particularly when VACUUM is running. Although strictly necessary only in certain scenarios, the function applies this technique universally for simplicity and safety. The page type validation at the end prevents corruption from being undetected, ensuring that index structure invariants are maintained even in edge cases. This function is fundamental to GIN B-tree traversal and is used extensively throughout the GIN access method implementation.
+
+## Simplified Source
+
+```c
+Buffer
+ginStepRight(Buffer buffer, Relation index, int lockmode)
+{
+    Buffer nextbuffer;
+    Page page = BufferGetPage(buffer);
+
+    // Store page type info for validation
+    bool isLeaf = GinPageIsLeaf(page);
+    bool isData = GinPageIsData(page);
+    BlockNumber blkno = GinPageGetOpaque(page)->rightlink;
+
+    // Lock-coupling: lock next page before releasing current
+    nextbuffer = ReadBuffer(index, blkno);
+    LockBuffer(nextbuffer, lockmode);
+    UnlockReleaseBuffer(buffer);
+
+    // Validate that sibling page has same type
+    page = BufferGetPage(nextbuffer);
+    if (isLeaf != GinPageIsLeaf(page) || isData != GinPageIsData(page))
+        elog(ERROR, "right sibling of GIN page is of different type");
+
+    return nextbuffer;
+}
+```

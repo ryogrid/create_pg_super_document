@@ -44,3 +44,41 @@ This function extends the hash index file to accommodate a new splitpoint's wort
 - Executed while holding metapage lock, which may cause some performance concerns
 - Could potentially use LockRelationForExtension for better concurrency
 - Infrequent operation, so performance impact is generally acceptable
+
+## Simplified Source
+
+```c
+static bool _hash_alloc_buckets(Relation rel, BlockNumber firstblock, uint32 nblocks)
+{
+    BlockNumber lastblock = firstblock + nblocks - 1;
+    PGIOAlignedBlock zerobuf;
+    Page page;
+    HashPageOpaque ovflopaque;
+
+    // Check for overflow in block number calculation
+    if (lastblock < firstblock || lastblock == InvalidBlockNumber)
+        return false;
+
+    page = (Page) zerobuf.data;
+
+    // Initialize the page with proper hash structure
+    _hash_pageinit(page, BLCKSZ);
+
+    ovflopaque = HashPageGetOpaque(page);
+    ovflopaque->hasho_prevblkno = InvalidBlockNumber;
+    ovflopaque->hasho_nextblkno = InvalidBlockNumber;
+    ovflopaque->hasho_bucket = InvalidBucket;
+    ovflopaque->hasho_flag = LH_UNUSED_PAGE;
+    ovflopaque->hasho_page_id = HASHO_PAGE_ID;
+
+    // WAL log the page if needed
+    if (RelationNeedsWAL(rel))
+        log_newpage(&rel->rd_locator, MAIN_FORKNUM, lastblock, zerobuf.data, true);
+
+    // Write the last page, letting filesystem handle the "hole"
+    PageSetChecksumInplace(page, lastblock);
+    smgrextend(RelationGetSmgr(rel), MAIN_FORKNUM, lastblock, zerobuf.data, false);
+
+    return true;
+}
+```

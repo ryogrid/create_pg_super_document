@@ -58,3 +58,58 @@ The function uses a binary heap as the core data structure to efficiently mainta
 - Runtime partition pruning allows dynamic determination of which subplans to execute
 - The function includes CHECK_FOR_INTERRUPTS() to allow query cancellation during long-running operations
 - Returns tuples directly from subplan slots without copying, making it memory efficient
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecMergeAppend(PlanState *pstate)
+{
+    MergeAppendState *node = castNode(MergeAppendState, pstate);
+    TupleTableSlot *result;
+    SlotNumber i;
+
+    CHECK_FOR_INTERRUPTS();
+
+    if (!node->ms_initialized) {
+        // Nothing to do if all subplans were pruned
+        if (node->ms_nplans == 0)
+            return ExecClearTuple(node->ps.ps_ResultTupleSlot);
+
+        // Determine valid subplans (runtime pruning)
+        if (node->ms_valid_subplans == NULL)
+            node->ms_valid_subplans =
+                ExecFindMatchingSubPlans(node->ms_prune_state, false);
+
+        // Pull first tuple from each valid subplan and build heap
+        i = -1;
+        while ((i = bms_next_member(node->ms_valid_subplans, i)) >= 0) {
+            node->ms_slots[i] = ExecProcNode(node->mergeplans[i]);
+            if (!TupIsNull(node->ms_slots[i]))
+                binaryheap_add_unordered(node->ms_heap, Int32GetDatum(i));
+        }
+        binaryheap_build(node->ms_heap);
+        node->ms_initialized = true;
+    }
+    else {
+        // Get next tuple from subplan that provided the last result
+        i = DatumGetInt32(binaryheap_first(node->ms_heap));
+        node->ms_slots[i] = ExecProcNode(node->mergeplans[i]);
+
+        if (!TupIsNull(node->ms_slots[i]))
+            binaryheap_replace_first(node->ms_heap, Int32GetDatum(i));
+        else
+            binaryheap_remove_first(node->ms_heap);
+    }
+
+    // Return the tuple from the top of the heap
+    if (binaryheap_empty(node->ms_heap)) {
+        result = ExecClearTuple(node->ps.ps_ResultTupleSlot);
+    } else {
+        i = DatumGetInt32(binaryheap_first(node->ms_heap));
+        result = node->ms_slots[i];
+    }
+
+    return result;
+}
+```

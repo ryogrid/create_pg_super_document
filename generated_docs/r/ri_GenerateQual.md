@@ -50,3 +50,19 @@ The function delegates the actual operator clause generation to , which handles 
 - The caller is responsible for ensuring that complex operands (expressions) are properly parenthesized
 - The function handles the complexity of PostgreSQL's type system by ensuring proper operator resolution through the  function
 - Essential for building WHERE clauses in referential integrity triggers that must work correctly across different data types and operator families
+
+## Simplified Source
+
+```c
+static void ri_GenerateQual(StringInfo buf,
+                           const char *sep,
+                           const char *leftop, Oid leftoptype,
+                           Oid opoid,
+                           const char *rightop, Oid rightoptype) {
+    // Add separator (AND/OR) to the buffer
+    appendStringInfo(buf, " %s ", sep);
+
+    // Generate properly qualified operator clause with type casts
+    generate_operator_clause(buf, leftop, leftoptype, opoid, rightop, rightoptype);
+}
+```

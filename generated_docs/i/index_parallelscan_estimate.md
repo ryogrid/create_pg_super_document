@@ -42,3 +42,28 @@ The calculation includes the base parallel scan descriptor, estimated snapshot s
 - The estimated size is used by the parallel query coordinator to allocate shared memory segments
 - Located in src/backend/access/index/indexam.c:453-489
 - Part of PostgreSQL's parallel query execution framework introduced for performance improvements
+
+## Simplified Source
+
+```c
+Size index_parallelscan_estimate(Relation indexRelation, int nkeys, int norderbys, Snapshot snapshot) {
+    Size nbytes;
+
+    // Validate inputs
+    Assert(snapshot != InvalidSnapshot);
+    RELATION_CHECKS;
+
+    // Calculate base size: descriptor + snapshot data
+    nbytes = offsetof(ParallelIndexScanDescData, ps_snapshot_data);
+    nbytes = add_size(nbytes, EstimateSnapshotSpace(snapshot));
+    nbytes = MAXALIGN(nbytes);
+
+    // Add AM-specific parallel scan data if supported
+    if (indexRelation->rd_indam->amestimateparallelscan != NULL) {
+        nbytes = add_size(nbytes,
+                         indexRelation->rd_indam->amestimateparallelscan(nkeys, norderbys));
+    }
+
+    return nbytes;
+}
+```

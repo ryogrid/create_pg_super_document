@@ -31,3 +31,14 @@ This function is part of the standard scan interface and must be provided even t
 - Required by the scan node interface but performs no actual validation
 - Part of PostgreSQL's EvalPlanQual infrastructure for handling concurrent tuple modifications
 - The function parameters are present for interface compliance but are not used in the implementation
+
+## Simplified Source
+
+```c
+static bool
+ValuesRecheck(ValuesScanState *node, TupleTableSlot *slot)
+{
+    // VALUES data is synthetic - no rechecking needed
+    return true;
+}
+```

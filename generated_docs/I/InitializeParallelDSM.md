@@ -49,3 +49,85 @@ Key responsibilities include setting up error queues for each worker, serializin
 - Automatically reduces worker count to zero in edge cases rather than failing outright
 - Memory allocation is done in TopTransactionContext to ensure proper cleanup
 - The function is designed to be robust against various failure modes in shared memory allocation
+
+## Simplified Source
+
+```c
+void InitializeParallelDSM(ParallelContext *pcxt)
+{
+    MemoryContext oldcontext;
+    Size segsize = 0;
+    FixedParallelState *fps;
+    dsm_handle session_dsm_handle = DSM_HANDLE_INVALID;
+    Snapshot transaction_snapshot = GetTransactionSnapshot();
+    Snapshot active_snapshot = GetActiveSnapshot();
+
+    // Switch to transaction context for proper cleanup
+    oldcontext = MemoryContextSwitchTo(TopTransactionContext);
+
+    // Estimate space for fixed parallel state
+    shm_toc_estimate_chunk(&pcxt->estimator, sizeof(FixedParallelState));
+    shm_toc_estimate_keys(&pcxt->estimator, 1);
+
+    // Safety check: can't launch workers if interrupts are disabled
+    if (!INTERRUPTS_CAN_BE_PROCESSED())
+        pcxt->nworkers = 0;
+
+    // Setup per-session DSM if workers requested
+    if (pcxt->nworkers > 0)
+    {
+        session_dsm_handle = GetSessionDsmHandle();
+        if (session_dsm_handle == DSM_HANDLE_INVALID)
+            pcxt->nworkers = 0;  // Can't exchange tuples without session DSM
+    }
+
+    // Estimate space for worker state if we have workers
+    if (pcxt->nworkers > 0)
+    {
+        // Estimate space for various state types
+        estimate_and_account_for_state_space(pcxt);
+
+        // Account for error queues and entrypoint info
+        shm_toc_estimate_chunk(&pcxt->estimator,
+                              pcxt->nworkers * PARALLEL_ERROR_QUEUE_SIZE);
+        shm_toc_estimate_chunk(&pcxt->estimator,
+                              strlen(pcxt->library_name) + strlen(pcxt->function_name) + 2);
+        shm_toc_estimate_keys(&pcxt->estimator, 2);
+    }
+
+    // Create DSM segment or fall back to private memory
+    segsize = shm_toc_estimate(&pcxt->estimator);
+    if (pcxt->nworkers > 0)
+        pcxt->seg = dsm_create(segsize, DSM_CREATE_NULL_IF_MAXSEGMENTS);
+
+    if (pcxt->seg != NULL)
+        pcxt->toc = shm_toc_create(PARALLEL_MAGIC, dsm_segment_address(pcxt->seg), segsize);
+    else
+    {
+        // Fall back to private memory, no workers
+        pcxt->nworkers = 0;
+        pcxt->private_memory = MemoryContextAlloc(TopMemoryContext, segsize);
+        pcxt->toc = shm_toc_create(PARALLEL_MAGIC, pcxt->private_memory, segsize);
+    }
+
+    // Initialize fixed parallel state
+    fps = (FixedParallelState *) shm_toc_allocate(pcxt->toc, sizeof(FixedParallelState));
+    setup_fixed_parallel_state(fps);
+    shm_toc_insert(pcxt->toc, PARALLEL_KEY_FIXED, fps);
+
+    // Serialize all worker state if we have workers
+    if (pcxt->nworkers > 0)
+    {
+        serialize_worker_state(pcxt, session_dsm_handle,
+                              transaction_snapshot, active_snapshot);
+        setup_error_queues(pcxt);
+        setup_entrypoint_info(pcxt);
+    }
+
+    // Update final worker count
+    pcxt->nworkers_to_launch = pcxt->nworkers;
+
+    // Restore memory context
+    MemoryContextSwitchTo(oldcontext);
+}
+```

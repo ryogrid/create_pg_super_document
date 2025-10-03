@@ -33,3 +33,24 @@ ExecInitResultSlot is a convenience function that sets up the result tuple slot 
 - The function sets internal flags (resultopsfixed, resultopsset) to track the state of result operations
 - The result slot is allocated from the execution state's tuple table (es_tupleTable)
 - Located in src/backend/executor/execTuples.c:1866-1885
+
+## Simplified Source
+
+```c
+void
+ExecInitResultSlot(PlanState *planstate, const TupleTableSlotOps *tts_ops)
+{
+    // Allocate a new tuple slot from the tuple table
+    TupleTableSlot *slot = ExecAllocTableSlot(&planstate->state->es_tupleTable,
+                                             planstate->ps_ResultTupleDesc,
+                                             tts_ops);
+
+    // Assign the slot to the plan state
+    planstate->ps_ResultTupleSlot = slot;
+
+    // Set operation flags for result slot management
+    planstate->resultopsfixed = (planstate->ps_ResultTupleDesc != NULL);
+    planstate->resultops = tts_ops;
+    planstate->resultopsset = true;
+}
+```

@@ -51,3 +51,34 @@ The conversion process involves breaking down the timestamp into its constituent
 - Located in 
 - The conversion uses Julian day calculations to maintain date accuracy
 - Used primarily in SQL contexts where implicit or explicit conversion from timestamp to date is needed
+
+## Simplified Source
+
+```c
+Datum
+timestamp_date(PG_FUNCTION_ARGS)
+{
+    Timestamp timestamp = PG_GETARG_TIMESTAMP(0);
+    DateADT result;
+    struct pg_tm time_components;
+    fsec_t fractional_seconds;
+
+    // Handle special infinite values
+    if (TIMESTAMP_IS_NOBEGIN(timestamp))
+        DATE_NOBEGIN(result);
+    else if (TIMESTAMP_IS_NOEND(timestamp))
+        DATE_NOEND(result);
+    else
+    {
+        // Convert timestamp to time components
+        if (timestamp2tm(timestamp, NULL, &time_components, &fractional_seconds, NULL, NULL) != 0)
+            ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                           errmsg("timestamp out of range")));
+
+        // Convert date components to Julian day number, then to PostgreSQL date
+        result = date2j(time_components.tm_year, time_components.tm_mon, time_components.tm_mday) - POSTGRES_EPOCH_JDATE;
+    }
+
+    PG_RETURN_DATEADT(result);
+}
+```

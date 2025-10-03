@@ -74,3 +74,146 @@ The function implements WAL logging for all modifications, ensuring crash recove
 - Implements comprehensive WAL logging for crash recovery consistency
 - Attempts bucket squeezing at the end if cleanup lock is available and deletions occurred
 - Uses vacuum_delay_point() to allow vacuum throttling during long operations
+
+## Simplified Source
+
+```c
+void hashbucketcleanup(Relation rel, Bucket cur_bucket, Buffer bucket_buf,
+                      BlockNumber bucket_blkno, BufferAccessStrategy bstrategy,
+                      uint32 maxbucket, uint32 highmask, uint32 lowmask,
+                      double *tuples_removed, double *num_index_tuples,
+                      bool split_cleanup,
+                      IndexBulkDeleteCallback callback, void *callback_state) {
+    BlockNumber blkno = bucket_blkno;
+    Buffer buf = bucket_buf;
+    Bucket new_bucket = InvalidBucket;
+    bool bucket_dirty = false;
+
+    // Determine new bucket for split cleanup
+    if (split_cleanup)
+        new_bucket = _hash_get_newbucket_from_oldbucket(rel, cur_bucket, lowmask, maxbucket);
+
+    // Scan each page in the bucket chain
+    for (;;) {
+        HashPageOpaque opaque;
+        OffsetNumber maxoffno;
+        Page page = BufferGetPage(buf);
+        OffsetNumber deletable[MaxOffsetNumber];
+        int ndeletable = 0;
+        bool retain_pin, clear_dead_marking = false;
+
+        vacuum_delay_point();
+
+        opaque = HashPageGetOpaque(page);
+        maxoffno = PageGetMaxOffsetNumber(page);
+
+        // Scan each tuple and mark for deletion if needed
+        for (OffsetNumber offno = FirstOffsetNumber; offno <= maxoffno; offno++) {
+            IndexTuple itup = (IndexTuple) PageGetItem(page, PageGetItemId(page, offno));
+            ItemPointer htup = &(itup->t_tid);
+            bool kill_tuple = false;
+
+            // Check if tuple should be deleted via callback
+            if (callback && callback(htup, callback_state)) {
+                kill_tuple = true;
+                if (tuples_removed) *tuples_removed += 1;
+            }
+            // Check if tuple was moved by split and should be cleaned up
+            else if (split_cleanup) {
+                Bucket bucket = _hash_hashkey2bucket(_hash_get_indextuple_hashkey(itup),
+                                                   maxbucket, highmask, lowmask);
+                if (bucket != cur_bucket) {
+                    Assert(bucket == new_bucket);
+                    kill_tuple = true;
+                }
+            }
+
+            if (kill_tuple)
+                deletable[ndeletable++] = offno;
+            else if (num_index_tuples)
+                *num_index_tuples += 1;
+        }
+
+        retain_pin = (blkno == bucket_blkno);
+        blkno = opaque->hasho_nextblkno;
+
+        // Apply deletions and WAL logging
+        if (ndeletable > 0) {
+            START_CRIT_SECTION();
+
+            PageIndexMultiDelete(page, deletable, ndeletable);
+            bucket_dirty = true;
+
+            // Clear dead tuple marking if needed
+            if (tuples_removed && *tuples_removed > 0 && H_HAS_DEAD_TUPLES(opaque)) {
+                opaque->hasho_flag &= ~LH_PAGE_HAS_DEAD_TUPLES;
+                clear_dead_marking = true;
+            }
+
+            MarkBufferDirty(buf);
+
+            // WAL logging for deletions
+            if (RelationNeedsWAL(rel)) {
+                xl_hash_delete xlrec;
+                xlrec.clear_dead_marking = clear_dead_marking;
+                xlrec.is_primary_bucket_page = (buf == bucket_buf);
+
+                XLogBeginInsert();
+                XLogRegisterData((char *) &xlrec, SizeOfHashDelete);
+
+                if (!xlrec.is_primary_bucket_page) {
+                    uint8 flags = REGBUF_STANDARD | REGBUF_NO_IMAGE | REGBUF_NO_CHANGE;
+                    XLogRegisterBuffer(0, bucket_buf, flags);
+                }
+
+                XLogRegisterBuffer(1, buf, REGBUF_STANDARD);
+                XLogRegisterBufData(1, (char *) deletable, ndeletable * sizeof(OffsetNumber));
+                XLogInsert(RM_HASH_ID, XLOG_HASH_DELETE);
+            }
+
+            END_CRIT_SECTION();
+        }
+
+        // Move to next page if exists
+        if (!BlockNumberIsValid(blkno)) break;
+
+        Buffer next_buf = _hash_getbuf_with_strategy(rel, blkno, HASH_WRITE,
+                                                    LH_OVERFLOW_PAGE, bstrategy);
+        if (retain_pin)
+            LockBuffer(buf, BUFFER_LOCK_UNLOCK);
+        else
+            _hash_relbuf(rel, buf);
+
+        buf = next_buf;
+    }
+
+    // Clean up and finalize
+    if (buf != bucket_buf) {
+        _hash_relbuf(rel, buf);
+        LockBuffer(bucket_buf, BUFFER_LOCK_EXCLUSIVE);
+    }
+
+    // Clear split cleanup flag
+    if (split_cleanup) {
+        Page page = BufferGetPage(bucket_buf);
+        HashPageOpaque bucket_opaque = HashPageGetOpaque(page);
+
+        START_CRIT_SECTION();
+        bucket_opaque->hasho_flag &= ~LH_BUCKET_NEEDS_SPLIT_CLEANUP;
+        MarkBufferDirty(bucket_buf);
+
+        if (RelationNeedsWAL(rel)) {
+            XLogBeginInsert();
+            XLogRegisterBuffer(0, bucket_buf, REGBUF_STANDARD);
+            XLogInsert(RM_HASH_ID, XLOG_HASH_SPLIT_CLEANUP);
+        }
+        END_CRIT_SECTION();
+    }
+
+    // Try to squeeze bucket if deletions occurred
+    if (bucket_dirty && IsBufferCleanupOK(bucket_buf))
+        _hash_squeezebucket(rel, cur_bucket, bucket_blkno, bucket_buf, bstrategy);
+    else
+        LockBuffer(bucket_buf, BUFFER_LOCK_UNLOCK);
+}
+```

@@ -54,3 +54,47 @@ The shared state includes batch information, space management, synchronization b
 - Sets up atomic distributor for work distribution among parallel processes
 - Essential for enabling parallel hash join execution in PostgreSQL's parallel query framework
 - The shared file set enables coordination of temporary files across parallel processes
+
+## Simplified Source
+
+```c
+void ExecHashJoinInitializeDSM(HashJoinState *state, ParallelContext *pcxt) {
+    int plan_node_id = state->js.ps.plan->plan_node_id;
+
+    // Disable shared hash table if no real DSM segment
+    if (pcxt->seg == NULL)
+        return;
+
+    // Switch to parallel hash join execution
+    ExecSetExecProcNode(&state->js.ps, ExecParallelHashJoin);
+
+    // Allocate and register shared state in DSM
+    ParallelHashJoinState *pstate = shm_toc_allocate(pcxt->toc, sizeof(ParallelHashJoinState));
+    shm_toc_insert(pcxt->toc, plan_node_id, pstate);
+
+    // Initialize shared state with default values
+    pstate->nbatch = 0;
+    pstate->space_allowed = 0;
+    pstate->batches = InvalidDsaPointer;
+    pstate->old_batches = InvalidDsaPointer;
+    pstate->nbuckets = 0;
+    pstate->growth = PHJ_GROWTH_OK;
+    pstate->chunk_work_queue = InvalidDsaPointer;
+    pstate->total_tuples = 0;
+    pstate->nparticipants = pcxt->nworkers + 1;  // Workers + leader
+
+    // Initialize synchronization primitives
+    pg_atomic_init_u32(&pstate->distributor, 0);
+    LWLockInitialize(&pstate->lock, LWTRANCHE_PARALLEL_HASH_JOIN);
+    BarrierInit(&pstate->build_barrier, 0);
+    BarrierInit(&pstate->grow_batches_barrier, 0);
+    BarrierInit(&pstate->grow_buckets_barrier, 0);
+
+    // Set up shared temporary file coordination
+    SharedFileSetInit(&pstate->fileset, pcxt->seg);
+
+    // Link shared state to inner hash node
+    HashState *hashNode = (HashState *) innerPlanState(state);
+    hashNode->parallel_state = pstate;
+}
+```

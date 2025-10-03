@@ -40,3 +40,46 @@ Unlike the original Arge et al. paper which suggests stopping after processing 1
 - Handles buffer splits during the emptying process gracefully by continuing to empty the left half
 - Resets memory context after each tuple processing to prevent memory leaks during the build process
 - Critical component of the buffering algorithm that ensures buffers don't overflow and maintains build efficiency
+
+## Simplified Source
+
+```c
+static void
+gistProcessEmptyingQueue(GISTBuildState *buildstate)
+{
+    GISTBuildBuffers *gfbb = buildstate->gfbb;
+
+    // Process all buffers in the emptying queue
+    while (gfbb->bufferEmptyingQueue != NIL)
+    {
+        // Get next buffer to empty
+        GISTNodeBuffer *emptyingNodeBuffer = (GISTNodeBuffer *) linitial(gfbb->bufferEmptyingQueue);
+        gfbb->bufferEmptyingQueue = list_delete_first(gfbb->bufferEmptyingQueue);
+        emptyingNodeBuffer->queuedForEmptying = false;
+
+        // Unload any previously loaded buffers to make room
+        gistUnloadNodeBuffers(gfbb);
+
+        // Empty this buffer until it's done or a lower buffer fills up
+        while (true)
+        {
+            IndexTuple itup;
+
+            // Get next tuple from buffer
+            if (!gistPopItupFromNodeBuffer(gfbb, emptyingNodeBuffer, &itup))
+                break;
+
+            // Process tuple down the tree
+            if (gistProcessItup(buildstate, itup, emptyingNodeBuffer->nodeBlocknum,
+                                emptyingNodeBuffer->level))
+            {
+                // Lower level buffer filled up - stop emptying this buffer
+                break;
+            }
+
+            // Clean up memory after processing each tuple
+            MemoryContextReset(buildstate->giststate->tempCxt);
+        }
+    }
+}
+```

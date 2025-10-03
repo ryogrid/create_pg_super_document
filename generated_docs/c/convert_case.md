@@ -49,3 +49,65 @@ The function processes the source string character by character, converting each
 - Returns the total length of the converted result, even if the destination buffer was insufficient
 - Performs assertions to ensure titlecase parameters are properly provided when needed
 - The function gracefully handles buffer overflow by continuing to calculate the correct result length while only writing what fits in the destination buffer
+
+## Simplified Source
+
+```c
+static size_t
+convert_case(char *dst, size_t dstsize, const char *src, ssize_t srclen,
+             CaseKind str_casekind, WordBoundaryNext wbnext, void *wbstate)
+{
+    CaseKind chr_casekind = str_casekind;
+    size_t srcoff = 0;
+    size_t result_len = 0;
+    size_t boundary = 0;
+
+    // Initialize word boundary for titlecase
+    if (str_casekind == CaseTitle) {
+        boundary = wbnext(wbstate);
+    }
+
+    // Process each character in the source string
+    while ((srclen < 0 || srcoff < srclen) && src[srcoff] != '\0') {
+        pg_wchar u1 = utf8_to_unicode((unsigned char *) src + srcoff);
+        int u1len = unicode_utf8len(u1);
+        const pg_case_map *casemap = find_case_map(u1);
+
+        // Update case kind for titlecase at word boundaries
+        if (str_casekind == CaseTitle) {
+            if (srcoff == boundary) {
+                chr_casekind = CaseUpper;
+                boundary = wbnext(wbstate);
+            } else {
+                chr_casekind = CaseLower;
+            }
+        }
+
+        // Perform case conversion
+        if (casemap) {
+            pg_wchar u2 = casemap->simplemap[chr_casekind];
+            pg_wchar u2len = unicode_utf8len(u2);
+
+            // Write converted character if space available
+            if (result_len + u2len <= dstsize)
+                unicode_to_utf8(u2, (unsigned char *) dst + result_len);
+
+            result_len += u2len;
+        } else {
+            // No mapping available, copy original character
+            if (result_len + u1len <= dstsize)
+                memcpy(dst + result_len, src + srcoff, u1len);
+
+            result_len += u1len;
+        }
+
+        srcoff += u1len;
+    }
+
+    // Null-terminate if space available
+    if (result_len < dstsize)
+        dst[result_len] = '\0';
+
+    return result_len;
+}
+```

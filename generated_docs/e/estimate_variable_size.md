@@ -45,3 +45,64 @@ For each GUC type, it calculates:
 - Source file information is included only when a source file is specified
 - All string values include space for null terminators
 - Uses add_size() function for safe size arithmetic to prevent overflow
+
+## Simplified Source
+
+```c
+static Size estimate_variable_size(struct config_generic *gconf) {
+    Size size;
+    Size valsize = 0;
+
+    // Skip variables that don't need serialization
+    if (can_skip_gucvar(gconf))
+        return 0;
+
+    // Start with name length + null terminator
+    size = strlen(gconf->name) + 1;
+
+    // Calculate maximum value size based on type
+    switch (gconf->vartype) {
+        case PGC_BOOL:
+            valsize = 5;  // max(strlen('true'), strlen('false'))
+            break;
+        case PGC_INT:
+            {
+                struct config_int *conf = (struct config_int *) gconf;
+                // Use optimized size for small values, max for larger ones
+                valsize = abs(*conf->variable) < 1000 ? 4 : 11;
+            }
+            break;
+        case PGC_REAL:
+            // Scientific notation: sign + digit + decimal + precision + exponent
+            valsize = 1 + 1 + 1 + REALTYPE_PRECISION + 5;
+            break;
+        case PGC_STRING:
+            {
+                struct config_string *conf = (struct config_string *) gconf;
+                valsize = *conf->variable ? strlen(*conf->variable) : 0;
+            }
+            break;
+        case PGC_ENUM:
+            {
+                struct config_enum *conf = (struct config_enum *) gconf;
+                valsize = strlen(config_enum_lookup_by_value(conf, *conf->variable));
+            }
+            break;
+    }
+
+    // Add space for value + terminator + source file + terminator
+    size = add_size(size, valsize + 1);
+    if (gconf->sourcefile)
+        size = add_size(size, strlen(gconf->sourcefile));
+    size = add_size(size, 1);
+
+    // Add metadata sizes
+    if (gconf->sourcefile && gconf->sourcefile[0])
+        size = add_size(size, sizeof(gconf->sourceline));
+    size = add_size(size, sizeof(gconf->source));
+    size = add_size(size, sizeof(gconf->scontext));
+    size = add_size(size, sizeof(gconf->srole));
+
+    return size;
+}
+```

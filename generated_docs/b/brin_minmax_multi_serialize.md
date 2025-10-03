@@ -40,3 +40,20 @@ The function includes an assertion to ensure that all ranges are properly sorted
 - Critical for batch mode operations where multiple values are accumulated before being written to storage
 - The compaction step optimizes storage by reducing the number of stored ranges to the configured maximum
 - Part of the BRIN minmax multi-column infrastructure for efficient range-based indexing
+
+## Simplified Source
+
+```c
+static void
+brin_minmax_multi_serialize(BrinDesc *bdesc, Datum src, Datum *dst)
+{
+    Ranges *ranges = (Ranges *) DatumGetPointer(src);
+
+    // Compress ranges to target maximum values (for batch mode)
+    compactify_ranges(bdesc, ranges, ranges->target_maxvalues);
+
+    // Convert to serialized format for storage
+    SerializedRanges *s = brin_range_serialize(ranges);
+    dst[0] = PointerGetDatum(s);
+}
+```

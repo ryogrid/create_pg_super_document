@@ -47,3 +47,18 @@ This approach ensures that the scan slot is properly configured to handle tuples
 - Located in src/backend/executor/execUtils.c:659-683
 - Widely used across various executor node types that operate on child plan outputs
 - The tuple slot operations parameter allows for different slot implementations (heap, minimal, virtual, etc.)
+
+## Simplified Source
+
+```c
+void ExecCreateScanSlotFromOuterPlan(EState *estate,
+                                   ScanState *scanstate,
+                                   const TupleTableSlotOps *tts_ops) {
+    // Get outer plan and its result tuple descriptor
+    PlanState *outerPlan = outerPlanState(scanstate);
+    TupleDesc tupDesc = ExecGetResultType(outerPlan);
+
+    // Initialize scan slot to match outer plan's output format
+    ExecInitScanTupleSlot(estate, scanstate, tupDesc, tts_ops);
+}
+```

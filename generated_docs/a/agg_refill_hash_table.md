@@ -68,3 +68,118 @@ agg_refill_hash_table is a critical function for handling memory overflow in has
 - Uses hash values stored with spilled tuples to avoid recomputing hash codes
 - Critical for PostgreSQL's ability to handle hash aggregation larger than available memory
 - The batch processing order (LIFO) helps with memory locality and efficient processing
+
+## Simplified Source
+
+```c
+static bool
+agg_refill_hash_table(AggState *aggstate)
+{
+    HashAggBatch *batch;
+    AggStatePerHash perhash;
+    HashAggSpill spill;
+    bool spill_initialized = false;
+
+    // Return false if no more batches to process
+    if (aggstate->hash_batches == NIL)
+        return false;
+
+    // Pop the next batch from the stack
+    batch = llast(aggstate->hash_batches);
+    aggstate->hash_batches = list_delete_last(aggstate->hash_batches);
+
+    // Set memory limits for this batch
+    hash_agg_set_limits(aggstate->hashentrysize, batch->input_card,
+                        batch->used_bits, &aggstate->hash_mem_limit,
+                        &aggstate->hash_ngroups_limit, NULL);
+
+    // Clear hash tables and reset state
+    MemSet(aggstate->hash_pergroup, 0,
+           sizeof(AggStatePerGroup) * aggstate->num_hashes);
+
+    ReScanExprContext(aggstate->hashcontext);
+    for (int setno = 0; setno < aggstate->num_hashes; setno++)
+        ResetTupleHashTable(aggstate->perhash[setno].hashtable);
+
+    aggstate->hash_ngroups_current = 0;
+
+    // Switch to phase 1 for AGG_MIXED mode
+    if (aggstate->phase->aggstrategy == AGG_MIXED) {
+        aggstate->current_phase = 1;
+        aggstate->phase = &aggstate->phases[aggstate->current_phase];
+    }
+
+    select_current_set(aggstate, batch->setno, true);
+    perhash = &aggstate->perhash[aggstate->current_set];
+
+    // Recompile expressions for MinimalTuple format
+    hashagg_recompile_expressions(aggstate, true, true);
+
+    // Process all tuples in the batch
+    for (;;) {
+        TupleTableSlot *spillslot = aggstate->hash_spill_rslot;
+        TupleTableSlot *hashslot = perhash->hashslot;
+        TupleHashEntry entry;
+        MinimalTuple tuple;
+        uint32 hash;
+        bool isnew = false;
+
+        // Read next tuple from batch
+        tuple = hashagg_batch_read(batch, &hash);
+        if (tuple == NULL)
+            break;
+
+        // Store tuple and prepare for hash lookup
+        ExecStoreMinimalTuple(tuple, spillslot, true);
+        aggstate->tmpcontext->ecxt_outertuple = spillslot;
+        prepare_hash_slot(perhash, spillslot, hashslot);
+
+        entry = LookupTupleHashEntryHash(perhash->hashtable, hashslot,
+                                         &isnew, hash);
+
+        if (entry != NULL) {
+            // Successfully added to hash table
+            if (isnew)
+                initialize_hash_entry(aggstate, perhash->hashtable, entry);
+            aggstate->hash_pergroup[batch->setno] = entry->additional;
+            advance_aggregates(aggstate);
+        } else {
+            // Hash table full, need to spill again
+            if (!spill_initialized) {
+                spill_initialized = true;
+                hashagg_spill_init(&spill, aggstate->hash_tapeset,
+                                   batch->used_bits, batch->input_card,
+                                   aggstate->hashentrysize);
+            }
+            hashagg_spill_tuple(aggstate, &spill, spillslot, hash);
+            aggstate->hash_pergroup[batch->setno] = NULL;
+        }
+
+        ResetExprContext(aggstate->tmpcontext);
+    }
+
+    LogicalTapeClose(batch->input_tape);
+
+    // Switch back to phase 0
+    aggstate->current_phase = 0;
+    aggstate->phase = &aggstate->phases[aggstate->current_phase];
+
+    // Finalize any new spills
+    if (spill_initialized) {
+        hashagg_spill_finish(aggstate, &spill, batch->setno);
+        hash_agg_update_metrics(aggstate, true, spill.npartitions);
+    } else {
+        hash_agg_update_metrics(aggstate, true, 0);
+    }
+
+    aggstate->hash_spill_mode = false;
+
+    // Prepare hash table for retrieval
+    select_current_set(aggstate, batch->setno, true);
+    ResetTupleHashIterator(aggstate->perhash[batch->setno].hashtable,
+                           &aggstate->perhash[batch->setno].hashiter);
+
+    pfree(batch);
+    return true;
+}
+```

@@ -40,3 +40,22 @@ The page buffer is designed to hold multiple index tuples until it becomes full,
 - The prev field is set to InvalidBlockNumber to indicate this is a new, unlinked page
 - Free space calculation accounts for page header overhead via BUFFER_PAGE_DATA_OFFSET
 - Memory is allocated in the build context to ensure proper lifetime management during index construction
+
+## Simplified Source
+
+```c
+static GISTNodeBufferPage *
+gistAllocateNewPageBuffer(GISTBuildBuffers *gfbb)
+{
+    GISTNodeBufferPage *pageBuffer;
+
+    // Allocate and zero-initialize full block
+    pageBuffer = (GISTNodeBufferPage *) MemoryContextAllocZero(gfbb->context, BLCKSZ);
+
+    // Initialize page metadata
+    pageBuffer->prev = InvalidBlockNumber;
+    PAGE_FREE_SPACE(pageBuffer) = BLCKSZ - BUFFER_PAGE_DATA_OFFSET;
+
+    return pageBuffer;
+}
+```

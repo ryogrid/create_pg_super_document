@@ -44,3 +44,112 @@ The function validates that the cursor exists, is a SELECT query, is not a held 
 
 ## Notes and Other Information
 The function returns true if a row was successfully identified, false if the cursor is valid for the table but not currently scanning a row of that table (legal in inheritance scenarios). It raises errors for invalid cursors, non-SELECT queries, held cursors, or cursors not positioned on rows. The implementation carefully handles both indexed-only scans (where TID comes from xs_heaptid) and regular scans (where TID is extracted from the tuple's system attributes).
+
+## Simplified Source
+```c
+bool
+execCurrentOf(CurrentOfExpr *cexpr, ExprContext *econtext, Oid table_oid, ItemPointer current_tid)
+{
+    char *cursor_name;
+    Portal portal;
+    QueryDesc *queryDesc;
+
+    // Get cursor name (from direct reference or parameter)
+    if (cexpr->cursor_name)
+        cursor_name = cexpr->cursor_name;
+    else
+        cursor_name = fetch_cursor_param_value(econtext, cexpr->cursor_param);
+
+    // Find and validate the cursor
+    portal = GetPortalByName(cursor_name);
+    if (!PortalIsValid(portal))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_CURSOR),
+                errmsg("cursor \"%s\" does not exist", cursor_name)));
+
+    // Ensure cursor is a SELECT query and not held
+    if (portal->strategy != PORTAL_ONE_SELECT)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_CURSOR_STATE),
+                errmsg("cursor \"%s\" is not a SELECT query", cursor_name)));
+
+    queryDesc = portal->queryDesc;
+    if (queryDesc == NULL || queryDesc->estate == NULL)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_CURSOR_STATE),
+                errmsg("cursor \"%s\" is held from a previous transaction", cursor_name)));
+
+    // Check cursor is positioned on a row
+    if (portal->atStart || portal->atEnd)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_CURSOR_STATE),
+                errmsg("cursor \"%s\" is not positioned on a row", cursor_name)));
+
+    // Two strategies: FOR UPDATE/SHARE vs regular scans
+    if (queryDesc->estate->es_rowmarks)
+    {
+        // FOR UPDATE/SHARE strategy: find the row mark for this table
+        ExecRowMark *erm = NULL;
+        for (Index i = 0; i < queryDesc->estate->es_range_table_size; i++)
+        {
+            ExecRowMark *thiserm = queryDesc->estate->es_rowmarks[i];
+            if (thiserm && RowMarkRequiresRowShareLock(thiserm->markType) &&
+                thiserm->relid == table_oid)
+            {
+                if (erm)
+                    ereport(ERROR, (errcode(ERRCODE_INVALID_CURSOR_STATE),
+                            errmsg("cursor has multiple FOR UPDATE/SHARE references")));
+                erm = thiserm;
+            }
+        }
+
+        if (!erm)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_CURSOR_STATE),
+                    errmsg("cursor does not have FOR UPDATE/SHARE reference to table")));
+
+        // Return current TID if valid
+        if (ItemPointerIsValid(&(erm->curCtid)))
+        {
+            *current_tid = erm->curCtid;
+            return true;
+        }
+        return false;
+    }
+    else
+    {
+        // Non-FOR-UPDATE strategy: search plan tree for scan node
+        ScanState *scanstate;
+        bool pending_rescan = false;
+
+        scanstate = search_plan_tree(queryDesc->planstate, table_oid, &pending_rescan);
+        if (!scanstate)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_CURSOR_STATE),
+                    errmsg("cursor is not a simply updatable scan")));
+
+        // Check if scan is active
+        if (TupIsNull(scanstate->ss_ScanTupleSlot) || pending_rescan)
+            return false;
+
+        // Extract TID from scan state
+        if (IsA(scanstate, IndexOnlyScanState))
+        {
+            IndexScanDesc scan = ((IndexOnlyScanState *) scanstate)->ioss_ScanDesc;
+            *current_tid = scan->xs_heaptid;
+        }
+        else
+        {
+            // Get TID from tuple's system attributes
+            Datum ldatum;
+            bool lisnull;
+            ItemPointer tuple_tid;
+
+            ldatum = slot_getsysattr(scanstate->ss_ScanTupleSlot,
+                                   SelfItemPointerAttributeNumber, &lisnull);
+            if (lisnull)
+                ereport(ERROR, (errcode(ERRCODE_INVALID_CURSOR_STATE),
+                        errmsg("cursor is not a simply updatable scan")));
+
+            tuple_tid = (ItemPointer) DatumGetPointer(ldatum);
+            *current_tid = *tuple_tid;
+        }
+
+        return true;
+    }
+}
+```

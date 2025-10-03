@@ -46,3 +46,69 @@ The algorithm relies on the input being pre-sorted by the grouping columns, whic
 - Returns NULL when all input groups have been processed
 - The grp_done flag prevents further processing after completion
 - Memory management is handled through ExecQualAndReset for per-tuple contexts
+
+## Simplified Source
+
+```c
+// Simplified version of ExecGroup
+static TupleTableSlot *
+ExecGroup(PlanState *pstate)
+{
+    GroupState *node = castNode(GroupState, pstate);
+    TupleTableSlot *firsttupleslot = node->ss.ss_ScanTupleSlot;
+    TupleTableSlot *outerslot;
+    ExprContext *econtext = node->ss.ps.ps_ExprContext;
+
+    // Check if we're done processing all groups
+    if (node->grp_done)
+        return NULL;
+
+    // First time through - get initial tuple
+    if (TupIsNull(firsttupleslot))
+    {
+        outerslot = ExecProcNode(outerPlanState(node));
+        if (TupIsNull(outerslot))
+        {
+            node->grp_done = true;
+            return NULL;  // Empty input
+        }
+
+        // Store first tuple of group
+        ExecCopySlot(firsttupleslot, outerslot);
+        econtext->ecxt_outertuple = firsttupleslot;
+
+        // Apply HAVING clause and return if group qualifies
+        if (ExecQual(node->ss.ps.qual, econtext))
+            return ExecProject(node->ss.ps.ps_ProjInfo);
+    }
+
+    // Main loop: process remaining groups
+    for (;;)
+    {
+        // Skip over remaining tuples in current group
+        for (;;)
+        {
+            outerslot = ExecProcNode(outerPlanState(node));
+            if (TupIsNull(outerslot))
+            {
+                node->grp_done = true;
+                return NULL;  // No more input
+            }
+
+            // Compare with first tuple - break if different group
+            econtext->ecxt_innertuple = firsttupleslot;
+            econtext->ecxt_outertuple = outerslot;
+            if (!ExecQualAndReset(node->eqfunction, econtext))
+                break;  // Found start of new group
+        }
+
+        // Process new group's first tuple
+        ExecCopySlot(firsttupleslot, outerslot);
+        econtext->ecxt_outertuple = firsttupleslot;
+
+        // Apply HAVING clause and return if group qualifies
+        if (ExecQual(node->ss.ps.qual, econtext))
+            return ExecProject(node->ss.ps.ps_ProjInfo);
+    }
+}
+```

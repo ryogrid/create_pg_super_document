@@ -42,3 +42,17 @@ If either condition fails, the function returns 0 to prevent any new data from b
 - The function returns 0 for non-regular pages or evacuated pages to prevent data corruption
 - The evacuation flag mechanism allows for safe page cleanup without blocking concurrent operations
 - This function is critical for BRIN's space management and ensures data integrity during concurrent access
+
+## Simplified Source
+
+```c
+static Size br_page_get_freespace(Page page)
+{
+    // Return 0 for non-regular pages or pages marked for evacuation
+    if (!BRIN_IS_REGULAR_PAGE(page) ||
+        (BrinPageFlags(page) & BRIN_EVACUATE_PAGE) != 0)
+        return 0;
+    else
+        return PageGetFreeSpace(page);
+}
+```

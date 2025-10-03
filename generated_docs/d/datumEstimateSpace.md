@@ -45,3 +45,27 @@ The function is designed to work in conjunction with parallel query execution an
 - This function is part of the datum serialization infrastructure used in parallel query processing
 - The space estimate must exactly match what `datumSerialize` will actually use
 - Declared in src/include/utils/datum.h as part of the public PostgreSQL utility API
+
+## Simplified Source
+
+```c
+Size datumEstimateSpace(Datum value, bool isnull, bool typByVal, int typLen)
+{
+    Size sz = sizeof(int);  // Always need space for header
+
+    if (!isnull)
+    {
+        if (typByVal)
+            sz += sizeof(Datum);  // Fixed size for by-value types
+        else if (typLen == -1 && VARATT_IS_EXTERNAL_EXPANDED(DatumGetPointer(value)))
+        {
+            // Expanded objects need flattening - get flattened size
+            sz += EOH_get_flat_size(DatumGetEOHP(value));
+        }
+        else
+            sz += datumGetSize(value, typByVal, typLen);  // Standard size calculation
+    }
+
+    return sz;
+}
+```

@@ -59,3 +59,77 @@ Critical locking protocol: The first page in the split remains locked throughout
 - Follow-right flag handling differs based on split type and page position
 - Part of the comprehensive GiST WAL recovery system
 - Requires careful coordination with child page follow-right clearing
+
+## Simplified Source
+
+```c
+static void gistRedoPageSplitRecord(XLogReaderState *record) {
+    XLogRecPtr lsn = record->EndRecPtr;
+    gistxlogPageSplit *xldata = (gistxlogPageSplit *) XLogRecGetData(record);
+    Buffer firstbuffer = InvalidBuffer;
+    bool isrootsplit = false;
+
+    // Process all pages involved in the split
+    for (int i = 0; i < xldata->npage; i++) {
+        BlockNumber blkno;
+        Buffer buffer;
+        Page page;
+
+        XLogRecGetBlockTag(record, i + 1, NULL, NULL, &blkno);
+        if (blkno == GIST_ROOT_BLKNO) {
+            isrootsplit = true;
+        }
+
+        buffer = XLogInitBufferForRedo(record, i + 1);
+        page = (Page) BufferGetPage(buffer);
+
+        // Decode tuple data for this page
+        char *data = XLogRecGetBlockData(record, i + 1, &datalen);
+        IndexTuple *tuples = decodePageSplitRecord(data, datalen, &num);
+
+        // Initialize page with proper flags
+        int flags = (xldata->origleaf && blkno != GIST_ROOT_BLKNO) ? F_LEAF : 0;
+        GISTInitBuffer(buffer, flags);
+        gistfillbuffer(page, tuples, num, FirstOffsetNumber);
+
+        // Set up page links and metadata
+        if (blkno == GIST_ROOT_BLKNO) {
+            GistPageGetOpaque(page)->rightlink = InvalidBlockNumber;
+            GistPageSetNSN(page, xldata->orignsn);
+            GistClearFollowRight(page);
+        } else {
+            // Set right link to next page or original right link
+            if (i < xldata->npage - 1) {
+                BlockNumber nextblkno;
+                XLogRecGetBlockTag(record, i + 2, NULL, NULL, &nextblkno);
+                GistPageGetOpaque(page)->rightlink = nextblkno;
+            } else {
+                GistPageGetOpaque(page)->rightlink = xldata->origrlink;
+            }
+
+            GistPageSetNSN(page, xldata->orignsn);
+
+            // Handle follow-right flag
+            if (i < xldata->npage - 1 && !isrootsplit && xldata->markfollowright)
+                GistMarkFollowRight(page);
+            else
+                GistClearFollowRight(page);
+        }
+
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buffer);
+
+        // Keep first buffer locked until the end
+        if (i == 0)
+            firstbuffer = buffer;
+        else
+            UnlockReleaseBuffer(buffer);
+    }
+
+    // Fix follow-right data on left child page
+    if (XLogRecHasBlockRef(record, 0))
+        gistRedoClearFollowRight(record, 0);
+
+    UnlockReleaseBuffer(firstbuffer);
+}
+```

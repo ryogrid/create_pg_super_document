@@ -55,3 +55,103 @@ The optimization is based on the assumption that if we've seen many tuples with 
 - Uses debugging output macros (SO_printf, SO1_printf, SO2_printf) for tracing execution
 - Critical for achieving good performance on inputs with many tuples having identical prefix values
 - The function can handle cases where not all accumulated tuples belong to the same prefix group
+
+## Simplified Source
+
+```c
+static void switchToPresortedPrefixMode(PlanState *pstate)
+{
+    IncrementalSortState *node = castNode(IncrementalSortState, pstate);
+    IncrementalSort *plannode = castNode(IncrementalSort, node->ss.ps.plan);
+    PlanState *outerNode = outerPlanState(node);
+    TupleDesc tupDesc = ExecGetResultType(outerNode);
+
+    // Step 1: Configure prefix sort state (first time) or reset for new group
+    if (node->prefixsort_state == NULL)
+    {
+        // Create new tuplesort that only sorts on suffix columns
+        int nPresortedCols = plannode->nPresortedCols;
+        int suffixCols = plannode->sort.numCols - nPresortedCols;
+
+        node->prefixsort_state = tuplesort_begin_heap(
+            tupDesc,
+            suffixCols,                                           // Only sort remaining columns
+            &(plannode->sort.sortColIdx[nPresortedCols]),        // Start from suffix columns
+            &(plannode->sort.sortOperators[nPresortedCols]),
+            &(plannode->sort.collations[nPresortedCols]),
+            &(plannode->sort.nullsFirst[nPresortedCols]),
+            work_mem,
+            NULL,
+            node->bounded ? TUPLESORT_ALLOWBOUNDED : TUPLESORT_NONE);
+    }
+    else
+    {
+        // Reuse existing prefix sort state for next group
+        tuplesort_reset(node->prefixsort_state);
+    }
+
+    // Step 2: Set bound for bounded sorts
+    if (node->bounded)
+    {
+        tuplesort_set_bound(node->prefixsort_state, node->bound - node->bound_Done);
+    }
+
+    // Step 3: Transfer tuples from full sort to prefix sort
+    int64 nTuples = 0;
+
+    for (nTuples = 0; nTuples < node->n_fullsort_remaining; nTuples++)
+    {
+        // Handle carried-over tuple from previous group
+        if (nTuples == 0 && !TupIsNull(node->transfer_tuple))
+        {
+            tuplesort_puttupleslot(node->prefixsort_state, node->transfer_tuple);
+            ExecCopySlot(node->group_pivot, node->transfer_tuple);
+        }
+        else
+        {
+            // Get next tuple from full sort
+            tuplesort_gettupleslot(node->fullsort_state,
+                                 ScanDirectionIsForward(node->ss.ps.state->es_direction),
+                                 false, node->transfer_tuple, NULL);
+
+            // Set group pivot on first iteration
+            if (TupIsNull(node->group_pivot))
+                ExecCopySlot(node->group_pivot, node->transfer_tuple);
+
+            // Check if tuple belongs to current prefix group
+            if (isCurrentGroup(node, node->group_pivot, node->transfer_tuple))
+            {
+                tuplesort_puttupleslot(node->prefixsort_state, node->transfer_tuple);
+            }
+            else
+            {
+                // Different prefix group - stop transferring and carry over this tuple
+                ExecClearTuple(node->group_pivot);
+                break;
+            }
+        }
+    }
+
+    // Step 4: Update remaining tuple count
+    node->n_fullsort_remaining -= nTuples;
+
+    // Step 5: Determine next execution state
+    if (node->n_fullsort_remaining == 0)
+    {
+        // All tuples transferred - continue loading more from input
+        ExecCopySlot(node->group_pivot, node->transfer_tuple);
+        node->execution_status = INCSORT_LOADPREFIXSORT;
+        ExecClearTuple(node->transfer_tuple);
+    }
+    else
+    {
+        // Some tuples remain - sort current batch first
+        tuplesort_performsort(node->prefixsort_state);
+
+        if (node->bounded)
+            node->bound_Done = Min(node->bound, node->bound_Done + nTuples);
+
+        node->execution_status = INCSORT_READPREFIXSORT;
+    }
+}
+```

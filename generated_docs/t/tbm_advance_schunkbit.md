@@ -36,3 +36,26 @@ This static inline function is used during chunk iteration to efficiently locate
 - Essential for chunk-based iteration where multiple pages are represented as bits in a single chunk entry
 - Stops advancing when it finds a set bit or reaches PAGES_PER_CHUNK limit
 - Part of the core bitmap iteration mechanism for handling chunked page representations
+
+## Simplified Source
+
+```c
+static inline void tbm_advance_schunkbit(PagetableEntry *chunk, int *schunkbitp) {
+    int schunkbit = *schunkbitp;
+
+    // Find next set bit in the chunk
+    while (schunkbit < PAGES_PER_CHUNK) {
+        int wordnum = WORDNUM(schunkbit);  // Which word contains this bit
+        int bitnum = BITNUM(schunkbit);    // Which bit within the word
+
+        // Check if this bit is set
+        if ((chunk->words[wordnum] & ((bitmapword) 1 << bitnum)) != 0)
+            break;  // Found next set bit
+
+        schunkbit++;  // Try next bit
+    }
+
+    // Update the position
+    *schunkbitp = schunkbit;
+}
+```

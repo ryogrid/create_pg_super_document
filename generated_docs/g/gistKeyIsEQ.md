@@ -35,3 +35,19 @@ The function is essential for various GiST operations that need to determine if 
 - Uses FunctionCall3Coll to support collation-aware equality comparisons for text and similar data types
 - This is a lightweight wrapper that provides a consistent interface for equality testing across different column types
 - The equality function used is determined by the index operator class and stored in giststate->equalFn[attno]
+
+## Simplified Source
+
+```c
+bool gistKeyIsEQ(GISTSTATE *giststate, int attno, Datum a, Datum b) {
+    bool result = false;
+
+    // Call column-specific equality function with collation support
+    FunctionCall3Coll(&giststate->equalFn[attno],
+                     giststate->supportCollation[attno],
+                     a, b,
+                     PointerGetDatum(&result));
+
+    return result;
+}
+```

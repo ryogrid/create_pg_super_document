@@ -50,3 +50,70 @@ The function handles different set operation commands (INTERSECT, INTERSECT ALL,
 - Handles memory allocation in the hash table's memory context for proper cleanup
 - Different behavior for first vs second input relations enables proper INTERSECT semantics
 - Part of PostgreSQL's hashed strategy for set operations when input sorting is not available
+
+## Simplified Source
+
+```c
+static void
+setop_fill_hash_table(SetOpState *setopstate)
+{
+    SetOp *node = (SetOp *) setopstate->ps.plan;
+    PlanState *outerPlan;
+    int firstFlag;
+    bool in_first_rel = true;
+    ExprContext *econtext = setopstate->ps.ps_ExprContext;
+
+    // Get state info from node
+    outerPlan = outerPlanState(setopstate);
+    firstFlag = node->firstFlag;
+
+    // Process each tuple from outer plan
+    for (;;) {
+        TupleTableSlot *outerslot;
+        int flag;
+        TupleHashEntryData *entry;
+        bool isnew;
+
+        // Get next tuple
+        outerslot = ExecProcNode(outerPlan);
+        if (TupIsNull(outerslot))
+            break;
+
+        // Determine which input relation this tuple is from
+        flag = fetch_tuple_flag(setopstate, outerslot);
+
+        if (flag == firstFlag) {
+            // Processing first input relation
+            entry = LookupTupleHashEntry(setopstate->hashtable, outerslot,
+                                         &isnew, NULL);
+
+            // Initialize counts for new tuple groups
+            if (isnew) {
+                entry->additional = (SetOpStatePerGroup)
+                    MemoryContextAlloc(setopstate->hashtable->tablecxt,
+                                       sizeof(SetOpStatePerGroupData));
+                initialize_counts((SetOpStatePerGroup) entry->additional);
+            }
+
+            // Update counts for this tuple
+            advance_counts((SetOpStatePerGroup) entry->additional, flag);
+        } else {
+            // Processing second input relation
+            in_first_rel = false;
+
+            // Only update counts for existing entries (INTERSECT semantics)
+            entry = LookupTupleHashEntry(setopstate->hashtable, outerslot,
+                                         NULL, NULL);
+            if (entry)
+                advance_counts((SetOpStatePerGroup) entry->additional, flag);
+        }
+
+        // Reset expression context after each lookup
+        ResetExprContext(econtext);
+    }
+
+    // Mark table as filled and initialize iterator
+    setopstate->table_filled = true;
+    ResetTupleHashIterator(setopstate->hashtable, &setopstate->hashiter);
+}
+```

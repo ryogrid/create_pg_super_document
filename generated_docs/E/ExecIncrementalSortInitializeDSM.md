@@ -43,3 +43,27 @@ This setup enables parallel workers to contribute their individual incremental s
 - The SharedIncrementalSortInfo structure includes space for both the header and per-worker IncrementalSortInfo arrays
 - This is part of PostgreSQL's dynamic shared memory (DSM) infrastructure for parallel query execution
 - The allocated shared memory persists for the duration of the parallel query execution
+
+## Simplified Source
+
+```c
+void ExecIncrementalSortInitializeDSM(IncrementalSortState *node, ParallelContext *pcxt) {
+    // Skip if no instrumentation or no workers
+    if (!node->ss.ps.instrument || pcxt->nworkers == 0)
+        return;
+
+    // Calculate size: header + per-worker info array
+    Size size = offsetof(SharedIncrementalSortInfo, sinfo) +
+                pcxt->nworkers * sizeof(IncrementalSortInfo);
+
+    // Allocate shared memory for statistics collection
+    node->shared_info = shm_toc_allocate(pcxt->toc, size);
+
+    // Initialize to zero for clean starting state
+    memset(node->shared_info, 0, size);
+
+    // Set worker count and register in shared memory TOC
+    node->shared_info->num_workers = pcxt->nworkers;
+    shm_toc_insert(pcxt->toc, node->ss.ps.plan->plan_node_id, node->shared_info);
+}
+```

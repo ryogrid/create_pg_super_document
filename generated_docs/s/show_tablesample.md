@@ -49,3 +49,56 @@ The function works by looking up the sampling method name from the handler funct
 - The sampling method name is derived from the table sampling method handler function
 - Text format output follows the SQL TABLESAMPLE syntax: "Sampling: method_name (param1, param2) REPEATABLE (seed)"
 - Structured format separates components into distinct properties: "Sampling Method", "Sampling Parameters", and "Repeatable Seed"
+
+## Simplified Source
+
+```c
+static void show_tablesample(TableSampleClause *tsc, PlanState *planstate,
+                            List *ancestors, ExplainState *es) {
+    // Set up expression deparsing context
+    List *context = set_deparse_context_plan(es->deparse_cxt, planstate->plan, ancestors);
+    bool useprefix = list_length(es->rtable) > 1;
+
+    // Get sampling method name from handler function
+    char *method_name = get_func_name(tsc->tsmhandler);
+
+    // Deparse parameter expressions into readable strings
+    List *params = NIL;
+    foreach(ListCell *lc, tsc->args) {
+        Node *arg = (Node *) lfirst(lc);
+        params = lappend(params, deparse_expression(arg, context, useprefix, false));
+    }
+
+    // Handle optional REPEATABLE clause
+    char *repeatable = NULL;
+    if (tsc->repeatable) {
+        repeatable = deparse_expression((Node *) tsc->repeatable, context, useprefix, false);
+    }
+
+    // Format output based on explain format
+    if (es->format == EXPLAIN_FORMAT_TEXT) {
+        // Text format: "Sampling: method_name (param1, param2) REPEATABLE (seed)"
+        ExplainIndentText(es);
+        appendStringInfo(es->str, "Sampling: %s (", method_name);
+
+        bool first = true;
+        foreach(ListCell *lc, params) {
+            if (!first)
+                appendStringInfoString(es->str, ", ");
+            appendStringInfoString(es->str, (const char *) lfirst(lc));
+            first = false;
+        }
+
+        appendStringInfoChar(es->str, ')');
+        if (repeatable)
+            appendStringInfo(es->str, " REPEATABLE (%s)", repeatable);
+        appendStringInfoChar(es->str, '\n');
+    } else {
+        // Structured format: separate properties
+        ExplainPropertyText("Sampling Method", method_name, es);
+        ExplainPropertyList("Sampling Parameters", params, es);
+        if (repeatable)
+            ExplainPropertyText("Repeatable Seed", repeatable, es);
+    }
+}
+```

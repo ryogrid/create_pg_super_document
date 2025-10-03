@@ -36,3 +36,20 @@ The function extracts the hash function information from the index relation's me
 - Supports collation-aware hashing through FunctionCall1Coll
 - Returns a 32-bit unsigned integer hash value
 - Part of the hash index access method's core functionality for converting data values to hash keys
+
+## Simplified Source
+
+```c
+uint32 _hash_datum2hashkey(Relation rel, Datum key)
+{
+    FmgrInfo *procinfo;
+    Oid collation;
+
+    // Get hash function info for the first (and only) index attribute
+    procinfo = index_getprocinfo(rel, 1, HASHSTANDARD_PROC);
+    collation = rel->rd_indcollation[0];
+
+    // Call the hash function and return the 32-bit hash value
+    return DatumGetUInt32(FunctionCall1Coll(procinfo, collation, key));
+}
+```

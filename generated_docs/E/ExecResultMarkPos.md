@@ -37,3 +37,18 @@ This design reflects the fact that Result nodes themselves don't maintain comple
 - [Result](../R/Result.md) nodes without outer plans (constant result generators) inherently don't support mark/restore since they produce at most one tuple
 - The debug message helps identify when mark/restore is being attempted on unsupported Result node configurations
 - Mark/restore functionality is typically used by nested loop joins and similar operations that need to replay tuple streams
+
+## Simplified Source
+
+```c
+void ExecResultMarkPos(ResultState *node)
+{
+    PlanState *outerPlan = outerPlanState(node);
+
+    // Delegate to outer plan if present
+    if (outerPlan != NULL)
+        ExecMarkPos(outerPlan);
+    else
+        elog(DEBUG2, "Result nodes do not support mark/restore");
+}
+```

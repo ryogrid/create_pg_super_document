@@ -45,3 +45,28 @@ The function demonstrates the architectural difference between GIN leaf and inte
 - The function includes assertions to validate page type consistency
 - Internal page operations focus on maintaining proper downlink references after page splits
 - The design reflects the different data structures and complexity levels between GIN leaf and internal pages
+
+## Simplified Source
+
+```c
+static void ginRedoInsertData(Buffer buffer, bool isLeaf, BlockNumber rightblkno, void *rdata)
+{
+    Page page = BufferGetPage(buffer);
+
+    if (isLeaf) {
+        // Leaf pages: handle complex posting list recompression
+        ginxlogRecompressDataLeaf *data = (ginxlogRecompressDataLeaf *) rdata;
+        ginRedoRecompress(page, data);
+    } else {
+        // Internal pages: handle posting item updates
+        ginxlogInsertDataInternal *data = (ginxlogInsertDataInternal *) rdata;
+
+        // Update downlink to right page after split
+        PostingItem *oldpitem = GinDataPageGetPostingItem(page, data->offset);
+        PostingItemSetBlockNumber(oldpitem, rightblkno);
+
+        // Add new posting item
+        GinDataPageAddPostingItem(page, &data->newitem, data->offset);
+    }
+}
+```

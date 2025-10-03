@@ -44,3 +44,55 @@ This function performs the complete finalization of all aggregates for a single 
 - Supports both single-column and multi-column distinct/ordered aggregates
 - The aggregate split mode determines whether to use partial or full finalization
 - Critical component in the aggregate execution pipeline that bridges transition state to final results
+
+## Simplified Source
+
+```c
+static void finalize_aggregates(AggState *aggstate,
+                               AggStatePerAgg peraggs,
+                               AggStatePerGroup pergroup) {
+    ExprContext *econtext = aggstate->ss.ps.ps_ExprContext;
+    Datum *aggvalues = econtext->ecxt_aggvalues;
+    bool *aggnulls = econtext->ecxt_aggnulls;
+    int aggno;
+
+    // Process DISTINCT and ORDER BY aggregates first
+    for (int transno = 0; transno < aggstate->numtrans; transno++) {
+        AggStatePerTrans pertrans = &aggstate->pertrans[transno];
+        AggStatePerGroup pergroupstate = &pergroup[transno];
+
+        if (pertrans->aggsortrequired) {
+            // Process ordered aggregates
+            if (pertrans->numInputs == 1)
+                process_ordered_aggregate_single(aggstate, pertrans, pergroupstate);
+            else
+                process_ordered_aggregate_multi(aggstate, pertrans, pergroupstate);
+        } else if (pertrans->numDistinctCols > 0 && pertrans->haslast) {
+            // Clean up distinct value tracking state
+            pertrans->haslast = false;
+            if (pertrans->numDistinctCols == 1) {
+                if (!pertrans->inputtypeByVal && !pertrans->lastisnull)
+                    pfree(DatumGetPointer(pertrans->lastdatum));
+                pertrans->lastisnull = false;
+                pertrans->lastdatum = (Datum) 0;
+            } else {
+                ExecClearTuple(pertrans->uniqslot);
+            }
+        }
+    }
+
+    // Run final functions for all aggregates
+    for (aggno = 0; aggno < aggstate->numaggs; aggno++) {
+        AggStatePerAgg peragg = &peraggs[aggno];
+        int transno = peragg->transno;
+        AggStatePerGroup pergroupstate = &pergroup[transno];
+
+        if (DO_AGGSPLIT_SKIPFINAL(aggstate->aggsplit))
+            finalize_partialaggregate(aggstate, peragg, pergroupstate,
+                                      &aggvalues[aggno], &aggnulls[aggno]);
+        else
+            finalize_aggregate(aggstate, peragg, pergroupstate,
+                               &aggvalues[aggno], &aggnulls[aggno]);
+    }
+}
+```

@@ -43,3 +43,23 @@ The decompression process ensures that compressed or encoded attribute values ar
 - The `attdata` array must also be pre-allocated with sufficient GISTENTRY slots
 - The function uses the leaf tuple descriptor from giststate for attribute extraction
 - This is a utility function commonly used in GiST operations that need to work with tuple contents
+
+## Simplified Source
+
+```c
+void gistDeCompressAtt(GISTSTATE *giststate, Relation r, IndexTuple tuple, Page p,
+                      OffsetNumber o, GISTENTRY *attdata, bool *isnull) {
+    // Process each key attribute in the tuple
+    for (int i = 0; i < IndexRelationGetNumberOfKeyAttributes(r); i++) {
+        Datum datum;
+
+        // Extract attribute value from tuple
+        datum = index_getattr(tuple, i + 1, giststate->leafTupdesc, &isnull[i]);
+
+        // Initialize GIST entry with decompressed data
+        gistdentryinit(giststate, i, &attdata[i],
+                      datum, r, p, o,
+                      false, isnull[i]);
+    }
+}
+```

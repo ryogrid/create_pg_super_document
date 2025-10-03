@@ -41,3 +41,51 @@ The function handles several edge cases: if all values in a column are NULL, the
 - The function handles the case where union functions might expect at least two inputs by duplicating single entries
 - Memory for the GistEntryVector is allocated with extra space for safety ((len + 2) entries)
 - This is a key function in GiST index operations, used during node splits and internal key creation
+
+## Simplified Source
+
+```c
+void gistMakeUnionItVec(GISTSTATE *giststate, IndexTuple *itvec, int len,
+                        Datum *attr, bool *isnull) {
+    GistEntryVector *evec = (GistEntryVector *) palloc((len + 2) * sizeof(GISTENTRY) + GEVHDRSZ);
+
+    // Process each index column
+    for (int i = 0; i < giststate->nonLeafTupdesc->natts; i++) {
+        evec->n = 0;
+
+        // Collect non-null datums for this column
+        for (int j = 0; j < len; j++) {
+            Datum datum;
+            bool IsNull;
+
+            datum = index_getattr(itvec[j], i + 1, giststate->leafTupdesc, &IsNull);
+            if (!IsNull) {
+                gistdentryinit(giststate, i, evec->vector + evec->n,
+                             datum, NULL, NULL, (OffsetNumber) 0, false, IsNull);
+                evec->n++;
+            }
+        }
+
+        // Handle union creation
+        if (evec->n == 0) {
+            // All values were NULL
+            attr[i] = (Datum) 0;
+            isnull[i] = true;
+        } else {
+            // Ensure at least two entries for union function
+            if (evec->n == 1) {
+                evec->n = 2;
+                evec->vector[1] = evec->vector[0];
+            }
+
+            // Create union using column-specific union function
+            int attrsize;
+            attr[i] = FunctionCall2Coll(&giststate->unionFn[i],
+                                      giststate->supportCollation[i],
+                                      PointerGetDatum(evec),
+                                      PointerGetDatum(&attrsize));
+            isnull[i] = false;
+        }
+    }
+}
+```

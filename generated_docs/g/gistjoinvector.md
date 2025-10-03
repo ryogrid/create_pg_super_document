@@ -31,3 +31,20 @@ This function efficiently combines two arrays of IndexTuple pointers into a sing
 
 ## Notes and Other Information
 The function uses memmove instead of memcpy to safely handle potential memory overlap scenarios, though in typical usage patterns overlap should not occur. The function modifies the first array in place and returns the potentially relocated array pointer, so callers must use the returned value and not rely on the original itvec pointer remaining valid. This function is commonly used during page reorganization and bulk loading operations where multiple tuple vectors need to be combined efficiently.
+
+## Simplified Source
+
+```c
+IndexTuple *gistjoinvector(IndexTuple *itvec, int *len, IndexTuple *additvec, int addlen) {
+    // Expand first array to accommodate additional elements
+    itvec = (IndexTuple *) repalloc(itvec, sizeof(IndexTuple) * ((*len) + addlen));
+
+    // Copy additional elements to end of expanded array
+    memmove(&itvec[*len], additvec, sizeof(IndexTuple) * addlen);
+
+    // Update total length
+    *len += addlen;
+
+    return itvec;
+}
+```

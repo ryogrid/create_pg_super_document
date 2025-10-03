@@ -43,3 +43,35 @@ After completion, the entry remains in the cache but contains no tuples and is m
 - Entry remains in the hash table but is marked as incomplete and empty
 - Both the MinimalTuple data and MemoizeTuple wrapper are freed to prevent memory leaks
 - The freed_mem accumulation ensures accurate memory usage reporting
+
+## Simplified Source
+
+```c
+static inline void
+entry_purge_tuples(MemoizeState *mstate, MemoizeEntry *entry)
+{
+    MemoizeTuple *tuple = entry->tuplehead;
+    uint64 freed_mem = 0;
+
+    // Free all tuples in the linked list
+    while (tuple != NULL) {
+        MemoizeTuple *next = tuple->next;
+
+        // Track freed memory
+        freed_mem += CACHE_TUPLE_BYTES(tuple);
+
+        // Free tuple data and structure
+        pfree(tuple->mintuple);
+        pfree(tuple);
+
+        tuple = next;
+    }
+
+    // Reset entry to empty state
+    entry->complete = false;
+    entry->tuplehead = NULL;
+
+    // Update memory accounting
+    mstate->mem_used -= freed_mem;
+}
+```

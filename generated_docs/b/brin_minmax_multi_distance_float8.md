@@ -42,3 +42,25 @@ This distance computation is crucial for BRIN minmax-multi indexes to determine 
 - Used internally by BRIN minmax-multi operator class for float8 data types
 - Part of the extensible operator class framework for BRIN indexes
 - The distance calculation is essential for determining when ranges should be merged or split in multi-range BRIN summaries
+
+## Simplified Source
+
+```c
+Datum
+brin_minmax_multi_distance_float8(PG_FUNCTION_ARGS)
+{
+    double a1 = PG_GETARG_FLOAT8(0);
+    double a2 = PG_GETARG_FLOAT8(1);
+
+    // Both values are NaN - consider them identical
+    if (isnan(a1) && isnan(a2))
+        PG_RETURN_FLOAT8(0.0);
+
+    // One value is NaN - use infinite distance
+    if (isnan(a1) || isnan(a2))
+        PG_RETURN_FLOAT8(get_float8_infinity());
+
+    // Normal case: simple subtraction (assumes a1 <= a2)
+    PG_RETURN_FLOAT8(a2 - a1);
+}
+```

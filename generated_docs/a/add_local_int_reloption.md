@@ -43,3 +43,19 @@ This function provides the interface for adding integer-type local relation opti
 - Always uses `RELOPT_KIND_LOCAL` and lockmode 0, as local options don't require locking like global ones
 - Local reloptions are not visible in the global reloptions catalog and are scoped to their specific context
 - Commonly used by BRIN indexes, GiST indexes, and other specialized access methods for performance-critical options
+
+## Simplified Source
+
+```c
+void add_local_int_reloption(local_relopts *relopts, const char *name,
+                             const char *desc, int default_val, int min_val,
+                             int max_val, int offset) {
+    // Create a local integer reloption with validation bounds
+    relopt_int *new_option = init_int_reloption(RELOPT_KIND_LOCAL,
+                                                name, desc, default_val,
+                                                min_val, max_val, 0);
+
+    // Add to the local reloptions structure with memory offset
+    add_local_reloption(relopts, (relopt_gen *) new_option, offset);
+}
+```

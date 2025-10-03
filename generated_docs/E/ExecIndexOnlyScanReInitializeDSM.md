@@ -35,3 +35,11 @@ The function serves as the executor-level interface for reinitializing parallel 
 - This function is part of the parallel query execution framework and is called during query plan reexecution scenarios
 - The reset operation ensures that all parallel workers will restart scanning from the beginning of the index
 - Unlike ExecIndexOnlyScanInitializeDSM, this function assumes the parallel infrastructure is already set up and only needs to be reset
+
+## Simplified Source
+```c
+void ExecIndexOnlyScanReInitializeDSM(IndexOnlyScanState *node, ParallelContext *pcxt) {
+    // Reset the parallel index scan to start fresh
+    index_parallelrescan(node->ioss_ScanDesc);
+}
+```

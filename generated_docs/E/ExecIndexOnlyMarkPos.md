@@ -38,3 +38,35 @@ For normal (non-EPQ) operations, the function simply delegates to the lower-leve
 - The function contains assertions to validate EPQ state consistency
 - Position marking is essential for implementing cursor-like behavior in SQL queries
 - The marked position can be restored using ExecIndexOnlyRestrPos
+
+## Simplified Source
+
+```c
+void
+ExecIndexOnlyMarkPos(IndexOnlyScanState *node)
+{
+    EState *estate = node->ss.ps.state;
+    EPQState *epqstate = estate->es_epq_active;
+
+    // Handle EPQ recheck scenarios
+    if (epqstate != NULL)
+    {
+        Index scanrelid = ((Scan *) node->ss.ps.plan)->scanrelid;
+
+        Assert(scanrelid > 0);
+
+        // If test tuple exists for this relation, skip index marking
+        if (epqstate->relsubs_slot[scanrelid - 1] != NULL ||
+            epqstate->relsubs_rowmark[scanrelid - 1] != NULL)
+        {
+            // Verify EPQ state consistency
+            if (!epqstate->relsubs_done[scanrelid - 1])
+                elog(ERROR, "unexpected ExecIndexOnlyMarkPos call in EPQ recheck");
+            return;
+        }
+    }
+
+    // Mark the current index position
+    index_markpos(node->ioss_ScanDesc);
+}
+```

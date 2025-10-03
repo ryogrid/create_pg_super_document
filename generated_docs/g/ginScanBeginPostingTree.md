@@ -41,3 +41,24 @@ This function is the entry point for reading all item pointers from a posting tr
 - This function is typically called at the beginning of query execution when all TIDs for a key need to be retrieved
 - The scan position can be advanced using other GIN scanning functions that work with the returned stack
 - The function is essential for the GIN index's ability to efficiently retrieve all matching item pointers during query processing
+
+## Simplified Source
+
+```c
+GinBtreeStack *
+ginScanBeginPostingTree(GinBtree btree, Relation index, BlockNumber rootBlkno)
+{
+    GinBtreeStack *stack;
+
+    // Set up posting tree for scanning operations
+    ginPrepareDataScan(btree, index, rootBlkno);
+
+    // Configure for full tree scan
+    btree->fullScan = true;
+
+    // Navigate to leftmost leaf page to begin scan
+    stack = ginFindLeafPage(btree, true, false);
+
+    return stack;
+}
+```

@@ -50,3 +50,58 @@ The algorithm aims to keep the most significant gaps (largest distances) intact 
 - Comments indicate potential future improvements like considering range lengths or adding randomization
 - Part of the BRIN index space management system for handling storage constraints
 - The function includes extensive comments discussing algorithmic trade-offs and potential improvements
+
+## Simplified Source
+
+```c
+static int
+reduce_expanded_ranges(ExpandedRange *eranges, int neranges,
+                       DistanceValue *distances, int max_values,
+                       FmgrInfo *cmp, Oid colloid)
+{
+    int ndistances = neranges - 1;  // Number of gaps between ranges
+    int keep = (max_values / 2 - 1); // Number of gaps to preserve
+
+    // If we already have few enough ranges, no reduction needed
+    if (keep >= ndistances)
+        return neranges;
+
+    compare_context cxt;
+    cxt.colloid = colloid;
+    cxt.cmpFn = cmp;
+
+    // Allocate space for boundary values
+    Datum *values = (Datum *) palloc(sizeof(Datum) * max_values);
+    int nvalues = 0;
+
+    // Add global min/max values (always preserved)
+    values[nvalues++] = eranges[0].minval;
+    values[nvalues++] = eranges[neranges - 1].maxval;
+
+    // Add boundary values for the largest gaps we want to keep
+    for (int i = 0; i < keep; i++) {
+        int index = distances[i].index;  // Gap between ranges[index] and ranges[index+1]
+
+        // Add boundaries on both sides of this gap
+        values[nvalues++] = eranges[index].maxval;      // End of first range
+        values[nvalues++] = eranges[index + 1].minval;  // Start of next range
+    }
+
+    // Sort all boundary values
+    qsort_arg(values, nvalues, sizeof(Datum), compare_values, &cxt);
+
+    // Create new ranges from sorted boundary values
+    int nranges = nvalues / 2;
+    for (int i = 0; i < nranges; i++) {
+        eranges[i].minval = values[2 * i];
+        eranges[i].maxval = values[2 * i + 1];
+
+        // Check if this is a collapsed range (single point)
+        eranges[i].collapsed = (compare_values(&values[2 * i],
+                                               &values[2 * i + 1],
+                                               &cxt) == 0);
+    }
+
+    return nranges;
+}
+```

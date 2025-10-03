@@ -32,3 +32,16 @@ This function packages the active relation map updates (both shared and local) i
 - Works in conjunction with EstimateRelationMapSpace for proper memory management
 - Critical for ensuring parallel workers can access system catalogs with the same OID-to-filenode mappings as the leader process
 - The serialized data must be restored in worker processes using a corresponding deserialization function
+
+## Simplified Source
+
+```c
+void SerializeRelationMap(Size maxSize, char *startAddress) {
+    SerializedActiveRelMaps *relmaps;
+
+    // Copy active relation map updates to serialized structure
+    relmaps = (SerializedActiveRelMaps *) startAddress;
+    relmaps->active_shared_updates = active_shared_updates;
+    relmaps->active_local_updates = active_local_updates;
+}
+```

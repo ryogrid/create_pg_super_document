@@ -58,3 +58,50 @@ The function ensures that parallel workers have a reliable mechanism to stream r
 - Queue handles are returned as an array for subsequent tuple reading operations
 - The shared memory space is registered with PARALLEL_KEY_TUPLE_QUEUE for worker discovery
 - This function is essential for establishing the data flow from workers back to the coordinator
+
+## Simplified Source
+
+```c
+static shm_mq_handle **ExecParallelSetupTupleQueues(ParallelContext *pcxt, bool reinitialize)
+{
+    shm_mq_handle **responseq;
+    char *tqueuespace;
+    int i;
+
+    // No setup needed if no workers
+    if (pcxt->nworkers == 0)
+        return NULL;
+
+    // Allocate array of queue handles
+    responseq = palloc(pcxt->nworkers * sizeof(shm_mq_handle *));
+
+    // Get shared memory space for queues
+    if (!reinitialize)
+        // Allocate new space
+        tqueuespace = shm_toc_allocate(pcxt->toc,
+                                      pcxt->nworkers * PARALLEL_TUPLE_QUEUE_SIZE);
+    else
+        // Reuse existing space
+        tqueuespace = shm_toc_lookup(pcxt->toc, PARALLEL_KEY_TUPLE_QUEUE, false);
+
+    // Create one queue per worker
+    for (i = 0; i < pcxt->nworkers; ++i)
+    {
+        shm_mq *mq;
+
+        // Create queue at calculated offset
+        mq = shm_mq_create(tqueuespace + (i * PARALLEL_TUPLE_QUEUE_SIZE),
+                          PARALLEL_TUPLE_QUEUE_SIZE);
+
+        // Set main process as receiver
+        shm_mq_set_receiver(mq, MyProc);
+        responseq[i] = shm_mq_attach(mq, pcxt->seg, NULL);
+    }
+
+    // Register queues for worker discovery
+    if (!reinitialize)
+        shm_toc_insert(pcxt->toc, PARALLEL_KEY_TUPLE_QUEUE, tqueuespace);
+
+    return responseq;
+}
+```

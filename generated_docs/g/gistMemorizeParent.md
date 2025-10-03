@@ -35,3 +35,23 @@ This function stores a mapping from a child block number to its parent block num
 - Uses HASH_ENTER which will create a new entry if one doesn't exist for the child block
 - The `found` variable is used by hash_search but not utilized by this function
 - Essential for tracking page relationships during the GiST buffering build algorithm
+
+## Simplified Source
+
+```c
+static void
+gistMemorizeParent(GISTBuildState *buildstate, BlockNumber child, BlockNumber parent)
+{
+    ParentMapEntry *entry;
+    bool found;
+
+    // Find or create entry for child block in parent map
+    entry = (ParentMapEntry *) hash_search(buildstate->parentMap,
+                                          &child,
+                                          HASH_ENTER,
+                                          &found);
+
+    // Record the parent block number
+    entry->parentblkno = parent;
+}
+```

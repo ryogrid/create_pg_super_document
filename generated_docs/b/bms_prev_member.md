@@ -45,3 +45,47 @@ The implementation works by:
 - The `prevbit` parameter must not exceed one above the highest possible bit in the current Bitmapset size
 - Handles NULL input gracefully by returning -2
 - Complements `bms_next_member` for forward iteration
+
+## Simplified Source
+
+```c
+int
+bms_prev_member(const Bitmapset *a, int prevbit)
+{
+    // Handle NULL set or edge case
+    if (a == NULL || prevbit == 0)
+        return -2;
+
+    // Special case: -1 means find highest member in set
+    if (prevbit == -1)
+        prevbit = a->nwords * BITS_PER_BITMAPWORD - 1;
+    else
+        prevbit--; // Move to actual search position
+
+    // Calculate mask to exclude bits >= prevbit
+    int ushiftbits = BITS_PER_BITMAPWORD - (BITNUM(prevbit) + 1);
+    bitmapword mask = (~(bitmapword) 0) >> ushiftbits;
+
+    // Search through words from high to low
+    for (int wordnum = WORDNUM(prevbit); wordnum >= 0; wordnum--)
+    {
+        bitmapword w = a->words[wordnum];
+
+        // Apply mask to exclude unwanted bits
+        w &= mask;
+
+        if (w != 0)
+        {
+            // Found a set bit - calculate absolute position
+            int result = wordnum * BITS_PER_BITMAPWORD;
+            result += bmw_leftmost_one_pos(w);
+            return result;
+        }
+
+        // For subsequent words, check all bits
+        mask = (~(bitmapword) 0);
+    }
+
+    return -2; // No previous member found
+}
+```

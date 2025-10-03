@@ -29,3 +29,13 @@ This function provides a way to query whether a tuplestore is still operating en
 - The comment indicates this function may violate modularity principles by exposing internal implementation details
 - Primarily used by callers who need to make performance or behavior decisions based on whether data has spilled to disk
 - Simple boolean check with no side effects or complex logic
+
+## Simplified Source
+
+```c
+bool
+tuplestore_in_memory(Tuplestorestate *state)
+{
+    return (state->status == TSS_INMEM);
+}
+```

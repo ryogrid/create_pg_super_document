@@ -34,3 +34,21 @@ The function uses PostgreSQL's standard relation options framework, defining a p
 
 ## Notes and Other Information
 This function is part of PostgreSQL's extensible relation options system, allowing hash indexes to accept custom parameters during creation (e.g., CREATE INDEX ... WITH (fillfactor=70)). The fillfactor option controls storage density and can impact both performance and storage efficiency. While currently supporting only fillfactor, the structure allows for easy addition of future hash-specific options.
+
+## Simplified Source
+
+```c
+bytea *hashoptions(Datum reloptions, bool validate)
+{
+    // Define supported hash index options
+    static const relopt_parse_elt tab[] = {
+        {"fillfactor", RELOPT_TYPE_INT, offsetof(HashOptions, fillfactor)},
+    };
+
+    // Parse options using PostgreSQL's standard framework
+    return (bytea *) build_reloptions(reloptions, validate,
+                                     RELOPT_KIND_HASH,
+                                     sizeof(HashOptions),
+                                     tab, lengthof(tab));
+}
+```

@@ -40,3 +40,34 @@ The function intelligently chooses between two execution paths: one optimized fo
 - Integrates with the broader executor framework through the ExecScan infrastructure
 - Supports both standard index scans and ordered scans with reorder queues for KNN operations
 - Runtime keys allow for dynamic query parameter binding during execution
+
+## Simplified Source
+
+```c
+// Simplified version of ExecIndexScan
+static TupleTableSlot *
+ExecIndexScan(PlanState *pstate)
+{
+    IndexScanState *node = castNode(IndexScanState, pstate);
+
+    // Set up runtime keys if needed (for parameterized queries)
+    if (node->iss_NumRuntimeKeys != 0 && !node->iss_RuntimeKeysReady)
+        ExecReScan((PlanState *) node);
+
+    // Choose scan method based on whether ordering is required
+    if (node->iss_NumOrderByKeys > 0)
+    {
+        // Use reorder queue for ORDER BY scans (e.g., KNN searches)
+        return ExecScan(&node->ss,
+                        (ExecScanAccessMtd) IndexNextWithReorder,
+                        (ExecScanRecheckMtd) IndexRecheck);
+    }
+    else
+    {
+        // Use standard index scan for regular queries
+        return ExecScan(&node->ss,
+                        (ExecScanAccessMtd) IndexNext,
+                        (ExecScanRecheckMtd) IndexRecheck);
+    }
+}
+```

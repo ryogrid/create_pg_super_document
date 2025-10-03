@@ -24,9 +24,9 @@ The function performs several key initialization tasks:
 The implementation ensures that the starting allocation address is buffer-aligned, which is critical for the alignment logic used in subsequent allocation operations.
 
 ## Parameters / Member Variables
-- : A 64-bit magic number used to validate the TOC structure and detect corruption
-- : Pointer to the start of the shared memory region where the TOC will be created
-- : Total size of the shared memory region in bytes
+- `magic`: A 64-bit magic number used to validate the TOC structure and detect corruption
+- `address`: Pointer to the start of the shared memory region where the TOC will be created
+- `nbytes`: Total size of the shared memory region in bytes
 
 ## Dependencies
 - Functions called/Symbols referenced:
@@ -45,3 +45,26 @@ The implementation ensures that the starting allocation address is buffer-aligne
 - Buffer alignment is critical for performance and correctness of subsequent memory allocations
 - The magic number serves as both a validation mechanism and a way to identify different types of shared memory regions
 - This is typically the first function called when setting up a new shared memory segment for inter-process communication
+
+## Simplified Source
+
+```c
+shm_toc *shm_toc_create(uint64 magic, void *address, Size nbytes) {
+    // Cast address to shm_toc structure
+    shm_toc *toc = (shm_toc *)address;
+
+    // Validate minimum size
+    Assert(nbytes > offsetof(shm_toc, toc_entry));
+
+    // Initialize TOC header
+    toc->toc_magic = magic;
+    SpinLockInit(&toc->toc_mutex);
+
+    // Set up memory management fields
+    toc->toc_total_bytes = BUFFERALIGN_DOWN(nbytes);  // Buffer-aligned size
+    toc->toc_allocated_bytes = 0;                     // No allocations yet
+    toc->toc_nentry = 0;                              // No entries yet
+
+    return toc;
+}
+```

@@ -52,3 +52,53 @@ The function processes triggers in the order they were defined and calls each en
 - Triggers execute in definition order before any rows are processed
 - Used primarily for auditing, logging, and statement-level validation
 - No tuple data is available to these triggers since they execute before row processing begins
+
+## Simplified Source
+
+```c
+void
+ExecBSDeleteTriggers(EState *estate, ResultRelInfo *relinfo) {
+    TriggerDesc *trigdesc = relinfo->ri_TrigDesc;
+    TriggerData LocTriggerData = {0};
+
+    // Early exits: no triggers or no DELETE BEFORE STATEMENT triggers
+    if (trigdesc == NULL || !trigdesc->trig_delete_before_statement)
+        return;
+
+    // Skip if already fired in this context (optimization)
+    if (before_stmt_triggers_fired(RelationGetRelid(relinfo->ri_RelationDesc), CMD_DELETE))
+        return;
+
+    // Set up trigger event data
+    LocTriggerData.type = T_TriggerData;
+    LocTriggerData.tg_event = TRIGGER_EVENT_DELETE | TRIGGER_EVENT_BEFORE;
+    LocTriggerData.tg_relation = relinfo->ri_RelationDesc;
+
+    // Execute each matching trigger
+    for (int i = 0; i < trigdesc->numtriggers; i++) {
+        Trigger *trigger = &trigdesc->triggers[i];
+
+        // Skip if not a BEFORE STATEMENT DELETE trigger
+        if (!TRIGGER_TYPE_MATCHES(trigger->tgtype, TRIGGER_TYPE_STATEMENT,
+                                  TRIGGER_TYPE_BEFORE, TRIGGER_TYPE_DELETE))
+            continue;
+
+        // Skip if trigger is disabled
+        if (!TriggerEnabled(estate, relinfo, trigger, LocTriggerData.tg_event,
+                           NULL, NULL, NULL))
+            continue;
+
+        // Execute the trigger
+        LocTriggerData.tg_trigger = trigger;
+        HeapTuple newtuple = ExecCallTriggerFunc(&LocTriggerData, i,
+                                                relinfo->ri_TrigFunctions,
+                                                relinfo->ri_TrigInstrument,
+                                                GetPerTupleMemoryContext(estate));
+
+        // BEFORE STATEMENT triggers must not return values
+        if (newtuple)
+            ereport(ERROR, (errcode(ERRCODE_E_R_I_E_TRIGGER_PROTOCOL_VIOLATED),
+                           errmsg("BEFORE STATEMENT trigger cannot return a value")));
+    }
+}
+```

@@ -57,3 +57,135 @@ The function includes extensive validation to ensure the transformation is safe 
 - Performs extensive validation to prevent incorrect transformations
 - The conversion enables hash-based ANY execution which can be significantly faster than EXISTS execution for large datasets
 - Part of PostgreSQL's subquery optimization framework that transforms correlated subqueries for better performance
+
+## Simplified Source
+
+```c
+static Query *
+convert_EXISTS_to_ANY(PlannerInfo *root, Query *subselect,
+                      Node **testexpr, List **paramIds)
+{
+    Node       *whereClause;
+    List       *leftargs, *rightargs, *opids, *opcollations, *newWhere;
+    List       *tlist, *testlist, *paramids;
+    AttrNumber  resno;
+
+    // Query must not require a targetlist since we insert a new one
+    Assert(subselect->targetList == NIL);
+
+    // Extract WHERE clause from subquery
+    whereClause = subselect->jointree->quals;
+    subselect->jointree->quals = NULL;
+
+    // Safety checks: no parent vars, no volatile functions
+    if (contain_vars_of_level((Node *) subselect, 1) ||
+        contain_volatile_functions(whereClause))
+        return NULL;
+
+    // Simplify WHERE clause for easier processing
+    whereClause = eval_const_expressions(root, whereClause);
+    whereClause = (Node *) canonicalize_qual((Expr *) whereClause, false);
+    whereClause = (Node *) make_ands_implicit((Expr *) whereClause);
+
+    // Parse WHERE clause to find hashable equality conditions
+    leftargs = rightargs = opids = opcollations = newWhere = NIL;
+    foreach(lc, (List *) whereClause)
+    {
+        OpExpr *expr = (OpExpr *) lfirst(lc);
+
+        if (IsA(expr, OpExpr) && hash_ok_operator(expr))
+        {
+            Node *leftarg = (Node *) linitial(expr->args);
+            Node *rightarg = (Node *) lsecond(expr->args);
+
+            // Check if we can extract outer = inner condition
+            if (contain_vars_of_level(leftarg, 1))
+            {
+                leftargs = lappend(leftargs, leftarg);
+                rightargs = lappend(rightargs, rightarg);
+                opids = lappend_oid(opids, expr->opno);
+                opcollations = lappend_oid(opcollations, expr->inputcollid);
+                continue;
+            }
+            // Try commuted version: inner = outer becomes outer = inner
+            if (contain_vars_of_level(rightarg, 1))
+            {
+                expr->opno = get_commutator(expr->opno);
+                if (OidIsValid(expr->opno) && hash_ok_operator(expr))
+                {
+                    leftargs = lappend(leftargs, rightarg);
+                    rightargs = lappend(rightargs, leftarg);
+                    opids = lappend_oid(opids, expr->opno);
+                    opcollations = lappend_oid(opcollations, expr->inputcollid);
+                    continue;
+                }
+                return NULL;  // No commutator available
+            }
+        }
+        // Keep non-hashable conditions in subquery
+        newWhere = lappend(newWhere, expr);
+    }
+
+    // Must find at least one hashable condition
+    if (leftargs == NIL)
+        return NULL;
+
+    // Validate variable levels for safety
+    if (contain_vars_of_level((Node *) newWhere, 1) ||
+        contain_vars_of_level((Node *) rightargs, 1) ||
+        contain_vars_of_level((Node *) leftargs, 0))
+        return NULL;
+
+    // Additional safety checks for aggregates and subplans
+    if (root->parse->hasAggs &&
+        (contain_aggs_of_level((Node *) newWhere, 1) ||
+         contain_aggs_of_level((Node *) rightargs, 1)))
+        return NULL;
+
+    if (contain_subplans((Node *) leftargs))
+        return NULL;
+
+    // Adjust variable levels for outer conditions
+    IncrementVarSublevelsUp((Node *) leftargs, -1, 1);
+
+    // Put remaining conditions back in subquery
+    if (newWhere)
+        subselect->jointree->quals = (Node *) make_ands_explicit(newWhere);
+
+    // Build new targetlist and test expressions
+    tlist = testlist = paramids = NIL;
+    resno = 1;
+    forfour(lc, leftargs, rc, rightargs, oc, opids, cc, opcollations)
+    {
+        Node *leftarg = (Node *) lfirst(lc);
+        Node *rightarg = (Node *) lfirst(rc);
+        Oid   opid = lfirst_oid(oc);
+        Oid   opcollation = lfirst_oid(cc);
+        Param *param;
+
+        // Create parameter for subquery output
+        param = generate_new_exec_param(root,
+                                        exprType(rightarg),
+                                        exprTypmod(rightarg),
+                                        exprCollation(rightarg));
+
+        // Add to subquery targetlist
+        tlist = lappend(tlist,
+                        makeTargetEntry((Expr *) rightarg, resno++, NULL, false));
+
+        // Create test condition: leftarg op param
+        testlist = lappend(testlist,
+                           make_opclause(opid, BOOLOID, false,
+                                         (Expr *) leftarg, (Expr *) param,
+                                         InvalidOid, opcollation));
+        paramids = lappend_int(paramids, param->paramid);
+    }
+
+    // Set results and return modified subquery
+    subselect->targetList = tlist;
+    *testexpr = (Node *) make_ands_explicit(testlist);
+    *paramIds = paramids;
+
+    return subselect;
+}
+```

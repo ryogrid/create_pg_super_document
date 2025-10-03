@@ -36,3 +36,34 @@ This function performs a straightforward bulk insertion of index tuples into a G
 
 ## Notes and Other Information
 This is a low-level utility function that assumes the caller has already verified that sufficient space exists on the page. It's primarily used during page splits, bulk loading operations, and WAL replay where space calculations have been done beforehand. The function will terminate the entire operation with an ERROR if any single tuple cannot be inserted, making it unsuitable for scenarios where graceful handling of space exhaustion is required.
+
+## Simplified Source
+
+```c
+void
+gistfillbuffer(Page page, IndexTuple *itup, int len, OffsetNumber off)
+{
+    int i;
+
+    // Determine starting offset if not specified
+    if (off == InvalidOffsetNumber)
+        off = (PageIsEmpty(page)) ? FirstOffsetNumber :
+              OffsetNumberNext(PageGetMaxOffsetNumber(page));
+
+    // Insert each tuple into the page
+    for (i = 0; i < len; i++) {
+        Size sz = IndexTupleSize(itup[i]);
+        OffsetNumber l;
+
+        // Add item to page at current offset
+        l = PageAddItem(page, (Item) itup[i], sz, off, false, false);
+
+        // Check for insertion failure
+        if (l == InvalidOffsetNumber)
+            elog(ERROR, "failed to add item to GiST index page, item %d out of %d, size %d bytes",
+                 i, len, (int) sz);
+
+        off++; // Move to next offset
+    }
+}
+```

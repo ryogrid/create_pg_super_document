@@ -54,3 +54,62 @@ If no merge is possible, the new clump is inserted into the list in size-descend
 - Generates comprehensive path sets including partitionwise and parallel paths for each join
 - Critical for building bushy join trees that respect both semantic constraints and optimization heuristics
 - Uses immediate cleanup of merged clumps to prevent memory leaks
+
+## Simplified Source
+
+```c
+static List *
+merge_clump(PlannerInfo *root, List *clumps, Clump *new_clump, int num_gene, bool force)
+{
+    ListCell *lc;
+    int pos;
+
+    // Try to merge new_clump with existing clumps
+    foreach(lc, clumps)
+    {
+        Clump *old_clump = (Clump *) lfirst(lc);
+
+        // Check if join is desirable (force=false) or just legal (force=true)
+        if (force || desirable_join(root, old_clump->joinrel, new_clump->joinrel))
+        {
+            // Attempt to create the join relation
+            RelOptInfo *joinrel = make_join_rel(root, old_clump->joinrel, new_clump->joinrel);
+
+            if (joinrel)
+            {
+                // Generate paths for the new join
+                generate_partitionwise_join_paths(root, joinrel);
+
+                // Add gather paths unless this is the final result
+                if (!bms_equal(joinrel->relids, root->all_query_rels))
+                    generate_useful_gather_paths(root, joinrel, false);
+
+                set_cheapest(joinrel);
+
+                // Merge: absorb new_clump into old_clump
+                old_clump->joinrel = joinrel;
+                old_clump->size += new_clump->size;
+                pfree(new_clump);
+
+                // Remove old_clump from list and recursively try more merges
+                clumps = foreach_delete_current(clumps, lc);
+                return merge_clump(root, clumps, old_clump, num_gene, force);
+            }
+        }
+    }
+
+    // No merge possible - insert new_clump in size-descending order
+    if (clumps == NIL || new_clump->size == 1)
+        return lappend(clumps, new_clump);
+
+    // Find insertion position to maintain size order
+    for (pos = 0; pos < list_length(clumps); pos++)
+    {
+        Clump *old_clump = (Clump *) list_nth(clumps, pos);
+        if (new_clump->size > old_clump->size)
+            break;
+    }
+
+    return list_insert_nth(clumps, pos, new_clump);
+}
+```

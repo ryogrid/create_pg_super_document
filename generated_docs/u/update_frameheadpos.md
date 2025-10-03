@@ -54,3 +54,160 @@ The function uses tuple stores to buffer partition data and maintains frame head
 - For RANGE mode with single ORDER BY column, uses specialized in_range functions for boundary checking
 - Handles NULL values in ORDER BY columns according to NULLS FIRST/LAST specifications
 - Critical for window function performance as it determines the starting boundary for all frame-based computations
+
+## Simplified Source
+
+```c
+static void
+update_frameheadpos(WindowAggState *winstate)
+{
+    WindowAgg *node = (WindowAgg *) winstate->ss.ps.plan;
+    int frameOptions = winstate->frameOptions;
+
+    // Return if position already computed for current row
+    if (winstate->framehead_valid)
+        return;
+
+    // Switch to persistent memory context
+    MemoryContext oldcontext = MemoryContextSwitchTo(
+        winstate->ss.ps.ps_ExprContext->ecxt_per_query_memory);
+
+    if (frameOptions & FRAMEOPTION_START_UNBOUNDED_PRECEDING) {
+        // Frame always starts at beginning of partition
+        winstate->frameheadpos = 0;
+        winstate->framehead_valid = true;
+    }
+    else if (frameOptions & FRAMEOPTION_START_CURRENT_ROW) {
+        if (frameOptions & FRAMEOPTION_ROWS) {
+            // In ROWS mode, head is current row
+            winstate->frameheadpos = winstate->currentpos;
+            winstate->framehead_valid = true;
+        }
+        else if (frameOptions & (FRAMEOPTION_RANGE | FRAMEOPTION_GROUPS)) {
+            // If no ORDER BY, all rows are peers
+            if (node->ordNumCols == 0) {
+                winstate->frameheadpos = 0;
+                winstate->framehead_valid = true;
+                MemoryContextSwitchTo(oldcontext);
+                return;
+            }
+
+            // Find first peer of current row
+            tuplestore_select_read_pointer(winstate->buffer, winstate->framehead_ptr);
+
+            // Initialize frame head slot if needed
+            if (winstate->frameheadpos == 0 && TupIsNull(winstate->framehead_slot)) {
+                tuplestore_gettupleslot(winstate->buffer, true, true, winstate->framehead_slot);
+            }
+
+            // Advance until we find a peer of current row
+            while (!TupIsNull(winstate->framehead_slot)) {
+                if (are_peers(winstate, winstate->framehead_slot, winstate->ss.ss_ScanTupleSlot))
+                    break;
+
+                winstate->frameheadpos++;
+                spool_tuples(winstate, winstate->frameheadpos);
+                if (!tuplestore_gettupleslot(winstate->buffer, true, true, winstate->framehead_slot))
+                    break;
+            }
+            winstate->framehead_valid = true;
+        }
+    }
+    else if (frameOptions & FRAMEOPTION_START_OFFSET) {
+        if (frameOptions & FRAMEOPTION_ROWS) {
+            // Calculate physical offset from current row
+            int64 offset = DatumGetInt64(winstate->startOffsetValue);
+            if (frameOptions & FRAMEOPTION_START_OFFSET_PRECEDING)
+                offset = -offset;
+
+            winstate->frameheadpos = winstate->currentpos + offset;
+
+            // Ensure position stays within partition bounds
+            if (winstate->frameheadpos < 0)
+                winstate->frameheadpos = 0;
+            else if (winstate->frameheadpos > winstate->currentpos + 1) {
+                spool_tuples(winstate, winstate->frameheadpos - 1);
+                if (winstate->frameheadpos > winstate->spooled_rows)
+                    winstate->frameheadpos = winstate->spooled_rows;
+            }
+            winstate->framehead_valid = true;
+        }
+        else if (frameOptions & FRAMEOPTION_RANGE) {
+            // Use in_range function for RANGE offset mode
+            int sortCol = node->ordColIdx[0];
+            bool sub = (frameOptions & FRAMEOPTION_START_OFFSET_PRECEDING);
+            bool less = false;
+
+            // Flip flags if descending sort order
+            if (!winstate->inRangeAsc) {
+                sub = !sub;
+                less = true;
+            }
+
+            tuplestore_select_read_pointer(winstate->buffer, winstate->framehead_ptr);
+
+            // Initialize if needed
+            if (winstate->frameheadpos == 0 && TupIsNull(winstate->framehead_slot)) {
+                tuplestore_gettupleslot(winstate->buffer, true, true, winstate->framehead_slot);
+            }
+
+            // Find first row satisfying in_range constraint
+            while (!TupIsNull(winstate->framehead_slot)) {
+                Datum headval = slot_getattr(winstate->framehead_slot, sortCol, &headisnull);
+                Datum currval = slot_getattr(winstate->ss.ss_ScanTupleSlot, sortCol, &currisnull);
+
+                // Handle NULL values or call in_range function
+                if (!headisnull && !currisnull) {
+                    if (DatumGetBool(FunctionCall5Coll(&winstate->startInRangeFunc,
+                                                       winstate->inRangeColl,
+                                                       headval, currval,
+                                                       winstate->startOffsetValue,
+                                                       BoolGetDatum(sub),
+                                                       BoolGetDatum(less))))
+                        break;
+                }
+
+                winstate->frameheadpos++;
+                spool_tuples(winstate, winstate->frameheadpos);
+                if (!tuplestore_gettupleslot(winstate->buffer, true, true, winstate->framehead_slot))
+                    break;
+            }
+            winstate->framehead_valid = true;
+        }
+        else if (frameOptions & FRAMEOPTION_GROUPS) {
+            // Groups mode: find first row of target peer group
+            int64 offset = DatumGetInt64(winstate->startOffsetValue);
+            int64 target_group = (frameOptions & FRAMEOPTION_START_OFFSET_PRECEDING)
+                               ? winstate->currentgroup - offset
+                               : winstate->currentgroup + offset;
+
+            tuplestore_select_read_pointer(winstate->buffer, winstate->framehead_ptr);
+
+            // Initialize if needed
+            if (winstate->frameheadpos == 0 && TupIsNull(winstate->framehead_slot)) {
+                tuplestore_gettupleslot(winstate->buffer, true, true, winstate->framehead_slot);
+            }
+
+            // Advance to target group
+            while (!TupIsNull(winstate->framehead_slot)) {
+                if (winstate->frameheadgroup >= target_group)
+                    break;
+
+                ExecCopySlot(winstate->temp_slot_2, winstate->framehead_slot);
+                winstate->frameheadpos++;
+                spool_tuples(winstate, winstate->frameheadpos);
+
+                if (!tuplestore_gettupleslot(winstate->buffer, true, true, winstate->framehead_slot))
+                    break;
+
+                if (!are_peers(winstate, winstate->temp_slot_2, winstate->framehead_slot))
+                    winstate->frameheadgroup++;
+            }
+            ExecClearTuple(winstate->temp_slot_2);
+            winstate->framehead_valid = true;
+        }
+    }
+
+    MemoryContextSwitchTo(oldcontext);
+}
+```

@@ -33,3 +33,29 @@ This function takes no parameters.
 - Essential for parallel query processing where workers need coordinated lock management
 - The leader process coordinates lock acquisition/release for all group members
 - After becoming leader, other processes can join using BecomeLockGroupMember
+
+## Simplified Source
+
+```c
+void
+BecomeLockGroupLeader(void)
+{
+    LWLock *leader_lwlock;
+
+    // If already leader, nothing to do
+    if (MyProc->lockGroupLeader == MyProc)
+        return;
+
+    // Must not be a follower of another group
+    Assert(MyProc->lockGroupLeader == NULL);
+
+    // Create single-member group with ourselves as leader
+    leader_lwlock = LockHashPartitionLockByProc(MyProc);
+    LWLockAcquire(leader_lwlock, LW_EXCLUSIVE);
+
+    MyProc->lockGroupLeader = MyProc;
+    dlist_push_head(&MyProc->lockGroupMembers, &MyProc->lockGroupLink);
+
+    LWLockRelease(leader_lwlock);
+}
+```

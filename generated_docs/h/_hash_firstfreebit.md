@@ -33,3 +33,24 @@ The function iterates through each bit position from 0 to BITS_PER_MAP-1, using 
 - The error condition should never occur in normal operation, as the function is only called when freep[j] != ALL_SET
 - Uses a simple but efficient linear scan approach rather than more complex bit manipulation techniques
 - The shifting mask approach ensures portability across different architectures
+
+## Simplified Source
+
+```c
+// Return the number of the first bit that is not set in the word 'map'.
+static uint32 _hash_firstfreebit(uint32 map) {
+    uint32 i, mask;
+
+    // Check each bit position starting from bit 0
+    mask = 0x1;
+    for (i = 0; i < BITS_PER_MAP; i++) {
+        if (!(mask & map))
+            return i;  // Found first free bit
+        mask <<= 1;    // Move to next bit position
+    }
+
+    // Should never reach here if caller verified free space exists
+    elog(ERROR, "firstfreebit found no free bit");
+    return 0;  // Keep compiler quiet
+}
+```

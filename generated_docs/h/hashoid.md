@@ -28,3 +28,11 @@ This function provides hash functionality for PostgreSQL's OID data type, which 
 - The simple cast from OID to uint32 is safe since they have the same underlying representation
 - Located in src/backend/access/hash/hashfunc.c:116-121
 - Part of PostgreSQL's comprehensive hash function support for built-in data types
+
+## Simplified Source
+```c
+Datum hashoid(PG_FUNCTION_ARGS) {
+    // Extract OID argument and cast to 32-bit unsigned for hashing
+    return hash_uint32((uint32) PG_GETARG_OID(0));
+}
+```

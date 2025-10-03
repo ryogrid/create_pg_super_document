@@ -35,3 +35,44 @@ This function attempts to read the next tuple from a shared memory message queue
 - Queue detachment is detected and communicated through the done parameter
 - Essential component of PostgreSQL's Gather and GatherMerge execution nodes for parallel query processing
 - The tuple length validation (Assert(tuple->t_len == nbytes)) ensures data integrity
+
+## Simplified Source
+
+```c
+MinimalTuple
+TupleQueueReaderNext(TupleQueueReader *reader, bool nowait, bool *done)
+{
+    MinimalTuple tuple;
+    shm_mq_result result;
+    Size nbytes;
+    void *data;
+
+    // Initialize done flag if provided
+    if (done != NULL)
+        *done = false;
+
+    // Attempt to receive a message from the shared memory queue
+    result = shm_mq_receive(reader->queue, &nbytes, &data, nowait);
+
+    // Handle queue detachment - no more tuples will come
+    if (result == SHM_MQ_DETACHED)
+    {
+        if (done != NULL)
+            *done = true;
+        return NULL;
+    }
+
+    // Handle non-blocking mode when no message is ready
+    if (result == SHM_MQ_WOULD_BLOCK)
+        return NULL;
+
+    Assert(result == SHM_MQ_SUCCESS);
+
+    // Return pointer directly to shared memory data
+    // (Do not free - becomes invalid on next call)
+    tuple = (MinimalTuple) data;
+    Assert(tuple->t_len == nbytes);  // Validate data integrity
+
+    return tuple;
+}
+```

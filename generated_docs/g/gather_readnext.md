@@ -42,3 +42,71 @@ The function maintains an array of active TupleQueueReader objects and tracks th
 - Worker cleanup is triggered automatically when the last worker completes
 - Critical for maintaining fairness and preventing starvation in parallel execution
 - Integrates with PostgreSQL's latch-based inter-process communication system
+
+## Simplified Source
+
+```c
+static MinimalTuple
+gather_readnext(GatherState *gatherstate)
+{
+    int nvisited = 0;
+
+    for (;;) {
+        TupleQueueReader *reader;
+        MinimalTuple tup;
+        bool readerdone;
+
+        CHECK_FOR_INTERRUPTS();
+
+        // Try to read from current worker (non-blocking)
+        Assert(gatherstate->nextreader < gatherstate->nreaders);
+        reader = gatherstate->reader[gatherstate->nextreader];
+        tup = TupleQueueReaderNext(reader, true, &readerdone);
+
+        // Handle completed worker
+        if (readerdone) {
+            Assert(!tup);
+            --gatherstate->nreaders;
+
+            if (gatherstate->nreaders == 0) {
+                // All workers done
+                ExecShutdownGatherWorkers(gatherstate);
+                return NULL;
+            }
+
+            // Remove completed worker from array
+            memmove(&gatherstate->reader[gatherstate->nextreader],
+                   &gatherstate->reader[gatherstate->nextreader + 1],
+                   sizeof(TupleQueueReader *) *
+                   (gatherstate->nreaders - gatherstate->nextreader));
+
+            if (gatherstate->nextreader >= gatherstate->nreaders)
+                gatherstate->nextreader = 0;
+            continue;
+        }
+
+        // Return tuple if we got one
+        if (tup)
+            return tup;
+
+        // Advance to next reader in round-robin fashion
+        gatherstate->nextreader++;
+        if (gatherstate->nextreader >= gatherstate->nreaders)
+            gatherstate->nextreader = 0;
+
+        // Check if we've visited all workers
+        nvisited++;
+        if (nvisited >= gatherstate->nreaders) {
+            // Allow local execution if needed
+            if (gatherstate->need_to_scan_locally)
+                return NULL;
+
+            // Wait for worker activity
+            (void) WaitLatch(MyLatch, WL_LATCH_SET | WL_EXIT_ON_PM_DEATH, 0,
+                           WAIT_EVENT_EXECUTE_GATHER);
+            ResetLatch(MyLatch);
+            nvisited = 0;
+        }
+    }
+}
+```

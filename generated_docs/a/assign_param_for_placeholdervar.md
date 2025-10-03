@@ -40,3 +40,52 @@ The function navigates up the planner hierarchy to find the appropriate query le
 - The parameter type is determined by calling exprType on the PHV's expression (phexpr)
 - This is a static function within paramassign.c, used internally for PlaceHolderVar parameter assignment
 - PlaceHolderVars are more complex than regular Vars as they can contain arbitrary expressions
+
+## Simplified Source
+
+```c
+static int
+assign_param_for_placeholdervar(PlannerInfo *root, PlaceHolderVar *phv)
+{
+    ListCell *ppl;
+    PlannerParamItem *pitem;
+    Index levelsup;
+
+    // Navigate to the query level where this PHV belongs
+    for (levelsup = phv->phlevelsup; levelsup > 0; levelsup--)
+        root = root->parent_root;
+
+    // Check if we already have a parameter for this PHV
+    foreach(ppl, root->plan_params)
+    {
+        pitem = (PlannerParamItem *) lfirst(ppl);
+        if (IsA(pitem->item, PlaceHolderVar))
+        {
+            PlaceHolderVar *existing_phv = (PlaceHolderVar *) pitem->item;
+
+            // Match by PHV unique identifier
+            if (existing_phv->phid == phv->phid)
+                return pitem->paramId;
+        }
+    }
+
+    // Create new parameter entry for this PHV
+    phv = copyObject(phv);
+
+    // Adjust level references to make this PHV relative to current level
+    IncrementVarSublevelsUp((Node *) phv, -((int) phv->phlevelsup), 0);
+    Assert(phv->phlevelsup == 0);
+
+    // Create and initialize new parameter item
+    pitem = makeNode(PlannerParamItem);
+    pitem->item = (Node *) phv;
+    pitem->paramId = list_length(root->glob->paramExecTypes);
+
+    // Record parameter type and add to lists
+    root->glob->paramExecTypes = lappend_oid(root->glob->paramExecTypes,
+                                            exprType((Node *) phv->phexpr));
+    root->plan_params = lappend(root->plan_params, pitem);
+
+    return pitem->paramId;
+}
+```

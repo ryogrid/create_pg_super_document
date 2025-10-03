@@ -62,3 +62,101 @@ The function maintains proper buffer management by pinning pages to prevent vacu
 - Critical for performance as it determines how efficiently large posting lists are traversed
 - The copied items approach allows continued processing while releasing page locks, improving concurrency
 - Debug logging helps track page navigation decisions during development and troubleshooting
+
+## Simplified Source
+
+```c
+static void entryLoadMoreItems(GinState *ginstate, GinScanEntry entry,
+                              ItemPointerData advancePast)
+{
+    Page page;
+    int i;
+    bool stepright;
+
+    if (!BufferIsValid(entry->buffer)) {
+        entry->isFinished = true;
+        return;
+    }
+
+    // Choose navigation strategy: step right vs re-descend from root
+    if (ginCompareItemPointers(&entry->curItem, &advancePast) == 0) {
+        // Next item should be on adjacent page - step right
+        stepright = true;
+        LockBuffer(entry->buffer, GIN_SHARE);
+    } else {
+        // Need to jump to different location - re-descend from root
+        ReleaseBuffer(entry->buffer);
+
+        // Set search key based on advancePast
+        if (ItemPointerIsLossyPage(&advancePast)) {
+            ItemPointerSet(&entry->btree.itemptr,
+                          GinItemPointerGetBlockNumber(&advancePast) + 1,
+                          FirstOffsetNumber);
+        } else {
+            ItemPointerSet(&entry->btree.itemptr,
+                          GinItemPointerGetBlockNumber(&advancePast),
+                          OffsetNumberNext(GinItemPointerGetOffsetNumber(&advancePast)));
+        }
+
+        entry->btree.fullScan = false;
+        GinBtreeStack *stack = ginFindLeafPage(&entry->btree, true, false);
+        entry->buffer = stack->buffer;
+        IncrBufferRefCount(entry->buffer);
+        freeGinBtreeStack(stack);
+        stepright = false;
+    }
+
+    // Find page with items > advancePast
+    page = BufferGetPage(entry->buffer);
+    for (;;) {
+        entry->offset = InvalidOffsetNumber;
+        if (entry->list) {
+            pfree(entry->list);
+            entry->list = NULL;
+            entry->nlist = 0;
+        }
+
+        if (stepright) {
+            // Check if this is the last page
+            if (GinPageRightMost(page)) {
+                UnlockReleaseBuffer(entry->buffer);
+                entry->buffer = InvalidBuffer;
+                entry->isFinished = true;
+                return;
+            }
+
+            // Move to next page
+            entry->buffer = ginStepRight(entry->buffer, ginstate->index, GIN_SHARE);
+            page = BufferGetPage(entry->buffer);
+        }
+        stepright = true;
+
+        // Skip deleted pages
+        if (GinPageGetOpaque(page)->flags & GIN_DELETED)
+            continue;
+
+        // Check if our target is beyond this page's range
+        if (!GinPageRightMost(page) &&
+            ginCompareItemPointers(&advancePast, GinDataPageGetRightBound(page)) >= 0)
+            continue;
+
+        // Load items from this page
+        entry->list = GinDataLeafPageGetItems(page, &entry->nlist, advancePast);
+
+        // Find first item > advancePast
+        for (i = 0; i < entry->nlist; i++) {
+            if (ginCompareItemPointers(&advancePast, &entry->list[i]) < 0) {
+                entry->offset = i;
+
+                // Unlock page (keep pinned if not rightmost)
+                if (GinPageRightMost(page)) {
+                    UnlockReleaseBuffer(entry->buffer);
+                    entry->buffer = InvalidBuffer;
+                } else
+                    LockBuffer(entry->buffer, GIN_UNLOCK);
+                return;
+            }
+        }
+    }
+}
+```

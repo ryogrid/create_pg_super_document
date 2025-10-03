@@ -42,3 +42,27 @@ The function is more flexible than ExecFindJunkAttribute since it doesn't requir
 - Does not require the target list to be part of a JunkFilter, making it more versatile
 - Critical for executor operations that need to locate system attributes by name during query processing
 - Used extensively in modify operations where system attributes like ctid are needed for tuple identification
+
+## Simplified Source
+
+```c
+AttrNumber ExecFindJunkAttributeInTlist(List *targetlist, const char *attrName)
+{
+    ListCell *t;
+
+    // Search through each target entry in the list
+    foreach(t, targetlist)
+    {
+        TargetEntry *tle = lfirst(t);
+
+        // Check if this is a junk attribute with matching name
+        if (tle->resjunk && tle->resname &&
+            (strcmp(tle->resname, attrName) == 0))
+        {
+            return tle->resno;  // Found it - return attribute number
+        }
+    }
+
+    return InvalidAttrNumber;  // Not found
+}
+```

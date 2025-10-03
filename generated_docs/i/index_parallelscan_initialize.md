@@ -46,3 +46,35 @@ The function prepares the shared memory structure that will be accessed by multi
 - Memory layout includes the base descriptor, serialized snapshot, and optional AM-specific data
 - Located in src/backend/access/index/indexam.c:490-522
 - Essential component of PostgreSQL's parallel query execution infrastructure
+
+## Simplified Source
+
+```c
+void index_parallelscan_initialize(Relation heapRelation, Relation indexRelation,
+                                 Snapshot snapshot, ParallelIndexScanDesc target) {
+    Size offset;
+
+    // Validate inputs
+    Assert(snapshot != InvalidSnapshot);
+    RELATION_CHECKS;
+
+    // Calculate offset for AM-specific data after snapshot
+    offset = add_size(offsetof(ParallelIndexScanDescData, ps_snapshot_data),
+                     EstimateSnapshotSpace(snapshot));
+    offset = MAXALIGN(offset);
+
+    // Initialize the parallel scan descriptor
+    target->ps_relid = RelationGetRelid(heapRelation);
+    target->ps_indexid = RelationGetRelid(indexRelation);
+    target->ps_offset = offset;
+
+    // Serialize snapshot into shared memory
+    SerializeSnapshot(snapshot, target->ps_snapshot_data);
+
+    // Initialize AM-specific parallel scan data if supported
+    if (indexRelation->rd_indam->aminitparallelscan != NULL) {
+        void *amtarget = OffsetToPointer(target, offset);
+        indexRelation->rd_indam->aminitparallelscan(amtarget);
+    }
+}
+```

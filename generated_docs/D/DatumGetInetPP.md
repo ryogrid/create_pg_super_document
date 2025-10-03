@@ -43,3 +43,12 @@ The "PP" suffix indicates this function returns a pointer that may point to pack
 - Used extensively in network address indexing (GiST, SP-GiST), comparison operations, and statistical analysis
 - Part of the PostgreSQL function manager interface for type conversion
 - Preferred over DatumGetInetP when the data will only be read, not modified
+
+## Simplified Source
+
+```c
+static inline inet * DatumGetInetPP(Datum X) {
+    // Extract inet pointer from Datum, handling packed data efficiently
+    return (inet *) PG_DETOAST_DATUM_PACKED(X);
+}
+```

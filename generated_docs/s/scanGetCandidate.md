@@ -38,3 +38,63 @@ When the current page is exhausted, it automatically advances to the next page i
 
 ## Notes and Other Information
 Essential for pending list processing during GIN index scans. The function implements proper buffer management to prevent race conditions with vacuum/cleanup processes. It handles both scenarios where heap rows are contained within single pages and where they span multiple pages, which can occur due to the way pending entries are inserted and organized.
+
+## Simplified Source
+```c
+static bool scanGetCandidate(IndexScanDesc scan, pendingPosition *pos) {
+    Page page;
+    IndexTuple itup;
+    OffsetNumber maxoff;
+
+    // Initialize position item as invalid
+    ItemPointerSetInvalid(&pos->item);
+
+    for (;;) {
+        page = BufferGetPage(pos->pendingBuffer);
+        maxoff = PageGetMaxOffsetNumber(page);
+
+        // Check if we need to move to next page
+        if (pos->firstOffset > maxoff) {
+            BlockNumber blkno = GinPageGetOpaque(page)->rightlink;
+
+            if (blkno == InvalidBlockNumber) {
+                // End of pending list reached
+                UnlockReleaseBuffer(pos->pendingBuffer);
+                pos->pendingBuffer = InvalidBuffer;
+                return false;
+            } else {
+                // Move to next page with proper locking to prevent races
+                Buffer tmpbuf = ReadBuffer(scan->indexRelation, blkno);
+                LockBuffer(tmpbuf, GIN_SHARE);
+                UnlockReleaseBuffer(pos->pendingBuffer);
+
+                pos->pendingBuffer = tmpbuf;
+                pos->firstOffset = FirstOffsetNumber;
+            }
+        } else {
+            // Get current tuple and set position item
+            itup = (IndexTuple) PageGetItem(page, PageGetItemId(page, pos->firstOffset));
+            pos->item = itup->t_tid;
+
+            if (GinPageHasFullRow(page)) {
+                // Find range of tuples for this heap row
+                for (pos->lastOffset = pos->firstOffset + 1;
+                     pos->lastOffset <= maxoff;
+                     pos->lastOffset++) {
+                    itup = (IndexTuple) PageGetItem(page, PageGetItemId(page, pos->lastOffset));
+                    if (!ItemPointerEquals(&pos->item, &itup->t_tid))
+                        break;
+                }
+            } else {
+                // All tuples on page belong to same heap row
+                pos->lastOffset = maxoff + 1;
+            }
+
+            // Position now points to current row's tuple range
+            break;
+        }
+    }
+
+    return true;
+}
+```

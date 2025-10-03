@@ -45,3 +45,36 @@ The execution flow involves calling ExecMergeMatched() for matched cases, which 
 - May execute two actions in cases where concurrent updates change match status (one NOT MATCHED BY SOURCE, one NOT MATCHED BY TARGET)
 - Uses a pending mechanism to defer NOT MATCHED BY TARGET actions when RETURNING clauses are involved and multiple actions might be executed
 - The function's design ensures forward progress by following update chains and never switching back from ExecMergeNotMatched() to ExecMergeMatched()
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecMerge(ModifyTableContext *context, ResultRelInfo *resultRelInfo,
+          ItemPointer tupleid, HeapTuple oldtuple, bool canSetTag)
+{
+    TupleTableSlot *rslot = NULL;
+    bool matched;
+
+    // Determine if we have a matched case (target tuple exists)
+    matched = tupleid != NULL || oldtuple != NULL;
+
+    if (matched) {
+        // Execute WHEN MATCHED or WHEN NOT MATCHED BY SOURCE actions
+        rslot = ExecMergeMatched(context, resultRelInfo, tupleid, oldtuple,
+                                 canSetTag, &matched);
+    }
+
+    // Handle NOT MATCHED [BY TARGET] case
+    if (!matched) {
+        // If we already have a result from NOT MATCHED BY SOURCE action,
+        // defer the NOT MATCHED BY TARGET action
+        if (rslot == NULL)
+            rslot = ExecMergeNotMatched(context, resultRelInfo, canSetTag);
+        else
+            context->mtstate->mt_merge_pending_not_matched = context->planSlot;
+    }
+
+    return rslot;
+}
+```

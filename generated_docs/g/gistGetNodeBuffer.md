@@ -46,3 +46,52 @@ The function uses a hash table lookup for O(1) average-case buffer retrieval, ma
 - Memory allocation occurs in the build context to ensure proper lifetime management
 - The queuedForEmptying and isTemp flags are initialized to false for new buffers
 - InvalidBlockNumber is used to indicate no associated page buffer initially
+
+## Simplified Source
+
+```c
+GISTNodeBuffer *
+gistGetNodeBuffer(GISTBuildBuffers *gfbb, GISTSTATE *giststate,
+                  BlockNumber nodeBlocknum, int level)
+{
+    GISTNodeBuffer *nodeBuffer;
+    bool found;
+
+    // Find or create node buffer in hash table
+    nodeBuffer = (GISTNodeBuffer *) hash_search(gfbb->nodeBuffersTab,
+                                               &nodeBlocknum,
+                                               HASH_ENTER,
+                                               &found);
+
+    if (!found)
+    {
+        // Initialize new buffer
+        MemoryContext oldcxt = MemoryContextSwitchTo(gfbb->context);
+
+        nodeBuffer->blocksCount = 0;
+        nodeBuffer->pageBlocknum = InvalidBlockNumber;
+        nodeBuffer->pageBuffer = NULL;
+        nodeBuffer->queuedForEmptying = false;
+        nodeBuffer->isTemp = false;
+        nodeBuffer->level = level;
+
+        // Expand buffersOnLevels array if needed
+        if (level >= gfbb->buffersOnLevelsLen)
+        {
+            gfbb->buffersOnLevels = (List **) repalloc(gfbb->buffersOnLevels,
+                                                      (level + 1) * sizeof(List *));
+            // Initialize new levels
+            for (int i = gfbb->buffersOnLevelsLen; i <= level; i++)
+                gfbb->buffersOnLevels[i] = NIL;
+            gfbb->buffersOnLevelsLen = level + 1;
+        }
+
+        // Add buffer to beginning of level list for cache efficiency
+        gfbb->buffersOnLevels[level] = lcons(nodeBuffer, gfbb->buffersOnLevels[level]);
+
+        MemoryContextSwitchTo(oldcxt);
+    }
+
+    return nodeBuffer;
+}
+```

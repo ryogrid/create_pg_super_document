@@ -50,3 +50,64 @@ Key operations performed:
 - The function returns the total number of bytes written, which is used for memory accounting
 - Partition selection uses bitwise operations with pre-calculated mask and shift values for efficiency
 - MinimalTuple format is used for compact on-disk storage of spilled tuples
+
+## Simplified Source
+
+```c
+static Size
+hashagg_spill_tuple(AggState *aggstate, HashAggSpill *spill,
+                    TupleTableSlot *inputslot, uint32 hash)
+{
+    TupleTableSlot *spillslot;
+    int partition;
+    MinimalTuple tuple;
+    LogicalTape *tape;
+    int total_written = 0;
+    bool shouldFree;
+
+    // Optimize by spilling only needed columns
+    if (!aggstate->all_cols_needed)
+    {
+        spillslot = aggstate->hash_spill_wslot;
+        slot_getsomeattrs(inputslot, aggstate->max_colno_needed);
+        ExecClearTuple(spillslot);
+
+        // Copy only required attributes
+        for (int i = 0; i < spillslot->tts_tupleDescriptor->natts; i++)
+        {
+            if (bms_is_member(i + 1, aggstate->colnos_needed))
+            {
+                spillslot->tts_values[i] = inputslot->tts_values[i];
+                spillslot->tts_isnull[i] = inputslot->tts_isnull[i];
+            }
+            else
+                spillslot->tts_isnull[i] = true;
+        }
+        ExecStoreVirtualTuple(spillslot);
+    }
+    else
+        spillslot = inputslot;
+
+    // Convert to minimal tuple for storage
+    tuple = ExecFetchSlotMinimalTuple(spillslot, &shouldFree);
+
+    // Determine target partition and update counters
+    partition = (hash & spill->mask) >> spill->shift;
+    spill->ntuples[partition]++;
+
+    // Update cardinality estimate (rehash for better distribution)
+    addHyperLogLog(&spill->hll_card[partition], hash_bytes_uint32(hash));
+
+    // Write hash and tuple to partition tape
+    tape = spill->partitions[partition];
+    LogicalTapeWrite(tape, &hash, sizeof(uint32));
+    total_written += sizeof(uint32);
+    LogicalTapeWrite(tape, tuple, tuple->t_len);
+    total_written += tuple->t_len;
+
+    if (shouldFree)
+        pfree(tuple);
+
+    return total_written;
+}
+```

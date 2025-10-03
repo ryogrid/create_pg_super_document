@@ -57,3 +57,84 @@ The function carefully validates the tuple location and panics if inconsistencie
 - Partition movement deletions use special t_ctid handling via HeapTupleHeaderSetMovedPartitions
 - Essential for maintaining MVCC consistency and visibility during recovery operations
 - Updates both tuple-level and page-level metadata to ensure proper recovery state
+
+## Simplified Source
+
+```c
+static void
+heap_xlog_delete(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    xl_heap_delete *xlrec = (xl_heap_delete *) XLogRecGetData(record);
+    Buffer buffer;
+    Page page;
+    ItemId lp;
+    HeapTupleHeader htup;
+    BlockNumber blkno;
+    RelFileLocator target_locator;
+    ItemPointerData target_tid;
+
+    // Extract target location from WAL record
+    XLogRecGetBlockTag(record, 0, &target_locator, NULL, &blkno);
+    ItemPointerSetBlockNumber(&target_tid, blkno);
+    ItemPointerSetOffsetNumber(&target_tid, xlrec->offnum);
+
+    // Clear visibility map if page was all-visible
+    if (xlrec->flags & XLH_DELETE_ALL_VISIBLE_CLEARED) {
+        Relation reln = CreateFakeRelcacheEntry(target_locator);
+        Buffer vmbuffer = InvalidBuffer;
+
+        visibilitymap_pin(reln, blkno, &vmbuffer);
+        visibilitymap_clear(reln, blkno, vmbuffer, VISIBILITYMAP_VALID_BITS);
+        ReleaseBuffer(vmbuffer);
+        FreeFakeRelcacheEntry(reln);
+    }
+
+    // Apply deletion to heap page
+    if (XLogReadBufferForRedo(record, 0, &buffer) == BLK_NEEDS_REDO) {
+        page = BufferGetPage(buffer);
+
+        // Validate tuple location
+        if (PageGetMaxOffsetNumber(page) >= xlrec->offnum)
+            lp = PageGetItemId(page, xlrec->offnum);
+
+        if (PageGetMaxOffsetNumber(page) < xlrec->offnum || !ItemIdIsNormal(lp))
+            elog(PANIC, "invalid lp");
+
+        htup = (HeapTupleHeader) PageGetItem(page, lp);
+
+        // Update tuple header for deletion
+        htup->t_infomask &= ~(HEAP_XMAX_BITS | HEAP_MOVED);
+        htup->t_infomask2 &= ~HEAP_KEYS_UPDATED;
+        HeapTupleHeaderClearHotUpdated(htup);
+        fix_infomask_from_infobits(xlrec->infobits_set,
+                                 &htup->t_infomask, &htup->t_infomask2);
+
+        // Set transaction ID based on deletion type
+        if (!(xlrec->flags & XLH_DELETE_IS_SUPER))
+            HeapTupleHeaderSetXmax(htup, xlrec->xmax);
+        else
+            HeapTupleHeaderSetXmin(htup, InvalidTransactionId);
+
+        HeapTupleHeaderSetCmax(htup, FirstCommandId, false);
+
+        // Mark page for pruning and update visibility
+        PageSetPrunable(page, XLogRecGetXid(record));
+
+        if (xlrec->flags & XLH_DELETE_ALL_VISIBLE_CLEARED)
+            PageClearAllVisible(page);
+
+        // Handle special deletion types
+        if (xlrec->flags & XLH_DELETE_IS_PARTITION_MOVE)
+            HeapTupleHeaderSetMovedPartitions(htup);
+        else
+            htup->t_ctid = target_tid;
+
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buffer);
+    }
+
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+}
+```

@@ -40,3 +40,35 @@ The bit width determines the number of registers (2^bwidth) and directly impacts
 - The hashesArr is initialized to zero (not negative infinity) following the coupon collector problem discussion in the HyperLogLog paper
 - Precalculates alphaMM (alpha * m^2) for efficient raw estimate generation
 - Widely used in PostgreSQL for sort support operations and hash aggregation spilling
+
+## Simplified Source
+
+```c
+void
+initHyperLogLog(hyperLogLogState *cState, uint8 bwidth)
+{
+    // Validate bit width parameter
+    if (bwidth < 4 || bwidth > 16)
+        elog(ERROR, "bit width must be between 4 and 16 inclusive");
+
+    // Set basic parameters
+    cState->registerWidth = bwidth;
+    cState->nRegisters = (Size) 1 << bwidth;  // 2^bwidth registers
+    cState->arrSize = sizeof(uint8) * cState->nRegisters + 1;
+
+    // Allocate and zero-initialize register array
+    cState->hashesArr = palloc0(cState->arrSize);
+
+    // Calculate alpha bias correction factor
+    double alpha;
+    switch (cState->nRegisters) {
+        case 16:  alpha = 0.673; break;
+        case 32:  alpha = 0.697; break;
+        case 64:  alpha = 0.709; break;
+        default:  alpha = 0.7213 / (1.0 + 1.079 / cState->nRegisters);
+    }
+
+    // Precalculate alpha * m^2 for efficient estimation
+    cState->alphaMM = alpha * cState->nRegisters * cState->nRegisters;
+}
+```

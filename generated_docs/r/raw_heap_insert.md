@@ -50,3 +50,82 @@ The function operates in bulk mode, accumulating tuples in memory-buffered pages
 - Handles memory management for TOAST-processed tuples to prevent leaks
 - Enforces maximum tuple size limits and provides detailed error messages for oversized tuples
 - Part of the high-performance rewrite infrastructure that bypasses normal heap access methods
+
+## Simplified Source
+
+```c
+static void
+raw_heap_insert(RewriteState state, HeapTuple tup)
+{
+    Page page;
+    Size pageFreeSpace, saveFreeSpace;
+    Size len;
+    OffsetNumber newoff;
+    HeapTuple heaptup;
+
+    // Handle TOAST processing for oversized tuples or external attributes
+    if (state->rs_new_rel->rd_rel->relkind == RELKIND_TOASTVALUE) {
+        // Toast table entries are never recursively toasted
+        heaptup = tup;
+    } else if (HeapTupleHasExternal(tup) || tup->t_len > TOAST_TUPLE_THRESHOLD) {
+        // TOAST the tuple, skip FSM and disable logical decoding
+        int options = HEAP_INSERT_SKIP_FSM | HEAP_INSERT_NO_LOGICAL;
+        heaptup = heap_toast_insert_or_update(state->rs_new_rel, tup, NULL, options);
+    } else {
+        heaptup = tup;
+    }
+
+    len = MAXALIGN(heaptup->t_len);
+
+    // Validate tuple size
+    if (len > MaxHeapTupleSize)
+        ereport(ERROR, (errmsg("row is too big: size %zu, maximum size %zu",
+                              len, MaxHeapTupleSize)));
+
+    // Get target free space based on fillfactor
+    saveFreeSpace = RelationGetTargetPageFreeSpace(state->rs_new_rel,
+                                                   HEAP_DEFAULT_FILLFACTOR);
+
+    // Check if current page has enough space
+    page = (Page) state->rs_buffer;
+    if (page) {
+        pageFreeSpace = PageGetHeapFreeSpace(page);
+
+        if (len + saveFreeSpace > pageFreeSpace) {
+            // Page full - write it out and move to next
+            smgr_bulk_write(state->rs_bulkstate, state->rs_blockno,
+                           state->rs_buffer, true);
+            state->rs_buffer = NULL;
+            page = NULL;
+            state->rs_blockno++;
+        }
+    }
+
+    // Initialize new page if needed
+    if (!page) {
+        state->rs_buffer = smgr_bulk_get_buf(state->rs_bulkstate);
+        page = (Page) state->rs_buffer;
+        PageInit(page, BLCKSZ, 0);
+    }
+
+    // Insert tuple into page
+    newoff = PageAddItem(page, (Item) heaptup->t_data, heaptup->t_len,
+                         InvalidOffsetNumber, false, true);
+    if (newoff == InvalidOffsetNumber)
+        elog(ERROR, "failed to add tuple");
+
+    // Update caller's tuple position
+    ItemPointerSet(&(tup->t_self), state->rs_blockno, newoff);
+
+    // Set CTID if not already valid
+    if (!ItemPointerIsValid(&tup->t_data->t_ctid)) {
+        ItemId newitemid = PageGetItemId(page, newoff);
+        HeapTupleHeader onpage_tup = (HeapTupleHeader) PageGetItem(page, newitemid);
+        onpage_tup->t_ctid = tup->t_self;
+    }
+
+    // Clean up TOAST copy if needed
+    if (heaptup != tup)
+        heap_freetuple(heaptup);
+}
+```

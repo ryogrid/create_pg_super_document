@@ -51,3 +51,33 @@ The use of TopMemoryContext ensures that custom options persist for the lifetime
 - Setting need_initialization to true ensures the next call to parseRelOptions will rebuild the unified relOpts array
 - The function is called by all the type-specific add_*_reloption wrapper functions
 - Custom options are integrated with built-in options during the initialization process
+
+## Simplified Source
+
+```c
+static void add_reloption(relopt_gen *newoption) {
+    static int max_custom_options = 0;
+
+    // Expand array if needed
+    if (num_custom_options >= max_custom_options) {
+        MemoryContext oldcxt = MemoryContextSwitchTo(TopMemoryContext);
+
+        if (max_custom_options == 0) {
+            // Initial allocation
+            max_custom_options = 8;
+            custom_options = palloc(max_custom_options * sizeof(relopt_gen *));
+        } else {
+            // Double the capacity
+            max_custom_options *= 2;
+            custom_options = repalloc(custom_options,
+                                    max_custom_options * sizeof(relopt_gen *));
+        }
+
+        MemoryContextSwitchTo(oldcxt);
+    }
+
+    // Add new option and mark for reinitialization
+    custom_options[num_custom_options++] = newoption;
+    need_initialization = true;
+}
+```

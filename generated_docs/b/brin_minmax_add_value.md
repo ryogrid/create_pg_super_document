@@ -48,3 +48,55 @@ The function uses comparison operators specific to the data type, retrieved thro
 - The function returns a boolean indicating whether any updates were made to the summary
 - Comparison operations are performed using the appropriate strategy procedures for the data type
 - The function maintains the invariant that bv_values[0] contains the minimum and bv_values[1] contains the maximum
+
+## Simplified Source
+
+```c
+Datum
+brin_minmax_add_value(PG_FUNCTION_ARGS)
+{
+    BrinDesc   *bdesc = (BrinDesc *) PG_GETARG_POINTER(0);
+    BrinValues *column = (BrinValues *) PG_GETARG_POINTER(1);
+    Datum       newval = PG_GETARG_DATUM(2);
+    Oid         colloid = PG_GET_COLLATION();
+    bool        updated = false;
+    Form_pg_attribute attr;
+    AttrNumber  attno;
+
+    attno = column->bv_attno;
+    attr = TupleDescAttr(bdesc->bd_tupdesc, attno - 1);
+
+    // Initialize both min and max if no values exist yet
+    if (column->bv_allnulls)
+    {
+        column->bv_values[0] = datumCopy(newval, attr->attbyval, attr->attlen);
+        column->bv_values[1] = datumCopy(newval, attr->attbyval, attr->attlen);
+        column->bv_allnulls = false;
+        PG_RETURN_BOOL(true);
+    }
+
+    // Check if new value is smaller than current minimum
+    FmgrInfo *cmpFn = minmax_get_strategy_procinfo(bdesc, attno, attr->atttypid,
+                                                   BTLessStrategyNumber);
+    if (DatumGetBool(FunctionCall2Coll(cmpFn, colloid, newval, column->bv_values[0])))
+    {
+        if (!attr->attbyval)
+            pfree(DatumGetPointer(column->bv_values[0]));
+        column->bv_values[0] = datumCopy(newval, attr->attbyval, attr->attlen);
+        updated = true;
+    }
+
+    // Check if new value is larger than current maximum
+    cmpFn = minmax_get_strategy_procinfo(bdesc, attno, attr->atttypid,
+                                        BTGreaterStrategyNumber);
+    if (DatumGetBool(FunctionCall2Coll(cmpFn, colloid, newval, column->bv_values[1])))
+    {
+        if (!attr->attbyval)
+            pfree(DatumGetPointer(column->bv_values[1]));
+        column->bv_values[1] = datumCopy(newval, attr->attbyval, attr->attlen);
+        updated = true;
+    }
+
+    PG_RETURN_BOOL(updated);
+}
+```

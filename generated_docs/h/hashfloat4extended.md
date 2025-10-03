@@ -38,3 +38,25 @@ The `hashfloat4extended` function is the extended version of `hashfloat4` that s
 - Uses `hash_any_extended` for the final hash computation with seed incorporation
 - Located in src/backend/access/hash/hashfunc.c at lines 176-192
 - Useful for hash partitioning and distributed hash operations involving float4 values
+
+## Simplified Source
+```c
+Datum hashfloat4extended(PG_FUNCTION_ARGS) {
+    float4 key = PG_GETARG_FLOAT4(0);
+    uint64 seed = PG_GETARG_INT64(1);
+    float8 key8;
+
+    // Handle zero case: return seed directly
+    if (key == (float4) 0)
+        PG_RETURN_UINT64(seed);
+
+    // Widen to float8 for cross-type compatibility
+    key8 = key;
+
+    // Normalize NaN values to standard float8 NaN
+    if (isnan(key8))
+        key8 = get_float8_nan();
+
+    return hash_any_extended((unsigned char *) &key8, sizeof(key8), seed);
+}
+```

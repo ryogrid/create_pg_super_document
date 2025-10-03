@@ -47,3 +47,51 @@ The function is conditionally compiled with USE_PREFETCH and is designed to be c
 - The function uses spinlocks minimally in parallel mode to reduce contention
 - Error detection helps identify bugs in iterator management logic during development
 - The inline designation indicates this is a performance-critical function called frequently during scans
+
+## Simplified Source
+
+```c
+static inline void
+BitmapAdjustPrefetchIterator(BitmapHeapScanState *node, BlockNumber blockno)
+{
+#ifdef USE_PREFETCH
+    ParallelBitmapHeapState *pstate = node->pstate;
+
+    if (pstate == NULL) {
+        // Non-parallel mode
+        TBMIterator *prefetch_iterator = node->prefetch_iterator;
+
+        if (node->prefetch_pages > 0) {
+            // Main iterator caught up by one page
+            node->prefetch_pages--;
+        } else if (prefetch_iterator) {
+            // Advance prefetch iterator to stay ahead
+            TBMIterateResult *tbmpre = tbm_iterate(prefetch_iterator);
+
+            if (tbmpre == NULL || tbmpre->blockno != blockno)
+                elog(ERROR, "prefetch and main iterators are out of sync");
+        }
+        return;
+    }
+
+    // Parallel mode
+    if (node->prefetch_maximum > 0) {
+        TBMSharedIterator *prefetch_iterator = node->shared_prefetch_iterator;
+
+        SpinLockAcquire(&pstate->mutex);
+        if (pstate->prefetch_pages > 0) {
+            pstate->prefetch_pages--;
+            SpinLockRelease(&pstate->mutex);
+        } else {
+            SpinLockRelease(&pstate->mutex);
+
+            // Advance shared prefetch iterator
+            // Note: No validation in parallel mode since different processes
+            // may be working on different blocks simultaneously
+            if (prefetch_iterator)
+                tbm_shared_iterate(prefetch_iterator);
+        }
+    }
+#endif /* USE_PREFETCH */
+}
+```

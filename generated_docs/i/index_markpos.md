@@ -35,3 +35,16 @@ The function performs validation checks to ensure the scan descriptor is valid a
 - The actual position marking logic is implemented by the specific index access method
 - Located in src/backend/access/index/indexam.c:408-431
 - Position marking is commonly used in executor nodes that need to revisit previous scan positions
+
+## Simplified Source
+
+```c
+void index_markpos(IndexScanDesc scan) {
+    // Validate scan descriptor and check that access method supports position marking
+    SCAN_CHECKS;
+    CHECK_SCAN_PROCEDURE(ammarkpos);
+
+    // Delegate to access method-specific position marking routine
+    scan->indexRelation->rd_indam->ammarkpos(scan);
+}
+```

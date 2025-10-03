@@ -37,3 +37,16 @@ This function is the extended version of hashname that accepts an additional see
 - The hash only includes the actual string content, not the padding
 - Commonly used for seeded hashing of database object identifiers
 - Located in src/backend/access/hash/hashfunc.c:258-266
+
+## Simplified Source
+
+```c
+Datum hashnameextended(PG_FUNCTION_ARGS) {
+    // Extract the Name argument and convert to string
+    char *key = NameStr(*PG_GETARG_NAME(0));
+
+    // Compute extended hash using the string and seed parameter
+    return hash_any_extended((unsigned char *) key, strlen(key),
+                            PG_GETARG_INT64(1));
+}
+```

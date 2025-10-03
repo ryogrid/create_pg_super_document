@@ -48,3 +48,24 @@ This function is essential for maintaining the sorted order of GIN index entries
 - The function uses 1-based attribute numbering, requiring adjustment when accessing arrays
 - Essential for maintaining B-tree ordering properties in GIN entry pages
 - Handles the complex null semantics required for GIN's inverted index structure
+
+## Simplified Source
+
+```c
+int ginCompareEntries(GinState *ginstate, OffsetNumber attnum,
+                     Datum a, GinNullCategory categorya,
+                     Datum b, GinNullCategory categoryb) {
+    // Compare null categories first
+    if (categorya != categoryb)
+        return (categorya < categoryb) ? -1 : 1;
+
+    // All null items in same category are equal
+    if (categorya != GIN_CAT_NORM_KEY)
+        return 0;
+
+    // Both are normal values - delegate to column's comparison function
+    return DatumGetInt32(FunctionCall2Coll(&ginstate->compareFn[attnum - 1],
+                                          ginstate->supportCollation[attnum - 1],
+                                          a, b));
+}
+```

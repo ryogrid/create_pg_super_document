@@ -54,3 +54,49 @@ Unlike ensure_free_space_in_buffer, this function doesn't apply a load factor si
 - Critical for preparing BRIN minmax-multi data for persistent storage by ensuring it fits within space constraints
 - The function modifies the ranges structure in-place rather than returning a new structure
 - Includes comprehensive assertions to validate the final compacted ranges maintain all invariants
+
+## Simplified Source
+
+```c
+static void
+compactify_ranges(BrinDesc *bdesc, Ranges *ranges, int max_values)
+{
+    // Early exit if compaction not needed
+    if ((ranges->nranges * 2 + ranges->nvalues <= max_values) &&
+        (ranges->nsorted == ranges->nvalues))
+        return;
+
+    // Get required functions for compaction
+    FmgrInfo *cmpFn = minmax_multi_get_strategy_procinfo(bdesc, ranges->attno,
+                                                        ranges->typid,
+                                                        BTLessStrategyNumber);
+    FmgrInfo *distanceFn = minmax_multi_get_procinfo(bdesc, ranges->attno,
+                                                    PROCNUM_DISTANCE);
+
+    // Create temporary memory context for distance calculations
+    MemoryContext ctx = AllocSetContextCreate(CurrentMemoryContext,
+                                            "minmax-multi context",
+                                            ALLOCSET_DEFAULT_SIZES);
+    MemoryContext oldctx = MemoryContextSwitchTo(ctx);
+
+    // Build expanded ranges from current data
+    ExpandedRange *eranges;
+    int neranges;
+    eranges = build_expanded_ranges(cmpFn, ranges->colloid, ranges, &neranges);
+
+    // Calculate distances between adjacent ranges
+    DistanceValue *distances = build_distances(distanceFn, ranges->colloid,
+                                              eranges, neranges);
+
+    // Combine ranges until under max_values limit
+    neranges = reduce_expanded_ranges(eranges, neranges, distances,
+                                    max_values, cmpFn, ranges->colloid);
+
+    // Convert back to standard range format
+    store_expanded_ranges(ranges, eranges, neranges);
+
+    // Clean up temporary memory
+    MemoryContextSwitchTo(oldctx);
+    MemoryContextDelete(ctx);
+}
+```

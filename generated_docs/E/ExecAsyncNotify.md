@@ -48,3 +48,34 @@ This function is typically called from within PostgreSQL's event loop when the o
 - Essential for implementing efficient event-driven I/O in PostgreSQL's foreign data wrapper architecture
 - The function immediately calls ExecAsyncResponse, suggesting tight coupling between notification and response processing
 - Enables PostgreSQL to efficiently handle multiple concurrent async operations through event-driven programming
+
+## Simplified Source
+
+```c
+void
+ExecAsyncNotify(AsyncRequest *areq)
+{
+    // Start performance instrumentation for notification handling
+    if (areq->requestee->instrument)
+        InstrStartNode(areq->requestee->instrument);
+
+    // Dispatch to appropriate async-capable node type
+    switch (nodeTag(areq->requestee)) {
+        case T_ForeignScanState:
+            ExecAsyncForeignScanNotify(areq);
+            break;
+        default:
+            // Only foreign scan nodes currently support async
+            elog(ERROR, "unrecognized node type: %d",
+                 (int) nodeTag(areq->requestee));
+    }
+
+    // Process the async response
+    ExecAsyncResponse(areq);
+
+    // Stop instrumentation and record tuple statistics
+    if (areq->requestee->instrument)
+        InstrStopNode(areq->requestee->instrument,
+                      TupIsNull(areq->result) ? 0.0 : 1.0);
+}
+```

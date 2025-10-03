@@ -48,3 +48,71 @@ This function is called by the leader process in parallel query execution and au
 - Installs DSM detach hook for cleanup on failure during GetSessionDsmHandle()
 - Uses TopMemoryContext for hash table creation to ensure proper memory management
 - The shared registry remains active until process exit for the leader process
+
+## Simplified Source
+
+```c
+void SharedRecordTypmodRegistryInit(SharedRecordTypmodRegistry *registry,
+                                  dsm_segment *segment, dsa_area *area) {
+    MemoryContext old_context;
+    dshash_table *record_table;
+    dshash_table *typmod_table;
+    int32 typmod;
+
+    // Must be called by leader process only
+    Assert(!IsParallelWorker());
+    Assert(CurrentSession->shared_typmod_registry == NULL);
+
+    old_context = MemoryContextSwitchTo(TopMemoryContext);
+
+    // Create hash tables for record type management
+    record_table = dshash_create(area, &srtr_record_table_params, area);
+    typmod_table = dshash_create(area, &srtr_typmod_table_params, NULL);
+
+    MemoryContextSwitchTo(old_context);
+
+    // Initialize registry with hash table handles and typmod counter
+    registry->record_table_handle = dshash_get_hash_table_handle(record_table);
+    registry->typmod_table_handle = dshash_get_hash_table_handle(typmod_table);
+    pg_atomic_init_u32(&registry->next_typmod, NextRecordTypmod);
+
+    // Copy all existing record types from private to shared registry
+    for (typmod = 0; typmod < NextRecordTypmod; ++typmod) {
+        TupleDesc tupdesc = RecordCacheArray[typmod].tupdesc;
+        if (tupdesc == NULL)
+            continue;
+
+        // Share the tuple descriptor and insert into both hash tables
+        dsa_pointer shared_dp = share_tupledesc(area, tupdesc, typmod);
+
+        // Insert into typmod table
+        SharedTypmodTableEntry *typmod_entry =
+            dshash_find_or_insert(typmod_table, &tupdesc->tdtypmod, &found);
+        if (found)
+            elog(ERROR, "cannot create duplicate shared record typmod");
+        typmod_entry->typmod = tupdesc->tdtypmod;
+        typmod_entry->shared_tupdesc = shared_dp;
+        dshash_release_lock(typmod_table, typmod_entry);
+
+        // Insert into record table
+        SharedRecordTableKey record_key;
+        record_key.shared = false;
+        record_key.u.local_tupdesc = tupdesc;
+        SharedRecordTableEntry *record_entry =
+            dshash_find_or_insert(record_table, &record_key, &found);
+        if (!found) {
+            record_entry->key.shared = true;
+            record_entry->key.u.shared_tupdesc = shared_dp;
+        }
+        dshash_release_lock(record_table, record_entry);
+    }
+
+    // Activate shared registry for this session
+    CurrentSession->shared_record_table = record_table;
+    CurrentSession->shared_typmod_table = typmod_table;
+    CurrentSession->shared_typmod_registry = registry;
+
+    // Register cleanup hook
+    on_dsm_detach(segment, shared_record_typmod_registry_detach, (Datum) 0);
+}
+```

@@ -48,3 +48,27 @@ The shared memory layout includes a SharedHashInfo structure followed by an arra
 - Each worker's instrumentation area is zero-initialized to ensure clean starting state
 - The shared info is registered in the TOC using the plan node ID as the key for later lookup by workers
 - This function is part of PostgreSQL's parallel query execution infrastructure, specifically for hash join operations
+
+## Simplified Source
+
+```c
+void ExecHashInitializeDSM(HashState *node, ParallelContext *pcxt) {
+    // Skip setup if no instrumentation or no workers
+    if (!node->ps.instrument || pcxt->nworkers == 0)
+        return;
+
+    // Calculate size for SharedHashInfo + worker instrumentation array
+    size_t size = offsetof(SharedHashInfo, hinstrument) +
+                  pcxt->nworkers * sizeof(HashInstrumentation);
+
+    // Allocate shared memory for instrumentation data
+    node->shared_info = (SharedHashInfo *) shm_toc_allocate(pcxt->toc, size);
+
+    // Initialize to zero for clean starting state
+    memset(node->shared_info, 0, size);
+
+    // Set worker count and register in shared memory TOC
+    node->shared_info->num_workers = pcxt->nworkers;
+    shm_toc_insert(pcxt->toc, node->ps.plan->plan_node_id, node->shared_info);
+}
+```

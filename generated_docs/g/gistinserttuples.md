@@ -55,3 +55,41 @@ The locking protocol is designed to avoid holding locks longer than necessary du
 - Used extensively during page split propagation up the GiST tree structure
 - Handles both single tuple replacement and multiple tuple insertion scenarios
 - Critical for maintaining GiST tree consistency during concurrent operations
+
+## Simplified Source
+
+```c
+static bool
+gistinserttuples(GISTInsertState *state, GISTInsertStack *stack,
+                 GISTSTATE *giststate,
+                 IndexTuple *tuples, int ntup, OffsetNumber oldoffnum,
+                 Buffer leftchild, Buffer rightchild,
+                 bool unlockbuf, bool unlockleftchild)
+{
+    List *splitinfo;
+    bool is_split;
+
+    // Check for serializable conflicts before modifying the page
+    CheckForSerializableConflictIn(state->r, NULL, BufferGetBlockNumber(stack->buffer));
+
+    // Insert tuples to page, potentially splitting if necessary
+    is_split = gistplacetopage(state->r, state->freespace, giststate,
+                              stack->buffer, tuples, ntup, oldoffnum, NULL,
+                              leftchild, &splitinfo, true,
+                              state->heapRel, state->is_build);
+
+    // Release child page locks before recursing up the tree
+    if (BufferIsValid(rightchild))
+        UnlockReleaseBuffer(rightchild);
+    if (BufferIsValid(leftchild) && unlockleftchild)
+        LockBuffer(leftchild, GIST_UNLOCK);
+
+    // Handle split propagation or release buffer lock
+    if (splitinfo)
+        gistfinishsplit(state, stack, giststate, splitinfo, unlockbuf);
+    else if (unlockbuf)
+        LockBuffer(stack->buffer, GIST_UNLOCK);
+
+    return is_split;
+}
+```

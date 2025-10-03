@@ -33,3 +33,15 @@ The function returns a boolean value indicating whether this participant was the
 - Used primarily in parallel hash join operations where workers need to coordinate their exit from barrier synchronization points
 - The return value can be used to determine if this was the final participant, enabling last-participant cleanup logic
 - Located in src/backend/storage/ipc/barrier.c:256-264
+
+## Simplified Source
+
+```c
+bool
+BarrierDetach(Barrier *barrier)
+{
+    return BarrierDetachImpl(barrier, false);
+}
+```
+
+This simplified version shows that `BarrierDetach` is a wrapper around `BarrierDetachImpl` that handles normal detachment (not arriving) from barrier synchronization points.

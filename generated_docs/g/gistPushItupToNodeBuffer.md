@@ -47,3 +47,48 @@ This function is the main entry point for adding index tuples to node buffers du
 - Maintains a linked list of pages using prev pointers for navigation
 - Adds buffers to the emptying queue when they become half-full to manage memory pressure
 - Essential for the buffering strategy that allows building large GiST indexes efficiently
+
+## Simplified Source
+
+```c
+void gistPushItupToNodeBuffer(GISTBuildBuffers *gfbb, GISTNodeBuffer *nodeBuffer, IndexTuple itup) {
+    // Switch to persistent build context for memory operations
+    MemoryContext oldcxt = MemoryContextSwitchTo(gfbb->context);
+
+    // Initialize empty buffer with first page
+    if (nodeBuffer->blocksCount == 0) {
+        nodeBuffer->pageBuffer = gistAllocateNewPageBuffer(gfbb);
+        nodeBuffer->blocksCount = 1;
+        gistAddLoadedBuffer(gfbb, nodeBuffer);
+    }
+
+    // Load page buffer from disk if not in memory
+    if (!nodeBuffer->pageBuffer)
+        gistLoadNodeBuffer(gfbb, nodeBuffer);
+
+    // Check if current page has space for the tuple
+    if (PAGE_NO_SPACE(nodeBuffer->pageBuffer, itup)) {
+        // Page full - write to disk and create new page
+        BlockNumber blkno = gistBuffersGetFreeBlock(gfbb);
+        WriteTempFileBlock(gfbb->pfile, blkno, nodeBuffer->pageBuffer);
+
+        // Reset page and link to previous block
+        PAGE_FREE_SPACE(nodeBuffer->pageBuffer) =
+            BLCKSZ - MAXALIGN(offsetof(GISTNodeBufferPage, tupledata));
+        nodeBuffer->pageBuffer->prev = blkno;
+        nodeBuffer->blocksCount++;
+    }
+
+    // Add tuple to current page
+    gistPlaceItupToPage(nodeBuffer->pageBuffer, itup);
+
+    // Add to emptying queue if buffer becomes half-full
+    if (BUFFER_HALF_FILLED(nodeBuffer, gfbb) && !nodeBuffer->queuedForEmptying) {
+        gfbb->bufferEmptyingQueue = lcons(nodeBuffer, gfbb->bufferEmptyingQueue);
+        nodeBuffer->queuedForEmptying = true;
+    }
+
+    // Restore original memory context
+    MemoryContextSwitchTo(oldcxt);
+}
+```

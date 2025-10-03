@@ -30,3 +30,21 @@ ExecCustomMarkPos is used to mark the current position in a custom scan so that 
 - Used in conjunction with ExecCustomRestrPos for scan position management
 - Essential for merge joins and other algorithms that require backtracking capability
 - The error message includes the custom scan's name for better debugging
+
+## Simplified Source
+
+```c
+void
+ExecCustomMarkPos(CustomScanState *node)
+{
+    // Check if position marking is supported
+    if (!node->methods->MarkPosCustomScan)
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("custom scan \"%s\" does not support MarkPos",
+                        node->methods->CustomName)));
+
+    // Delegate to custom scan's mark position implementation
+    node->methods->MarkPosCustomScan(node);
+}
+```

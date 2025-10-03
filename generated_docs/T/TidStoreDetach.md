@@ -35,3 +35,21 @@ The function ensures that the shared TID data remains available to other process
 - This is the cleanup counterpart to TidStoreAttach
 - Primarily used in parallel vacuum operations when worker processes finish their work and need to disconnect
 - Does not destroy the shared TidStore itself - other processes may still be using it
+
+## Simplified Source
+
+```c
+void TidStoreDetach(TidStore *ts)
+{
+    Assert(TidStoreIsShared(ts));
+
+    // Detach from shared radix tree
+    shared_ts_detach(ts->tree.shared);
+
+    // Detach from DSA area
+    dsa_detach(ts->area);
+
+    // Free backend-local TidStore object
+    pfree(ts);
+}
+```

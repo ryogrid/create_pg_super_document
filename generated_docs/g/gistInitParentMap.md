@@ -35,3 +35,24 @@ This function creates and configures a hash table within the GiST build state th
 - The hash table uses the current memory context for allocations
 - This is a static function, only accessible within the gistbuild.c file
 - The parent map is essential for maintaining index structure integrity during the buffering-based build process
+
+## Simplified Source
+
+```c
+static void
+gistInitParentMap(GISTBuildState *buildstate)
+{
+    HASHCTL hashCtl;
+
+    // Configure hash table for block number -> parent mapping
+    hashCtl.keysize = sizeof(BlockNumber);
+    hashCtl.entrysize = sizeof(ParentMapEntry);
+    hashCtl.hcxt = CurrentMemoryContext;
+
+    // Create hash table with 1024 initial entries
+    buildstate->parentMap = hash_create("gistbuild parent map",
+                                       1024,
+                                       &hashCtl,
+                                       HASH_ELEM | HASH_BLOBS | HASH_CONTEXT);
+}
+```

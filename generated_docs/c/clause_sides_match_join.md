@@ -44,3 +44,29 @@ This validation is crucial for ensuring that join clauses can be properly used b
 - Essential for join algorithm selection and optimization, as different join types require specific clause orientations
 - The function assumes the clause is already known to be a binary operation referencing only the relations involved in the current join
 - Returns false if the clause mixes outer and inner relation variables on either side, making it unsuitable for the join
+
+## Simplified Source
+
+```c
+static inline bool
+clause_sides_match_join(RestrictInfo *rinfo, RelOptInfo *outerrel,
+                        RelOptInfo *innerrel)
+{
+    // Check if left side references only outer, right side only inner
+    if (bms_is_subset(rinfo->left_relids, outerrel->relids) &&
+        bms_is_subset(rinfo->right_relids, innerrel->relids))
+    {
+        rinfo->outer_is_left = true;  // Mark outer side
+        return true;
+    }
+    // Check reverse: left side inner, right side outer
+    else if (bms_is_subset(rinfo->left_relids, innerrel->relids) &&
+             bms_is_subset(rinfo->right_relids, outerrel->relids))
+    {
+        rinfo->outer_is_left = false;  // Mark outer side
+        return true;
+    }
+
+    return false;  // Mixed variables on sides - not usable
+}
+```

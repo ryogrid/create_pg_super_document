@@ -51,3 +51,54 @@ The implementation includes Windows-specific error handling for strxfrm() failur
 - Memory management follows PostgreSQL conventions using palloc/pfree
 - Part of the selectivity estimation infrastructure used by PostgreSQL's query planner
 - The locale transformation ensures that string comparisons used in selectivity calculations match the database's collation rules
+
+## Simplified Source
+
+```c
+static char *
+convert_string_datum(Datum value, Oid typid, Oid collid, bool *failure)
+{
+    char *val;
+
+    // Convert different string types to C string
+    switch (typid) {
+        case CHAROID:
+            val = (char *) palloc(2);
+            val[0] = DatumGetChar(value);
+            val[1] = '\0';
+            break;
+        case BPCHAROID:
+        case VARCHAROID:
+        case TEXTOID:
+            val = TextDatumGetCString(value);
+            break;
+        case NAMEOID:
+            {
+                NameData *nm = (NameData *) DatumGetPointer(value);
+                val = pstrdup(NameStr(*nm));
+                break;
+            }
+        default:
+            *failure = true;
+            return NULL;
+    }
+
+    // Apply locale transformation for non-C locales
+    if (!lc_collate_is_c(collid)) {
+        // Determine required buffer size
+        size_t xfrmlen = strxfrm(NULL, val, 0);
+
+        // Skip transformation on Windows if error occurred
+        if (xfrmlen == INT_MAX)
+            return val;
+
+        // Perform locale transformation
+        char *xfrmstr = (char *) palloc(xfrmlen + 1);
+        strxfrm(xfrmstr, val, xfrmlen + 1);
+        pfree(val);
+        val = xfrmstr;
+    }
+
+    return val;
+}
+```

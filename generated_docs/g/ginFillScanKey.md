@@ -51,3 +51,66 @@ The function handles different search modes specially: GIN_SEARCH_MODE_ALL keys 
 - Automatically adds hidden entries for INCLUDE_EMPTY and EVERYTHING search modes
 - Initializes the consistent function for the scan key
 - Part of the query preprocessing phase in GIN index scanning
+
+## Simplified Source
+
+```c
+static void ginFillScanKey(GinScanOpaque so, OffsetNumber attnum,
+                         StrategyNumber strategy, int32 searchMode,
+                         Datum query, uint32 nQueryValues,
+                         Datum *queryValues, GinNullCategory *queryCategories,
+                         bool *partial_matches, Pointer *extra_data) {
+    GinScanKey key = &(so->keys[so->nkeys++]);
+    GinState *ginstate = &so->ginstate;
+    uint32 i;
+
+    // Initialize key with extracted query information
+    key->nentries = nQueryValues;
+    key->nuserentries = nQueryValues;
+
+    // Allocate arrays with one extra slot for potential hidden entry
+    key->scanEntry = (GinScanEntry *) palloc(sizeof(GinScanEntry) * (nQueryValues + 1));
+    key->entryRes = (GinTernaryValue *) palloc0(sizeof(GinTernaryValue) * (nQueryValues + 1));
+
+    // Store query information
+    key->query = query;
+    key->queryValues = queryValues;
+    key->queryCategories = queryCategories;
+    key->extra_data = extra_data;
+    key->strategy = strategy;
+    key->searchMode = searchMode;
+    key->attnum = attnum;
+
+    // Initialize search behavior
+    key->excludeOnly = (searchMode == GIN_SEARCH_MODE_ALL);
+    ItemPointerSetMin(&key->curItem);
+    key->curItemMatches = false;
+    key->recheckCurItem = false;
+    key->isFinished = false;
+    key->nrequired = 0;
+    key->nadditional = 0;
+    key->requiredEntries = NULL;
+    key->additionalEntries = NULL;
+
+    ginInitConsistentFunction(ginstate, key);
+
+    // Create scan entries for each extracted query value
+    for (i = 0; i < nQueryValues; i++) {
+        Datum queryKey = queryValues[i];
+        GinNullCategory queryCategory = queryCategories[i];
+        bool isPartialMatch = (ginstate->canPartialMatch[attnum - 1] && partial_matches)
+                            ? partial_matches[i] : false;
+        Pointer this_extra = (extra_data) ? extra_data[i] : NULL;
+
+        key->scanEntry[i] = ginFillScanEntry(so, attnum, strategy, searchMode,
+                                           queryKey, queryCategory,
+                                           isPartialMatch, this_extra);
+    }
+
+    // Add hidden entries for specific search modes
+    if (searchMode == GIN_SEARCH_MODE_INCLUDE_EMPTY)
+        ginScanKeyAddHiddenEntry(so, key, GIN_CAT_EMPTY_ITEM);
+    else if (searchMode == GIN_SEARCH_MODE_EVERYTHING)
+        ginScanKeyAddHiddenEntry(so, key, GIN_CAT_EMPTY_QUERY);
+}
+```

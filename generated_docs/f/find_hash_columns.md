@@ -59,3 +59,108 @@ Special handling is provided for grouping sets scenarios where certain variables
 - Memory allocation is done in per-query context since the structures persist across ExecReScanAgg calls
 - Sets up hash and equality functions through execTuplesHashPrepare for proper tuple comparison
 - Creates optimized tuple slots using TTSOpsMinimalTuple for efficient hash table storage
+
+## Simplified Source
+
+```c
+static void find_hash_columns(AggState *aggstate) {
+    Bitmapset *base_colnos;
+    Bitmapset *aggregated_colnos;
+    TupleDesc scanDesc = aggstate->ss.ss_ScanTupleSlot->tts_tupleDescriptor;
+    List *outerTlist = outerPlanState(aggstate)->plan->targetlist;
+    int numHashes = aggstate->num_hashes;
+    EState *estate = aggstate->ss.ps.state;
+
+    // Find columns needed in target list and quals
+    find_cols(aggstate, &aggregated_colnos, &base_colnos);
+    aggstate->colnos_needed = bms_union(base_colnos, aggregated_colnos);
+    aggstate->max_colno_needed = 0;
+    aggstate->all_cols_needed = true;
+
+    // Determine maximum column number needed and if all columns are required
+    for (int i = 0; i < scanDesc->natts; i++) {
+        int colno = i + 1;
+        if (bms_is_member(colno, aggstate->colnos_needed)) {
+            aggstate->max_colno_needed = colno;
+        } else {
+            aggstate->all_cols_needed = false;
+        }
+    }
+
+    // Process each hash grouping set
+    for (int j = 0; j < numHashes; ++j) {
+        AggStatePerHash perhash = &aggstate->perhash[j];
+        Bitmapset *colnos = bms_copy(base_colnos);
+        AttrNumber *grpColIdx = perhash->aggnode->grpColIdx;
+        List *hashTlist = NIL;
+        TupleDesc hashDesc;
+
+        perhash->largestGrpColIdx = 0;
+
+        // Handle grouping sets - remove columns not needed for this set
+        if (aggstate->phases[0].grouped_cols) {
+            Bitmapset *grouped_cols = aggstate->phases[0].grouped_cols[j];
+            ListCell *lc;
+            foreach(lc, aggstate->all_grouped_cols) {
+                int attnum = lfirst_int(lc);
+                if (!bms_is_member(attnum, grouped_cols)) {
+                    colnos = bms_del_member(colnos, attnum);
+                }
+            }
+        }
+
+        // Calculate maximum columns including potential duplicates
+        int maxCols = bms_num_members(colnos) + perhash->numCols;
+
+        // Allocate column mapping arrays
+        perhash->hashGrpColIdxInput = palloc(maxCols * sizeof(AttrNumber));
+        perhash->hashGrpColIdxHash = palloc(perhash->numCols * sizeof(AttrNumber));
+
+        // Add all grouping columns to the set
+        for (int i = 0; i < perhash->numCols; i++) {
+            colnos = bms_add_member(colnos, grpColIdx[i]);
+        }
+
+        // Build mapping for directly hashed columns (grouping columns first)
+        perhash->numhashGrpCols = 0;
+        for (int i = 0; i < perhash->numCols; i++) {
+            perhash->hashGrpColIdxInput[i] = grpColIdx[i];
+            perhash->hashGrpColIdxHash[i] = i + 1;
+            perhash->numhashGrpCols++;
+            // Remove already mapped columns
+            colnos = bms_del_member(colnos, grpColIdx[i]);
+        }
+
+        // Add remaining needed columns
+        int column_id = -1;
+        while ((column_id = bms_next_member(colnos, column_id)) >= 0) {
+            perhash->hashGrpColIdxInput[perhash->numhashGrpCols] = column_id;
+            perhash->numhashGrpCols++;
+        }
+
+        // Build tuple descriptor for hash table
+        for (int i = 0; i < perhash->numhashGrpCols; i++) {
+            int varNumber = perhash->hashGrpColIdxInput[i] - 1;
+            hashTlist = lappend(hashTlist, list_nth(outerTlist, varNumber));
+            perhash->largestGrpColIdx = Max(varNumber + 1, perhash->largestGrpColIdx);
+        }
+
+        // Create hash table tuple descriptor and prepare hash functions
+        hashDesc = ExecTypeFromTL(hashTlist);
+        execTuplesHashPrepare(perhash->numCols,
+                             perhash->aggnode->grpOperators,
+                             &perhash->eqfuncoids,
+                             &perhash->hashfunctions);
+
+        // Allocate hash table slot
+        perhash->hashslot = ExecAllocTableSlot(&estate->es_tupleTable, hashDesc,
+                                              &TTSOpsMinimalTuple);
+
+        // Cleanup temporary structures
+        list_free(hashTlist);
+        bms_free(colnos);
+    }
+
+    bms_free(base_colnos);
+}
+```

@@ -58,3 +58,96 @@ The power-of-two bucketing scheme is crucial for balancing deletion efficiency w
 - The bucketing scheme enables heap locality factors to influence processing order without sacrificing deletion efficiency
 - Allocates temporary arrays (blockgroups, reordereddeltids) that are freed before return
 - Located in src/backend/access/heap/heapam.c:8653-8781
+
+## Simplified Source
+
+```c
+static int bottomup_sort_and_shrink(TM_IndexDeleteOp *delstate)
+{
+    IndexDeleteCounts *blockgroups;
+    TM_IndexDelete *reordereddeltids;
+    BlockNumber curblock = InvalidBlockNumber;
+    int nblockgroups = 0;
+    int ncopied = 0;
+    int nblocksfavorable = 0;
+
+    Assert(delstate->bottomup);
+    Assert(delstate->ndeltids > 0);
+
+    // Step 1: Group TIDs by heap block and count statistics
+    blockgroups = palloc(sizeof(IndexDeleteCounts) * delstate->ndeltids);
+
+    for (int i = 0; i < delstate->ndeltids; i++)
+    {
+        TM_IndexDelete *ideltid = &delstate->deltids[i];
+        TM_IndexStatus *istatus = delstate->status + ideltid->id;
+        ItemPointer htid = &ideltid->tid;
+        bool promising = istatus->promising;
+
+        if (curblock != ItemPointerGetBlockNumber(htid))
+        {
+            // Start new block group
+            nblockgroups++;
+            curblock = ItemPointerGetBlockNumber(htid);
+
+            blockgroups[nblockgroups - 1].ifirsttid = i;
+            blockgroups[nblockgroups - 1].ntids = 1;
+            blockgroups[nblockgroups - 1].npromisingtids = 0;
+        }
+        else
+        {
+            // Add to current block group
+            blockgroups[nblockgroups - 1].ntids++;
+        }
+
+        if (promising)
+            blockgroups[nblockgroups - 1].npromisingtids++;
+    }
+
+    // Step 2: Apply power-of-two bucketing to normalize npromisingtids
+    for (int b = 0; b < nblockgroups; b++)
+    {
+        IndexDeleteCounts *group = blockgroups + b;
+
+        // Round up to power of 2, minimum 4, to reduce noise
+        if (group->npromisingtids <= 4)
+            group->npromisingtids = 4;
+        else
+            group->npromisingtids = pg_nextpower2_32((uint32) group->npromisingtids);
+    }
+
+    // Step 3: Sort groups by deletion potential and spatial locality
+    qsort(blockgroups, nblockgroups, sizeof(IndexDeleteCounts),
+          bottomup_sort_and_shrink_cmp);
+
+    // Step 4: Shrink to most promising blocks only
+    nblockgroups = Min(BOTTOMUP_MAX_NBLOCKS, nblockgroups);
+
+    // Determine favorable block count for spatial locality
+    nblocksfavorable = bottomup_nblocksfavorable(blockgroups, nblockgroups,
+                                                 delstate->deltids);
+
+    // Step 5: Reorder deltids array according to optimized group order
+    reordereddeltids = palloc(delstate->ndeltids * sizeof(TM_IndexDelete));
+
+    for (int b = 0; b < nblockgroups; b++)
+    {
+        IndexDeleteCounts *group = blockgroups + b;
+        TM_IndexDelete *firstdtid = delstate->deltids + group->ifirsttid;
+
+        memcpy(reordereddeltids + ncopied, firstdtid,
+               sizeof(TM_IndexDelete) * group->ntids);
+        ncopied += group->ntids;
+    }
+
+    // Copy back and update state
+    memcpy(delstate->deltids, reordereddeltids,
+           sizeof(TM_IndexDelete) * ncopied);
+    delstate->ndeltids = ncopied;
+
+    pfree(reordereddeltids);
+    pfree(blockgroups);
+
+    return nblocksfavorable;
+}
+```

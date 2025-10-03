@@ -41,3 +41,16 @@ This design allows nodes to change their execution behavior while maintaining th
 - The wrapper system ensures stack checking and instrumentation remain active even when execution functions change
 - If called after execution has begun, ExecProcNodeFirst may be executed superfluously, but this is considered acceptable overhead
 - The function is essential for nodes that need dynamic execution strategy switching
+
+## Simplified Source
+
+```c
+void ExecSetExecProcNode(PlanState *node, ExecProcNodeMtd function)
+{
+    // Store the actual execution function
+    node->ExecProcNodeReal = function;
+
+    // Set wrapper that handles stack checking and instrumentation
+    node->ExecProcNode = ExecProcNodeFirst;
+}
+```

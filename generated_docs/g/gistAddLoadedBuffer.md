@@ -38,3 +38,28 @@ An important safety check prevents temporary buffers (those marked with isTemp f
 - The loadedBuffersCount is incremented after successful addition to maintain accurate count
 - This tracking enables efficient memory management by identifying which buffers can be swapped to disk
 - Array initially starts with capacity of 32 buffers (set in gistInitBuildBuffers)
+
+## Simplified Source
+
+```c
+static void
+gistAddLoadedBuffer(GISTBuildBuffers *gfbb, GISTNodeBuffer *nodeBuffer)
+{
+    // Skip temporary buffers
+    if (nodeBuffer->isTemp)
+        return;
+
+    // Expand array if needed
+    if (gfbb->loadedBuffersCount >= gfbb->loadedBuffersLen)
+    {
+        gfbb->loadedBuffersLen *= 2;
+        gfbb->loadedBuffers = (GISTNodeBuffer **)
+            repalloc(gfbb->loadedBuffers,
+                     gfbb->loadedBuffersLen * sizeof(GISTNodeBuffer *));
+    }
+
+    // Add buffer to tracking array
+    gfbb->loadedBuffers[gfbb->loadedBuffersCount] = nodeBuffer;
+    gfbb->loadedBuffersCount++;
+}
+```

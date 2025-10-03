@@ -42,3 +42,24 @@ The calculation includes:
 - This function is part of the parallel query infrastructure for sharing configuration state
 - The estimated size is used by InitializeParallelDSM to allocate appropriate shared memory
 - Actual serialization is performed later by SerializeGUCState using this size estimate
+
+## Simplified Source
+
+```c
+Size EstimateGUCStateSpace(void) {
+    Size size;
+    dlist_iter iter;
+
+    // Space for storing the data size header
+    size = sizeof(Size);
+
+    // Add space needed for each non-default GUC variable
+    dlist_foreach(iter, &guc_nondef_list) {
+        struct config_generic *gconf = dlist_container(struct config_generic,
+                                                       nondef_link, iter.cur);
+        size = add_size(size, estimate_variable_size(gconf));
+    }
+
+    return size;
+}
+```

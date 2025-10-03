@@ -40,3 +40,56 @@ The function handles the complex lifecycle of SRFs by maintaining state about wh
 - Memory management is carefully handled with separate contexts for per-tuple and argument evaluation
 - The function loops until it finds an input tuple that produces at least one output row
 - Designed to handle the complex semantics of set-returning functions in PostgreSQL's execution engine
+
+## Simplified Source
+
+```c
+static TupleTableSlot *ExecProjectSet(PlanState *pstate)
+{
+    ProjectSetState *node = castNode(ProjectSetState, pstate);
+    ExprContext *econtext = node->ps.ps_ExprContext;
+
+    CHECK_FOR_INTERRUPTS();
+
+    // Reset per-tuple expression context
+    ResetExprContext(econtext);
+
+    // Check if still processing tuples from previous SRF evaluation
+    if (node->pending_srf_tuples)
+    {
+        TupleTableSlot *resultSlot = ExecProjectSRF(node, true);
+        if (resultSlot != NULL)
+            return resultSlot;
+    }
+
+    // Main loop to get new input tuples and project SRFs
+    for (;;)
+    {
+        // Reset argument context for memory management
+        MemoryContextReset(node->argcontext);
+
+        // Get next tuple from outer plan
+        PlanState *outerPlan = outerPlanState(node);
+        TupleTableSlot *outerTupleSlot = ExecProcNode(outerPlan);
+
+        // No more input tuples
+        if (TupIsNull(outerTupleSlot))
+            return NULL;
+
+        // Setup input tuple for projection
+        econtext->ecxt_outertuple = outerTupleSlot;
+
+        // Evaluate SRF expressions and project result
+        TupleTableSlot *resultSlot = ExecProjectSRF(node, false);
+
+        // Return result if projection produced rows
+        if (resultSlot)
+            return resultSlot;
+
+        // Reset context before looping for next input tuple
+        ResetExprContext(econtext);
+    }
+
+    return NULL;
+}
+```

@@ -39,3 +39,26 @@ The function is more expensive than `_hash_datum2hashkey` because it must perfor
 - Currently assumes single-attribute indexes (XXX comment indicates this limitation)
 - Supports collation-aware hashing through OidFunctionCall1Coll
 - Part of PostgreSQL's operator family system for supporting cross-type operations
+
+## Simplified Source
+
+```c
+uint32 _hash_datum2hashkey_type(Relation rel, Datum key, Oid keytype)
+{
+    RegProcedure hash_proc;
+    Oid collation;
+
+    // Look up hash function for the specified type in operator family
+    hash_proc = get_opfamily_proc(rel->rd_opfamily[0], keytype, keytype, HASHSTANDARD_PROC);
+
+    // Ensure hash function exists for this type
+    if (!RegProcedureIsValid(hash_proc))
+        elog(ERROR, "missing support function %d(%u,%u) for index \"%s\"",
+             HASHSTANDARD_PROC, keytype, keytype, RelationGetRelationName(rel));
+
+    collation = rel->rd_indcollation[0];
+
+    // Call the hash function and return the 32-bit hash value
+    return DatumGetUInt32(OidFunctionCall1Coll(hash_proc, collation, key));
+}
+```

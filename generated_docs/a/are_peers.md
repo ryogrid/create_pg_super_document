@@ -36,3 +36,25 @@ are_peers is a fundamental comparison function used throughout window function p
 - The ordEqfunction is pre-compiled during initialization for efficiency
 - Essential for RANGE and GROUPS frame mode where peer detection is required
 - Located in src/backend/executor/nodeWindowAgg.c:3043-3065
+
+## Simplified Source
+
+```c
+static bool
+are_peers(WindowAggState *winstate, TupleTableSlot *slot1, TupleTableSlot *slot2)
+{
+    WindowAgg *node = (WindowAgg *) winstate->ss.ps.plan;
+    ExprContext *econtext = winstate->tmpcontext;
+
+    // If no ORDER BY clause, all rows are considered peers
+    if (node->ordNumCols == 0)
+        return true;
+
+    // Set up expression context with the two tuples to compare
+    econtext->ecxt_outertuple = slot1;
+    econtext->ecxt_innertuple = slot2;
+
+    // Use pre-compiled equality function to compare ORDER BY columns
+    return ExecQualAndReset(winstate->ordEqfunction, econtext);
+}
+```

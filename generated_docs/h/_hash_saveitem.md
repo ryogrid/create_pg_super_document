@@ -34,3 +34,18 @@ The function provides a simple but crucial abstraction for storing scan results,
 - The heapTid (t_tid) is used to locate the corresponding tuple in the heap table
 - The indexOffset is used to identify the specific location of the tuple on the index page
 - Part of the hash index scanning infrastructure that enables efficient batch processing of scan results
+
+## Simplified Source
+
+```c
+static inline void
+_hash_saveitem(HashScanOpaque so, int itemIndex,
+               OffsetNumber offnum, IndexTuple itup)
+{
+    HashScanPosItem *currItem = &so->currPos.items[itemIndex];
+
+    // Store essential tuple information for later retrieval
+    currItem->heapTid = itup->t_tid;    // Heap tuple identifier
+    currItem->indexOffset = offnum;     // Offset on index page
+}
+```

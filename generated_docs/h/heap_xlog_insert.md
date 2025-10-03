@@ -64,3 +64,105 @@ The function includes comprehensive validation and will panic if inconsistencies
 - Reconstructed tuples receive the transaction ID from the WAL record and FirstCommandId
 - Target tuple ID (t_ctid) is set to the insertion location for new tuples
 - Only updates FSM when actual redo is needed, not when pages are restored from full page images
+
+## Simplified Source
+
+```c
+static void
+heap_xlog_insert(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    xl_heap_insert *xlrec = (xl_heap_insert *) XLogRecGetData(record);
+    Buffer buffer;
+    Page page;
+    union {
+        HeapTupleHeaderData hdr;
+        char data[MaxHeapTupleSize];
+    } tbuf;
+    HeapTupleHeader htup;
+    xl_heap_header xlhdr;
+    uint32 newlen;
+    Size freespace = 0;
+    RelFileLocator target_locator;
+    BlockNumber blkno;
+    ItemPointerData target_tid;
+    XLogRedoAction action;
+
+    // Extract target location
+    XLogRecGetBlockTag(record, 0, &target_locator, NULL, &blkno);
+    ItemPointerSetBlockNumber(&target_tid, blkno);
+    ItemPointerSetOffsetNumber(&target_tid, xlrec->offnum);
+
+    // Clear visibility map if needed
+    if (xlrec->flags & XLH_INSERT_ALL_VISIBLE_CLEARED) {
+        Relation reln = CreateFakeRelcacheEntry(target_locator);
+        Buffer vmbuffer = InvalidBuffer;
+
+        visibilitymap_pin(reln, blkno, &vmbuffer);
+        visibilitymap_clear(reln, blkno, vmbuffer, VISIBILITYMAP_VALID_BITS);
+        ReleaseBuffer(vmbuffer);
+        FreeFakeRelcacheEntry(reln);
+    }
+
+    // Initialize page if inserting first tuple
+    if (XLogRecGetInfo(record) & XLOG_HEAP_INIT_PAGE) {
+        buffer = XLogInitBufferForRedo(record, 0);
+        page = BufferGetPage(buffer);
+        PageInit(page, BufferGetPageSize(buffer), 0);
+        action = BLK_NEEDS_REDO;
+    } else {
+        action = XLogReadBufferForRedo(record, 0, &buffer);
+    }
+
+    if (action == BLK_NEEDS_REDO) {
+        Size datalen;
+        char *data;
+
+        page = BufferGetPage(buffer);
+
+        // Validate insertion offset
+        if (PageGetMaxOffsetNumber(page) + 1 < xlrec->offnum)
+            elog(PANIC, "invalid max offset number");
+
+        // Extract tuple data from WAL
+        data = XLogRecGetBlockData(record, 0, &datalen);
+        newlen = datalen - SizeOfHeapHeader;
+        memcpy((char *) &xlhdr, data, SizeOfHeapHeader);
+        data += SizeOfHeapHeader;
+
+        // Reconstruct tuple
+        htup = &tbuf.hdr;
+        MemSet((char *) htup, 0, SizeofHeapTupleHeader);
+        memcpy((char *) htup + SizeofHeapTupleHeader, data, newlen);
+        newlen += SizeofHeapTupleHeader;
+
+        // Set tuple header fields
+        htup->t_infomask2 = xlhdr.t_infomask2;
+        htup->t_infomask = xlhdr.t_infomask;
+        htup->t_hoff = xlhdr.t_hoff;
+        HeapTupleHeaderSetXmin(htup, XLogRecGetXid(record));
+        HeapTupleHeaderSetCmin(htup, FirstCommandId);
+        htup->t_ctid = target_tid;
+
+        // Insert tuple into page
+        if (PageAddItem(page, (Item) htup, newlen, xlrec->offnum,
+                       true, true) == InvalidOffsetNumber)
+            elog(PANIC, "failed to add tuple");
+
+        freespace = PageGetHeapFreeSpace(page);
+        PageSetLSN(page, lsn);
+
+        if (xlrec->flags & XLH_INSERT_ALL_VISIBLE_CLEARED)
+            PageClearAllVisible(page);
+
+        MarkBufferDirty(buffer);
+    }
+
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+
+    // Update FSM if page is running low on space
+    if (action == BLK_NEEDS_REDO && freespace < BLCKSZ / 5)
+        XLogRecordPageWithFreeSpace(target_locator, blkno, freespace);
+}
+```

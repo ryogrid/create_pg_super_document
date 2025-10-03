@@ -52,3 +52,46 @@ The WAL record includes the original page's right link and NSN (Next Split Numbe
 - The function registers multiple buffers and data chunks, so modifications to the registration logic require corresponding changes to XLogEnsureRecordSpace() calls
 - The returned XLogRecPtr can be used to set LSNs on the modified pages to ensure proper ordering during recovery
 - The function handles variable numbers of split pages through the linked list structure in the dist parameter
+
+## Simplified Source
+
+```c
+XLogRecPtr gistXLogSplit(bool page_is_leaf, SplitPageLayout *dist,
+                        BlockNumber origrlink, GistNSN orignsn,
+                        Buffer leftchildbuf, bool markfollowright) {
+    gistxlogPageSplit xlrec;
+    SplitPageLayout *ptr;
+    int npage = 0;
+
+    // Count number of pages in split
+    for (ptr = dist; ptr; ptr = ptr->next)
+        npage++;
+
+    // Setup WAL record metadata
+    xlrec.origrlink = origrlink;
+    xlrec.orignsn = orignsn;
+    xlrec.origleaf = page_is_leaf;
+    xlrec.npage = (uint16) npage;
+    xlrec.markfollowright = markfollowright;
+
+    XLogBeginInsert();
+
+    // Include left child buffer if provided
+    if (BufferIsValid(leftchildbuf))
+        XLogRegisterBuffer(0, leftchildbuf, REGBUF_STANDARD);
+
+    // Register the split record data
+    XLogRegisterData((char *) &xlrec, sizeof(gistxlogPageSplit));
+
+    // Register each new page and its data
+    int i = 1;
+    for (ptr = dist; ptr; ptr = ptr->next) {
+        XLogRegisterBuffer(i, ptr->buffer, REGBUF_WILL_INIT);
+        XLogRegisterBufData(i, (char *) &(ptr->block.num), sizeof(int));
+        XLogRegisterBufData(i, (char *) ptr->list, ptr->lenlist);
+        i++;
+    }
+
+    return XLogInsert(RM_GIST_ID, XLOG_GIST_PAGE_SPLIT);
+}
+```

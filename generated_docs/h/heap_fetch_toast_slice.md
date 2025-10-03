@@ -59,3 +59,97 @@ The function performs the following key operations:
 - Uses ordered system table scans to ensure chunks are processed in sequence
 - Provides detailed error messages with corruption details for debugging toast table issues
 - Critical for PostgreSQL's ability to efficiently work with large column values without reading entire objects
+
+## Simplified Source
+
+```c
+void
+heap_fetch_toast_slice(Relation toastrel, Oid valueid, int32 attrsize,
+                       int32 sliceoffset, int32 slicelength,
+                       struct varlena *result)
+{
+    Relation *toastidxs;
+    ScanKeyData toastkey[3];
+    int nscankeys;
+    SysScanDesc toastscan;
+    HeapTuple ttup;
+    int32 expectedchunk;
+    int32 totalchunks = ((attrsize - 1) / TOAST_MAX_CHUNK_SIZE) + 1;
+    int startchunk = sliceoffset / TOAST_MAX_CHUNK_SIZE;
+    int endchunk = (sliceoffset + slicelength - 1) / TOAST_MAX_CHUNK_SIZE;
+    int num_indexes, validIndex;
+    SnapshotData SnapshotToast;
+
+    // Open toast table indexes
+    validIndex = toast_open_indexes(toastrel, AccessShareLock, &toastidxs, &num_indexes);
+
+    // Set up scan keys based on chunk range needed
+    ScanKeyInit(&toastkey[0], (AttrNumber) 1, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(valueid));
+
+    if (startchunk == 0 && endchunk == totalchunks - 1) {
+        nscankeys = 1;  // Fetch all chunks
+    } else if (startchunk == endchunk) {
+        // Single chunk
+        ScanKeyInit(&toastkey[1], (AttrNumber) 2, BTEqualStrategyNumber, F_INT4EQ,
+                    Int32GetDatum(startchunk));
+        nscankeys = 2;
+    } else {
+        // Range of chunks
+        ScanKeyInit(&toastkey[1], (AttrNumber) 2, BTGreaterEqualStrategyNumber, F_INT4GE,
+                    Int32GetDatum(startchunk));
+        ScanKeyInit(&toastkey[2], (AttrNumber) 2, BTLessEqualStrategyNumber, F_INT4LE,
+                    Int32GetDatum(endchunk));
+        nscankeys = 3;
+    }
+
+    // Begin ordered scan of toast chunks
+    init_toast_snapshot(&SnapshotToast);
+    toastscan = systable_beginscan_ordered(toastrel, toastidxs[validIndex],
+                                          &SnapshotToast, nscankeys, toastkey);
+
+    // Read chunks in sequence and copy relevant portions to result
+    expectedchunk = startchunk;
+    while ((ttup = systable_getnext_ordered(toastscan, ForwardScanDirection)) != NULL) {
+        int32 curchunk, chunksize;
+        char *chunkdata;
+        bool isnull;
+
+        // Extract chunk number and data
+        curchunk = DatumGetInt32(fastgetattr(ttup, 2, toastrel->rd_att, &isnull));
+        Pointer chunk = DatumGetPointer(fastgetattr(ttup, 3, toastrel->rd_att, &isnull));
+
+        // Handle different varlena formats
+        if (!VARATT_IS_EXTENDED(chunk)) {
+            chunksize = VARSIZE(chunk) - VARHDRSZ;
+            chunkdata = VARDATA(chunk);
+        } else if (VARATT_IS_SHORT(chunk)) {
+            chunksize = VARSIZE_SHORT(chunk) - VARHDRSZ_SHORT;
+            chunkdata = VARDATA_SHORT(chunk);
+        } else {
+            elog(ERROR, "found toasted toast chunk for toast value %u", valueid);
+        }
+
+        // Validate chunk sequence and size
+        if (curchunk != expectedchunk)
+            ereport(ERROR, (errcode(ERRCODE_DATA_CORRUPTED),
+                           errmsg_internal("unexpected chunk number %d (expected %d)",
+                                         curchunk, expectedchunk)));
+
+        // Copy relevant portion of chunk to result buffer
+        int32 chcpystrt = (curchunk == startchunk) ? sliceoffset % TOAST_MAX_CHUNK_SIZE : 0;
+        int32 chcpyend = (curchunk == endchunk) ?
+                        (sliceoffset + slicelength - 1) % TOAST_MAX_CHUNK_SIZE :
+                        chunksize - 1;
+
+        memcpy(VARDATA(result) + (curchunk * TOAST_MAX_CHUNK_SIZE - sliceoffset) + chcpystrt,
+               chunkdata + chcpystrt, (chcpyend - chcpystrt) + 1);
+
+        expectedchunk++;
+    }
+
+    // Cleanup
+    systable_endscan_ordered(toastscan);
+    toast_close_indexes(toastidxs, num_indexes, AccessShareLock);
+}
+```

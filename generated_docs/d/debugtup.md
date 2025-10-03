@@ -47,3 +47,37 @@ The function processes each attribute by:
 - This is part of the DestReceiver interface pattern used throughout PostgreSQL's result handling system
 - Located in src/backend/access/common/printtup.c:462-488
 - Primarily intended for development and debugging purposes, not for production query result formatting
+
+## Simplified Source
+
+```c
+bool debugtup(TupleTableSlot *slot, DestReceiver *self) {
+    TupleDesc typeinfo = slot->tts_tupleDescriptor;
+    int natts = typeinfo->natts;
+    int i;
+    Datum attr;
+    char *value;
+    bool isnull;
+    Oid typoutput;
+    bool typisvarlena;
+
+    // Process each attribute in the tuple
+    for (i = 0; i < natts; ++i) {
+        attr = slot_getattr(slot, i + 1, &isnull);
+
+        // Skip null attributes
+        if (isnull) continue;
+
+        // Get output function for this data type
+        getTypeOutputInfo(TupleDescAttr(typeinfo, i)->atttypid,
+                         &typoutput, &typisvarlena);
+
+        // Convert attribute to string and print
+        value = OidOutputFunctionCall(typoutput, attr);
+        printatt((unsigned) i + 1, TupleDescAttr(typeinfo, i), value);
+    }
+
+    printf("\t----\n");
+    return true;
+}
+```

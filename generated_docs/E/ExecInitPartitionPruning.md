@@ -38,3 +38,38 @@ This function creates and initializes a PartitionPruneState structure that enabl
 - When initial pruning eliminates subplans, the function updates internal maps to account for the reduced subplan set
 - The initially_valid_subplans output indicates which child subplans must be initialized alongside the parent plan node
 - Part of PostgreSQL's run-time partition pruning framework that allows dynamic elimination of irrelevant partitions during query execution
+
+## Simplified Source
+
+```c
+PartitionPruneState *ExecInitPartitionPruning(PlanState *planstate,
+                                              int n_total_subplans,
+                                              PartitionPruneInfo *pruneinfo,
+                                              Bitmapset **initially_valid_subplans) {
+    PartitionPruneState *prunestate;
+    EState *estate = planstate->state;
+
+    // Set up expression context for partition expressions
+    ExecAssignExprContext(estate, planstate);
+
+    // Create pruning state structure
+    prunestate = CreatePartitionPruneState(planstate, pruneinfo);
+
+    // Perform initial pruning if configured
+    if (prunestate->do_initial_prune) {
+        *initially_valid_subplans = ExecFindMatchingSubPlans(prunestate, true);
+    } else {
+        // No pruning - initialize all subplans
+        *initially_valid_subplans = bms_add_range(NULL, 0, n_total_subplans - 1);
+    }
+
+    // Update subplan maps if some were pruned away
+    if (bms_num_members(*initially_valid_subplans) < n_total_subplans) {
+        if (prunestate->do_exec_prune) {
+            PartitionPruneFixSubPlanMap(prunestate, *initially_valid_subplans, n_total_subplans);
+        }
+    }
+
+    return prunestate;
+}
+```

@@ -36,3 +36,59 @@ This function performs garbage collection on a tuplestore by identifying and rem
 - Special optimization for the common case where exactly one tuple remains after trimming
 - Marks the tuplestore as truncated for assertion checking purposes
 - Updates all read pointer positions after array compaction to maintain consistency
+
+## Simplified Source
+
+```c
+void
+tuplestore_trim(Tuplestorestate *state)
+{
+    int oldest, nremove, i;
+
+    // Skip if rewind capability required or not in-memory
+    if (state->eflags & EXEC_FLAG_REWIND)
+        return;
+    if (state->status != TSS_INMEM)
+        return;
+
+    // Find oldest read pointer position
+    oldest = state->memtupcount;
+    for (i = 0; i < state->readptrcount; i++) {
+        if (!state->readptrs[i].eof_reached)
+            oldest = Min(oldest, state->readptrs[i].current);
+    }
+
+    // Keep one extra tuple before oldest current position
+    nremove = oldest - 1;
+    if (nremove <= 0)
+        return;
+
+    // Free no-longer-needed tuples
+    for (i = state->memtupdeleted; i < nremove; i++) {
+        FREEMEM(state, GetMemoryChunkSpace(state->memtuples[i]));
+        pfree(state->memtuples[i]);
+        state->memtuples[i] = NULL;
+    }
+    state->memtupdeleted = nremove;
+    state->truncated = true;
+
+    // Skip array compaction if less than 1/8th being removed (O(N²) prevention)
+    if (nremove < state->memtupcount / 8)
+        return;
+
+    // Compact array: optimize for single remaining tuple case
+    if (nremove + 1 == state->memtupcount)
+        state->memtuples[0] = state->memtuples[nremove];
+    else
+        memmove(state->memtuples, state->memtuples + nremove,
+                (state->memtupcount - nremove) * sizeof(void *));
+
+    // Update state and read pointer positions
+    state->memtupdeleted = 0;
+    state->memtupcount -= nremove;
+    for (i = 0; i < state->readptrcount; i++) {
+        if (!state->readptrs[i].eof_reached)
+            state->readptrs[i].current -= nremove;
+    }
+}
+```

@@ -48,3 +48,24 @@ The function is particularly important in PostgreSQL's hash aggregation implemen
 - Used extensively in hash aggregation to implement memory usage limits and prevent out-of-memory conditions
 - The traversal is efficient and doesn't modify any context state
 - Memory usage includes only the payload data, not the memory management overhead structures
+
+## Simplified Source
+
+```c
+Size
+MemoryContextMemAllocated(MemoryContext context, bool recurse)
+{
+    Size total = context->mem_allocated;
+
+    // If recursing, add memory from all child contexts
+    if (recurse) {
+        for (MemoryContext child = context->firstchild;
+             child != NULL;
+             child = MemoryContextTraverseNext(child, context)) {
+            total += child->mem_allocated;
+        }
+    }
+
+    return total;
+}
+```

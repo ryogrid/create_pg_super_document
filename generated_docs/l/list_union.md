@@ -47,3 +47,32 @@ The performance complexity is O(n*m) where n and m are the lengths of the two li
 - Uses equal() function for element comparison, allowing for proper object equality testing
 - Commonly used in catalog operations and query optimization where set operations are needed
 - The foreach() macro is used for efficient iteration over list2
+
+## Simplified Source
+
+```c
+List *
+list_union(const List *list1, const List *list2)
+{
+    List *result;
+    const ListCell *cell;
+
+    // Ensure both inputs are pointer lists
+    Assert(IsPointerList(list1));
+    Assert(IsPointerList(list2));
+
+    // Start with a copy of the first list
+    result = list_copy(list1);
+
+    // Add elements from list2 that aren't already in result
+    foreach(cell, list2)
+    {
+        if (!list_member(result, lfirst(cell)))
+            result = lappend(result, lfirst(cell));
+    }
+
+    // Validate the final result
+    check_list_invariants(result);
+    return result;
+}
+```

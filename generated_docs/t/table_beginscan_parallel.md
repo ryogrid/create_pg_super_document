@@ -40,3 +40,32 @@ This function creates a TableScanDesc for parallel scanning by coordinating with
 - Handles two snapshot scenarios: serialized snapshots that need restoration, and SnapshotAny for special scanning cases
 - Sets multiple scan optimization flags to enable efficient parallel scanning
 - Integrates with PostgreSQL's table access method (tableam) interface for storage engine independence
+
+## Simplified Source
+```c
+TableScanDesc
+table_beginscan_parallel(Relation relation, ParallelTableScanDesc pscan)
+{
+    Snapshot snapshot;
+    uint32 flags = SO_TYPE_SEQSCAN | SO_ALLOW_STRAT | SO_ALLOW_SYNC | SO_ALLOW_PAGEMODE;
+
+    // Verify relation matches the parallel scan descriptor
+    Assert(RelationGetRelid(relation) == pscan->phs_relid);
+
+    if (!pscan->phs_snapshot_any)
+    {
+        // Deserialize and register the snapshot
+        snapshot = RestoreSnapshot((char *) pscan + pscan->phs_snapshot_off);
+        RegisterSnapshot(snapshot);
+        flags |= SO_TEMP_SNAPSHOT;
+    }
+    else
+    {
+        // Use SnapshotAny for special scanning cases
+        snapshot = SnapshotAny;
+    }
+
+    // Delegate to table access method for actual scan initialization
+    return relation->rd_tableam->scan_begin(relation, snapshot, 0, NULL, pscan, flags);
+}
+```

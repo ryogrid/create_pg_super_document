@@ -38,3 +38,21 @@ The `ginoptions` function is the option parsing handler for GIN indexes that pro
 - Uses the standard PostgreSQL reloptions framework for consistent option handling
 - The returned bytea can be cast to GinOptions* for direct access to option values
 - Part of the GIN access method's integration with PostgreSQL's index option system
+
+## Simplified Source
+
+```c
+bytea *ginoptions(Datum reloptions, bool validate) {
+    // Define supported GIN options
+    static const relopt_parse_elt tab[] = {
+        {"fastupdate", RELOPT_TYPE_BOOL, offsetof(GinOptions, useFastUpdate)},
+        {"gin_pending_list_limit", RELOPT_TYPE_INT, offsetof(GinOptions, pendingListCleanupSize)}
+    };
+
+    // Parse and build options using standard framework
+    return (bytea *) build_reloptions(reloptions, validate,
+                                     RELOPT_KIND_GIN,
+                                     sizeof(GinOptions),
+                                     tab, lengthof(tab));
+}
+```

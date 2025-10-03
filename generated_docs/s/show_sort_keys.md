@@ -37,3 +37,19 @@ The function is part of PostgreSQL's comprehensive EXPLAIN system, specifically 
 - The function demonstrates PostgreSQL's layered approach to EXPLAIN formatting, with specialized functions handling specific node types
 - Part of the broader sort and group key display infrastructure, complementing similar functions for other grouping and ordering operations
 - Critical for helping users understand query performance by showing how data is being ordered
+
+## Simplified Source
+
+```c
+static void show_sort_keys(SortState *sortstate, List *ancestors, ExplainState *es) {
+    // Extract Sort plan from the sort state
+    Sort *plan = (Sort *) sortstate->ss.ps.plan;
+
+    // Delegate to general sort/group key display function
+    // Pass all sort specifications: columns, operators, collations, null handling
+    show_sort_group_keys((PlanState *) sortstate, "Sort Key",
+                        plan->numCols, 0, plan->sortColIdx,
+                        plan->sortOperators, plan->collations,
+                        plan->nullsFirst, ancestors, es);
+}
+```

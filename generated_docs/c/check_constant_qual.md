@@ -38,3 +38,29 @@ The function iterates through each element in the qualification list, verifying 
 - Constant true qualifications are typically represented as NIL (empty list), but actual boolean Const nodes are also accepted
 - The function enables early termination optimizations when qualifications are known to be unsatisfiable
 - Used during merge join node initialization to pre-analyze join and non-join qualifications
+
+## Simplified Source
+
+```c
+static bool
+check_constant_qual(List *qual, bool *is_const_false)
+{
+    ListCell *lc;
+
+    // Check each qualification expression
+    foreach(lc, qual) {
+        Const *con = (Const *) lfirst(lc);
+
+        // Must be a constant node
+        if (!con || !IsA(con, Const))
+            return false;
+
+        // Check if constant is false or null
+        if (con->constisnull || !DatumGetBool(con->constvalue))
+            *is_const_false = true;
+    }
+
+    // All elements are constants
+    return true;
+}
+```

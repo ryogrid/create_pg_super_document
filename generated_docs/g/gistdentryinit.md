@@ -52,3 +52,35 @@ The decompression function may either return a new GISTENTRY or simply return th
 - Uses the appropriate collation from giststate when calling the decompression function
 - Essential utility function used throughout GiST operations for preparing keys for operator class functions
 - The function properly handles the case where no decompression function is defined in the operator class
+
+## Simplified Source
+
+```c
+void gistdentryinit(GISTSTATE *giststate, int nkey, GISTENTRY *e,
+                    Datum k, Relation r, Page pg, OffsetNumber o,
+                    bool l, bool isNull) {
+    if (!isNull) {
+        // Initialize entry with the provided key
+        gistentryinit(*e, k, r, pg, o, l);
+
+        // Check if decompression function exists
+        if (!OidIsValid(giststate->decompressFn[nkey].fn_oid))
+            return;
+
+        // Call decompression function
+        GISTENTRY *decompressed = (GISTENTRY *)
+            DatumGetPointer(FunctionCall1Coll(&giststate->decompressFn[nkey],
+                                            giststate->supportCollation[nkey],
+                                            PointerGetDatum(e)));
+
+        // Update entry if decompression returned a different pointer
+        if (decompressed != e)
+            gistentryinit(*e, decompressed->key, decompressed->rel,
+                         decompressed->page, decompressed->offset,
+                         decompressed->leafkey);
+    } else {
+        // Handle NULL key case
+        gistentryinit(*e, (Datum) 0, r, pg, o, l);
+    }
+}
+```

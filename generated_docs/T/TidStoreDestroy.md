@@ -38,3 +38,26 @@ TidStoreDestroy completely destroys a TidStore object and releases all memory as
 - Handles both shared and local TidStore cleanup appropriately
 - Frees the radix tree memory context and the TidStore structure itself
 - Used primarily in vacuum operations and parallel processing cleanup
+
+## Simplified Source
+
+```c
+void TidStoreDestroy(TidStore *ts)
+{
+    // Destroy the underlying radix tree
+    if (TidStoreIsShared(ts)) {
+        // Shared TidStore: destroy shared tree and detach from DSA
+        shared_ts_free(ts->tree.shared);
+        dsa_detach(ts->area);
+    } else {
+        // Local TidStore: destroy local tree
+        local_ts_free(ts->tree.local);
+    }
+
+    // Delete the radix tree memory context
+    MemoryContextDelete(ts->rt_context);
+
+    // Free the TidStore structure
+    pfree(ts);
+}
+```

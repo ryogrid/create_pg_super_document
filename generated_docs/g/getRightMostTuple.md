@@ -34,3 +34,15 @@ The getRightMostTuple function returns the rightmost (last) tuple on a GIN entry
 - Used as an alternative to traditional B-tree right bound mechanisms
 - Simple implementation that directly accesses the last item on the page
 - Essential for navigation and boundary checking in GIN entry tree operations
+
+## Simplified Source
+
+```c
+static IndexTuple
+getRightMostTuple(Page page)
+{
+    OffsetNumber maxoff = PageGetMaxOffsetNumber(page);
+
+    return (IndexTuple) PageGetItem(page, PageGetItemId(page, maxoff));
+}
+```

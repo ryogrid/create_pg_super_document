@@ -38,3 +38,15 @@ The comment also notes special considerations for "WHERE CURRENT OF" cases, wher
 - The function signature matches the standard recheck callback pattern used by other scan types
 - May require special handling for "WHERE CURRENT OF" cursor operations
 - The placeholder nature suggests that TID scan recheck logic may have lower priority due to the direct nature of TID-based access
+
+## Simplified Source
+
+```c
+static bool
+TidRecheck(TidScanState *node, TupleTableSlot *slot)
+{
+    // TODO: Should verify tuple matches TID list
+    // Complex in runtime-key and WHERE CURRENT OF cases
+    return true;
+}
+```

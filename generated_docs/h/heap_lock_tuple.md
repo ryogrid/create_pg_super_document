@@ -69,3 +69,286 @@ Key operations include:
 - Part of PostgreSQL's tuple manager providing MVCC concurrency control
 - Critical for implementing SQL-standard isolation levels and FOR SHARE/UPDATE clauses
 - [Complex](../C/Complex.md) interaction with MultiXact system for handling multiple concurrent lockers
+
+## Simplified Source
+
+```c
+TM_Result
+heap_lock_tuple(Relation relation, HeapTuple tuple,
+                CommandId cid, LockTupleMode mode, LockWaitPolicy wait_policy,
+                bool follow_updates,
+                Buffer *buffer, TM_FailureData *tmfd)
+{
+    TM_Result result;
+    ItemPointer tid = &(tuple->t_self);
+    ItemId lp;
+    Page page;
+    Buffer vmbuffer = InvalidBuffer;
+    TransactionId xid, xmax;
+    uint16 old_infomask, new_infomask, new_infomask2;
+    bool first_time = true;
+    bool skip_tuple_lock = false;
+    bool have_tuple_lock = false;
+    bool cleared_all_frozen = false;
+
+    // Read and pin the buffer
+    *buffer = ReadBuffer(relation, ItemPointerGetBlockNumber(tid));
+
+    // Pin visibility map if page appears all-visible
+    if (PageIsAllVisible(BufferGetPage(*buffer)))
+        visibilitymap_pin(relation, ItemPointerGetBlockNumber(tid), &vmbuffer);
+
+    LockBuffer(*buffer, BUFFER_LOCK_EXCLUSIVE);
+
+    // Set up tuple structure
+    page = BufferGetPage(*buffer);
+    lp = PageGetItemId(page, ItemPointerGetOffsetNumber(tid));
+    tuple->t_data = (HeapTupleHeader) PageGetItem(page, lp);
+    tuple->t_len = ItemIdGetLength(lp);
+    tuple->t_tableOid = RelationGetRelid(relation);
+
+l3:
+    // Check tuple visibility and lock status
+    result = HeapTupleSatisfiesUpdate(tuple, cid, *buffer);
+
+    if (result == TM_Invisible) {
+        result = TM_Invisible;
+        goto out_locked;
+    }
+
+    // Handle concurrent modifications
+    if (result == TM_BeingModified || result == TM_Updated || result == TM_Deleted) {
+        TransactionId xwait;
+        uint16 infomask, infomask2;
+        bool require_sleep;
+        ItemPointerData t_ctid;
+
+        // Save transaction state before unlocking
+        xwait = HeapTupleHeaderGetRawXmax(tuple->t_data);
+        infomask = tuple->t_data->t_infomask;
+        infomask2 = tuple->t_data->t_infomask2;
+        ItemPointerCopy(&tuple->t_data->t_ctid, &t_ctid);
+
+        LockBuffer(*buffer, BUFFER_LOCK_UNLOCK);
+
+        // Check if we already hold a sufficient lock
+        if (first_time) {
+            first_time = false;
+
+            if (infomask & HEAP_XMAX_IS_MULTI) {
+                // Handle MultiXact case - check for existing strong enough lock
+                // Simplified: check if our transaction already has required lock
+            } else if (TransactionIdIsCurrentTransactionId(xwait)) {
+                // We already hold some lock - check if it's sufficient
+                switch (mode) {
+                    case LockTupleKeyShare:
+                        if (HEAP_XMAX_IS_KEYSHR_LOCKED(infomask) ||
+                            HEAP_XMAX_IS_SHR_LOCKED(infomask) ||
+                            HEAP_XMAX_IS_EXCL_LOCKED(infomask)) {
+                            result = TM_Ok;
+                            goto out_unlocked;
+                        }
+                        break;
+                    case LockTupleShare:
+                        if (HEAP_XMAX_IS_SHR_LOCKED(infomask) ||
+                            HEAP_XMAX_IS_EXCL_LOCKED(infomask)) {
+                            result = TM_Ok;
+                            goto out_unlocked;
+                        }
+                        break;
+                    // Additional cases for NoKeyExclusive and Exclusive...
+                }
+            }
+        }
+
+        // Determine if we need to sleep/wait
+        require_sleep = true;
+
+        // Optimize specific lock modes to avoid unnecessary waiting
+        if (mode == LockTupleKeyShare && !(infomask2 & HEAP_KEYS_UPDATED)) {
+            // KeyShare lock can often avoid waiting if keys not updated
+            if (follow_updates && !HEAP_XMAX_IS_LOCKED_ONLY(infomask)) {
+                // Follow update chain to lock descendant tuples
+                TM_Result res = heap_lock_updated_tuple(relation, tuple, &t_ctid,
+                                                       GetCurrentTransactionId(), mode);
+                if (res != TM_Ok) {
+                    result = res;
+                    LockBuffer(*buffer, BUFFER_LOCK_EXCLUSIVE);
+                    goto failed;
+                }
+            }
+            require_sleep = false;
+        }
+
+        // Wait for conflicting transactions if necessary
+        if (require_sleep) {
+            if (!skip_tuple_lock &&
+                !heap_acquire_tuplock(relation, tid, mode, wait_policy, &have_tuple_lock)) {
+                result = TM_WouldBlock;
+                LockBuffer(*buffer, BUFFER_LOCK_EXCLUSIVE);
+                goto failed;
+            }
+
+            // Wait for MultiXact or single transaction
+            if (infomask & HEAP_XMAX_IS_MULTI) {
+                MultiXactStatus status = get_mxact_status_for_lock(mode, false);
+                switch (wait_policy) {
+                    case LockWaitBlock:
+                        MultiXactIdWait((MultiXactId) xwait, status, infomask,
+                                       relation, &tuple->t_self, XLTW_Lock, NULL);
+                        break;
+                    case LockWaitSkip:
+                        if (!ConditionalMultiXactIdWait((MultiXactId) xwait, status,
+                                                       infomask, relation, NULL)) {
+                            result = TM_WouldBlock;
+                            LockBuffer(*buffer, BUFFER_LOCK_EXCLUSIVE);
+                            goto failed;
+                        }
+                        break;
+                    case LockWaitError:
+                        // Error if can't acquire immediately
+                        break;
+                }
+            } else {
+                // Wait for single transaction
+                switch (wait_policy) {
+                    case LockWaitBlock:
+                        XactLockTableWait(xwait, relation, &tuple->t_self, XLTW_Lock);
+                        break;
+                    case LockWaitSkip:
+                        if (!ConditionalXactLockTableWait(xwait)) {
+                            result = TM_WouldBlock;
+                            LockBuffer(*buffer, BUFFER_LOCK_EXCLUSIVE);
+                            goto failed;
+                        }
+                        break;
+                    case LockWaitError:
+                        // Error if can't acquire immediately
+                        break;
+                }
+            }
+
+            // Follow update chain if needed
+            if (follow_updates && !HEAP_XMAX_IS_LOCKED_ONLY(infomask)) {
+                TM_Result res = heap_lock_updated_tuple(relation, tuple, &t_ctid,
+                                                       GetCurrentTransactionId(), mode);
+                if (res != TM_Ok) {
+                    result = res;
+                    LockBuffer(*buffer, BUFFER_LOCK_EXCLUSIVE);
+                    goto failed;
+                }
+            }
+        }
+
+        LockBuffer(*buffer, BUFFER_LOCK_EXCLUSIVE);
+
+        // Recheck tuple state after waiting
+        if (xmax_infomask_changed(tuple->t_data->t_infomask, infomask) ||
+            !TransactionIdEquals(HeapTupleHeaderGetRawXmax(tuple->t_data), xwait))
+            goto l3;
+
+        // Update hint bits for better performance
+        if (!(infomask & HEAP_XMAX_IS_MULTI))
+            UpdateXmaxHintBits(tuple->t_data, *buffer, xwait);
+
+        // Determine final result
+        if (!require_sleep ||
+            (tuple->t_data->t_infomask & HEAP_XMAX_INVALID) ||
+            HEAP_XMAX_IS_LOCKED_ONLY(tuple->t_data->t_infomask))
+            result = TM_Ok;
+        else if (!ItemPointerEquals(&tuple->t_self, &tuple->t_data->t_ctid))
+            result = TM_Updated;
+        else
+            result = TM_Deleted;
+    }
+
+failed:
+    if (result != TM_Ok) {
+        // Fill failure information
+        tmfd->ctid = tuple->t_data->t_ctid;
+        tmfd->xmax = HeapTupleHeaderGetUpdateXid(tuple->t_data);
+        if (result == TM_SelfModified)
+            tmfd->cmax = HeapTupleHeaderGetCmax(tuple->t_data);
+        else
+            tmfd->cmax = InvalidCommandId;
+        goto out_locked;
+    }
+
+    // Pin visibility map if not already done
+    if (vmbuffer == InvalidBuffer && PageIsAllVisible(page)) {
+        LockBuffer(*buffer, BUFFER_LOCK_UNLOCK);
+        visibilitymap_pin(relation, ItemPointerGetBlockNumber(tid), &vmbuffer);
+        LockBuffer(*buffer, BUFFER_LOCK_EXCLUSIVE);
+        goto l3;
+    }
+
+    // Prepare to update tuple with lock information
+    xmax = HeapTupleHeaderGetRawXmax(tuple->t_data);
+    old_infomask = tuple->t_data->t_infomask;
+
+    MultiXactIdSetOldestMember();
+
+    // Compute new transaction info for the tuple
+    compute_new_xmax_infomask(xmax, old_infomask, tuple->t_data->t_infomask2,
+                             GetCurrentTransactionId(), mode, false,
+                             &xid, &new_infomask, &new_infomask2);
+
+    START_CRIT_SECTION();
+
+    // Update tuple with lock information
+    tuple->t_data->t_infomask &= ~HEAP_XMAX_BITS;
+    tuple->t_data->t_infomask2 &= ~HEAP_KEYS_UPDATED;
+    tuple->t_data->t_infomask |= new_infomask;
+    tuple->t_data->t_infomask2 |= new_infomask2;
+    if (HEAP_XMAX_IS_LOCKED_ONLY(new_infomask))
+        HeapTupleHeaderClearHotUpdated(tuple->t_data);
+    HeapTupleHeaderSetXmax(tuple->t_data, xid);
+
+    // Update t_ctid for lock-only operations
+    if (HEAP_XMAX_IS_LOCKED_ONLY(new_infomask))
+        tuple->t_data->t_ctid = *tid;
+
+    // Clear visibility map if needed
+    if (PageIsAllVisible(page) &&
+        visibilitymap_clear(relation, ItemPointerGetBlockNumber(tid), vmbuffer,
+                           VISIBILITYMAP_ALL_FROZEN))
+        cleared_all_frozen = true;
+
+    MarkBufferDirty(*buffer);
+
+    // WAL logging for crash recovery
+    if (RelationNeedsWAL(relation)) {
+        xl_heap_lock xlrec;
+        XLogRecPtr recptr;
+
+        XLogBeginInsert();
+        XLogRegisterBuffer(0, *buffer, REGBUF_STANDARD);
+
+        xlrec.offnum = ItemPointerGetOffsetNumber(&tuple->t_self);
+        xlrec.xmax = xid;
+        xlrec.infobits_set = compute_infobits(new_infomask, tuple->t_data->t_infomask2);
+        xlrec.flags = cleared_all_frozen ? XLH_LOCK_ALL_FROZEN_CLEARED : 0;
+        XLogRegisterData((char *) &xlrec, SizeOfHeapLock);
+
+        recptr = XLogInsert(RM_HEAP_ID, XLOG_HEAP_LOCK);
+        PageSetLSN(page, recptr);
+    }
+
+    END_CRIT_SECTION();
+
+    result = TM_Ok;
+
+out_locked:
+    LockBuffer(*buffer, BUFFER_LOCK_UNLOCK);
+
+out_unlocked:
+    if (BufferIsValid(vmbuffer))
+        ReleaseBuffer(vmbuffer);
+
+    // Release tuple lock if we acquired it
+    if (have_tuple_lock)
+        UnlockTupleTuplock(relation, tid, mode);
+
+    return result;
+}
+```

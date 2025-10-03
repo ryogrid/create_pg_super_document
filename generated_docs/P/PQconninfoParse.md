@@ -42,3 +42,37 @@ The function is a lightweight wrapper around the internal parse_connection_strin
 - Does not apply default values - only returns explicitly specified parameters
 - Used extensively throughout PostgreSQL utilities for connection string validation and parsing
 - Part of the public libpq API, making it available to external applications
+
+## Simplified Source
+
+```c
+PQconninfoOption *
+PQconninfoParse(const char *conninfo, char **errmsg)
+{
+    PQExpBufferData errorBuf;
+    PQconninfoOption *connOptions;
+
+    // Initialize error message output parameter
+    if (errmsg)
+        *errmsg = NULL;
+
+    // Initialize error buffer for collecting parse errors
+    initPQExpBuffer(&errorBuf);
+    if (PQExpBufferDataBroken(errorBuf))
+        return NULL;  // Out of memory
+
+    // Parse the connection string using internal parser
+    connOptions = parse_connection_string(conninfo, &errorBuf, false);
+
+    // Handle error reporting
+    if (connOptions == NULL && errmsg) {
+        // Parsing failed - return error message to caller
+        *errmsg = errorBuf.data;
+    } else {
+        // Success or caller doesn't want error message - clean up buffer
+        termPQExpBuffer(&errorBuf);
+    }
+
+    return connOptions;  // NULL on failure, parsed options on success
+}
+```

@@ -44,3 +44,37 @@ Key initialization performed:
 - [shm_mq_detach](shm_mq_detach.md)() should be called when done to properly clean up resources
 - Future buffer allocations for incoming data will use the memory context active during this call
 - The handle enables communication even before the counterpart process has attached
+
+## Simplified Source
+
+```c
+shm_mq_handle *shm_mq_attach(shm_mq *mq, dsm_segment *seg, BackgroundWorkerHandle *handle) {
+    // Allocate handle structure in current memory context
+    shm_mq_handle *mqh = palloc(sizeof(shm_mq_handle));
+
+    // Verify this process is either sender or receiver
+    Assert(mq->mq_receiver == MyProc || mq->mq_sender == MyProc);
+
+    // Initialize handle with queue and context info
+    mqh->mqh_queue = mq;
+    mqh->mqh_segment = seg;
+    mqh->mqh_handle = handle;
+    mqh->mqh_context = CurrentMemoryContext;
+
+    // Initialize buffer management fields
+    mqh->mqh_buffer = NULL;
+    mqh->mqh_buflen = 0;
+    mqh->mqh_consume_pending = 0;
+    mqh->mqh_send_pending = 0;
+    mqh->mqh_partial_bytes = 0;
+    mqh->mqh_expected_bytes = 0;
+    mqh->mqh_length_word_complete = false;
+    mqh->mqh_counterparty_attached = false;
+
+    // Register automatic cleanup if DSM segment provided
+    if (seg != NULL)
+        on_dsm_detach(seg, shm_mq_detach_callback, PointerGetDatum(mq));
+
+    return mqh;
+}
+```

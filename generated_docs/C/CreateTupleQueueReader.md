@@ -28,3 +28,18 @@ This function allocates and initializes a TupleQueueReader structure that wraps 
 - The underlying shm_mq_handle is managed by the caller - this function only stores a reference to it
 - Uses palloc0() for zero-initialized allocation, ensuring all fields start with known values
 - Part of PostgreSQL's parallel execution infrastructure for inter-process tuple communication
+
+## Simplified Source
+
+```c
+TupleQueueReader *CreateTupleQueueReader(shm_mq_handle *handle)
+{
+    // Allocate and zero-initialize the reader structure
+    TupleQueueReader *reader = palloc0(sizeof(TupleQueueReader));
+
+    // Store the queue handle for tuple reading
+    reader->queue = handle;
+
+    return reader;
+}
+```

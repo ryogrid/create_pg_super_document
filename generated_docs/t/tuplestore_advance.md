@@ -35,3 +35,27 @@ The implementation leverages the existing `tuplestore_gettuple` infrastructure b
 - More efficient than calling `tuplestore_gettuple` directly when the tuple data is not needed
 - Could potentially be optimized further to avoid the palloc/pfree overhead mentioned in comments
 - Used primarily in executor nodes that need to skip tuples during scanning operations
+
+## Simplified Source
+
+```c
+bool
+tuplestore_advance(Tuplestorestate *state, bool forward)
+{
+    void *tuple;
+    bool should_free;
+
+    // Get next tuple to advance position
+    tuple = tuplestore_gettuple(state, forward, &should_free);
+
+    if (tuple) {
+        // Free tuple data if needed and return success
+        if (should_free)
+            pfree(tuple);
+        return true;
+    } else {
+        // No more tuples available
+        return false;
+    }
+}
+```

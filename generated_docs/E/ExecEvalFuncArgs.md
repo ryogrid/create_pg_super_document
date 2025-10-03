@@ -36,3 +36,31 @@ The function iterates through the argument list in order, evaluating each expres
 - Each argument evaluation can potentially set both a value and a null indicator, supporting PostgreSQL's three-valued logic
 - The function assumes that the fcinfo structure has been properly initialized with the correct nargs count before being called
 - This function is part of the set-returning function (SRF) execution infrastructure but is used for general function argument preparation
+
+## Simplified Source
+
+```c
+static void
+ExecEvalFuncArgs(FunctionCallInfo fcinfo,
+                List *argList,
+                ExprContext *econtext)
+{
+    int i = 0;
+    ListCell *arg;
+
+    // Evaluate each argument expression and store in fcinfo
+    foreach(arg, argList)
+    {
+        ExprState *argstate = (ExprState *) lfirst(arg);
+
+        // Evaluate expression and store both value and null flag
+        fcinfo->args[i].value = ExecEvalExpr(argstate,
+                                            econtext,
+                                            &fcinfo->args[i].isnull);
+        i++;
+    }
+
+    // Verify we evaluated the expected number of arguments
+    Assert(i == fcinfo->nargs);
+}
+```

@@ -55,3 +55,34 @@ This masking is essential for hash indexes because certain optimizations allow s
 - Line pointer flags can be modified during index scans (hashgettuple) without WAL logging
 - Different page types (unused, bucket, overflow) require different masking strategies
 - The function is essential for enabling WAL consistency checks on hash indexes without false positives
+
+## Simplified Source
+
+```c
+void hash_mask(char *pagedata, BlockNumber blkno) {
+    Page page = (Page) pagedata;
+    HashPageOpaque opaque;
+    int pagetype;
+
+    // Mask standard page elements that can legitimately differ
+    mask_page_lsn_and_checksum(page);
+    mask_page_hint_bits(page);
+    mask_unused_space(page);
+
+    opaque = HashPageGetOpaque(page);
+    pagetype = opaque->hasho_flag & LH_PAGE_TYPE;
+
+    if (pagetype == LH_UNUSED_PAGE) {
+        // Unused pages can have arbitrary content
+        mask_page_content(page);
+    }
+    else if (pagetype == LH_BUCKET_PAGE || pagetype == LH_OVERFLOW_PAGE) {
+        // Line pointer flags can be modified without WAL logging
+        // during operations like hashgettuple() and _hash_kill_items()
+        mask_lp_flags(page);
+    }
+
+    // The dead tuples hint bit may not be consistently logged
+    opaque->hasho_flag &= ~LH_PAGE_HAS_DEAD_TUPLES;
+}
+```

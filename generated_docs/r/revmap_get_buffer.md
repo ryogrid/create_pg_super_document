@@ -43,3 +43,32 @@ The function includes an optimization that reuses the current buffer when consec
 - The returned buffer is managed by the revmap structure and should not be explicitly released by callers
 - Includes assertion checks to ensure the block number is valid and within expected ranges
 - Part of the internal infrastructure supporting higher-level revmap operations
+
+## Simplified Source
+
+```c
+static Buffer revmap_get_buffer(BrinRevmap *revmap, BlockNumber heapBlk)
+{
+    // Find which revmap block contains this heap block's mapping
+    BlockNumber mapBlk = revmap_get_blkno(revmap, heapBlk);
+
+    if (mapBlk == InvalidBlockNumber)
+        elog(ERROR, "revmap does not cover heap block %u", heapBlk);
+
+    // Validate the block number is in expected range
+    Assert(mapBlk != BRIN_METAPAGE_BLKNO && mapBlk <= revmap->rm_lastRevmapPage);
+
+    // Optimize: reuse current buffer if it's the one we need
+    if (revmap->rm_currBuf == InvalidBuffer ||
+        mapBlk != BufferGetBlockNumber(revmap->rm_currBuf)) {
+
+        // Release old buffer and read the new one
+        if (revmap->rm_currBuf != InvalidBuffer)
+            ReleaseBuffer(revmap->rm_currBuf);
+
+        revmap->rm_currBuf = ReadBuffer(revmap->rm_irel, mapBlk);
+    }
+
+    return revmap->rm_currBuf;
+}
+```

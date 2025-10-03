@@ -30,3 +30,19 @@ This function provides a straightforward equality comparison for BRIN tuples by 
 - Uses efficient memcmp() for bitwise comparison after length check
 - This is a low-level utility function used in BRIN index maintenance operations
 - The function performs no validation of tuple structure, relying purely on bitwise comparison
+
+## Simplified Source
+
+```c
+bool brin_tuples_equal(const BrinTuple *a, Size alen, const BrinTuple *b, Size blen) {
+    // First check if lengths match
+    if (alen != blen)
+        return false;
+
+    // Then compare byte content
+    if (memcmp(a, b, alen) != 0)
+        return false;
+
+    return true;
+}
+```

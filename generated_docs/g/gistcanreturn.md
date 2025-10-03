@@ -42,3 +42,23 @@ This function is critical for the query planner's decision to use index-only sca
 - The presence of a fetch function allows reconstruction of original values from compressed index data
 - Absence of compression means values are stored directly and can be returned as-is
 - Used by the query planner to determine feasibility of index-only scan plans
+
+## Simplified Source
+
+```c
+bool
+gistcanreturn(Relation index, int attno)
+{
+    // Check three conditions for index-only scan support:
+    // 1. Included attributes (beyond key attributes) are always returnable
+    // 2. Operator class has a fetch function to reconstruct values
+    // 3. No compression function means values stored directly
+
+    if (attno > IndexRelationGetNumberOfKeyAttributes(index) ||  // Included attribute
+        OidIsValid(index_getprocid(index, attno, GIST_FETCH_PROC)) ||  // Has fetch function
+        !OidIsValid(index_getprocid(index, attno, GIST_COMPRESS_PROC)))  // No compression
+        return true;
+    else
+        return false;
+}
+```

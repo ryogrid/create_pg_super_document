@@ -40,3 +40,16 @@ The function implements a key optimization in PostgreSQL's execution engine: avo
 - Projection optimization helps avoid unnecessary tuple copying and transformation when input and output formats match
 - The scanrelid parameter passed to ExecConditionalAssignProjectionInfo helps with relation-specific projection decisions
 - This function is typically called during scan node initialization rather than during execution
+
+## Simplified Source
+
+```c
+void ExecAssignScanProjectionInfo(ScanState *node) {
+    // Extract scan plan and tuple descriptor
+    Scan *scan = (Scan *) node->ps.plan;
+    TupleDesc tupdesc = node->ss_ScanTupleSlot->tts_tupleDescriptor;
+
+    // Conditionally set up projection if needed (optimization: skip if tlist matches tuple structure)
+    ExecConditionalAssignProjectionInfo(&node->ps, tupdesc, scan->scanrelid);
+}
+```

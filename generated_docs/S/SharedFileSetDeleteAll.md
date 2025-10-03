@@ -36,3 +36,12 @@ The function is straightforward:
 - Commonly used in scenarios where the same SharedFileSet needs to be reused multiple times with fresh files
 - The underlying FileSetDeleteAll handles all the complexity of removing files and directories from the temporary file system
 - No synchronization is performed by this function - callers must ensure appropriate coordination if multiple processes might be accessing the file set
+
+## Simplified Source
+
+```c
+void SharedFileSetDeleteAll(SharedFileSet *fileset) {
+    // Delegate to underlying file set deletion function
+    FileSetDeleteAll(&fileset->fs);
+}
+```

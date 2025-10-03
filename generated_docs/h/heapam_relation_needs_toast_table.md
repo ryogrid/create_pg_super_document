@@ -32,3 +32,57 @@ The function iterates through all non-dropped attributes, calculating the total 
 
 ## Notes and Other Information
 This function implements the logic for PostgreSQLs automatic TOAST table creation. It avoids creating unnecessary TOAST tables for relations with only small variable-length attributes (like "varchar(20)") while ensuring that relations with potentially large tuples get proper TOAST support. The calculation includes proper alignment considerations and accounts for tuple header overhead, providing an accurate assessment of storage requirements.
+
+## Simplified Source
+
+```c
+static bool heapam_relation_needs_toast_table(Relation rel) {
+    int32 data_length = 0;
+    bool maxlength_unknown = false;
+    bool has_toastable_attrs = false;
+    TupleDesc tupdesc = rel->rd_att;
+    int32 tuple_length;
+
+    // Examine each attribute to calculate total data length
+    for (int i = 0; i < tupdesc->natts; i++) {
+        Form_pg_attribute att = TupleDescAttr(tupdesc, i);
+
+        if (att->attisdropped)
+            continue;
+
+        // Apply alignment padding
+        data_length = att_align_nominal(data_length, att->attalign);
+
+        if (att->attlen > 0) {
+            // Fixed-length types are never toastable
+            data_length += att->attlen;
+        } else {
+            // Variable-length type - check if toastable and get max size
+            int32 maxlen = type_maximum_size(att->atttypid, att->atttypmod);
+
+            if (maxlen < 0) {
+                maxlength_unknown = true;  // Unlimited length type
+            } else {
+                data_length += maxlen;
+            }
+
+            if (att->attstorage != TYPSTORAGE_PLAIN)
+                has_toastable_attrs = true;
+        }
+    }
+
+    // No toastable attributes means no TOAST table needed
+    if (!has_toastable_attrs)
+        return false;
+
+    // Any unlimited-length attributes require TOAST
+    if (maxlength_unknown)
+        return true;
+
+    // Calculate total tuple size including header and null bitmap
+    tuple_length = MAXALIGN(SizeofHeapTupleHeader + BITMAPLEN(tupdesc->natts)) +
+                   MAXALIGN(data_length);
+
+    return (tuple_length > TOAST_TUPLE_THRESHOLD);
+}
+```

@@ -39,3 +39,11 @@ The function handles UTF-8 encoding properly, converting multi-byte Unicode char
 - Uses PostgreSQL's internal Unicode case mapping table
 - Located in src/common/unicode_case.c:69-99
 - Safe for buffer size calculation by passing NULL dst and 0 dstsize
+
+## Simplified Source
+```c
+size_t unicode_strlower(char *dst, size_t dstsize, const char *src, ssize_t srclen) {
+    // Convert UTF-8 string to lowercase using Unicode case mapping
+    return convert_case(dst, dstsize, src, srclen, CaseLower, NULL, NULL);
+}
+```

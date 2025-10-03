@@ -39,3 +39,32 @@ The function uses a tree walker approach to traverse the plan's target list and 
 - The function operates on plans that have already been processed by setrefs.c, ensuring that variable references use OUTER_VAR
 - Grouping columns are automatically included in the unaggregated set regardless of their appearance in the target list or quals
 - The resulting bitmapsets are used by calling functions to make decisions about column projection and hash table construction during aggregation
+
+## Simplified Source
+
+```c
+static void
+find_cols(AggState *aggstate, Bitmapset **aggregated, Bitmapset **unaggregated)
+{
+    Agg *agg = (Agg *) aggstate->ss.ps.plan;
+    FindColsContext context;
+
+    // Initialize context for column tracking
+    context.is_aggref = false;
+    context.aggregated = NULL;
+    context.unaggregated = NULL;
+
+    // Walk the target list and quals to find column references
+    find_cols_walker((Node *) agg->plan.targetlist, &context);
+    find_cols_walker((Node *) agg->plan.qual, &context);
+
+    // Ensure grouping columns are marked as unaggregated
+    for (int i = 0; i < agg->numCols; i++)
+        context.unaggregated = bms_add_member(context.unaggregated,
+                                             agg->grpColIdx[i]);
+
+    // Return the collected bitmapsets
+    *aggregated = context.aggregated;
+    *unaggregated = context.unaggregated;
+}
+```

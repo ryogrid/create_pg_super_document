@@ -46,3 +46,50 @@ The function handles a special case for typmod mismatches: when a Var has typmod
 - Rejects tuple descriptors with dropped columns or missing values for safety
 - Returns false immediately on any mismatch, making it efficient for early detection of projection necessity
 - The typmod handling allows flexibility while maintaining type safety in union scenarios
+
+## Simplified Source
+
+```c
+static bool tlist_matches_tupdesc(PlanState *ps, List *tlist, int varno, TupleDesc tupdesc)
+{
+    int numattrs = tupdesc->natts;
+    ListCell *tlist_item = list_head(tlist);
+
+    // Check each attribute in the tuple descriptor
+    for (int attrno = 1; attrno <= numattrs; attrno++)
+    {
+        Form_pg_attribute att_tup = TupleDescAttr(tupdesc, attrno - 1);
+
+        // Must have corresponding target list entry
+        if (tlist_item == NULL)
+            return false;  // Target list too short
+
+        // Target list entry must be a simple Var node
+        Var *var = (Var *) ((TargetEntry *) lfirst(tlist_item))->expr;
+        if (!var || !IsA(var, Var))
+            return false;  // Not a simple variable reference
+
+        // Var must reference correct attribute number
+        if (var->varattno != attrno)
+            return false;  // Attributes out of order
+
+        // Skip dropped columns and columns with missing values
+        if (att_tup->attisdropped || att_tup->atthasmissing)
+            return false;
+
+        // Check type compatibility
+        // Allow typmod -1 (unspecified) to match any specific typmod
+        if (var->vartype != att_tup->atttypid ||
+            (var->vartypmod != att_tup->atttypmod && var->vartypmod != -1))
+            return false;  // Type mismatch
+
+        tlist_item = lnext(tlist, tlist_item);
+    }
+
+    // Target list must not have extra entries
+    if (tlist_item)
+        return false;  // Target list too long
+
+    return true;  // Perfect match - projection can be optimized away
+}
+```

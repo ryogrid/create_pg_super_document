@@ -32,3 +32,12 @@ DatumGetMacaddr8P is a type conversion utility function that extracts a macaddr8
 - The macaddr8 type represents 8-byte MAC addresses with structure members a through h
 - Used in conjunction with PostgreSQL's function call interface macros
 - Returns a pointer to the macaddr8 structure, not the structure itself
+
+## Simplified Source
+
+```c
+static inline macaddr8 * DatumGetMacaddr8P(Datum X) {
+    // Extract macaddr8 pointer from Datum (fixed-length type)
+    return (macaddr8 *) DatumGetPointer(X);
+}
+```

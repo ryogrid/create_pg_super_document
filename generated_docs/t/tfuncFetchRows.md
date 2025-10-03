@@ -36,3 +36,66 @@ tfuncFetchRows is responsible for fetching all rows from a table function (such 
 - Essential for XMLTABLE and JSON_TABLE functionality in lateral joins
 - Manages opaque state lifecycle including cleanup on errors
 - Initializes ordinality counter for row numbering
+
+## Simplified Source
+
+```c
+static void
+tfuncFetchRows(TableFuncScanState *tstate, ExprContext *econtext)
+{
+    const TableFuncRoutine *routine = tstate->routine;
+    MemoryContext oldcxt;
+    Datum value;
+    bool isnull;
+
+    Assert(tstate->opaque == NULL);
+
+    // Create tuplestore for results in per-query memory
+    oldcxt = MemoryContextSwitchTo(econtext->ecxt_per_query_memory);
+    tstate->tupstore = tuplestore_begin_heap(false, false, work_mem);
+
+    // Switch to per-table context for data processing
+    MemoryContextSwitchTo(tstate->perTableCxt);
+
+    PG_TRY();
+    {
+        // Initialize the table function routine
+        routine->InitOpaque(tstate,
+                           tstate->ss.ss_ScanTupleSlot->tts_tupleDescriptor->natts);
+
+        // Evaluate the document expression
+        value = ExecEvalExpr(tstate->docexpr, econtext, &isnull);
+
+        if (!isnull)
+        {
+            // Initialize table function with document value
+            tfuncInitialize(tstate, econtext, value);
+
+            // Start ordinality counter
+            tstate->ordinal = 1;
+
+            // Load all rows into tuplestore
+            tfuncLoadRows(tstate, econtext);
+        }
+    }
+    PG_CATCH();
+    {
+        // Cleanup on error
+        if (tstate->opaque != NULL)
+            routine->DestroyOpaque(tstate);
+        PG_RE_THROW();
+    }
+    PG_END_TRY();
+
+    // Final cleanup
+    if (tstate->opaque != NULL)
+    {
+        routine->DestroyOpaque(tstate);
+        tstate->opaque = NULL;
+    }
+
+    // Restore original memory context and reset per-table context
+    MemoryContextSwitchTo(oldcxt);
+    MemoryContextReset(tstate->perTableCxt);
+}
+```

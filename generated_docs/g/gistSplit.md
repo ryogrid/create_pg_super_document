@@ -54,3 +54,77 @@ The function constructs a linked list of SplitPageLayout structures representing
 - Forms appropriate downlink tuples for each split page to maintain tree consistency
 - Stack depth checking prevents infinite recursion in pathological cases
 - Essential component of GiST's ability to handle variable-sized and complex data types
+
+## Simplified Source
+
+```c
+SplitPageLayout *
+gistSplit(Relation r, Page page, IndexTuple *itup, int len, GISTSTATE *giststate)
+{
+    IndexTuple *lvectup, *rvectup;
+    GistSplitVector v;
+    SplitPageLayout *res = NULL;
+
+    // Prevent deep recursion stack overflow
+    check_stack_depth();
+
+    // Error if single tuple is too large for any page
+    if (len == 1)
+        ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                       errmsg("index row size %zu exceeds maximum %zu for index \"%s\"",
+                             IndexTupleSize(itup[0]), GiSTPageSize,
+                             RelationGetRelationName(r))));
+
+    // Initialize split vector and perform key-based splitting
+    memset(v.spl_lisnull, true, sizeof(bool) * giststate->nonLeafTupdesc->natts);
+    memset(v.spl_risnull, true, sizeof(bool) * giststate->nonLeafTupdesc->natts);
+    gistSplitByKey(r, page, itup, len, giststate, &v, 0);
+
+    // Create left and right tuple vectors based on split decision
+    lvectup = (IndexTuple *) palloc(sizeof(IndexTuple) * (len + 1));
+    rvectup = (IndexTuple *) palloc(sizeof(IndexTuple) * (len + 1));
+
+    for (int i = 0; i < v.splitVector.spl_nleft; i++)
+        lvectup[i] = itup[v.splitVector.spl_left[i] - 1];
+
+    for (int i = 0; i < v.splitVector.spl_nright; i++)
+        rvectup[i] = itup[v.splitVector.spl_right[i] - 1];
+
+    // Handle right page - recursively split if still too large
+    if (!gistfitpage(rvectup, v.splitVector.spl_nright))
+    {
+        res = gistSplit(r, page, rvectup, v.splitVector.spl_nright, giststate);
+    }
+    else
+    {
+        // Right page fits - create layout structure
+        ROTATEDIST(res);
+        res->block.num = v.splitVector.spl_nright;
+        res->list = gistfillitupvec(rvectup, v.splitVector.spl_nright, &(res->lenlist));
+        res->itup = gistFormTuple(giststate, r, v.spl_rattr, v.spl_risnull, false);
+    }
+
+    // Handle left page - recursively split if still too large
+    if (!gistfitpage(lvectup, v.splitVector.spl_nleft))
+    {
+        SplitPageLayout *subres = gistSplit(r, page, lvectup, v.splitVector.spl_nleft, giststate);
+
+        // Link left split result to existing right result
+        SplitPageLayout *resptr = subres;
+        while (resptr->next)
+            resptr = resptr->next;
+        resptr->next = res;
+        res = subres;
+    }
+    else
+    {
+        // Left page fits - create layout and link to right
+        ROTATEDIST(res);
+        res->block.num = v.splitVector.spl_nleft;
+        res->list = gistfillitupvec(lvectup, v.splitVector.spl_nleft, &(res->lenlist));
+        res->itup = gistFormTuple(giststate, r, v.spl_lattr, v.spl_lisnull, false);
+    }
+
+    return res;
+}
+```

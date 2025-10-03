@@ -36,3 +36,20 @@ This function creates and registers a new local floating-point relation option w
 - The offset parameter must correspond to a double-typed field in the target structure
 - Part of the broader reloptions infrastructure that supports extensible table and index parameters
 - Used primarily by access method implementations that need floating-point configuration options
+
+## Simplified Source
+
+```c
+void add_local_real_reloption(local_relopts *relopts, const char *name,
+                              const char *desc, double default_val,
+                              double min_val, double max_val, int offset) {
+    // Create a local floating-point reloption with validation bounds
+    relopt_real *new_option = init_real_reloption(RELOPT_KIND_LOCAL,
+                                                  name, desc,
+                                                  default_val, min_val,
+                                                  max_val, 0);
+
+    // Add to the local reloptions structure with memory offset
+    add_local_reloption(relopts, (relopt_gen *) new_option, offset);
+}
+```

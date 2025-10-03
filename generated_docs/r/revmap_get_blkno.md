@@ -38,3 +38,20 @@ The function provides a simple mapping from heap block addresses to their corres
 - The calculation accounts for the metapage by adding 1 to the computed block number
 - Critical for determining whether a heap range has been summarized in the BRIN index
 - Used as a building block for higher-level revmap operations like tuple fetching and desummarization
+
+## Simplified Source
+
+```c
+static BlockNumber revmap_get_blkno(BrinRevmap *revmap, BlockNumber heapBlk)
+{
+    // Calculate which revmap block contains this heap block's mapping
+    // Add 1 to skip the metapage (block 0)
+    BlockNumber targetblk = HEAPBLK_TO_REVMAP_BLK(revmap->rm_pagesPerRange, heapBlk) + 1;
+
+    // Check if this revmap page has been allocated yet
+    if (targetblk <= revmap->rm_lastRevmapPage)
+        return targetblk;
+
+    return InvalidBlockNumber;  // Page not allocated yet
+}
+```

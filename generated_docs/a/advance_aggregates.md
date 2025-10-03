@@ -35,3 +35,17 @@ The input tuple is expected to be stored in tmpcontext->ecxt_outertuple before c
 - Handles both sorted and hashed aggregation modes in a single pass for efficiency
 - The actual transition state updates are delegated to the expression evaluation system through aggstate->phase->evaltrans
 - Uses a dummy null flag variable since the return value of the transition expression evaluation is not needed at this level
+
+## Simplified Source
+
+```c
+static void advance_aggregates(AggState *aggstate) {
+    bool dummynull;
+
+    // Evaluate transition expressions for all aggregates
+    // This handles both sorted and hashed aggregation modes
+    ExecEvalExprSwitchContext(aggstate->phase->evaltrans,
+                              aggstate->tmpcontext,
+                              &dummynull);
+}
+```

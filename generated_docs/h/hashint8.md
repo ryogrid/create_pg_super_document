@@ -32,3 +32,19 @@ This function implements a specialized hash algorithm for 64-bit integers that e
 - Located in src/backend/access/hash/hashfunc.c:83-102
 - Uses bit manipulation to combine high and low 32-bit portions of the 64-bit input
 - The complement operation (~hihalf) for negative values ensures proper sign extension compatibility
+
+## Simplified Source
+```c
+Datum hashint8(PG_FUNCTION_ARGS) {
+    // Extract 64-bit integer and split into high/low 32-bit halves
+    int64 val = PG_GETARG_INT64(0);
+    uint32 lohalf = (uint32) val;
+    uint32 hihalf = (uint32) (val >> 32);
+
+    // XOR halves together for compatibility with smaller integer types
+    // Use complement of high half for negative values
+    lohalf ^= (val >= 0) ? hihalf : ~hihalf;
+
+    return hash_uint32(lohalf);
+}
+```

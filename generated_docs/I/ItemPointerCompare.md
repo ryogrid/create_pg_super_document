@@ -39,3 +39,31 @@ The comparison logic prioritizes block numbers (physical storage blocks) over of
 - The comparison is stable and transitive, making it suitable for sorting algorithms
 - Block number comparison takes precedence over offset number comparison
 - Widely used in both user-facing TID operations and internal storage management
+
+## Simplified Source
+```c
+int32
+ItemPointerCompare(ItemPointer arg1, ItemPointer arg2)
+{
+    // Extract block numbers for comparison
+    BlockNumber b1 = ItemPointerGetBlockNumberNoCheck(arg1);
+    BlockNumber b2 = ItemPointerGetBlockNumberNoCheck(arg2);
+
+    // Compare block numbers first
+    if (b1 < b2)
+        return -1;
+    else if (b1 > b2)
+        return 1;
+
+    // Blocks are equal, compare offsets
+    OffsetNumber off1 = ItemPointerGetOffsetNumberNoCheck(arg1);
+    OffsetNumber off2 = ItemPointerGetOffsetNumberNoCheck(arg2);
+
+    if (off1 < off2)
+        return -1;
+    else if (off1 > off2)
+        return 1;
+    else
+        return 0;
+}
+```

@@ -31,3 +31,29 @@ This function serves as the primary input mechanism for multi-phase aggregate op
 
 ## Notes and Other Information
 The function includes an important warning in its comment: callers cannot rely on the memory for the returned tuple slot remaining valid past any subsequently fetched tuple. This indicates that the slot may be reused or invalidated by later calls. The function properly handles interrupt checking via CHECK_FOR_INTERRUPTS() when reading from tuplesort, ensuring that long-running sort operations can be cancelled. The dual-path logic (sort_in vs. outer plan) enables efficient multi-phase processing where intermediate results are sorted and passed between phases.
+
+## Simplified Source
+
+```c
+static TupleTableSlot *fetch_input_tuple(AggState *aggstate) {
+    TupleTableSlot *slot;
+
+    if (aggstate->sort_in) {
+        // Get tuple from sorted input (later phases)
+        CHECK_FOR_INTERRUPTS();
+        if (!tuplesort_gettupleslot(aggstate->sort_in, true, false,
+                                    aggstate->sort_slot, NULL))
+            return NULL;
+        slot = aggstate->sort_slot;
+    } else {
+        // Get tuple from outer plan (first phase)
+        slot = ExecProcNode(outerPlanState(aggstate));
+    }
+
+    // Copy to output sorter if needed for next phase
+    if (!TupIsNull(slot) && aggstate->sort_out)
+        tuplesort_puttupleslot(aggstate->sort_out, slot);
+
+    return slot;
+}
+```

@@ -28,3 +28,11 @@ The  function is a specialized hash function for PostgreSQL enumeration types. I
 - This function is typically used as a hash function in hash indexes or hash joins involving enumeration types
 - The function converts the enumeration OID to a uint32 before hashing, ensuring compatibility with the standard 32-bit integer hash function
 - Located in src/backend/access/hash/hashfunc.c at lines 128-133
+
+## Simplified Source
+```c
+Datum hashenum(PG_FUNCTION_ARGS) {
+    // Extract enum value as OID and cast to 32-bit unsigned for hashing
+    return hash_uint32((uint32) PG_GETARG_OID(0));
+}
+```

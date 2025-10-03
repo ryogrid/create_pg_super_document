@@ -32,3 +32,16 @@ The function performs a simple assignment operation but includes an assertion to
 - This provides the same functionality as passing the handle directly to shm_mq_attach, but allows for deferred association
 - Typically used in parallel query execution where worker handles become available after initial queue setup
 - The handle enables the queue to communicate with background worker processes even before they fully attach
+
+## Simplified Source
+
+```c
+void shm_mq_set_handle(shm_mq_handle *mqh, BackgroundWorkerHandle *handle)
+{
+    // Ensure no handle was previously set
+    Assert(mqh->mqh_handle == NULL);
+
+    // Associate the background worker handle with this queue
+    mqh->mqh_handle = handle;
+}
+```

@@ -38,3 +38,24 @@ This function is essential for UTF-8 string processing operations where advance 
 - Located in the PostgreSQL multibyte character support header (pg_wchar.h)
 - Used primarily in text processing functions that need to work with UTF-8 encoded strings
 - The function assumes the input character is a valid Unicode code point
+
+## Simplified Source
+
+```c
+static inline int
+unicode_utf8len(pg_wchar c)
+{
+    // ASCII characters (0-127): 1 byte
+    if (c <= 0x7F)
+        return 1;
+    // Extended ASCII (128-2047): 2 bytes
+    else if (c <= 0x7FF)
+        return 2;
+    // Basic Multilingual Plane (2048-65535): 3 bytes
+    else if (c <= 0xFFFF)
+        return 3;
+    // Supplementary planes (65536+): 4 bytes
+    else
+        return 4;
+}
+```

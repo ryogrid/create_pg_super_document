@@ -44,3 +44,20 @@ This function is called from both ExecAsyncRequest and ExecAsyncNotify, indicati
 - Essential for maintaining the async execution contract where results are properly delivered to requestors
 - Part of the asynchronous execution framework that enables efficient parallel processing in operations like Append node execution
 - The distinction between requestor and requestee is crucial for understanding the async execution flow in PostgreSQL
+
+## Simplified Source
+
+```c
+void ExecAsyncResponse(AsyncRequest *areq) {
+    // Dispatch response to appropriate handler based on requestor type
+    switch (nodeTag(areq->requestor)) {
+        case T_AppendState:
+            ExecAsyncAppendResponse(areq);
+            break;
+        default:
+            // Error for unsupported node types
+            elog(ERROR, "unrecognized node type: %d",
+                 (int) nodeTag(areq->requestor));
+    }
+}
+```

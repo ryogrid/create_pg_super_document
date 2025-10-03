@@ -53,3 +53,70 @@ The function ensures data consistency during recovery by properly setting LSNs a
 - The function handles both tuple insertion scenarios and tail page link updates in a single operation
 - Proper buffer management ensures all modified pages are marked dirty and released appropriately
 - Located in src/backend/access/gin/ginxlog.c:528-619
+
+## Simplified Source
+
+```c
+static void ginRedoUpdateMetapage(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    ginxlogUpdateMeta *data = (ginxlogUpdateMeta *) XLogRecGetData(record);
+    Buffer metabuffer, buffer;
+    Page metapage;
+
+    // Restore metapage unconditionally (like full-page image)
+    metabuffer = XLogInitBufferForRedo(record, 0);
+    metapage = BufferGetPage(metabuffer);
+
+    GinInitMetabuffer(metabuffer);
+    memcpy(GinPageGetMeta(metapage), &data->metadata, sizeof(GinMetaPageData));
+    PageSetLSN(metapage, lsn);
+    MarkBufferDirty(metabuffer);
+
+    if (data->ntuples > 0) {
+        // Insert tuples into tail page
+        if (XLogReadBufferForRedo(record, 1, &buffer) == BLK_NEEDS_REDO) {
+            Page page = BufferGetPage(buffer);
+            Size totaltupsize;
+            char *payload = XLogRecGetBlockData(record, 1, &totaltupsize);
+            IndexTuple tuples = (IndexTuple) payload;
+
+            // Determine starting offset
+            OffsetNumber off = PageIsEmpty(page) ?
+                FirstOffsetNumber :
+                OffsetNumberNext(PageGetMaxOffsetNumber(page));
+
+            // Add each tuple to the page
+            for (int i = 0; i < data->ntuples; i++) {
+                Size tupsize = IndexTupleSize(tuples);
+
+                if (PageAddItem(page, (Item) tuples, tupsize, off, false, false) == InvalidOffsetNumber)
+                    elog(ERROR, "failed to add item to index page");
+
+                tuples = (IndexTuple) (((char *) tuples) + tupsize);
+                off++;
+            }
+
+            // Update heap tuple counter
+            GinPageGetOpaque(page)->maxoff++;
+            PageSetLSN(page, lsn);
+            MarkBufferDirty(buffer);
+        }
+        if (BufferIsValid(buffer))
+            UnlockReleaseBuffer(buffer);
+    }
+    else if (data->prevTail != InvalidBlockNumber) {
+        // Update tail page rightlink
+        if (XLogReadBufferForRedo(record, 1, &buffer) == BLK_NEEDS_REDO) {
+            Page page = BufferGetPage(buffer);
+            GinPageGetOpaque(page)->rightlink = data->newRightlink;
+            PageSetLSN(page, lsn);
+            MarkBufferDirty(buffer);
+        }
+        if (BufferIsValid(buffer))
+            UnlockReleaseBuffer(buffer);
+    }
+
+    UnlockReleaseBuffer(metabuffer);
+}
+```

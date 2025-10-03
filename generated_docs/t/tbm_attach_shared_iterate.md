@@ -40,3 +40,32 @@ This function creates a backend-private TBMSharedIterator that connects to share
 - Allocates trailing space for MAX_TUPLES_PER_PAGE offset numbers
 - Essential component of PostgreSQL's parallel query execution for bitmap scans
 - Returns a fully initialized iterator ready for use with tbm_shared_iterate
+
+## Simplified Source
+
+```c
+TBMSharedIterator *
+tbm_attach_shared_iterate(dsa_area *dsa, dsa_pointer dp)
+{
+    TBMSharedIterator *iterator;
+    TBMSharedIteratorState *istate;
+
+    // Allocate iterator with space for tuple offsets
+    iterator = (TBMSharedIterator *) palloc0(sizeof(TBMSharedIterator) +
+                                            MAX_TUPLES_PER_PAGE * sizeof(OffsetNumber));
+
+    // Get shared state from DSA
+    istate = (TBMSharedIteratorState *) dsa_get_address(dsa, dp);
+    iterator->state = istate;
+
+    // Convert DSA pointers to local pointers
+    iterator->ptbase = dsa_get_address(dsa, istate->pagetable);
+
+    if (istate->npages)
+        iterator->ptpages = dsa_get_address(dsa, istate->spages);
+    if (istate->nchunks)
+        iterator->ptchunks = dsa_get_address(dsa, istate->schunks);
+
+    return iterator;
+}
+```

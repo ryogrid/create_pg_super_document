@@ -57,3 +57,57 @@ The function works by:
 - This function is critical for hash index performance as it's called for most bucket access operations
 - The access parameter must be either HASH_READ or HASH_WRITE - this is enforced by assertion
 - Buffer management is carefully handled to avoid leaks, with proper cleanup of metapage buffers
+
+## Simplified Source
+
+```c
+Buffer
+_hash_getbucketbuf_from_hashkey(Relation rel, uint32 hashkey, int access,
+                                HashMetaPage *cachedmetap)
+{
+    HashMetaPage metap;
+    Buffer buf;
+    Buffer metabuf = InvalidBuffer;
+    Page page;
+    Bucket bucket;
+    BlockNumber blkno;
+    HashPageOpaque opaque;
+
+    // Get cached metapage to avoid repeated disk reads
+    metap = _hash_getcachedmetap(rel, &metabuf, false);
+
+    // Loop until we get lock on correct target bucket
+    for (;;)
+    {
+        // Convert hash key to bucket number using metapage parameters
+        bucket = _hash_hashkey2bucket(hashkey,
+                                     metap->hashm_maxbucket,
+                                     metap->hashm_highmask,
+                                     metap->hashm_lowmask);
+
+        // Convert bucket to block number and fetch bucket page
+        blkno = BUCKET_TO_BLKNO(metap, bucket);
+        buf = _hash_getbuf(rel, blkno, access, LH_BUCKET_PAGE);
+        page = BufferGetPage(buf);
+        opaque = HashPageGetOpaque(page);
+
+        // Check if bucket hasn't been split
+        if (opaque->hasho_prevblkno <= metap->hashm_maxbucket)
+            break;
+
+        // Bucket was split - refresh metapage cache and retry
+        _hash_relbuf(rel, buf);
+        metap = _hash_getcachedmetap(rel, &metabuf, true);
+    }
+
+    // Clean up metapage buffer
+    if (BufferIsValid(metabuf))
+        _hash_dropbuf(rel, metabuf);
+
+    // Return metapage data if requested
+    if (cachedmetap)
+        *cachedmetap = metap;
+
+    return buf;
+}
+```

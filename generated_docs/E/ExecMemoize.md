@@ -47,3 +47,133 @@ The function maintains statistics on cache hits, misses, and overflows to monito
 - Includes special handling for single-row expectations to optimize cache completion marking
 - Implements graceful degradation to bypass mode when cache storage fails due to memory constraints
 - Maintains comprehensive execution statistics for query optimization feedback
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecMemoize(PlanState *pstate)
+{
+    MemoizeState *node = castNode(MemoizeState, pstate);
+    ExprContext *econtext = node->ss.ps.ps_ExprContext;
+    TupleTableSlot *slot;
+
+    CHECK_FOR_INTERRUPTS();
+    ResetExprContext(econtext);
+
+    switch (node->mstatus) {
+        case MEMO_CACHE_LOOKUP: {
+            MemoizeEntry *entry;
+            bool found;
+
+            // Initialize hash table if needed
+            if (unlikely(node->hashtable == NULL))
+                build_hash_table(node, ((Memoize *) pstate->plan)->est_entries);
+
+            // Look for cached results
+            entry = cache_lookup(node, &found);
+
+            if (found && entry->complete) {
+                // Cache hit - return first cached tuple
+                node->stats.cache_hits++;
+                node->last_tuple = entry->tuplehead;
+                node->entry = entry;
+
+                if (entry->tuplehead) {
+                    node->mstatus = MEMO_CACHE_FETCH_NEXT_TUPLE;
+                    slot = node->ss.ps.ps_ResultTupleSlot;
+                    ExecStoreMinimalTuple(entry->tuplehead->mintuple, slot, false);
+                    return slot;
+                }
+                node->mstatus = MEMO_END_OF_SCAN;
+                return NULL;
+            }
+
+            // Cache miss - fetch from outer plan
+            node->stats.cache_misses++;
+            if (found)
+                entry_purge_tuples(node, entry);
+
+            PlanState *outerNode = outerPlanState(node);
+            TupleTableSlot *outerslot = ExecProcNode(outerNode);
+
+            if (TupIsNull(outerslot)) {
+                if (likely(entry))
+                    entry->complete = true;
+                node->mstatus = MEMO_END_OF_SCAN;
+                return NULL;
+            }
+
+            node->entry = entry;
+
+            // Try to cache the tuple
+            if (unlikely(entry == NULL || !cache_store_tuple(node, outerslot))) {
+                node->stats.cache_overflows++;
+                node->mstatus = MEMO_CACHE_BYPASS_MODE;
+            } else {
+                entry->complete = node->singlerow;
+                node->mstatus = MEMO_FILLING_CACHE;
+            }
+
+            slot = node->ss.ps.ps_ResultTupleSlot;
+            ExecCopySlot(slot, outerslot);
+            return slot;
+        }
+
+        case MEMO_CACHE_FETCH_NEXT_TUPLE:
+            // Return next cached tuple
+            node->last_tuple = node->last_tuple->next;
+            if (node->last_tuple == NULL) {
+                node->mstatus = MEMO_END_OF_SCAN;
+                return NULL;
+            }
+            slot = node->ss.ps.ps_ResultTupleSlot;
+            ExecStoreMinimalTuple(node->last_tuple->mintuple, slot, false);
+            return slot;
+
+        case MEMO_FILLING_CACHE: {
+            // Continue filling cache
+            PlanState *outerNode = outerPlanState(node);
+            TupleTableSlot *outerslot = ExecProcNode(outerNode);
+
+            if (TupIsNull(outerslot)) {
+                node->entry->complete = true;
+                node->mstatus = MEMO_END_OF_SCAN;
+                return NULL;
+            }
+
+            // Store tuple if possible
+            if (unlikely(!cache_store_tuple(node, outerslot))) {
+                node->stats.cache_overflows++;
+                node->mstatus = MEMO_CACHE_BYPASS_MODE;
+            }
+
+            slot = node->ss.ps.ps_ResultTupleSlot;
+            ExecCopySlot(slot, outerslot);
+            return slot;
+        }
+
+        case MEMO_CACHE_BYPASS_MODE: {
+            // Bypass mode - no caching
+            PlanState *outerNode = outerPlanState(node);
+            TupleTableSlot *outerslot = ExecProcNode(outerNode);
+
+            if (TupIsNull(outerslot)) {
+                node->mstatus = MEMO_END_OF_SCAN;
+                return NULL;
+            }
+
+            slot = node->ss.ps.ps_ResultTupleSlot;
+            ExecCopySlot(slot, outerslot);
+            return slot;
+        }
+
+        case MEMO_END_OF_SCAN:
+            return NULL;
+
+        default:
+            elog(ERROR, "unrecognized memoize state: %d", (int) node->mstatus);
+            return NULL;
+    }
+}
+```

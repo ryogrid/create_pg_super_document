@@ -47,3 +47,28 @@ ScanKeyEntryInitializeWithInfo is an optimized version of scan key initializatio
 - The provided FmgrInfo must be properly initialized before calling this function
 - Particularly useful in scenarios with repeated scans using the same comparison operators
 - Located at src/backend/access/common/scankey.c:101-117
+
+## Simplified Source
+
+```c
+void ScanKeyEntryInitializeWithInfo(ScanKey entry,
+                                   int flags,
+                                   AttrNumber attributeNumber,
+                                   StrategyNumber strategy,
+                                   Oid subtype,
+                                   Oid collation,
+                                   FmgrInfo *finfo,
+                                   Datum argument)
+{
+    // Set basic scan key fields
+    entry->sk_flags = flags;
+    entry->sk_attno = attributeNumber;
+    entry->sk_strategy = strategy;
+    entry->sk_subtype = subtype;
+    entry->sk_collation = collation;
+    entry->sk_argument = argument;
+
+    // Copy pre-existing function info for efficiency
+    fmgr_info_copy(&entry->sk_func, finfo, CurrentMemoryContext);
+}
+```

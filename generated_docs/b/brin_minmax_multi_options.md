@@ -39,3 +39,21 @@ This is part of the PostgreSQL reloptions (relation options) framework that allo
 - Higher values_per_range means less precise ranges but smaller index size
 - The option can be specified when creating a BRIN index: 
 - Default value is defined by MINMAX_MULTI_DEFAULT_VALUES_PER_PAGE constant
+
+## Simplified Source
+
+```c
+Datum brin_minmax_multi_options(PG_FUNCTION_ARGS) {
+    local_relopts *relopts = (local_relopts *) PG_GETARG_POINTER(0);
+
+    // Initialize the relation options structure
+    init_local_reloptions(relopts, sizeof(MinMaxMultiOptions));
+
+    // Add the 'values_per_range' option with default, min, and max values
+    add_local_int_reloption(relopts, "values_per_range", "desc",
+                            MINMAX_MULTI_DEFAULT_VALUES_PER_PAGE, 8, 256,
+                            offsetof(MinMaxMultiOptions, valuesPerRange));
+
+    PG_RETURN_VOID();
+}
+```

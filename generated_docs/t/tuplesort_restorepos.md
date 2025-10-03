@@ -41,3 +41,39 @@ The function operates within the sort's memory context to ensure proper memory m
 - The function switches to the sort's memory context before performing operations to ensure proper memory allocation
 - Will throw an ERROR if called with an invalid tuplesort state
 - Part of the mark/restore API that enables features like SCROLL cursors in PostgreSQL
+
+## Simplified Source
+
+```c
+void tuplesort_restorepos(Tuplesortstate *state) {
+    // Switch to sort context for consistent memory management
+    MemoryContext oldcontext = MemoryContextSwitchTo(state->base.sortcontext);
+
+    // Verify random access capability is enabled
+    Assert(state->base.sortopt & TUPLESORT_RANDOMACCESS);
+
+    // Restore position based on storage type
+    switch (state->status) {
+        case TSS_SORTEDINMEM:
+            // For in-memory sorts: restore array position and EOF state
+            state->current = state->markpos_offset;
+            state->eof_reached = state->markpos_eof;
+            break;
+
+        case TSS_SORTEDONTAPE:
+            // For tape-based sorts: seek to saved tape position
+            LogicalTapeSeek(state->result_tape,
+                           state->markpos_block,
+                           state->markpos_offset);
+            state->eof_reached = state->markpos_eof;
+            break;
+
+        default:
+            elog(ERROR, "invalid tuplesort state");
+            break;
+    }
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldcontext);
+}
+```

@@ -41,3 +41,53 @@ The function implements an optimization by comparing columns in reverse order (f
 - Uses pre-cached comparison functions from preparePresortedCols for efficiency
 - Essential for determining when to finalize the current sort group and start a new one
 - Error checking ensures comparison functions don't return unexpected NULL results
+
+## Simplified Source
+
+```c
+static bool isCurrentGroup(IncrementalSortState *node, TupleTableSlot *pivot, TupleTableSlot *tuple)
+{
+    int nPresortedCols = castNode(IncrementalSort, node->ss.ps.plan)->nPresortedCols;
+
+    // Compare presorted columns in reverse order for optimization
+    // (tail keys more likely to change in sorted input)
+    for (int i = nPresortedCols - 1; i >= 0; i--)
+    {
+        Datum datumA, datumB, result;
+        bool isnullA, isnullB;
+        AttrNumber attno = node->presorted_keys[i].attno;
+        PresortedKeyData *key;
+
+        // Extract attribute values from both tuples
+        datumA = slot_getattr(pivot, attno, &isnullA);
+        datumB = slot_getattr(tuple, attno, &isnullB);
+
+        // Handle NULL values: NULL == NULL is true, NULL != non-NULL is false
+        if (isnullA || isnullB)
+        {
+            if (isnullA == isnullB)
+                continue;  // Both NULL, equal
+            else
+                return false;  // One NULL, one not - different group
+        }
+
+        // Use cached comparison function to test equality
+        key = &node->presorted_keys[i];
+        key->fcinfo->args[0].value = datumA;
+        key->fcinfo->args[1].value = datumB;
+        key->fcinfo->isnull = false;
+
+        result = FunctionCallInvoke(key->fcinfo);
+
+        // Ensure comparison function didn't return NULL
+        if (key->fcinfo->isnull)
+            elog(ERROR, "function %u returned NULL", key->flinfo.fn_oid);
+
+        // If values are not equal, tuple belongs to different group
+        if (!DatumGetBool(result))
+            return false;
+    }
+
+    return true;  // All presorted columns match - same group
+}
+```

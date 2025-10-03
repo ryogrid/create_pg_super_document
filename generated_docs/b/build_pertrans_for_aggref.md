@@ -80,3 +80,151 @@ The function carefully handles various aggregate scenarios including partial agg
 - Allocates Tuplesortstate arrays sized for the maximum number of grouping sets
 - Serialization/deserialization functions are only set up when valid OIDs are provided
 - The function carefully handles presorted input optimization for improved performance
+
+## Simplified Source
+
+```c
+static void build_pertrans_for_aggref(AggStatePerTrans pertrans,
+                                     AggState *aggstate, EState *estate,
+                                     Aggref *aggref,
+                                     Oid transfn_oid, Oid aggtranstype,
+                                     Oid aggserialfn, Oid aggdeserialfn,
+                                     Datum initValue, bool initValueIsNull,
+                                     Oid *inputTypes, int numArguments) {
+
+    // Initialize basic aggregate state fields
+    pertrans->aggref = aggref;
+    pertrans->aggshared = false;
+    pertrans->aggCollation = aggref->inputcollid;
+    pertrans->transfn_oid = transfn_oid;
+    pertrans->initValue = initValue;
+    pertrans->initValueIsNull = initValueIsNull;
+    pertrans->aggtranstype = aggtranstype;
+
+    int numDirectArgs = list_length(aggref->aggdirectargs);
+    pertrans->numInputs = list_length(aggref->args);
+    int numTransArgs = pertrans->numTransInputs + 1;
+
+    // Set up transition function call infrastructure
+    Expr *transfnexpr;
+    build_aggregate_transfn_expr(inputTypes, numArguments, numDirectArgs,
+                                aggref->aggvariadic, aggtranstype,
+                                aggref->inputcollid, transfn_oid, InvalidOid,
+                                &transfnexpr, NULL);
+
+    fmgr_info(transfn_oid, &pertrans->transfn);
+    fmgr_info_set_expr((Node *) transfnexpr, &pertrans->transfn);
+
+    // Allocate and initialize function call info
+    pertrans->transfn_fcinfo =
+        (FunctionCallInfo) palloc(SizeForFunctionCallInfo(numTransArgs));
+    InitFunctionCallInfoData(*pertrans->transfn_fcinfo, &pertrans->transfn,
+                            numTransArgs, pertrans->aggCollation,
+                            (void *) aggstate, NULL);
+
+    // Get state value datatype info
+    get_typlenbyval(aggtranstype, &pertrans->transtypeLen, &pertrans->transtypeByVal);
+
+    // Set up serialization functions (if needed for parallel aggregation)
+    if (OidIsValid(aggserialfn)) {
+        // Setup serialization function call infrastructure
+        Expr *serialfnexpr;
+        build_aggregate_serialfn_expr(aggserialfn, &serialfnexpr);
+        fmgr_info(aggserialfn, &pertrans->serialfn);
+        // ... function call info setup
+    }
+
+    if (OidIsValid(aggdeserialfn)) {
+        // Setup deserialization function call infrastructure
+        Expr *deserialfnexpr;
+        build_aggregate_deserialfn_expr(aggdeserialfn, &deserialfnexpr);
+        fmgr_info(aggdeserialfn, &pertrans->deserialfn);
+        // ... function call info setup
+    }
+
+    // Determine sorting requirements based on DISTINCT/ORDER BY clauses
+    List *sortlist;
+    int numSortCols, numDistinctCols;
+
+    if (AGGKIND_IS_ORDERED_SET(aggref->aggkind)) {
+        // Ordered-set aggregates handle their own sorting
+        sortlist = NIL;
+        numSortCols = numDistinctCols = 0;
+        pertrans->aggsortrequired = false;
+    } else if (aggref->aggdistinct) {
+        // DISTINCT clause requires sorting
+        sortlist = aggref->aggdistinct;
+        numSortCols = numDistinctCols = list_length(sortlist);
+        pertrans->aggsortrequired = !aggref->aggpresorted;
+    } else {
+        // Handle ORDER BY clause
+        sortlist = aggref->aggorder;
+        numSortCols = list_length(sortlist);
+        numDistinctCols = 0;
+        pertrans->aggsortrequired = (numSortCols > 0);
+    }
+
+    pertrans->numSortCols = numSortCols;
+    pertrans->numDistinctCols = numDistinctCols;
+
+    // Set up sorting infrastructure if needed
+    if (numSortCols > 0 || aggref->aggfilter) {
+        pertrans->sortdesc = ExecTypeFromTL(aggref->args);
+        pertrans->sortslot = ExecInitExtraTupleSlot(estate, pertrans->sortdesc,
+                                                   &TTSOpsMinimalTuple);
+    }
+
+    // Configure sorting details (column indexes, operators, collations)
+    if (numSortCols > 0) {
+        // Allocate arrays for sort configuration
+        pertrans->sortColIdx = (AttrNumber *) palloc(numSortCols * sizeof(AttrNumber));
+        pertrans->sortOperators = (Oid *) palloc(numSortCols * sizeof(Oid));
+        pertrans->sortCollations = (Oid *) palloc(numSortCols * sizeof(Oid));
+        pertrans->sortNullsFirst = (bool *) palloc(numSortCols * sizeof(bool));
+
+        // Extract sort information from sort clauses
+        int i = 0;
+        ListCell *lc;
+        foreach(lc, sortlist) {
+            SortGroupClause *sortcl = (SortGroupClause *) lfirst(lc);
+            TargetEntry *tle = get_sortgroupclause_tle(sortcl, aggref->args);
+
+            pertrans->sortColIdx[i] = tle->resno;
+            pertrans->sortOperators[i] = sortcl->sortop;
+            pertrans->sortCollations[i] = exprCollation((Node *) tle->expr);
+            pertrans->sortNullsFirst[i] = sortcl->nulls_first;
+            i++;
+        }
+    }
+
+    // Set up DISTINCT comparison functions
+    if (aggref->aggdistinct) {
+        Oid *equality_ops = palloc(numDistinctCols * sizeof(Oid));
+
+        // Extract equality operators from DISTINCT clauses
+        int i = 0;
+        ListCell *lc;
+        foreach(lc, aggref->aggdistinct) {
+            equality_ops[i++] = ((SortGroupClause *) lfirst(lc))->eqop;
+        }
+
+        // Set up appropriate comparison strategy
+        if (numDistinctCols == 1) {
+            fmgr_info(get_opcode(equality_ops[0]), &pertrans->equalfnOne);
+        } else {
+            pertrans->equalfnMulti = execTuplesMatchPrepare(pertrans->sortdesc,
+                                                           numDistinctCols,
+                                                           pertrans->sortColIdx,
+                                                           equality_ops,
+                                                           pertrans->sortCollations,
+                                                           &aggstate->ss.ps);
+        }
+        pfree(equality_ops);
+    }
+
+    // Initialize sort state array for grouping sets
+    int numGroupingSets = Max(aggstate->maxsets, 1);
+    pertrans->sortstates = (Tuplesortstate **)
+        palloc0(sizeof(Tuplesortstate *) * numGroupingSets);
+}
+```

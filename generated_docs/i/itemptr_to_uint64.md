@@ -35,3 +35,24 @@ The function performs validation to ensure the ItemPointer is valid and that the
 - The function assumes that the offset number fits within MaxHeapTuplesPerPageBits bits
 - The bit layout places block numbers in higher-order bits and offset numbers in lower-order bits
 - Used primarily in GIN index posting list compression and decompression operations
+
+## Simplified Source
+
+```c
+static inline uint64
+itemptr_to_uint64(const ItemPointer iptr)
+{
+    uint64 val;
+
+    // Validate input ItemPointer
+    Assert(ItemPointerIsValid(iptr));
+    Assert(GinItemPointerGetOffsetNumber(iptr) < (1 << MaxHeapTuplesPerPageBits));
+
+    // Pack block number in upper bits, offset number in lower bits
+    val = GinItemPointerGetBlockNumber(iptr);
+    val <<= MaxHeapTuplesPerPageBits;
+    val |= GinItemPointerGetOffsetNumber(iptr);
+
+    return val;
+}
+```

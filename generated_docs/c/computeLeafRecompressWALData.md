@@ -53,3 +53,93 @@ The resulting WAL data contains a complete description of all changes needed to 
 - Uses SHORTALIGN for segment data alignment in WAL records
 - Segment numbering excludes inserted segments until after processing
 - The constructed WAL data enables complete page reconstruction during recovery replay
+
+## Simplified Source
+
+```c
+static void
+computeLeafRecompressWALData(disassembledLeaf *leaf)
+{
+    int nmodified = 0;
+    char *walbuf_start, *walbuf_ptr;
+    dlist_iter iter;
+    int segno;
+    ginxlogRecompressDataLeaf *recompress_xlog;
+
+    // Count modified segments
+    dlist_foreach(iter, &leaf->segments)
+    {
+        leafSegmentInfo *seginfo = dlist_container(leafSegmentInfo, node, iter.cur);
+        if (seginfo->action != GIN_SEGMENT_UNMODIFIED)
+            nmodified++;
+    }
+
+    // Allocate WAL buffer (generous size to avoid complex calculations)
+    walbuf_start = palloc(sizeof(ginxlogRecompressDataLeaf) + BLCKSZ + nmodified * 2);
+    walbuf_ptr = walbuf_start;
+
+    // Write WAL record header
+    recompress_xlog = (ginxlogRecompressDataLeaf *) walbuf_ptr;
+    walbuf_ptr += sizeof(ginxlogRecompressDataLeaf);
+    recompress_xlog->nactions = nmodified;
+
+    // Process each modified segment
+    segno = 0;
+    dlist_foreach(iter, &leaf->segments)
+    {
+        leafSegmentInfo *seginfo = dlist_container(leafSegmentInfo, node, iter.cur);
+        uint8 action = seginfo->action;
+        int datalen;
+
+        if (action == GIN_SEGMENT_UNMODIFIED)
+        {
+            segno++;
+            continue;
+        }
+
+        // Optimize: use REPLACE instead of ADDITEMS if compressed data is smaller
+        if (action == GIN_SEGMENT_ADDITEMS &&
+            seginfo->nmodifieditems * sizeof(ItemPointerData) > SizeOfGinPostingList(seginfo->seg))
+        {
+            action = GIN_SEGMENT_REPLACE;
+        }
+
+        // Write segment number and action
+        *((uint8 *) (walbuf_ptr++)) = segno;
+        *(walbuf_ptr++) = action;
+
+        // Write action-specific data
+        switch (action)
+        {
+            case GIN_SEGMENT_DELETE:
+                datalen = 0;
+                break;
+
+            case GIN_SEGMENT_ADDITEMS:
+                datalen = seginfo->nmodifieditems * sizeof(ItemPointerData);
+                memcpy(walbuf_ptr, &seginfo->nmodifieditems, sizeof(uint16));
+                memcpy(walbuf_ptr + sizeof(uint16), seginfo->modifieditems, datalen);
+                datalen += sizeof(uint16);
+                break;
+
+            case GIN_SEGMENT_INSERT:
+            case GIN_SEGMENT_REPLACE:
+                datalen = SHORTALIGN(SizeOfGinPostingList(seginfo->seg));
+                memcpy(walbuf_ptr, seginfo->seg, SizeOfGinPostingList(seginfo->seg));
+                break;
+
+            default:
+                elog(ERROR, "unexpected GIN leaf action %d", action);
+        }
+
+        walbuf_ptr += datalen;
+
+        if (action != GIN_SEGMENT_INSERT)
+            segno++;
+    }
+
+    // Store WAL data in leaf structure
+    leaf->walinfo = walbuf_start;
+    leaf->walinfolen = walbuf_ptr - walbuf_start;
+}
+```

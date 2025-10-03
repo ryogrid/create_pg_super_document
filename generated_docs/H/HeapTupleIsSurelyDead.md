@@ -45,3 +45,39 @@ The function is designed to be conservative - it's acceptable to return false wh
 - The function includes assertions to validate that the tuple has a valid ItemPointer and table OID
 - It returns false for MultiXacts since determining their status requires checking pg_multixact
 - The function is conservative in its approach - preferring false negatives over false positives to ensure data integrity
+
+## Simplified Source
+
+```c
+bool
+HeapTupleIsSurelyDead(HeapTuple htup, GlobalVisState *vistest)
+{
+    HeapTupleHeader tuple = htup->t_data;
+
+    Assert(ItemPointerIsValid(&htup->t_self));
+    Assert(htup->t_tableOid != InvalidOid);
+
+    // Check inserting transaction (xmin) status
+    if (!HeapTupleHeaderXminCommitted(tuple))
+        return HeapTupleHeaderXminInvalid(tuple);  // Aborted insert = dead
+
+    // Inserting transaction committed, check deleting transaction (xmax)
+    if (tuple->t_infomask & HEAP_XMAX_INVALID)
+        return false;  // No deletion = still alive
+
+    // Locked tuples are still alive
+    if (HEAP_XMAX_IS_LOCKED_ONLY(tuple->t_infomask))
+        return false;
+
+    // MultiXacts require complex checking - be conservative
+    if (tuple->t_infomask & HEAP_XMAX_IS_MULTI)
+        return false;
+
+    // If deleter not known to be committed, assume still running
+    if (!(tuple->t_infomask & HEAP_XMAX_COMMITTED))
+        return false;
+
+    // Deleter committed - check if XID is old enough to be removable
+    return GlobalVisTestIsRemovableXid(vistest, HeapTupleHeaderGetRawXmax(tuple));
+}
+```

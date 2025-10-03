@@ -43,3 +43,28 @@ The function also tracks whether the relation is accessible in logical decoding,
 - The isCatalogRel flag indicates if the relation is accessible during logical decoding
 - Returns an XLogRecPtr representing the LSN of the inserted WAL record
 - Provides better conflict resolution for hot standby scenarios compared to generic page updates
+
+## Simplified Source
+
+```c
+XLogRecPtr gistXLogDelete(Buffer buffer, OffsetNumber *todelete, int ntodelete,
+                         TransactionId snapshotConflictHorizon, Relation heaprel) {
+    gistxlogDelete xlrec;
+
+    // Setup record with conflict resolution info
+    xlrec.isCatalogRel = RelationIsAccessibleInLogicalDecoding(heaprel);
+    xlrec.snapshotConflictHorizon = snapshotConflictHorizon;
+    xlrec.ntodelete = ntodelete;
+
+    // Begin WAL record creation
+    XLogBeginInsert();
+    XLogRegisterData((char *) &xlrec, SizeOfGistxlogDelete);
+
+    // Store target offsets for standby conflict resolution
+    XLogRegisterData((char *) todelete, ntodelete * sizeof(OffsetNumber));
+
+    // Register the buffer and insert the WAL record
+    XLogRegisterBuffer(0, buffer, REGBUF_STANDARD);
+    return XLogInsert(RM_GIST_ID, XLOG_GIST_DELETE);
+}
+```

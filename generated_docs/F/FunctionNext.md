@@ -53,3 +53,104 @@ The function uses tuplestores to cache function results, allowing for efficient 
 - Maintains accurate ordinal positioning for ORDINALITY columns
 - Optimizes the common single-function case with a fast path
 - Supports the EXEC_FLAG_BACKWARD execution flag for backward-compatible scans
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+FunctionNext(FunctionScanState *node)
+{
+    EState *estate = node->ss.ps.state;
+    ScanDirection direction = estate->es_direction;
+    TupleTableSlot *scanslot = node->ss.ss_ScanTupleSlot;
+
+    // Fast path for simple case: single function with matching return type
+    if (node->simple) {
+        Tuplestorestate *tstore = node->funcstates[0].tstore;
+
+        // Initialize tuplestore on first call by executing function
+        if (tstore == NULL) {
+            node->funcstates[0].tstore = tstore =
+                ExecMakeTableFunctionResult(node->funcstates[0].setexpr,
+                                            node->ss.ps.ps_ExprContext,
+                                            node->argcontext,
+                                            node->funcstates[0].tupdesc,
+                                            node->eflags & EXEC_FLAG_BACKWARD);
+            tuplestore_rescan(tstore);
+        }
+
+        // Fetch next tuple from tuplestore
+        tuplestore_gettupleslot(tstore, ScanDirectionIsForward(direction), false, scanslot);
+        return scanslot;
+    }
+
+    // Complex path: multiple functions or type conversions needed
+
+    // Update ordinal counter for positioning
+    int64 oldpos = node->ordinal;
+    if (ScanDirectionIsForward(direction))
+        node->ordinal++;
+    else
+        node->ordinal--;
+
+    // Clear result slot and process all functions
+    ExecClearTuple(scanslot);
+    int att = 0;
+    bool alldone = true;
+
+    for (int funcno = 0; funcno < node->nfuncs; funcno++) {
+        FunctionScanPerFuncState *fs = &node->funcstates[funcno];
+
+        // Initialize tuplestore for this function if needed
+        if (fs->tstore == NULL) {
+            fs->tstore = ExecMakeTableFunctionResult(fs->setexpr,
+                                                     node->ss.ps.ps_ExprContext,
+                                                     node->argcontext,
+                                                     fs->tupdesc,
+                                                     node->eflags & EXEC_FLAG_BACKWARD);
+            tuplestore_rescan(fs->tstore);
+        }
+
+        // Get next tuple from this function's tuplestore
+        if (fs->rowcount != -1 && fs->rowcount < oldpos) {
+            ExecClearTuple(fs->func_slot);
+        } else {
+            tuplestore_gettupleslot(fs->tstore, ScanDirectionIsForward(direction),
+                                    false, fs->func_slot);
+        }
+
+        if (TupIsNull(fs->func_slot)) {
+            // Function exhausted - record row count and pad with NULLs
+            if (ScanDirectionIsForward(direction) && fs->rowcount == -1)
+                fs->rowcount = node->ordinal;
+
+            for (int i = 0; i < fs->colcount; i++) {
+                scanslot->tts_values[att] = (Datum) 0;
+                scanslot->tts_isnull[att] = true;
+                att++;
+            }
+        } else {
+            // Copy function result to scan slot
+            slot_getallattrs(fs->func_slot);
+            for (int i = 0; i < fs->colcount; i++) {
+                scanslot->tts_values[att] = fs->func_slot->tts_values[i];
+                scanslot->tts_isnull[att] = fs->func_slot->tts_isnull[i];
+                att++;
+            }
+            alldone = false;
+        }
+    }
+
+    // Add ordinality column if requested
+    if (node->ordinality) {
+        scanslot->tts_values[att] = Int64GetDatumFast(node->ordinal);
+        scanslot->tts_isnull[att] = false;
+    }
+
+    // Finalize virtual tuple if we have data
+    if (!alldone)
+        ExecStoreVirtualTuple(scanslot);
+
+    return scanslot;
+}
+```

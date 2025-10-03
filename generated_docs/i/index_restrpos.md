@@ -38,3 +38,28 @@ The function performs validation to ensure the scan uses an MVCC snapshot, which
 - The function only restores the internal index AM scan state, not the complete executor state
 - Located in src/backend/access/index/indexam.c:432-452
 - Includes detailed comments about HOT chain handling and MVCC snapshot requirements
+
+## Simplified Source
+
+```c
+void index_restrpos(IndexScanDesc scan) {
+    // Ensure we're using an MVCC snapshot for HOT chain compatibility
+    Assert(IsMVCCSnapshot(scan->xs_snapshot));
+
+    // Validate scan descriptor and check that access method supports position restoration
+    SCAN_CHECKS;
+    CHECK_SCAN_PROCEDURE(amrestrpos);
+
+    // Release any resources from table accesses (like buffer pins)
+    if (scan->xs_heapfetch) {
+        table_index_fetch_reset(scan->xs_heapfetch);
+    }
+
+    // Reset scan state flags for safety and consistency
+    scan->kill_prior_tuple = false;
+    scan->xs_heap_continue = false;
+
+    // Delegate to access method-specific position restoration routine
+    scan->indexRelation->rd_indam->amrestrpos(scan);
+}
+```

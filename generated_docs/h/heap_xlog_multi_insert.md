@@ -68,3 +68,121 @@ Key operations include:
 - Essential for maintaining performance during bulk data loading operations
 - Only updates FSM when actual redo is needed and free space is below threshold
 - The function panics on various validation failures to ensure data integrity during recovery
+
+## Simplified Source
+
+```c
+static void
+heap_xlog_multi_insert(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    xl_heap_multi_insert *xlrec;
+    RelFileLocator rlocator;
+    BlockNumber blkno;
+    Buffer buffer;
+    Page page;
+    union {
+        HeapTupleHeaderData hdr;
+        char data[MaxHeapTupleSize];
+    } tbuf;
+    HeapTupleHeader htup;
+    uint32 newlen;
+    Size freespace = 0;
+    bool isinit = (XLogRecGetInfo(record) & XLOG_HEAP_INIT_PAGE) != 0;
+    XLogRedoAction action;
+
+    xlrec = (xl_heap_multi_insert *) XLogRecGetData(record);
+    XLogRecGetBlockTag(record, 0, &rlocator, NULL, &blkno);
+
+    // Clear visibility map if needed
+    if (xlrec->flags & XLH_INSERT_ALL_VISIBLE_CLEARED) {
+        Relation reln = CreateFakeRelcacheEntry(rlocator);
+        Buffer vmbuffer = InvalidBuffer;
+
+        visibilitymap_pin(reln, blkno, &vmbuffer);
+        visibilitymap_clear(reln, blkno, vmbuffer, VISIBILITYMAP_VALID_BITS);
+        ReleaseBuffer(vmbuffer);
+        FreeFakeRelcacheEntry(reln);
+    }
+
+    // Initialize page if this is first tuple insertion
+    if (isinit) {
+        buffer = XLogInitBufferForRedo(record, 0);
+        page = BufferGetPage(buffer);
+        PageInit(page, BufferGetPageSize(buffer), 0);
+        action = BLK_NEEDS_REDO;
+    } else {
+        action = XLogReadBufferForRedo(record, 0, &buffer);
+    }
+
+    if (action == BLK_NEEDS_REDO) {
+        char *tupdata;
+        char *endptr;
+        Size len;
+
+        // Extract tuple data from WAL record
+        tupdata = XLogRecGetBlockData(record, 0, &len);
+        endptr = tupdata + len;
+        page = BufferGetPage(buffer);
+
+        // Insert each tuple
+        for (int i = 0; i < xlrec->ntuples; i++) {
+            OffsetNumber offnum;
+            xl_multi_insert_tuple *xlhdr;
+
+            // Determine offset: sequential for init, stored for existing pages
+            if (isinit)
+                offnum = FirstOffsetNumber + i;
+            else
+                offnum = xlrec->offsets[i];
+
+            if (PageGetMaxOffsetNumber(page) + 1 < offnum)
+                elog(PANIC, "invalid max offset number");
+
+            // Extract tuple header and data
+            xlhdr = (xl_multi_insert_tuple *) SHORTALIGN(tupdata);
+            tupdata = ((char *) xlhdr) + SizeOfMultiInsertTuple;
+
+            newlen = xlhdr->datalen;
+            htup = &tbuf.hdr;
+            MemSet((char *) htup, 0, SizeofHeapTupleHeader);
+            memcpy((char *) htup + SizeofHeapTupleHeader, tupdata, newlen);
+            tupdata += newlen;
+
+            // Set tuple header fields
+            newlen += SizeofHeapTupleHeader;
+            htup->t_infomask2 = xlhdr->t_infomask2;
+            htup->t_infomask = xlhdr->t_infomask;
+            htup->t_hoff = xlhdr->t_hoff;
+            HeapTupleHeaderSetXmin(htup, XLogRecGetXid(record));
+            HeapTupleHeaderSetCmin(htup, FirstCommandId);
+            ItemPointerSetBlockNumber(&htup->t_ctid, blkno);
+            ItemPointerSetOffsetNumber(&htup->t_ctid, offnum);
+
+            // Insert tuple into page
+            offnum = PageAddItem(page, (Item) htup, newlen, offnum, true, true);
+            if (offnum == InvalidOffsetNumber)
+                elog(PANIC, "failed to add tuple");
+        }
+
+        freespace = PageGetHeapFreeSpace(page);
+        PageSetLSN(page, lsn);
+
+        // Update page visibility flags
+        if (xlrec->flags & XLH_INSERT_ALL_VISIBLE_CLEARED)
+            PageClearAllVisible(page);
+
+        if (xlrec->flags & XLH_INSERT_ALL_FROZEN_SET)
+            PageSetAllVisible(page);
+
+        MarkBufferDirty(buffer);
+    }
+
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+
+    // Update FSM if page is running low on space
+    if (action == BLK_NEEDS_REDO && freespace < BLCKSZ / 5)
+        XLogRecordPageWithFreeSpace(rlocator, blkno, freespace);
+}
+```

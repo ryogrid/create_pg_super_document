@@ -43,3 +43,55 @@ This function processes all tuples starting from a specified offset on a pending
 - Ensures all remaining keys are dumped out after processing all tuples
 - Part of the GIN index pending list cleanup mechanism
 - Handles the transition from fast insertion to main index structure
+
+## Simplified Source
+
+```c
+// Simplified version of processPendingPage
+static void processPendingPage(BuildAccumulator *accum, KeyArray *ka,
+                              Page page, OffsetNumber startoff)
+{
+    ItemPointerData heapptr;
+    OffsetNumber i, maxoff, attrnum;
+
+    // Reset workspace and initialize variables
+    ka->nvalues = 0;
+    maxoff = PageGetMaxOffsetNumber(page);
+    ItemPointerSetInvalid(&heapptr);
+    attrnum = 0;
+
+    // Process each tuple on the page
+    for (i = startoff; i <= maxoff; i = OffsetNumberNext(i)) {
+        IndexTuple itup = (IndexTuple) PageGetItem(page, PageGetItemId(page, i));
+        OffsetNumber curattnum;
+        Datum curkey;
+        GinNullCategory curcategory;
+
+        // Extract attribute number from tuple
+        curattnum = gintuple_get_attrnum(accum->ginstate, itup);
+
+        // Check for heap TID or attribute change
+        if (!ItemPointerIsValid(&heapptr)) {
+            // First tuple - initialize
+            heapptr = itup->t_tid;
+            attrnum = curattnum;
+        } else if (!(ItemPointerEquals(&heapptr, &itup->t_tid) &&
+                    curattnum == attrnum)) {
+            // Boundary detected - insert accumulated entries
+            ginInsertBAEntries(accum, &heapptr, attrnum,
+                              ka->keys, ka->categories, ka->nvalues);
+            ka->nvalues = 0;
+            heapptr = itup->t_tid;
+            attrnum = curattnum;
+        }
+
+        // Extract key and add to workspace
+        curkey = gintuple_get_key(accum->ginstate, itup, &curcategory);
+        addDatum(ka, curkey, curcategory);
+    }
+
+    // Insert remaining keys
+    ginInsertBAEntries(accum, &heapptr, attrnum,
+                      ka->keys, ka->categories, ka->nvalues);
+}
+```

@@ -38,3 +38,36 @@ The function creates a copy of the input array to ensure data persistence during
 - Memory management is carefully handled - the function notes that the array should not be freed as element pointers reference it
 - This is part of PostgreSQL's GIN operator class infrastructure for array types
 - The extracted elements and null flags are used by the GIN index to create the inverted index structure
+
+## Simplified Source
+
+```c
+Datum
+ginarrayextract(PG_FUNCTION_ARGS)
+{
+    // Copy input array to ensure persistence during indexing
+    ArrayType *array = PG_GETARG_ARRAYTYPE_P_COPY(0);
+    int32 *nkeys = (int32 *) PG_GETARG_POINTER(1);
+    bool **nullFlags = (bool **) PG_GETARG_POINTER(2);
+
+    // Get array element type information
+    int16 elmlen;
+    bool elmbyval;
+    char elmalign;
+    Datum *elems;
+    bool *nulls;
+    int nelems;
+
+    get_typlenbyvalalign(ARR_ELEMTYPE(array), &elmlen, &elmbyval, &elmalign);
+
+    // Extract individual elements from array
+    deconstruct_array(array, ARR_ELEMTYPE(array), elmlen, elmbyval, elmalign,
+                      &elems, &nulls, &nelems);
+
+    // Return extracted elements and metadata
+    *nkeys = nelems;
+    *nullFlags = nulls;
+
+    PG_RETURN_POINTER(elems);
+}
+```

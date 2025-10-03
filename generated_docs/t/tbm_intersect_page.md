@@ -48,3 +48,69 @@ The function returns true if the resulting page becomes empty and should be dele
 - The recheck flag propagation ensures proper handling of uncertain matches
 - Lossy pages in the target bitmap preserve all source tuples but require rechecking
 - For exact intersections, only tuple locations present in both pages are retained
+
+## Simplified Source
+
+```c
+static bool
+tbm_intersect_page(TIDBitmap *a, PagetableEntry *apage, const TIDBitmap *b)
+{
+    if (apage->ischunk)
+    {
+        // Process chunk: clear bits for pages not in bitmap b
+        bool candelete = true;
+        for (int wordnum = 0; wordnum < WORDS_PER_CHUNK; wordnum++)
+        {
+            bitmapword w = apage->words[wordnum];
+            if (w != 0)
+            {
+                bitmapword neww = w;
+                BlockNumber pg = apage->blockno + (wordnum * BITS_PER_BITMAPWORD);
+
+                // Check each bit and clear if page not in b
+                for (int bitnum = 0; w != 0; w >>= 1, pg++, bitnum++)
+                {
+                    if ((w & 1) && !tbm_page_is_lossy(b, pg) &&
+                        tbm_find_pageentry(b, pg) == NULL)
+                    {
+                        neww &= ~((bitmapword) 1 << bitnum);
+                    }
+                }
+
+                apage->words[wordnum] = neww;
+                if (neww != 0)
+                    candelete = false;
+            }
+        }
+        return candelete;
+    }
+    else if (tbm_page_is_lossy(b, apage->blockno))
+    {
+        // Page is lossy in b - keep all tuples but mark for recheck
+        apage->recheck = true;
+        return false;
+    }
+    else
+    {
+        // Exact page intersection
+        PagetableEntry *bpage = tbm_find_pageentry(b, apage->blockno);
+        if (bpage != NULL)
+        {
+            // Bitwise AND operation for exact intersection
+            bool candelete = true;
+            for (int wordnum = 0; wordnum < WORDS_PER_PAGE; wordnum++)
+            {
+                apage->words[wordnum] &= bpage->words[wordnum];
+                if (apage->words[wordnum] != 0)
+                    candelete = false;
+            }
+            apage->recheck |= bpage->recheck;
+            return candelete;
+        }
+        // No matching page in b - delete this page
+        return true;
+    }
+}
+```
+
+This simplified version shows the three intersection scenarios: chunk processing with bit clearing, lossy page handling with recheck marking, and exact page bitwise AND operations.

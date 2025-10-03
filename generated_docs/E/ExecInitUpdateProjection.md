@@ -53,3 +53,46 @@ Key responsibilities include:
 - The whichrel calculation optimizes for the common case where mt_lastResultIndex matches the current relation
 - Sets ri_projectNewInfoValid to true upon successful initialization
 - The subplan evaluation flag is set to false since the subplan has already evaluated expressions
+
+## Simplified Source
+
+```c
+static void
+ExecInitUpdateProjection(ModifyTableState *mtstate, ResultRelInfo *resultRelInfo)
+{
+    ModifyTable *node = (ModifyTable *) mtstate->ps.plan;
+    Plan *subplan = outerPlan(node);
+    EState *estate = mtstate->ps.state;
+    TupleDesc relDesc = RelationGetDescr(resultRelInfo->ri_RelationDesc);
+
+    // Find which result relation we're working with
+    int whichrel = mtstate->mt_lastResultIndex;
+    if (resultRelInfo != mtstate->resultRelInfo + whichrel) {
+        whichrel = resultRelInfo - mtstate->resultRelInfo;
+    }
+
+    // Get the list of columns being updated
+    List *updateColnos = (List *) list_nth(node->updateColnosLists, whichrel);
+
+    // Create tuple slots for old and new tuples
+    resultRelInfo->ri_oldTupleSlot = table_slot_create(resultRelInfo->ri_RelationDesc,
+                                                       &estate->es_tupleTable);
+    resultRelInfo->ri_newTupleSlot = table_slot_create(resultRelInfo->ri_RelationDesc,
+                                                       &estate->es_tupleTable);
+
+    // Set up expression context if needed
+    if (mtstate->ps.ps_ExprContext == NULL)
+        ExecAssignExprContext(estate, &mtstate->ps);
+
+    // Build projection to merge old and new column values
+    resultRelInfo->ri_projectNew = ExecBuildUpdateProjection(subplan->targetlist,
+                                                             false, // subplan evaluated
+                                                             updateColnos,
+                                                             relDesc,
+                                                             mtstate->ps.ps_ExprContext,
+                                                             resultRelInfo->ri_newTupleSlot,
+                                                             &mtstate->ps);
+
+    resultRelInfo->ri_projectNewInfoValid = true;
+}
+```

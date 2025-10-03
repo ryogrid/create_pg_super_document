@@ -35,3 +35,19 @@ The function performs validation after reconstruction to ensure the resulting It
 - The remaining upper bits contain the block number
 - Used primarily during GIN index posting list decompression to restore the original ItemPointer format
 - The function modifies the provided ItemPointer in-place rather than returning a new one
+
+## Simplified Source
+
+```c
+static inline void uint64_to_itemptr(uint64 val, ItemPointer iptr) {
+    // Extract offset number from lower bits
+    GinItemPointerSetOffsetNumber(iptr, val & ((1 << MaxHeapTuplesPerPageBits) - 1));
+
+    // Shift to get block number from upper bits
+    val = val >> MaxHeapTuplesPerPageBits;
+    GinItemPointerSetBlockNumber(iptr, val);
+
+    // Validate the reconstructed ItemPointer
+    Assert(ItemPointerIsValid(iptr));
+}
+```

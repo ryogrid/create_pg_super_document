@@ -46,4 +46,67 @@ The function operates in the query memory context when calling the outer plan an
 - In pass-through modes, may skip storing tuples in the tuplestore depending on whether the node is top-level
 - Detects partition boundaries using partition equality functions when partNumCols > 0
 - Properly manages memory contexts by switching to query context when calling the outer plan
+
+## Simplified Source
+
+```c
+static void
+spool_tuples(WindowAggState *winstate, int64 pos)
+{
+    WindowAgg *node = (WindowAgg *) winstate->ss.ps.plan;
+    PlanState *outerPlan;
+    TupleTableSlot *outerslot;
+
+    // Safety checks and early exits
+    if (!winstate->buffer)
+        return;
+    if (winstate->partition_spooled)
+        return;
+
+    // In pass-through mode or if tuplestore spilled to disk, spool entire partition
+    if (winstate->status != WINDOWAGG_RUN || !tuplestore_in_memory(winstate->buffer))
+        pos = -1;
+
+    outerPlan = outerPlanState(winstate);
+
+    // Switch to query memory context for calling outer plan
+    MemoryContext oldcontext = MemoryContextSwitchTo(
+        winstate->ss.ps.ps_ExprContext->ecxt_per_query_memory);
+
+    // Read tuples until we reach target position or end of partition
+    while (winstate->spooled_rows <= pos || pos == -1) {
+        outerslot = ExecProcNode(outerPlan);
+        if (TupIsNull(outerslot)) {
+            // End of input
+            winstate->partition_spooled = true;
+            winstate->more_partitions = false;
+            break;
+        }
+
+        // Check for partition boundary if partitioning is used
+        if (node->partNumCols > 0) {
+            ExprContext *econtext = winstate->tmpcontext;
+            econtext->ecxt_innertuple = winstate->first_part_slot;
+            econtext->ecxt_outertuple = outerslot;
+
+            // Test if tuple belongs to current partition
+            if (!ExecQualAndReset(winstate->partEqfunction, econtext)) {
+                // New partition starts - save first tuple of next partition
+                ExecCopySlot(winstate->first_part_slot, outerslot);
+                winstate->partition_spooled = true;
+                winstate->more_partitions = true;
+                break;
+            }
+        }
+
+        // Store tuple in tuplestore (unless in strict pass-through mode)
+        if (winstate->status != WINDOWAGG_PASSTHROUGH_STRICT) {
+            tuplestore_puttupleslot(winstate->buffer, outerslot);
+            winstate->spooled_rows++;
+        }
+    }
+
+    MemoryContextSwitchTo(oldcontext);
+}
+```
 - Updates spooled_rows counter and partition status flags as tuples are processed

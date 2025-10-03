@@ -57,3 +57,56 @@ INSTEAD OF triggers are commonly used to make views updatable by defining custom
 - Memory management includes proper cleanup of trigger return values
 - Located in src/backend/commands/trigger.c:2859-2905
 - Part of PostgreSQL's system for making views updatable through trigger logic
+
+## Simplified Source
+
+```c
+bool ExecIRDeleteTriggers(EState *estate, ResultRelInfo *relinfo,
+                         HeapTuple trigtuple)
+{
+    TriggerDesc *trigdesc = relinfo->ri_TrigDesc;
+    TupleTableSlot *slot = ExecGetTriggerOldSlot(estate, relinfo);
+    TriggerData LocTriggerData = {0};
+
+    // Initialize trigger data for DELETE operation
+    LocTriggerData.type = T_TriggerData;
+    LocTriggerData.tg_event = TRIGGER_EVENT_DELETE |
+                              TRIGGER_EVENT_ROW |
+                              TRIGGER_EVENT_INSTEAD;
+    LocTriggerData.tg_relation = relinfo->ri_RelationDesc;
+
+    ExecForceStoreHeapTuple(trigtuple, slot, false);
+
+    // Execute each INSTEAD OF ROW DELETE trigger
+    for (int i = 0; i < trigdesc->numtriggers; i++)
+    {
+        Trigger *trigger = &trigdesc->triggers[i];
+
+        // Skip non-matching triggers
+        if (!TRIGGER_TYPE_MATCHES(trigger->tgtype,
+                                 TRIGGER_TYPE_ROW,
+                                 TRIGGER_TYPE_INSTEAD,
+                                 TRIGGER_TYPE_DELETE))
+            continue;
+        if (!TriggerEnabled(estate, relinfo, trigger, LocTriggerData.tg_event,
+                           NULL, slot, NULL))
+            continue;
+
+        // Set up trigger data and execute trigger function
+        LocTriggerData.tg_trigslot = slot;
+        LocTriggerData.tg_trigtuple = trigtuple;
+        LocTriggerData.tg_trigger = trigger;
+
+        HeapTuple rettuple = ExecCallTriggerFunc(&LocTriggerData, i,
+                                               relinfo->ri_TrigFunctions,
+                                               relinfo->ri_TrigInstrument,
+                                               GetPerTupleMemoryContext(estate));
+
+        if (rettuple == NULL)
+            return false; // Delete was suppressed
+        if (rettuple != trigtuple)
+            heap_freetuple(rettuple);
+    }
+    return true;
+}
+```

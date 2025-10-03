@@ -36,3 +36,17 @@ The function casts the generic PlanState to a NamedTuplestoreScanState and deleg
 - The function pointer is typically set during node initialization as the main execution method
 - Returns TupleTableSlot containing the next qualifying tuple or NULL when scan is complete
 - Integrates with PostgreSQL's standard execution framework and supports EvalPlanQual operations
+
+## Simplified Source
+
+```c
+static TupleTableSlot *ExecNamedTuplestoreScan(PlanState *pstate)
+{
+    NamedTuplestoreScanState *node = castNode(NamedTuplestoreScanState, pstate);
+
+    // Use generic scan framework with named tuple store access methods
+    return ExecScan(&node->ss,
+                    (ExecScanAccessMtd) NamedTuplestoreScanNext,
+                    (ExecScanRecheckMtd) NamedTuplestoreScanRecheck);
+}
+```

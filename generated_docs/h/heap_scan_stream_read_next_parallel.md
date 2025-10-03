@@ -45,3 +45,38 @@ The function uses PostgreSQL's parallel scan infrastructure to ensure that multi
 - Returns InvalidBlockNumber when the worker has no more blocks to process
 - Part of PostgreSQL's streaming read API introduced for more efficient parallel scanning
 - The rs_prefetch_block field is updated with each call to track the current block being processed
+
+## Simplified Source
+
+```c
+static BlockNumber
+heap_scan_stream_read_next_parallel(ReadStream *stream,
+                                   void *callback_private_data,
+                                   void *per_buffer_data) {
+    HeapScanDesc scan = (HeapScanDesc) callback_private_data;
+
+    // Must be forward scan and parallel
+    Assert(ScanDirectionIsForward(scan->rs_dir));
+    Assert(scan->rs_base.rs_parallel);
+
+    if (!scan->rs_inited) {
+        // Initialize parallel scan on first call
+        table_block_parallelscan_startblock_init(scan->rs_base.rs_rd,
+                                                 scan->rs_parallelworkerdata,
+                                                 (ParallelBlockTableScanDesc) scan->rs_base.rs_parallel);
+
+        // Get first block for this worker
+        scan->rs_prefetch_block = table_block_parallelscan_nextpage(scan->rs_base.rs_rd,
+                                                                   scan->rs_parallelworkerdata,
+                                                                   (ParallelBlockTableScanDesc) scan->rs_base.rs_parallel);
+        scan->rs_inited = true;
+    } else {
+        // Get next block for this worker
+        scan->rs_prefetch_block = table_block_parallelscan_nextpage(scan->rs_base.rs_rd,
+                                                                   scan->rs_parallelworkerdata,
+                                                                   (ParallelBlockTableScanDesc) scan->rs_base.rs_parallel);
+    }
+
+    return scan->rs_prefetch_block;  // Returns InvalidBlockNumber when done
+}
+```

@@ -56,3 +56,117 @@ The function uses a restart mechanism to seamlessly transition between reading c
 - The argContext parameter is critical for ValuePerCall functions - it must live longer than per-tuple contexts
 - Registers cleanup callbacks only when necessary (for ValuePerCall functions) to avoid overhead
 - Handles strict functions by skipping execution when NULL arguments are present, returning empty sets
+
+## Simplified Source
+
+```c
+Datum
+ExecMakeFunctionResultSet(SetExprState *fcache, ExprContext *econtext,
+                         MemoryContext argContext, bool *isNull, ExprDoneCond *isDone)
+{
+    List *arguments;
+    Datum result;
+    FunctionCallInfo fcinfo;
+    ReturnSetInfo rsinfo;
+    bool callit;
+
+restart:
+    check_stack_depth();
+
+    // Continue reading from existing tuplestore if available
+    if (fcache->funcResultStore) {
+        TupleTableSlot *slot = fcache->funcResultSlot;
+        MemoryContext oldContext = MemoryContextSwitchTo(slot->tts_mcxt);
+        bool foundTup = tuplestore_gettupleslot(fcache->funcResultStore, true, false,
+                                               fcache->funcResultSlot);
+        MemoryContextSwitchTo(oldContext);
+
+        if (foundTup) {
+            *isDone = ExprMultipleResult;
+            if (fcache->funcReturnsTuple) {
+                *isNull = false;
+                return ExecFetchSlotHeapTupleDatum(fcache->funcResultSlot);
+            } else {
+                return slot_getattr(fcache->funcResultSlot, 1, isNull);
+            }
+        }
+
+        // Tuplestore exhausted
+        tuplestore_end(fcache->funcResultStore);
+        fcache->funcResultStore = NULL;
+        *isDone = ExprEndResult;
+        *isNull = true;
+        return (Datum) 0;
+    }
+
+    // Evaluate arguments if needed
+    fcinfo = fcache->fcinfo;
+    arguments = fcache->args;
+    if (!fcache->setArgsValid) {
+        MemoryContext oldContext = MemoryContextSwitchTo(argContext);
+        ExecEvalFuncArgs(fcinfo, arguments, econtext);
+        MemoryContextSwitchTo(oldContext);
+    } else {
+        fcache->setArgsValid = false;
+    }
+
+    // Set up result info for SRF protocol
+    fcinfo->resultinfo = (Node *) &rsinfo;
+    rsinfo.type = T_ReturnSetInfo;
+    rsinfo.econtext = econtext;
+    rsinfo.expectedDesc = fcache->funcResultDesc;
+    rsinfo.allowedModes = (int) (SFRM_ValuePerCall | SFRM_Materialize);
+    rsinfo.returnMode = SFRM_ValuePerCall;
+    rsinfo.setResult = NULL;
+    rsinfo.setDesc = NULL;
+
+    // Check for NULL arguments in strict functions
+    callit = true;
+    if (fcache->func.fn_strict) {
+        for (int i = 0; i < fcinfo->nargs; i++) {
+            if (fcinfo->args[i].isnull) {
+                callit = false;
+                break;
+            }
+        }
+    }
+
+    // Call the function or handle strict function with NULLs
+    if (callit) {
+        fcinfo->isnull = false;
+        rsinfo.isDone = ExprSingleResult;
+        result = FunctionCallInvoke(fcinfo);
+        *isNull = fcinfo->isnull;
+        *isDone = rsinfo.isDone;
+    } else {
+        // Strict SRF with NULL args returns empty set
+        result = (Datum) 0;
+        *isNull = true;
+        *isDone = ExprEndResult;
+    }
+
+    // Handle different SRF protocols
+    if (rsinfo.returnMode == SFRM_ValuePerCall) {
+        if (*isDone == ExprMultipleResult) {
+            fcache->setArgsValid = true;
+            if (!fcache->shutdown_reg) {
+                RegisterExprContextCallback(econtext, ShutdownSetExpr,
+                                          PointerGetDatum(fcache));
+                fcache->shutdown_reg = true;
+            }
+        }
+    } else if (rsinfo.returnMode == SFRM_Materialize) {
+        if (rsinfo.setResult != NULL) {
+            ExecPrepareTuplestoreResult(fcache, econtext,
+                                      rsinfo.setResult, rsinfo.setDesc);
+            goto restart;  // Start reading from tuplestore
+        }
+        // Empty result set
+        *isDone = ExprEndResult;
+        *isNull = true;
+        result = (Datum) 0;
+    }
+
+    return result;
+}
+```

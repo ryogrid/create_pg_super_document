@@ -53,3 +53,23 @@ For example:
 - Located in src/backend/utils/adt/ri_triggers.c:1873-1892
 - Essential utility for building safe SQL queries in referential integrity operations
 - Part of PostgreSQL's SQL injection prevention mechanisms when building dynamic queries
+
+## Simplified Source
+
+```c
+static void quoteOneName(char *buffer, const char *name) {
+    // Always quote the name for safety - start with opening quote
+    *buffer++ = '"';
+
+    // Copy each character, escaping embedded quotes by doubling them
+    while (*name) {
+        if (*name == '"')
+            *buffer++ = '"';  // Double the quote for SQL escaping
+        *buffer++ = *name++;
+    }
+
+    // Add closing quote and null terminator
+    *buffer++ = '"';
+    *buffer = '\0';
+}
+```

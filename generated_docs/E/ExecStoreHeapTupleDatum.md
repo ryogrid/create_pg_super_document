@@ -36,3 +36,26 @@ The function creates a temporary HeapTupleData structure to hold the tuple metad
 - The slot contents remain dependent on the input datum until the slot is materialized
 - This is part of PostgreSQL's tuple slot abstraction that provides uniform access to tuples regardless of their storage format
 - The function clears any existing tuple data in the slot before storing the new tuple
+
+## Simplified Source
+
+```c
+void ExecStoreHeapTupleDatum(Datum data, TupleTableSlot *slot)
+{
+    HeapTupleData tuple = {0};
+    HeapTupleHeader td;
+
+    // Extract tuple header from datum
+    td = DatumGetHeapTupleHeader(data);
+
+    // Setup tuple metadata
+    tuple.t_len = HeapTupleHeaderGetDatumLength(td);
+    tuple.t_self = td->t_ctid;
+    tuple.t_data = td;
+
+    // Clear slot and deform tuple into virtual storage
+    ExecClearTuple(slot);
+    heap_deform_tuple(&tuple, slot->tts_tupleDescriptor, slot->tts_values, slot->tts_isnull);
+    ExecStoreVirtualTuple(slot);
+}
+```

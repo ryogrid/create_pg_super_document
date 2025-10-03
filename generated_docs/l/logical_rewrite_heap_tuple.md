@@ -47,3 +47,57 @@ The function fills out a LogicalRewriteMappingData structure with the old and ne
 - The function deliberately avoids complex subtransaction analysis for performance reasons
 - Critical for maintaining logical replication consistency during DDL operations that rewrite heap storage
 - Part of PostgreSQL's logical decoding infrastructure that preserves catalog tuple visibility across rewrites
+
+## Simplified Source
+
+```c
+static void
+logical_rewrite_heap_tuple(RewriteState state, ItemPointerData old_tid,
+                           HeapTuple new_tuple)
+{
+    ItemPointerData new_tid = new_tuple->t_self;
+    TransactionId cutoff = state->rs_logical_xmin;
+    TransactionId xmin;
+    TransactionId xmax;
+    bool do_log_xmin = false;
+    bool do_log_xmax = false;
+    LogicalRewriteMappingData map;
+
+    // Exit early if no logical rewrite in progress
+    if (!state->rs_logical_rewrite)
+        return;
+
+    // Extract transaction IDs from tuple header
+    xmin = HeapTupleHeaderGetXmin(new_tuple->t_data);
+    xmax = HeapTupleHeaderGetUpdateXid(new_tuple->t_data);
+
+    // Check if xmin needs logging (tuple created recently)
+    if (TransactionIdIsNormal(xmin) && !TransactionIdPrecedes(xmin, cutoff))
+        do_log_xmin = true;
+
+    // Check if xmax needs logging (tuple deleted/updated recently)
+    if (TransactionIdIsNormal(xmax) &&
+        !HEAP_XMAX_IS_LOCKED_ONLY(new_tuple->t_data->t_infomask) &&
+        !TransactionIdPrecedes(xmax, cutoff)) {
+        do_log_xmax = true;
+    }
+
+    // Exit if neither transaction needs logging
+    if (!do_log_xmin && !do_log_xmax)
+        return;
+
+    // Fill out the mapping structure
+    map.old_locator = state->rs_old_rel->rd_locator;
+    map.old_tid = old_tid;
+    map.new_locator = state->rs_new_rel->rd_locator;
+    map.new_tid = new_tid;
+
+    // Log mappings for affected transactions
+    if (do_log_xmin)
+        logical_rewrite_log_mapping(state, xmin, &map);
+
+    // Log separate mapping for xmax if different from xmin
+    if (do_log_xmax && !TransactionIdEquals(xmin, xmax))
+        logical_rewrite_log_mapping(state, xmax, &map);
+}
+```

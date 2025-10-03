@@ -34,3 +34,18 @@ The function acts as a dispatcher, extracting the ForeignScanState from the asyn
 - The specific events that trigger notifications are determined by the wait configuration set up by the FDW
 - Enables FDWs to handle various asynchronous conditions including successful data retrieval, errors, timeouts, and connection state changes
 - Located in src/backend/executor/nodeForeignscan.c:488-495
+
+## Simplified Source
+
+```c
+void ExecAsyncForeignScanNotify(AsyncRequest *areq) {
+    ForeignScanState *node = (ForeignScanState *) areq->requestee;
+    FdwRoutine *fdwroutine = node->fdwroutine;
+
+    // Ensure FDW supports async notifications
+    Assert(fdwroutine->ForeignAsyncNotify != NULL);
+
+    // Delegate to FDW-specific notification handler
+    fdwroutine->ForeignAsyncNotify(areq);
+}
+```

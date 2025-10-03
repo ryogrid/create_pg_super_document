@@ -47,3 +47,19 @@ The function operates by:
 - The function assumes the input buffer is properly allocated and sized
 - Used extensively throughout PostgreSQL's referential integrity trigger system for generating error messages and constructing SQL queries
 - The quoting mechanism ensures that relation names containing special characters, spaces, or SQL keywords are properly escaped
+
+## Simplified Source
+
+```c
+static void quoteRelationName(char *buffer, Relation rel) {
+    // Quote the schema name first
+    quoteOneName(buffer, get_namespace_name(RelationGetNamespace(rel)));
+
+    // Move to end of schema name and add dot separator
+    buffer += strlen(buffer);
+    *buffer++ = '.';
+
+    // Quote the table name
+    quoteOneName(buffer, RelationGetRelationName(rel));
+}
+```

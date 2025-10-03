@@ -45,3 +45,48 @@ After populating the values and null flags, the function calls ExecStoreVirtualT
 - The probeslot must be prepared before any hash table operations (hashing, equality checks)
 - Supports both cached key restoration and fresh parameter evaluation scenarios
 - The inline keyword suggests this is a performance-critical function called frequently
+
+## Simplified Source
+
+```c
+static inline void
+prepare_probe_slot(MemoizeState *mstate, MemoizeKey *key)
+{
+    TupleTableSlot *pslot = mstate->probeslot;
+    TupleTableSlot *tslot = mstate->tableslot;
+    int numKeys = mstate->nkeys;
+
+    // Clear the probe slot for fresh data
+    ExecClearTuple(pslot);
+
+    if (key == NULL)
+    {
+        // Evaluate current parameter expressions
+        ExprContext *econtext = mstate->ss.ps.ps_ExprContext;
+        MemoryContext oldcontext;
+
+        oldcontext = MemoryContextSwitchTo(econtext->ecxt_per_tuple_memory);
+
+        // Evaluate each parameter expression
+        for (int i = 0; i < numKeys; i++)
+            pslot->tts_values[i] = ExecEvalExpr(mstate->param_exprs[i],
+                                                econtext,
+                                                &pslot->tts_isnull[i]);
+
+        MemoryContextSwitchTo(oldcontext);
+    }
+    else
+    {
+        // Extract values from cached key's MinimalTuple
+        ExecStoreMinimalTuple(key->params, tslot, false);
+        slot_getallattrs(tslot);
+
+        // Copy values and null flags to probe slot
+        memcpy(pslot->tts_values, tslot->tts_values, sizeof(Datum) * numKeys);
+        memcpy(pslot->tts_isnull, tslot->tts_isnull, sizeof(bool) * numKeys);
+    }
+
+    // Finalize the virtual tuple
+    ExecStoreVirtualTuple(pslot);
+}
+```

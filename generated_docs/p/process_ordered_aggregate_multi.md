@@ -60,3 +60,87 @@ The function coordinates multiple components: tuple sorting, slot management, ex
 - The multi-column equality check is performed using ExecQual with pertrans->equalfnMulti expression
 - Cleans up tuple slots and sort state when finished, setting sort state pointer to NULL
 - More complex than the single-column case but provides necessary functionality for multi-column DISTINCT and ORDER BY aggregates
+
+## Simplified Source
+
+```c
+static void
+process_ordered_aggregate_multi(AggState *aggstate,
+                                AggStatePerTrans pertrans,
+                                AggStatePerGroup pergroupstate)
+{
+    ExprContext *tmpcontext = aggstate->tmpcontext;
+    FunctionCallInfo fcinfo = pertrans->transfn_fcinfo;
+    TupleTableSlot *slot1 = pertrans->sortslot;
+    TupleTableSlot *slot2 = pertrans->uniqslot;
+    int numTransInputs = pertrans->numTransInputs;
+    int numDistinctCols = pertrans->numDistinctCols;
+    Datum newAbbrevVal = (Datum) 0;
+    Datum oldAbbrevVal = (Datum) 0;
+    bool haveOldValue = false;
+    TupleTableSlot *save = aggstate->tmpcontext->ecxt_outertuple;
+    int i;
+
+    // Complete the sort operation
+    tuplesort_performsort(pertrans->sortstates[aggstate->current_set]);
+
+    ExecClearTuple(slot1);
+    if (slot2)
+        ExecClearTuple(slot2);
+
+    // Process sorted tuples
+    while (tuplesort_gettupleslot(pertrans->sortstates[aggstate->current_set],
+                                  true, true, slot1, &newAbbrevVal))
+    {
+        CHECK_FOR_INTERRUPTS();
+
+        tmpcontext->ecxt_outertuple = slot1;
+        tmpcontext->ecxt_innertuple = slot2;
+
+        // Check if this tuple is distinct from previous
+        if (numDistinctCols == 0 ||
+            !haveOldValue ||
+            newAbbrevVal != oldAbbrevVal ||
+            !ExecQual(pertrans->equalfnMulti, tmpcontext))
+        {
+            // Extract transition input columns
+            slot_getsomeattrs(slot1, numTransInputs);
+
+            // Load values for transition function (starting from position 1)
+            for (i = 0; i < numTransInputs; i++)
+            {
+                fcinfo->args[i + 1].value = slot1->tts_values[i];
+                fcinfo->args[i + 1].isnull = slot1->tts_isnull[i];
+            }
+
+            // Apply transition function
+            advance_transition_function(aggstate, pertrans, pergroupstate);
+
+            // Setup for next DISTINCT comparison
+            if (numDistinctCols > 0)
+            {
+                // Swap slot pointers to retain current tuple
+                TupleTableSlot *tmpslot = slot2;
+                slot2 = slot1;
+                slot1 = tmpslot;
+                oldAbbrevVal = newAbbrevVal;
+                haveOldValue = true;
+            }
+        }
+
+        // Reset context for next iteration
+        ResetExprContext(tmpcontext);
+        ExecClearTuple(slot1);
+    }
+
+    // Cleanup
+    if (slot2)
+        ExecClearTuple(slot2);
+
+    tuplesort_end(pertrans->sortstates[aggstate->current_set]);
+    pertrans->sortstates[aggstate->current_set] = NULL;
+
+    // Restore previous slot context
+    tmpcontext->ecxt_outertuple = save;
+}
+```

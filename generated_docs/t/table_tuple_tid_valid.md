@@ -46,3 +46,13 @@ This validation is performed in the context of an active table scan, which provi
 - Primarily used in TID scan operations to validate user-provided or computed TIDs
 - Does NOT perform visibility testing - only structural validation
 - Essential for preventing crashes or errors when processing potentially invalid TIDs from external sources
+
+## Simplified Source
+```c
+static inline bool
+table_tuple_tid_valid(TableScanDesc scan, ItemPointer tid)
+{
+    // Delegate to table access method for TID validation
+    return scan->rs_rd->rd_tableam->tuple_tid_valid(scan, tid);
+}
+```

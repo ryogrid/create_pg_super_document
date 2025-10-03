@@ -38,3 +38,20 @@ The function is safe to use with UTF-8 and other multibyte encodings because `pg
 - Used specifically for C/POSIX collations where locale-aware conversion is not required
 - Provides significant performance benefit over locale-aware functions for ASCII-only use cases
 - The function processes the string byte-by-byte rather than character-by-character
+
+## Simplified Source
+```c
+char *asc_tolower(const char *buff, size_t nbytes) {
+    if (!buff)
+        return NULL;
+
+    // Create a copy of the input string
+    char *result = pnstrdup(buff, nbytes);
+
+    // Convert each ASCII character to lowercase
+    for (char *p = result; *p; p++)
+        *p = pg_ascii_tolower((unsigned char) *p);
+
+    return result;
+}
+```

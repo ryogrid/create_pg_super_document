@@ -34,3 +34,92 @@ ginFindParents is a complex tree navigation function that rebuilds the parent-ch
 
 ## Notes and Other Information
 The function implements a sophisticated algorithm that maintains the critical root buffer pin throughout the operation, preventing concurrent VACUUM from interfering with the tree structure. The parent reconstruction may require multiple iterations due to concurrent page splits, with ginFinishOldSplit recursively calling ginFindParents if needed. The function carefully handles edge cases like reaching the rightmost page without finding the target child, indicating the child has moved to a different level. This function is primarily used during page split operations when the original parent path becomes invalid due to structural changes in the tree.
+
+## Simplified Source
+
+```c
+static void
+ginFindParents(GinBtree btree, GinBtreeStack *stack)
+{
+    Page page;
+    Buffer buffer;
+    BlockNumber blkno, leftmostBlkno;
+    OffsetNumber offset;
+    GinBtreeStack *root;
+    GinBtreeStack *ptr;
+
+    // Unwind stack to root, keeping root pin to prevent VACUUM conflicts
+    root = stack->parent;
+    while (root->parent)
+    {
+        ReleaseBuffer(root->buffer);
+        root = root->parent;
+    }
+
+    // Start from root page
+    blkno = root->blkno;
+    buffer = root->buffer;
+    ptr = (GinBtreeStack *) palloc(sizeof(GinBtreeStack));
+
+    // Descend tree to find parent of target child
+    for (;;)
+    {
+        LockBuffer(buffer, GIN_EXCLUSIVE);
+        page = BufferGetPage(buffer);
+
+        // Complete any incomplete splits
+        if (GinPageIsIncompleteSplit(page))
+        {
+            ptr->blkno = blkno;
+            ptr->buffer = buffer;
+            ptr->parent = root;
+            ptr->off = InvalidOffsetNumber;
+            ginFinishOldSplit(btree, ptr, NULL, GIN_EXCLUSIVE);
+        }
+
+        leftmostBlkno = btree->getLeftMostChild(btree, page);
+
+        // Search for child pointer on current level
+        while ((offset = btree->findChildPtr(btree, page, stack->blkno, InvalidOffsetNumber)) == InvalidOffsetNumber)
+        {
+            // Move right to continue search
+            blkno = GinPageGetOpaque(page)->rightlink;
+            if (blkno == InvalidBlockNumber)
+            {
+                // Child not found at this level
+                LockBuffer(buffer, GIN_UNLOCK);
+                if (buffer != root->buffer)
+                    ReleaseBuffer(buffer);
+                break;
+            }
+
+            buffer = ginStepRight(buffer, btree->index, GIN_EXCLUSIVE);
+            page = BufferGetPage(buffer);
+
+            if (GinPageIsIncompleteSplit(page))
+            {
+                ptr->blkno = blkno;
+                ptr->buffer = buffer;
+                ptr->parent = root;
+                ptr->off = InvalidOffsetNumber;
+                ginFinishOldSplit(btree, ptr, NULL, GIN_EXCLUSIVE);
+            }
+        }
+
+        // Found parent or need to descend further
+        if (blkno != InvalidBlockNumber)
+        {
+            ptr->blkno = blkno;
+            ptr->buffer = buffer;
+            ptr->parent = root;
+            ptr->off = offset;
+            stack->parent = ptr;
+            return;
+        }
+
+        // Descend to next level
+        blkno = leftmostBlkno;
+        buffer = ReadBuffer(btree->index, blkno);
+    }
+}
+```

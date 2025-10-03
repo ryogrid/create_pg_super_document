@@ -47,3 +47,65 @@ Key behaviors include:
 - The function handles the complex case where transition functions may return pointers to their input arguments to avoid unnecessary memory copying
 - Static fields of the fcinfo are expected to be initialized by ExecInitAgg() before calling this function
 - Designed to work regardless of the calling memory context
+
+## Simplified Source
+
+```c
+static void
+advance_transition_function(AggState *aggstate,
+                           AggStatePerTrans pertrans,
+                           AggStatePerGroup pergroupstate)
+{
+    FunctionCallInfo fcinfo = pertrans->transfn_fcinfo;
+
+    // Handle strict transition functions
+    if (pertrans->transfn.fn_strict) {
+        // Skip if any input is NULL
+        for (int i = 1; i <= pertrans->numTransInputs; i++) {
+            if (fcinfo->args[i].isnull)
+                return;
+        }
+
+        // Initialize transValue with first non-NULL input
+        if (pergroupstate->noTransValue) {
+            MemoryContext oldContext = MemoryContextSwitchTo(aggstate->curaggcontext->ecxt_per_tuple_memory);
+            pergroupstate->transValue = datumCopy(fcinfo->args[1].value,
+                                                 pertrans->transtypeByVal,
+                                                 pertrans->transtypeLen);
+            pergroupstate->transValueIsNull = false;
+            pergroupstate->noTransValue = false;
+            MemoryContextSwitchTo(oldContext);
+            return;
+        }
+
+        // Skip if current transValue is NULL
+        if (pergroupstate->transValueIsNull)
+            return;
+    }
+
+    // Execute transition function in temporary context
+    MemoryContext oldContext = MemoryContextSwitchTo(aggstate->tmpcontext->ecxt_per_tuple_memory);
+
+    aggstate->curpertrans = pertrans;
+    fcinfo->args[0].value = pergroupstate->transValue;
+    fcinfo->args[0].isnull = pergroupstate->transValueIsNull;
+    fcinfo->isnull = false;
+
+    Datum newVal = FunctionCallInvoke(fcinfo);
+    aggstate->curpertrans = NULL;
+
+    // Handle pass-by-reference types efficiently
+    if (!pertrans->transtypeByVal &&
+        DatumGetPointer(newVal) != DatumGetPointer(pergroupstate->transValue)) {
+        newVal = ExecAggCopyTransValue(aggstate, pertrans, newVal, fcinfo->isnull,
+                                     pergroupstate->transValue,
+                                     pergroupstate->transValueIsNull);
+    }
+
+    // Update state
+    pergroupstate->transValue = newVal;
+    pergroupstate->transValueIsNull = fcinfo->isnull;
+
+    MemoryContextSwitchTo(oldContext);
+}
+```

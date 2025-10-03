@@ -34,3 +34,12 @@ The function performs a straightforward memory release operation, freeing the en
 - Should be used to free tuples created by brin_form_tuple or brin_form_placeholder_tuple
 - Part of the standard BRIN tuple lifecycle management along with tuple creation functions
 - Essential for preventing memory leaks in BRIN index operations
+
+## Simplified Source
+
+```c
+void brin_free_tuple(BrinTuple *tuple) {
+    // Simple wrapper around pfree to free BRIN tuple memory
+    pfree(tuple);
+}
+```

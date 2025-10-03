@@ -44,3 +44,30 @@ _hash_getbuf_with_strategy(Relation rel, BlockNumber blkno,
 - The function is primarily used in maintenance operations (VACUUM) where custom buffer strategies can improve memory utilization
 - Unlike regular buffer acquisition, this function allows fine-grained control over buffer replacement policies through the BufferAccessStrategy parameter
 - The function maintains the same locking and validation semantics as the standard  function
+
+## Simplified Source
+
+```c
+Buffer _hash_getbuf_with_strategy(Relation rel, BlockNumber blkno,
+                                 int access, int flags,
+                                 BufferAccessStrategy bstrategy) {
+    // P_NEW not allowed - this function only accesses existing pages
+    if (blkno == P_NEW) {
+        elog(ERROR, "hash AM does not use P_NEW");
+    }
+
+    // Read buffer using the specified access strategy
+    Buffer buf = ReadBufferExtended(rel, MAIN_FORKNUM, blkno,
+                                   RBM_NORMAL, bstrategy);
+
+    // Apply requested lock (unless HASH_NOLOCK)
+    if (access != HASH_NOLOCK) {
+        LockBuffer(buf, access);
+    }
+
+    // Validate page contents and type
+    _hash_checkpage(rel, buf, flags);
+
+    return buf;  // Buffer is now locked, pinned, and validated
+}
+```

@@ -56,3 +56,65 @@ The function sets various boolean flags that describe GIN's capabilities:
 - GIN indexes are particularly useful for full-text search, array containment, and other scenarios where traditional B-tree indexes are not optimal
 - The function sets , indicating that GIN does not support parallel index scans in this version of PostgreSQL
 - Returns the IndexAmRoutine via  macro for proper PostgreSQL function return handling
+
+## Simplified Source
+
+```c
+// Simplified version of ginhandler
+Datum
+ginhandler(PG_FUNCTION_ARGS)
+{
+    IndexAmRoutine *amroutine = makeNode(IndexAmRoutine);
+
+    // Set GIN capabilities and limitations
+    amroutine->amstrategies = 0;
+    amroutine->amsupport = GINNProcs;
+    amroutine->amoptsprocnum = GIN_OPTIONS_PROC;
+    amroutine->amcanorder = false;
+    amroutine->amcanorderbyop = false;
+    amroutine->amcanbackward = false;
+    amroutine->amcanunique = false;
+    amroutine->amcanmulticol = true;
+    amroutine->amoptionalkey = true;
+    amroutine->amsearcharray = false;
+    amroutine->amsearchnulls = false;
+    amroutine->amstorage = true;
+    amroutine->amclusterable = false;
+    amroutine->ampredlocks = true;
+    amroutine->amcanparallel = false;
+    amroutine->amcanbuildparallel = false;
+    amroutine->amcaninclude = false;
+    amroutine->amusemaintenanceworkmem = true;
+    amroutine->amsummarizing = false;
+    amroutine->amparallelvacuumoptions =
+        VACUUM_OPTION_PARALLEL_BULKDEL | VACUUM_OPTION_PARALLEL_CLEANUP;
+    amroutine->amkeytype = InvalidOid;
+
+    // Set callback functions for GIN operations
+    amroutine->ambuild = ginbuild;
+    amroutine->ambuildempty = ginbuildempty;
+    amroutine->aminsert = gininsert;
+    amroutine->aminsertcleanup = NULL;
+    amroutine->ambulkdelete = ginbulkdelete;
+    amroutine->amvacuumcleanup = ginvacuumcleanup;
+    amroutine->amcanreturn = NULL;
+    amroutine->amcostestimate = gincostestimate;
+    amroutine->amoptions = ginoptions;
+    amroutine->amproperty = NULL;
+    amroutine->ambuildphasename = NULL;
+    amroutine->amvalidate = ginvalidate;
+    amroutine->amadjustmembers = ginadjustmembers;
+    amroutine->ambeginscan = ginbeginscan;
+    amroutine->amrescan = ginrescan;
+    amroutine->amgettuple = NULL;
+    amroutine->amgetbitmap = gingetbitmap;
+    amroutine->amendscan = ginendscan;
+    amroutine->ammarkpos = NULL;
+    amroutine->amrestrpos = NULL;
+    amroutine->amestimateparallelscan = NULL;
+    amroutine->aminitparallelscan = NULL;
+    amroutine->amparallelrescan = NULL;
+
+    PG_RETURN_POINTER(amroutine);
+}
+```

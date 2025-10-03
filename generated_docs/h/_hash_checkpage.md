@@ -46,3 +46,40 @@ The function reports detailed error messages with hints for recovery (typically 
 
 ## Notes and Other Information
 This function is called extensively throughout hash index operations as a protective measure. It's particularly important during recovery scenarios and when debugging index corruption issues. The function distinguishes between different types of corruption (structural vs. content-based) and provides appropriate error messages and recovery suggestions for each case.
+
+## Simplified Source
+
+```c
+void _hash_checkpage(Relation rel, Buffer buf, int flags)
+{
+    Page page = BufferGetPage(buf);
+
+    // Check for uninitialized pages
+    if (PageIsNew(page))
+        ereport(ERROR, "index contains unexpected zero page - please REINDEX");
+
+    // Verify special area has correct size for hash pages
+    if (PageGetSpecialSize(page) != MAXALIGN(sizeof(HashPageOpaqueData)))
+        ereport(ERROR, "index contains corrupted page - please REINDEX");
+
+    // Check page type if flags specified
+    if (flags)
+    {
+        HashPageOpaque opaque = HashPageGetOpaque(page);
+        if ((opaque->hasho_flag & flags) == 0)
+            ereport(ERROR, "index contains corrupted page - please REINDEX");
+    }
+
+    // Additional checks for metapages
+    if (flags == LH_META_PAGE)
+    {
+        HashMetaPage metap = HashPageGetMeta(page);
+
+        if (metap->hashm_magic != HASH_MAGIC)
+            ereport(ERROR, "index is not a hash index");
+
+        if (metap->hashm_version != HASH_VERSION)
+            ereport(ERROR, "index has wrong hash version - please REINDEX");
+    }
+}
+```

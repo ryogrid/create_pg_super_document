@@ -47,3 +47,98 @@ The function also handles parameterized nested loops where outer tuple values ar
 - Uses ecxt_outertuple and ecxt_innertuple in expression context for qualification evaluation
 - Memory management through ResetExprContext() prevents memory leaks in long-running joins
 - Supports instrumentation for monitoring filtered tuple counts
+
+## Simplified Source
+
+```c
+static TupleTableSlot *ExecNestLoop(PlanState *pstate)
+{
+    NestLoopState *node = castNode(NestLoopState, pstate);
+    NestLoop *nl = (NestLoop *) node->js.ps.plan;
+    PlanState *outerPlan = outerPlanState(node);
+    PlanState *innerPlan = innerPlanState(node);
+    ExprContext *econtext = node->js.ps.ps_ExprContext;
+
+    CHECK_FOR_INTERRUPTS();
+
+    // Reset per-tuple memory context
+    ResetExprContext(econtext);
+
+    // Main nested loop iteration
+    for (;;)
+    {
+        // Get new outer tuple if needed
+        if (node->nl_NeedNewOuter)
+        {
+            TupleTableSlot *outerTupleSlot = ExecProcNode(outerPlan);
+
+            // No more outer tuples - join complete
+            if (TupIsNull(outerTupleSlot))
+                return NULL;
+
+            // Set up new outer tuple context
+            econtext->ecxt_outertuple = outerTupleSlot;
+            node->nl_NeedNewOuter = false;
+            node->nl_MatchedOuter = false;
+
+            // Pass outer tuple values as parameters to inner scan
+            foreach(lc, nl->nestParams)
+            {
+                NestLoopParam *nlp = (NestLoopParam *) lfirst(lc);
+                ParamExecData *prm = &(econtext->ecxt_param_exec_vals[nlp->paramno]);
+
+                prm->value = slot_getattr(outerTupleSlot, nlp->paramval->varattno, &(prm->isnull));
+                innerPlan->chgParam = bms_add_member(innerPlan->chgParam, nlp->paramno);
+            }
+
+            // Reset inner scan for new outer tuple
+            ExecReScan(innerPlan);
+        }
+
+        // Get next inner tuple
+        TupleTableSlot *innerTupleSlot = ExecProcNode(innerPlan);
+        econtext->ecxt_innertuple = innerTupleSlot;
+
+        if (TupIsNull(innerTupleSlot))
+        {
+            // No more inner tuples for this outer tuple
+            node->nl_NeedNewOuter = true;
+
+            // Handle outer join - return outer tuple with null inner values
+            if (!node->nl_MatchedOuter &&
+                (node->js.jointype == JOIN_LEFT || node->js.jointype == JOIN_ANTI))
+            {
+                econtext->ecxt_innertuple = node->nl_NullInnerTupleSlot;
+
+                if (node->js.ps.qual == NULL || ExecQual(node->js.ps.qual, econtext))
+                    return ExecProject(node->js.ps.ps_ProjInfo);
+            }
+            continue;
+        }
+
+        // Test join and other qualification conditions
+        if (ExecQual(node->js.joinqual, econtext))
+        {
+            node->nl_MatchedOuter = true;
+
+            // Anti-join: don't return matched tuples
+            if (node->js.jointype == JOIN_ANTI)
+            {
+                node->nl_NeedNewOuter = true;
+                continue;
+            }
+
+            // Single-match optimization for semi-joins
+            if (node->js.single_match)
+                node->nl_NeedNewOuter = true;
+
+            // Check other qualifications and project result
+            if (node->js.ps.qual == NULL || ExecQual(node->js.ps.qual, econtext))
+                return ExecProject(node->js.ps.ps_ProjInfo);
+        }
+
+        // Tuple didn't qualify - reset and continue
+        ResetExprContext(econtext);
+    }
+}
+```

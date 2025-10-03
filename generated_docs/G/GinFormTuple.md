@@ -56,3 +56,91 @@ The function is designed primarily for leaf-level key entries containing posting
 - Space allocation includes padding considerations and ensures proper alignment
 - The posting list data can be copied later if data parameter is NULL
 - Category bytes are inserted for non-normal keys to handle null values and special cases
+
+## Simplified Source
+
+```c
+IndexTuple
+GinFormTuple(GinState *ginstate,
+             OffsetNumber attnum, Datum key, GinNullCategory category,
+             Pointer data, Size dataSize, int nipd,
+             bool errorTooBig)
+{
+    Datum datums[2];
+    bool isnull[2];
+    IndexTuple itup;
+    uint32 newsize;
+
+    // Build basic tuple: optional column number, plus key datum
+    if (ginstate->oneCol) {
+        datums[0] = key;
+        isnull[0] = (category != GIN_CAT_NORM_KEY);
+    } else {
+        datums[0] = UInt16GetDatum(attnum);
+        isnull[0] = false;
+        datums[1] = key;
+        isnull[1] = (category != GIN_CAT_NORM_KEY);
+    }
+
+    itup = index_form_tuple(ginstate->tupdesc[attnum - 1], datums, isnull);
+
+    // Calculate size needed including space for category byte if needed
+    newsize = IndexTupleSize(itup);
+
+    if (IndexTupleHasNulls(itup)) {
+        uint32 minsize;
+        Assert(category != GIN_CAT_NORM_KEY);
+        minsize = GinCategoryOffset(itup, ginstate) + sizeof(GinNullCategory);
+        newsize = Max(newsize, minsize);
+    }
+
+    newsize = SHORTALIGN(newsize);
+
+    // Set posting list metadata
+    GinSetPostingOffset(itup, newsize);
+    GinSetNPosting(itup, nipd);
+
+    // Add space for posting list data
+    newsize += dataSize;
+    newsize = MAXALIGN(newsize);
+
+    // Check size limit
+    if (newsize > GinMaxItemSize) {
+        if (errorTooBig)
+            ereport(ERROR,
+                    (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                     errmsg("index row size %zu exceeds maximum %zu for index \"%s\"",
+                            (Size) newsize, (Size) GinMaxItemSize,
+                            RelationGetRelationName(ginstate->index))));
+        pfree(itup);
+        return NULL;
+    }
+
+    // Resize tuple if needed
+    if (newsize != IndexTupleSize(itup)) {
+        itup = repalloc(itup, newsize);
+
+        // Clear new space for compatibility
+        memset((char *) itup + IndexTupleSize(itup),
+               0, newsize - IndexTupleSize(itup));
+
+        // Update size in tuple header
+        itup->t_info &= ~INDEX_SIZE_MASK;
+        itup->t_info |= newsize;
+    }
+
+    // Copy posting list data if provided
+    if (data) {
+        char *ptr = GinGetPosting(itup);
+        memcpy(ptr, data, dataSize);
+    }
+
+    // Insert category byte for non-normal keys
+    if (category != GIN_CAT_NORM_KEY) {
+        Assert(IndexTupleHasNulls(itup));
+        GinSetNullCategory(itup, ginstate, category);
+    }
+
+    return itup;
+}
+```

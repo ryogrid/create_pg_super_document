@@ -48,3 +48,106 @@ This function sets up shared iteration infrastructure for parallel bitmap scans 
 - Handles both hash table (TBM_HASH) and single page (TBM_ONE_PAGE) bitmap modes
 - The shared state includes page and chunk arrays with atomic reference counters
 - Essential for parallel bitmap heap scans where multiple workers need to coordinate access
+
+## Simplified Source
+
+```c
+dsa_pointer
+tbm_prepare_shared_iterate(TIDBitmap *tbm)
+{
+    dsa_pointer dp;
+    TBMSharedIteratorState *istate;
+    PTEntryArray *ptbase = NULL;
+    PTIterationArray *ptpages = NULL;
+    PTIterationArray *ptchunks = NULL;
+
+    Assert(tbm->dsa != NULL);
+    Assert(tbm->iterating != TBM_ITERATING_PRIVATE);
+
+    // Allocate shared iterator state in DSA
+    dp = dsa_allocate0(tbm->dsa, sizeof(TBMSharedIteratorState));
+    istate = dsa_get_address(tbm->dsa, dp);
+
+    // Create sorted page lists if not already iterating
+    if (tbm->iterating == TBM_NOT_ITERATING) {
+        pagetable_iterator i;
+        PagetableEntry *page;
+        int idx, npages = 0, nchunks = 0;
+
+        // Allocate shared arrays for pages and chunks
+        if (tbm->npages) {
+            tbm->ptpages = dsa_allocate(tbm->dsa, sizeof(PTIterationArray) +
+                                       tbm->npages * sizeof(int));
+            ptpages = dsa_get_address(tbm->dsa, tbm->ptpages);
+            pg_atomic_init_u32(&ptpages->refcount, 0);
+        }
+        if (tbm->nchunks) {
+            tbm->ptchunks = dsa_allocate(tbm->dsa, sizeof(PTIterationArray) +
+                                        tbm->nchunks * sizeof(int));
+            ptchunks = dsa_get_address(tbm->dsa, tbm->ptchunks);
+            pg_atomic_init_u32(&ptchunks->refcount, 0);
+        }
+
+        // Convert hash table to index arrays
+        if (tbm->status == TBM_HASH) {
+            ptbase = dsa_get_address(tbm->dsa, tbm->dsapagetable);
+
+            pagetable_start_iterate(tbm->pagetable, &i);
+            while ((page = pagetable_iterate(tbm->pagetable, &i)) != NULL) {
+                idx = page - ptbase->ptentry;
+                if (page->ischunk)
+                    ptchunks->index[nchunks++] = idx;
+                else
+                    ptpages->index[npages++] = idx;
+            }
+        } else if (tbm->status == TBM_ONE_PAGE) {
+            // Handle single page mode
+            tbm->dsapagetable = dsa_allocate(tbm->dsa, sizeof(PTEntryArray) +
+                                            sizeof(PagetableEntry));
+            ptbase = dsa_get_address(tbm->dsa, tbm->dsapagetable);
+            memcpy(ptbase->ptentry, &tbm->entry1, sizeof(PagetableEntry));
+            ptpages->index[0] = 0;
+        }
+
+        // Sort index arrays
+        if (ptbase != NULL)
+            pg_atomic_init_u32(&ptbase->refcount, 0);
+        if (npages > 1)
+            qsort_arg(ptpages->index, npages, sizeof(int),
+                     tbm_shared_comparator, ptbase->ptentry);
+        if (nchunks > 1)
+            qsort_arg(ptchunks->index, nchunks, sizeof(int),
+                     tbm_shared_comparator, ptbase->ptentry);
+    }
+
+    // Store shared state
+    istate->nentries = tbm->nentries;
+    istate->maxentries = tbm->maxentries;
+    istate->npages = tbm->npages;
+    istate->nchunks = tbm->nchunks;
+    istate->pagetable = tbm->dsapagetable;
+    istate->spages = tbm->ptpages;
+    istate->schunks = tbm->ptchunks;
+
+    // Increment reference counts
+    ptbase = dsa_get_address(tbm->dsa, tbm->dsapagetable);
+    ptpages = dsa_get_address(tbm->dsa, tbm->ptpages);
+    ptchunks = dsa_get_address(tbm->dsa, tbm->ptchunks);
+
+    if (ptbase != NULL)
+        pg_atomic_add_fetch_u32(&ptbase->refcount, 1);
+    if (ptpages != NULL)
+        pg_atomic_add_fetch_u32(&ptpages->refcount, 1);
+    if (ptchunks != NULL)
+        pg_atomic_add_fetch_u32(&ptchunks->refcount, 1);
+
+    // Initialize shared iterator lock and state
+    LWLockInitialize(&istate->lock, LWTRANCHE_SHARED_TIDBITMAP);
+    istate->schunkbit = 0;
+    istate->schunkptr = 0;
+    istate->spageptr = 0;
+
+    tbm->iterating = TBM_ITERATING_SHARED;
+    return dp;
+}
+```

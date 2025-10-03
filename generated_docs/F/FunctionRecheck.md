@@ -36,3 +36,14 @@ The function serves as a placeholder in the scan method interface, ensuring comp
 - Required as part of the scan method interface but functionally unnecessary for function scans
 - Function scan results are immutable and deterministic, so no rechecking is needed
 - Part of the EvalPlanQual mechanism for handling concurrent transaction conflicts
+
+## Simplified Source
+
+```c
+static bool
+FunctionRecheck(FunctionScanState *node, TupleTableSlot *slot)
+{
+    // Function results are deterministic and immutable, no rechecking needed
+    return true;
+}
+```

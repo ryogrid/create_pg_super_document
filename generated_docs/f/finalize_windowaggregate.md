@@ -41,3 +41,75 @@ This function is parallel to  in nodeAgg.c and handles the final step of window 
 - Sets  during final function calls to support AggCheckCallContext
 - Uses  on both input transition values and output results to ensure proper memory management
 - All computation is performed in the per-tuple memory context to ensure proper cleanup
+
+## Simplified Source
+
+```c
+static void
+finalize_windowaggregate(WindowAggState *winstate,
+                        WindowStatePerFunc perfuncstate,
+                        WindowStatePerAgg peraggstate,
+                        Datum *result, bool *isnull)
+{
+    MemoryContext oldContext;
+
+    oldContext = MemoryContextSwitchTo(winstate->ss.ps.ps_ExprContext->ecxt_per_tuple_memory);
+
+    // Apply final function if one exists, otherwise return transition value
+    if (OidIsValid(peraggstate->finalfn_oid))
+    {
+        LOCAL_FCINFO(fcinfo, FUNC_MAX_ARGS);
+        int numFinalArgs = peraggstate->numFinalArgs;
+        bool anynull;
+        int i;
+
+        // Set up function call info
+        InitFunctionCallInfoData(fcinfodata.fcinfo, &(peraggstate->finalfn),
+                                numFinalArgs,
+                                perfuncstate->winCollation,
+                                (void *) winstate, NULL);
+
+        // Set transition value as first argument
+        fcinfo->args[0].value = MakeExpandedObjectReadOnly(peraggstate->transValue,
+                                                          peraggstate->transValueIsNull,
+                                                          peraggstate->transtypeLen);
+        fcinfo->args[0].isnull = peraggstate->transValueIsNull;
+        anynull = peraggstate->transValueIsNull;
+
+        // Fill remaining arguments with NULLs
+        for (i = 1; i < numFinalArgs; i++)
+        {
+            fcinfo->args[i].value = (Datum) 0;
+            fcinfo->args[i].isnull = true;
+            anynull = true;
+        }
+
+        // Handle strict final functions
+        if (fcinfo->flinfo->fn_strict && anynull)
+        {
+            *result = (Datum) 0;
+            *isnull = true;
+        }
+        else
+        {
+            // Call the final function
+            Datum res;
+            winstate->curaggcontext = peraggstate->aggcontext;
+            res = FunctionCallInvoke(fcinfo);
+            winstate->curaggcontext = NULL;
+            *isnull = fcinfo->isnull;
+            *result = MakeExpandedObjectReadOnly(res, fcinfo->isnull, peraggstate->resulttypeLen);
+        }
+    }
+    else
+    {
+        // No final function - return transition value directly
+        *result = MakeExpandedObjectReadOnly(peraggstate->transValue,
+                                           peraggstate->transValueIsNull,
+                                           peraggstate->transtypeLen);
+        *isnull = peraggstate->transValueIsNull;
+    }
+
+    MemoryContextSwitchTo(oldContext);
+}
+```

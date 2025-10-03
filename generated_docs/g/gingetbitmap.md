@@ -45,3 +45,46 @@ The function handles concurrent access considerations by ensuring the pending li
 - Duplicate visits to the same tuple are harmless as they just re-set the same bit in the bitmap
 - This dual-scanning approach is one reason why GIN indexes cannot support the amgettuple API (tuple-at-a-time retrieval)
 - The function handles void (unsatisfiable) query conditions by returning early with zero results
+
+## Simplified Source
+```c
+int64 gingetbitmap(IndexScanDesc scan, TIDBitmap *tbm) {
+    GinScanOpaque so = (GinScanOpaque) scan->opaque;
+    int64 ntids;
+    ItemPointerData iptr;
+    bool recheck;
+
+    // Set up scan keys and check for unsatisfiable query
+    ginFreeScanKeys(so);
+    ginNewScanKey(scan);
+
+    if (GinIsVoidRes(scan))
+        return 0;
+
+    ntids = 0;
+
+    // Phase 1: Scan pending list first to handle recent inserts
+    // This must come before main index scan to prevent missing entries
+    // due to concurrent cleanup operations
+    scanPendingInsert(scan, tbm, &ntids);
+
+    // Phase 2: Scan main index structure
+    startScan(scan);
+    ItemPointerSetMin(&iptr);
+
+    for (;;) {
+        if (!scanGetItem(scan, iptr, &iptr, &recheck))
+            break;
+
+        // Add to bitmap - either individual tuple or entire page
+        if (ItemPointerIsLossyPage(&iptr))
+            tbm_add_page(tbm, ItemPointerGetBlockNumber(&iptr));
+        else
+            tbm_add_tuples(tbm, &iptr, 1, recheck);
+
+        ntids++;
+    }
+
+    return ntids;
+}
+```

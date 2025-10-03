@@ -35,3 +35,18 @@ The function serves as a bridge between the lower-level union computation (gistM
 - The resulting IndexTuple is returned uncompressed (false parameter to gistFormTuple)
 - This function is primarily used during index construction when building internal nodes from leaf-level data
 - The function assumes valid input parameters and relies on the underlying functions for error handling
+
+## Simplified Source
+
+```c
+IndexTuple gistunion(Relation r, IndexTuple *itvec, int len, GISTSTATE *giststate) {
+    Datum attr[INDEX_MAX_KEYS];
+    bool isnull[INDEX_MAX_KEYS];
+
+    // Compute union datums for all columns
+    gistMakeUnionItVec(giststate, itvec, len, attr, isnull);
+
+    // Create IndexTuple from union datums
+    return gistFormTuple(giststate, r, attr, isnull, false);
+}
+```

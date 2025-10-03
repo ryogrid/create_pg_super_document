@@ -60,3 +60,143 @@ This function handles the replay of a complete hash index squeeze operation duri
 - Includes extensive assertion checks and error handling for data integrity
 - Buffer release order is carefully managed to maintain proper lock hierarchy
 - During replay, bitmap and meta page updates don't require holding locks on other pages since no concurrent updates can occur
+
+## Simplified Source
+
+```c
+static void hash_xlog_squeeze_page(XLogReaderState *record) {
+    XLogRecPtr lsn = record->EndRecPtr;
+    xl_hash_squeeze_page *xldata = (xl_hash_squeeze_page *) XLogRecGetData(record);
+    Buffer bucketbuf = InvalidBuffer, writebuf = InvalidBuffer, ovflbuf;
+    Buffer prevbuf = InvalidBuffer, mapbuf;
+    XLogRedoAction action;
+
+    // Get cleanup lock on primary bucket page to prevent concurrent scans
+    if (xldata->is_prim_bucket_same_wrt)
+        action = XLogReadBufferForRedoExtended(record, 1, RBM_NORMAL, true, &writebuf);
+    else {
+        (void) XLogReadBufferForRedoExtended(record, 0, RBM_NORMAL, true, &bucketbuf);
+
+        if (xldata->ntups > 0 || xldata->is_prev_bucket_same_wrt)
+            action = XLogReadBufferForRedo(record, 1, &writebuf);
+        else
+            action = BLK_NOTFOUND;
+    }
+
+    // Replay adding tuples to write buffer (destination page)
+    if (action == BLK_NEEDS_REDO) {
+        Page writepage = BufferGetPage(writebuf);
+        char *data = XLogRecGetBlockData(record, 1, NULL);
+        uint16 ninserted = 0;
+        bool mod_wbuf = false;
+
+        if (xldata->ntups > 0) {
+            OffsetNumber *towrite = (OffsetNumber *) data;
+            data += sizeof(OffsetNumber) * xldata->ntups;
+
+            // Insert each tuple from the squeezed page
+            while (ninserted < xldata->ntups) {
+                IndexTuple itup = (IndexTuple) data;
+                Size itemsz = MAXALIGN(IndexTupleSize(itup));
+
+                OffsetNumber l = PageAddItem(writepage, (Item) itup, itemsz,
+                                           towrite[ninserted], false, false);
+                if (l == InvalidOffsetNumber)
+                    elog(ERROR, "hash_xlog_squeeze_page: failed to add item");
+
+                data += itemsz;
+                ninserted++;
+            }
+            mod_wbuf = true;
+        }
+
+        // Update next block pointer if this is the previous page
+        if (xldata->is_prev_bucket_same_wrt) {
+            HashPageOpaque writeopaque = HashPageGetOpaque(writepage);
+            writeopaque->hasho_nextblkno = xldata->nextblkno;
+            mod_wbuf = true;
+        }
+
+        if (mod_wbuf) {
+            PageSetLSN(writepage, lsn);
+            MarkBufferDirty(writebuf);
+        }
+    }
+
+    // Initialize the freed overflow page as unused
+    if (XLogReadBufferForRedo(record, 2, &ovflbuf) == BLK_NEEDS_REDO) {
+        Page ovflpage = BufferGetPage(ovflbuf);
+        HashPageOpaque ovflopaque;
+
+        _hash_pageinit(ovflpage, BufferGetPageSize(ovflbuf));
+        ovflopaque = HashPageGetOpaque(ovflpage);
+
+        ovflopaque->hasho_prevblkno = InvalidBlockNumber;
+        ovflopaque->hasho_nextblkno = InvalidBlockNumber;
+        ovflopaque->hasho_bucket = InvalidBucket;
+        ovflopaque->hasho_flag = LH_UNUSED_PAGE;
+        ovflopaque->hasho_page_id = HASHO_PAGE_ID;
+
+        PageSetLSN(ovflpage, lsn);
+        MarkBufferDirty(ovflbuf);
+    }
+    if (BufferIsValid(ovflbuf)) UnlockReleaseBuffer(ovflbuf);
+
+    // Update previous page to skip the freed page
+    if (!xldata->is_prev_bucket_same_wrt &&
+        XLogReadBufferForRedo(record, 3, &prevbuf) == BLK_NEEDS_REDO) {
+        Page prevpage = BufferGetPage(prevbuf);
+        HashPageOpaque prevopaque = HashPageGetOpaque(prevpage);
+
+        prevopaque->hasho_nextblkno = xldata->nextblkno;
+        PageSetLSN(prevpage, lsn);
+        MarkBufferDirty(prevbuf);
+    }
+    if (BufferIsValid(prevbuf)) UnlockReleaseBuffer(prevbuf);
+
+    // Update next page to skip the freed page
+    if (XLogRecHasBlockRef(record, 4)) {
+        Buffer nextbuf;
+        if (XLogReadBufferForRedo(record, 4, &nextbuf) == BLK_NEEDS_REDO) {
+            Page nextpage = BufferGetPage(nextbuf);
+            HashPageOpaque nextopaque = HashPageGetOpaque(nextpage);
+
+            nextopaque->hasho_prevblkno = xldata->prevblkno;
+            PageSetLSN(nextpage, lsn);
+            MarkBufferDirty(nextbuf);
+        }
+        if (BufferIsValid(nextbuf)) UnlockReleaseBuffer(nextbuf);
+    }
+
+    // Clean up bucket and write buffers
+    if (BufferIsValid(writebuf)) UnlockReleaseBuffer(writebuf);
+    if (BufferIsValid(bucketbuf)) UnlockReleaseBuffer(bucketbuf);
+
+    // Update bitmap to mark page as free
+    if (XLogReadBufferForRedo(record, 5, &mapbuf) == BLK_NEEDS_REDO) {
+        Page mappage = BufferGetPage(mapbuf);
+        uint32 *freep = HashPageGetBitmap(mappage);
+        uint32 *bitmap_page_bit = (uint32 *) XLogRecGetBlockData(record, 5, NULL);
+
+        CLRBIT(freep, *bitmap_page_bit);
+        PageSetLSN(mappage, lsn);
+        MarkBufferDirty(mapbuf);
+    }
+    if (BufferIsValid(mapbuf)) UnlockReleaseBuffer(mapbuf);
+
+    // Update metapage with new first free page
+    if (XLogRecHasBlockRef(record, 6)) {
+        Buffer metabuf;
+        if (XLogReadBufferForRedo(record, 6, &metabuf) == BLK_NEEDS_REDO) {
+            uint32 *firstfree_ovflpage = (uint32 *) XLogRecGetBlockData(record, 6, NULL);
+            Page page = BufferGetPage(metabuf);
+            HashMetaPage metap = HashPageGetMeta(page);
+
+            metap->hashm_firstfree = *firstfree_ovflpage;
+            PageSetLSN(page, lsn);
+            MarkBufferDirty(metabuf);
+        }
+        if (BufferIsValid(metabuf)) UnlockReleaseBuffer(metabuf);
+    }
+}
+```

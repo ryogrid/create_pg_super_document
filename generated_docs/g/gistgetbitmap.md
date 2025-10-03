@@ -40,3 +40,48 @@ The function is simpler than gistgettuple because it doesn't need to maintain co
 - Part of PostgreSQL's bitmap scanning optimization for better I/O patterns
 - Returns 0 immediately if scan qualifications are not satisfiable (!qual_ok)
 - Memory management is simpler as no persistent page data buffering is needed
+
+## Simplified Source
+
+```c
+int64
+gistgetbitmap(IndexScanDesc scan, TIDBitmap *tbm)
+{
+    GISTScanOpaque so = (GISTScanOpaque) scan->opaque;
+    int64 ntids = 0;
+    GISTSearchItem fakeItem;
+
+    if (!so->qual_ok)
+        return 0;
+
+    pgstat_count_index_scan(scan->indexRelation);
+
+    // Initialize scan state
+    so->curPageData = so->nPageData = 0;
+    scan->xs_hitup = NULL;
+    if (so->pageDataCxt)
+        MemoryContextReset(so->pageDataCxt);
+
+    // Start scan from root page
+    fakeItem.blkno = GIST_ROOT_BLKNO;
+    memset(&fakeItem.data.parentlsn, 0, sizeof(GistNSN));
+    gistScanPage(scan, &fakeItem, NULL, tbm, &ntids);
+
+    // Process all pages in search queue
+    for (;;)
+    {
+        GISTSearchItem *item = getNextGISTSearchItem(so);
+
+        if (!item)
+            break;  // No more items
+
+        CHECK_FOR_INTERRUPTS();
+
+        // Scan page and add matching TIDs to bitmap
+        gistScanPage(scan, item, item->distances, tbm, &ntids);
+        pfree(item);
+    }
+
+    return ntids;  // Total number of TIDs found
+}
+```

@@ -51,3 +51,80 @@ The function allocates memory efficiently by calculating the total space needed 
 - The nsorted field is initialized to nvalues, indicating all values are considered sorted after deserialization
 - The function ensures exact consumption of the serialized input data
 - Comment mentions by-value types don't need copying but the implementation still handles them for consistency
+
+## Simplified Source
+
+```c
+static Ranges *
+brin_range_deserialize(int maxvalues, SerializedRanges *serialized)
+{
+    int nvalues = 2 * serialized->nranges + serialized->nvalues;
+    bool typbyval = get_typbyval(serialized->typid);
+    int typlen = get_typlen(serialized->typid);
+
+    // Initialize new ranges structure
+    Ranges *range = minmax_multi_init(maxvalues);
+    range->nranges = serialized->nranges;
+    range->nvalues = serialized->nvalues;
+    range->nsorted = serialized->nvalues;
+    range->maxvalues = maxvalues;
+    range->target_maxvalues = serialized->maxvalues;
+    range->typid = serialized->typid;
+
+    // Calculate memory needed for by-reference types
+    Size datalen = 0;
+    char *ptr = serialized->data;
+    for (int i = 0; i < nvalues && !typbyval; i++) {
+        if (typlen > 0)
+            datalen += MAXALIGN(typlen);
+        else if (typlen == -1) {  // varlena
+            datalen += MAXALIGN(VARSIZE_ANY(ptr));
+            ptr += VARSIZE_ANY(ptr);
+        }
+        else if (typlen == -2) {  // cstring
+            Size slen = strlen(ptr) + 1;
+            datalen += MAXALIGN(slen);
+            ptr += slen;
+        }
+    }
+
+    // Allocate memory for all by-reference data at once
+    char *dataptr = datalen > 0 ? palloc(datalen) : NULL;
+
+    // Deserialize each value based on its type
+    ptr = serialized->data;
+    for (int i = 0; i < nvalues; i++) {
+        if (typbyval) {
+            // Simple by-value types
+            Datum v = 0;
+            memcpy(&v, ptr, typlen);
+            range->values[i] = fetch_att(&v, true, typlen);
+            ptr += typlen;
+        }
+        else if (typlen > 0) {
+            // Fixed-length by-reference types
+            range->values[i] = PointerGetDatum(dataptr);
+            memcpy(dataptr, ptr, typlen);
+            dataptr += MAXALIGN(typlen);
+            ptr += typlen;
+        }
+        else if (typlen == -1) {
+            // Variable-length types
+            range->values[i] = PointerGetDatum(dataptr);
+            memcpy(dataptr, ptr, VARSIZE_ANY(ptr));
+            dataptr += MAXALIGN(VARSIZE_ANY(ptr));
+            ptr += VARSIZE_ANY(ptr);
+        }
+        else if (typlen == -2) {
+            // C-string types
+            Size slen = strlen(ptr) + 1;
+            range->values[i] = PointerGetDatum(dataptr);
+            memcpy(dataptr, ptr, slen);
+            dataptr += MAXALIGN(slen);
+            ptr += slen;
+        }
+    }
+
+    return range;
+}
+```

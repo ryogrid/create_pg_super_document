@@ -46,3 +46,23 @@ The function ensures that sufficient shared memory is allocated for parallel sca
 - Different table access methods may have varying requirements for parallel scan coordination (e.g., heap vs. columnar storage)
 - The function uses add_size() for safe arithmetic to prevent integer overflow in size calculations
 - Accurate estimation prevents shared memory allocation failures during parallel query execution
+
+## Simplified Source
+```c
+Size
+table_parallelscan_estimate(Relation rel, Snapshot snapshot)
+{
+    Size sz = 0;
+
+    // Add snapshot space if it's an MVCC snapshot
+    if (IsMVCCSnapshot(snapshot))
+        sz = add_size(sz, EstimateSnapshotSpace(snapshot));
+    else
+        Assert(snapshot == SnapshotAny);
+
+    // Add table access method specific space requirements
+    sz = add_size(sz, rel->rd_tableam->parallelscan_estimate(rel));
+
+    return sz;
+}
+```

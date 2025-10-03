@@ -45,3 +45,40 @@ Key design goals:
 - The tolerance value is described as "a little arbitrary, but works well enough in practice"
 - Enables temporal locality when multiple indexes access the same heap blocks in similar patterns
 - Located in src/backend/access/heap/heapam.c:8537-8579
+
+## Simplified Source
+
+```c
+static int bottomup_nblocksfavorable(IndexDeleteCounts *blockgroups, int nblockgroups,
+                                    TM_IndexDelete *deltids)
+{
+    int64 lastblock = -1;
+    int nblocksfavorable = 0;
+
+    Assert(nblockgroups >= 1);
+    Assert(nblockgroups <= BOTTOMUP_MAX_NBLOCKS);
+
+    // Count consecutive blocks that are within tolerance of each other
+    // This identifies spatially local blocks that can be processed efficiently
+    for (int b = 0; b < nblockgroups; b++)
+    {
+        IndexDeleteCounts *group = blockgroups + b;
+        TM_IndexDelete *firstdtid = deltids + group->ifirsttid;
+        BlockNumber block = ItemPointerGetBlockNumber(&firstdtid->tid);
+
+        // Check if this block is too far from the previous one
+        // Allow small gaps (tolerance) to handle bucketing artifacts
+        if (lastblock != -1 &&
+            ((int64) block < lastblock - BOTTOMUP_TOLERANCE_NBLOCKS ||
+             (int64) block > lastblock + BOTTOMUP_TOLERANCE_NBLOCKS))
+            break;
+
+        nblocksfavorable++;
+        lastblock = block;
+    }
+
+    // Always return at least 1 (degenerate case)
+    Assert(nblocksfavorable >= 1);
+    return nblocksfavorable;
+}
+```

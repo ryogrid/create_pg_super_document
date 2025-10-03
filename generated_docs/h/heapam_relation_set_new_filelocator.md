@@ -54,3 +54,38 @@ The function includes special handling for unlogged tables by creating an INIT_F
 - Part of PostgreSQL's pluggable table access method architecture, providing heap-specific storage initialization
 - The function handles different relation kinds (regular tables, materialized views, toast tables) appropriately for unlogged storage
 - The comment suggests that the MultiXact ID initialization could be refined further but questions whether the additional complexity would be worthwhile
+
+## Simplified Source
+
+```c
+static void
+heapam_relation_set_new_filelocator(Relation rel,
+                                    const RelFileLocator *newrlocator,
+                                    char persistence,
+                                    TransactionId *freezeXid,
+                                    MultiXactId *minmulti)
+{
+    SMgrRelation srel;
+
+    // Initialize minimum XID that could put tuples in the table
+    *freezeXid = RecentXmin;
+
+    // Initialize minimum MultiXact ID for stored tuples
+    *minmulti = GetOldestMultiXactId();
+
+    // Create new storage
+    srel = RelationCreateStorage(*newrlocator, persistence, true);
+
+    // For unlogged tables, create initialization fork
+    if (persistence == RELPERSISTENCE_UNLOGGED) {
+        Assert(rel->rd_rel->relkind == RELKIND_RELATION ||
+               rel->rd_rel->relkind == RELKIND_MATVIEW ||
+               rel->rd_rel->relkind == RELKIND_TOASTVALUE);
+
+        smgrcreate(srel, INIT_FORKNUM, false);
+        log_smgrcreate(newrlocator, INIT_FORKNUM);
+    }
+
+    smgrclose(srel);
+}
+```

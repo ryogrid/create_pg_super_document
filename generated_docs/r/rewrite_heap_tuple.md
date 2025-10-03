@@ -50,3 +50,115 @@ The function manages update chains by checking if a tuple is part of an update c
 - Uses temporary memory context switching to ensure proper memory management
 - May defer tuple insertion if it's part of an unresolved update chain
 - Properly handles tuple freeing to prevent memory leaks in complex chain scenarios
+
+## Simplified Source
+
+```c
+void
+rewrite_heap_tuple(RewriteState state, HeapTuple old_tuple, HeapTuple new_tuple)
+{
+    MemoryContext old_cxt = MemoryContextSwitchTo(state->rs_cxt);
+    ItemPointerData old_tid;
+    TidHashKey hashkey;
+    bool found, free_new = false;
+
+    // Copy visibility information and freeze old transactions
+    memcpy(&new_tuple->t_data->t_choice.t_heap,
+           &old_tuple->t_data->t_choice.t_heap,
+           sizeof(HeapTupleFields));
+
+    new_tuple->t_data->t_infomask &= ~HEAP_XACT_MASK;
+    new_tuple->t_data->t_infomask2 &= ~HEAP2_XACT_MASK;
+    new_tuple->t_data->t_infomask |= old_tuple->t_data->t_infomask & HEAP_XACT_MASK;
+
+    // Apply tuple freezing to prevent wraparound
+    heap_freeze_tuple(new_tuple->t_data,
+                      state->rs_old_rel->rd_rel->relfrozenxid,
+                      state->rs_old_rel->rd_rel->relminmxid,
+                      state->rs_freeze_xid,
+                      state->rs_cutoff_multi);
+
+    ItemPointerSetInvalid(&new_tuple->t_data->t_ctid);
+
+    // Check if this tuple is part of an update chain
+    if (!((old_tuple->t_data->t_infomask & HEAP_XMAX_INVALID) ||
+          HeapTupleHeaderIsOnlyLocked(old_tuple->t_data)) &&
+        !HeapTupleHeaderIndicatesMovedPartitions(old_tuple->t_data) &&
+        !ItemPointerEquals(&(old_tuple->t_self), &(old_tuple->t_data->t_ctid))) {
+
+        // Look for existing mapping to resolve forward reference
+        memset(&hashkey, 0, sizeof(hashkey));
+        hashkey.xmin = HeapTupleHeaderGetUpdateXid(old_tuple->t_data);
+        hashkey.tid = old_tuple->t_data->t_ctid;
+
+        OldToNewMapping mapping = (OldToNewMapping)
+            hash_search(state->rs_old_new_tid_map, &hashkey, HASH_FIND, NULL);
+
+        if (mapping != NULL) {
+            // Forward reference resolved - set ctid and proceed
+            new_tuple->t_data->t_ctid = mapping->new_tid;
+            hash_search(state->rs_old_new_tid_map, &hashkey, HASH_REMOVE, &found);
+        }
+        else {
+            // Store unresolved tuple for later processing
+            UnresolvedTup unresolved = hash_search(state->rs_unresolved_tups, &hashkey,
+                                                   HASH_ENTER, &found);
+            unresolved->old_tid = old_tuple->t_self;
+            unresolved->tuple = heap_copytuple(new_tuple);
+            MemoryContextSwitchTo(old_cxt);
+            return;
+        }
+    }
+
+    // Write tuple and handle chain resolution
+    old_tid = old_tuple->t_self;
+
+    for (;;) {
+        ItemPointerData new_tid;
+
+        // Insert tuple and get its new location
+        raw_heap_insert(state, new_tuple);
+        new_tid = new_tuple->t_self;
+
+        logical_rewrite_heap_tuple(state, old_tid, new_tuple);
+
+        // Check if this resolves a waiting tuple (B in update pair)
+        if ((new_tuple->t_data->t_infomask & HEAP_UPDATED) &&
+            !TransactionIdPrecedes(HeapTupleHeaderGetXmin(new_tuple->t_data),
+                                   state->rs_oldest_xmin)) {
+
+            memset(&hashkey, 0, sizeof(hashkey));
+            hashkey.xmin = HeapTupleHeaderGetXmin(new_tuple->t_data);
+            hashkey.tid = old_tid;
+
+            UnresolvedTup unresolved = hash_search(state->rs_unresolved_tups, &hashkey,
+                                                   HASH_FIND, NULL);
+
+            if (unresolved != NULL) {
+                // Process waiting tuple from chain
+                if (free_new)
+                    heap_freetuple(new_tuple);
+                new_tuple = unresolved->tuple;
+                free_new = true;
+                old_tid = unresolved->old_tid;
+                new_tuple->t_data->t_ctid = new_tid;
+
+                hash_search(state->rs_unresolved_tups, &hashkey, HASH_REMOVE, &found);
+                continue;  // Loop to insert the waiting tuple
+            }
+            else {
+                // Create mapping for future resolution
+                OldToNewMapping mapping = hash_search(state->rs_old_new_tid_map, &hashkey,
+                                                      HASH_ENTER, &found);
+                mapping->new_tid = new_tid;
+            }
+        }
+
+        if (free_new)
+            heap_freetuple(new_tuple);
+        break;
+    }
+
+    MemoryContextSwitchTo(old_cxt);
+}
+```

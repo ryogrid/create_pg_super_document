@@ -39,3 +39,18 @@ The inline implementation inlines ResetExprContext functionality directly to avo
 - The per-tuple memory context reset only affects temporary allocations made during expression evaluation
 - Particularly important for expressions involving string operations, function calls, or other operations that allocate temporary memory
 - Used extensively in scan nodes and other iterative processing contexts where memory efficiency is crucial
+
+## Simplified Source
+
+```c
+static inline bool ExecQualAndReset(ExprState *state, ExprContext *econtext)
+{
+    // Evaluate the qualification expression
+    bool result = ExecQual(state, econtext);
+
+    // Immediately reset per-tuple memory to prevent memory bloat
+    MemoryContextReset(econtext->ecxt_per_tuple_memory);
+
+    return result;
+}
+```

@@ -58,3 +58,118 @@ This function is responsible for scanning all tuples on a GiST index page and ro
 - Page split detection is crucial for correctness in concurrent environments
 - The function must handle both leaf pages (containing heap TIDs) and internal pages (containing child page references)
 - LSN tracking enables safe optimization via LP_DEAD hints
+
+## Simplified Source
+
+```c
+static void
+gistScanPage(IndexScanDesc scan, GISTSearchItem *pageItem,
+             IndexOrderByDistance *myDistances, TIDBitmap *tbm, int64 *ntids)
+{
+    GISTScanOpaque so = (GISTScanOpaque) scan->opaque;
+    Buffer buffer;
+    Page page;
+    GISTPageOpaque opaque;
+    OffsetNumber maxoff;
+    OffsetNumber i;
+
+    // Read and lock the page
+    buffer = ReadBuffer(scan->indexRelation, pageItem->blkno);
+    LockBuffer(buffer, GIST_SHARE);
+    page = BufferGetPage(buffer);
+    opaque = GistPageGetOpaque(page);
+
+    // Handle concurrent page splits - follow right link if needed
+    if (!XLogRecPtrIsInvalid(pageItem->data.parentlsn) &&
+        (GistFollowRight(page) || pageItem->data.parentlsn < GistPageGetNSN(page)) &&
+        opaque->rightlink != InvalidBlockNumber)
+    {
+        // Create new search item for right sibling page
+        GISTSearchItem *item = palloc(SizeOfGISTSearchItem(scan->numberOfOrderBys));
+        item->blkno = opaque->rightlink;
+        item->data.parentlsn = pageItem->data.parentlsn;
+        memcpy(item->distances, myDistances,
+               sizeof(item->distances[0]) * scan->numberOfOrderBys);
+        pairingheap_add(so->queue, &item->phNode);
+    }
+
+    // Skip deleted pages
+    if (GistPageIsDeleted(page)) {
+        UnlockReleaseBuffer(buffer);
+        return;
+    }
+
+    // Reset page data for this scan
+    so->nPageData = so->curPageData = 0;
+    so->curPageLSN = BufferGetLSNAtomic(buffer);
+
+    // Scan all tuples on the page
+    maxoff = PageGetMaxOffsetNumber(page);
+    for (i = FirstOffsetNumber; i <= maxoff; i = OffsetNumberNext(i))
+    {
+        ItemId iid = PageGetItemId(page, i);
+        IndexTuple it;
+        bool match, recheck, recheck_distances;
+
+        // Skip killed tuples if requested
+        if (scan->ignore_killed_tuples && ItemIdIsDead(iid))
+            continue;
+
+        it = (IndexTuple) PageGetItem(page, iid);
+
+        // Test if tuple matches scan conditions
+        match = gistindex_keytest(scan, it, page, i, &recheck, &recheck_distances);
+        if (!match)
+            continue;
+
+        // Route matching tuples based on scan type
+        if (tbm && GistPageIsLeaf(page))
+        {
+            // Bitmap scan: add TIDs to bitmap
+            tbm_add_tuples(tbm, &it->t_tid, 1, recheck);
+            (*ntids)++;
+        }
+        else if (scan->numberOfOrderBys == 0 && GistPageIsLeaf(page))
+        {
+            // Non-ordered scan: store in pageData array
+            so->pageData[so->nPageData].heapPtr = it->t_tid;
+            so->pageData[so->nPageData].recheck = recheck;
+            so->pageData[so->nPageData].offnum = i;
+
+            // For index-only scans, fetch tuple data
+            if (scan->xs_want_itup)
+                so->pageData[so->nPageData].recontup = gistFetchTuple(so->giststate, scan->indexRelation, it);
+
+            so->nPageData++;
+        }
+        else
+        {
+            // Ordered scan or internal page: add to search queue
+            GISTSearchItem *item = palloc(SizeOfGISTSearchItem(scan->numberOfOrderBys));
+
+            if (GistPageIsLeaf(page))
+            {
+                // Heap tuple item
+                item->blkno = InvalidBlockNumber;
+                item->data.heap.heapPtr = it->t_tid;
+                item->data.heap.recheck = recheck;
+                item->data.heap.recheckDistances = recheck_distances;
+                if (scan->xs_want_itup)
+                    item->data.heap.recontup = gistFetchTuple(so->giststate, scan->indexRelation, it);
+            }
+            else
+            {
+                // Index page item
+                item->blkno = ItemPointerGetBlockNumber(&it->t_tid);
+                item->data.parentlsn = BufferGetLSNAtomic(buffer);
+            }
+
+            memcpy(item->distances, so->distances,
+                   sizeof(item->distances[0]) * scan->numberOfOrderBys);
+            pairingheap_add(so->queue, &item->phNode);
+        }
+    }
+
+    UnlockReleaseBuffer(buffer);
+}
+```

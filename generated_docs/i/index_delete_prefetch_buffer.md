@@ -42,3 +42,36 @@ The prefetching is done using PostgreSQL's buffer prefetch mechanism (PrefetchBu
 - Prefetching is only done once per distinct heap block to avoid redundant I/O requests
 - Uses PostgreSQL's asynchronous buffer prefetch mechanism to overlap I/O with processing
 - Critical for performance when deleting large numbers of index tuples that reference many different heap pages
+
+## Simplified Source
+
+```c
+static void index_delete_prefetch_buffer(Relation rel,
+                                        IndexDeletePrefetchState *prefetch_state,
+                                        int prefetch_count)
+{
+    BlockNumber cur_hblkno = prefetch_state->cur_hblkno;
+    int count = 0;
+
+    // Process deltids starting from where we left off
+    for (int i = prefetch_state->next_item;
+         i < prefetch_state->ndeltids && count < prefetch_count;
+         i++)
+    {
+        ItemPointer htid = &prefetch_state->deltids[i].tid;
+        BlockNumber block = ItemPointerGetBlockNumber(htid);
+
+        // Prefetch new blocks only (skip duplicates)
+        if (cur_hblkno == InvalidBlockNumber || block != cur_hblkno)
+        {
+            cur_hblkno = block;
+            PrefetchBuffer(rel, MAIN_FORKNUM, cur_hblkno);
+            count++;
+        }
+    }
+
+    // Save state for next call
+    prefetch_state->next_item = i;
+    prefetch_state->cur_hblkno = cur_hblkno;
+}
+```

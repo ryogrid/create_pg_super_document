@@ -34,3 +34,24 @@ The penalty is computed by calling the box_penalty helper function, which calcul
 - The penalty metric is based on area change, following R-tree algorithms
 - Lower penalty values indicate more suitable insertion locations
 - The function follows PostgreSQL's function calling conventions using PG_FUNCTION_ARGS and PG_RETURN_POINTER
+
+## Simplified Source
+
+```c
+Datum
+gist_box_penalty(PG_FUNCTION_ARGS)
+{
+    GISTENTRY *origentry = (GISTENTRY *) PG_GETARG_POINTER(0);
+    GISTENTRY *newentry = (GISTENTRY *) PG_GETARG_POINTER(1);
+    float *result = (float *) PG_GETARG_POINTER(2);
+
+    // Extract BOX data from GIST entries
+    BOX *origbox = DatumGetBoxP(origentry->key);
+    BOX *newbox = DatumGetBoxP(newentry->key);
+
+    // Calculate penalty as area increase
+    *result = (float) box_penalty(origbox, newbox);
+
+    PG_RETURN_POINTER(result);
+}
+```

@@ -40,3 +40,53 @@ The function follows PostgreSQL's index AM (Access Method) interface, making it 
 - Supports both regular index scans and index-only scans (though index-only scan fields are initialized in gistrescan)
 - The killed items tracking mechanism is initialized but not allocated until needed
 - Part of PostgreSQL's pluggable index access method architecture
+
+## Simplified Source
+
+```c
+IndexScanDesc gistbeginscan(Relation r, int nkeys, int norderbys) {
+    IndexScanDesc scan;
+    GISTSTATE *giststate;
+    GISTScanOpaque so;
+    MemoryContext oldCxt;
+
+    // Initialize basic scan descriptor
+    scan = RelationGetIndexScan(r, nkeys, norderbys);
+
+    // Set up GIST state with scan-lifetime memory context
+    giststate = initGISTstate(scan->indexRelation);
+
+    // Switch to scan context for memory management
+    oldCxt = MemoryContextSwitchTo(giststate->scanCxt);
+
+    // Initialize GiST-specific opaque data
+    so = (GISTScanOpaque) palloc0(sizeof(GISTScanOpaqueData));
+    so->giststate = giststate;
+    giststate->tempCxt = createTempGistContext();
+    so->queue = NULL;
+    so->queueCxt = giststate->scanCxt;
+
+    // Set up distance tracking for ORDER BY operations
+    so->distances = palloc(sizeof(so->distances[0]) * scan->numberOfOrderBys);
+    so->qual_ok = true;
+
+    if (scan->numberOfOrderBys > 0) {
+        scan->xs_orderbyvals = palloc0(sizeof(Datum) * scan->numberOfOrderBys);
+        scan->xs_orderbynulls = palloc(sizeof(bool) * scan->numberOfOrderBys);
+        memset(scan->xs_orderbynulls, true, sizeof(bool) * scan->numberOfOrderBys);
+    }
+
+    // Initialize scan state tracking
+    so->killedItems = NULL;
+    so->numKilled = 0;
+    so->curBlkno = InvalidBlockNumber;
+    so->curPageLSN = InvalidXLogRecPtr;
+
+    scan->opaque = so;
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldCxt);
+
+    return scan;
+}
+```

@@ -41,3 +41,45 @@ The placeholder tuple includes proper null bitmap initialization and sets multip
 - Does not set "hasnulls" bits since there are no actual data values
 - Essential for maintaining BRIN index consistency when ranges contain no summarizable data
 - Works in conjunction with brin_form_tuple to provide complete tuple creation functionality
+
+## Simplified Source
+
+```c
+BrinTuple *
+brin_form_placeholder_tuple(BrinDesc *brdesc, BlockNumber blkno, Size *size)
+{
+    // Calculate tuple size: always includes null bitmaps
+    Size len = SizeOfBrinTuple;
+    len += BITMAPLEN(brdesc->bd_tupdesc->natts * 2);
+    len = MAXALIGN(len);
+    Size hoff = len;
+
+    // Create placeholder tuple
+    BrinTuple *rettuple = palloc0(len);
+    rettuple->bt_blkno = blkno;
+    rettuple->bt_info = hoff;
+
+    // Set all status flags for placeholder
+    rettuple->bt_info |= BRIN_NULLS_MASK | BRIN_PLACEHOLDER_MASK | BRIN_EMPTY_RANGE_MASK;
+
+    // Set up null bitmap: mark all attributes as "allnulls"
+    bits8 *bitP = ((bits8 *) ((char *) rettuple + SizeOfBrinTuple)) - 1;
+    int bitmask = HIGHBIT;
+
+    for (int keyno = 0; keyno < brdesc->bd_tupdesc->natts; keyno++) {
+        if (bitmask != HIGHBIT)
+            bitmask <<= 1;
+        else {
+            bitP += 1;
+            *bitP = 0x0;
+            bitmask = 1;
+        }
+        *bitP |= bitmask;  // Set allnulls bit
+    }
+
+    // No need to set hasnulls bits (they remain 0)
+
+    *size = len;
+    return rettuple;
+}
+```

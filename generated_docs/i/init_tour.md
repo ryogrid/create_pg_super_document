@@ -36,3 +36,27 @@ The algorithm works by building the permutation incrementally: for each position
 - The tour represents a join order in query optimization context
 - Critical for generating diverse initial population in genetic algorithm
 - Handles edge case of num_gene > 0 by explicitly setting first element
+
+## Simplified Source
+
+```c
+void
+init_tour(PlannerInfo *root, Gene *tour, int num_gene)
+{
+    int i, j;
+
+    // Generate random permutation using Fisher-Yates shuffle (inside-out variant)
+    if (num_gene > 0)
+        tour[0] = (Gene) 1;
+
+    for (i = 1; i < num_gene; i++)
+    {
+        j = geqo_randint(root, i, 0);  // Random index from 0 to i
+
+        // Move existing value and place new value at random position
+        if (i != j)
+            tour[i] = tour[j];
+        tour[j] = (Gene) (i + 1);
+    }
+}
+```

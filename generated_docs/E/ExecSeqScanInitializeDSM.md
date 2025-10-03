@@ -39,3 +39,25 @@ This function initializes the Dynamic Shared Memory (DSM) structures required fo
 - The parallel scan descriptor is identified in the shared memory TOC using the plan node ID
 - The function establishes the current scan descriptor for use in parallel execution
 - Located in src/backend/executor/nodeSeqscan.c at lines 256-277
+
+## Simplified Source
+
+```c
+void ExecSeqScanInitializeDSM(SeqScanState *node, ParallelContext *pcxt) {
+    EState *estate = node->ss.ps.state;
+
+    // Allocate shared memory for parallel table scan descriptor
+    ParallelTableScanDesc pscan = shm_toc_allocate(pcxt->toc, node->pscan_len);
+
+    // Initialize parallel scan with relation and snapshot
+    table_parallelscan_initialize(node->ss.ss_currentRelation,
+                                  pscan,
+                                  estate->es_snapshot);
+
+    // Register parallel scan descriptor in shared memory TOC
+    shm_toc_insert(pcxt->toc, node->ss.ps.plan->plan_node_id, pscan);
+
+    // Begin parallel scan using the shared descriptor
+    node->ss.ss_currentScanDesc = table_beginscan_parallel(node->ss.ss_currentRelation, pscan);
+}
+```

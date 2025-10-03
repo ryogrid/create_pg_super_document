@@ -39,3 +39,31 @@ The function supports three possible outcomes: finding blocks already cached (wi
 - Return value provides hints for optimization but requires validation by caller
 - Prefetching is advisory and may not always result in actual I/O initiation
 - Designed to work seamlessly with existing ReadBuffer operations
+
+## Simplified Source
+
+```c
+PrefetchBufferResult
+PrefetchBuffer(Relation reln, ForkNumber forkNum, BlockNumber blockNum)
+{
+    // Validate input parameters
+    Assert(RelationIsValid(reln));
+    Assert(BlockNumberIsValid(blockNum));
+
+    // Route to appropriate buffer pool based on relation type
+    if (RelationUsesLocalBuffers(reln))
+    {
+        // Security check: prevent access to other sessions' temp tables
+        if (RELATION_IS_OTHER_TEMP(reln))
+            ereport(ERROR, "cannot access temporary tables of other sessions");
+
+        // Handle local buffer prefetching
+        return PrefetchLocalBuffer(RelationGetSmgr(reln), forkNum, blockNum);
+    }
+    else
+    {
+        // Handle shared buffer prefetching
+        return PrefetchSharedBuffer(RelationGetSmgr(reln), forkNum, blockNum);
+    }
+}
+```

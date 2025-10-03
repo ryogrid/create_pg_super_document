@@ -32,7 +32,38 @@ The hash masks are computed using power-of-2 arithmetic where  represents the up
   - [hashbuild](hashbuild.md)
 
 ## Notes and Other Information
-- Uses  instead of  to speed up index creation
-- [Hash](../H/Hash.md) mask calculation must remain synchronized with 
-- The  field is set to  for zero-based indexing
-- Memory is allocated using  to ensure zero-initialization of the structure
+- Uses maintenance_work_mem instead of work_mem to speed up index creation
+- Hash mask calculation must remain synchronized with _hash_init_metabuffer
+- The max_buckets field is set to num_buckets - 1 for zero-based indexing
+- Memory is allocated using palloc0 to ensure zero-initialization of the structure
+
+## Simplified Source
+
+```c
+HSpool *
+_h_spoolinit(Relation heap, Relation index, uint32 num_buckets)
+{
+    HSpool *hspool = (HSpool *) palloc0(sizeof(HSpool));
+
+    hspool->index = index;
+
+    // Calculate hash masks for bucket addressing
+    // Must stay synchronized with _hash_init_metabuffer
+    hspool->high_mask = pg_nextpower2_32(num_buckets + 1) - 1;
+    hspool->low_mask = (hspool->high_mask >> 1);
+    hspool->max_buckets = num_buckets - 1;
+
+    // Initialize tuple sorting for hash index construction
+    // Use maintenance_work_mem for better index creation performance
+    hspool->sortstate = tuplesort_begin_index_hash(heap,
+                                                   index,
+                                                   hspool->high_mask,
+                                                   hspool->low_mask,
+                                                   hspool->max_buckets,
+                                                   maintenance_work_mem,
+                                                   NULL,
+                                                   TUPLESORT_NONE);
+
+    return hspool;
+}
+```

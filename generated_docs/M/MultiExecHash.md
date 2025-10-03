@@ -39,3 +39,29 @@ The function intentionally returns NULL rather than the hash table directly, as 
 - Provides manual instrumentation since Hash nodes don't follow standard execution patterns
 - The hash table building process may involve partitioning data into multiple batches if memory constraints require it
 - Located in src/backend/executor/nodeHash.c:105-137
+
+## Simplified Source
+
+```c
+Node *
+MultiExecHash(HashState *node)
+{
+    // Start performance instrumentation
+    if (node->ps.instrument)
+        InstrStartNode(node->ps.instrument);
+
+    // Route to appropriate hash execution based on parallelism
+    if (node->parallel_state != NULL)
+        MultiExecParallelHash(node);  // Parallel execution
+    else
+        MultiExecPrivateHash(node);   // Single-backend execution
+
+    // Stop instrumentation with tuple count
+    if (node->ps.instrument)
+        InstrStopNode(node->ps.instrument, node->hashtable->partialTuples);
+
+    // Return NULL - parent HashJoin accesses hash table from node->hashtable
+    // (Hash tables aren't Node subtypes, so can't return directly)
+    return NULL;
+}
+```

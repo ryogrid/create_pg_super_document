@@ -48,3 +48,52 @@ The resulting disassembledLeaf structure uses a doubly-linked list to track all 
 - The disassembledLeaf structure uses a doubly-linked list (dlist) for efficient segment management
 - Located in src/backend/access/gin/gindatapage.c at lines 1370-1443
 - Part of the infrastructure for advanced leaf page manipulation operations like splits and vacuuming
+
+## Simplified Source
+
+```c
+static disassembledLeaf *
+disassembleLeaf(Page page)
+{
+    disassembledLeaf *leaf = palloc0(sizeof(disassembledLeaf));
+    dlist_init(&leaf->segments);
+
+    if (GinPageIsCompressed(page)) {
+        // Process compressed page format (9.4+)
+        GinPostingList *seg = GinDataLeafPageGetPostingList(page);
+        Pointer segend = (Pointer)seg + GinDataLeafPageGetPostingListSize(page);
+
+        // Create segment info for each posting list segment
+        while ((Pointer)seg < segend) {
+            leafSegmentInfo *seginfo = palloc(sizeof(leafSegmentInfo));
+            seginfo->action = GIN_SEGMENT_UNMODIFIED;
+            seginfo->seg = seg;
+            seginfo->items = NULL;
+            seginfo->nitems = 0;
+            dlist_push_tail(&leaf->segments, &seginfo->node);
+
+            seg = GinNextPostingListSegment(seg);
+        }
+        leaf->oldformat = false;
+    } else {
+        // Process uncompressed page format (pre-9.4)
+        ItemPointer uncompressed;
+        int nuncompressed;
+
+        uncompressed = dataLeafPageGetUncompressed(page, &nuncompressed);
+
+        if (nuncompressed > 0) {
+            leafSegmentInfo *seginfo = palloc(sizeof(leafSegmentInfo));
+            seginfo->action = GIN_SEGMENT_REPLACE;
+            seginfo->seg = NULL;
+            seginfo->items = palloc(nuncompressed * sizeof(ItemPointerData));
+            memcpy(seginfo->items, uncompressed, nuncompressed * sizeof(ItemPointerData));
+            seginfo->nitems = nuncompressed;
+            dlist_push_tail(&leaf->segments, &seginfo->node);
+        }
+        leaf->oldformat = true;
+    }
+
+    return leaf;
+}
+```

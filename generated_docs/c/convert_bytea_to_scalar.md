@@ -56,3 +56,43 @@ The conversion process mirrors the string algorithm but operates on raw byte arr
 - Part of PostgreSQL's query planner's selectivity estimation system for binary data comparisons
 - The uniform distribution assumption may be less accurate for structured binary data but provides a reasonable baseline for estimation
 - Memory management relies on the bytea structure's built-in length information rather than null-termination
+
+## Simplified Source
+
+```c
+static void
+convert_bytea_to_scalar(Datum value, double *scaledvalue,
+                       Datum lobound, double *scaledlobound,
+                       Datum hibound, double *scaledhibound)
+{
+    // Extract bytea values and get their lengths
+    bytea *valuep = DatumGetByteaPP(value);
+    bytea *loboundp = DatumGetByteaPP(lobound);
+    bytea *hiboundp = DatumGetByteaPP(hibound);
+
+    int valuelen = VARSIZE_ANY_EXHDR(valuep);
+    int loboundlen = VARSIZE_ANY_EXHDR(loboundp);
+    int hiboundlen = VARSIZE_ANY_EXHDR(hiboundp);
+
+    unsigned char *valstr = (unsigned char *) VARDATA_ANY(valuep);
+    unsigned char *lostr = (unsigned char *) VARDATA_ANY(loboundp);
+    unsigned char *histr = (unsigned char *) VARDATA_ANY(hiboundp);
+
+    // Use full byte range (0-255) for bytea data
+    int rangelo = 0, rangehi = 255;
+
+    // Strip common prefix from all three strings
+    int minlen = Min(Min(valuelen, loboundlen), hiboundlen);
+    for (int i = 0; i < minlen; i++) {
+        if (*lostr != *histr || *lostr != *valstr)
+            break;
+        lostr++; histr++; valstr++;
+        loboundlen--; hiboundlen--; valuelen--;
+    }
+
+    // Convert to scalar values
+    *scaledvalue = convert_one_bytea_to_scalar(valstr, valuelen, rangelo, rangehi);
+    *scaledlobound = convert_one_bytea_to_scalar(lostr, loboundlen, rangelo, rangehi);
+    *scaledhibound = convert_one_bytea_to_scalar(histr, hiboundlen, rangelo, rangehi);
+}
+```

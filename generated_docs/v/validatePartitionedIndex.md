@@ -58,3 +58,89 @@ The function ensures that a partitioned index is only considered valid when all 
 - The function assumes the partitioned index starts as invalid and only marks it valid when all conditions are met
 - Error handling includes cache lookup failures with appropriate error messages
 - The validation is transactional - either the index becomes valid or remains invalid, with no partial states
+
+## Simplified Source
+```c
+static void validatePartitionedIndex(Relation partedIdx, Relation partedTbl) {
+    Relation inheritsRel;
+    SysScanDesc scan;
+    ScanKeyData key;
+    int valid_child_count = 0;
+    HeapTuple inhTup;
+    bool was_updated = false;
+
+    Assert(partedIdx->rd_rel->relkind == RELKIND_PARTITIONED_INDEX);
+
+    // Scan pg_inherits to find all child indexes
+    inheritsRel = table_open(InheritsRelationId, AccessShareLock);
+    ScanKeyInit(&key, Anum_pg_inherits_inhparent, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(RelationGetRelid(partedIdx)));
+    scan = systable_beginscan(inheritsRel, InheritsParentIndexId, true, NULL, 1, &key);
+
+    // Count valid child indexes
+    while ((inhTup = systable_getnext(scan)) != NULL) {
+        Form_pg_inherits inhForm = (Form_pg_inherits) GETSTRUCT(inhTup);
+        HeapTuple indTup;
+        Form_pg_index indexForm;
+
+        // Look up each child index in pg_index
+        indTup = SearchSysCache1(INDEXRELID, ObjectIdGetDatum(inhForm->inhrelid));
+        if (!HeapTupleIsValid(indTup)) {
+            elog(ERROR, "cache lookup failed for index %u", inhForm->inhrelid);
+        }
+
+        indexForm = (Form_pg_index) GETSTRUCT(indTup);
+        if (indexForm->indisvalid) {
+            valid_child_count++;
+        }
+        ReleaseSysCache(indTup);
+    }
+
+    systable_endscan(scan);
+    table_close(inheritsRel, AccessShareLock);
+
+    // If all partitions have valid indexes, mark parent as valid
+    int expected_partitions = RelationGetPartitionDesc(partedTbl, true)->nparts;
+    if (valid_child_count == expected_partitions) {
+        Relation idxRel;
+        HeapTuple indTup;
+        Form_pg_index indexForm;
+
+        // Update pg_index to mark the partitioned index as valid
+        idxRel = table_open(IndexRelationId, RowExclusiveLock);
+        indTup = SearchSysCacheCopy1(INDEXRELID,
+                                   ObjectIdGetDatum(RelationGetRelid(partedIdx)));
+        if (!HeapTupleIsValid(indTup)) {
+            elog(ERROR, "cache lookup failed for index %u", RelationGetRelid(partedIdx));
+        }
+
+        indexForm = (Form_pg_index) GETSTRUCT(indTup);
+        indexForm->indisvalid = true;
+        was_updated = true;
+
+        CatalogTupleUpdate(idxRel, &indTup->t_self, indTup);
+
+        table_close(idxRel, RowExclusiveLock);
+        heap_freetuple(indTup);
+    }
+
+    // If this index is itself a partition, recursively validate parent
+    if (was_updated && partedIdx->rd_rel->relispartition) {
+        Oid parentIdxId, parentTblId;
+        Relation parentIdx, parentTbl;
+
+        CommandCounterIncrement(); // Make our update visible
+
+        parentIdxId = get_partition_parent(RelationGetRelid(partedIdx), false);
+        parentTblId = get_partition_parent(RelationGetRelid(partedTbl), false);
+        parentIdx = relation_open(parentIdxId, AccessExclusiveLock);
+        parentTbl = relation_open(parentTblId, AccessExclusiveLock);
+
+        // Recursively validate the parent index
+        validatePartitionedIndex(parentIdx, parentTbl);
+
+        relation_close(parentIdx, AccessExclusiveLock);
+        relation_close(parentTbl, AccessExclusiveLock);
+    }
+}
+```

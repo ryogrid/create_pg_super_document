@@ -47,3 +47,28 @@ This mechanism is essential for maintaining ACID properties, particularly in sce
 - Serialization failures are only raised when conflicts occur with other transactions, not with the current transaction
 - This is a key component in PostgreSQL's implementation of serializable isolation levels
 - The function is particularly important for ON CONFLICT handling where tuple visibility affects conflict resolution decisions
+
+## Simplified Source
+
+```c
+static void ExecCheckTupleVisible(EState *estate, Relation rel, TupleTableSlot *slot) {
+    // Only check visibility for isolation levels that use transaction snapshots
+    if (!IsolationUsesXactSnapshot()) {
+        return;
+    }
+
+    // Check if tuple satisfies current MVCC snapshot
+    if (!table_tuple_satisfies_snapshot(rel, slot, estate->es_snapshot)) {
+        // Get transaction ID that created this tuple
+        Datum xminDatum = slot_getsysattr(slot, MinTransactionIdAttributeNumber, &isnull);
+        TransactionId xmin = DatumGetTransactionId(xminDatum);
+
+        // Allow conflicts within same transaction (e.g., multiple inserts in one command)
+        // Only raise serialization failure for conflicts with other transactions
+        if (!TransactionIdIsCurrentTransactionId(xmin)) {
+            ereport(ERROR, (errcode(ERRCODE_T_R_SERIALIZATION_FAILURE),
+                          errmsg("could not serialize access due to concurrent update")));
+        }
+    }
+}
+```

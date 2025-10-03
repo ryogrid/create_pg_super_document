@@ -48,3 +48,34 @@ The function ensures that the coordinator has the necessary objects to read tupl
 - The function includes an assertion to ensure readers haven't been created previously
 - Background worker handles are used to properly associate queues with their respective worker processes
 - After this function completes, the coordinator can begin reading tuples from workers using the created TupleQueueReader objects
+
+## Simplified Source
+
+```c
+void ExecParallelCreateReaders(ParallelExecutorInfo *pei)
+{
+    int nworkers = pei->pcxt->nworkers_launched;
+
+    // Ensure readers haven't been created yet
+    Assert(pei->reader == NULL);
+
+    // Only create readers if workers were actually launched
+    if (nworkers > 0)
+    {
+        // Allocate array to hold reader pointers for each worker
+        pei->reader = (TupleQueueReader **) palloc(nworkers * sizeof(TupleQueueReader *));
+
+        // Create a reader for each worker's tuple queue
+        for (int i = 0; i < nworkers; i++)
+        {
+            // Associate the shared memory queue with the worker's background handle
+            shm_mq_set_handle(pei->tqueue[i], pei->pcxt->worker[i].bgwhandle);
+
+            // Create the reader object for this worker's queue
+            pei->reader[i] = CreateTupleQueueReader(pei->tqueue[i]);
+        }
+    }
+
+    // Now ready to read results from parallel workers
+}
+```

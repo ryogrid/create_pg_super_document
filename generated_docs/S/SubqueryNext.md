@@ -29,3 +29,19 @@ SubqueryNext is a core function in PostgreSQL's subquery scanning mechanism. It 
 - Performance optimization: Returns the subplan's result slot directly rather than copying tuples with ExecCopySlot()
 - The node's own ScanTupleSlot is reserved specifically for EvalPlanQual rechecks, not for normal tuple flow
 - Located at src/backend/executor/nodeSubqueryscan.c:46-66
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+SubqueryNext(SubqueryScanState *node)
+{
+    TupleTableSlot *slot;
+
+    // Get next tuple from subplan
+    slot = ExecProcNode(node->subplan);
+
+    // Return subplan's result slot directly (no copying needed)
+    return slot;
+}
+```

@@ -37,3 +37,42 @@ The serialization process copies the core snapshot metadata (xmin, xmax, transac
 - Memory layout consists of SerializedSnapshotData header followed by XID array and SubXID array
 - Used extensively in parallel query execution to share snapshot state between processes
 - The serialized format is designed to be portable across different memory alignments
+
+## Simplified Source
+
+```c
+void SerializeSnapshot(Snapshot snapshot, char *start_address) {
+    SerializedSnapshotData serialized_snapshot;
+
+    // Copy core snapshot fields
+    serialized_snapshot.xmin = snapshot->xmin;
+    serialized_snapshot.xmax = snapshot->xmax;
+    serialized_snapshot.xcnt = snapshot->xcnt;
+    serialized_snapshot.subxcnt = snapshot->subxcnt;
+    serialized_snapshot.suboverflowed = snapshot->suboverflowed;
+    serialized_snapshot.takenDuringRecovery = snapshot->takenDuringRecovery;
+    serialized_snapshot.curcid = snapshot->curcid;
+    serialized_snapshot.whenTaken = snapshot->whenTaken;
+    serialized_snapshot.lsn = snapshot->lsn;
+
+    // Handle overflow case (except during recovery)
+    if (serialized_snapshot.suboverflowed && !snapshot->takenDuringRecovery)
+        serialized_snapshot.subxcnt = 0;
+
+    // Copy snapshot header
+    memcpy(start_address, &serialized_snapshot, sizeof(SerializedSnapshotData));
+
+    // Copy active XID array
+    if (snapshot->xcnt > 0)
+        memcpy(start_address + sizeof(SerializedSnapshotData),
+               snapshot->xip, snapshot->xcnt * sizeof(TransactionId));
+
+    // Copy SubXID array if present
+    if (serialized_snapshot.subxcnt > 0) {
+        Size subxipoff = sizeof(SerializedSnapshotData) +
+                        snapshot->xcnt * sizeof(TransactionId);
+        memcpy(start_address + subxipoff,
+               snapshot->subxip, snapshot->subxcnt * sizeof(TransactionId));
+    }
+}
+```

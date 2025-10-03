@@ -43,3 +43,43 @@ The function first calculates the raw estimate using the formula E = αm² / Σ(
 - Returns a floating-point cardinality estimate that approximates the number of distinct values processed
 - The range corrections significantly improve accuracy compared to the raw HyperLogLog formula
 - Performance implications: involves floating-point operations over all registers
+
+## Simplified Source
+
+```c
+double
+estimateHyperLogLog(hyperLogLogState *cState)
+{
+    double sum = 0.0;
+
+    // Calculate harmonic mean of all register values
+    for (int i = 0; i < cState->nRegisters; i++) {
+        sum += 1.0 / pow(2.0, cState->hashesArr[i]);
+    }
+
+    // Raw HyperLogLog estimate: αm² / sum
+    double result = cState->alphaMM / sum;
+
+    // Small range correction for better accuracy
+    if (result <= (5.0 / 2.0) * cState->nRegisters) {
+        int zero_count = 0;
+
+        // Count zero registers
+        for (int i = 0; i < cState->nRegisters; i++) {
+            if (cState->hashesArr[i] == 0)
+                zero_count++;
+        }
+
+        // Use coupon collector formula if zeros exist
+        if (zero_count != 0) {
+            result = cState->nRegisters * log((double) cState->nRegisters / zero_count);
+        }
+    }
+    // Large range correction for hash saturation
+    else if (result > (1.0 / 30.0) * POW_2_32) {
+        result = NEG_POW_2_32 * log(1.0 - (result / POW_2_32));
+    }
+
+    return result;
+}
+```

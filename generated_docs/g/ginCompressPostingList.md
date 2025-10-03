@@ -52,3 +52,58 @@ The function ensures the output is short-aligned and includes padding bytes as n
 - The function handles partial encoding when the output size limit is reached
 - Output structure is short-aligned to meet PostgreSQL alignment requirements
 - Used extensively throughout GIN index operations for space-efficient storage of tuple location lists
+
+## Simplified Source
+
+```c
+GinPostingList *ginCompressPostingList(const ItemPointer ipd, int nipd, int maxsize, int *nwritten) {
+    uint64 prev;
+    int totalpacked = 0;
+    GinPostingList *result;
+    unsigned char *ptr;
+    unsigned char *endptr;
+
+    // Allocate and prepare result structure
+    maxsize = SHORTALIGN_DOWN(maxsize);
+    result = palloc(maxsize);
+    int maxbytes = maxsize - offsetof(GinPostingList, bytes);
+
+    // Store first item uncompressed as reference point
+    result->first = ipd[0];
+    prev = itemptr_to_uint64(&result->first);
+
+    // Encode remaining items as deltas
+    ptr = result->bytes;
+    endptr = result->bytes + maxbytes;
+    for (totalpacked = 1; totalpacked < nipd; totalpacked++) {
+        uint64 val = itemptr_to_uint64(&ipd[totalpacked]);
+        uint64 delta = val - prev;
+
+        // Check if we have space for this delta
+        if (endptr - ptr >= MaxBytesPerInteger) {
+            encode_varbyte(delta, &ptr);
+        } else {
+            // Check if delta fits in remaining space
+            unsigned char buf[MaxBytesPerInteger];
+            unsigned char *p = buf;
+            encode_varbyte(delta, &p);
+            if (p - buf > (endptr - ptr))
+                break; // No more space
+
+            memcpy(ptr, buf, p - buf);
+            ptr += (p - buf);
+        }
+        prev = val;
+    }
+
+    // Finalize result
+    result->nbytes = ptr - result->bytes;
+    if (result->nbytes != SHORTALIGN(result->nbytes))
+        result->bytes[result->nbytes] = 0; // Zero padding
+
+    if (nwritten)
+        *nwritten = totalpacked;
+
+    return result;
+}
+```

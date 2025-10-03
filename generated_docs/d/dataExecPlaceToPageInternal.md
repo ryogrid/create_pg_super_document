@@ -47,3 +47,39 @@ The function is designed to be called after dataBeginPlaceToPageInternal has con
 - The function performs both downlink update and new item insertion in a single operation
 - The target buffer must be pre-registered in slot 0 for WAL logging purposes
 - WAL logging is conditional on RelationNeedsWAL and whether this is a build operation
+
+## Simplified Source
+
+```c
+static void
+dataExecPlaceToPageInternal(GinBtree btree, Buffer buf, GinBtreeStack *stack,
+                           void *insertdata, BlockNumber updateblkno,
+                           void *ptp_workspace)
+{
+    Page page = BufferGetPage(buf);
+    OffsetNumber off = stack->off;
+    PostingItem *existing_item, *new_item;
+
+    // Update existing downlink to point to next page
+    existing_item = GinDataPageGetPostingItem(page, off);
+    PostingItemSetBlockNumber(existing_item, updateblkno);
+
+    // Insert new posting item
+    new_item = (PostingItem *) insertdata;
+    GinDataPageAddPostingItem(page, new_item, off);
+
+    MarkBufferDirty(buf);
+
+    // Log the operation for crash recovery
+    if (RelationNeedsWAL(btree->index) && !btree->isBuild)
+    {
+        static ginxlogInsertDataInternal data;
+
+        data.offset = off;
+        data.newitem = *new_item;
+
+        XLogRegisterBuffer(0, buf, REGBUF_STANDARD);
+        XLogRegisterBufData(0, (char *) &data, sizeof(ginxlogInsertDataInternal));
+    }
+}
+```

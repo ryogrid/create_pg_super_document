@@ -50,3 +50,149 @@ This function performs the critical task of transferring entries from the GIN pe
 - Uses vacuum delay points to prevent monopolizing system resources
 - Can trigger Free Space Map vacuum for efficient space reclamation
 - Critical component of the GIN fast insertion mechanism
+
+## Simplified Source
+
+```c
+// Simplified version of ginInsertCleanup
+void ginInsertCleanup(GinState *ginstate, bool full_clean,
+                     bool fill_fsm, bool forceCleanup,
+                     IndexBulkDeleteResult *stats)
+{
+    Relation index = ginstate->index;
+    Buffer metabuffer, buffer;
+    Page metapage, page;
+    GinMetaPageData *metadata;
+    MemoryContext opCtx, oldCtx;
+    BuildAccumulator accum;
+    KeyArray datums;
+    BlockNumber blkno, blknoFinish;
+    bool cleanupFinish = false;
+    bool fsm_vac = false;
+    Size workMemory;
+
+    // Acquire exclusive lock on metapage
+    if (forceCleanup) {
+        LockPage(index, GIN_METAPAGE_BLKNO, ExclusiveLock);
+        workMemory = (AmAutoVacuumWorkerProcess() && autovacuum_work_mem != -1) ?
+                     autovacuum_work_mem : maintenance_work_mem;
+    } else {
+        if (!ConditionalLockPage(index, GIN_METAPAGE_BLKNO, ExclusiveLock))
+            return;
+        workMemory = work_mem;
+    }
+
+    // Check if there's anything to clean
+    metabuffer = ReadBuffer(index, GIN_METAPAGE_BLKNO);
+    LockBuffer(metabuffer, GIN_SHARE);
+    metapage = BufferGetPage(metabuffer);
+    metadata = GinPageGetMeta(metapage);
+
+    if (metadata->head == InvalidBlockNumber) {
+        UnlockReleaseBuffer(metabuffer);
+        UnlockPage(index, GIN_METAPAGE_BLKNO, ExclusiveLock);
+        return;
+    }
+
+    // Remember tail to prevent infinite cleanup
+    blknoFinish = metadata->tail;
+    blkno = metadata->head;
+    buffer = ReadBuffer(index, blkno);
+    LockBuffer(buffer, GIN_SHARE);
+    page = BufferGetPage(buffer);
+    LockBuffer(metabuffer, GIN_UNLOCK);
+
+    // Initialize temporary context and accumulators
+    opCtx = AllocSetContextCreate(CurrentMemoryContext,
+                                 "GIN insert cleanup temporary context",
+                                 ALLOCSET_DEFAULT_SIZES);
+    oldCtx = MemoryContextSwitchTo(opCtx);
+    initKeyArray(&datums, 128);
+    ginInitBA(&accum);
+    accum.ginstate = ginstate;
+
+    // Main cleanup loop
+    for (;;) {
+        // Check if we've reached the finish point
+        if (blkno == blknoFinish && full_clean == false)
+            cleanupFinish = true;
+
+        // Process current page
+        processPendingPage(&accum, &datums, page, FirstOffsetNumber);
+        vacuum_delay_point();
+
+        // Check if it's time to flush to main index
+        if (GinPageGetOpaque(page)->rightlink == InvalidBlockNumber ||
+            (GinPageHasFullRow(page) &&
+             (accum.allocatedMemory >= workMemory * 1024L))) {
+
+            ItemPointerData *list;
+            uint32 nlist;
+            Datum key;
+            GinNullCategory category;
+            OffsetNumber maxoff, attnum;
+
+            // Unlock page during expensive operations
+            maxoff = PageGetMaxOffsetNumber(page);
+            LockBuffer(buffer, GIN_UNLOCK);
+
+            // Insert accumulated entries into main index
+            ginBeginBAScan(&accum);
+            while ((list = ginGetBAEntry(&accum, &attnum, &key, &category, &nlist)) != NULL) {
+                ginEntryInsert(ginstate, attnum, key, category, list, nlist, NULL);
+                vacuum_delay_point();
+            }
+
+            // Re-lock and handle concurrent insertions
+            LockBuffer(metabuffer, GIN_EXCLUSIVE);
+            LockBuffer(buffer, GIN_SHARE);
+
+            if (PageGetMaxOffsetNumber(page) != maxoff) {
+                // Process new entries added while unlocked
+                ginInitBA(&accum);
+                processPendingPage(&accum, &datums, page, maxoff + 1);
+                ginBeginBAScan(&accum);
+                while ((list = ginGetBAEntry(&accum, &attnum, &key, &category, &nlist)) != NULL)
+                    ginEntryInsert(ginstate, attnum, key, category, list, nlist, NULL);
+            }
+
+            // Remove processed pages from pending list
+            blkno = GinPageGetOpaque(page)->rightlink;
+            UnlockReleaseBuffer(buffer);
+            shiftList(index, metabuffer, blkno, fill_fsm, stats);
+            fsm_vac = true;
+
+            LockBuffer(metabuffer, GIN_UNLOCK);
+
+            // Check if cleanup is complete
+            if (blkno == InvalidBlockNumber || cleanupFinish)
+                break;
+
+            // Reset for next batch
+            MemoryContextReset(opCtx);
+            initKeyArray(&datums, datums.maxvalues);
+            ginInitBA(&accum);
+        } else {
+            blkno = GinPageGetOpaque(page)->rightlink;
+            UnlockReleaseBuffer(buffer);
+        }
+
+        // Read next page
+        vacuum_delay_point();
+        buffer = ReadBuffer(index, blkno);
+        LockBuffer(buffer, GIN_SHARE);
+        page = BufferGetPage(buffer);
+    }
+
+    UnlockPage(index, GIN_METAPAGE_BLKNO, ExclusiveLock);
+    ReleaseBuffer(metabuffer);
+
+    // Trigger FSM vacuum if pages were freed
+    if (fsm_vac && fill_fsm)
+        IndexFreeSpaceMapVacuum(index);
+
+    // Clean up temporary context
+    MemoryContextSwitchTo(oldCtx);
+    MemoryContextDelete(opCtx);
+}
+```

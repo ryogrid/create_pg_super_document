@@ -40,3 +40,35 @@ The comparison uses the PostgreSQL function call interface (FunctionCall2Coll) w
 - Handles collation-aware comparisons through the compare_context
 - The two-level comparison ensures consistent ordering even when ranges overlap during merge operations
 - Designed to be compatible with standard C library sorting functions like qsort
+
+## Simplified Source
+
+```c
+static int
+compare_expanded_ranges(const void *a, const void *b, void *arg)
+{
+    ExpandedRange *ra = (ExpandedRange *) a;
+    ExpandedRange *rb = (ExpandedRange *) b;
+    compare_context *cxt = (compare_context *) arg;
+
+    // First compare minimum values
+    Datum r = FunctionCall2Coll(cxt->cmpFn, cxt->colloid, ra->minval, rb->minval);
+    if (DatumGetBool(r))
+        return -1;
+
+    r = FunctionCall2Coll(cxt->cmpFn, cxt->colloid, rb->minval, ra->minval);
+    if (DatumGetBool(r))
+        return 1;
+
+    // If minimums are equal, compare maximum values
+    r = FunctionCall2Coll(cxt->cmpFn, cxt->colloid, ra->maxval, rb->maxval);
+    if (DatumGetBool(r))
+        return -1;
+
+    r = FunctionCall2Coll(cxt->cmpFn, cxt->colloid, rb->maxval, ra->maxval);
+    if (DatumGetBool(r))
+        return 1;
+
+    return 0;  // Ranges are equal
+}
+```

@@ -41,3 +41,40 @@ ExecWorkTableScan implements the primary execution logic for WorkTableScan plan 
 - Must complete projection info initialization before calling ExecScan
 - The scan tuple type matches the RecursiveUnion's result rowtype
 - Integrates with PostgreSQL's generic scanning framework via ExecScan
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecWorkTableScan(PlanState *pstate)
+{
+    WorkTableScanState *node = castNode(WorkTableScanState, pstate);
+
+    // Lazy initialization on first call
+    if (node->rustate == NULL)
+    {
+        WorkTableScan *plan = (WorkTableScan *) node->ss.ps.plan;
+        EState *estate = node->ss.ps.state;
+
+        // Find ancestor RecursiveUnion state via parameter slot
+        ParamExecData *param = &(estate->es_param_exec_vals[plan->wtParam]);
+        node->rustate = castNode(RecursiveUnionState, DatumGetPointer(param->value));
+
+        // Set scan tuple type to match RecursiveUnion result type
+        ExecAssignScanType(&node->ss, ExecGetResultType(&node->rustate->ps));
+
+        // Initialize projection info
+        ExecAssignScanProjectionInfo(&node->ss);
+    }
+
+    // Delegate to generic scan framework
+    return ExecScan(&node->ss, WorkTableScanNext, WorkTableScanRecheck);
+}
+```
+
+This function implements worktable scanning by:
+1. **Lazy Initialization**: Deferring setup until first call to handle timing dependencies
+2. **State Location**: Finding the ancestor RecursiveUnion through parameter slots
+3. **Type Setup**: Configuring scan tuple type to match RecursiveUnion output
+4. **Projection Setup**: Initializing projection information for tuple processing
+5. **Delegation**: Using the generic ExecScan framework with worktable-specific methods

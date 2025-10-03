@@ -62,3 +62,127 @@ The function supports batching for FDWs that can handle multiple rows efficientl
 - The function handles both regular and cross-partition insertions (when a tuple is moved between partitions during UPDATE)
 - Memory contexts are carefully managed, especially for batch operations to avoid excessive memory usage
 - The function returns NULL for "do nothing" cases or when batching (actual insertion is deferred)
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecInsert(ModifyTableContext *context, ResultRelInfo *resultRelInfo,
+           TupleTableSlot *slot, bool canSetTag,
+           TupleTableSlot **inserted_tuple, ResultRelInfo **insert_destrel)
+{
+    ModifyTableState *mtstate = context->mtstate;
+    EState *estate = context->estate;
+    Relation resultRelationDesc;
+    TupleTableSlot *result = NULL;
+    List *recheckIndexes = NIL;
+
+    // Handle partition routing if needed
+    if (mtstate->mt_partition_tuple_routing) {
+        ResultRelInfo *partRelInfo;
+        slot = ExecPrepareTupleRouting(mtstate, estate,
+                                       mtstate->mt_partition_tuple_routing,
+                                       resultRelInfo, slot, &partRelInfo);
+        resultRelInfo = partRelInfo;
+    }
+
+    ExecMaterializeSlot(slot);
+    resultRelationDesc = resultRelInfo->ri_RelationDesc;
+
+    // Open indexes if needed
+    if (resultRelationDesc->rd_rel->relhasindex &&
+        resultRelInfo->ri_IndexRelationDescs == NULL)
+        ExecOpenIndices(resultRelInfo, node->onConflictAction != ONCONFLICT_NONE);
+
+    // Fire BEFORE ROW INSERT triggers
+    if (resultRelInfo->ri_TrigDesc &&
+        resultRelInfo->ri_TrigDesc->trig_insert_before_row) {
+        if (estate->es_insert_pending_result_relations != NIL)
+            ExecPendingInserts(estate);
+        if (!ExecBRInsertTriggers(estate, resultRelInfo, slot))
+            return NULL;  // "do nothing"
+    }
+
+    // Handle INSTEAD OF triggers or FDW/regular insertion
+    if (resultRelInfo->ri_TrigDesc &&
+        resultRelInfo->ri_TrigDesc->trig_insert_instead_row) {
+        if (!ExecIRInsertTriggers(estate, resultRelInfo, slot))
+            return NULL;
+    }
+    else if (resultRelInfo->ri_FdwRoutine) {
+        // Foreign table insertion (simplified - removed batch logic)
+        slot->tts_tableOid = RelationGetRelid(resultRelInfo->ri_RelationDesc);
+
+        if (resultRelationDesc->rd_att->constr &&
+            resultRelationDesc->rd_att->constr->has_generated_stored)
+            ExecComputeStoredGenerated(resultRelInfo, estate, slot, CMD_INSERT);
+
+        slot = resultRelInfo->ri_FdwRoutine->ExecForeignInsert(estate, resultRelInfo,
+                                                               slot, context->planSlot);
+        if (slot == NULL)
+            return NULL;
+    }
+    else {
+        // Regular table insertion
+        slot->tts_tableOid = RelationGetRelid(resultRelationDesc);
+
+        // Compute generated columns
+        if (resultRelationDesc->rd_att->constr &&
+            resultRelationDesc->rd_att->constr->has_generated_stored)
+            ExecComputeStoredGenerated(resultRelInfo, estate, slot, CMD_INSERT);
+
+        // Check RLS policies and constraints
+        if (resultRelInfo->ri_WithCheckOptions != NIL)
+            ExecWithCheckOptions(WCO_RLS_INSERT_CHECK, resultRelInfo, slot, estate);
+        if (resultRelationDesc->rd_att->constr)
+            ExecConstraints(resultRelInfo, slot, estate);
+
+        // Handle ON CONFLICT logic (simplified)
+        if (node->onConflictAction != ONCONFLICT_NONE && resultRelInfo->ri_NumIndices > 0) {
+            // Simplified conflict handling - removed speculative insertion details
+            ItemPointerData conflictTid;
+            if (!ExecCheckIndexConstraints(resultRelInfo, slot, estate,
+                                           &conflictTid, resultRelInfo->ri_onConflictArbiterIndexes)) {
+                if (node->onConflictAction == ONCONFLICT_UPDATE) {
+                    TupleTableSlot *returning = NULL;
+                    if (ExecOnConflictUpdate(context, resultRelInfo, &conflictTid,
+                                             slot, canSetTag, &returning)) {
+                        InstrCountTuples2(&mtstate->ps, 1);
+                        return returning;
+                    }
+                } else {
+                    // DO NOTHING case
+                    InstrCountTuples2(&mtstate->ps, 1);
+                    return NULL;
+                }
+            }
+        }
+
+        // Insert tuple and indexes
+        table_tuple_insert(resultRelationDesc, slot, estate->es_output_cid, 0, NULL);
+        if (resultRelInfo->ri_NumIndices > 0)
+            recheckIndexes = ExecInsertIndexTuples(resultRelInfo, slot, estate,
+                                                   false, false, NULL, NIL, false);
+    }
+
+    if (canSetTag)
+        (estate->es_processed)++;
+
+    // Fire AFTER ROW INSERT triggers
+    ExecARInsertTriggers(estate, resultRelInfo, slot, recheckIndexes,
+                         mtstate->mt_transition_capture);
+
+    list_free(recheckIndexes);
+
+    // Process RETURNING clause
+    if (resultRelInfo->ri_projectReturning)
+        result = ExecProcessReturning(resultRelInfo, slot, context->planSlot);
+
+    if (inserted_tuple)
+        *inserted_tuple = slot;
+    if (insert_destrel)
+        *insert_destrel = resultRelInfo;
+
+    return result;
+}
+```

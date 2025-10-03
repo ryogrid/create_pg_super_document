@@ -46,3 +46,67 @@ For future batches (batchno > 0), the function uses a preallocation strategy whe
 - Memory allocation failures trigger retries that may see updated bucket counts from concurrent expansions
 - Tuple count tracking is maintained per-batch to support proper join execution across parallel workers
 - Uses lock-free atomic operations for bucket list insertion via ExecParallelHashPushTuple
+
+## Simplified Source
+
+```c
+void
+ExecParallelHashTableInsert(HashJoinTable hashtable,
+                           TupleTableSlot *slot,
+                           uint32 hashvalue)
+{
+    bool shouldFree;
+    MinimalTuple tuple = ExecFetchSlotMinimalTuple(slot, &shouldFree);
+    dsa_pointer shared;
+    int bucketno, batchno;
+
+retry:
+    // Determine which bucket and batch this tuple belongs to
+    ExecHashGetBucketAndBatch(hashtable, hashvalue, &bucketno, &batchno);
+
+    if (batchno == 0)
+    {
+        // Current batch: insert directly into shared hash table
+        HashJoinTuple hashTuple;
+
+        // Allocate shared memory for the tuple
+        hashTuple = ExecParallelHashTupleAlloc(hashtable,
+                                             HJTUPLE_OVERHEAD + tuple->t_len,
+                                             &shared);
+        if (hashTuple == NULL)
+            goto retry; // Allocation failed, retry (bucket may have expanded)
+
+        // Store hash value and copy tuple data
+        hashTuple->hashvalue = hashvalue;
+        memcpy(HJTUPLE_MINTUPLE(hashTuple), tuple, tuple->t_len);
+        HeapTupleHeaderClearMatch(HJTUPLE_MINTUPLE(hashTuple));
+
+        // Insert tuple into appropriate bucket using atomic operations
+        ExecParallelHashPushTuple(&hashtable->buckets.shared[bucketno],
+                                hashTuple, shared);
+    }
+    else
+    {
+        // Future batch: store in shared tuple store
+        size_t tuple_size = MAXALIGN(HJTUPLE_OVERHEAD + tuple->t_len);
+
+        // Preallocate space in batch if needed
+        if (hashtable->batches[batchno].preallocated < tuple_size)
+        {
+            if (!ExecParallelHashTuplePrealloc(hashtable, batchno, tuple_size))
+                goto retry; // Preallocation failed, retry
+        }
+
+        // Use preallocated space and store tuple
+        hashtable->batches[batchno].preallocated -= tuple_size;
+        sts_puttuple(hashtable->batches[batchno].inner_tuples, &hashvalue, tuple);
+    }
+
+    // Update tuple count for this batch
+    ++hashtable->batches[batchno].ntuples;
+
+    // Clean up if tuple was copied
+    if (shouldFree)
+        heap_free_minimal_tuple(tuple);
+}
+```

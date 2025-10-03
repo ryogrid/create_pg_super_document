@@ -32,3 +32,15 @@ This is a generic implementation of atomic read with memory barrier that ensures
 - Located in src/include/port/atomics/generic.h as part of the generic atomic operations implementation
 - The memory barrier semantics ensure that this read operation is properly synchronized with writes from other threads
 - This is particularly important in multi-threaded environments where cache coherency and memory ordering matter
+
+## Simplified Source
+
+```c
+static inline uint32
+pg_atomic_read_membarrier_u32_impl(volatile pg_atomic_uint32 *ptr)
+{
+    // Perform atomic read with memory barrier by adding zero
+    // This ensures proper synchronization across CPU cores
+    return pg_atomic_fetch_add_u32_impl(ptr, 0);
+}
+```

@@ -38,3 +38,31 @@ The function sets up the expression context with the null outer tuple slot and t
 - Debug output is conditionally compiled based on MJ_printf macro
 - [Instrumentation](../I/Instrumentation.md) is included to track filtered tuples for performance monitoring
 - The function uses the pre-allocated null outer tuple slot for efficiency
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+MJFillInner(MergeJoinState *node) {
+    ExprContext *econtext = node->js.ps.ps_ExprContext;
+    ExprState *otherqual = node->js.ps.qual;
+
+    // Reset context for new evaluation
+    ResetExprContext(econtext);
+
+    // Set up fake join tuple: NULL outer + current inner
+    econtext->ecxt_outertuple = node->mj_NullOuterTupleSlot;
+    econtext->ecxt_innertuple = node->mj_InnerTupleSlot;
+
+    // Check if non-join quals are satisfied
+    if (ExecQual(otherqual, econtext)) {
+        // Quals passed - project and return the result tuple
+        return ExecProject(node->js.ps.ps_ProjInfo);
+    } else {
+        // Quals failed - count as filtered for instrumentation
+        InstrCountFiltered2(node, 1);
+    }
+
+    return NULL;
+}
+```

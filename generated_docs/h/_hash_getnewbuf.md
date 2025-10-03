@@ -52,3 +52,40 @@ The caller must hold write lock on the metapage to ensure only one process exten
 - Requires caller coordination (typically metapage write lock) to prevent concurrent extensions
 - Returns write-locked and initialized buffer ready for use
 - Critical for hash index growth operations like bucket splitting and overflow page allocation
+
+## Simplified Source
+
+```c
+Buffer _hash_getnewbuf(Relation rel, BlockNumber blkno, ForkNumber forkNum) {
+    BlockNumber nblocks = RelationGetNumberOfBlocksInFork(rel, forkNum);
+    Buffer buf;
+
+    // Validate block number constraints
+    if (blkno == P_NEW) {
+        elog(ERROR, "hash AM does not use P_NEW");
+    }
+    if (blkno > nblocks) {
+        elog(ERROR, "access to noncontiguous page in hash index");
+    }
+
+    // Extend relation if we're adding at the end
+    if (blkno == nblocks) {
+        // Physically extend the relation
+        buf = ExtendBufferedRel(BMR_REL(rel), forkNum, NULL,
+                               EB_LOCK_FIRST | EB_SKIP_EXTENSION_LOCK);
+
+        // Verify we got the expected block number
+        if (BufferGetBlockNumber(buf) != blkno) {
+            elog(ERROR, "unexpected hash relation size");
+        }
+    } else {
+        // Recovery case: page exists but needs initialization
+        buf = ReadBufferExtended(rel, forkNum, blkno, RBM_ZERO_AND_LOCK, NULL);
+    }
+
+    // Initialize the new page
+    _hash_pageinit(BufferGetPage(buf), BufferGetPageSize(buf));
+
+    return buf;  // Buffer is write-locked, pinned, and initialized
+}
+```

@@ -37,3 +37,18 @@ If the pointer is found to be a member (same memory address), the original list 
 - The list can be NIL (empty) - in this case, a new single-element list is created
 - Suitable for maintaining lists of unique pointers where identity matters
 - Commonly used in optimizer code for managing lists of relation pointers and similar objects
+
+## Simplified Source
+
+```c
+List *list_append_unique_ptr(List *list, void *datum) {
+    // Check if pointer already exists in list
+    if (list_member_ptr(list, datum))
+        return list;  // Already present, return unchanged
+
+    // Not found, append to list
+    return lappend(list, datum);
+}
+```
+
+This simplified version shows the core logic: check for pointer existence using `list_member_ptr()`, and if not found, append using `lappend()`. The function ensures unique pointers in the list using simple pointer equality comparison.

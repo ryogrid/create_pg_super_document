@@ -39,3 +39,17 @@ Like its counterpart ExecAssignScanProjectionInfo, this function delegates the a
 - Foreign scans and custom scans often use this variant because they may have complex variable mapping requirements
 - Index-only scans use this function because their variable references may not align with the standard scan relation ID
 - The varno parameter affects how variable references in the target list are matched during projection optimization analysis
+
+## Simplified Source
+
+```c
+void
+ExecAssignScanProjectionInfoWithVarno(ScanState *node, int varno)
+{
+    // Get tuple descriptor from scan slot
+    TupleDesc tupdesc = node->ss_ScanTupleSlot->tts_tupleDescriptor;
+
+    // Set up projection info with custom varno
+    ExecConditionalAssignProjectionInfo(&node->ps, tupdesc, varno);
+}
+```

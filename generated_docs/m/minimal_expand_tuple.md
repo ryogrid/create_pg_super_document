@@ -36,3 +36,17 @@ MinimalTuples are more compact representations used primarily for in-memory tupl
 - Missing attributes are filled with default values from tuple descriptor constraints or NULLs
 - Part of the public tuple manipulation API
 - Located in src/backend/access/common/heaptuple.c:1053-1064
+
+## Simplified Source
+
+```c
+MinimalTuple minimal_expand_tuple(HeapTuple sourceTuple, TupleDesc tupleDesc)
+{
+    MinimalTuple result;
+
+    // Use the internal expand_tuple function to create a MinimalTuple
+    expand_tuple(NULL, &result, sourceTuple, tupleDesc);
+
+    return result;
+}
+```

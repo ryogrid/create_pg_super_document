@@ -33,3 +33,12 @@ This is part of PostgreSQL's memory management system where different operations
 - Part of SPI's memory management strategy to ensure proper cleanup
 - Very simple wrapper function that encapsulates SPI-specific memory context access
 - Essential for maintaining memory context discipline in SPI operations
+
+## Simplified Source
+
+```c
+static MemoryContext _SPI_execmem(void) {
+    // Switch to execution memory context for current SPI connection
+    return MemoryContextSwitchTo(_SPI_current->execCxt);
+}
+```

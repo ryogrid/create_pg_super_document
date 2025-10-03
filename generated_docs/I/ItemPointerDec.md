@@ -39,3 +39,30 @@ The function assumes that FirstOffsetNumber is 1 rather than 0, which affects th
 - Handles block number underflow by not decrementing below block 0
 - The decrement operation is atomic from the caller's perspective
 - Complementary function to ItemPointerInc for bidirectional ItemPointer arithmetic
+
+## Simplified Source
+```c
+void
+ItemPointerDec(ItemPointer pointer)
+{
+    BlockNumber blk = ItemPointerGetBlockNumberNoCheck(pointer);
+    OffsetNumber off = ItemPointerGetOffsetNumberNoCheck(pointer);
+
+    if (off == 0)
+    {
+        // Roll over to previous block's maximum offset
+        if (blk != 0)
+        {
+            off = PG_UINT16_MAX;
+            blk--;
+        }
+    }
+    else
+    {
+        // Simple decrement within same block
+        off--;
+    }
+
+    ItemPointerSet(pointer, blk, off);
+}
+```

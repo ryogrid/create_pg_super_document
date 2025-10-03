@@ -42,3 +42,37 @@ The function is specifically designed for nodeFunctionscan.c and handles the ini
 - Set-returning functions are only supported in the FuncExpr path; the general expression path cannot handle buried set-returning functions
 - The state->funcReturnsSet flag is properly initialized to indicate whether the function can return multiple rows
 - Uses the per-query memory context from the expression context for function state allocation
+
+## Simplified Source
+
+```c
+SetExprState *
+ExecInitTableFunctionResult(Expr *expr, ExprContext *econtext, PlanState *parent)
+{
+    // Create set expression state
+    SetExprState *state = makeNode(SetExprState);
+
+    // Initialize basic state
+    state->funcReturnsSet = false;
+    state->expr = expr;
+    state->func.fn_oid = InvalidOid;
+
+    // Handle normal function calls (FuncExpr)
+    if (IsA(expr, FuncExpr)) {
+        FuncExpr *func = (FuncExpr *) expr;
+
+        // Set up function call state
+        state->funcReturnsSet = func->funcretset;
+        state->args = ExecInitExprList(func->args, parent);
+
+        // Initialize function call machinery
+        init_sexpr(func->funcid, func->inputcollid, expr, state, parent,
+                   econtext->ecxt_per_query_memory, func->funcretset, false);
+    } else {
+        // Fallback for optimized expressions (constant-folded, inlined)
+        state->elidedFuncState = ExecInitExpr(expr, parent);
+    }
+
+    return state;
+}
+```

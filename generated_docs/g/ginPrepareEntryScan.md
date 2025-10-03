@@ -51,3 +51,42 @@ The function also handles WAL recovery scenarios where the ginstate may contain 
 - The fullScan and isBuild flags are set to false, indicating this is for targeted operations rather than bulk operations
 - All entry-specific function pointers are assigned to handle the specialized behavior of entry tree operations
 - The function uses memset to zero-initialize the entire btree structure before setting specific fields
+
+## Simplified Source
+
+```c
+// Simplified version of ginPrepareEntryScan
+void ginPrepareEntryScan(GinBtree btree, OffsetNumber attnum,
+                         Datum key, GinNullCategory category,
+                         GinState *ginstate)
+{
+    // Initialize structure to zero
+    memset(btree, 0, sizeof(GinBtreeData));
+
+    // Set basic properties
+    btree->index = ginstate->index;
+    btree->rootBlkno = GIN_ROOT_BLKNO;
+    btree->ginstate = ginstate;
+
+    // Configure entry-specific function pointers
+    btree->findChildPage = entryLocateEntry;
+    btree->getLeftMostChild = entryGetLeftMostPage;
+    btree->isMoveRight = entryIsMoveRight;
+    btree->findItem = entryLocateLeafEntry;
+    btree->findChildPtr = entryFindChildPtr;
+    btree->beginPlaceToPage = entryBeginPlaceToPage;
+    btree->execPlaceToPage = entryExecPlaceToPage;
+    btree->fillRoot = ginEntryFillRoot;
+    btree->prepareDownlink = entryPrepareDownlink;
+
+    // Set operation flags
+    btree->isData = false;
+    btree->fullScan = false;
+    btree->isBuild = false;
+
+    // Set search parameters
+    btree->entryAttnum = attnum;
+    btree->entryKey = key;
+    btree->entryCategory = category;
+}
+```

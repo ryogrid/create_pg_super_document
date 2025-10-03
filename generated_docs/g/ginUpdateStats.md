@@ -44,3 +44,48 @@ The `ginUpdateStats` function writes updated statistical information to a GIN in
 - Sets `pd_lower` correctly to prevent metadata loss during page compression (important for pg_upgrade compatibility)
 - Creates a WAL record of type `XLOG_GIN_UPDATE_META_PAGE` when WAL logging is required
 - Essential for maintaining accurate index statistics used by the query planner
+
+## Simplified Source
+
+```c
+void ginUpdateStats(Relation index, const GinStatsData *stats, bool is_build) {
+    // Get exclusive lock on metapage
+    Buffer metabuffer = ReadBuffer(index, GIN_METAPAGE_BLKNO);
+    LockBuffer(metabuffer, GIN_EXCLUSIVE);
+    Page metapage = BufferGetPage(metabuffer);
+    GinMetaPageData *metadata = GinPageGetMeta(metapage);
+
+    START_CRIT_SECTION();
+
+    // Update statistics (excluding nPendingPages and ginVersion)
+    metadata->nTotalPages = stats->nTotalPages;
+    metadata->nEntryPages = stats->nEntryPages;
+    metadata->nDataPages = stats->nDataPages;
+    metadata->nEntries = stats->nEntries;
+
+    // Set pd_lower to prevent metadata loss during compression
+    ((PageHeader) metapage)->pd_lower =
+        ((char *) metadata + sizeof(GinMetaPageData)) - (char *) metapage;
+
+    MarkBufferDirty(metabuffer);
+
+    // WAL logging if needed (not during build)
+    if (RelationNeedsWAL(index) && !is_build) {
+        ginxlogUpdateMeta data;
+        data.locator = index->rd_locator;
+        data.ntuples = 0;
+        data.newRightlink = data.prevTail = InvalidBlockNumber;
+        memcpy(&data.metadata, metadata, sizeof(GinMetaPageData));
+
+        XLogBeginInsert();
+        XLogRegisterData((char *) &data, sizeof(ginxlogUpdateMeta));
+        XLogRegisterBuffer(0, metabuffer, REGBUF_WILL_INIT | REGBUF_STANDARD);
+
+        XLogRecPtr recptr = XLogInsert(RM_GIN_ID, XLOG_GIN_UPDATE_META_PAGE);
+        PageSetLSN(metapage, recptr);
+    }
+
+    UnlockReleaseBuffer(metabuffer);
+    END_CRIT_SECTION();
+}
+```

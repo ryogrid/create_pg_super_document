@@ -55,3 +55,87 @@ The function assumes the transition function strictness was already validated du
 - Properly manages memory for pass-by-reference datums returned by the sort, which are palloc'd in per-query context
 - Uses abbreviated values when available for faster DISTINCT comparisons
 - Cleans up the sort state by calling tuplesort_end and setting the pointer to NULL when finished
+
+## Simplified Source
+
+```c
+static void
+process_ordered_aggregate_single(AggState *aggstate,
+                                 AggStatePerTrans pertrans,
+                                 AggStatePerGroup pergroupstate)
+{
+    Datum oldVal = (Datum) 0;
+    bool oldIsNull = true;
+    bool haveOldVal = false;
+    MemoryContext workcontext = aggstate->tmpcontext->ecxt_per_tuple_memory;
+    MemoryContext oldContext;
+    bool isDistinct = (pertrans->numDistinctCols > 0);
+    Datum newAbbrevVal = (Datum) 0;
+    Datum oldAbbrevVal = (Datum) 0;
+    FunctionCallInfo fcinfo = pertrans->transfn_fcinfo;
+    Datum *newVal;
+    bool *isNull;
+
+    // Complete the sort operation
+    tuplesort_performsort(pertrans->sortstates[aggstate->current_set]);
+
+    // Setup pointers to function call arguments
+    newVal = &fcinfo->args[1].value;
+    isNull = &fcinfo->args[1].isnull;
+
+    // Process sorted values
+    while (tuplesort_getdatum(pertrans->sortstates[aggstate->current_set],
+                              true, false, newVal, isNull, &newAbbrevVal))
+    {
+        // Switch to working context for comparisons
+        MemoryContextReset(workcontext);
+        oldContext = MemoryContextSwitchTo(workcontext);
+
+        // Skip duplicate values for DISTINCT aggregates
+        if (isDistinct &&
+            haveOldVal &&
+            ((oldIsNull && *isNull) ||
+             (!oldIsNull && !*isNull &&
+              oldAbbrevVal == newAbbrevVal &&
+              DatumGetBool(FunctionCall2Coll(&pertrans->equalfnOne,
+                                           pertrans->aggCollation,
+                                           oldVal, *newVal)))))
+        {
+            MemoryContextSwitchTo(oldContext);
+            continue;
+        }
+        else
+        {
+            // Apply transition function
+            advance_transition_function(aggstate, pertrans, pergroupstate);
+            MemoryContextSwitchTo(oldContext);
+
+            // Update old value for next comparison
+            if (!pertrans->inputtypeByVal)
+            {
+                // Cleanup previous by-reference value
+                if (!oldIsNull)
+                    pfree(DatumGetPointer(oldVal));
+                // Copy new by-reference value
+                if (!*isNull)
+                    oldVal = datumCopy(*newVal, pertrans->inputtypeByVal,
+                                     pertrans->inputtypeLen);
+            }
+            else
+                oldVal = *newVal;
+
+            oldAbbrevVal = newAbbrevVal;
+            oldIsNull = *isNull;
+            haveOldVal = true;
+        }
+    }
+
+    // Final cleanup of by-reference value
+    if (!oldIsNull && !pertrans->inputtypeByVal)
+        pfree(DatumGetPointer(oldVal));
+
+    // Cleanup sort state
+    tuplesort_end(pertrans->sortstates[aggstate->current_set]);
+    pertrans->sortstates[aggstate->current_set] = NULL;
+}
+```

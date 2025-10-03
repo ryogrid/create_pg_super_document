@@ -33,3 +33,22 @@ The hashvarlena function provides hash computation for any variable-length (varl
 - More efficient than text-specific hash functions for binary data
 - Handles toasted inputs properly with PG_FREE_IF_COPY memory cleanup
 - Located at src/backend/access/hash/hashfunc.c:383-397
+
+## Simplified Source
+
+```c
+// hashvarlena() can be used for any varlena datatype in which there are
+// no non-significant bits, ie, distinct bitpatterns never compare as equal.
+Datum hashvarlena(PG_FUNCTION_ARGS) {
+    struct varlena *key = PG_GETARG_VARLENA_PP(0);
+
+    // Hash the variable-length data directly
+    Datum result = hash_any((unsigned char *) VARDATA_ANY(key),
+                           VARSIZE_ANY_EXHDR(key));
+
+    // Clean up memory for toasted inputs
+    PG_FREE_IF_COPY(key, 0);
+
+    return result;
+}
+```

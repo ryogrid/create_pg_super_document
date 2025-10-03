@@ -37,3 +37,89 @@ Key initialization steps performed:
 - Creates or resets the HeapScanDesc with appropriate scanning parameters
 
 The REPEATABLE parameter handling is designed to accept both integer and float values at the SQL level, providing compatibility with different database systems while ensuring deterministic results for testing.
+
+## Simplified Source
+
+```c
+static void
+tablesample_init(SampleScanState *scanstate)
+{
+    TsmRoutine *tsm = scanstate->tsmroutine;
+    ExprContext *econtext = scanstate->ss.ps.ps_ExprContext;
+    Datum *params;
+    uint32 seed;
+    bool allow_sync;
+    int i;
+    ListCell *arg;
+
+    // Initialize tuple counter
+    scanstate->donetuples = 0;
+
+    // Allocate and evaluate sampling parameters
+    params = (Datum *) palloc(list_length(scanstate->args) * sizeof(Datum));
+
+    i = 0;
+    foreach(arg, scanstate->args)
+    {
+        ExprState *argstate = (ExprState *) lfirst(arg);
+        bool isnull;
+
+        params[i] = ExecEvalExprSwitchContext(argstate, econtext, &isnull);
+        if (isnull)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_TABLESAMPLE_ARGUMENT),
+                           errmsg("TABLESAMPLE parameter cannot be null")));
+        i++;
+    }
+
+    // Handle REPEATABLE clause
+    if (scanstate->repeatable)
+    {
+        bool isnull;
+        Datum datum = ExecEvalExprSwitchContext(scanstate->repeatable, econtext, &isnull);
+
+        if (isnull)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_TABLESAMPLE_REPEAT),
+                           errmsg("TABLESAMPLE REPEATABLE parameter cannot be null")));
+
+        // Convert float8 to deterministic seed via hashing
+        seed = DatumGetUInt32(DirectFunctionCall1(hashfloat8, datum));
+    }
+    else
+    {
+        // Use default seed
+        seed = scanstate->seed;
+    }
+
+    // Set default scan modes
+    scanstate->use_bulkread = true;
+    scanstate->use_pagemode = true;
+
+    // Initialize sampling method
+    tsm->BeginSampleScan(scanstate, params, list_length(scanstate->args), seed);
+
+    // Determine if synchronized scanning is allowed
+    allow_sync = (tsm->NextSampleBlock == NULL);
+
+    // Create or reset the table scan descriptor
+    if (scanstate->ss.ss_currentScanDesc == NULL)
+    {
+        scanstate->ss.ss_currentScanDesc =
+            table_beginscan_sampling(scanstate->ss.ss_currentRelation,
+                                   scanstate->ss.ps.state->es_snapshot,
+                                   0, NULL,
+                                   scanstate->use_bulkread,
+                                   allow_sync,
+                                   scanstate->use_pagemode);
+    }
+    else
+    {
+        table_rescan_set_params(scanstate->ss.ss_currentScanDesc, NULL,
+                               scanstate->use_bulkread,
+                               allow_sync,
+                               scanstate->use_pagemode);
+    }
+
+    pfree(params);
+    scanstate->begun = true;
+}
+```

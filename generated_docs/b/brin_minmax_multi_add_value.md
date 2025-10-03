@@ -53,3 +53,87 @@ The function employs intelligent memory management, using larger buffers during 
 - Sets up serialization function pointer for later storage operations
 - Critical component in BRIN index maintenance and query optimization
 - Assertion ensures non-null values are processed correctly
+
+## Simplified Source
+
+```c
+Datum
+brin_minmax_multi_add_value(PG_FUNCTION_ARGS)
+{
+    BrinDesc *bdesc = (BrinDesc *) PG_GETARG_POINTER(0);
+    BrinValues *column = (BrinValues *) PG_GETARG_POINTER(1);
+    Datum newval = PG_GETARG_DATUM(2);
+    MinMaxMultiOptions *opts = (MinMaxMultiOptions *) PG_GET_OPCLASS_OPTIONS();
+    Oid colloid = PG_GET_COLLATION();
+    bool modified = false;
+
+    AttrNumber attno = column->bv_attno;
+    Form_pg_attribute attr = TupleDescAttr(bdesc->bd_tupdesc, attno - 1);
+    Ranges *ranges = (Ranges *) DatumGetPointer(column->bv_mem_value);
+
+    // Handle first non-null value - initialize new range structure
+    if (column->bv_allnulls) {
+        MemoryContext oldctx = MemoryContextSwitchTo(column->bv_context);
+
+        // Calculate buffer size: 10x target, capped by heap constraints
+        int target_maxvalues = brin_minmax_multi_get_values(bdesc, opts);
+        BlockNumber pagesPerRange = BrinGetPagesPerRange(bdesc->bd_index);
+        int maxvalues = Min(target_maxvalues * MINMAX_BUFFER_FACTOR,
+                           MaxHeapTuplesPerPage * pagesPerRange);
+        maxvalues = Max(maxvalues, target_maxvalues);
+        maxvalues = Max(maxvalues, MINMAX_BUFFER_MIN);
+        maxvalues = Min(maxvalues, MINMAX_BUFFER_MAX);
+
+        // Initialize range structure
+        ranges = minmax_multi_init(maxvalues);
+        ranges->attno = attno;
+        ranges->colloid = colloid;
+        ranges->typid = attr->atttypid;
+        ranges->target_maxvalues = target_maxvalues;
+        ranges->cmp = minmax_multi_get_strategy_procinfo(bdesc, attno,
+                                                        attr->atttypid,
+                                                        BTLessStrategyNumber);
+
+        column->bv_allnulls = false;
+        column->bv_mem_value = PointerGetDatum(ranges);
+        column->bv_serialize = brin_minmax_multi_serialize;
+        modified = true;
+
+        MemoryContextSwitchTo(oldctx);
+    }
+    // Handle deserialized ranges from storage
+    else if (!ranges) {
+        MemoryContext oldctx = MemoryContextSwitchTo(column->bv_context);
+
+        SerializedRanges *serialized = (SerializedRanges *)
+            PG_DETOAST_DATUM(column->bv_values[0]);
+
+        // Calculate expanded buffer size
+        BlockNumber pagesPerRange = BrinGetPagesPerRange(bdesc->bd_index);
+        int maxvalues = Min(serialized->maxvalues * MINMAX_BUFFER_FACTOR,
+                           MaxHeapTuplesPerPage * pagesPerRange);
+        maxvalues = Max(maxvalues, serialized->maxvalues);
+        maxvalues = Max(maxvalues, MINMAX_BUFFER_MIN);
+        maxvalues = Min(maxvalues, MINMAX_BUFFER_MAX);
+
+        // Deserialize and set up range structure
+        ranges = brin_range_deserialize(maxvalues, serialized);
+        ranges->attno = attno;
+        ranges->colloid = colloid;
+        ranges->typid = attr->atttypid;
+        ranges->cmp = minmax_multi_get_strategy_procinfo(bdesc, attno,
+                                                        attr->atttypid,
+                                                        BTLessStrategyNumber);
+
+        column->bv_mem_value = PointerGetDatum(ranges);
+        column->bv_serialize = brin_minmax_multi_serialize;
+
+        MemoryContextSwitchTo(oldctx);
+    }
+
+    // Add the new value to the range structure
+    modified |= range_add_value(bdesc, colloid, attno, attr, ranges, newval);
+
+    PG_RETURN_BOOL(modified);
+}
+```

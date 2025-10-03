@@ -50,3 +50,50 @@ The function dynamically retrieves the appropriate comparison functions (equalit
 - Critical for ensuring correctness during range consolidation operations
 - Part of the validation framework for BRIN minmax-multi index operations
 - Located in src/backend/access/brin/brin_minmax_multi.c:426-485
+
+## Simplified Source
+
+```c
+static void
+AssertCheckExpandedRanges(BrinDesc *bdesc, Oid colloid, AttrNumber attno,
+                         Form_pg_attribute attr, ExpandedRange *ranges,
+                         int nranges)
+{
+#ifdef USE_ASSERT_CHECKING
+    // Get comparison functions for this attribute type
+    FmgrInfo *eq = minmax_multi_get_strategy_procinfo(bdesc, attno, attr->atttypid,
+                                                     BTEqualStrategyNumber);
+    FmgrInfo *lt = minmax_multi_get_strategy_procinfo(bdesc, attno, attr->atttypid,
+                                                     BTLessStrategyNumber);
+
+    // Validate each individual range
+    for (int i = 0; i < nranges; i++)
+    {
+        Datum minval = ranges[i].minval;
+        Datum maxval = ranges[i].maxval;
+
+        if (ranges[i].collapsed)
+        {
+            // Collapsed range: minval == maxval
+            Datum r = FunctionCall2Coll(eq, colloid, minval, maxval);
+            Assert(DatumGetBool(r));
+        }
+        else
+        {
+            // Non-collapsed range: minval < maxval
+            Datum r = FunctionCall2Coll(lt, colloid, minval, maxval);
+            Assert(DatumGetBool(r));
+        }
+    }
+
+    // Validate ordering between consecutive ranges: max[i] < min[i+1]
+    for (int i = 0; i < nranges - 1; i++)
+    {
+        Datum maxval = ranges[i].maxval;
+        Datum minval = ranges[i + 1].minval;
+        Datum r = FunctionCall2Coll(lt, colloid, maxval, minval);
+        Assert(DatumGetBool(r));
+    }
+#endif
+}
+```

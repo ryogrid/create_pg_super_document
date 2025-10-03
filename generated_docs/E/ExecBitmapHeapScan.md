@@ -37,3 +37,19 @@ The function represents the core of bitmap heap scan execution, coordinating bet
 - The bitmap-specific behavior is provided through callback functions BitmapHeapNext and BitmapHeapRecheck
 - Returns a TupleTableSlot containing the next qualifying tuple, or NULL when no more tuples are available
 - Part of the executor node interface that gets called repeatedly to retrieve successive tuples from the scan
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecBitmapHeapScan(PlanState *pstate)
+{
+    // Cast to bitmap heap scan state
+    BitmapHeapScanState *node = castNode(BitmapHeapScanState, pstate);
+
+    // Delegate to generic scan framework with bitmap-specific callbacks
+    return ExecScan(&node->ss,
+                    BitmapHeapNext,      // Access method for getting next tuple
+                    BitmapHeapRecheck);  // Recheck method for EvalPlanQual
+}
+```

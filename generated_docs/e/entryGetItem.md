@@ -58,3 +58,110 @@ The function also implements result reduction logic when GinFuzzySearchLimit is 
 - For posting trees, coordinates with entryLoadMoreItems to implement lazy loading of large posting lists
 - Returns items in ascending ItemPointer order as required by higher-level key combination logic
 - Handles edge cases like empty result sets and transitions between different result types gracefully
+
+## Simplified Source
+
+```c
+static void entryGetItem(GinState *ginstate, GinScanEntry entry,
+                        ItemPointerData advancePast)
+{
+    Assert(!entry->isFinished);
+    Assert(!ItemPointerIsValid(&entry->curItem) ||
+           ginCompareItemPointers(&entry->curItem, &advancePast) <= 0);
+
+    if (entry->matchBitmap) {
+        // Bitmap result: iterate through TIDBitmap
+        BlockNumber advancePastBlk = GinItemPointerGetBlockNumber(&advancePast);
+        OffsetNumber advancePastOff = GinItemPointerGetOffsetNumber(&advancePast);
+
+        for (;;) {
+            // Advance to next block if current block is exhausted
+            while (entry->matchResult == NULL ||
+                   (entry->matchResult->ntuples >= 0 &&
+                    entry->offset >= entry->matchResult->ntuples) ||
+                   entry->matchResult->blockno < advancePastBlk ||
+                   (ItemPointerIsLossyPage(&advancePast) &&
+                    entry->matchResult->blockno == advancePastBlk)) {
+
+                entry->matchResult = tbm_iterate(entry->matchIterator);
+                if (entry->matchResult == NULL) {
+                    ItemPointerSetInvalid(&entry->curItem);
+                    tbm_end_iterate(entry->matchIterator);
+                    entry->matchIterator = NULL;
+                    entry->isFinished = true;
+                    break;
+                }
+                entry->offset = 0;
+            }
+
+            if (entry->isFinished)
+                break;
+
+            // Handle lossy page result
+            if (entry->matchResult->ntuples < 0) {
+                ItemPointerSetLossyPage(&entry->curItem, entry->matchResult->blockno);
+                break;
+            }
+
+            // Handle exact results - skip past advancePast
+            if (entry->matchResult->blockno == advancePastBlk) {
+                if (entry->matchResult->offsets[entry->matchResult->ntuples - 1] <= advancePastOff) {
+                    entry->offset = entry->matchResult->ntuples;
+                    continue;
+                }
+                while (entry->matchResult->offsets[entry->offset] <= advancePastOff)
+                    entry->offset++;
+            }
+
+            ItemPointerSet(&entry->curItem,
+                          entry->matchResult->blockno,
+                          entry->matchResult->offsets[entry->offset]);
+            entry->offset++;
+
+            // Apply result reduction if enabled
+            if (!entry->reduceResult || !dropItem(entry))
+                break;
+        }
+    } else if (!BufferIsValid(entry->buffer)) {
+        // Posting list: simple array traversal
+        for (;;) {
+            if (entry->offset >= entry->nlist) {
+                ItemPointerSetInvalid(&entry->curItem);
+                entry->isFinished = true;
+                break;
+            }
+
+            entry->curItem = entry->list[entry->offset++];
+
+            if (ginCompareItemPointers(&entry->curItem, &advancePast) <= 0)
+                continue;
+
+            if (!entry->reduceResult || !dropItem(entry))
+                break;
+        }
+    } else {
+        // Posting tree: incremental loading
+        for (;;) {
+            // Load more items if current batch is exhausted
+            while (entry->offset >= entry->nlist) {
+                entryLoadMoreItems(ginstate, entry, advancePast);
+                if (entry->isFinished) {
+                    ItemPointerSetInvalid(&entry->curItem);
+                    return;
+                }
+            }
+
+            entry->curItem = entry->list[entry->offset++];
+
+            if (ginCompareItemPointers(&entry->curItem, &advancePast) <= 0)
+                continue;
+
+            if (!entry->reduceResult || !dropItem(entry))
+                break;
+
+            // Update advancePast for next load
+            advancePast = entry->curItem;
+        }
+    }
+}
+```

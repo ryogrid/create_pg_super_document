@@ -48,3 +48,85 @@ The function performs several key operations:
 - The function uses CHECK_FOR_INTERRUPTS() to allow query cancellation during long-running aggregations
 - Memory context management is handled carefully to avoid premature cleanup of aggregate state
 - Returns NULL when all groups from all grouping sets have been processed
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+agg_retrieve_hash_table_in_memory(AggState *aggstate)
+{
+    ExprContext *econtext;
+    AggStatePerAgg peragg;
+    AggStatePerGroup pergroup;
+    TupleHashEntryData *entry;
+    TupleTableSlot *firstSlot;
+    TupleTableSlot *result;
+    AggStatePerHash perhash;
+
+    // Initialize state info
+    econtext = aggstate->ss.ps.ps_ExprContext;
+    peragg = aggstate->peragg;
+    firstSlot = aggstate->ss.ss_ScanTupleSlot;
+    perhash = &aggstate->perhash[aggstate->current_set];
+
+    // Loop through all hash table entries across grouping sets
+    for (;;) {
+        TupleTableSlot *hashslot = perhash->hashslot;
+
+        CHECK_FOR_INTERRUPTS();
+
+        // Get next entry from current hash table
+        entry = ScanTupleHashTable(perhash->hashtable, &perhash->hashiter);
+
+        if (entry == NULL) {
+            // Current hash table exhausted, try next grouping set
+            int nextset = aggstate->current_set + 1;
+
+            if (nextset < aggstate->num_hashes) {
+                // Switch to next grouping set
+                select_current_set(aggstate, nextset, true);
+                perhash = &aggstate->perhash[aggstate->current_set];
+                ResetTupleHashIterator(perhash->hashtable, &perhash->hashiter);
+                continue;
+            } else {
+                // All grouping sets processed
+                return NULL;
+            }
+        }
+
+        // Clear context for this group
+        ResetExprContext(econtext);
+
+        // Transform representative tuple back to proper format
+        ExecStoreMinimalTuple(entry->firstTuple, hashslot, false);
+        slot_getallattrs(hashslot);
+
+        // Clear output slot and copy grouping columns
+        ExecClearTuple(firstSlot);
+        memset(firstSlot->tts_isnull, true,
+               firstSlot->tts_tupleDescriptor->natts * sizeof(bool));
+
+        for (int i = 0; i < perhash->numhashGrpCols; i++) {
+            int varNumber = perhash->hashGrpColIdxInput[i] - 1;
+            firstSlot->tts_values[varNumber] = hashslot->tts_values[i];
+            firstSlot->tts_isnull[varNumber] = hashslot->tts_isnull[i];
+        }
+        ExecStoreVirtualTuple(firstSlot);
+
+        pergroup = (AggStatePerGroup) entry->additional;
+        econtext->ecxt_outertuple = firstSlot;
+
+        // Prepare projection and finalize aggregates
+        prepare_projection_slot(aggstate, econtext->ecxt_outertuple,
+                                aggstate->current_set);
+        finalize_aggregates(aggstate, peragg, pergroup);
+
+        // Project final result
+        result = project_aggregates(aggstate);
+        if (result)
+            return result;
+    }
+
+    return NULL;
+}
+```

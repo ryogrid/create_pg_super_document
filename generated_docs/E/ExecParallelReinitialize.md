@@ -62,3 +62,53 @@ This approach is more efficient than complete teardown and recreation, especiall
 - Reader array is reset to NULL, requiring subsequent call to ExecParallelCreateReaders
 - This function enables efficient restart of parallel execution without full infrastructure teardown
 - All plan nodes get a chance to reset their parallel state through ExecParallelReInitializeDSM traversal
+
+## Simplified Source
+
+```c
+void ExecParallelReinitialize(PlanState *planstate,
+                              ParallelExecutorInfo *pei,
+                              Bitmapset *sendParams)
+{
+    EState *estate = planstate->state;
+
+    // Ensure previous workers are completely finished
+    Assert(pei->finished);
+
+    // Step 1: Re-evaluate initplan parameters for new workers
+    ExecSetParamPlanMulti(sendParams, GetPerTupleExprContext(estate));
+
+    // Step 2: Reset parallel DSM infrastructure
+    ReinitializeParallelDSM(pei->pcxt);
+
+    // Step 3: Re-establish tuple queues (reusing existing shared memory)
+    pei->tqueue = ExecParallelSetupTupleQueues(pei->pcxt, true);  // reinitialize=true
+    pei->reader = NULL;    // Will be recreated when workers launch
+    pei->finished = false; // Ready for new batch of workers
+
+    // Step 4: Update parameter serialization
+    FixedParallelExecutorState *fpes = shm_toc_lookup(pei->pcxt->toc,
+                                                       PARALLEL_KEY_EXECUTOR_FIXED, false);
+
+    // Free old serialized parameters
+    if (DsaPointerIsValid(fpes->param_exec))
+    {
+        dsa_free(pei->area, fpes->param_exec);
+        fpes->param_exec = InvalidDsaPointer;
+    }
+
+    // Serialize current parameter values if needed
+    if (!bms_is_empty(sendParams))
+    {
+        pei->param_exec = SerializeParamExecParams(estate, sendParams, pei->area);
+        fpes->param_exec = pei->param_exec;
+    }
+
+    // Step 5: Reset parallel-aware plan nodes
+    estate->es_query_dsa = pei->area;  // Temporarily install DSA
+    ExecParallelReInitializeDSM(planstate, pei->pcxt);
+    estate->es_query_dsa = NULL;
+
+    // Ready to launch fresh batch of workers
+}
+```

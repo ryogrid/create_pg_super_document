@@ -38,3 +38,54 @@ This function converts various network-related data types to approximate scalar 
 - Returns 0 and sets failure flag for unsupported data types
 - The scalar values maintain ordering relationships necessary for inequality comparisons
 - Located in src/backend/utils/adt/network.c:1502-1568
+
+## Simplified Source
+
+```c
+double
+convert_network_to_scalar(Datum value, Oid typid, bool *failure)
+{
+    switch (typid) {
+        case INETOID:
+        case CIDROID:
+            {
+                inet *ip = DatumGetInetPP(value);
+                double res;
+                int len = (ip_family(ip) == PGSQL_AF_INET) ? 4 : 5;
+
+                // Build scalar from address family and bytes
+                res = ip_family(ip);
+                for (int i = 0; i < len; i++) {
+                    res *= 256;
+                    res += ip_addr(ip)[i];
+                }
+                return res;
+            }
+        case MACADDROID:
+            {
+                macaddr *mac = DatumGetMacaddrP(value);
+                double res;
+
+                // Convert 6-byte MAC address to scalar
+                res = (mac->a << 16) | (mac->b << 8) | (mac->c);
+                res *= 256 * 256 * 256;
+                res += (mac->d << 16) | (mac->e << 8) | (mac->f);
+                return res;
+            }
+        case MACADDR8OID:
+            {
+                macaddr8 *mac = DatumGetMacaddr8P(value);
+                double res;
+
+                // Convert 8-byte MAC address to scalar
+                res = (mac->a << 24) | (mac->b << 16) | (mac->c << 8) | (mac->d);
+                res *= ((double) 256) * 256 * 256 * 256;
+                res += (mac->e << 24) | (mac->f << 16) | (mac->g << 8) | (mac->h);
+                return res;
+            }
+    }
+
+    *failure = true;
+    return 0;
+}
+```

@@ -45,3 +45,54 @@ extract_readme_file_header_comments.py	update_symbol_types.py: ScanDirection - D
 - Returns InvalidBlockNumber when the scan should terminate
 - Position reporting is only done for forward scans to avoid interfering with other scanners
 - The function ensures consistent starting positions across multiple query executions
+
+## Simplified Source
+
+```c
+static inline BlockNumber
+heapgettup_advance_block(HeapScanDesc scan, BlockNumber block, ScanDirection dir) {
+    Assert(scan->rs_base.rs_parallel == NULL);
+
+    if (likely(ScanDirectionIsForward(dir))) {
+        block++;
+
+        // Wrap back to start of heap
+        if (block >= scan->rs_nblocks)
+            block = 0;
+
+        // Report position for synchronization
+        if (scan->rs_base.rs_flags & SO_ALLOW_SYNC)
+            ss_report_location(scan->rs_base.rs_rd, block);
+
+        // Done if back at start block
+        if (block == scan->rs_startblock)
+            return InvalidBlockNumber;
+
+        // Check scan limit
+        if (scan->rs_numblocks != InvalidBlockNumber) {
+            if (--scan->rs_numblocks == 0)
+                return InvalidBlockNumber;
+        }
+
+        return block;
+    } else {
+        // Backward scan
+        // Done if at start block
+        if (block == scan->rs_startblock)
+            return InvalidBlockNumber;
+
+        // Check scan limit
+        if (scan->rs_numblocks != InvalidBlockNumber) {
+            if (--scan->rs_numblocks == 0)
+                return InvalidBlockNumber;
+        }
+
+        // Wrap to end when at block 0
+        if (block == 0)
+            block = scan->rs_nblocks;
+
+        block--;
+        return block;
+    }
+}
+```

@@ -30,3 +30,14 @@ SubqueryRecheck is part of PostgreSQL's EvalPlanQual (EPQ) mechanism, which hand
 - Part of the EvalPlanQual framework for handling concurrent tuple modifications
 - Simple implementation with comment 'nothing to check' reflects the straightforward nature of subquery tuple validation
 - Located at src/backend/executor/nodeSubqueryscan.c:67-82
+
+## Simplified Source
+
+```c
+static bool
+SubqueryRecheck(SubqueryScanState *node, TupleTableSlot *slot)
+{
+    // Subqueries don't need additional validation
+    return true;
+}
+```

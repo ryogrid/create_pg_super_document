@@ -36,3 +36,28 @@ This function prepares a hash slot by transferring only the needed grouping colu
 - Uses slot_getsomeattrs with largestGrpColIdx to ensure all needed attributes are materialized
 - The resulting hash slot contains a virtual tuple with only the grouping key columns
 - Critical for hash-based aggregate processing where grouping keys need to be efficiently compared and hashed
+
+## Simplified Source
+
+```c
+static inline void
+prepare_hash_slot(AggStatePerHash perhash,
+                  TupleTableSlot *inputslot,
+                  TupleTableSlot *hashslot)
+{
+    // Ensure required attributes are materialized
+    slot_getsomeattrs(inputslot, perhash->largestGrpColIdx);
+    ExecClearTuple(hashslot);
+
+    // Copy only grouping key columns to hash slot
+    for (int i = 0; i < perhash->numhashGrpCols; i++)
+    {
+        int varNumber = perhash->hashGrpColIdxInput[i] - 1;
+
+        hashslot->tts_values[i] = inputslot->tts_values[varNumber];
+        hashslot->tts_isnull[i] = inputslot->tts_isnull[varNumber];
+    }
+
+    ExecStoreVirtualTuple(hashslot);
+}
+```

@@ -41,3 +41,32 @@ This function processes the tidrangequals list from a TidRangeScan plan node, co
 - The processed expressions are stored in tidrangestate->trss_tidexprs for later use
 - This is a preparation step that occurs during executor initialization
 - The function transforms plan-time expressions into execution-time structures
+
+## Simplified Source
+
+```c
+static void
+TidExprListCreate(TidRangeScanState *tidrangestate)
+{
+    TidRangeScan *node = (TidRangeScan *) tidrangestate->ss.ps.plan;
+    List *tidexprs = NIL;
+    ListCell *l;
+
+    // Process each TID qualification expression from the plan
+    foreach(l, node->tidrangequals) {
+        OpExpr *opexpr = lfirst(l);
+        TidOpExpr *tidopexpr;
+
+        // Validate that expression is an OpExpr (CTID comparison)
+        if (!IsA(opexpr, OpExpr))
+            elog(ERROR, "could not identify CTID expression");
+
+        // Convert OpExpr to TidOpExpr for execution
+        tidopexpr = MakeTidOpExpr(opexpr, tidrangestate);
+        tidexprs = lappend(tidexprs, tidopexpr);
+    }
+
+    // Store processed expressions for scan execution
+    tidrangestate->trss_tidexprs = tidexprs;
+}
+```

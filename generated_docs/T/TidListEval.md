@@ -63,3 +63,123 @@ The function includes several important optimizations and safety measures:
 - Silently discards invalid TIDs rather than throwing errors, providing robust operation
 - Handles OR semantics across multiple TID expressions by collecting all valid TIDs
 - Part of PostgreSQL's executor infrastructure for direct tuple access via TID values
+
+## Simplified Source
+
+```c
+static void
+TidListEval(TidScanState *tidstate)
+{
+    ExprContext *econtext = tidstate->ss.ps.ps_ExprContext;
+    TableScanDesc scan;
+    ItemPointerData *tidList;
+    int numAllocTids, numTids;
+    ListCell *l;
+
+    // Initialize scan descriptor on demand
+    if (tidstate->ss.ss_currentScanDesc == NULL)
+        tidstate->ss.ss_currentScanDesc =
+            table_beginscan_tid(tidstate->ss.ss_currentRelation,
+                               tidstate->ss.ps.state->es_snapshot);
+    scan = tidstate->ss.ss_currentScanDesc;
+
+    // Allocate initial TID array
+    numAllocTids = list_length(tidstate->tss_tidexprs);
+    tidList = (ItemPointerData *) palloc(numAllocTids * sizeof(ItemPointerData));
+    numTids = 0;
+
+    // Process each TID expression
+    foreach(l, tidstate->tss_tidexprs)
+    {
+        TidExpr *tidexpr = (TidExpr *) lfirst(l);
+        ItemPointer itemptr;
+        bool isNull;
+
+        if (tidexpr->exprstate && !tidexpr->isarray)
+        {
+            // Handle simple TID expression
+            itemptr = (ItemPointer) DatumGetPointer(
+                ExecEvalExprSwitchContext(tidexpr->exprstate, econtext, &isNull));
+
+            if (isNull || !table_tuple_tid_valid(scan, itemptr))
+                continue;
+
+            // Expand array if needed
+            if (numTids >= numAllocTids)
+            {
+                numAllocTids *= 2;
+                tidList = (ItemPointerData *) repalloc(tidList,
+                                                      numAllocTids * sizeof(ItemPointerData));
+            }
+            tidList[numTids++] = *itemptr;
+        }
+        else if (tidexpr->exprstate && tidexpr->isarray)
+        {
+            // Handle array TID expression
+            Datum arraydatum = ExecEvalExprSwitchContext(tidexpr->exprstate, econtext, &isNull);
+            if (isNull)
+                continue;
+
+            ArrayType *itemarray = DatumGetArrayTypeP(arraydatum);
+            Datum *ipdatums;
+            bool *ipnulls;
+            int ndatums;
+
+            deconstruct_array_builtin(itemarray, TIDOID, &ipdatums, &ipnulls, &ndatums);
+
+            // Expand array for all elements
+            if (numTids + ndatums > numAllocTids)
+            {
+                numAllocTids = numTids + ndatums;
+                tidList = (ItemPointerData *) repalloc(tidList,
+                                                      numAllocTids * sizeof(ItemPointerData));
+            }
+
+            // Add each valid TID from the array
+            for (int i = 0; i < ndatums; i++)
+            {
+                if (ipnulls[i])
+                    continue;
+
+                itemptr = (ItemPointer) DatumGetPointer(ipdatums[i]);
+                if (table_tuple_tid_valid(scan, itemptr))
+                    tidList[numTids++] = *itemptr;
+            }
+            pfree(ipdatums);
+            pfree(ipnulls);
+        }
+        else
+        {
+            // Handle CURRENT OF cursor expression
+            ItemPointerData cursor_tid;
+            Assert(tidexpr->cexpr);
+
+            if (execCurrentOf(tidexpr->cexpr, econtext,
+                             RelationGetRelid(tidstate->ss.ss_currentRelation),
+                             &cursor_tid))
+            {
+                if (numTids >= numAllocTids)
+                {
+                    numAllocTids *= 2;
+                    tidList = (ItemPointerData *) repalloc(tidList,
+                                                          numAllocTids * sizeof(ItemPointerData));
+                }
+                tidList[numTids++] = cursor_tid;
+            }
+        }
+    }
+
+    // Sort and deduplicate TID list for efficient access
+    if (numTids > 1)
+    {
+        Assert(!tidstate->tss_isCurrentOf);
+        qsort(tidList, numTids, sizeof(ItemPointerData), itemptr_comparator);
+        numTids = qunique(tidList, numTids, sizeof(ItemPointerData), itemptr_comparator);
+    }
+
+    // Store results in scan state
+    tidstate->tss_TidList = tidList;
+    tidstate->tss_NumTids = numTids;
+    tidstate->tss_TidPtr = -1;
+}
+```

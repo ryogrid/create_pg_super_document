@@ -163,3 +163,95 @@ Returns true if any new items were actually added (not all duplicates), false if
 - Maintains sorted order of items within segments
 - Located in src/backend/access/gin/gindatapage.c at lines 1444-1570
 - Part of the GIN index insertion and update infrastructure
+
+## Simplified Source
+
+```c
+static bool
+addItemsToLeaf(disassembledLeaf *leaf, ItemPointer newItems, int nNewItems)
+{
+    dlist_iter iter;
+    ItemPointer nextnew = newItems;
+    int newleft = nNewItems;
+    bool modified = false;
+
+    // Handle empty page case
+    if (dlist_is_empty(&leaf->segments)) {
+        leafSegmentInfo *newseg = palloc(sizeof(leafSegmentInfo));
+        newseg->seg = NULL;
+        newseg->items = newItems;
+        newseg->nitems = nNewItems;
+        newseg->action = GIN_SEGMENT_INSERT;
+        dlist_push_tail(&leaf->segments, &newseg->node);
+        return true;
+    }
+
+    // Distribute new items across existing segments
+    dlist_foreach(iter, &leaf->segments) {
+        leafSegmentInfo *cur = (leafSegmentInfo *) dlist_container(leafSegmentInfo, node, iter.cur);
+        int nthis;
+
+        // Determine how many new items belong to this segment
+        if (!dlist_has_next(&leaf->segments, iter.cur)) {
+            nthis = newleft;  // Last segment gets remaining items
+        } else {
+            leafSegmentInfo *next = (leafSegmentInfo *) dlist_container(leafSegmentInfo, node,
+                                                                       dlist_next_node(&leaf->segments, iter.cur));
+            ItemPointerData next_first = next->items ? next->items[0] : next->seg->first;
+
+            nthis = 0;
+            while (nthis < newleft && ginCompareItemPointers(&nextnew[nthis], &next_first) < 0)
+                nthis++;
+        }
+
+        if (nthis == 0) continue;
+
+        // Decode segment items if needed
+        if (!cur->items)
+            cur->items = ginPostingListDecode(cur->seg, &cur->nitems);
+
+        // Fast path: create new segment for appends to avoid oversized segments
+        if (!dlist_has_next(&leaf->segments, iter.cur) &&
+            ginCompareItemPointers(&cur->items[cur->nitems - 1], &nextnew[0]) < 0 &&
+            cur->seg != NULL &&
+            SizeOfGinPostingList(cur->seg) >= GinPostingListSegmentTargetSize) {
+
+            leafSegmentInfo *newseg = palloc(sizeof(leafSegmentInfo));
+            newseg->seg = NULL;
+            newseg->items = nextnew;
+            newseg->nitems = nthis;
+            newseg->action = GIN_SEGMENT_INSERT;
+            dlist_push_tail(&leaf->segments, &newseg->node);
+            modified = true;
+            break;
+        }
+
+        // Merge new items with existing items
+        ItemPointer tmpitems;
+        int ntmpitems;
+        tmpitems = ginMergeItemPointers(cur->items, cur->nitems, nextnew, nthis, &ntmpitems);
+
+        if (ntmpitems != cur->nitems) {
+            // Set appropriate action based on merge result
+            if (ntmpitems == nthis + cur->nitems && cur->action == GIN_SEGMENT_UNMODIFIED) {
+                cur->action = GIN_SEGMENT_ADDITEMS;
+                cur->modifieditems = nextnew;
+                cur->nmodifieditems = nthis;
+            } else {
+                cur->action = GIN_SEGMENT_REPLACE;
+            }
+
+            cur->items = tmpitems;
+            cur->nitems = ntmpitems;
+            cur->seg = NULL;
+            modified = true;
+        }
+
+        nextnew += nthis;
+        newleft -= nthis;
+        if (newleft == 0) break;
+    }
+
+    return modified;
+}
+```

@@ -45,3 +45,36 @@ The computed distances are sorted in descending order so that the largest gaps a
 - Distance calculations may be expensive depending on the data type, so they are performed once and cached
 - The resulting distances array is sorted to optimize the range merging process
 - Part of PostgreSQL's BRIN (Block Range INdex) implementation for handling multiple values per range
+
+## Simplified Source
+
+```c
+static DistanceValue *
+build_distances(FmgrInfo *distanceFn, Oid colloid,
+                ExpandedRange *eranges, int neranges)
+{
+    // Single range has no gaps to calculate
+    if (neranges == 1)
+        return NULL;
+
+    int ndistances = neranges - 1;
+    DistanceValue *distances = (DistanceValue *) palloc0(sizeof(DistanceValue) * ndistances);
+
+    // Calculate distance between each consecutive pair of ranges
+    for (int i = 0; i < ndistances; i++) {
+        Datum maxval = eranges[i].maxval;        // End of current range
+        Datum minval = eranges[i + 1].minval;    // Start of next range
+
+        // Compute gap size using distance function
+        Datum r = FunctionCall2Coll(distanceFn, colloid, maxval, minval);
+
+        distances[i].index = i;                   // Remember which gap this is
+        distances[i].value = DatumGetFloat8(r);  // Store distance value
+    }
+
+    // Sort distances in descending order (largest gaps first)
+    qsort(distances, ndistances, sizeof(DistanceValue), compare_distances);
+
+    return distances;
+}
+```

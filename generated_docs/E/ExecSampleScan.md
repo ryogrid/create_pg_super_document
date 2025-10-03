@@ -35,3 +35,18 @@ ExecSampleScan serves as the primary execution entry point for sample scan nodes
 - The function is typically assigned to the ps_ExecProcNode function pointer during node initialization
 - Returns a TupleTableSlot containing the next sampled tuple, or NULL when the sample is exhausted
 - Part of the executor node interface that enables sample scans to be used in query plans like other scan operations
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecSampleScan(PlanState *pstate)
+{
+    SampleScanState *node = castNode(SampleScanState, pstate);
+
+    // Delegate to generic scan executor with sample-specific methods
+    return ExecScan(&node->ss,
+                    (ExecScanAccessMtd) SampleNext,      // How to get next tuple
+                    (ExecScanRecheckMtd) SampleRecheck); // How to recheck tuples
+}
+```

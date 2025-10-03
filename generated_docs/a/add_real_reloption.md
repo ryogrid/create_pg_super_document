@@ -42,3 +42,19 @@ This function provides the public interface for adding real (double-precision fl
 - Commonly used for percentage values, ratios, threshold values, and other parameters requiring fractional precision
 - Extensions and custom access methods use this function to define configurable floating-point parameters
 - The function assumes the caller has validated the parameter ranges and naming conventions
+
+## Simplified Source
+
+```c
+void add_real_reloption(bits32 kinds, const char *name, const char *desc,
+                        double default_val, double min_val, double max_val,
+                        LOCKMODE lockmode) {
+    // Create a new floating-point reloption with validation bounds
+    relopt_real *new_option = init_real_reloption(kinds, name, desc,
+                                                  default_val, min_val,
+                                                  max_val, lockmode);
+
+    // Register the option globally
+    add_reloption((relopt_gen *) new_option);
+}
+```

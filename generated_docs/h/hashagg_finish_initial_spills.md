@@ -41,3 +41,30 @@ The function iterates through all grouping sets, processes each spill structure,
 - Transitions the aggregation state out of spill mode by setting hash_spill_mode to false
 - Updates metrics with the total number of partitions processed across all grouping sets
 - This function is part of PostgreSQL's memory-constrained hash aggregation strategy that handles datasets larger than available memory
+
+## Simplified Source
+
+```c
+static void hashagg_finish_initial_spills(AggState *aggstate) {
+    int setno;
+    int total_npartitions = 0;
+
+    if (aggstate->hash_spills != NULL) {
+        // Process each spill structure and convert to batches
+        for (setno = 0; setno < aggstate->num_hashes; setno++) {
+            HashAggSpill *spill = &aggstate->hash_spills[setno];
+
+            total_npartitions += spill->npartitions;
+            hashagg_spill_finish(aggstate, spill, setno);
+        }
+
+        // Clean up initial spill structures
+        pfree(aggstate->hash_spills);
+        aggstate->hash_spills = NULL;
+    }
+
+    // Update metrics and exit spill mode
+    hash_agg_update_metrics(aggstate, false, total_npartitions);
+    aggstate->hash_spill_mode = false;
+}
+```

@@ -38,3 +38,29 @@ The function handles edge cases where no valid subplans exist or where no valid 
 - The separation enables mixed execution strategies where some subplans run synchronously while others execute asynchronously
 - Updates as_nasyncremain counter based on whether async subplans are present
 - Critical for proper initialization of the Append node's dual execution modes
+
+## Simplified Source
+
+```c
+static void classify_matching_subplans(AppendState *node) {
+    Bitmapset *valid_asyncplans;
+
+    // Early exit if no valid subplans exist
+    if (bms_is_empty(node->as_valid_subplans)) {
+        node->as_syncdone = true;
+        node->as_nasyncremain = 0;
+        return;
+    }
+
+    // Early exit if no async subplans overlap with valid ones
+    if (!bms_overlap(node->as_valid_subplans, node->as_asyncplans)) {
+        node->as_nasyncremain = 0;
+        return;
+    }
+
+    // Separate valid subplans into sync and async categories
+    valid_asyncplans = bms_intersect(node->as_asyncplans, node->as_valid_subplans);
+    node->as_valid_subplans = bms_del_members(node->as_valid_subplans, valid_asyncplans);
+    node->as_valid_asyncplans = valid_asyncplans;
+}
+```

@@ -37,3 +37,41 @@ The function uses a bitmapset (`as_valid_subplans`) to track which subplans are 
 - Supports bidirectional scanning using `bms_next_member` for forward scans and `bms_prev_member` for backward scans
 - The function is static and only used within the nodeAppend.c file for local (non-parallel) execution
 - Runtime partition pruning integration allows dynamic exclusion of subplans that don't match current parameter values
+
+## Simplified Source
+
+```c
+static bool choose_next_subplan_locally(AppendState *node) {
+    int whichplan = node->as_whichplan;
+    int nextplan;
+
+    // Return false if no subplans or sync is done
+    if (node->as_nplans <= 0 || node->as_syncdone)
+        return false;
+
+    // Initialize on first call: identify valid subplans if needed
+    if (whichplan == INVALID_SUBPLAN_INDEX) {
+        if (node->as_nasyncplans == 0 && !node->as_valid_subplans_identified) {
+            node->as_valid_subplans = ExecFindMatchingSubPlans(node->as_prune_state, false);
+            node->as_valid_subplans_identified = true;
+        }
+        whichplan = -1;
+    }
+
+    // Find next valid subplan based on scan direction
+    if (ScanDirectionIsForward(node->ps.state->es_direction))
+        nextplan = bms_next_member(node->as_valid_subplans, whichplan);
+    else
+        nextplan = bms_prev_member(node->as_valid_subplans, whichplan);
+
+    // Handle end of subplans
+    if (nextplan < 0) {
+        if (node->as_nasyncplans > 0)
+            node->as_syncdone = true;
+        return false;
+    }
+
+    node->as_whichplan = nextplan;
+    return true;
+}
+```

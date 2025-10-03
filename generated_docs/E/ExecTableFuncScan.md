@@ -34,3 +34,18 @@ The function serves as the bridge between the plan execution engine and the tabl
 - The function is static, indicating it's internal to the nodeTableFuncscan.c module
 - Follows the executor node pattern of casting the generic PlanState to the specific node state type
 - Integrates seamlessly with PostgreSQL's query execution and optimization infrastructure
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecTableFuncScan(PlanState *pstate)
+{
+    TableFuncScanState *node = castNode(TableFuncScanState, pstate);
+
+    // Delegate to generic scan executor with table function-specific methods
+    return ExecScan(&node->ss,
+                    (ExecScanAccessMtd) TableFuncNext,      // How to get next tuple
+                    (ExecScanRecheckMtd) TableFuncRecheck); // How to recheck tuples
+}
+```

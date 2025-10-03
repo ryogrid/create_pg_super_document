@@ -40,3 +40,20 @@ The function initializes all barrier state variables to their starting values, s
 - All barrier state counters (phase, arrived, elected) are initialized to zero
 - The mutex provides thread-safe access to barrier state during synchronization operations
 - This is the mandatory first step before any barrier can be used for process synchronization
+
+## Simplified Source
+
+```c
+void BarrierInit(Barrier *barrier, int participants) {
+    // Initialize synchronization primitives
+    SpinLockInit(&barrier->mutex);
+    ConditionVariableInit(&barrier->condition_variable);
+
+    // Set up barrier state
+    barrier->participants = participants;
+    barrier->arrived = 0;
+    barrier->phase = 0;
+    barrier->elected = 0;
+    barrier->static_party = participants > 0;  // true for fixed size, false for dynamic
+}
+```

@@ -43,3 +43,29 @@ The cleanup process follows these steps:
 - Returns InvalidBuffer if lock cannot be acquired, allowing caller to skip this page
 - Used primarily during maintenance operations like hash table expansion
 - The conditional locking prevents cleanup operations from becoming bottlenecks
+
+## Simplified Source
+
+```c
+Buffer _hash_getbuf_with_condlock_cleanup(Relation rel, BlockNumber blkno, int flags) {
+    // P_NEW not allowed - this function only accesses existing pages
+    if (blkno == P_NEW) {
+        elog(ERROR, "hash AM does not use P_NEW");
+    }
+
+    // Read the buffer from disk
+    Buffer buf = ReadBuffer(rel, blkno);
+
+    // Try to get cleanup lock without blocking
+    if (!ConditionalLockBufferForCleanup(buf)) {
+        // Failed to get lock - release buffer and give up
+        ReleaseBuffer(buf);
+        return InvalidBuffer;
+    }
+
+    // Validate page contents and type
+    _hash_checkpage(rel, buf, flags);
+
+    return buf;  // Buffer is now cleanup-locked and pinned
+}
+```

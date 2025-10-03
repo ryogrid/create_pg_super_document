@@ -42,3 +42,23 @@ This is more efficient than reading an existing page and then overwriting it, si
 - Returns buffer in write-locked state, suitable for immediate modification
 - Can only be used for existing blocks within filesystem EOF, not for extending the index
 - More efficient than read-modify-write cycle when entire page content will be replaced
+
+## Simplified Source
+
+```c
+Buffer _hash_getinitbuf(Relation rel, BlockNumber blkno) {
+    // P_NEW not allowed - this function only accesses existing pages
+    if (blkno == P_NEW) {
+        elog(ERROR, "hash AM does not use P_NEW");
+    }
+
+    // Read buffer with zero-and-lock mode (avoids reading old content)
+    Buffer buf = ReadBufferExtended(rel, MAIN_FORKNUM, blkno,
+                                   RBM_ZERO_AND_LOCK, NULL);
+
+    // Initialize the page structure
+    _hash_pageinit(BufferGetPage(buf), BufferGetPageSize(buf));
+
+    return buf;  // Buffer is now write-locked, pinned, and initialized
+}
+```

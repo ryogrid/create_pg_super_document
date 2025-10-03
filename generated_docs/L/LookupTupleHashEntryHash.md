@@ -39,3 +39,32 @@ The function is particularly useful in scenarios where hash values are computed 
 - Useful for performance optimization in aggregation operations where hash values may be cached or computed separately
 - Part of the tuple hash table API that provides flexibility for different usage patterns
 - For new entries, the additional_data field is automatically zeroed by the internal implementation
+
+## Simplified Source
+
+```c
+TupleHashEntry LookupTupleHashEntryHash(TupleHashTable hashtable, TupleTableSlot *slot,
+                                       bool *isnew, uint32 hash) {
+    TupleHashEntry entry;
+    MemoryContext oldContext;
+
+    // Switch to temporary context for hash operations
+    oldContext = MemoryContextSwitchTo(hashtable->tempcxt);
+
+    // Set up hash table context with slot and functions
+    hashtable->inputslot = slot;
+    hashtable->in_hash_funcs = hashtable->tab_hash_funcs;
+    hashtable->cur_eq_func = hashtable->tab_eq_func;
+
+    // Perform the actual lookup/insert with provided hash
+    entry = LookupTupleHashEntry_internal(hashtable, slot, isnew, hash);
+
+    // Validate hash consistency
+    Assert(entry == NULL || entry->hash == hash);
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldContext);
+
+    return entry;
+}
+```

@@ -37,3 +37,16 @@ The function is designed to provide reliable, predictable behavior for ASCII cha
 - This function is part of PostgreSQL's portable string handling utilities located in 
 - It's commonly used in text processing, pattern matching, and formatting operations where case-insensitive ASCII comparisons are needed
 - The function ensures consistent behavior regardless of the system's locale settings, which is important for database reliability
+
+## Simplified Source
+
+```c
+unsigned char
+pg_ascii_tolower(unsigned char ch)
+{
+    // Convert ASCII uppercase letters to lowercase
+    if (ch >= 'A' && ch <= 'Z')
+        ch += 'a' - 'A';  // Add 32 to convert A-Z to a-z
+    return ch;
+}
+```

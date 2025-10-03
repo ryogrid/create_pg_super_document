@@ -69,3 +69,125 @@ Key components initialized:
 - Creates a DSA area that can be used by both leader and worker processes for dynamic allocations
 - All shared memory structures are registered in the table of contents with specific keys for worker discovery
 - The function temporarily installs the DSA area in the estate during plan initialization to enable DSA-aware operations
+
+## Simplified Source
+
+```c
+ParallelExecutorInfo *ExecInitParallelPlan(PlanState *planstate, EState *estate,
+                                           Bitmapset *sendParams, int nworkers,
+                                           int64 tuples_needed)
+{
+    ParallelExecutorInfo *pei;
+    ParallelContext *pcxt;
+
+    // Step 1: Force evaluation of initplan parameters for workers
+    ExecSetParamPlanMulti(sendParams, GetPerTupleExprContext(estate));
+
+    // Step 2: Create parallel executor info structure
+    pei = palloc0(sizeof(ParallelExecutorInfo));
+    pei->finished = false;
+    pei->planstate = planstate;
+
+    // Step 3: Serialize plan for worker processes
+    char *serialized_plan = ExecSerializePlan(planstate->plan, estate);
+
+    // Step 4: Create parallel context for managing workers
+    pcxt = CreateParallelContext("postgres", "ParallelQueryMain", nworkers);
+    pei->pcxt = pcxt;
+
+    // Step 5: Estimate memory requirements for shared structures
+    ExecParallelEstimateContext estimate_context;
+    estimate_context.pcxt = pcxt;
+    estimate_context.nnodes = 0;
+
+    // Estimate space for all shared data structures
+    shm_toc_estimate_chunk(&pcxt->estimator, sizeof(FixedParallelExecutorState));
+    shm_toc_estimate_chunk(&pcxt->estimator, strlen(estate->es_sourceText) + 1);
+    shm_toc_estimate_chunk(&pcxt->estimator, strlen(serialized_plan) + 1);
+    shm_toc_estimate_chunk(&pcxt->estimator, EstimateParamListSpace(estate->es_param_list_info));
+    shm_toc_estimate_chunk(&pcxt->estimator, sizeof(BufferUsage) * pcxt->nworkers);
+    shm_toc_estimate_chunk(&pcxt->estimator, sizeof(WalUsage) * pcxt->nworkers);
+    shm_toc_estimate_chunk(&pcxt->estimator, PARALLEL_TUPLE_QUEUE_SIZE * pcxt->nworkers);
+
+    // Let parallel-aware nodes add their estimates
+    ExecParallelEstimate(planstate, &estimate_context);
+
+    // Step 6: Create the dynamic shared memory segment
+    InitializeParallelDSM(pcxt);
+
+    // Step 7: Store all shared data in DSM
+    // Store fixed execution state
+    FixedParallelExecutorState *fpes = shm_toc_allocate(pcxt->toc, sizeof(FixedParallelExecutorState));
+    fpes->tuples_needed = tuples_needed;
+    fpes->eflags = estate->es_top_eflags;
+    fpes->jit_flags = estate->es_jit_flags;
+    shm_toc_insert(pcxt->toc, PARALLEL_KEY_EXECUTOR_FIXED, fpes);
+
+    // Store query text and serialized plan
+    char *query_space = shm_toc_allocate(pcxt->toc, strlen(estate->es_sourceText) + 1);
+    strcpy(query_space, estate->es_sourceText);
+    shm_toc_insert(pcxt->toc, PARALLEL_KEY_QUERY_TEXT, query_space);
+
+    char *plan_space = shm_toc_allocate(pcxt->toc, strlen(serialized_plan) + 1);
+    strcpy(plan_space, serialized_plan);
+    shm_toc_insert(pcxt->toc, PARALLEL_KEY_PLANNEDSTMT, plan_space);
+
+    // Store parameters
+    char *param_space = shm_toc_allocate(pcxt->toc, EstimateParamListSpace(estate->es_param_list_info));
+    shm_toc_insert(pcxt->toc, PARALLEL_KEY_PARAMLISTINFO, param_space);
+    SerializeParamList(estate->es_param_list_info, &param_space);
+
+    // Step 8: Set up communication infrastructure
+    // Allocate resource tracking arrays
+    pei->buffer_usage = shm_toc_allocate(pcxt->toc, sizeof(BufferUsage) * pcxt->nworkers);
+    pei->wal_usage = shm_toc_allocate(pcxt->toc, sizeof(WalUsage) * pcxt->nworkers);
+    shm_toc_insert(pcxt->toc, PARALLEL_KEY_BUFFER_USAGE, pei->buffer_usage);
+    shm_toc_insert(pcxt->toc, PARALLEL_KEY_WAL_USAGE, pei->wal_usage);
+
+    // Set up tuple queues for result collection
+    pei->tqueue = ExecParallelSetupTupleQueues(pcxt, false);
+    pei->reader = NULL;  // Created later when workers start
+
+    // Step 9: Set up instrumentation if enabled
+    if (estate->es_instrument)
+    {
+        // Allocate and initialize instrumentation structures
+        size_t instr_size = sizeof(SharedExecutorInstrumentation) +
+                           sizeof(Instrumentation) * estimate_context.nnodes * nworkers;
+        SharedExecutorInstrumentation *instrumentation = shm_toc_allocate(pcxt->toc, instr_size);
+        instrumentation->instrument_options = estate->es_instrument;
+        instrumentation->num_workers = nworkers;
+        instrumentation->num_plan_nodes = estimate_context.nnodes;
+        shm_toc_insert(pcxt->toc, PARALLEL_KEY_INSTRUMENTATION, instrumentation);
+        pei->instrumentation = instrumentation;
+    }
+
+    // Step 10: Create DSA area and initialize parallel-aware nodes
+    if (pcxt->seg != NULL)
+    {
+        char *dsa_space = shm_toc_allocate(pcxt->toc, dsa_minimum_size());
+        shm_toc_insert(pcxt->toc, PARALLEL_KEY_DSA, dsa_space);
+        pei->area = dsa_create_in_place(dsa_space, dsa_minimum_size(),
+                                        LWTRANCHE_PARALLEL_QUERY_DSA, pcxt->seg);
+
+        // Serialize execution parameters using DSA storage
+        if (!bms_is_empty(sendParams))
+        {
+            pei->param_exec = SerializeParamExecParams(estate, sendParams, pei->area);
+            fpes->param_exec = pei->param_exec;
+        }
+    }
+
+    // Step 11: Initialize parallel-aware plan nodes
+    ExecParallelInitializeDSMContext init_context;
+    init_context.pcxt = pcxt;
+    init_context.instrumentation = pei->instrumentation;
+    init_context.nnodes = 0;
+
+    estate->es_query_dsa = pei->area;  // Temporarily install DSA
+    ExecParallelInitializeDSM(planstate, &init_context);
+    estate->es_query_dsa = NULL;
+
+    return pei;  // Ready for parallel execution
+}
+```

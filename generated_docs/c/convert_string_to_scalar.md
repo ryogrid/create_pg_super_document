@@ -48,3 +48,60 @@ This function performs the core work of  for character-string data types. It con
 - Character class expansion (A-Z, a-z, 0-9) reflects understanding of typical database content patterns
 - Common prefix stripping is particularly valuable for hierarchical or formatted data like phone numbers, postal codes, or product codes
 - The function is part of PostgreSQL's query planner's selectivity estimation system, crucial for generating optimal query plans
+
+## Simplified Source
+
+```c
+static void
+convert_string_to_scalar(char *value, double *scaledvalue,
+                        char *lobound, double *scaledlobound,
+                        char *hibound, double *scaledhibound)
+{
+    int rangelo, rangehi;
+
+    // Determine character range from bounds
+    rangelo = rangehi = (unsigned char) hibound[0];
+    for (char *sptr = lobound; *sptr; sptr++) {
+        if (rangelo > (unsigned char) *sptr)
+            rangelo = (unsigned char) *sptr;
+        if (rangehi < (unsigned char) *sptr)
+            rangehi = (unsigned char) *sptr;
+    }
+    for (char *sptr = hibound; *sptr; sptr++) {
+        if (rangelo > (unsigned char) *sptr)
+            rangelo = (unsigned char) *sptr;
+        if (rangehi < (unsigned char) *sptr)
+            rangehi = (unsigned char) *sptr;
+    }
+
+    // Expand range to include full character classes
+    if (rangelo <= 'Z' && rangehi >= 'A') {
+        if (rangelo > 'A') rangelo = 'A';
+        if (rangehi < 'Z') rangehi = 'Z';
+    }
+    if (rangelo <= 'z' && rangehi >= 'a') {
+        if (rangelo > 'a') rangelo = 'a';
+        if (rangehi < 'z') rangehi = 'z';
+    }
+    if (rangelo <= '9' && rangehi >= '0') {
+        if (rangelo > '0') rangelo = '0';
+        if (rangehi < '9') rangehi = '9';
+    }
+
+    // Use default ASCII range if too narrow
+    if (rangehi - rangelo < 9) {
+        rangelo = ' ';
+        rangehi = 127;
+    }
+
+    // Strip common prefix
+    while (*lobound && *lobound == *hibound && *lobound == *value) {
+        lobound++; hibound++; value++;
+    }
+
+    // Convert to scalar values
+    *scaledvalue = convert_one_string_to_scalar(value, rangelo, rangehi);
+    *scaledlobound = convert_one_string_to_scalar(lobound, rangelo, rangehi);
+    *scaledhibound = convert_one_string_to_scalar(hibound, rangelo, rangehi);
+}
+```

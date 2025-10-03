@@ -44,3 +44,44 @@ The function uses the tuple descriptor provided by the access method rather than
 - Memory allocation for name conversions uses the per-tuple expression context for automatic cleanup
 - The name column conversion is marked as unlikely since it primarily affects system catalog queries
 - Asserts that the slot and index tuple descriptors have the same number of attributes for safety
+
+## Simplified Source
+
+```c
+static void
+StoreIndexTuple(IndexOnlyScanState *node, TupleTableSlot *slot,
+                IndexTuple itup, TupleDesc itupdesc)
+{
+    // Ensure slot and index tuple have same number of attributes
+    Assert(slot->tts_tupleDescriptor->natts == itupdesc->natts);
+
+    // Clear slot and extract index tuple data
+    ExecClearTuple(slot);
+    index_deform_tuple(itup, itupdesc, slot->tts_values, slot->tts_isnull);
+
+    // Handle special case: name columns stored as C strings
+    if (unlikely(node->ioss_NameCStringAttNums != NULL)) {
+        int attcount = node->ioss_NameCStringCount;
+
+        for (int idx = 0; idx < attcount; idx++) {
+            int attnum = node->ioss_NameCStringAttNums[idx];
+
+            // Skip null values
+            if (slot->tts_isnull[attnum])
+                continue;
+
+            // Allocate NAMEDATALEN-sized memory and copy C string
+            Name name = (Name) MemoryContextAlloc(
+                node->ss.ps.ps_ExprContext->ecxt_per_tuple_memory,
+                NAMEDATALEN);
+
+            // Use namestrcpy to zero-pad trailing bytes
+            namestrcpy(name, DatumGetCString(slot->tts_values[attnum]));
+            slot->tts_values[attnum] = NameGetDatum(name);
+        }
+    }
+
+    // Finalize the virtual tuple in the slot
+    ExecStoreVirtualTuple(slot);
+}
+```

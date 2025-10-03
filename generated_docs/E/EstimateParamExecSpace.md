@@ -42,3 +42,45 @@ The space calculation accounts for variable-length data types and ensures accura
 - The function works with PostgreSQL's bitmapset data structure for efficient parameter set iteration
 - Type length and by-value information is cached per parameter to optimize the estimation process
 - Located in src/backend/executor/execParallel.c:310-353
+
+## Simplified Source
+
+```c
+static Size EstimateParamExecSpace(EState *estate, Bitmapset *params)
+{
+    int paramid;
+    Size sz = sizeof(int);  // Space for parameter count
+
+    // Iterate through each parameter in the bitmapset
+    paramid = -1;
+    while ((paramid = bms_next_member(params, paramid)) >= 0)
+    {
+        Oid typeOid;
+        int16 typLen;
+        bool typByVal;
+        ParamExecData *prm;
+
+        // Get parameter data and type information
+        prm = &(estate->es_param_exec_vals[paramid]);
+        typeOid = list_nth_oid(estate->es_plannedstmt->paramExecTypes, paramid);
+
+        // Add space for parameter ID
+        sz = add_size(sz, sizeof(int));
+
+        // Determine type characteristics for space calculation
+        if (OidIsValid(typeOid))
+            get_typlenbyval(typeOid, &typLen, &typByVal);
+        else
+        {
+            // Default to by-value if no type OID available
+            typLen = sizeof(Datum);
+            typByVal = true;
+        }
+
+        // Add space needed for the parameter's datum
+        sz = add_size(sz, datumEstimateSpace(prm->value, prm->isnull,
+                                           typByVal, typLen));
+    }
+    return sz;
+}
+```

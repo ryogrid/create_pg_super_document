@@ -43,3 +43,16 @@ This function is particularly useful for operations that need to adjust scan beh
 - Used primarily in specialized scan operations like table sampling
 - Part of PostgreSQL's table access method (TAM) abstraction layer
 - Preserves start block selection even when sync scan behavior changes
+
+## Simplified Source
+
+```c
+static inline void table_rescan_set_params(TableScanDesc scan, struct ScanKeyData *key,
+                                          bool allow_strat, bool allow_sync, bool allow_pagemode) {
+    // Restart scan with new parameters
+    // Set the 'true' flag to indicate parameter changes are allowed
+    // Preserves previously selected start block even when syncscan settings change
+    scan->rs_rd->rd_tableam->scan_rescan(scan, key, true,
+                                        allow_strat, allow_sync, allow_pagemode);
+}
+```

@@ -40,3 +40,133 @@ This function constructs a complex two-level data structure (PartitionPruneState
 - Accumulates PARAM_EXEC parameter IDs that affect partitioning decisions
 - Skips execution-time pruning during EXPLAIN (GENERIC_PLAN) when parameter values may be missing
 - Maps partition OIDs between plan-time and execution-time, handling cases where partitions may have been added or removed
+
+## Simplified Source
+
+```c
+static PartitionPruneState *
+CreatePartitionPruneState(PlanState *planstate, PartitionPruneInfo *pruneinfo)
+{
+    EState *estate = planstate->state;
+    PartitionPruneState *prunestate;
+    int n_part_hierarchies = list_length(pruneinfo->prune_infos);
+    ExprContext *econtext = planstate->ps_ExprContext;
+
+    // Ensure partition directory exists for reading data
+    if (estate->es_partition_directory == NULL)
+        estate->es_partition_directory = CreatePartitionDirectory(estate->es_query_cxt, false);
+
+    // Allocate main pruning state structure
+    prunestate = (PartitionPruneState *)
+        palloc(offsetof(PartitionPruneState, partprunedata) +
+               sizeof(PartitionPruningData *) * n_part_hierarchies);
+
+    // Initialize basic fields
+    prunestate->execparamids = NULL;
+    prunestate->other_subplans = bms_copy(pruneinfo->other_subplans);
+    prunestate->do_initial_prune = false;
+    prunestate->do_exec_prune = false;
+    prunestate->num_partprunedata = n_part_hierarchies;
+
+    // Create memory context for pruning operations
+    prunestate->prune_context = AllocSetContextCreate(CurrentMemoryContext,
+                                                     "Partition Prune",
+                                                     ALLOCSET_DEFAULT_SIZES);
+
+    // Process each partition hierarchy
+    int i = 0;
+    foreach(lc, pruneinfo->prune_infos)
+    {
+        List *partrelpruneinfos = lfirst_node(List, lc);
+        int npartrelpruneinfos = list_length(partrelpruneinfos);
+
+        // Allocate pruning data for this hierarchy
+        PartitionPruningData *prunedata = (PartitionPruningData *)
+            palloc(offsetof(PartitionPruningData, partrelprunedata) +
+                   npartrelpruneinfos * sizeof(PartitionedRelPruningData));
+
+        prunestate->partprunedata[i] = prunedata;
+        prunedata->num_partrelprunedata = npartrelpruneinfos;
+
+        // Process each partitioned relation in this hierarchy
+        int j = 0;
+        foreach(lc2, partrelpruneinfos)
+        {
+            PartitionedRelPruneInfo *pinfo = lfirst_node(PartitionedRelPruneInfo, lc2);
+            PartitionedRelPruningData *pprune = &prunedata->partrelprunedata[j];
+
+            // Get current partition information
+            Relation partrel = ExecGetRangeTableRelation(estate, pinfo->rtindex);
+            PartitionKey partkey = RelationGetPartitionKey(partrel);
+            PartitionDesc partdesc = PartitionDirectoryLookup(estate->es_partition_directory, partrel);
+
+            // Initialize subplan mapping (handle partition changes)
+            setup_partition_mapping(pprune, partdesc, pinfo);
+
+            // Copy present_parts bitmap
+            pprune->present_parts = bms_copy(pinfo->present_parts);
+
+            // Initialize pruning contexts
+            setup_pruning_contexts(pprune, pinfo, partdesc, partkey, planstate, econtext, prunestate);
+
+            // Accumulate PARAM_EXEC parameter IDs
+            prunestate->execparamids = bms_add_members(prunestate->execparamids, pinfo->execparamids);
+
+            j++;
+        }
+        i++;
+    }
+
+    return prunestate;
+}
+
+// Helper: Set up partition-to-subplan mapping
+static void
+setup_partition_mapping(PartitionedRelPruningData *pprune, PartitionDesc partdesc,
+                        PartitionedRelPruneInfo *pinfo)
+{
+    pprune->nparts = partdesc->nparts;
+    pprune->subplan_map = palloc(sizeof(int) * partdesc->nparts);
+
+    // Fast path: partition sets are identical
+    if (partdesc->nparts == pinfo->nparts &&
+        memcmp(partdesc->oids, pinfo->relid_map, sizeof(int) * partdesc->nparts) == 0)
+    {
+        pprune->subpart_map = pinfo->subpart_map;
+        memcpy(pprune->subplan_map, pinfo->subplan_map, sizeof(int) * pinfo->nparts);
+    }
+    else
+    {
+        // Slow path: handle partition changes by matching OIDs
+        build_partition_mapping_with_changes(pprune, partdesc, pinfo);
+    }
+}
+
+// Helper: Initialize pruning contexts
+static void
+setup_pruning_contexts(PartitionedRelPruningData *pprune, PartitionedRelPruneInfo *pinfo,
+                      PartitionDesc partdesc, PartitionKey partkey, PlanState *planstate,
+                      ExprContext *econtext, PartitionPruneState *prunestate)
+{
+    // Skip pruning in EXPLAIN (GENERIC_PLAN) mode
+    bool skip_pruning = (econtext->ecxt_estate->es_top_eflags & EXEC_FLAG_EXPLAIN_GENERIC);
+
+    // Set up initial pruning context
+    pprune->initial_pruning_steps = pinfo->initial_pruning_steps;
+    if (pinfo->initial_pruning_steps && !skip_pruning)
+    {
+        InitPartitionPruneContext(&pprune->initial_context, pinfo->initial_pruning_steps,
+                                 partdesc, partkey, planstate, econtext);
+        prunestate->do_initial_prune = true;
+    }
+
+    // Set up execution-time pruning context
+    pprune->exec_pruning_steps = pinfo->exec_pruning_steps;
+    if (pinfo->exec_pruning_steps && !skip_pruning)
+    {
+        InitPartitionPruneContext(&pprune->exec_context, pinfo->exec_pruning_steps,
+                                 partdesc, partkey, planstate, econtext);
+        prunestate->do_exec_prune = true;
+    }
+}
+```

@@ -40,3 +40,31 @@ This function iterates through all index tuples on a GiST internal page and extr
 - Each index tuple's t_tid field contains the block number of the child page it points to
 - Critical for building the complete parent-child mapping during buffering-based GiST construction
 - The function assumes the page is properly formatted and all items are valid index tuples
+
+## Simplified Source
+
+```c
+static void
+gistMemorizeAllDownlinks(GISTBuildState *buildstate, Buffer parentbuf)
+{
+    OffsetNumber maxoff, off;
+    BlockNumber parentblkno = BufferGetBlockNumber(parentbuf);
+    Page page = BufferGetPage(parentbuf);
+
+    Assert(!GistPageIsLeaf(page));
+
+    // Process all index tuples on the internal page
+    maxoff = PageGetMaxOffsetNumber(page);
+    for (off = FirstOffsetNumber; off <= maxoff; off++)
+    {
+        ItemId iid = PageGetItemId(page, off);
+        IndexTuple idxtuple = (IndexTuple) PageGetItem(page, iid);
+
+        // Extract child block number from tuple's TID
+        BlockNumber childblkno = ItemPointerGetBlockNumber(&(idxtuple->t_tid));
+
+        // Record parent-child relationship
+        gistMemorizeParent(buildstate, childblkno, parentblkno);
+    }
+}
+```

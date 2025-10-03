@@ -39,3 +39,61 @@ This function finalizes a partial aggregate by preparing its transition value fo
 - Handles strict serialization functions properly by avoiding calls with NULL input when fn_strict is true
 - Uses MakeExpandedObjectReadOnly to ensure proper handling of expanded objects in the result
 - Part of PostgreSQL's partial aggregation mechanism used in parallel query processing and other advanced aggregate scenarios
+
+## Simplified Source
+
+```c
+static void
+finalize_partialaggregate(AggState *aggstate,
+                         AggStatePerAgg peragg,
+                         AggStatePerGroup pergroupstate,
+                         Datum *resultVal, bool *resultIsNull)
+{
+    AggStatePerTrans pertrans = &aggstate->pertrans[peragg->transno];
+    MemoryContext oldContext;
+
+    // Switch to output context
+    oldContext = MemoryContextSwitchTo(aggstate->ss.ps.ps_ExprContext->ecxt_per_tuple_memory);
+
+    // Apply serialization function if configured
+    if (OidIsValid(pertrans->serialfn_oid))
+    {
+        // Handle strict serialization functions with NULL input
+        if (pertrans->serialfn.fn_strict && pergroupstate->transValueIsNull)
+        {
+            *resultVal = (Datum) 0;
+            *resultIsNull = true;
+        }
+        else
+        {
+            FunctionCallInfo fcinfo = pertrans->serialfn_fcinfo;
+            Datum result;
+
+            // Setup function call with transition value
+            fcinfo->args[0].value =
+                MakeExpandedObjectReadOnly(pergroupstate->transValue,
+                                         pergroupstate->transValueIsNull,
+                                         pertrans->transtypeLen);
+            fcinfo->args[0].isnull = pergroupstate->transValueIsNull;
+            fcinfo->isnull = false;
+
+            // Call serialization function
+            result = FunctionCallInvoke(fcinfo);
+            *resultIsNull = fcinfo->isnull;
+            *resultVal = MakeExpandedObjectReadOnly(result, fcinfo->isnull,
+                                                  peragg->resulttypeLen);
+        }
+    }
+    else
+    {
+        // No serialization - return transition value directly
+        *resultVal =
+            MakeExpandedObjectReadOnly(pergroupstate->transValue,
+                                     pergroupstate->transValueIsNull,
+                                     pertrans->transtypeLen);
+        *resultIsNull = pergroupstate->transValueIsNull;
+    }
+
+    MemoryContextSwitchTo(oldContext);
+}
+```

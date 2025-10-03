@@ -44,3 +44,42 @@ The function maintains proper entry counts and status transitions, ensuring the 
 - Maintains accurate counts of pages, chunks, and total entries
 - May transition bitmap status from TBM_ONE_PAGE to TBM_EMPTY if the single page becomes empty
 - Error handling includes corruption detection for hash table operations
+
+## Simplified Source
+
+```c
+void tbm_intersect(TIDBitmap *a, const TIDBitmap *b)
+{
+    // Early return if target bitmap is empty
+    if (a->nentries == 0)
+        return;
+
+    // Handle single page bitmap
+    if (a->status == TBM_ONE_PAGE) {
+        if (tbm_intersect_page(a, &a->entry1, b)) {
+            // Page became empty, clear the bitmap
+            a->npages--;
+            a->nentries--;
+            a->status = TBM_EMPTY;
+        }
+    }
+    else {
+        // Handle multi-page hash table
+        pagetable_iterator i;
+        PagetableEntry *apage;
+
+        pagetable_start_iterate(a->pagetable, &i);
+        while ((apage = pagetable_iterate(a->pagetable, &i)) != NULL) {
+            if (tbm_intersect_page(a, apage, b)) {
+                // Remove empty page/chunk from hash table
+                if (apage->ischunk)
+                    a->nchunks--;
+                else
+                    a->npages--;
+                a->nentries--;
+                pagetable_delete(a->pagetable, apage->blockno);
+            }
+        }
+    }
+}
+```

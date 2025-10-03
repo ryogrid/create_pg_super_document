@@ -41,3 +41,37 @@ The partitioning strategy uses hash bits to distribute tuples evenly across part
 - The number of partitions is chosen to balance between I/O efficiency and memory usage
 - Partitions are implemented using PostgreSQL's logical tape abstraction for efficient disk I/O
 - The spill structure is fully initialized and ready for tuple insertion after this function completes
+
+## Simplified Source
+
+```c
+static void
+hashagg_spill_init(HashAggSpill *spill, LogicalTapeSet *tapeset, int used_bits,
+                   double input_groups, double hashentrysize)
+{
+    int npartitions;
+    int partition_bits;
+
+    // Determine optimal number of partitions
+    npartitions = hash_choose_num_partitions(input_groups, hashentrysize,
+                                           used_bits, &partition_bits);
+
+    // Allocate arrays for partition management
+    spill->partitions = palloc0(sizeof(LogicalTape *) * npartitions);
+    spill->ntuples = palloc0(sizeof(int64) * npartitions);
+    spill->hll_card = palloc0(sizeof(hyperLogLogState) * npartitions);
+
+    // Create logical tape for each partition
+    for (int i = 0; i < npartitions; i++)
+        spill->partitions[i] = LogicalTapeCreate(tapeset);
+
+    // Setup hash partitioning parameters
+    spill->shift = 32 - used_bits - partition_bits;
+    spill->mask = (npartitions - 1) << spill->shift;
+    spill->npartitions = npartitions;
+
+    // Initialize cardinality estimators for each partition
+    for (int i = 0; i < npartitions; i++)
+        initHyperLogLog(&spill->hll_card[i], HASHAGG_HLL_BIT_WIDTH);
+}
+```

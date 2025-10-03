@@ -37,3 +37,25 @@ The function performs validation to ensure both the area_handle and handle are v
 - This function is the counterpart to TidStoreCreateShared - one process creates, others attach
 - Primarily used in parallel vacuum operations where worker processes need to attach to a TidStore created by the leader process
 - The area_handle and handle are typically obtained through inter-process communication mechanisms
+
+## Simplified Source
+
+```c
+TidStore *TidStoreAttach(dsa_handle area_handle, dsa_pointer handle)
+{
+    Assert(area_handle != DSA_HANDLE_INVALID);
+    Assert(DsaPointerIsValid(handle));
+
+    // Create local backend state
+    TidStore *ts = palloc0(sizeof(TidStore));
+
+    // Attach to the DSA area
+    dsa_area *area = dsa_attach(area_handle);
+
+    // Connect to the shared radix tree
+    ts->tree.shared = shared_ts_attach(area, handle);
+    ts->area = area;
+
+    return ts;
+}
+```

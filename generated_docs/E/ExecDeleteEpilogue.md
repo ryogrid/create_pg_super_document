@@ -46,3 +46,34 @@ The function carefully manages transition capture to avoid double-capturing tupl
 - Transition capture state is carefully managed to prevent duplicate entries in transition tables
 - The changingPart parameter affects how AFTER DELETE triggers are executed
 - Part of PostgreSQL's execution engine for DML operations
+
+## Simplified Source
+
+```c
+static void ExecDeleteEpilogue(ModifyTableContext *context, ResultRelInfo *resultRelInfo,
+                              ItemPointer tupleid, HeapTuple oldtuple, bool changingPart)
+{
+    ModifyTableState *mtstate = context->mtstate;
+    EState *estate = context->estate;
+    TransitionCaptureState *ar_delete_trig_tcs = mtstate->mt_transition_capture;
+
+    // Handle cross-partition DELETE as part of UPDATE operation
+    if (mtstate->operation == CMD_UPDATE && mtstate->mt_transition_capture &&
+        mtstate->mt_transition_capture->tcs_update_old_table)
+    {
+        // Capture tuple for UPDATE OLD TABLE transition
+        ExecARUpdateTriggers(estate, resultRelInfo,
+                           NULL, NULL,
+                           tupleid, oldtuple,
+                           NULL, NULL, mtstate->mt_transition_capture,
+                           false);
+
+        // Prevent double-capturing in DELETE triggers
+        ar_delete_trig_tcs = NULL;
+    }
+
+    // Fire AFTER ROW DELETE triggers
+    ExecARDeleteTriggers(estate, resultRelInfo, tupleid, oldtuple,
+                        ar_delete_trig_tcs, changingPart);
+}
+```

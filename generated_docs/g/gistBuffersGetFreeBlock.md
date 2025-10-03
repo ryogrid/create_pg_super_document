@@ -32,3 +32,16 @@ This approach optimizes disk space usage by recycling freed blocks, which is par
 - Part of the memory-efficient disk space management system for GiST index construction
 - Returns a block number that can be used immediately for writing
 - Static function, only accessible within the gistbuildbuffers.c module
+
+## Simplified Source
+
+```c
+static long gistBuffersGetFreeBlock(GISTBuildBuffers *gfbb) {
+    // Return a previously freed block if available (LIFO order)
+    if (gfbb->nFreeBlocks > 0)
+        return gfbb->freeBlocks[--gfbb->nFreeBlocks];
+
+    // Otherwise extend the file with a new block
+    return gfbb->nFileBlocks++;
+}
+```

@@ -46,3 +46,12 @@ This initialization is only necessary for plan nodes that actually evaluate expr
 - Not needed for nodes that don't evaluate expressions (pure data flow operations)
 - Commonly called during the ExecInit phase of plan node initialization
 - The ps_ExprContext field becomes the node's primary context for expression evaluation throughout its execution lifecycle
+
+## Simplified Source
+
+```c
+void ExecAssignExprContext(EState *estate, PlanState *planstate) {
+    // Create and assign expression context for nodes that evaluate expressions
+    planstate->ps_ExprContext = CreateExprContext(estate);
+}
+```

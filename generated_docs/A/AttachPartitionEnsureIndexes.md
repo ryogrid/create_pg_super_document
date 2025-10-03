@@ -57,3 +57,117 @@ The function uses attribute mapping to handle differences in column ordering bet
 - Increments command counter after establishing parent-child relationships to ensure visibility
 - Handles both constraint and non-constraint indexes appropriately
 - Critical for maintaining index consistency across the partition hierarchy
+
+## Simplified Source
+```c
+static void AttachPartitionEnsureIndexes(List **wqueue, Relation rel, Relation attachrel) {
+    List *parent_indexes;
+    List *partition_indexes;
+    Relation *partition_index_rels;
+    IndexInfo **partition_infos;
+
+    // Get indexes from both parent and partition
+    parent_indexes = RelationGetIndexList(rel);
+    partition_indexes = RelationGetIndexList(attachrel);
+
+    // Build array of partition index relations and their info
+    partition_index_rels = palloc(sizeof(Relation) * list_length(partition_indexes));
+    partition_infos = palloc(sizeof(IndexInfo *) * list_length(partition_indexes));
+
+    foreach_oid(idx_oid, partition_indexes) {
+        int i = foreach_current_index(idx_oid);
+        partition_index_rels[i] = index_open(idx_oid, AccessShareLock);
+        partition_infos[i] = BuildIndexInfo(partition_index_rels[i]);
+    }
+
+    // Foreign tables: check for unique indexes and exit if found
+    if (attachrel->rd_rel->relkind == RELKIND_FOREIGN_TABLE) {
+        foreach(cell, parent_indexes) {
+            Oid idx = lfirst_oid(cell);
+            Relation idx_rel = index_open(idx, AccessShareLock);
+
+            if (idx_rel->rd_index->indisunique || idx_rel->rd_index->indisprimary) {
+                ereport(ERROR, "cannot attach foreign table with unique indexes");
+            }
+            index_close(idx_rel, AccessShareLock);
+        }
+        goto cleanup;
+    }
+
+    // For each partitioned index on parent, find or create matching index on partition
+    foreach(cell, parent_indexes) {
+        Oid parent_idx = lfirst_oid(cell);
+        Relation parent_idx_rel = index_open(parent_idx, AccessShareLock);
+        bool found_match = false;
+
+        // Skip non-partitioned indexes
+        if (parent_idx_rel->rd_rel->relkind != RELKIND_PARTITIONED_INDEX) {
+            index_close(parent_idx_rel, AccessShareLock);
+            continue;
+        }
+
+        IndexInfo *parent_info = BuildIndexInfo(parent_idx_rel);
+        AttrMap *attr_map = build_attrmap_by_name(RelationGetDescr(attachrel),
+                                                 RelationGetDescr(rel), false);
+        Oid parent_constraint = get_relation_idx_constraint_oid(RelationGetRelid(rel), parent_idx);
+
+        // Search for compatible existing index on partition
+        for (int i = 0; i < list_length(partition_indexes); i++) {
+            // Skip if already has parent or is invalid
+            if (partition_index_rels[i]->rd_rel->relispartition ||
+                !partition_index_rels[i]->rd_index->indisvalid) {
+                continue;
+            }
+
+            // Check if indexes are compatible
+            if (CompareIndexInfo(partition_infos[i], parent_info,
+                               partition_index_rels[i]->rd_indcollation,
+                               parent_idx_rel->rd_indcollation,
+                               partition_index_rels[i]->rd_opfamily,
+                               parent_idx_rel->rd_opfamily, attr_map)) {
+
+                // Verify constraint compatibility if needed
+                if (OidIsValid(parent_constraint)) {
+                    Oid child_constraint = get_relation_idx_constraint_oid(
+                        RelationGetRelid(attachrel),
+                        RelationGetRelid(partition_index_rels[i]));
+
+                    if (!OidIsValid(child_constraint) ||
+                        get_constraint_type(parent_constraint) != get_constraint_type(child_constraint)) {
+                        continue;
+                    }
+                }
+
+                // Attach index to parent
+                IndexSetParentIndex(partition_index_rels[i], parent_idx);
+                if (OidIsValid(parent_constraint)) {
+                    ConstraintSetParentConstraint(child_constraint, parent_constraint,
+                                                RelationGetRelid(attachrel));
+                }
+                found_match = true;
+                CommandCounterIncrement();
+                break;
+            }
+        }
+
+        // Create new index if no match found
+        if (!found_match) {
+            IndexStmt *stmt;
+            Oid constraint_oid;
+
+            stmt = generateClonedIndexStmt(NULL, parent_idx_rel, attr_map, &constraint_oid);
+            DefineIndex(RelationGetRelid(attachrel), stmt, InvalidOid,
+                       RelationGetRelid(parent_idx_rel), constraint_oid,
+                       -1, true, false, false, false, false);
+        }
+
+        index_close(parent_idx_rel, AccessShareLock);
+    }
+
+cleanup:
+    // Clean up partition index relations
+    for (int i = 0; i < list_length(partition_indexes); i++) {
+        index_close(partition_index_rels[i], AccessShareLock);
+    }
+}
+```

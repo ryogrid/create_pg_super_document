@@ -38,3 +38,16 @@ These estimations are crucial for proper shared memory allocation in PostgreSQL'
 - This function only performs estimation; actual shared memory allocation happens in ExecHashJoinInitializeDSM
 - Essential for proper resource planning in parallel hash join operations
 - Works in conjunction with other parallel execution estimation functions to determine total memory requirements
+
+## Simplified Source
+
+```c
+void ExecHashJoinEstimate(HashJoinState *state, ParallelContext *pcxt)
+{
+    // Estimate space for ParallelHashJoinState structure
+    shm_toc_estimate_chunk(&pcxt->estimator, sizeof(ParallelHashJoinState));
+
+    // Reserve one key in shared memory table of contents
+    shm_toc_estimate_keys(&pcxt->estimator, 1);
+}
+```

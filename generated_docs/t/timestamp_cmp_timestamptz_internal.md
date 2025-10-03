@@ -48,3 +48,28 @@ This internal function implements the core logic for comparing timestamp (withou
 - The overflow handling ensures correct behavior when timestamp values exceed the valid range for timestamptz representation
 - Returns -1, 0, or +1 indicating less than, equal to, or greater than relationships respectively
 - Critical for maintaining consistency in PostgreSQL's type system when comparing different timestamp types
+
+## Simplified Source
+
+```c
+int32
+timestamp_cmp_timestamptz_internal(Timestamp timestampVal, TimestampTz dt2)
+{
+    TimestampTz dt1;
+    int overflow;
+
+    // Convert timestamp to timestamptz, checking for overflow
+    dt1 = timestamp2timestamptz_opt_overflow(timestampVal, &overflow);
+
+    // Handle overflow cases with infinity checks
+    if (overflow > 0) {
+        return TIMESTAMP_IS_NOEND(dt2) ? -1 : +1;
+    }
+    if (overflow < 0) {
+        return TIMESTAMP_IS_NOBEGIN(dt2) ? +1 : -1;
+    }
+
+    // Both values are now timestamptz, compare directly
+    return timestamptz_cmp_internal(dt1, dt2);
+}
+```

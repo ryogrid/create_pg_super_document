@@ -35,3 +35,34 @@ This function performs BRIN index update replay operations during crash recovery
 - Part of PostgreSQL's crash recovery mechanism for BRIN indexes
 - Located at src/backend/access/brin/brin_xlog.c:135-169
 - The function handles three buffers: two for the insertion (regular page and revmap) and one for the deletion (old tuple location)
+
+## Simplified Source
+
+```c
+static void brin_xlog_update(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    xl_brin_update *update_data = (xl_brin_update *) XLogRecGetData(record);
+    Buffer buffer;
+
+    // Step 1: Remove the old tuple from its page
+    XLogRedoAction action = XLogReadBufferForRedo(record, 2, &buffer);
+    if (action == BLK_NEEDS_REDO) {
+        Page page = (Page) BufferGetPage(buffer);
+        OffsetNumber old_offset = update_data->oldOffnum;
+
+        // Delete old tuple without compacting the page
+        PageIndexTupleDeleteNoCompact(page, old_offset);
+
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buffer);
+    }
+
+    // Step 2: Insert the new tuple using shared logic
+    brin_xlog_insert_update(record, &update_data->insert);
+
+    // Clean up buffer
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+}
+```

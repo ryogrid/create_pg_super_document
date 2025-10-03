@@ -61,3 +61,103 @@ Key responsibilities include:
 - Includes debug logging to track insertion operations
 - Properly manages buffer locks to prevent race conditions
 - The caller retains responsibility for the buffer after insertion
+
+## Simplified Source
+
+```c
+OffsetNumber brin_doinsert(Relation idxrel, BlockNumber pagesPerRange,
+                          BrinRevmap *revmap, Buffer *buffer, BlockNumber heapBlk,
+                          BrinTuple *tup, Size itemsz) {
+
+    // Validate tuple size
+    if (itemsz > BrinMaxItemSize) {
+        ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                       errmsg("index row size %zu exceeds maximum %zu for index \"%s\"",
+                             itemsz, BrinMaxItemSize, RelationGetRelationName(idxrel))));
+    }
+
+    // Ensure revmap covers the heap block
+    brinRevmapExtend(revmap, heapBlk);
+
+    bool extended = false;
+
+    // Check if provided buffer has enough space
+    if (BufferIsValid(*buffer)) {
+        LockBuffer(*buffer, BUFFER_LOCK_EXCLUSIVE);
+        if (br_page_get_freespace(BufferGetPage(*buffer)) < itemsz) {
+            // Not enough space, need a new buffer
+            UnlockReleaseBuffer(*buffer);
+            *buffer = InvalidBuffer;
+        }
+    }
+
+    // Get a suitable buffer if we don't have one
+    if (!BufferIsValid(*buffer)) {
+        do {
+            *buffer = brin_getinsertbuffer(idxrel, InvalidBuffer, itemsz, &extended);
+        } while (!BufferIsValid(*buffer));
+    }
+
+    // Lock revmap page for atomic update
+    Buffer revmapbuf = brinLockRevmapPageForUpdate(revmap, heapBlk);
+
+    Page page = BufferGetPage(*buffer);
+    BlockNumber blk = BufferGetBlockNumber(*buffer);
+
+    START_CRIT_SECTION();
+
+    // Initialize page if it was newly extended
+    if (extended) {
+        brin_page_init(page, BRIN_PAGETYPE_REGULAR);
+    }
+
+    // Insert the tuple
+    OffsetNumber off = PageAddItem(page, (Item) tup, itemsz, InvalidOffsetNumber,
+                                  false, false);
+    if (off == InvalidOffsetNumber) {
+        elog(ERROR, "failed to add BRIN tuple to new page");
+    }
+    MarkBufferDirty(*buffer);
+
+    // Update revmap to point to the new tuple
+    ItemPointerData tid;
+    ItemPointerSet(&tid, blk, off);
+    brinSetHeapBlockItemptr(revmapbuf, pagesPerRange, heapBlk, tid);
+    MarkBufferDirty(revmapbuf);
+
+    // WAL logging
+    if (RelationNeedsWAL(idxrel)) {
+        xl_brin_insert xlrec;
+        uint8 info = XLOG_BRIN_INSERT | (extended ? XLOG_BRIN_INIT_PAGE : 0);
+
+        xlrec.heapBlk = heapBlk;
+        xlrec.pagesPerRange = pagesPerRange;
+        xlrec.offnum = off;
+
+        XLogBeginInsert();
+        XLogRegisterData((char *) &xlrec, SizeOfBrinInsert);
+        XLogRegisterBuffer(0, *buffer, REGBUF_STANDARD | (extended ? REGBUF_WILL_INIT : 0));
+        XLogRegisterBufData(0, (char *) tup, itemsz);
+        XLogRegisterBuffer(1, revmapbuf, 0);
+
+        XLogRecPtr recptr = XLogInsert(RM_BRIN_ID, info);
+        PageSetLSN(page, recptr);
+        PageSetLSN(BufferGetPage(revmapbuf), recptr);
+    }
+
+    END_CRIT_SECTION();
+
+    // Release locks
+    LockBuffer(*buffer, BUFFER_LOCK_UNLOCK);
+    LockBuffer(revmapbuf, BUFFER_LOCK_UNLOCK);
+
+    // Update free space map for newly extended pages
+    if (extended) {
+        Size freespace = br_page_get_freespace(page);
+        RecordPageWithFreeSpace(idxrel, blk, freespace);
+        FreeSpaceMapVacuumRange(idxrel, blk, blk + 1);
+    }
+
+    return off;
+}
+```

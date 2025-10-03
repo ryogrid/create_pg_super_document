@@ -31,3 +31,11 @@ The function returns the exact size needed for a SharedRecordTypmodRegistry, whi
 - Used in shared memory size estimation for parallel query coordination
 - The SharedRecordTypmodRegistry structure contains dshash table handles and atomic counters for managing record types across parallel backends
 - Part of PostgreSQL's type cache system for handling composite/record types in parallel execution contexts
+
+## Simplified Source
+
+```c
+size_t SharedRecordTypmodRegistryEstimate(void) {
+    return sizeof(SharedRecordTypmodRegistry);
+}
+```

@@ -37,3 +37,29 @@ The function sets up the operator class to store exactly 2 values per range (min
 - The oi_regular_nulls flag is set to true, indicating this operator class handles NULLs in the standard way
 - Both type cache entries point to the same type cache since min and max values are of the same type
 - The MinmaxOpaque structure is aligned and placed immediately after the BrinOpcInfo structure in the same memory allocation
+
+## Simplified Source
+
+```c
+Datum
+brin_minmax_opcinfo(PG_FUNCTION_ARGS)
+{
+    Oid typoid = PG_GETARG_OID(0);
+    BrinOpcInfo *result;
+
+    // Allocate memory for both BrinOpcInfo and MinmaxOpaque structures
+    result = palloc0(MAXALIGN(SizeofBrinOpcInfo(2)) + sizeof(MinmaxOpaque));
+
+    // Configure for minmax: stores 2 values (min and max)
+    result->oi_nstored = 2;
+    result->oi_regular_nulls = true;
+
+    // Set up opaque data pointer and type cache
+    result->oi_opaque = (MinmaxOpaque *)
+        MAXALIGN((char *) result + SizeofBrinOpcInfo(2));
+    result->oi_typcache[0] = result->oi_typcache[1] =
+        lookup_type_cache(typoid, 0);
+
+    PG_RETURN_POINTER(result);
+}
+```

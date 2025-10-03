@@ -34,3 +34,15 @@ The function attempts to acquire locks on all conflicting multixact members, but
 
 ## Notes and Other Information
 This is a static helper function that provides the non-blocking wait interface for multixact synchronization. It's particularly useful in scenarios where the caller needs to handle lock unavailability gracefully, such as in lock acquisition with NOWAIT semantics or when implementing lock escalation strategies. The function returns true when the multixact is completely resolved, false when conflicts remain. Note that the remaining count should not be trusted when the function returns false, as documented in Do_MultiXactIdWait.
+
+## Simplified Source
+
+```c
+static bool ConditionalMultiXactIdWait(MultiXactId multi, MultiXactStatus status,
+                                      uint16 infomask, Relation rel, int *remaining)
+{
+    // Non-blocking wrapper around Do_MultiXactIdWait
+    // Returns immediately if locks cannot be acquired without blocking
+    return Do_MultiXactIdWait(multi, status, infomask, true, rel, NULL, XLTW_None, remaining);
+}
+```

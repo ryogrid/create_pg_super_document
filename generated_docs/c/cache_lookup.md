@@ -51,3 +51,60 @@ The function handles the complexity of hash table management, including dealing 
 - Includes sophisticated handling for hash table element shuffling during eviction operations
 - Memory accounting is updated immediately when new entries are created
 - The probeslot mechanism is used for efficient parameter-based lookups without creating temporary keys
+
+## Simplified Source
+
+```c
+static MemoizeEntry *
+cache_lookup(MemoizeState *mstate, bool *found)
+{
+    MemoizeKey *key;
+    MemoizeEntry *entry;
+    MemoryContext oldcontext;
+
+    // Set up probe slot with current scan parameters
+    prepare_probe_slot(mstate, NULL);
+
+    // Try to find existing entry or create new one
+    entry = memoize_insert(mstate->hashtable, NULL, found);
+
+    if (*found) {
+        // Move existing entry to end of LRU list (most recently used)
+        dlist_move_tail(&mstate->lru_list, &entry->key->lru_node);
+        return entry;
+    }
+
+    // Create new entry
+    oldcontext = MemoryContextSwitchTo(mstate->tableContext);
+
+    // Allocate and initialize new key
+    entry->key = key = (MemoizeKey *) palloc(sizeof(MemoizeKey));
+    key->params = ExecCopySlotMinimalTuple(mstate->probeslot);
+
+    // Update memory usage and initialize entry
+    mstate->mem_used += EMPTY_ENTRY_MEMORY_BYTES(entry);
+    entry->complete = false;
+    entry->tuplehead = NULL;
+
+    // Add to end of LRU list
+    dlist_push_tail(&mstate->lru_list, &entry->key->lru_node);
+    mstate->last_tuple = NULL;
+
+    MemoryContextSwitchTo(oldcontext);
+
+    // Handle memory limit by evicting old entries if needed
+    if (mstate->mem_used > mstate->mem_limit) {
+        if (unlikely(!cache_reduce_memory(mstate, key)))
+            return NULL;
+
+        // Hash table may have been reorganized, re-find entry if needed
+        if (entry->status != memoize_SH_IN_USE || entry->key != key) {
+            prepare_probe_slot(mstate, key);
+            entry = memoize_lookup(mstate->hashtable, NULL);
+            Assert(entry != NULL);
+        }
+    }
+
+    return entry;
+}
+```

@@ -41,3 +41,26 @@ The function follows the same pattern as PredicateLockRelation but targets a spe
 - Extensively used by various index access methods (B-tree, Hash, GIN, GiST) during page scanning
 - Critical for maintaining serializable isolation while allowing reasonable concurrency in page-based operations
 - The block number parameter allows precise targeting of specific pages within large relations
+
+## Simplified Source
+
+```c
+void
+PredicateLockPage(Relation relation, BlockNumber blkno, Snapshot snapshot)
+{
+    PREDICATELOCKTARGETTAG tag;
+
+    // Check if serialization is needed for this read operation
+    if (!SerializationNeededForRead(relation, snapshot))
+        return;
+
+    // Set up the predicate lock target tag for the specific page
+    SET_PREDICATELOCKTARGETTAG_PAGE(tag,
+                                   relation->rd_locator.dbOid,
+                                   relation->rd_id,
+                                   blkno);
+
+    // Acquire the predicate lock on the page
+    PredicateLockAcquire(&tag);
+}
+```

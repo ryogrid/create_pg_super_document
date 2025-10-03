@@ -46,3 +46,20 @@ The function operates under the same preconditions as other tuple-fetching funct
 - Contains logical decoding safety checks consistent with other table scan functions
 - Part of PostgreSQL's statistical sampling infrastructure used for query optimization and analytical workloads
 - Proper sequencing with block selection is critical for correct sampling behavior
+
+## Simplified Source
+
+```c
+static inline bool table_scan_sample_next_tuple(TableScanDesc scan,
+                                               struct SampleScanState *scanstate,
+                                               TupleTableSlot *slot) {
+    // Safety check: prevent calls during logical decoding for non-system tables
+    if (unlikely(TransactionIdIsValid(CheckXidAlive) && !bsysscan)) {
+        elog(ERROR, "unexpected table_scan_sample_next_tuple call during logical decoding");
+    }
+
+    // Delegate to table access method implementation
+    // Calls TsmRoutine's NextSampleTuple() to determine if tuple should be sampled
+    return scan->rs_rd->rd_tableam->scan_sample_next_tuple(scan, scanstate, slot);
+}
+```

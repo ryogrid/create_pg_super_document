@@ -54,3 +54,38 @@ The function ensures proper memory management by using a temporary context and r
 - The actual insertion logic is delegated to  function
 - Memory context is reset after each insertion to prevent memory accumulation
 - Located in src/backend/access/gist/gist.c:159-224
+
+## Simplified Source
+```c
+bool gistinsert(Relation r, Datum *values, bool *isnull,
+                ItemPointer ht_ctid, Relation heapRel,
+                IndexUniqueCheck checkUnique, bool indexUnchanged,
+                IndexInfo *indexInfo) {
+    GISTSTATE *giststate = (GISTSTATE *) indexInfo->ii_AmCache;
+    IndexTuple itup;
+    MemoryContext oldCxt;
+
+    // Initialize GISTSTATE cache on first call
+    if (giststate == NULL) {
+        oldCxt = MemoryContextSwitchTo(indexInfo->ii_Context);
+        giststate = initGISTstate(r);
+        giststate->tempCxt = createTempGistContext();
+        indexInfo->ii_AmCache = (void *) giststate;
+        MemoryContextSwitchTo(oldCxt);
+    }
+
+    // Switch to temp context for safe memory management
+    oldCxt = MemoryContextSwitchTo(giststate->tempCxt);
+
+    // Form tuple and perform insertion
+    itup = gistFormTuple(giststate, r, values, isnull, true);
+    itup->t_tid = *ht_ctid;
+    gistdoinsert(r, itup, 0, giststate, heapRel, false);
+
+    // Cleanup memory
+    MemoryContextSwitchTo(oldCxt);
+    MemoryContextReset(giststate->tempCxt);
+
+    return false;  // GiST doesn't support uniqueness
+}
+```

@@ -48,3 +48,56 @@ The function implements a filter-and-recheck pattern that is essential for handl
 - The lossy index recheck mechanism is crucial for maintaining query correctness with approximate index access methods
 - The function properly manages the end-of-scan state to prevent infinite loops
 - Runtime key evaluation is deferred until the keys are ready, allowing for parameter-dependent scan optimization
+
+## Simplified Source
+
+```c
+static TupleTableSlot *IndexNext(IndexScanState *node)
+{
+    EState *estate = node->ss.ps.state;
+    ScanDirection direction = ScanDirectionCombine(estate->es_direction,
+                                                   ((IndexScan *) node->ss.ps.plan)->indexorderdir);
+    IndexScanDesc scandesc = node->iss_ScanDesc;
+    ExprContext *econtext = node->ss.ps.ps_ExprContext;
+    TupleTableSlot *slot = node->ss.ss_ScanTupleSlot;
+
+    // Initialize scan descriptor if needed
+    if (scandesc == NULL)
+    {
+        scandesc = index_beginscan(node->ss.ss_currentRelation,
+                                   node->iss_RelationDesc,
+                                   estate->es_snapshot,
+                                   node->iss_NumScanKeys,
+                                   node->iss_NumOrderByKeys);
+        node->iss_ScanDesc = scandesc;
+
+        // Pass scan keys if runtime keys are ready
+        if (node->iss_NumRuntimeKeys == 0 || node->iss_RuntimeKeysReady)
+            index_rescan(scandesc, node->iss_ScanKeys, node->iss_NumScanKeys,
+                         node->iss_OrderByKeys, node->iss_NumOrderByKeys);
+    }
+
+    // Main scan loop
+    while (index_getnext_slot(scandesc, direction, slot))
+    {
+        CHECK_FOR_INTERRUPTS();
+
+        // Recheck quals for lossy indexes
+        if (scandesc->xs_recheck)
+        {
+            econtext->ecxt_scantuple = slot;
+            if (!ExecQualAndReset(node->indexqualorig, econtext))
+            {
+                InstrCountFiltered2(node, 1);
+                continue; // Failed recheck, try next tuple
+            }
+        }
+
+        return slot;
+    }
+
+    // End of scan
+    node->iss_ReachedEnd = true;
+    return ExecClearTuple(slot);
+}
+```

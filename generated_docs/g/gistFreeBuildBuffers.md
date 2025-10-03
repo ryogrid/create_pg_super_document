@@ -32,3 +32,14 @@ This is a crucial cleanup function that ensures proper resource management and p
 - Should be called at the end of index construction to ensure proper cleanup
 - Part of the resource management system for GiST index construction
 - Simple but essential function for preventing file descriptor leaks
+
+## Simplified Source
+
+```c
+void gistFreeBuildBuffers(GISTBuildBuffers *gfbb) {
+    // Close temporary buffer file
+    BufFileClose(gfbb->pfile);
+
+    // Memory context cleanup handles everything else automatically
+}
+```

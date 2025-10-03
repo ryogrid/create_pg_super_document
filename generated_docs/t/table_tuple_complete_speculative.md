@@ -47,3 +47,14 @@ The completion of a speculative insertion releases any locks or waiting states t
 - Critical for maintaining ACID properties during conflict resolution in UPSERT operations
 - The succeeded parameter determines whether the operation results in an insert or a no-op
 - Failure to call this function after a speculative insertion can leave the system in an inconsistent state
+
+## Simplified Source
+
+```c
+static inline void table_tuple_complete_speculative(Relation rel, TupleTableSlot *slot,
+                                                   uint32 specToken, bool succeeded)
+{
+    // Delegate to storage-specific implementation
+    rel->rd_tableam->tuple_complete_speculative(rel, slot, specToken, succeeded);
+}
+```

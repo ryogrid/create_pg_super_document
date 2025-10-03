@@ -35,3 +35,26 @@ The function retrieves the heap tuple from the slot, then delegates to either `h
 - The function handles memory management by freeing the tuple if `ExecFetchSlotHeapTuple` allocated it
 - The specToken parameter is accepted for interface compatibility but not used in the heap implementation
 - Part of PostgreSQL's speculative insertion mechanism used primarily for handling INSERT ... ON CONFLICT scenarios
+
+## Simplified Source
+
+```c
+static void
+heapam_tuple_complete_speculative(Relation relation, TupleTableSlot *slot,
+                                  uint32 specToken, bool succeeded)
+{
+    // Extract heap tuple from slot
+    bool shouldFree = true;
+    HeapTuple tuple = ExecFetchSlotHeapTuple(slot, true, &shouldFree);
+
+    // Complete speculative insertion based on success status
+    if (succeeded)
+        heap_finish_speculative(relation, &slot->tts_tid);
+    else
+        heap_abort_speculative(relation, &slot->tts_tid);
+
+    // Clean up allocated memory if needed
+    if (shouldFree)
+        pfree(tuple);
+}
+```

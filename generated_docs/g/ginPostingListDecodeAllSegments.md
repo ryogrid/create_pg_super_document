@@ -47,3 +47,61 @@ The function supports processing multiple segments stored consecutively in memor
 - The returned ItemPointer array must be freed by the caller using pfree()
 - Critical for GIN index performance as it handles the decompression of stored tuple identifiers
 - Supports processing multiple segments in a single call, enabling efficient batch decoding operations
+
+## Simplified Source
+
+```c
+ItemPointer ginPostingListDecodeAllSegments(GinPostingList *segment, int len, int *ndecoded_out) {
+    ItemPointer result;
+    int nallocated;
+    uint64 val;
+    char *endseg = ((char *) segment) + len;
+    int ndecoded;
+    unsigned char *ptr;
+    unsigned char *endptr;
+
+    // Initial allocation guess based on segment size
+    nallocated = segment->nbytes * 2 + 1;
+    result = palloc(nallocated * sizeof(ItemPointerData));
+
+    ndecoded = 0;
+
+    // Process each segment until end of data
+    while ((char *) segment < endseg) {
+        // Grow array if needed
+        if (ndecoded >= nallocated) {
+            nallocated *= 2;
+            result = repalloc(result, nallocated * sizeof(ItemPointerData));
+        }
+
+        // Copy the first (uncompressed) item from this segment
+        result[ndecoded] = segment->first;
+        ndecoded++;
+
+        // Decode variable-byte encoded deltas
+        val = itemptr_to_uint64(&segment->first);
+        ptr = segment->bytes;
+        endptr = segment->bytes + segment->nbytes;
+
+        while (ptr < endptr) {
+            // Grow array if needed
+            if (ndecoded >= nallocated) {
+                nallocated *= 2;
+                result = repalloc(result, nallocated * sizeof(ItemPointerData));
+            }
+
+            // Decode delta and add to running value
+            val += decode_varbyte(&ptr);
+            uint64_to_itemptr(val, &result[ndecoded]);
+            ndecoded++;
+        }
+
+        // Move to next segment
+        segment = GinNextPostingListSegment(segment);
+    }
+
+    if (ndecoded_out)
+        *ndecoded_out = ndecoded;
+    return result;
+}
+```

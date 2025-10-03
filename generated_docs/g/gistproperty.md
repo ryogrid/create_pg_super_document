@@ -48,3 +48,61 @@ The function examines the opclass (operator class) associated with the specified
 - For AMPROP_RETURNABLE: returns true if either a fetch function exists OR no compress function exists (special case)
 - The function assumes that if a distance function exists, there's a valid reason for it rather than searching through all operators
 - Returns true on successful property evaluation (even if the property is false), false only if the property type is unsupported
+
+## Simplified Source
+
+```c
+bool gistproperty(Oid index_oid, int attno,
+                  IndexAMProperty prop, const char *propname,
+                  bool *res, bool *isnull) {
+    // Only handle column-level inquiries
+    if (attno == 0)
+        return false;
+
+    // Determine which procedure to check based on property
+    int16 procno;
+    switch (prop) {
+        case AMPROP_DISTANCE_ORDERABLE:
+            procno = GIST_DISTANCE_PROC;
+            break;
+        case AMPROP_RETURNABLE:
+            procno = GIST_FETCH_PROC;
+            break;
+        default:
+            return false;
+    }
+
+    // Get column's opclass information
+    Oid opclass = get_index_column_opclass(index_oid, attno);
+    if (!OidIsValid(opclass)) {
+        *isnull = true;
+        return true;
+    }
+
+    // Get opfamily and input type from opclass
+    Oid opfamily, opcintype;
+    if (!get_opclass_opfamily_and_input_type(opclass, &opfamily, &opcintype)) {
+        *isnull = true;
+        return true;
+    }
+
+    // Check if the required function exists
+    *res = SearchSysCacheExists4(AMPROCNUM,
+                                 ObjectIdGetDatum(opfamily),
+                                 ObjectIdGetDatum(opcintype),
+                                 ObjectIdGetDatum(opcintype),
+                                 Int16GetDatum(procno));
+
+    // Special case: RETURNABLE is true if no compress function exists
+    if (prop == AMPROP_RETURNABLE && !*res) {
+        *res = !SearchSysCacheExists4(AMPROCNUM,
+                                      ObjectIdGetDatum(opfamily),
+                                      ObjectIdGetDatum(opcintype),
+                                      ObjectIdGetDatum(opcintype),
+                                      Int16GetDatum(GIST_COMPRESS_PROC));
+    }
+
+    *isnull = false;
+    return true;
+}
+```

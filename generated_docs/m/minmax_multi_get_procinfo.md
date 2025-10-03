@@ -41,3 +41,34 @@ The caching is implemented using the MinmaxMultiOpaque structure's extra_procinf
 - Throws an error if the operator class definition is missing required support functions
 - Uses the PROCNUM_BASE constant to map procedure numbers to array indices
 - The cached FmgrInfo structures are stored in the BRIN index's memory context
+
+## Simplified Source
+
+```c
+static FmgrInfo *minmax_multi_get_procinfo(BrinDesc *bdesc, uint16 attno, uint16 procnum) {
+    MinmaxMultiOpaque *opaque;
+    uint16 basenum = procnum - PROCNUM_BASE;
+
+    // Get the opaque structure that holds cached procedures
+    opaque = (MinmaxMultiOpaque *) bdesc->bd_info[attno - 1]->oi_opaque;
+
+    // Check if we need to cache this procedure
+    if (opaque->extra_procinfos[basenum].fn_oid == InvalidOid) {
+        // Verify the procedure exists and cache it
+        if (RegProcedureIsValid(index_getprocid(bdesc->bd_index, attno, procnum))) {
+            fmgr_info_copy(&opaque->extra_procinfos[basenum],
+                           index_getprocinfo(bdesc->bd_index, attno, procnum),
+                           bdesc->bd_context);
+        } else {
+            // Report error for missing support function
+            ereport(ERROR,
+                    errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                    errmsg_internal("invalid opclass definition"),
+                    errdetail_internal("The operator class is missing support function %d for column %d.",
+                                       procnum, attno));
+        }
+    }
+
+    return &opaque->extra_procinfos[basenum];
+}
+```

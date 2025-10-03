@@ -38,3 +38,19 @@ This function is part of PostgreSQL's parallel query execution infrastructure, a
 - The function assumes that the index scan descriptor is valid and properly initialized
 - This is part of PostgreSQL's dynamic shared memory (DSM) based parallel query execution system
 - Location: src/backend/access/index/indexam.c:523-540
+
+## Simplified Source
+
+```c
+void index_parallelrescan(IndexScanDesc scan) {
+    SCAN_CHECKS;  // Validate scan descriptor
+
+    // Reset heap fetch state if active
+    if (scan->xs_heapfetch)
+        table_index_fetch_reset(scan->xs_heapfetch);
+
+    // Call access method's parallel rescan function if provided
+    if (scan->indexRelation->rd_indam->amparallelrescan != NULL)
+        scan->indexRelation->rd_indam->amparallelrescan(scan);
+}
+```

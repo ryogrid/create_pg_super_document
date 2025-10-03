@@ -56,3 +56,110 @@ The function is designed to be memory-leak safe and avoid external table access 
 - Ensures the final tuple size fits within INDEX_SIZE_MASK constraints
 - Memory allocation is performed with MemoryContextAllocZero to ensure clean initialization
 - Critical for performance in sorting operations where memory management must be precise
+
+## Simplified Source
+
+```c
+IndexTuple index_form_tuple_context(TupleDesc tupleDescriptor, const Datum *values,
+                                   const bool *isnull, MemoryContext context) {
+    char *tp;
+    IndexTuple tuple;
+    Size size, data_size, hoff;
+    int i;
+    unsigned short infomask = 0;
+    bool hasnull = false;
+    uint16 tupmask = 0;
+    int numberOfAttributes = tupleDescriptor->natts;
+
+    // Validate attribute count
+    if (numberOfAttributes > INDEX_MAX_KEYS)
+        ereport(ERROR, (errcode(ERRCODE_TOO_MANY_COLUMNS),
+                       errmsg("number of index columns (%d) exceeds limit (%d)",
+                              numberOfAttributes, INDEX_MAX_KEYS)));
+
+#ifdef TOAST_INDEX_HACK
+    Datum untoasted_values[INDEX_MAX_KEYS];
+    bool untoasted_free[INDEX_MAX_KEYS];
+
+    // Handle TOAST: detoast external attributes and compress large values
+    for (i = 0; i < numberOfAttributes; i++) {
+        Form_pg_attribute att = TupleDescAttr(tupleDescriptor, i);
+        untoasted_values[i] = values[i];
+        untoasted_free[i] = false;
+
+        if (isnull[i] || att->attlen != -1) continue;
+
+        // Fetch external attributes
+        if (VARATT_IS_EXTERNAL(DatumGetPointer(values[i]))) {
+            untoasted_values[i] = PointerGetDatum(
+                detoast_external_attr((struct varlena *) DatumGetPointer(values[i])));
+            untoasted_free[i] = true;
+        }
+
+        // Compress large values
+        if (!VARATT_IS_EXTENDED(DatumGetPointer(untoasted_values[i])) &&
+            VARSIZE(DatumGetPointer(untoasted_values[i])) > TOAST_INDEX_TARGET &&
+            (att->attstorage == TYPSTORAGE_EXTENDED || att->attstorage == TYPSTORAGE_MAIN)) {
+
+            Datum cvalue = toast_compress_datum(untoasted_values[i], att->attcompression);
+            if (DatumGetPointer(cvalue) != NULL) {
+                if (untoasted_free[i]) pfree(DatumGetPointer(untoasted_values[i]));
+                untoasted_values[i] = cvalue;
+                untoasted_free[i] = true;
+            }
+        }
+    }
+#endif
+
+    // Check for null values
+    for (i = 0; i < numberOfAttributes; i++) {
+        if (isnull[i]) {
+            hasnull = true;
+            break;
+        }
+    }
+
+    if (hasnull) infomask |= INDEX_NULL_MASK;
+
+    // Calculate sizes and allocate tuple
+    hoff = IndexInfoFindDataOffset(infomask);
+#ifdef TOAST_INDEX_HACK
+    data_size = heap_compute_data_size(tupleDescriptor, untoasted_values, isnull);
+#else
+    data_size = heap_compute_data_size(tupleDescriptor, values, isnull);
+#endif
+    size = MAXALIGN(hoff + data_size);
+
+    tp = (char *) MemoryContextAllocZero(context, size);
+    tuple = (IndexTuple) tp;
+
+    // Fill tuple data
+    heap_fill_tuple(tupleDescriptor,
+#ifdef TOAST_INDEX_HACK
+                   untoasted_values,
+#else
+                   values,
+#endif
+                   isnull, (char *) tp + hoff, data_size, &tupmask,
+                   (hasnull ? (bits8 *) tp + sizeof(IndexTupleData) : NULL));
+
+#ifdef TOAST_INDEX_HACK
+    // Cleanup temporary TOAST data
+    for (i = 0; i < numberOfAttributes; i++) {
+        if (untoasted_free[i]) pfree(DatumGetPointer(untoasted_values[i]));
+    }
+#endif
+
+    // Set variable width mask
+    if (tupmask & HEAP_HASVARWIDTH) infomask |= INDEX_VAR_MASK;
+
+    // Validate final size
+    if ((size & INDEX_SIZE_MASK) != size)
+        ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                       errmsg("index row requires %zu bytes, maximum size is %zu",
+                              size, (Size) INDEX_SIZE_MASK)));
+
+    tuple->t_info = infomask | size;
+    return tuple;
+}
+```

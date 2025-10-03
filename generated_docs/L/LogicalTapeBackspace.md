@@ -45,3 +45,65 @@ This capability is essential for tuple sorting operations that need to re-examin
 - Implementation is optimized for small seeks (typical: backing up over one tuple) rather than long backward jumps
 - Positions tape at beginning if backspace request exceeds available data
 - Essential for merge operations that need to re-examine tuples
+
+## Simplified Source
+
+```c
+size_t LogicalTapeBackspace(LogicalTape *lt, size_t size) {
+    size_t seekpos = 0;
+
+    // Verify tape is frozen and ready for reading
+    Assert(lt->frozen);
+    Assert(lt->buffer_size == BLCKSZ);
+
+    // Initialize read buffer if needed
+    if (lt->buffer == NULL) {
+        ltsInitReadBuffer(lt);
+    }
+
+    // Easy case: backspace within current block
+    if (size <= (size_t) lt->pos) {
+        lt->pos -= (int) size;
+        return size;
+    }
+
+    // Complex case: walk backward through block chain
+    seekpos = (size_t) lt->pos;  // bytes available in current block
+
+    while (size > seekpos) {
+        // Get previous block number from current block trailer
+        int64 prev = TapeBlockGetTrailer(lt->buffer)->prev;
+
+        // Check if we've reached the beginning of tape
+        if (prev == -1L) {
+            if (lt->curBlockNumber != lt->firstBlockNumber) {
+                elog(ERROR, "unexpected end of tape");
+            }
+            lt->pos = 0;
+            return seekpos;  // return partial backspace
+        }
+
+        // Read the previous block
+        ltsReadBlock(lt->tapeSet, prev, lt->buffer);
+
+        // Validate block chain integrity
+        if (TapeBlockGetTrailer(lt->buffer)->next != lt->curBlockNumber) {
+            elog(ERROR, "broken tape, next of block %lld is %lld, expected %lld",
+                 (long long) prev,
+                 (long long) (TapeBlockGetTrailer(lt->buffer)->next),
+                 (long long) lt->curBlockNumber);
+        }
+
+        // Update tape position to the previous block
+        lt->nbytes = TapeBlockPayloadSize;
+        lt->curBlockNumber = prev;
+        lt->nextBlockNumber = TapeBlockGetTrailer(lt->buffer)->next;
+
+        seekpos += TapeBlockPayloadSize;
+    }
+
+    // Calculate final position within the target block
+    lt->pos = seekpos - size;
+    return size;
+}
+```

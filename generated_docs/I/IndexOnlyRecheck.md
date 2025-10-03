@@ -34,3 +34,15 @@ Rather than attempting to handle this impossible situation, the function immedia
 - The return statement after elog is present only to satisfy compiler warnings, as elog(ERROR) does not return
 - Part of the executor node method table interface for consistency with other scan types
 - Demonstrates PostgreSQL's defensive programming approach where impossible operations are explicitly forbidden rather than silently failing
+
+## Simplified Source
+
+```c
+static bool IndexOnlyRecheck(IndexOnlyScanState *node, TupleTableSlot *slot)
+{
+    // EvalPlanQual is incompatible with index-only scans
+    // Index-only scans don't provide CTID needed for EPQ operations
+    elog(ERROR, "EvalPlanQual recheck is not supported in index-only scans");
+    return false; // Keep compiler quiet (never reached)
+}
+```

@@ -44,3 +44,19 @@ A lower penalty indicates a better insertion choice, as it minimizes the expansi
 - Part of the PostgreSQL GiST access method implementation
 - Located in src/backend/access/gist/gistproc.c:97-112
 - Used extensively in spatial indexing decisions where minimizing bounding box expansion is crucial for query performance
+
+## Simplified Source
+
+```c
+static float8
+box_penalty(const BOX *original, const BOX *new)
+{
+    BOX unionbox;
+
+    // Compute union of original and new boxes
+    rt_box_union(&unionbox, original, new);
+
+    // Return penalty: union_area - original_area
+    return float8_mi(size_box(&unionbox), size_box(original));
+}
+```

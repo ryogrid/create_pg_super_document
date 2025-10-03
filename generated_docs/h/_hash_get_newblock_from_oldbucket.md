@@ -37,5 +37,25 @@ This is particularly important for handling incomplete splits, where the system 
 - Called from (representative examples):
   - [_hash_finish_split](_hash_finish_split.md)
 
+## Simplified Source
+```c
+BlockNumber _hash_get_newblock_from_oldbucket(Relation rel, Bucket old_bucket) {
+    // Read meta page to get current table parameters
+    Buffer metabuf = _hash_getbuf(rel, HASH_METAPAGE, HASH_READ, LH_META_PAGE);
+    HashMetaPage metap = HashPageGetMeta(BufferGetPage(metabuf));
+
+    // Calculate new bucket number from old bucket
+    Bucket new_bucket = _hash_get_newbucket_from_oldbucket(rel, old_bucket,
+                                                          metap->hashm_lowmask,
+                                                          metap->hashm_maxbucket);
+
+    // Convert new bucket number to physical block number
+    BlockNumber blkno = BUCKET_TO_BLKNO(metap, new_bucket);
+
+    _hash_relbuf(rel, metabuf);
+    return blkno;
+}
+```
+
 ## Notes and Other Information
 This function is essential for completing incomplete hash index splits. It relies on the current table state (lowmask and maxbucket) from the meta page and delegates the actual bucket number calculation to _hash_get_newbucket_from_oldbucket. The function is designed with the assumption that only one bucket split can be in progress from any old bucket at a time, which simplifies the logic for determining the corresponding new bucket.

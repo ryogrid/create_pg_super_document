@@ -44,3 +44,31 @@ The function ensures proper error handling throughout both phases and handles sp
 - Essential counterpart to icu_to_uchar for round-trip Unicode processing
 - Used primarily in string processing functions that need to return results in database encoding
 - The function handles the complexity of ICU's conversion API, providing a simple interface for PostgreSQL code
+
+## Simplified Source
+```c
+int32_t icu_from_uchar(char **result, const UChar *buff_uchar, int32_t len_uchar) {
+    UErrorCode status;
+    int32_t len_result;
+
+    init_icu_converter();
+
+    // Phase 1: Determine required buffer size
+    status = U_ZERO_ERROR;
+    len_result = ucnv_fromUChars(icu_converter, NULL, 0,
+                                 buff_uchar, len_uchar, &status);
+    if (U_FAILURE(status) && status != U_BUFFER_OVERFLOW_ERROR)
+        ereport(ERROR, (errmsg("%s failed: %s", "ucnv_fromUChars", u_errorName(status))));
+
+    // Phase 2: Allocate buffer and perform conversion
+    *result = palloc(len_result + 1);
+
+    status = U_ZERO_ERROR;
+    len_result = ucnv_fromUChars(icu_converter, *result, len_result + 1,
+                                 buff_uchar, len_uchar, &status);
+    if (U_FAILURE(status) || status == U_STRING_NOT_TERMINATED_WARNING)
+        ereport(ERROR, (errmsg("%s failed: %s", "ucnv_fromUChars", u_errorName(status))));
+
+    return len_result;
+}
+```

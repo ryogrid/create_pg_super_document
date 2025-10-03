@@ -59,3 +59,28 @@ The function is used in both normal operations (during index maintenance) and WA
 - Used in both regular operations and WAL replay, making it critical for crash recovery
 - The RevmapContents structure contains a flexible array of ItemPointerData that fills the available page space
 - The HEAPBLK_TO_REVMAP_INDEX macro efficiently calculates the array position for a given heap block within its range
+
+## Simplified Source
+
+```c
+void brinSetHeapBlockItemptr(Buffer buf, BlockNumber pagesPerRange,
+                            BlockNumber heapBlk, ItemPointerData tid)
+{
+    // Get the revmap page contents from buffer
+    Page page = BufferGetPage(buf);
+    RevmapContents *contents = (RevmapContents *) PageGetContents(page);
+
+    // Calculate position in TID array for this heap block
+    ItemPointerData *target_ptr = contents->rm_tids +
+                                  HEAPBLK_TO_REVMAP_INDEX(pagesPerRange, heapBlk);
+
+    // Set or clear the item pointer
+    if (ItemPointerIsValid(&tid)) {
+        ItemPointerSet(target_ptr,
+                      ItemPointerGetBlockNumber(&tid),
+                      ItemPointerGetOffsetNumber(&tid));
+    } else {
+        ItemPointerSetInvalid(target_ptr);
+    }
+}
+```

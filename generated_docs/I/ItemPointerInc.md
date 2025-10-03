@@ -37,3 +37,30 @@ The function handles edge cases where the ItemPointer might become invalid accor
 - Used primarily for range iteration operations where complete type range coverage is needed
 - Handles block number overflow by not incrementing beyond InvalidBlockNumber
 - The increment operation is atomic from the caller's perspective
+
+## Simplified Source
+```c
+void
+ItemPointerInc(ItemPointer pointer)
+{
+    BlockNumber blk = ItemPointerGetBlockNumberNoCheck(pointer);
+    OffsetNumber off = ItemPointerGetOffsetNumberNoCheck(pointer);
+
+    if (off == PG_UINT16_MAX)
+    {
+        // Roll over to next block's first offset
+        if (blk != InvalidBlockNumber)
+        {
+            off = 0;
+            blk++;
+        }
+    }
+    else
+    {
+        // Simple increment within same block
+        off++;
+    }
+
+    ItemPointerSet(pointer, blk, off);
+}
+```

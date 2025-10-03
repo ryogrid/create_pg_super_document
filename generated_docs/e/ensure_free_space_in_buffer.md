@@ -56,3 +56,59 @@ The entire compaction process uses a temporary memory context to prevent memory 
 - Includes extensive assertions to validate the correctness of range operations
 - The compaction strategy prioritizes combining ranges with the smallest gaps to minimize information loss
 - Critical for maintaining performance in BRIN indexes by preventing excessive growth of range collections
+
+## Simplified Source
+
+```c
+static bool
+ensure_free_space_in_buffer(BrinDesc *bdesc, Oid colloid,
+                           AttrNumber attno, Form_pg_attribute attr,
+                           Ranges *range)
+{
+    // Quick check: if buffer has space, nothing to do
+    if (2 * range->nranges + range->nvalues < range->maxvalues)
+        return false;
+
+    // Get comparator function for this data type
+    FmgrInfo *cmpFn = minmax_multi_get_strategy_procinfo(bdesc, attno,
+                                                        attr->atttypid,
+                                                        BTLessStrategyNumber);
+
+    // Remove duplicate values first
+    range_deduplicate_values(range);
+
+    // Check if deduplication freed enough space (with load factor)
+    if (2 * range->nranges + range->nvalues <=
+        range->maxvalues * MINMAX_BUFFER_LOAD_FACTOR)
+        return true;
+
+    // Need to compact ranges - create temporary memory context
+    MemoryContext ctx = AllocSetContextCreate(CurrentMemoryContext,
+                                            "minmax-multi context",
+                                            ALLOCSET_DEFAULT_SIZES);
+    MemoryContext oldctx = MemoryContextSwitchTo(ctx);
+
+    // Build expanded ranges representation
+    ExpandedRange *eranges;
+    int neranges;
+    eranges = build_expanded_ranges(cmpFn, colloid, range, &neranges);
+
+    // Get distance function and calculate gaps between ranges
+    FmgrInfo *distanceFn = minmax_multi_get_procinfo(bdesc, attno, PROCNUM_DISTANCE);
+    DistanceValue *distances = build_distances(distanceFn, colloid, eranges, neranges);
+
+    // Combine ranges until we achieve target load factor (50%)
+    neranges = reduce_expanded_ranges(eranges, neranges, distances,
+                                    range->maxvalues * MINMAX_BUFFER_LOAD_FACTOR,
+                                    cmpFn, colloid);
+
+    // Convert back to standard ranges format
+    store_expanded_ranges(range, eranges, neranges);
+
+    // Clean up temporary memory
+    MemoryContextSwitchTo(oldctx);
+    MemoryContextDelete(ctx);
+
+    return true;
+}
+```

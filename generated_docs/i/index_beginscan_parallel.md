@@ -49,3 +49,31 @@ The function leverages the already-processed `index_beginscan_internal` for the 
 - This is part of PostgreSQL's parallel query execution infrastructure using dynamic shared memory
 - The restored snapshot ensures all parallel workers see a consistent view of the data
 - Location: src/backend/access/index/indexam.c:541-573
+
+## Simplified Source
+
+```c
+IndexScanDesc index_beginscan_parallel(Relation heaprel, Relation indexrel,
+                                     int nkeys, int norderbys,
+                                     ParallelIndexScanDesc pscan) {
+    IndexScanDesc scan;
+    Snapshot snapshot;
+
+    // Validate that heap relation matches the parallel scan descriptor
+    Assert(RelationGetRelid(heaprel) == pscan->ps_relid);
+
+    // Restore and register the snapshot from parallel scan descriptor
+    snapshot = RestoreSnapshot(pscan->ps_snapshot_data);
+    RegisterSnapshot(snapshot);
+
+    // Initialize the core scan using parallel scan parameters
+    scan = index_beginscan_internal(indexrel, nkeys, norderbys, snapshot, pscan, true);
+
+    // Set up additional scan descriptor fields for parallel execution
+    scan->heapRelation = heaprel;
+    scan->xs_snapshot = snapshot;
+    scan->xs_heapfetch = table_index_fetch_begin(heaprel);
+
+    return scan;
+}
+```

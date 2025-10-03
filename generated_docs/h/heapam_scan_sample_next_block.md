@@ -41,3 +41,73 @@ This function manages block selection and positioning during sample scans of hea
 - Prepares pages for efficient tuple extraction when in page mode (SO_ALLOW_PAGEMODE)
 - Returns false when scan is complete or relation is empty
 - Manages buffer strategy for optimal I/O performance during sampling
+
+## Simplified Source
+
+```c
+static bool heapam_scan_sample_next_block(TableScanDesc scan, SampleScanState *scanstate) {
+    HeapScanDesc hscan = (HeapScanDesc) scan;
+    TsmRoutine *tsm = scanstate->tsmroutine;
+    BlockNumber blockno;
+
+    // Return false immediately if relation is empty
+    if (hscan->rs_nblocks == 0)
+        return false;
+
+    // Release previous buffer if any
+    if (BufferIsValid(hscan->rs_cbuf)) {
+        ReleaseBuffer(hscan->rs_cbuf);
+        hscan->rs_cbuf = InvalidBuffer;
+    }
+
+    // Choose next block using custom sampling method or sequential scan
+    if (tsm->NextSampleBlock) {
+        blockno = tsm->NextSampleBlock(scanstate, hscan->rs_nblocks);
+    } else {
+        // Sequential scanning with wraparound
+        if (hscan->rs_cblock == InvalidBlockNumber) {
+            // First call - start from beginning
+            blockno = hscan->rs_startblock;
+        } else {
+            // Continue sequential scan
+            blockno = hscan->rs_cblock + 1;
+
+            // Handle wraparound at end of relation
+            if (blockno >= hscan->rs_nblocks) {
+                blockno = 0;  // Wrap to beginning
+            }
+
+            // Report scan position for synchronization
+            if (scan->rs_flags & SO_ALLOW_SYNC)
+                ss_report_location(scan->rs_rd, blockno);
+
+            // Check if we've completed a full circle
+            if (blockno == hscan->rs_startblock) {
+                blockno = InvalidBlockNumber;  // Signal end of scan
+            }
+        }
+    }
+
+    hscan->rs_cblock = blockno;
+
+    // Check if scan is complete
+    if (!BlockNumberIsValid(blockno)) {
+        hscan->rs_inited = false;
+        return false;
+    }
+
+    // Interrupt checking for long-running scans
+    CHECK_FOR_INTERRUPTS();
+
+    // Read the selected block
+    hscan->rs_cbuf = ReadBufferExtended(hscan->rs_base.rs_rd, MAIN_FORKNUM,
+                                       blockno, RBM_NORMAL, hscan->rs_strategy);
+
+    // Prepare page for scanning if in page mode
+    if (hscan->rs_base.rs_flags & SO_ALLOW_PAGEMODE)
+        heap_prepare_pagescan(scan);
+
+    hscan->rs_inited = true;
+    return true;
+}
+```

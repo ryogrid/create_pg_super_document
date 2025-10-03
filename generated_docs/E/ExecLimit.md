@@ -49,3 +49,208 @@ The function supports both forward and backward scanning directions and handles 
 - Position tracking is maintained across state transitions for proper offset/limit enforcement
 - Error handling includes checks for subplan failures during backward scanning
 - The function is designed to work with rescans while maintaining parallel execution compatibility
+
+## Simplified Source
+
+```c
+// Simplified version of ExecLimit
+static TupleTableSlot *
+ExecLimit(PlanState *pstate)
+{
+    LimitState *node = castNode(LimitState, pstate);
+    ExprContext *econtext = node->ps.ps_ExprContext;
+    ScanDirection direction = node->ps.state->es_direction;
+    TupleTableSlot *slot;
+    PlanState *outerPlan = outerPlanState(node);
+
+    // State machine for LIMIT/OFFSET processing
+    switch (node->lstate)
+    {
+        case LIMIT_INITIAL:
+            // First call - compute limit/offset values
+            recompute_limits(node);
+            // Fall through to LIMIT_RESCAN
+
+        case LIMIT_RESCAN:
+            // Don't support backward scans from start
+            if (!ScanDirectionIsForward(direction))
+                return NULL;
+
+            // Check for empty window
+            if (node->count <= 0 && !node->noCount)
+            {
+                node->lstate = LIMIT_EMPTY;
+                return NULL;
+            }
+
+            // Skip OFFSET tuples
+            for (;;)
+            {
+                slot = ExecProcNode(outerPlan);
+                if (TupIsNull(slot))
+                {
+                    node->lstate = LIMIT_EMPTY;
+                    return NULL;
+                }
+
+                // Save last tuple for WITH TIES comparison
+                if (node->limitOption == LIMIT_OPTION_WITH_TIES &&
+                    node->position - node->offset == node->count - 1)
+                {
+                    ExecCopySlot(node->last_slot, slot);
+                }
+
+                node->subSlot = slot;
+                if (++node->position > node->offset)
+                    break;  // Found first tuple to return
+            }
+
+            node->lstate = LIMIT_INWINDOW;
+            break;
+
+        case LIMIT_EMPTY:
+            return NULL;
+
+        case LIMIT_INWINDOW:
+            if (ScanDirectionIsForward(direction))
+            {
+                // Check if we've reached the limit
+                if (!node->noCount &&
+                    node->position - node->offset >= node->count)
+                {
+                    if (node->limitOption == LIMIT_OPTION_COUNT)
+                    {
+                        node->lstate = LIMIT_WINDOWEND;
+                        return NULL;
+                    }
+                    else
+                    {
+                        node->lstate = LIMIT_WINDOWEND_TIES;
+                        // Fall through to handle ties
+                    }
+                }
+                else
+                {
+                    // Get next tuple
+                    slot = ExecProcNode(outerPlan);
+                    if (TupIsNull(slot))
+                    {
+                        node->lstate = LIMIT_SUBPLANEOF;
+                        return NULL;
+                    }
+
+                    // Save for WITH TIES if this will be the last
+                    if (node->limitOption == LIMIT_OPTION_WITH_TIES &&
+                        node->position - node->offset == node->count - 1)
+                    {
+                        ExecCopySlot(node->last_slot, slot);
+                    }
+
+                    node->subSlot = slot;
+                    node->position++;
+                    break;
+                }
+            }
+            else
+            {
+                // Backward scan handling
+                if (node->position <= node->offset + 1)
+                {
+                    node->lstate = LIMIT_WINDOWSTART;
+                    return NULL;
+                }
+
+                slot = ExecProcNode(outerPlan);
+                if (TupIsNull(slot))
+                    elog(ERROR, "LIMIT subplan failed to run backwards");
+
+                node->subSlot = slot;
+                node->position--;
+                break;
+            }
+
+            if (node->lstate != LIMIT_WINDOWEND_TIES)
+                break;
+            // Fall through for WITH TIES processing
+
+        case LIMIT_WINDOWEND_TIES:
+            if (ScanDirectionIsForward(direction))
+            {
+                // Get next tuple and check if it ties with last
+                slot = ExecProcNode(outerPlan);
+                if (TupIsNull(slot))
+                {
+                    node->lstate = LIMIT_SUBPLANEOF;
+                    return NULL;
+                }
+
+                // Compare with saved last tuple
+                econtext->ecxt_innertuple = slot;
+                econtext->ecxt_outertuple = node->last_slot;
+                if (ExecQualAndReset(node->eqfunction, econtext))
+                {
+                    // Tuple ties - include it
+                    node->subSlot = slot;
+                    node->position++;
+                }
+                else
+                {
+                    // No tie - we're done
+                    node->lstate = LIMIT_WINDOWEND;
+                    return NULL;
+                }
+            }
+            else
+            {
+                // Backward scan in TIES mode
+                if (node->position <= node->offset + 1)
+                {
+                    node->lstate = LIMIT_WINDOWSTART;
+                    return NULL;
+                }
+
+                slot = ExecProcNode(outerPlan);
+                if (TupIsNull(slot))
+                    elog(ERROR, "LIMIT subplan failed to run backwards");
+
+                node->subSlot = slot;
+                node->position--;
+                node->lstate = LIMIT_INWINDOW;
+            }
+            break;
+
+        case LIMIT_SUBPLANEOF:
+        case LIMIT_WINDOWEND:
+        case LIMIT_WINDOWSTART:
+            // Handle backward scan recovery cases
+            if (ScanDirectionIsForward(direction))
+            {
+                if (node->lstate == LIMIT_WINDOWSTART)
+                {
+                    slot = node->subSlot;
+                    node->lstate = LIMIT_INWINDOW;
+                    break;
+                }
+                return NULL;
+            }
+            else
+            {
+                // Backward scan recovery
+                slot = ExecProcNode(outerPlan);
+                if (TupIsNull(slot))
+                    elog(ERROR, "LIMIT subplan failed to run backwards");
+
+                node->subSlot = slot;
+                node->lstate = LIMIT_INWINDOW;
+                break;
+            }
+
+        default:
+            elog(ERROR, "impossible LIMIT state: %d", (int) node->lstate);
+            slot = NULL;
+            break;
+    }
+
+    return slot;
+}
+```

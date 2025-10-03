@@ -49,3 +49,54 @@ The function optimizes performance by returning tuples directly from subplans wi
 - Async execution allows for parallel processing of subplans that support it
 - The execution strategy is pluggable via the choose_next_subplan function pointer
 - [Query](../Q/Query.md) interruption is supported through CHECK_FOR_INTERRUPTS() macro calls
+
+## Simplified Source
+
+```c
+static TupleTableSlot *ExecAppend(PlanState *pstate) {
+    AppendState *node = castNode(AppendState, pstate);
+    TupleTableSlot *result;
+
+    // Initialize on first call
+    if (!node->as_begun) {
+        if (node->as_nplans == 0)
+            return ExecClearTuple(node->ps.ps_ResultTupleSlot);
+
+        // Start async subplans if any
+        if (node->as_nasyncplans > 0)
+            ExecAppendAsyncBegin(node);
+
+        // Choose first sync subplan
+        if (!node->choose_next_subplan(node) && node->as_nasyncremain == 0)
+            return ExecClearTuple(node->ps.ps_ResultTupleSlot);
+
+        node->as_begun = true;
+    }
+
+    // Main execution loop
+    for (;;) {
+        CHECK_FOR_INTERRUPTS();
+
+        // Try async subplans first if sync is done or async needs attention
+        if (node->as_syncdone || !bms_is_empty(node->as_needrequest)) {
+            if (ExecAppendAsyncGetNext(node, &result))
+                return result;
+        }
+
+        // Execute current sync subplan
+        PlanState *subnode = node->appendplans[node->as_whichplan];
+        result = ExecProcNode(subnode);
+
+        if (!TupIsNull(result))
+            return result;
+
+        // Wait for async events before choosing next subplan
+        if (node->as_nasyncremain > 0)
+            ExecAppendAsyncEventWait(node);
+
+        // Choose next subplan; exit if none available
+        if (!node->choose_next_subplan(node) && node->as_nasyncremain == 0)
+            return ExecClearTuple(node->ps.ps_ResultTupleSlot);
+    }
+}
+```

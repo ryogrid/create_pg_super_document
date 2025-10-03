@@ -33,3 +33,11 @@ This function is part of PostgreSQL's comprehensive collection of datatype-speci
 - Returns a Datum (PostgreSQL's generic data type) containing the hash value
 - The function promotes the 16-bit input to 32-bit before hashing for consistency with the underlying hash algorithm
 - Designed to be called through PostgreSQL's function manager (fmgr) interface
+
+## Simplified Source
+```c
+Datum hashint2(PG_FUNCTION_ARGS) {
+    // Extract 16-bit integer argument and cast to 32-bit for hashing
+    return hash_uint32((int32) PG_GETARG_INT16(0));
+}
+```

@@ -36,3 +36,12 @@ The function delegates the actual reinitialization work to the table access meth
 - The actual reinitialization logic is delegated to the specific table access method
 - Critical for proper coordination in parallel query execution scenarios
 - Prevents race conditions by requiring synchronization before reinitialization
+
+## Simplified Source
+
+```c
+static inline void table_parallelscan_reinitialize(Relation rel, ParallelTableScanDesc pscan) {
+    // Delegate to table access method's reinitialization function
+    rel->rd_tableam->parallelscan_reinitialize(rel, pscan);
+}
+```

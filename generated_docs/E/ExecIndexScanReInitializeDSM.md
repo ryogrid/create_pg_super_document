@@ -32,3 +32,11 @@ ExecIndexScanReInitializeDSM(IndexScanState *node,
 - The ParallelContext parameter is included for consistency with the parallel execution interface but is not used within this specific function
 - Located in src/backend/executor/nodeIndexscan.c:1697-1709
 - The actual work is delegated to the index access method layer via index_parallelrescan
+
+## Simplified Source
+```c
+void ExecIndexScanReInitializeDSM(IndexScanState *node, ParallelContext *pcxt) {
+    // Reset the parallel index scan to start fresh
+    index_parallelrescan(node->iss_ScanDesc);
+}
+```

@@ -51,3 +51,27 @@ This function must be called in the leader process before parallel workers are l
 - Different storage engines may have different requirements for parallel scan coordination (heap, btree, etc.)
 - The initialized ParallelTableScanDesc is used by worker processes to coordinate their scanning activities
 - Proper initialization is critical for parallel query correctness and performance
+
+## Simplified Source
+```c
+void
+table_parallelscan_initialize(Relation rel, ParallelTableScanDesc pscan, Snapshot snapshot)
+{
+    // Let table access method initialize its parallel scan structures
+    Size snapshot_off = rel->rd_tableam->parallelscan_initialize(rel, pscan);
+    pscan->phs_snapshot_off = snapshot_off;
+
+    if (IsMVCCSnapshot(snapshot))
+    {
+        // Serialize MVCC snapshot for shared access across workers
+        SerializeSnapshot(snapshot, (char *) pscan + pscan->phs_snapshot_off);
+        pscan->phs_snapshot_any = false;
+    }
+    else
+    {
+        // SnapshotAny doesn't need serialization
+        Assert(snapshot == SnapshotAny);
+        pscan->phs_snapshot_any = true;
+    }
+}
+```

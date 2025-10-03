@@ -38,3 +38,20 @@ The function performs an assertion to ensure the page is indeed uncompressed, th
 - In the old format, the maxoff field in the page opaque area stores the number of items
 - This function provides backward compatibility for reading legacy GIN index formats
 - The returned pointer points directly into the page buffer, so the data should not be modified
+
+## Simplified Source
+
+```c
+static ItemPointer dataLeafPageGetUncompressed(Page page, int *nitems) {
+    // Verify this is an uncompressed page (old pre-9.4 format)
+    Assert(!GinPageIsCompressed(page));
+
+    // Get pointer to the TID array (starts right after page header)
+    ItemPointer items = (ItemPointer) GinDataPageGetData(page);
+
+    // In old format, item count is stored in the page opaque area
+    *nitems = GinPageGetOpaque(page)->maxoff;
+
+    return items;
+}
+```

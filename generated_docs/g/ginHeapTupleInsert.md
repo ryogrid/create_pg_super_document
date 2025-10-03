@@ -45,3 +45,27 @@ This function is designed for "normal" insertion mode, as opposed to fast-update
 - Each extracted entry is inserted individually with its corresponding category information
 - The item parameter (heap TID) is passed to each ginEntryInsert call to establish the connection between index entries and heap tuples
 - Does not handle statistics collection (NULL is passed to ginEntryInsert for stats parameter)
+
+## Simplified Source
+
+```c
+static void
+ginHeapTupleInsert(GinState *ginstate, OffsetNumber attnum,
+                   Datum value, bool isNull,
+                   ItemPointer item)
+{
+    Datum *entries;
+    GinNullCategory *categories;
+    int32 nentries;
+
+    // Extract all entries from the value using opclass extract function
+    entries = ginExtractEntries(ginstate, attnum, value, isNull,
+                                &nentries, &categories);
+
+    // Insert each extracted entry into the index
+    for (int i = 0; i < nentries; i++) {
+        ginEntryInsert(ginstate, attnum, entries[i], categories[i],
+                       item, 1, NULL);
+    }
+}
+```

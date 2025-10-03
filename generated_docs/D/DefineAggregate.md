@@ -128,3 +128,116 @@ DefineAggregate serves as the main entry point for CREATE AGGREGATE statement pr
 
 ## Notes and Other Information
 DefineAggregate handles complex validation logic for different aggregate types and parameter combinations. It supports both traditional aggregates and advanced features like moving-window aggregates, parallel execution modes, and serialization functions for custom aggregate state. The function enforces strict consistency rules between related parameters (e.g., moving-aggregate functions must be specified together) and provides detailed error messages for invalid configurations. The oldstyle parameter maintains backward compatibility with PostgreSQL versions prior to 8.2.
+
+## Simplified Source
+
+```c
+ObjectAddress
+DefineAggregate(ParseState *pstate, List *name, List *args,
+                bool oldstyle, List *parameters, bool replace)
+{
+    char *aggName;
+    Oid aggNamespace;
+    char aggKind = AGGKIND_NORMAL;
+
+    // Core function names and types
+    List *transfuncName = NIL;
+    List *finalfuncName = NIL;
+    TypeName *transType = NULL;
+    char *initval = NULL;
+    char proparallel = PROPARALLEL_UNSAFE;
+
+    // Moving-window aggregate support
+    List *mtransfuncName = NIL;
+    List *minvtransfuncName = NIL;
+    TypeName *mtransType = NULL;
+
+    // Extract aggregate name and validate namespace permissions
+    aggNamespace = QualifiedNameGetCreationNamespace(name, &aggName);
+    check_namespace_permissions(aggNamespace);
+
+    // Handle different argument styles (old vs new syntax)
+    if (!oldstyle) {
+        // New style: extract direct args count for ordered-set aggregates
+        numDirectArgs = intVal(lsecond(args));
+        if (numDirectArgs >= 0)
+            aggKind = AGGKIND_ORDERED_SET;
+        args = linitial_node(List, args);
+    }
+
+    // Parse all aggregate definition parameters
+    foreach(pl, parameters) {
+        DefElem *defel = lfirst_node(DefElem, pl);
+
+        // Extract function names and types from parameter clauses
+        if (strcmp(defel->defname, "sfunc") == 0)
+            transfuncName = defGetQualifiedName(defel);
+        else if (strcmp(defel->defname, "finalfunc") == 0)
+            finalfuncName = defGetQualifiedName(defel);
+        else if (strcmp(defel->defname, "stype") == 0)
+            transType = defGetTypeName(defel);
+        else if (strcmp(defel->defname, "initcond") == 0)
+            initval = defGetString(defel);
+        else if (strcmp(defel->defname, "msfunc") == 0)
+            mtransfuncName = defGetQualifiedName(defel);
+        else if (strcmp(defel->defname, "minvfunc") == 0)
+            minvtransfuncName = defGetQualifiedName(defel);
+        else if (strcmp(defel->defname, "mstype") == 0)
+            mtransType = defGetTypeName(defel);
+        else if (strcmp(defel->defname, "parallel") == 0)
+            parallel = defGetString(defel);
+        // ... handle other aggregate parameters
+    }
+
+    // Validate required parameters
+    if (transType == NULL)
+        ereport(ERROR, "aggregate stype must be specified");
+    if (transfuncName == NIL)
+        ereport(ERROR, "aggregate sfunc must be specified");
+
+    // Validate moving-aggregate consistency
+    if (mtransType != NULL) {
+        if (mtransfuncName == NIL || minvtransfuncName == NIL)
+            ereport(ERROR, "moving aggregate requires both msfunc and minvfunc");
+    }
+
+    // Process input argument types
+    if (oldstyle) {
+        // Old style: use basetype parameter
+        process_old_style_args(baseType, &parameterTypes, &numArgs);
+    } else {
+        // New style: process FunctionParameter list
+        interpret_function_parameter_list(pstate, args, &parameterTypes,
+                                        &allParameterTypes, &numArgs);
+    }
+
+    // Validate and resolve type IDs
+    transTypeId = typenameTypeId(NULL, transType);
+    validate_aggregate_type(transTypeId);
+
+    if (mtransType) {
+        mtransTypeId = typenameTypeId(NULL, mtransType);
+        validate_aggregate_type(mtransTypeId);
+    }
+
+    // Validate initial values against their types
+    if (initval && transTypeType != TYPTYPE_PSEUDO)
+        validate_initval(initval, transTypeId);
+
+    // Set parallel execution mode
+    if (parallel) {
+        if (strcmp(parallel, "safe") == 0)
+            proparallel = PROPARALLEL_SAFE;
+        else if (strcmp(parallel, "restricted") == 0)
+            proparallel = PROPARALLEL_RESTRICTED;
+        // ... handle other parallel modes
+    }
+
+    // Create the aggregate with all validated parameters
+    return AggregateCreate(aggName, aggNamespace, replace, aggKind,
+                          numArgs, parameterTypes, transfuncName,
+                          finalfuncName, transTypeId, initval,
+                          mtransfuncName, minvtransfuncName, mtransTypeId,
+                          proparallel);
+}
+```

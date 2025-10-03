@@ -52,3 +52,104 @@ The function handles both initial calls and continuation calls (when first_call 
 - Global deadness tracking helps vacuum identify cleanup opportunities
 - Performs serializable conflict detection and predicate locking for proper isolation
 - Chain traversal stops at non-HOT-updated tuples or broken transaction relationships
+
+## Simplified Source
+
+```c
+bool
+heap_hot_search_buffer(ItemPointer tid, Relation relation, Buffer buffer,
+                       Snapshot snapshot, HeapTuple heapTuple,
+                       bool *all_dead, bool first_call)
+{
+    Page page = BufferGetPage(buffer);
+    TransactionId prev_xmax = InvalidTransactionId;
+    BlockNumber blkno;
+    OffsetNumber offnum;
+    bool at_chain_start;
+    bool valid;
+    bool skip;
+    GlobalVisState *vistest = NULL;
+
+    // Initialize state based on whether this is first call
+    if (all_dead)
+        *all_dead = first_call;
+
+    blkno = ItemPointerGetBlockNumber(tid);
+    offnum = ItemPointerGetOffsetNumber(tid);
+    at_chain_start = first_call;
+    skip = !first_call;  // Skip first tuple on continuation calls
+
+    // Traverse the HOT chain
+    for (;;) {
+        ItemId lp;
+
+        // Validate offset number
+        if (offnum < FirstOffsetNumber || offnum > PageGetMaxOffsetNumber(page))
+            break;
+
+        lp = PageGetItemId(page, offnum);
+
+        // Handle non-normal items (deleted, redirected)
+        if (!ItemIdIsNormal(lp)) {
+            // Follow redirect only at chain start
+            if (ItemIdIsRedirected(lp) && at_chain_start) {
+                offnum = ItemIdGetRedirect(lp);
+                at_chain_start = false;
+                continue;
+            }
+            break;  // End of chain
+        }
+
+        // Fill in tuple information for current chain member
+        heapTuple->t_data = (HeapTupleHeader) PageGetItem(page, lp);
+        heapTuple->t_len = ItemIdGetLength(lp);
+        heapTuple->t_tableOid = RelationGetRelid(relation);
+        ItemPointerSet(&heapTuple->t_self, blkno, offnum);
+
+        // Validate chain integrity
+        if (at_chain_start && HeapTupleIsHeapOnly(heapTuple))
+            break;  // Invalid: HEAP_ONLY at start
+
+        if (TransactionId IsValid(prev_xmax) &&
+            !TransactionIdEquals(prev_xmax, HeapTupleHeaderGetXmin(heapTuple->t_data)))
+            break;  // Broken chain: xmin/xmax mismatch
+
+        // Check visibility if not skipping this tuple
+        if (!skip) {
+            valid = HeapTupleSatisfiesVisibility(heapTuple, snapshot, buffer);
+            HeapCheckForSerializableConflictOut(valid, relation, heapTuple,
+                                               buffer, snapshot);
+
+            if (valid) {
+                // Found visible tuple - return it
+                ItemPointerSetOffsetNumber(tid, offnum);
+                PredicateLockTID(relation, &heapTuple->t_self, snapshot,
+                               HeapTupleHeaderGetXmin(heapTuple->t_data));
+                if (all_dead)
+                    *all_dead = false;
+                return true;
+            }
+        }
+        skip = false;  // Don't skip subsequent tuples
+
+        // Check if this tuple is globally dead (for vacuum planning)
+        if (all_dead && *all_dead) {
+            if (!vistest)
+                vistest = GlobalVisTestFor(relation);
+            if (!HeapTupleIsSurelyDead(heapTuple, vistest))
+                *all_dead = false;
+        }
+
+        // Continue to next tuple in HOT chain if it exists
+        if (HeapTupleIsHotUpdated(heapTuple)) {
+            offnum = ItemPointerGetOffsetNumber(&heapTuple->t_data->t_ctid);
+            at_chain_start = false;
+            prev_xmax = HeapTupleHeaderGetUpdateXid(heapTuple->t_data);
+        } else {
+            break;  // End of chain
+        }
+    }
+
+    return false;  // No visible tuple found
+}
+```

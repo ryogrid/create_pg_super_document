@@ -35,3 +35,32 @@ The  function is a comparison function specifically designed for sorting  struct
 - Detects and flags duplicate entries during sorting via the  field
 - Used as a callback function for  operations on key entry arrays
 - The actual data comparison is delegated to a configurable comparison function stored in the argument structure
+
+## Simplified Source
+
+```c
+static int cmpEntries(const void *a, const void *b, void *arg) {
+    const keyEntryData *aa = (const keyEntryData *) a;
+    const keyEntryData *bb = (const keyEntryData *) b;
+    cmpEntriesArg *data = (cmpEntriesArg *) arg;
+    int res;
+
+    // Handle NULL comparisons (NULL > not-NULL)
+    if (aa->isnull) {
+        res = bb->isnull ? 0 : 1;
+    } else if (bb->isnull) {
+        res = -1;
+    } else {
+        // Compare non-NULL values using provided function
+        res = DatumGetInt32(FunctionCall2Coll(data->cmpDatumFunc,
+                                             data->collation,
+                                             aa->datum, bb->datum));
+    }
+
+    // Track if duplicates are found
+    if (res == 0)
+        data->haveDups = true;
+
+    return res;
+}
+```

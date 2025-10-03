@@ -46,3 +46,101 @@ The function implements strategy-specific logic, with special handling for leaf 
 - For box containment queries, implements exact (non-fuzzy) overlap testing to avoid unnecessary child page visits
 - On leaf pages, performs exact containment tests for polygon and circle queries after initial bounding box checks
 - Sets `*recheck = false` for most operations as they provide definitive results
+
+## Simplified Source
+
+```c
+Datum gist_point_consistent(PG_FUNCTION_ARGS) {
+    GISTENTRY *entry = (GISTENTRY *) PG_GETARG_POINTER(0);
+    StrategyNumber strategy = (StrategyNumber) PG_GETARG_UINT16(2);
+    bool *recheck = (bool *) PG_GETARG_POINTER(4);
+    bool result;
+    StrategyNumber strategyGroup;
+
+    // Remap legacy strategy numbers for backward compatibility
+    if (strategy == RTOldBelowStrategyNumber)
+        strategy = RTBelowStrategyNumber;
+    else if (strategy == RTOldAboveStrategyNumber)
+        strategy = RTAboveStrategyNumber;
+
+    // Determine strategy group for dispatch
+    strategyGroup = strategy / GeoStrategyNumberOffset;
+
+    switch (strategyGroup) {
+        case PointStrategyNumberGroup:
+            // Point-to-point operations
+            result = gist_point_consistent_internal(
+                strategy % GeoStrategyNumberOffset,
+                GIST_LEAF(entry),
+                DatumGetBoxP(entry->key),
+                PG_GETARG_POINT_P(1));
+            *recheck = false;
+            break;
+
+        case BoxStrategyNumberGroup:
+            // Point-in-box containment test (exact, non-fuzzy)
+            {
+                BOX *query = PG_GETARG_BOX_P(1);
+                BOX *key = DatumGetBoxP(entry->key);
+
+                result = (key->high.x >= query->low.x &&
+                         key->low.x <= query->high.x &&
+                         key->high.y >= query->low.y &&
+                         key->low.y <= query->high.y);
+                *recheck = false;
+            }
+            break;
+
+        case PolygonStrategyNumberGroup:
+            // Point-in-polygon operations
+            {
+                POLYGON *query = PG_GETARG_POLYGON_P(1);
+
+                // Initial bounding box check
+                result = DatumGetBool(DirectFunctionCall5(gist_poly_consistent,
+                    PointerGetDatum(entry), PolygonPGetDatum(query),
+                    Int16GetDatum(RTOverlapStrategyNumber), 0,
+                    PointerGetDatum(recheck)));
+
+                // Exact containment test on leaf pages
+                if (GIST_LEAF(entry) && result) {
+                    BOX *box = DatumGetBoxP(entry->key);
+                    result = DatumGetBool(DirectFunctionCall2(poly_contain_pt,
+                        PolygonPGetDatum(query),
+                        PointPGetDatum(&box->high)));
+                    *recheck = false;
+                }
+            }
+            break;
+
+        case CircleStrategyNumberGroup:
+            // Point-in-circle operations
+            {
+                CIRCLE *query = PG_GETARG_CIRCLE_P(1);
+
+                // Initial bounding box check
+                result = DatumGetBool(DirectFunctionCall5(gist_circle_consistent,
+                    PointerGetDatum(entry), CirclePGetDatum(query),
+                    Int16GetDatum(RTOverlapStrategyNumber), 0,
+                    PointerGetDatum(recheck)));
+
+                // Exact containment test on leaf pages
+                if (GIST_LEAF(entry) && result) {
+                    BOX *box = DatumGetBoxP(entry->key);
+                    result = DatumGetBool(DirectFunctionCall2(circle_contain_pt,
+                        CirclePGetDatum(query),
+                        PointPGetDatum(&box->high)));
+                    *recheck = false;
+                }
+            }
+            break;
+
+        default:
+            elog(ERROR, "unrecognized strategy number: %d", strategy);
+            result = false;
+            break;
+    }
+
+    PG_RETURN_BOOL(result);
+}
+```

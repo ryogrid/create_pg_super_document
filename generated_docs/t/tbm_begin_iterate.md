@@ -40,3 +40,58 @@ This function sets up the necessary data structures and state for iterating thro
 - The function converts hash table entries to sorted arrays for efficient sequential access
 - The TBMIterator includes space for MAX_TUPLES_PER_PAGE OffsetNumbers in its trailing space
 - Proper cleanup should be done with tbm_end_iterate, though memory context release is also acceptable
+
+## Simplified Source
+
+```c
+TBMIterator *
+tbm_begin_iterate(TIDBitmap *tbm)
+{
+    TBMIterator *iterator;
+
+    Assert(tbm->iterating != TBM_ITERATING_SHARED);
+
+    // Create iterator with space for tuple offsets
+    iterator = (TBMIterator *) palloc(sizeof(TBMIterator) +
+                                     MAX_TUPLES_PER_PAGE * sizeof(OffsetNumber));
+    iterator->tbm = tbm;
+
+    // Initialize iteration pointers
+    iterator->spageptr = 0;
+    iterator->schunkptr = 0;
+    iterator->schunkbit = 0;
+
+    // Convert hash table to sorted arrays if needed
+    if (tbm->status == TBM_HASH && tbm->iterating == TBM_NOT_ITERATING) {
+        pagetable_iterator i;
+        PagetableEntry *page;
+        int npages = 0, nchunks = 0;
+
+        // Allocate page and chunk arrays
+        if (!tbm->spages && tbm->npages > 0)
+            tbm->spages = (PagetableEntry **) MemoryContextAlloc(tbm->mcxt,
+                                                                tbm->npages * sizeof(PagetableEntry *));
+        if (!tbm->schunks && tbm->nchunks > 0)
+            tbm->schunks = (PagetableEntry **) MemoryContextAlloc(tbm->mcxt,
+                                                                 tbm->nchunks * sizeof(PagetableEntry *));
+
+        // Extract entries from hash table
+        pagetable_start_iterate(tbm->pagetable, &i);
+        while ((page = pagetable_iterate(tbm->pagetable, &i)) != NULL) {
+            if (page->ischunk)
+                tbm->schunks[nchunks++] = page;
+            else
+                tbm->spages[npages++] = page;
+        }
+
+        // Sort arrays for ordered iteration
+        if (npages > 1)
+            qsort(tbm->spages, npages, sizeof(PagetableEntry *), tbm_comparator);
+        if (nchunks > 1)
+            qsort(tbm->schunks, nchunks, sizeof(PagetableEntry *), tbm_comparator);
+    }
+
+    tbm->iterating = TBM_ITERATING_PRIVATE;
+    return iterator;
+}
+```

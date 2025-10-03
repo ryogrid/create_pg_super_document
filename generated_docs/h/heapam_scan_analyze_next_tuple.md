@@ -53,3 +53,80 @@ heapam_scan_analyze_next_tuple is a core function for ANALYZE operations that it
 - Releases buffer lock and clears slot when no more tuples are available on the page
 - Works in conjunction with heapam_scan_analyze_next_block() for complete page analysis
 - The slot parameter must be a BufferHeapTupleTableSlot (checked with TTS_IS_BUFFERTUPLE)
+
+## Simplified Source
+
+```c
+static bool heapam_scan_analyze_next_tuple(TableScanDesc scan, TransactionId OldestXmin,
+                                          double *liverows, double *deadrows,
+                                          TupleTableSlot *slot) {
+    HeapScanDesc hscan = (HeapScanDesc) scan;
+    Page targpage = BufferGetPage(hscan->rs_cbuf);
+    OffsetNumber maxoffset = PageGetMaxOffsetNumber(targpage);
+    BufferHeapTupleTableSlot *hslot = (BufferHeapTupleTableSlot *) slot;
+
+    // Scan through all tuples on the current page
+    for (; hscan->rs_cindex <= maxoffset; hscan->rs_cindex++) {
+        ItemId itemid = PageGetItemId(targpage, hscan->rs_cindex);
+        HeapTuple targtuple = &hslot->base.tupdata;
+        bool sample_it = false;
+
+        // Skip unused/redirect items, count dead items
+        if (!ItemIdIsNormal(itemid)) {
+            if (ItemIdIsDead(itemid))
+                *deadrows += 1;
+            continue;
+        }
+
+        // Set up tuple data
+        ItemPointerSet(&targtuple->t_self, hscan->rs_cblock, hscan->rs_cindex);
+        targtuple->t_tableOid = RelationGetRelid(scan->rs_rd);
+        targtuple->t_data = (HeapTupleHeader) PageGetItem(targpage, itemid);
+        targtuple->t_len = ItemIdGetLength(itemid);
+
+        // Check tuple visibility and decide whether to sample
+        switch (HeapTupleSatisfiesVacuum(targtuple, OldestXmin, hscan->rs_cbuf)) {
+            case HEAPTUPLE_LIVE:
+                sample_it = true;
+                *liverows += 1;
+                break;
+
+            case HEAPTUPLE_DEAD:
+            case HEAPTUPLE_RECENTLY_DEAD:
+                *deadrows += 1;
+                break;
+
+            case HEAPTUPLE_INSERT_IN_PROGRESS:
+                // Only sample if it's our own transaction
+                if (TransactionIdIsCurrentTransactionId(HeapTupleHeaderGetXmin(targtuple->t_data))) {
+                    sample_it = true;
+                    *liverows += 1;
+                }
+                break;
+
+            case HEAPTUPLE_DELETE_IN_PROGRESS:
+                // Count as dead if our transaction deleted it, otherwise live
+                if (TransactionIdIsCurrentTransactionId(HeapTupleHeaderGetUpdateXid(targtuple->t_data)))
+                    *deadrows += 1;
+                else {
+                    sample_it = true;
+                    *liverows += 1;
+                }
+                break;
+        }
+
+        // If we found a tuple to sample, return it
+        if (sample_it) {
+            ExecStoreBufferHeapTuple(targtuple, slot, hscan->rs_cbuf);
+            hscan->rs_cindex++;
+            return true;  // Buffer remains locked
+        }
+    }
+
+    // No more tuples on page - release buffer and clear slot
+    UnlockReleaseBuffer(hscan->rs_cbuf);
+    hscan->rs_cbuf = InvalidBuffer;
+    ExecClearTuple(slot);
+    return false;
+}
+```

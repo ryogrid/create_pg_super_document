@@ -32,3 +32,27 @@ This function is responsible for replaying BRIN index creation operations during
 - Part of PostgreSQL's crash recovery mechanism for BRIN indexes
 - The function ensures ACID properties by properly setting the LSN and marking buffers dirty
 - Located at src/backend/access/brin/brin_xlog.c:24-45
+
+## Simplified Source
+
+```c
+static void brin_xlog_createidx(XLogReaderState *record) {
+    XLogRecPtr lsn = record->EndRecPtr;
+    xl_brin_createidx *xlrec = (xl_brin_createidx *) XLogRecGetData(record);
+    Buffer buf;
+    Page page;
+
+    // Initialize buffer for the index metapage
+    buf = XLogInitBufferForRedo(record, 0);
+    Assert(BufferIsValid(buf));
+
+    // Initialize the metapage with parameters from WAL record
+    page = (Page) BufferGetPage(buf);
+    brin_metapage_init(page, xlrec->pagesPerRange, xlrec->version);
+
+    // Set LSN and mark buffer dirty for write
+    PageSetLSN(page, lsn);
+    MarkBufferDirty(buf);
+    UnlockReleaseBuffer(buf);
+}
+```

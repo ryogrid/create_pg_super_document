@@ -53,3 +53,56 @@ The dependency configuration ensures proper catalog management and prevents issu
 - Optional support functions are assigned soft family dependencies to allow flexible modification
 - Invalid support function numbers trigger an ERROR with ERRCODE_INVALID_OBJECT_DEFINITION
 - The function is designed to work with both CREATE OPERATOR CLASS and ALTER OPERATOR FAMILY operations
+
+## Simplified Source
+
+```c
+void
+ginadjustmembers(Oid opfamilyoid, Oid opclassoid, List *operators, List *functions)
+{
+    ListCell *lc;
+
+    // Set dependency configuration for all operators
+    // GIN operators get soft family dependencies since their connection
+    // to the opfamily depends on what support functions determine
+    foreach(lc, operators) {
+        OpFamilyMember *op = (OpFamilyMember *) lfirst(lc);
+
+        op->ref_is_hard = false;      // Soft dependency
+        op->ref_is_family = true;     // Points to family
+        op->refobjid = opfamilyoid;   // Target opfamily
+    }
+
+    // Set dependency configuration for support functions
+    foreach(lc, functions) {
+        OpFamilyMember *op = (OpFamilyMember *) lfirst(lc);
+
+        switch (op->number) {
+            case GIN_EXTRACTVALUE_PROC:
+            case GIN_EXTRACTQUERY_PROC:
+                // Required functions get hard dependencies
+                op->ref_is_hard = true;
+                break;
+
+            case GIN_COMPARE_PROC:
+            case GIN_CONSISTENT_PROC:
+            case GIN_COMPARE_PARTIAL_PROC:
+            case GIN_TRICONSISTENT_PROC:
+            case GIN_OPTIONS_PROC:
+                // Optional functions get soft family dependencies
+                op->ref_is_hard = false;
+                op->ref_is_family = true;
+                op->refobjid = opfamilyoid;
+                break;
+
+            default:
+                // Invalid support function number
+                ereport(ERROR,
+                        (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                         errmsg("support function number %d is invalid for access method %s",
+                               op->number, "gin")));
+                break;
+        }
+    }
+}
+```

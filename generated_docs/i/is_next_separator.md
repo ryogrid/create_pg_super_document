@@ -35,3 +35,35 @@ This function analyzes a FormatNode to determine if the next format element in a
 - Used in parsing logic to determine field boundaries in formatted input strings
 - Critical for proper parsing of numeric and date/time values from formatted text
 - The function advances the pointer to examine the next node (n++)
+
+## Simplified Source
+
+```c
+static bool is_next_separator(FormatNode *n) {
+    // Check if current node is at end
+    if (n->type == NODE_TYPE_END)
+        return false;
+
+    // Handle ordinal suffix case (TH/th) - treated as separator
+    if (n->type == NODE_TYPE_ACTION && S_THth(n->suffix))
+        return true;
+
+    // Move to next node to examine it
+    n++;
+
+    // End of format string acts like a separator
+    if (n->type == NODE_TYPE_END)
+        return true;
+
+    if (n->type == NODE_TYPE_ACTION) {
+        // If next node represents a digit, it's not a separator
+        return !n->key->is_digit;
+    }
+    // Check for single digit character
+    else if (n->character[1] == '\0' && isdigit((unsigned char) n->character[0])) {
+        return false;
+    }
+
+    return true; // Default: treat as separator
+}
+```

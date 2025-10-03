@@ -29,3 +29,21 @@ This function reinitializes the coordination data in dynamic shared memory for p
 - The coordination memory segment must have been previously allocated by ExecForeignScanInitializeDSM
 - Part of PostgreSQL's parallel query execution framework for scan restart scenarios
 - Located in src/backend/executor/nodeForeignscan.c:397-417
+
+## Simplified Source
+```c
+void ExecForeignScanReInitializeDSM(ForeignScanState *node, ParallelContext *pcxt) {
+    FdwRoutine *fdwroutine = node->fdwroutine;
+
+    // Only reinitialize if the FDW supports it
+    if (fdwroutine->ReInitializeDSMForeignScan) {
+        int plan_node_id = node->ss.ps.plan->plan_node_id;
+
+        // Find the shared memory coordinate for this plan node
+        void *coordinate = shm_toc_lookup(pcxt->toc, plan_node_id, false);
+
+        // Delegate to the FDW's reinitialization method
+        fdwroutine->ReInitializeDSMForeignScan(node, pcxt, coordinate);
+    }
+}
+```

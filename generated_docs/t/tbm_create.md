@@ -40,3 +40,30 @@ The created bitmap starts in an empty state and can grow up to the specified mem
 - The maxbytes parameter is used to calculate maximum entries via tbm_calculate_entries()
 - All DSA-related pointers are initialized to InvalidDsaPointer when no DSA is provided
 - The bitmap starts in TBM_EMPTY status, indicating no tuples have been added yet
+
+## Simplified Source
+
+```c
+TIDBitmap *tbm_create(long maxbytes, dsa_area *dsa)
+{
+    TIDBitmap *tbm;
+
+    // Create and initialize TIDBitmap structure
+    tbm = makeNode(TIDBitmap);
+
+    // Set memory context and initial state
+    tbm->mcxt = CurrentMemoryContext;
+    tbm->status = TBM_EMPTY;
+
+    // Calculate memory limits and initialize DSA pointers
+    tbm->maxentries = (int) tbm_calculate_entries(maxbytes);
+    tbm->lossify_start = 0;
+    tbm->dsa = dsa;
+    tbm->dsapagetable = InvalidDsaPointer;
+    tbm->dsapagetableold = InvalidDsaPointer;
+    tbm->ptpages = InvalidDsaPointer;
+    tbm->ptchunks = InvalidDsaPointer;
+
+    return tbm;
+}
+```

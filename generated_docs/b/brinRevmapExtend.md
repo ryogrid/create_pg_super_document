@@ -45,3 +45,20 @@ The function includes assertion checks to verify that the returned block number 
 - The function ensures proper bounds checking through assertions in debug builds
 - Physical extension involves updating both the revmap structure and the index metadata
 - This function is typically called during BRIN tuple insertion and update operations when the heap has grown beyond the current revmap coverage
+
+## Simplified Source
+
+```c
+void brinRevmapExtend(BrinRevmap *revmap, BlockNumber heapBlk)
+{
+    BlockNumber mapBlk PG_USED_FOR_ASSERTS_ONLY;
+
+    // Extend revmap to cover the heap block
+    mapBlk = revmap_extend_and_get_blkno(revmap, heapBlk);
+
+    // Validate the resulting block number
+    Assert(mapBlk != InvalidBlockNumber &&
+           mapBlk != BRIN_METAPAGE_BLKNO &&
+           mapBlk <= revmap->rm_lastRevmapPage);
+}
+```

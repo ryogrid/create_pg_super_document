@@ -43,3 +43,16 @@ The function is designed to be called during page extension, page creation, and 
 - This is a low-level utility function used throughout the BRIN subsystem
 - The function does not perform any locking - the caller must ensure proper synchronization
 - Essential for maintaining BRIN page format consistency across all page types
+
+## Simplified Source
+
+```c
+void brin_page_init(Page page, uint16 type) {
+    // Initialize the page with standard PostgreSQL page structure
+    // BLCKSZ is the block size, BrinSpecialSpace is BRIN-specific metadata
+    PageInit(page, BLCKSZ, sizeof(BrinSpecialSpace));
+
+    // Set the BRIN page type in the special space
+    BrinPageType(page) = type;
+}
+```

@@ -41,3 +41,40 @@ The algorithm starts at the root page (GIST_ROOT_BLKNO) and repeatedly follows t
 - Follows an arbitrary path (always the first downlink) since GiST trees have uniform depth
 - Simple and efficient algorithm that requires only one traversal path rather than examining the entire tree
 - Critical for initializing buffering structures that need to know the tree's depth for level-based buffer management
+
+## Simplified Source
+
+```c
+static int
+gistGetMaxLevel(Relation index)
+{
+    int maxLevel = 0;
+    BlockNumber blkno = GIST_ROOT_BLKNO;
+
+    // Traverse from root to any leaf page
+    while (true)
+    {
+        Buffer buffer = ReadBuffer(index, blkno);
+        LockBuffer(buffer, GIST_SHARE);
+        Page page = BufferGetPage(buffer);
+
+        // Check if we reached a leaf page
+        if (GistPageIsLeaf(page))
+        {
+            UnlockReleaseBuffer(buffer);
+            break;
+        }
+
+        // Follow first downlink to next level
+        IndexTuple itup = (IndexTuple) PageGetItem(page,
+                                                   PageGetItemId(page, FirstOffsetNumber));
+        blkno = ItemPointerGetBlockNumber(&(itup->t_tid));
+        UnlockReleaseBuffer(buffer);
+
+        // Increment level counter
+        maxLevel++;
+    }
+
+    return maxLevel;
+}
+```

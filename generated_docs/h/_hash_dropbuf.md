@@ -39,3 +39,12 @@ _hash_dropbuf(Relation rel, Buffer buf)
 - Essential for proper reference counting in hash index scan operations where buffers may be held temporarily without locks
 - The caller must ensure the buffer is not locked before calling this function, as it does not handle lock release
 - Used extensively in hash index expansion and scan operations where buffer access patterns differ from standard locked operations
+
+## Simplified Source
+
+```c
+void _hash_dropbuf(Relation rel, Buffer buf) {
+    // Release pin on the buffer (assumes no lock held)
+    ReleaseBuffer(buf);
+}
+```

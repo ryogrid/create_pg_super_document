@@ -40,3 +40,63 @@ The function sets the is_oneshot flag to true, which signals to other parts of t
 - The is_oneshot flag is set to true to distinguish from regular cached plans
 - Primarily used by SPI for utility commands and ad-hoc query execution
 - Trade-off between performance (no copying) and functionality (single-use only)
+
+## Simplified Source
+
+```c
+CachedPlanSource *CreateOneShotCachedPlan(RawStmt *raw_parse_tree,
+                                          const char *query_string,
+                                          CommandTag commandTag) {
+
+    // Create plan source in caller's memory context (no copying)
+    CachedPlanSource *plansource = palloc0(sizeof(CachedPlanSource));
+
+    // Set basic identification and structure validation
+    plansource->magic = CACHEDPLANSOURCE_MAGIC;
+    plansource->raw_parse_tree = raw_parse_tree;  // Direct reference, no copy
+    plansource->query_string = query_string;      // Direct reference, no copy
+    plansource->commandTag = commandTag;
+
+    // Initialize parameters and options (typically not used for one-shot)
+    plansource->param_types = NULL;
+    plansource->num_params = 0;
+    plansource->parserSetup = NULL;
+    plansource->parserSetupArg = NULL;
+    plansource->cursor_options = 0;
+
+    // Initialize result handling
+    plansource->fixed_result = false;
+    plansource->resultDesc = NULL;
+
+    // Memory context management
+    plansource->context = CurrentMemoryContext;  // Caller's context
+    plansource->query_context = NULL;
+
+    // Initialize lists and dependencies (empty for one-shot)
+    plansource->query_list = NIL;
+    plansource->relationOids = NIL;
+    plansource->invalItems = NIL;
+
+    // Security and row-level security
+    plansource->search_path = NULL;
+    plansource->rewriteRoleId = InvalidOid;
+    plansource->rewriteRowSecurity = false;
+    plansource->dependsOnRLS = false;
+
+    // Plan state and statistics
+    plansource->gplan = NULL;
+    plansource->generation = 0;
+    plansource->generic_cost = -1;
+    plansource->total_custom_cost = 0;
+    plansource->num_generic_plans = 0;
+    plansource->num_custom_plans = 0;
+
+    // One-shot specific flags
+    plansource->is_oneshot = true;       // Key marker for one-shot behavior
+    plansource->is_complete = false;
+    plansource->is_saved = false;
+    plansource->is_valid = false;
+
+    return plansource;
+}
+```

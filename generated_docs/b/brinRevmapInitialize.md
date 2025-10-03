@@ -51,3 +51,36 @@ The function performs the following key operations:
 - The function holds a shared lock on the metadata page during initialization but releases it before returning
 - The metadata buffer (rm_metaBuf) remains held in the revmap structure for later use
 - This is typically the first function called when beginning any BRIN revmap operations
+
+## Simplified Source
+
+```c
+BrinRevmap *brinRevmapInitialize(Relation idxrel, BlockNumber *pagesPerRange)
+{
+    BrinRevmap *revmap;
+    Buffer meta;
+    BrinMetaPageData *metadata;
+    Page page;
+
+    // Read and lock metadata page
+    meta = ReadBuffer(idxrel, BRIN_METAPAGE_BLKNO);
+    LockBuffer(meta, BUFFER_LOCK_SHARE);
+    page = BufferGetPage(meta);
+    metadata = (BrinMetaPageData *) PageGetContents(page);
+
+    // Initialize revmap structure
+    revmap = palloc(sizeof(BrinRevmap));
+    revmap->rm_irel = idxrel;
+    revmap->rm_pagesPerRange = metadata->pagesPerRange;
+    revmap->rm_lastRevmapPage = metadata->lastRevmapPage;
+    revmap->rm_metaBuf = meta;
+    revmap->rm_currBuf = InvalidBuffer;
+
+    // Return pages per range to caller
+    *pagesPerRange = metadata->pagesPerRange;
+
+    LockBuffer(meta, BUFFER_LOCK_UNLOCK);
+
+    return revmap;
+}
+```

@@ -52,3 +52,26 @@ The function uses a full page image approach rather than tracking fine-grained c
 - Skips WAL logging if the relation doesn't require it (e.g., unlogged tables)
 - The logging approach could be optimized to track more fine-grained changes
 - Essential for crash recovery to maintain index consistency after vacuum operations
+
+## Simplified Source
+
+```c
+static void xlogVacuumPage(Relation index, Buffer buffer) {
+    Page page = BufferGetPage(buffer);
+
+    // Verify this is an entry tree leaf page
+    Assert(!GinPageIsData(page));
+    Assert(GinPageIsLeaf(page));
+
+    // Skip if relation doesn't need WAL
+    if (!RelationNeedsWAL(index))
+        return;
+
+    // Create full page image WAL record
+    XLogBeginInsert();
+    XLogRegisterBuffer(0, buffer, REGBUF_FORCE_IMAGE | REGBUF_STANDARD);
+
+    XLogRecPtr recptr = XLogInsert(RM_GIN_ID, XLOG_GIN_VACUUM_PAGE);
+    PageSetLSN(page, recptr);
+}
+```

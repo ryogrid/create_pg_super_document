@@ -44,3 +44,43 @@ The ExecPrepareTupleRouting function handles the complex process of routing tupl
 - The function can raise errors if no valid partition is found or if the found partition is not a valid target for the operation
 - Essential for partitioned table operations where tuples may need to be routed to different partitions based on partition key values
 - Located in src/backend/executor/nodeModifyTable.c:3893-3952
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecPrepareTupleRouting(ModifyTableState *mtstate,
+                        EState *estate,
+                        PartitionTupleRouting *proute,
+                        ResultRelInfo *targetRelInfo,
+                        TupleTableSlot *slot,
+                        ResultRelInfo **partRelInfo)
+{
+    ResultRelInfo *partrel;
+    TupleConversionMap *map;
+
+    // Find the appropriate partition for this tuple
+    partrel = ExecFindPartition(mtstate, targetRelInfo, proute, slot, estate);
+
+    // Handle transition capture optimization for BEFORE triggers
+    if (mtstate->mt_transition_capture != NULL) {
+        bool has_before_insert_triggers = (partrel->ri_TrigDesc &&
+                                         partrel->ri_TrigDesc->trig_insert_before_row);
+
+        // Store original tuple if no BEFORE triggers that might change it
+        mtstate->mt_transition_capture->tcs_original_insert_tuple =
+            !has_before_insert_triggers ? slot : NULL;
+    }
+
+    // Convert tuple format from root table to partition format if needed
+    map = ExecGetRootToChildMap(partrel, estate);
+    if (map != NULL) {
+        TupleTableSlot *new_slot = partrel->ri_PartitionTupleSlot;
+        slot = execute_attr_map_slot(map->attrMap, slot, new_slot);
+    }
+
+    // Return partition info and converted slot
+    *partRelInfo = partrel;
+    return slot;
+}
+```

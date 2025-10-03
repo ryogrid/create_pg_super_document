@@ -43,3 +43,39 @@ The function supports major PostgreSQL time types including timestamps (with and
 - For TIMETZ (time with timezone), the function converts to GMT-equivalent time by adjusting for the timezone offset
 - This is a static function within selfuncs.c, indicating it's used internally for selectivity estimation calculations
 - The function maintains the relative ordering of time values, which is essential for histogram-based selectivity estimation
+
+## Simplified Source
+
+```c
+static double
+convert_timevalue_to_scalar(Datum value, Oid typid, bool *failure)
+{
+    switch (typid) {
+        case TIMESTAMPOID:
+            return DatumGetTimestamp(value);
+        case TIMESTAMPTZOID:
+            return DatumGetTimestampTz(value);
+        case DATEOID:
+            return date2timestamp_no_overflow(DatumGetDateADT(value));
+        case INTERVALOID:
+            {
+                Interval *interval = DatumGetIntervalP(value);
+                // Convert to microseconds using average month length
+                return interval->time +
+                       interval->day * (double) USECS_PER_DAY +
+                       interval->month * ((DAYS_PER_YEAR / (double) MONTHS_PER_YEAR) * USECS_PER_DAY);
+            }
+        case TIMEOID:
+            return DatumGetTimeADT(value);
+        case TIMETZOID:
+            {
+                TimeTzADT *timetz = DatumGetTimeTzADTP(value);
+                // Convert to GMT-equivalent time
+                return (double) (timetz->time + (timetz->zone * 1000000.0));
+            }
+    }
+
+    *failure = true;
+    return 0;
+}
+```

@@ -38,3 +38,25 @@ The check is described as "imperfect" because memory allocations can occur witho
 - The "at least one group" safety check ensures the algorithm can always make progress
 - Memory measurement includes both metadata and hash key storage contexts for comprehensive tracking
 - This is a key component of PostgreSQL's memory-bounded hash aggregation implementation
+
+## Simplified Source
+
+```c
+static void
+hash_agg_check_limits(AggState *aggstate)
+{
+    uint64 ngroups = aggstate->hash_ngroups_current;
+
+    // Calculate total memory usage from both contexts
+    Size meta_mem = MemoryContextMemAllocated(aggstate->hash_metacxt, true);
+    Size hashkey_mem = MemoryContextMemAllocated(aggstate->hashcontext->ecxt_per_tuple_memory, true);
+
+    // Only spill if we have at least one group (ensure progress)
+    // and we've exceeded either memory or group count limits
+    if (aggstate->hash_ngroups_current > 0 &&
+        (meta_mem + hashkey_mem > aggstate->hash_mem_limit ||
+         ngroups > aggstate->hash_ngroups_limit)) {
+        hash_agg_enter_spill_mode(aggstate);
+    }
+}
+```

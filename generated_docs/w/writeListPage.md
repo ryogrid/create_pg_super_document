@@ -46,3 +46,74 @@ This function is responsible for constructing GIN pending-list pages during fast
 - Sets page flags differently for tail pages vs intermediate pages
 - Returns exact free space remaining on the page for capacity planning
 - Part of GIN's fast insertion mechanism for pending list management
+
+## Simplified Source
+
+```c
+// Simplified version of writeListPage
+static int32 writeListPage(Relation index, Buffer buffer,
+                          IndexTuple *tuples, int32 ntuples, BlockNumber rightlink)
+{
+    Page page = BufferGetPage(buffer);
+    int32 i, freesize, size = 0;
+    OffsetNumber off;
+    PGAlignedBlock workspace;
+    char *ptr;
+
+    START_CRIT_SECTION();
+
+    // Initialize buffer as GIN list page
+    GinInitBuffer(buffer, GIN_LIST);
+
+    off = FirstOffsetNumber;
+    ptr = workspace.data;
+
+    // Add each tuple to the page
+    for (i = 0; i < ntuples; i++) {
+        int this_size = IndexTupleSize(tuples[i]);
+
+        // Copy to workspace for WAL
+        memcpy(ptr, tuples[i], this_size);
+        ptr += this_size;
+        size += this_size;
+
+        // Add item to page
+        if (PageAddItem(page, (Item) tuples[i], this_size, off, false, false) == InvalidOffsetNumber)
+            elog(ERROR, "failed to add item to index page in \"%s\"",
+                 RelationGetRelationName(index));
+        off++;
+    }
+
+    // Set page metadata
+    GinPageGetOpaque(page)->rightlink = rightlink;
+    if (rightlink == InvalidBlockNumber) {
+        GinPageSetFullRow(page);
+        GinPageGetOpaque(page)->maxoff = 1;
+    } else {
+        GinPageGetOpaque(page)->maxoff = 0;
+    }
+
+    MarkBufferDirty(buffer);
+
+    // Handle WAL logging
+    if (RelationNeedsWAL(index)) {
+        ginxlogInsertListPage data;
+        data.rightlink = rightlink;
+        data.ntuples = ntuples;
+
+        XLogBeginInsert();
+        XLogRegisterData((char *) &data, sizeof(ginxlogInsertListPage));
+        XLogRegisterBuffer(0, buffer, REGBUF_WILL_INIT);
+        XLogRegisterBufData(0, workspace.data, size);
+
+        XLogRecPtr recptr = XLogInsert(RM_GIN_ID, XLOG_GIN_INSERT_LISTPAGE);
+        PageSetLSN(page, recptr);
+    }
+
+    freesize = PageGetExactFreeSpace(page);
+    UnlockReleaseBuffer(buffer);
+    END_CRIT_SECTION();
+
+    return freesize;
+}
+```

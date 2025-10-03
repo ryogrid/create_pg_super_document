@@ -36,3 +36,44 @@ ExecUnique implements duplicate elimination by processing tuples from its outer 
 - Uses equality functions (eqfunction) stored in UniqueState for tuple comparison
 - Must copy result tuples because the source subplan may reuse tuple slots
 - Handles interrupts via CHECK_FOR_INTERRUPTS() for query cancellation support
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecUnique(PlanState *pstate)
+{
+    UniqueState *node = castNode(UniqueState, pstate);
+    TupleTableSlot *resultSlot = node->ps.ps_ResultTupleSlot;
+    TupleTableSlot *slot;
+    PlanState *outerPlan = outerPlanState(node);
+
+    // Main loop: eliminate duplicates from sorted input
+    for (;;)
+    {
+        // Get next tuple from outer subplan
+        slot = ExecProcNode(outerPlan);
+        if (TupIsNull(slot))
+            return NULL;  // End of input
+
+        // Always return first tuple
+        if (TupIsNull(resultSlot))
+            break;
+
+        // Compare with previous tuple - if identical, skip it
+        node->ps.ps_ExprContext->ecxt_innertuple = slot;
+        node->ps.ps_ExprContext->ecxt_outertuple = resultSlot;
+        if (!ExecQualAndReset(node->eqfunction, node->ps.ps_ExprContext))
+            break;  // Different tuple found
+    }
+
+    // Copy and return the new distinct tuple
+    return ExecCopySlot(resultSlot, slot);
+}
+```
+
+This function eliminates duplicates by:
+1. Fetching tuples from the outer subplan in sorted order
+2. Comparing each new tuple with the previously returned tuple
+3. Skipping identical tuples and returning only distinct ones
+4. Copying result tuples to ensure they remain valid

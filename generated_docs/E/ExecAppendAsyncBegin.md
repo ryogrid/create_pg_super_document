@@ -46,3 +46,48 @@ The async execution model allows the database to initiate I/O operations or remo
 - Part of PostgreSQL's push towards more concurrent and parallel execution models
 - Works in conjunction with the async request/response infrastructure
 - Essential for modern workloads involving distributed data or multiple storage systems
+
+## Simplified Source
+
+```c
+static void
+ExecAppendAsyncBegin(AppendState *node)
+{
+    // Validation: async append only supports forward scans
+    Assert(ScanDirectionIsForward(node->ps.state->es_direction));
+    Assert(node->as_nplans > 0);
+    Assert(node->as_nasyncplans > 0);
+
+    // Determine valid subplans if not already done
+    if (!node->as_valid_subplans_identified)
+    {
+        // Use runtime pruning to find valid subplans
+        node->as_valid_subplans = ExecFindMatchingSubPlans(node->as_prune_state, false);
+        node->as_valid_subplans_identified = true;
+
+        // Classify which subplans support async execution
+        classify_matching_subplans(node);
+    }
+
+    // Initialize state tracking variables
+    node->as_syncdone = bms_is_empty(node->as_valid_subplans);
+    node->as_nasyncremain = bms_num_members(node->as_valid_asyncplans);
+
+    // Early return if no async subplans are valid
+    if (node->as_nasyncremain == 0)
+        return;
+
+    // Submit async requests for all valid async subplans
+    int i = -1;
+    while ((i = bms_next_member(node->as_valid_asyncplans, i)) >= 0)
+    {
+        AsyncRequest *areq = node->as_asyncrequests[i];
+
+        Assert(areq->request_index == i);
+        Assert(!areq->callback_pending);
+
+        // Initiate async execution for this subplan
+        ExecAsyncRequest(areq);
+    }
+}
+```

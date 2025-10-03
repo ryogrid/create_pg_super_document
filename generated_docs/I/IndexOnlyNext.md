@@ -43,3 +43,104 @@ The function also handles lossy index scans by rechecking index qualifiers when 
 - Does not support rechecking ORDER BY distances for lossy scans
 - Maintains buffer pins on heap pages across calls for potential reuse
 - Returns an empty slot when the scan is exhausted
+
+## Simplified Source
+
+```c
+static TupleTableSlot *IndexOnlyNext(IndexOnlyScanState *node)
+{
+    EState *estate = node->ss.ps.state;
+    ScanDirection direction = ScanDirectionCombine(estate->es_direction,
+                                                   ((IndexOnlyScan *) node->ss.ps.plan)->indexorderdir);
+    IndexScanDesc scandesc = node->ioss_ScanDesc;
+    ExprContext *econtext = node->ss.ps.ps_ExprContext;
+    TupleTableSlot *slot = node->ss.ss_ScanTupleSlot;
+    ItemPointer tid;
+
+    // Initialize scan descriptor if needed
+    if (scandesc == NULL)
+    {
+        scandesc = index_beginscan(node->ss.ss_currentRelation,
+                                   node->ioss_RelationDesc,
+                                   estate->es_snapshot,
+                                   node->ioss_NumScanKeys,
+                                   node->ioss_NumOrderByKeys);
+        node->ioss_ScanDesc = scandesc;
+
+        // Configure for index-only scan
+        scandesc->xs_want_itup = true;
+        node->ioss_VMBuffer = InvalidBuffer;
+
+        // Pass scan keys if ready
+        if (node->ioss_NumRuntimeKeys == 0 || node->ioss_RuntimeKeysReady)
+            index_rescan(scandesc, node->ioss_ScanKeys, node->ioss_NumScanKeys,
+                         node->ioss_OrderByKeys, node->ioss_NumOrderByKeys);
+    }
+
+    // Main scan loop
+    while ((tid = index_getnext_tid(scandesc, direction)) != NULL)
+    {
+        bool tuple_from_heap = false;
+
+        CHECK_FOR_INTERRUPTS();
+
+        // Check visibility map to avoid heap access if possible
+        if (!VM_ALL_VISIBLE(scandesc->heapRelation,
+                            ItemPointerGetBlockNumber(tid),
+                            &node->ioss_VMBuffer))
+        {
+            // Need to check heap for visibility
+            InstrCountTuples2(node, 1);
+            if (!index_fetch_heap(scandesc, node->ioss_TableSlot))
+                continue; // Tuple not visible, try next
+
+            ExecClearTuple(node->ioss_TableSlot);
+
+            // Verify MVCC snapshot support
+            if (scandesc->xs_heap_continue)
+                elog(ERROR, "non-MVCC snapshots are not supported in index-only scans");
+
+            tuple_from_heap = true;
+        }
+
+        // Store tuple data from index into slot
+        if (scandesc->xs_hitup)
+        {
+            Assert(slot->tts_tupleDescriptor->natts == scandesc->xs_hitupdesc->natts);
+            ExecForceStoreHeapTuple(scandesc->xs_hitup, slot, false);
+        }
+        else if (scandesc->xs_itup)
+            StoreIndexTuple(node, slot, scandesc->xs_itup, scandesc->xs_itupdesc);
+        else
+            elog(ERROR, "no data returned for index-only scan");
+
+        // Recheck index quals if scan was lossy
+        if (scandesc->xs_recheck)
+        {
+            econtext->ecxt_scantuple = slot;
+            if (!ExecQualAndReset(node->recheckqual, econtext))
+            {
+                InstrCountFiltered2(node, 1);
+                continue; // Failed recheck, try next tuple
+            }
+        }
+
+        // Error if ORDER BY distance rechecking is needed (not supported)
+        if (scandesc->numberOfOrderBys > 0 && scandesc->xs_recheckorderby)
+            ereport(ERROR,
+                    (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                     errmsg("lossy distance functions are not supported in index-only scans")));
+
+        // Take predicate lock if we didn't access heap
+        if (!tuple_from_heap)
+            PredicateLockPage(scandesc->heapRelation,
+                              ItemPointerGetBlockNumber(tid),
+                              estate->es_snapshot);
+
+        return slot;
+    }
+
+    // End of scan - return empty slot
+    return ExecClearTuple(slot);
+}
+```

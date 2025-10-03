@@ -54,3 +54,48 @@ The index update decision logic distinguishes between:
 - HOT updates are a PostgreSQL optimization that avoids updating indexes when only non-indexed columns change
 - The function includes assertions to validate the consistency between update results and index update flags
 - Part of PostgreSQL's pluggable table access method architecture
+
+## Simplified Source
+
+```c
+static TM_Result
+heapam_tuple_update(Relation relation, ItemPointer otid, TupleTableSlot *slot,
+                    CommandId cid, Snapshot snapshot, Snapshot crosscheck,
+                    bool wait, TM_FailureData *tmfd,
+                    LockTupleMode *lockmode, TU_UpdateIndexes *update_indexes)
+{
+    // Extract heap tuple from slot
+    bool shouldFree = true;
+    HeapTuple tuple = ExecFetchSlotHeapTuple(slot, true, &shouldFree);
+    TM_Result result;
+
+    // Set table OID in both slot and tuple
+    slot->tts_tableOid = RelationGetRelid(relation);
+    tuple->t_tableOid = slot->tts_tableOid;
+
+    // Perform the actual update
+    result = heap_update(relation, otid, tuple, cid, crosscheck, wait,
+                         tmfd, lockmode, update_indexes);
+
+    // Copy new tuple location back to slot
+    ItemPointerCopy(&tuple->t_self, &slot->tts_tid);
+
+    // Determine index update strategy based on result
+    if (result != TM_Ok) {
+        *update_indexes = TU_None;  // Failed update
+    } else if (!HeapTupleIsHeapOnly(tuple)) {
+        // Non-HOT update: all indexes need updating
+        Assert(*update_indexes == TU_All);
+    } else {
+        // HOT update: only summarizing indexes or none
+        Assert((*update_indexes == TU_Summarizing) ||
+               (*update_indexes == TU_None));
+    }
+
+    // Clean up allocated memory if needed
+    if (shouldFree)
+        pfree(tuple);
+
+    return result;
+}
+```

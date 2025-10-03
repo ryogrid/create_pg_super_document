@@ -50,3 +50,34 @@ This setup allows the generic GIN B-tree algorithms to work specifically with po
 - The isData flag distinguishes this from entry tree operations, enabling data-specific behaviors
 - The function is essential for setting up the function dispatch table that allows generic B-tree operations to work on posting tree structures
 - All boolean flags are explicitly set to establish the correct operational context for posting tree manipulation
+
+## Simplified Source
+
+```c
+static void
+ginPrepareDataScan(GinBtree btree, Relation index, BlockNumber rootBlkno)
+{
+    // Initialize the GinBtree structure for posting tree operations
+    memset(btree, 0, sizeof(GinBtreeData));
+
+    // Set basic properties
+    btree->index = index;
+    btree->rootBlkno = rootBlkno;
+
+    // Assign posting tree specific function pointers
+    btree->findChildPage = dataLocateItem;
+    btree->getLeftMostChild = dataGetLeftMostPage;
+    btree->isMoveRight = dataIsMoveRight;
+    btree->findItem = NULL;  // Not used for posting trees
+    btree->findChildPtr = dataFindChildPtr;
+    btree->beginPlaceToPage = dataBeginPlaceToPage;
+    btree->execPlaceToPage = dataExecPlaceToPage;
+    btree->fillRoot = ginDataFillRoot;
+    btree->prepareDownlink = dataPrepareDownlink;
+
+    // Set operation flags for posting tree context
+    btree->isData = true;
+    btree->fullScan = false;
+    btree->isBuild = false;
+}
+```

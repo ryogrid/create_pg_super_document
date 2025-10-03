@@ -45,3 +45,84 @@ The function performs integrity checks during traversal, including validation of
 - Does not optimize for single-version scenarios - always traverses the complete chain
 - Performs serializable conflict detection for proper isolation levels
 - Stops at self-referencing t_ctid pointers (indicates end of update chain)
+
+## Simplified Source
+
+```c
+void
+heap_get_latest_tid(TableScanDesc sscan, ItemPointer tid)
+{
+    Relation relation = sscan->rs_rd;
+    Snapshot snapshot = sscan->rs_snapshot;
+    ItemPointerData ctid;
+    TransactionId priorXmax;
+
+    // Start traversing from the input TID
+    ctid = *tid;
+    priorXmax = InvalidTransactionId;  // No prior transaction to check initially
+
+    // Follow the t_ctid chain to find the latest visible version
+    for (;;) {
+        Buffer buffer;
+        Page page;
+        OffsetNumber offnum;
+        ItemId lp;
+        HeapTupleData tp;
+        bool valid;
+
+        // Read and lock the page containing the current tuple
+        buffer = ReadBuffer(relation, ItemPointerGetBlockNumber(&ctid));
+        LockBuffer(buffer, BUFFER_LOCK_SHARE);
+        page = BufferGetPage(buffer);
+
+        // Validate the offset number
+        offnum = ItemPointerGetOffsetNumber(&ctid);
+        if (offnum < FirstOffsetNumber || offnum > PageGetMaxOffsetNumber(page)) {
+            UnlockReleaseBuffer(buffer);
+            break;  // Invalid offset, stop here
+        }
+
+        // Check if the item is valid (not deleted)
+        lp = PageGetItemId(page, offnum);
+        if (!ItemIdIsNormal(lp)) {
+            UnlockReleaseBuffer(buffer);
+            break;  // Deleted item, stop here
+        }
+
+        // Build tuple structure for this version
+        tp.t_self = ctid;
+        tp.t_data = (HeapTupleHeader) PageGetItem(page, lp);
+        tp.t_len = ItemIdGetLength(lp);
+        tp.t_tableOid = RelationGetRelid(relation);
+
+        // Verify transaction chain integrity
+        if (TransactionIdIsValid(priorXmax) &&
+            !TransactionIdEquals(priorXmax, HeapTupleHeaderGetXmin(tp.t_data))) {
+            UnlockReleaseBuffer(buffer);
+            break;  // Broken chain, stop here
+        }
+
+        // Check if this version is visible to our snapshot
+        valid = HeapTupleSatisfiesVisibility(&tp, snapshot, buffer);
+        HeapCheckForSerializableConflictOut(valid, relation, &tp, buffer, snapshot);
+
+        if (valid) {
+            *tid = ctid;  // Update result to this visible version
+        }
+
+        // Check if we've reached the end of the update chain
+        if ((tp.t_data->t_infomask & HEAP_XMAX_INVALID) ||
+            HeapTupleHeaderIsOnlyLocked(tp.t_data) ||
+            HeapTupleHeaderIndicatesMovedPartitions(tp.t_data) ||
+            ItemPointerEquals(&tp.t_self, &tp.t_data->t_ctid)) {
+            UnlockReleaseBuffer(buffer);
+            break;  // End of chain
+        }
+
+        // Move to the next tuple in the chain
+        ctid = tp.t_data->t_ctid;
+        priorXmax = HeapTupleHeaderGetUpdateXid(tp.t_data);
+        UnlockReleaseBuffer(buffer);
+    }
+}
+```

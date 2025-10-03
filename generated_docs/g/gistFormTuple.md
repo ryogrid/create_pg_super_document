@@ -45,3 +45,25 @@ The compression step is essential for space efficiency and ensures that the stor
 - The compression step is mandatory and uses operator class-specific compression functions
 - Essential for creating properly formatted GiST tuples ready for storage
 - The resulting tuple can be inserted into GiST pages or used in further index operations
+
+## Simplified Source
+
+```c
+IndexTuple gistFormTuple(GISTSTATE *giststate, Relation r,
+                         const Datum *attdata, const bool *isnull, bool isleaf) {
+    Datum compressed_values[INDEX_MAX_KEYS];
+
+    // Compress attribute values using operator class functions
+    gistCompressValues(giststate, r, attdata, isnull, isleaf, compressed_values);
+
+    // Create tuple using appropriate descriptor (leaf vs non-leaf)
+    IndexTuple tuple = index_form_tuple(isleaf ? giststate->leafTupdesc :
+                                               giststate->nonLeafTupdesc,
+                                       compressed_values, isnull);
+
+    // Set special offset number for internal pages (historical reasons)
+    ItemPointerSetOffsetNumber(&(tuple->t_tid), 0xffff);
+
+    return tuple;
+}
+```

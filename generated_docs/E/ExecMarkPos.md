@@ -48,3 +48,43 @@ The mark/restore capability is specifically designed for nodes that can produce 
 - [Node](../N/Node.md) types that cannot produce sorted output don't typically need mark/restore capability
 - When mark/restore is needed but not supported by a node type, the planner automatically inserts a Material node to provide this capability
 - The mark position is stored internally within each node type's state structure and can be restored later with ExecRestrPos
+
+## Simplified Source
+
+```c
+void
+ExecMarkPos(PlanState *node)
+{
+    // Dispatch to appropriate mark function based on node type
+    switch (nodeTag(node)) {
+        case T_IndexScanState:
+            ExecIndexMarkPos((IndexScanState *) node);
+            break;
+
+        case T_IndexOnlyScanState:
+            ExecIndexOnlyMarkPos((IndexOnlyScanState *) node);
+            break;
+
+        case T_CustomScanState:
+            ExecCustomMarkPos((CustomScanState *) node);
+            break;
+
+        case T_MaterialState:
+            ExecMaterialMarkPos((MaterialState *) node);
+            break;
+
+        case T_SortState:
+            ExecSortMarkPos((SortState *) node);
+            break;
+
+        case T_ResultState:
+            ExecResultMarkPos((ResultState *) node);
+            break;
+
+        default:
+            // Log unsupported node types but don't error
+            elog(DEBUG2, "unrecognized node type: %d", (int) nodeTag(node));
+            break;
+    }
+}
+```

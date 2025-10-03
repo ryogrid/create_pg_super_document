@@ -52,3 +52,67 @@ Key behaviors:
 - The function maintains phase coherence - the barrier phase can only be the current phase or the next phase
 - Wait events allow monitoring of barrier waits in pg_stat_activity for performance analysis
 - Primarily used in parallel hash join operations for coordinating parallel worker synchronization points
+
+## Simplified Source
+
+```c
+bool
+BarrierArriveAndWait(Barrier *barrier, uint32 wait_event_info)
+{
+    bool release = false;
+    bool elected;
+    int start_phase;
+    int next_phase;
+
+    // Atomically increment arrival count and check if we're the last
+    SpinLockAcquire(&barrier->mutex);
+    start_phase = barrier->phase;
+    next_phase = start_phase + 1;
+    ++barrier->arrived;
+
+    if (barrier->arrived == barrier->participants)
+    {
+        // Last to arrive - elect as leader and advance phase
+        release = true;
+        barrier->arrived = 0;
+        barrier->phase = next_phase;
+        barrier->elected = next_phase;
+    }
+    SpinLockRelease(&barrier->mutex);
+
+    // If we're the elected leader, wake up all waiters
+    if (release)
+    {
+        ConditionVariableBroadcast(&barrier->condition_variable);
+        return true;
+    }
+
+    // Otherwise wait for the barrier to advance
+    elected = false;
+    ConditionVariablePrepareToSleep(&barrier->condition_variable);
+
+    for (;;)
+    {
+        SpinLockAcquire(&barrier->mutex);
+        release = barrier->phase == next_phase;
+
+        // Handle election if someone detached while we were waiting
+        if (release && barrier->elected != next_phase)
+        {
+            barrier->elected = barrier->phase;
+            elected = true;
+        }
+        SpinLockRelease(&barrier->mutex);
+
+        if (release)
+            break;
+
+        ConditionVariableSleep(&barrier->condition_variable, wait_event_info);
+    }
+
+    ConditionVariableCancelSleep();
+    return elected;
+}
+```
+
+This simplified version shows the core barrier synchronization: atomically count arrivals, elect the last participant as leader, and coordinate waiting/waking using condition variables.

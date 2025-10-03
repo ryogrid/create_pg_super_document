@@ -60,3 +60,52 @@ For non-Windows platforms, the function creates a temporary null-terminated copy
 - Part of PostgreSQL's locale and character encoding infrastructure
 - Used extensively by text search and formatting functions for locale-aware character processing
 - Input validation via pg_verifymbstr() helps distinguish encoding errors from locale mismatches
+
+## Simplified Source
+```c
+size_t char2wchar(wchar_t *to, size_t tolen, const char *from, size_t fromlen, pg_locale_t locale) {
+    size_t result;
+
+    Assert(!locale || locale->provider == COLLPROVIDER_LIBC);
+
+    if (tolen == 0) return 0;
+
+#ifdef WIN32
+    // Windows: Use MultiByteToWideChar for UTF-8
+    if (GetDatabaseEncoding() == PG_UTF8) {
+        if (fromlen == 0)
+            result = 0;
+        else {
+            result = MultiByteToWideChar(CP_UTF8, 0, from, fromlen, to, tolen - 1);
+            if (result == 0) result = -1;
+        }
+
+        if (result != -1) {
+            Assert(result < tolen);
+            to[result] = 0; // Add null terminator
+        }
+    } else
+#endif
+    {
+        // Standard platforms: Use mbstowcs with null-terminated copy
+        char *str = pnstrdup(from, fromlen);
+
+        if (locale == (pg_locale_t) 0)
+            result = mbstowcs(to, str, tolen);
+        else
+            result = mbstowcs_l(to, str, tolen, locale->info.lt);
+
+        pfree(str);
+    }
+
+    if (result == -1) {
+        // Enhanced error handling
+        pg_verifymbstr(from, fromlen, false);
+        ereport(ERROR, (errcode(ERRCODE_CHARACTER_NOT_IN_REPERTOIRE),
+                       errmsg("invalid multibyte character for locale"),
+                       errhint("The server's LC_CTYPE locale is probably incompatible with the database encoding.")));
+    }
+
+    return result;
+}
+```

@@ -33,3 +33,29 @@ WorkTableScanNext implements the tuple retrieval mechanism for worktable scans, 
 - Cannot appear high enough in plan trees to require backward scan support
 - Returns NULL when no more tuples are available
 - Uses the scan tuple slot from the scan state for tuple storage
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+WorkTableScanNext(WorkTableScanState *node)
+{
+    TupleTableSlot *slot;
+    TuplestoreState *tuplestorestate;
+
+    // Verify forward scan direction (backward not supported)
+    Assert(ScanDirectionIsForward(node->ss.ps.state->es_direction));
+
+    // Get the working table tuplestore from recursive union state
+    tuplestorestate = node->rustate->working_table;
+
+    // Use the scan tuple slot for results
+    slot = node->ss.ss_ScanTupleSlot;
+
+    // Fetch next tuple from tuplestore
+    // Parameters: forward=true, copy=false (no need to copy since we're the only reader)
+    tuplestore_gettupleslot(tuplestorestate, true, false, slot);
+
+    return slot;
+}
+```

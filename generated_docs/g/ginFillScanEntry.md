@@ -48,3 +48,68 @@ When creating a new entry, the function initializes all scan-related fields to t
 - Entries with extra_data are never deduplicated due to unpredictable opclass behavior
 - Initializes all scan state fields to starting values (buffer=InvalidBuffer, isFinished=false, etc.)
 - Dynamically expands the entries array using repalloc when needed
+
+## Simplified Source
+
+```c
+static GinScanEntry ginFillScanEntry(GinScanOpaque so, OffsetNumber attnum,
+                                   StrategyNumber strategy, int32 searchMode,
+                                   Datum queryKey, GinNullCategory queryCategory,
+                                   bool isPartialMatch, Pointer extra_data) {
+    GinState *ginstate = &so->ginstate;
+    GinScanEntry scanEntry;
+    uint32 i;
+
+    // Try to find existing equivalent entry for deduplication
+    // Skip if extra_data present or too many entries (avoid O(N²) cost)
+    if (extra_data == NULL && so->totalentries < 100) {
+        for (i = 0; i < so->totalentries; i++) {
+            GinScanEntry prevEntry = so->entries[i];
+
+            // Check if entries match on all relevant fields
+            if (prevEntry->extra_data == NULL &&
+                prevEntry->isPartialMatch == isPartialMatch &&
+                prevEntry->strategy == strategy &&
+                prevEntry->searchMode == searchMode &&
+                prevEntry->attnum == attnum &&
+                ginCompareEntries(ginstate, attnum,
+                                prevEntry->queryKey, prevEntry->queryCategory,
+                                queryKey, queryCategory) == 0) {
+                return prevEntry; // Found equivalent entry
+            }
+        }
+    }
+
+    // Create new entry since no equivalent found
+    scanEntry = (GinScanEntry) palloc(sizeof(GinScanEntryData));
+    scanEntry->queryKey = queryKey;
+    scanEntry->queryCategory = queryCategory;
+    scanEntry->isPartialMatch = isPartialMatch;
+    scanEntry->extra_data = extra_data;
+    scanEntry->strategy = strategy;
+    scanEntry->searchMode = searchMode;
+    scanEntry->attnum = attnum;
+
+    // Initialize scan state fields
+    scanEntry->buffer = InvalidBuffer;
+    ItemPointerSetMin(&scanEntry->curItem);
+    scanEntry->matchBitmap = NULL;
+    scanEntry->matchIterator = NULL;
+    scanEntry->matchResult = NULL;
+    scanEntry->list = NULL;
+    scanEntry->nlist = 0;
+    scanEntry->offset = InvalidOffsetNumber;
+    scanEntry->isFinished = false;
+    scanEntry->reduceResult = false;
+
+    // Add to scan's entries array, expanding if necessary
+    if (so->totalentries >= so->allocentries) {
+        so->allocentries *= 2;
+        so->entries = (GinScanEntry *) repalloc(so->entries,
+                                               so->allocentries * sizeof(GinScanEntry));
+    }
+    so->entries[so->totalentries++] = scanEntry;
+
+    return scanEntry;
+}
+```

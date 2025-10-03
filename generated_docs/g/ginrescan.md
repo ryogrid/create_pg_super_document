@@ -38,3 +38,25 @@ The function is relatively simple but critical for performance in scenarios wher
 - After calling this function, the scan will need to be repositioned (typically by calling the appropriate scan positioning function)
 - This function is part of the standard index access method interface and is called by the PostgreSQL executor when scan parameters need to be changed
 - Memory allocated for scan keys is managed through the scan context and will be automatically cleaned up when the scan ends
+
+## Simplified Source
+
+```c
+// Simplified version of ginrescan
+void
+ginrescan(IndexScanDesc scan, ScanKey scankey, int nscankeys,
+          ScanKey orderbys, int norderbys)
+{
+    GinScanOpaque so = (GinScanOpaque) scan->opaque;
+
+    // Free existing scan keys and associated memory
+    ginFreeScanKeys(so);
+
+    // Copy new scan keys if provided
+    if (scankey && scan->numberOfKeys > 0)
+    {
+        memmove(scan->keyData, scankey,
+                scan->numberOfKeys * sizeof(ScanKeyData));
+    }
+}
+```

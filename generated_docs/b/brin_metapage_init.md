@@ -45,3 +45,29 @@ A key aspect of the initialization is setting the  to 0, which represents a boot
 - Version information enables future upgrades and compatibility checking
 - This function is only called during index creation, not during normal operations
 - The metapage serves as the entry point for all BRIN index operations
+
+## Simplified Source
+
+```c
+void brin_metapage_init(Page page, BlockNumber pagesPerRange, uint16 version) {
+    // Initialize the page as a BRIN metapage
+    brin_page_init(page, BRIN_PAGETYPE_META);
+
+    // Get pointer to the metadata area of the page
+    BrinMetaPageData *metadata = (BrinMetaPageData *) PageGetContents(page);
+
+    // Set up the essential metadata fields
+    metadata->brinMagic = BRIN_META_MAGIC;        // Magic number for identification
+    metadata->brinVersion = version;              // BRIN version for compatibility
+    metadata->pagesPerRange = pagesPerRange;     // Pages summarized per BRIN tuple
+
+    // Bootstrap value: 0 enables first revmap page creation
+    // (0 is not a valid revmap block since it's the metapage)
+    metadata->lastRevmapPage = 0;
+
+    // Set pd_lower to protect metadata from WAL compression
+    // This ensures metadata is preserved during page compression
+    ((PageHeader) page)->pd_lower =
+        ((char *) metadata + sizeof(BrinMetaPageData)) - (char *) page;
+}
+```

@@ -40,3 +40,50 @@ The  function is the low-level implementation of the Boyer-Moore-Horspool string
 - Core algorithm powering all PostgreSQL substring search operations
 - Uses bit-masking for fast skip table access with variable table sizes
 - Highly optimized implementation of a classic string searching algorithm
+
+## Simplified Source
+
+```c
+static char *text_position_next_internal(char *start_ptr, TextPositionState *state) {
+    const char *haystack = state->str1;
+    const char *needle = state->str2;
+    const char *haystack_end = &haystack[state->len1];
+    int needle_len = state->len2;
+
+    // Simple linear search for single character needle
+    if (needle_len == 1) {
+        char target_char = *needle;
+        for (char *pos = start_ptr; pos < haystack_end; pos++) {
+            if (*pos == target_char) {
+                return pos;
+            }
+        }
+        return NULL;
+    }
+
+    // Boyer-Moore-Horspool search for longer patterns
+    const char *needle_last = &needle[needle_len - 1];
+    char *current = start_ptr + needle_len - 1;  // Start at potential end of match
+
+    while (current < haystack_end) {
+        // Scan backwards from end of potential match
+        const char *needle_pos = needle_last;
+        const char *haystack_pos = current;
+
+        // Compare characters from end toward beginning
+        while (*needle_pos == *haystack_pos) {
+            if (needle_pos == needle) {
+                return (char *) haystack_pos;  // Found complete match
+            }
+            needle_pos--;
+            haystack_pos--;
+        }
+
+        // Use skip table to advance efficiently on mismatch
+        int skip_distance = state->skiptable[(unsigned char) *current & state->skiptablemask];
+        current += skip_distance;
+    }
+
+    return NULL;  // No match found
+}
+```

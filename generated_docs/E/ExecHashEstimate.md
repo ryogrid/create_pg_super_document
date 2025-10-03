@@ -44,3 +44,24 @@ When instrumentation is required, the function calculates the total memory neede
 - Part of the broader parallel query execution framework
 - Memory estimation occurs during query planning, before actual parallel execution begins
 - Essential for collecting distributed performance statistics across worker processes
+
+## Simplified Source
+
+```c
+void ExecHashEstimate(HashState *node, ParallelContext *pcxt)
+{
+    size_t size;
+
+    // Skip if no instrumentation enabled or no workers
+    if (!node->ps.instrument || pcxt->nworkers == 0)
+        return;
+
+    // Calculate space for instrumentation data per worker
+    size = mul_size(pcxt->nworkers, sizeof(HashInstrumentation));
+    size = add_size(size, offsetof(SharedHashInfo, hinstrument));
+
+    // Register memory requirements with shared memory estimator
+    shm_toc_estimate_chunk(&pcxt->estimator, size);
+    shm_toc_estimate_keys(&pcxt->estimator, 1);
+}
+```

@@ -44,3 +44,30 @@ The function includes detailed comments about potential optimizations for single
 - Essential for supporting rescans in parallel hash join operations
 - Ensures clean state between multiple executions of the same parallel hash join
 - Part of PostgreSQL's parallel query rescan infrastructure
+
+## Simplified Source
+```c
+void ExecHashJoinReInitializeDSM(HashJoinState *state, ParallelContext *pcxt) {
+    int plan_node_id = state->js.ps.plan->plan_node_id;
+    ParallelHashJoinState *pstate;
+
+    // Early exit if no DSM segment exists
+    if (pcxt->seg == NULL)
+        return;
+
+    // Look up the shared state
+    pstate = shm_toc_lookup(pcxt->toc, plan_node_id, false);
+
+    // Detach from existing hash table and batches
+    if (state->hj_HashTable != NULL) {
+        ExecHashTableDetachBatch(state->hj_HashTable);
+        ExecHashTableDetach(state->hj_HashTable);
+    }
+
+    // Clean up shared batch files
+    SharedFileSetDeleteAll(&pstate->fileset);
+
+    // Reset synchronization barrier for fresh start
+    BarrierInit(&pstate->build_barrier, 0);
+}
+```

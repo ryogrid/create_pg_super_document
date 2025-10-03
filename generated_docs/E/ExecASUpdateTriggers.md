@@ -45,3 +45,25 @@ The function also passes information about updated columns and transition captur
 - Located in src/backend/commands/trigger.c:2964-2981
 - Complements ExecBSUpdateTriggers for complete statement-level trigger support
 - Essential for maintaining proper trigger execution order in complex UPDATE operations
+
+## Simplified Source
+
+```c
+void ExecASUpdateTriggers(EState *estate, ResultRelInfo *relinfo,
+                         TransitionCaptureState *transition_capture)
+{
+    TriggerDesc *trigdesc = relinfo->ri_TrigDesc;
+
+    // Ensure we're operating on the root relation (not a partition)
+    Assert(relinfo->ri_RootResultRelInfo == NULL);
+
+    // Schedule AFTER STATEMENT UPDATE triggers for deferred execution
+    if (trigdesc && trigdesc->trig_update_after_statement)
+        AfterTriggerSaveEvent(estate, relinfo, NULL, NULL,
+                             TRIGGER_EVENT_UPDATE,
+                             false, NULL, NULL, NIL,
+                             ExecGetAllUpdatedCols(relinfo, estate),
+                             transition_capture,
+                             false);
+}
+```

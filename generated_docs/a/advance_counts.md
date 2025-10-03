@@ -33,3 +33,17 @@ The function uses a simple conditional logic where a non-zero flag indicates a r
 - Used in both SETOP_SORTED and SETOP_HASHED execution modes
 - The flag parameter is typically derived from tuple metadata indicating which input relation produced the tuple
 - Essential for implementing SQL set operation semantics where duplicate handling depends on input source
+
+## Simplified Source
+
+```c
+static inline void
+advance_counts(SetOpStatePerGroup pergroup, int flag)
+{
+    // Increment appropriate counter based on input source
+    if (flag)
+        pergroup->numRight++;  // Right input tuple
+    else
+        pergroup->numLeft++;   // Left input tuple
+}
+```

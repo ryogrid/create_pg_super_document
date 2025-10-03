@@ -50,3 +50,99 @@ The function operates on up to 5 different buffers: the new overflow page (block
 - Metapage updates include managing hashm_firstfree, hashm_spares, hashm_mapp, and hashm_nmaps fields
 - The function handles conditional operations based on whether bitmap pages were found during the original operation
 - Bitmap allocation tracking ensures proper overflow page management and prevents page leaks
+
+## Simplified Source
+
+```c
+static void hash_xlog_add_ovfl_page(XLogReaderState *record) {
+    XLogRecPtr lsn = record->EndRecPtr;
+    xl_hash_add_ovfl_page *xlrec = (xl_hash_add_ovfl_page *) XLogRecGetData(record);
+    Buffer leftbuf, ovflbuf, metabuf;
+    BlockNumber leftblk, rightblk, newmapblk = InvalidBlockNumber;
+    bool new_bmpage = false;
+
+    // Get block numbers for overflow and left pages
+    XLogRecGetBlockTag(record, 0, NULL, NULL, &rightblk);
+    XLogRecGetBlockTag(record, 1, NULL, NULL, &leftblk);
+
+    // Initialize the new overflow page
+    ovflbuf = XLogInitBufferForRedo(record, 0);
+    char *data = XLogRecGetBlockData(record, 0, NULL);
+    uint32 *num_bucket = (uint32 *) data;
+
+    _hash_initbuf(ovflbuf, InvalidBlockNumber, *num_bucket, LH_OVERFLOW_PAGE, true);
+
+    // Set backlink to left page
+    Page ovflpage = BufferGetPage(ovflbuf);
+    HashPageOpaque ovflopaque = HashPageGetOpaque(ovflpage);
+    ovflopaque->hasho_prevblkno = leftblk;
+
+    PageSetLSN(ovflpage, lsn);
+    MarkBufferDirty(ovflbuf);
+
+    // Update left page to point to new overflow page
+    if (XLogReadBufferForRedo(record, 1, &leftbuf) == BLK_NEEDS_REDO) {
+        Page leftpage = BufferGetPage(leftbuf);
+        HashPageOpaque leftopaque = HashPageGetOpaque(leftpage);
+        leftopaque->hasho_nextblkno = rightblk;
+
+        PageSetLSN(leftpage, lsn);
+        MarkBufferDirty(leftbuf);
+    }
+
+    if (BufferIsValid(leftbuf)) UnlockReleaseBuffer(leftbuf);
+    UnlockReleaseBuffer(ovflbuf);
+
+    // Update existing bitmap page if referenced
+    if (XLogRecHasBlockRef(record, 2)) {
+        Buffer mapbuffer;
+        if (XLogReadBufferForRedo(record, 2, &mapbuffer) == BLK_NEEDS_REDO) {
+            Page mappage = BufferGetPage(mapbuffer);
+            uint32 *freep = HashPageGetBitmap(mappage);
+            uint32 *bitmap_page_bit = (uint32 *) XLogRecGetBlockData(record, 2, NULL);
+
+            SETBIT(freep, *bitmap_page_bit);
+            PageSetLSN(mappage, lsn);
+            MarkBufferDirty(mapbuffer);
+        }
+        if (BufferIsValid(mapbuffer)) UnlockReleaseBuffer(mapbuffer);
+    }
+
+    // Initialize new bitmap page if needed
+    if (XLogRecHasBlockRef(record, 3)) {
+        Buffer newmapbuf = XLogInitBufferForRedo(record, 3);
+        _hash_initbitmapbuffer(newmapbuf, xlrec->bmsize, true);
+
+        new_bmpage = true;
+        newmapblk = BufferGetBlockNumber(newmapbuf);
+
+        MarkBufferDirty(newmapbuf);
+        PageSetLSN(BufferGetPage(newmapbuf), lsn);
+        UnlockReleaseBuffer(newmapbuf);
+    }
+
+    // Update metapage with new overflow page information
+    if (XLogReadBufferForRedo(record, 4, &metabuf) == BLK_NEEDS_REDO) {
+        uint32 *firstfree_ovflpage = (uint32 *) XLogRecGetBlockData(record, 4, NULL);
+        Page page = BufferGetPage(metabuf);
+        HashMetaPage metap = HashPageGetMeta(page);
+
+        metap->hashm_firstfree = *firstfree_ovflpage;
+
+        if (!xlrec->bmpage_found) {
+            metap->hashm_spares[metap->hashm_ovflpoint]++;
+
+            if (new_bmpage) {
+                metap->hashm_mapp[metap->hashm_nmaps] = newmapblk;
+                metap->hashm_nmaps++;
+                metap->hashm_spares[metap->hashm_ovflpoint]++;
+            }
+        }
+
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(metabuf);
+    }
+
+    if (BufferIsValid(metabuf)) UnlockReleaseBuffer(metabuf);
+}
+```

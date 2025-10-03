@@ -54,3 +54,64 @@ The function is essential for maintaining referential integrity when updates cau
 - Only non-cloned foreign key triggers are considered problematic, as cloned triggers are inherited from parent tables
 - The root table's AFTER ROW UPDATE triggers are fired with special parameters indicating this is a cross-partition update scenario
 - This function is only called when both the source partition has UPDATE triggers and a successful cross-partition move has occurred
+
+## Simplified Source
+
+```c
+static void ExecCrossPartitionUpdateForeignKey(ModifyTableContext *context,
+                                             ResultRelInfo *sourcePartInfo,
+                                             ResultRelInfo *destPartInfo,
+                                             ItemPointer tupleid,
+                                             TupleTableSlot *oldslot,
+                                             TupleTableSlot *newslot) {
+    ListCell *lc;
+    ResultRelInfo *rootRelInfo;
+    List *ancestorRels;
+
+    // Get root relation and all ancestor relations of source partition
+    rootRelInfo = sourcePartInfo->ri_RootResultRelInfo;
+    ancestorRels = ExecGetAncestorResultRels(context->estate, sourcePartInfo);
+
+    // Check each ancestor relation for problematic foreign key constraints
+    foreach(lc, ancestorRels) {
+        ResultRelInfo *rInfo = lfirst(lc);
+        TriggerDesc *trigdesc = rInfo->ri_TrigDesc;
+        bool has_noncloned_fkey = false;
+
+        // Skip root ancestor (will be processed later)
+        if (rInfo == rootRelInfo) {
+            continue;
+        }
+
+        // Check for non-cloned foreign key triggers on this ancestor
+        if (trigdesc && trigdesc->trig_update_after_row) {
+            for (int i = 0; i < trigdesc->numtriggers; i++) {
+                Trigger *trig = &trigdesc->triggers[i];
+
+                if (!trig->tgisclone &&
+                    RI_FKey_trigger_type(trig->tgfoid) == RI_TRIGGER_PK) {
+                    has_noncloned_fkey = true;
+                    break;
+                }
+            }
+        }
+
+        // Error if foreign key points to non-root ancestor
+        if (has_noncloned_fkey) {
+            ereport(ERROR,
+                   (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                    errmsg("cannot move tuple across partitions when a non-root ancestor "
+                          "is directly referenced in a foreign key"),
+                    errdetail("A foreign key points to ancestor \"%s\" but not the root ancestor \"%s\".",
+                             RelationGetRelationName(rInfo->ri_RelationDesc),
+                             RelationGetRelationName(rootRelInfo->ri_RelationDesc)),
+                    errhint("Consider defining the foreign key on table \"%s\".",
+                           RelationGetRelationName(rootRelInfo->ri_RelationDesc))));
+        }
+    }
+
+    // Fire root table's AFTER ROW UPDATE triggers for foreign key validation
+    ExecARUpdateTriggers(context->estate, rootRelInfo, sourcePartInfo, destPartInfo,
+                        tupleid, NULL, newslot, NIL, NULL, true);
+}
+```

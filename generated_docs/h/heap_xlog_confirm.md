@@ -43,3 +43,42 @@ This operation is part of PostgreSQL's mechanism to ensure tuple consistency dur
 - **Error Handling**: Contains PANIC-level validation to ensure tuple consistency during recovery
 - **Buffer Management**: Properly handles buffer locking and unlocking to maintain consistency during concurrent recovery operations
 - **Simplicity**: This is one of the simpler heap WAL replay operations, focusing solely on tuple state confirmation rather than data modification
+
+## Simplified Source
+
+```c
+static void
+heap_xlog_confirm(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    xl_heap_confirm *xlrec = (xl_heap_confirm *) XLogRecGetData(record);
+    Buffer buffer;
+    Page page;
+    OffsetNumber offnum;
+    ItemId lp;
+    HeapTupleHeader htup;
+
+    if (XLogReadBufferForRedo(record, 0, &buffer) == BLK_NEEDS_REDO) {
+        page = BufferGetPage(buffer);
+        offnum = xlrec->offnum;
+
+        // Validate tuple location
+        if (PageGetMaxOffsetNumber(page) >= offnum)
+            lp = PageGetItemId(page, offnum);
+
+        if (PageGetMaxOffsetNumber(page) < offnum || !ItemIdIsNormal(lp))
+            elog(PANIC, "invalid lp");
+
+        htup = (HeapTupleHeader) PageGetItem(page, lp);
+
+        // Confirm tuple as actually inserted by setting t_ctid to self
+        ItemPointerSet(&htup->t_ctid, BufferGetBlockNumber(buffer), offnum);
+
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buffer);
+    }
+
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+}
+```

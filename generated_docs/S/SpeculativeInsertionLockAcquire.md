@@ -36,3 +36,25 @@ The token wrapping logic ensures that zero is never used as a token value, as ze
 - Token values wrap around but skip zero to maintain the invariant that zero means no token
 - Used in conjunction with SpeculativeInsertionLockRelease and SpeculativeInsertionWait for complete speculative insertion handling
 - Essential for PostgreSQL's UPSERT (INSERT ... ON CONFLICT) functionality
+
+## Simplified Source
+
+```c
+uint32 SpeculativeInsertionLockAcquire(TransactionId xid)
+{
+    LOCKTAG tag;
+
+    // Generate unique token for this speculative insertion
+    speculativeInsertionToken++;
+
+    // Ensure token is never zero (zero means no token held)
+    if (speculativeInsertionToken == 0)
+        speculativeInsertionToken = 1;
+
+    // Create lock tag and acquire exclusive lock
+    SET_LOCKTAG_SPECULATIVE_INSERTION(tag, xid, speculativeInsertionToken);
+    (void) LockAcquire(&tag, ExclusiveLock, false, false);
+
+    return speculativeInsertionToken;
+}
+```

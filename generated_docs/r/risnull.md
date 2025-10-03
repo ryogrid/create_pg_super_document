@@ -43,3 +43,13 @@ The function returns an integer indicating whether the value at the specified me
 - Works in conjunction with  which sets a value to NULL
 - The function is also used by PostgreSQL's internal merge join executor for NULL value comparisons
 - The  parameter is declared as  indicating the function does not modify the data being checked
+
+## Simplified Source
+
+```c
+int risnull(int t, const char *ptr)
+{
+    // Delegate to ECPG library function for NULL checking
+    return ECPGis_noind_null(t, ptr);
+}
+```

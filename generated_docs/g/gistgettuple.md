@@ -41,3 +41,95 @@ The function also implements the "killed items" optimization, tracking index tup
 - Part of the PostgreSQL GiST (Generalized Search Tree) access method
 - Returns false when no more tuples are available, true when a tuple is found
 - Sets scan->xs_heaptid, scan->xs_recheck, and scan->xs_hitup for returned tuples
+
+## Simplified Source
+
+```c
+bool
+gistgettuple(IndexScanDesc scan, ScanDirection dir)
+{
+    GISTScanOpaque so = (GISTScanOpaque) scan->opaque;
+
+    // Only support forward scanning
+    if (dir != ForwardScanDirection)
+        elog(ERROR, "GiST only supports forward scan direction");
+
+    if (!so->qual_ok)
+        return false;
+
+    // First call - initialize scan from root page
+    if (so->firstCall)
+    {
+        GISTSearchItem fakeItem;
+
+        pgstat_count_index_scan(scan->indexRelation);
+        so->firstCall = false;
+        so->curPageData = so->nPageData = 0;
+        scan->xs_hitup = NULL;
+
+        // Start scan from root page
+        fakeItem.blkno = GIST_ROOT_BLKNO;
+        memset(&fakeItem.data.parentlsn, 0, sizeof(GistNSN));
+        gistScanPage(scan, &fakeItem, NULL, NULL, NULL);
+    }
+
+    // Handle ordered scans (nearest neighbor queries)
+    if (scan->numberOfOrderBys > 0)
+    {
+        return getNextNearest(scan);  // Strict distance ordering
+    }
+    else
+    {
+        // Regular scan - process pages sequentially
+        for (;;)
+        {
+            // Return tuples from current page buffer
+            if (so->curPageData < so->nPageData)
+            {
+                // Track killed items for optimization
+                if (scan->kill_prior_tuple && so->curPageData > 0)
+                {
+                    // Add previous tuple to killed items list
+                    if (so->killedItems == NULL)
+                        so->killedItems = (OffsetNumber *) palloc(MaxIndexTuplesPerPage * sizeof(OffsetNumber));
+                    if (so->numKilled < MaxIndexTuplesPerPage)
+                        so->killedItems[so->numKilled++] = so->pageData[so->curPageData - 1].offnum;
+                }
+
+                // Return next tuple from page buffer
+                scan->xs_heaptid = so->pageData[so->curPageData].heapPtr;
+                scan->xs_recheck = so->pageData[so->curPageData].recheck;
+
+                if (scan->xs_want_itup)  // Index-only scan
+                    scan->xs_hitup = so->pageData[so->curPageData].recontup;
+
+                so->curPageData++;
+                return true;
+            }
+
+            // Current page exhausted - get next page
+            do
+            {
+                GISTSearchItem *item;
+
+                // Apply killed items optimization
+                if ((so->curBlkno != InvalidBlockNumber) && (so->numKilled > 0))
+                    gistkillitems(scan);
+
+                // Get next search item from queue
+                item = getNextGISTSearchItem(so);
+                if (!item)
+                    return false;  // Scan complete
+
+                CHECK_FOR_INTERRUPTS();
+                so->curBlkno = item->blkno;
+
+                // Scan the page to populate pageData buffer
+                gistScanPage(scan, item, item->distances, NULL, NULL);
+                pfree(item);
+
+            } while (so->nPageData == 0);  // Continue until we get tuples
+        }
+    }
+}
+```

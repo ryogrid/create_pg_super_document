@@ -50,3 +50,36 @@ This approach ensures that even if the input entries are sorted, the resulting r
 - Handles edge cases like empty entry arrays (nentries <= 0)
 - Includes assertion to validate input parameters
 - The algorithm is specifically designed to handle the common case where input data is sorted, which would otherwise result in poor tree balance with naive sequential insertion
+
+## Simplified Source
+
+```c
+void ginInsertBAEntries(BuildAccumulator *accum, ItemPointer heapptr, OffsetNumber attnum,
+                       Datum *entries, GinNullCategory *categories, int32 nentries) {
+    if (nentries <= 0) {
+        return; // Nothing to insert
+    }
+
+    Assert(ItemPointerIsValid(heapptr) && attnum >= FirstOffsetNumber);
+
+    // Calculate largest power of 2 <= nentries using bit manipulation
+    uint32 step = nentries;
+    step |= (step >> 1);
+    step |= (step >> 2);
+    step |= (step >> 4);
+    step |= (step >> 8);
+    step |= (step >> 16);
+    step >>= 1;
+    step++;
+
+    // Insert entries in balanced tree order to avoid degenerate trees
+    // Start with largest step and work down to maintain balance
+    while (step > 0) {
+        // Insert entries at intervals of step*2, starting from step-1
+        for (int i = step - 1; i < nentries && i >= 0; i += step << 1) {
+            ginInsertBAEntry(accum, heapptr, attnum, entries[i], categories[i]);
+        }
+        step >>= 1; // Halve the step size
+    }
+}
+```

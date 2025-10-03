@@ -58,3 +58,61 @@ The function processes three values simultaneously (value, lobound, hibound) bec
 - When conversion fails or type is unsupported, sets all output values to 0 and returns false
 - The value and boundary types don't need to be identical, allowing for binary-compatible type comparisons
 - Extensions using scalarineqsel as an estimator for unsupported types will get a false return rather than an error
+
+## Simplified Source
+```c
+static bool convert_to_scalar(Datum value, Oid valuetypid, Oid collid, double *scaledvalue,
+                             Datum lobound, Datum hibound, Oid boundstypid,
+                             double *scaledlobound, double *scaledhibound) {
+    bool failure = false;
+
+    switch (valuetypid) {
+        // Numeric types: bool, int2, int4, int8, float4, float8, numeric, OIDs
+        case BOOLOID: case INT2OID: case INT4OID: case INT8OID:
+        case FLOAT4OID: case FLOAT8OID: case NUMERICOID:
+        case OIDOID: /* ... other OID types ... */:
+            *scaledvalue = convert_numeric_to_scalar(value, valuetypid, &failure);
+            *scaledlobound = convert_numeric_to_scalar(lobound, boundstypid, &failure);
+            *scaledhibound = convert_numeric_to_scalar(hibound, boundstypid, &failure);
+            return !failure;
+
+        // String types: char, bpchar, varchar, text, name
+        case CHAROID: case BPCHAROID: case VARCHAROID: case TEXTOID: case NAMEOID: {
+            char *valstr = convert_string_datum(value, valuetypid, collid, &failure);
+            char *lostr = convert_string_datum(lobound, boundstypid, collid, &failure);
+            char *histr = convert_string_datum(hibound, boundstypid, collid, &failure);
+
+            if (failure) return false;
+
+            convert_string_to_scalar(valstr, scaledvalue, lostr, scaledlobound, histr, scaledhibound);
+            pfree(valstr); pfree(lostr); pfree(histr);
+            return true;
+        }
+
+        // Binary data
+        case BYTEAOID:
+            if (boundstypid != BYTEAOID) return false;
+            convert_bytea_to_scalar(value, scaledvalue, lobound, scaledlobound, hibound, scaledhibound);
+            return true;
+
+        // Time types: timestamp, date, interval, time
+        case TIMESTAMPOID: case TIMESTAMPTZOID: case DATEOID:
+        case INTERVALOID: case TIMEOID: case TIMETZOID:
+            *scaledvalue = convert_timevalue_to_scalar(value, valuetypid, &failure);
+            *scaledlobound = convert_timevalue_to_scalar(lobound, boundstypid, &failure);
+            *scaledhibound = convert_timevalue_to_scalar(hibound, boundstypid, &failure);
+            return !failure;
+
+        // Network types: inet, cidr, macaddr
+        case INETOID: case CIDROID: case MACADDROID: case MACADDR8OID:
+            *scaledvalue = convert_network_to_scalar(value, valuetypid, &failure);
+            *scaledlobound = convert_network_to_scalar(lobound, boundstypid, &failure);
+            *scaledhibound = convert_network_to_scalar(hibound, boundstypid, &failure);
+            return !failure;
+    }
+
+    // Unsupported type
+    *scaledvalue = *scaledlobound = *scaledhibound = 0;
+    return false;
+}
+```

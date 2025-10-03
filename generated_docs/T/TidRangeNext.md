@@ -41,3 +41,44 @@ This function implements the core tuple retrieval logic for TID range scans. On 
 - Handles both initial scan setup and rescan scenarios
 - The scan descriptor is reused across multiple calls for efficiency
 - Automatically manages scan state transitions and cleanup
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+TidRangeNext(TidRangeScanState *node)
+{
+    TableScanDesc scandesc = node->ss.ss_currentScanDesc;
+    EState *estate = node->ss.ps.state;
+    TupleTableSlot *slot = node->ss.ss_ScanTupleSlot;
+    ScanDirection direction = estate->es_direction;
+
+    if (!node->trss_inScan) {
+        // First time: compute TID range to scan
+        if (!TidRangeEval(node))
+            return NULL;
+
+        if (scandesc == NULL) {
+            // Begin new scan with TID range
+            scandesc = table_beginscan_tidrange(node->ss.ss_currentRelation,
+                                               estate->es_snapshot,
+                                               &node->trss_mintid,
+                                               &node->trss_maxtid);
+            node->ss.ss_currentScanDesc = scandesc;
+        } else {
+            // Rescan with updated TID range
+            table_rescan_tidrange(scandesc, &node->trss_mintid, &node->trss_maxtid);
+        }
+
+        node->trss_inScan = true;
+    }
+
+    // Fetch next tuple
+    if (!table_scan_getnextslot_tidrange(scandesc, direction, slot)) {
+        node->trss_inScan = false;
+        ExecClearTuple(slot);
+    }
+
+    return slot;
+}
+```

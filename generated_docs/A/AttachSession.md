@@ -48,3 +48,38 @@ The function throws an ERROR if it cannot attach to the DSM segment, ensuring th
 - All operations are performed in TopMemoryContext for proper lifetime management
 - Throws ERROR on attachment failure rather than returning an error code
 - The attached session remains available until DetachSession() is called or the backend exits
+
+## Simplified Source
+
+```c
+void AttachSession(dsm_handle handle)
+{
+    MemoryContext old_context = MemoryContextSwitchTo(TopMemoryContext);
+
+    // Attach to the DSM segment
+    dsm_segment *seg = dsm_attach(handle);
+    if (seg == NULL)
+        elog(ERROR, "could not attach to per-session DSM segment");
+
+    // Get table of contents for shared memory organization
+    shm_toc *toc = shm_toc_attach(SESSION_MAGIC, dsm_segment_address(seg));
+
+    // Attach to DSA area for dynamic allocation
+    void *dsa_space = shm_toc_lookup(toc, SESSION_KEY_DSA, false);
+    dsa_area *dsa = dsa_attach_in_place(dsa_space, seg);
+
+    // Update current session with shared resources
+    CurrentSession->segment = seg;
+    CurrentSession->area = dsa;
+
+    // Attach to shared record typmod registry
+    void *typmod_registry_space = shm_toc_lookup(toc, SESSION_KEY_RECORD_TYPMOD_REGISTRY, false);
+    SharedRecordTypmodRegistryAttach((SharedRecordTypmodRegistry *) typmod_registry_space);
+
+    // Pin mappings to keep them alive
+    dsm_pin_mapping(seg);
+    dsa_pin_mapping(dsa);
+
+    MemoryContextSwitchTo(old_context);
+}
+```

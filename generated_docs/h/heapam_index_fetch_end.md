@@ -33,3 +33,17 @@ This function serves as the cleanup and termination callback for index fetch ope
 - Part of the complete index fetch operation lifecycle (begin, fetch, reset, end)
 - Failure to call this function would result in memory leaks
 - The function assumes the scan parameter was allocated by heapam_index_fetch_begin()
+
+## Simplified Source
+
+```c
+static void heapam_index_fetch_end(IndexFetchTableData *scan) {
+    IndexFetchHeapData *hscan = (IndexFetchHeapData *) scan;
+
+    // Release any held buffers
+    heapam_index_fetch_reset(scan);
+
+    // Free the allocated scan structure
+    pfree(hscan);
+}
+```

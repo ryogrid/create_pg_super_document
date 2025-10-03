@@ -38,3 +38,43 @@ The function extracts the operation code from the WAL record and uses a switch s
 - The function will panic with an error if it encounters an unknown operation code
 - Part of PostgreSQL's crash recovery and replication system
 - Distinguished from heap2_redo which handles operations requiring conflict processing
+
+## Simplified Source
+
+```c
+void heap_redo(XLogReaderState *record) {
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    // Dispatch to appropriate redo handler based on operation type
+    // These operations don't require MVCC conflict processing
+    switch (info & XLOG_HEAP_OPMASK) {
+        case XLOG_HEAP_INSERT:
+            heap_xlog_insert(record);
+            break;
+        case XLOG_HEAP_DELETE:
+            heap_xlog_delete(record);
+            break;
+        case XLOG_HEAP_UPDATE:
+            heap_xlog_update(record, false);  // Regular update
+            break;
+        case XLOG_HEAP_HOT_UPDATE:
+            heap_xlog_update(record, true);   // HOT update
+            break;
+        case XLOG_HEAP_CONFIRM:
+            heap_xlog_confirm(record);
+            break;
+        case XLOG_HEAP_LOCK:
+            heap_xlog_lock(record);
+            break;
+        case XLOG_HEAP_INPLACE:
+            heap_xlog_inplace(record);
+            break;
+        case XLOG_HEAP_TRUNCATE:
+            // No-op: actual work done by SMGR WAL records
+            // This record exists only for logical decoding
+            break;
+        default:
+            elog(PANIC, "heap_redo: unknown op code %u", info);
+    }
+}
+```

@@ -28,3 +28,33 @@ The calculation considers the current block position (rs_cblock) relative to the
 
 ## Notes and Other Information
 This function is primarily intended for progress reporting during index builds and other long-running scan operations. The accuracy note indicates that in parallel scenarios, workers may be reading blocks concurrently, so the returned value represents an approximation rather than an exact count. The wraparound handling is crucial for scans that use synchronized scanning or start from arbitrary positions within the relation.
+
+## Simplified Source
+
+```c
+static BlockNumber heapam_scan_get_blocks_done(HeapScanDesc hscan) {
+    ParallelBlockTableScanDesc bpscan = NULL;
+    BlockNumber startblock;
+    BlockNumber blocks_done;
+
+    // Get starting block - from parallel scan or regular scan
+    if (hscan->rs_base.rs_parallel != NULL) {
+        bpscan = (ParallelBlockTableScanDesc) hscan->rs_base.rs_parallel;
+        startblock = bpscan->phs_startblock;
+    } else {
+        startblock = hscan->rs_startblock;
+    }
+
+    // Calculate blocks done, handling potential wraparound
+    if (hscan->rs_cblock > startblock) {
+        // Normal case: current block is ahead of start
+        blocks_done = hscan->rs_cblock - startblock;
+    } else {
+        // Wraparound case: scan went from start to end, then from 0 to current
+        BlockNumber nblocks = bpscan ? bpscan->phs_nblocks : hscan->rs_nblocks;
+        blocks_done = nblocks - startblock + hscan->rs_cblock;
+    }
+
+    return blocks_done;
+}
+```

@@ -32,3 +32,14 @@ The function is implemented as a static inline function for performance, as it's
 - Used in both SETOP_SORTED and SETOP_HASHED modes of operation
 - The SetOpStatePerGroup structure contains two long integers: numLeft and numRight for tracking duplicate counts
 - Essential for proper duplicate handling in SQL set operations
+
+## Simplified Source
+
+```c
+static inline void
+initialize_counts(SetOpStatePerGroup pergroup)
+{
+    // Reset both left and right input counters to zero
+    pergroup->numLeft = pergroup->numRight = 0;
+}
+```

@@ -47,3 +47,62 @@ The function ensures memory limits are respected by calling `tbm_lossify` if the
 - Chunk processing uses bit manipulation to efficiently identify which pages should be marked lossy
 - The recheck flag is preserved and merged when combining exact pages
 - Memory management is automatically handled to prevent unbounded growth
+
+## Simplified Source
+
+```c
+static void
+tbm_union_page(TIDBitmap *a, const PagetableEntry *bpage)
+{
+    if (bpage->ischunk)
+    {
+        // Process chunk: mark each indicated page as lossy
+        for (int wordnum = 0; wordnum < WORDS_PER_CHUNK; wordnum++)
+        {
+            bitmapword w = bpage->words[wordnum];
+            if (w != 0)
+            {
+                BlockNumber pg = bpage->blockno + (wordnum * BITS_PER_BITMAPWORD);
+
+                // Mark each set bit as lossy page
+                while (w != 0)
+                {
+                    if (w & 1)
+                        tbm_mark_page_lossy(a, pg);
+                    pg++;
+                    w >>= 1;
+                }
+            }
+        }
+    }
+    else if (tbm_page_is_lossy(a, bpage->blockno))
+    {
+        // Target page already lossy - nothing to do
+        return;
+    }
+    else
+    {
+        // Exact page union
+        PagetableEntry *apage = tbm_get_pageentry(a, bpage->blockno);
+
+        if (apage->ischunk)
+        {
+            // Target became lossy chunk - set bit for this page
+            apage->words[0] |= ((bitmapword) 1 << 0);
+        }
+        else
+        {
+            // Bitwise OR operation for exact union
+            for (int wordnum = 0; wordnum < WORDS_PER_PAGE; wordnum++)
+                apage->words[wordnum] |= bpage->words[wordnum];
+            apage->recheck |= bpage->recheck;
+        }
+    }
+
+    // Check if we need to lossify due to memory limits
+    if (a->nentries > a->maxentries)
+        tbm_lossify(a);
+}
+```
+
+This simplified version shows the three union scenarios: chunk processing with lossy page marking, exact page bitwise OR operations, and automatic memory management through lossification.

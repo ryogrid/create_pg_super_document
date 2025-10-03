@@ -47,3 +47,37 @@ The function uses a switch statement to efficiently route each WAL record to its
 - Critical component of PostgreSQL's crash recovery mechanism for maintaining BRIN index consistency
 - Each delegated function handles the specific details of replaying its corresponding operation type
 - Part of the broader WAL replay infrastructure that ensures database consistency after crashes or restarts
+
+## Simplified Source
+
+```c
+void brin_redo(XLogReaderState *record)
+{
+    // Extract operation type from WAL record
+    uint8 operation = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    // Dispatch to appropriate replay handler based on operation type
+    switch (operation & XLOG_BRIN_OPMASK) {
+        case XLOG_BRIN_CREATE_INDEX:
+            brin_xlog_createidx(record);
+            break;
+        case XLOG_BRIN_INSERT:
+            brin_xlog_insert(record);
+            break;
+        case XLOG_BRIN_UPDATE:
+            brin_xlog_update(record);
+            break;
+        case XLOG_BRIN_SAMEPAGE_UPDATE:
+            brin_xlog_samepage_update(record);
+            break;
+        case XLOG_BRIN_REVMAP_EXTEND:
+            brin_xlog_revmap_extend(record);
+            break;
+        case XLOG_BRIN_DESUMMARIZE:
+            brin_xlog_desummarize_page(record);
+            break;
+        default:
+            elog(PANIC, "brin_redo: unknown op code %u", operation);
+    }
+}
+```

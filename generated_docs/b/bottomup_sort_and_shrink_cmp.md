@@ -48,3 +48,43 @@ The design ensures that the most valuable deletion opportunities (high npromisin
 - Uses pg_unreachable() to indicate all comparison cases should be handled by the three tiers
 - The multi-level sort optimizes for both deletion efficiency (promising TIDs first) and I/O efficiency (spatial locality)
 - Located in src/backend/access/heap/heapam.c:8580-8652
+
+## Simplified Source
+
+```c
+static int bottomup_sort_and_shrink_cmp(const void *arg1, const void *arg2)
+{
+    const IndexDeleteCounts *group1 = (const IndexDeleteCounts *) arg1;
+    const IndexDeleteCounts *group2 = (const IndexDeleteCounts *) arg2;
+
+    // Primary sort: Most promising TIDs first (descending order)
+    // npromisingtids should already be power-of-two normalized by caller
+    if (group1->npromisingtids > group2->npromisingtids)
+        return -1;
+    if (group1->npromisingtids < group2->npromisingtids)
+        return 1;
+
+    // Secondary sort: Most TIDs first (descending order with power-of-two bucketing)
+    if (group1->ntids != group2->ntids)
+    {
+        uint32 ntids1 = pg_nextpower2_32((uint32) group1->ntids);
+        uint32 ntids2 = pg_nextpower2_32((uint32) group2->ntids);
+
+        if (ntids1 > ntids2)
+            return -1;
+        if (ntids1 < ntids2)
+            return 1;
+    }
+
+    // Tertiary sort: Ascending heap block order (spatial locality)
+    // Uses offset into deltids array as proxy for block number
+    if (group1->ifirsttid > group2->ifirsttid)
+        return 1;
+    if (group1->ifirsttid < group2->ifirsttid)
+        return -1;
+
+    // Should never reach here with proper input
+    pg_unreachable();
+    return 0;
+}
+```

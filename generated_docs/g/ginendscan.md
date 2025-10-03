@@ -39,3 +39,24 @@ This cleanup is essential for proper memory management in long-running PostgreSQ
 - After this function returns, the IndexScanDesc structure itself may be reused for other scans, but all GIN-specific state will have been cleared
 - Proper cleanup is crucial for preventing memory leaks in systems that perform many index scans
 - The order of cleanup operations is important: scan keys are freed first, then memory contexts, and finally the main structure
+
+## Simplified Source
+
+```c
+// Simplified version of ginendscan
+void
+ginendscan(IndexScanDesc scan)
+{
+    GinScanOpaque so = (GinScanOpaque) scan->opaque;
+
+    // Free scan key structures and associated memory
+    ginFreeScanKeys(so);
+
+    // Delete memory contexts used during scan
+    MemoryContextDelete(so->tempCtx);
+    MemoryContextDelete(so->keyCtx);
+
+    // Free the main scan opaque structure
+    pfree(so);
+}
+```

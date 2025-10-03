@@ -65,3 +65,117 @@ The function uses a dirty snapshot to traverse update chains, ensuring it can se
 - Part of PostgreSQL's pluggable table access method architecture
 - The traversed flag in tmfd indicates whether the function had to follow an update chain
 - Supports different lock modes (shared, exclusive) and wait policies for maximum flexibility
+
+## Simplified Source
+
+```c
+static TM_Result
+heapam_tuple_lock(Relation relation, ItemPointer tid, Snapshot snapshot,
+                  TupleTableSlot *slot, CommandId cid, LockTupleMode mode,
+                  LockWaitPolicy wait_policy, uint8 flags,
+                  TM_FailureData *tmfd)
+{
+    BufferHeapTupleTableSlot *bslot = (BufferHeapTupleTableSlot *) slot;
+    TM_Result result;
+    Buffer buffer;
+    HeapTuple tuple = &bslot->base.tupdata;
+    bool follow_updates = (flags & TUPLE_LOCK_FLAG_LOCK_UPDATE_IN_PROGRESS) != 0;
+
+    tmfd->traversed = false;
+    Assert(TTS_IS_BUFFERTUPLE(slot));
+
+tuple_lock_retry:
+    // Attempt to lock the tuple
+    tuple->t_self = *tid;
+    result = heap_lock_tuple(relation, tuple, cid, mode, wait_policy,
+                             follow_updates, &buffer, tmfd);
+
+    // If tuple was updated and we need to find the latest version
+    if (result == TM_Updated && (flags & TUPLE_LOCK_FLAG_FIND_LAST_VERSION)) {
+
+        ReleaseBuffer(buffer);
+
+        if (!ItemPointerEquals(&tmfd->ctid, &tuple->t_self)) {
+            // Follow the update chain to find the latest version
+            *tid = tmfd->ctid;
+            TransactionId priorXmax = tmfd->xmax;
+            tmfd->traversed = true;
+
+            // Search for the latest version in the update chain
+            SnapshotData SnapshotDirty;
+            InitDirtySnapshot(SnapshotDirty);
+
+            for (;;) {
+                // Handle partition movement
+                if (ItemPointerIndicatesMovedPartitions(tid))
+                    ereport(ERROR, /*... partition movement error ...*/);
+
+                tuple->t_self = *tid;
+                if (heap_fetch(relation, &SnapshotDirty, tuple, &buffer, true)) {
+                    // Validate tuple consistency
+                    if (!TransactionIdEquals(HeapTupleHeaderGetXmin(tuple->t_data), priorXmax)) {
+                        ReleaseBuffer(buffer);
+                        return TM_Deleted;
+                    }
+
+                    // Handle concurrent updates with appropriate wait policy
+                    if (TransactionIdIsValid(SnapshotDirty.xmax)) {
+                        ReleaseBuffer(buffer);
+                        switch (wait_policy) {
+                            case LockWaitBlock:
+                                XactLockTableWait(SnapshotDirty.xmax, relation, &tuple->t_self, XLTW_FetchUpdated);
+                                break;
+                            case LockWaitSkip:
+                                if (!ConditionalXactLockTableWait(SnapshotDirty.xmax))
+                                    return TM_WouldBlock;
+                                break;
+                            case LockWaitError:
+                                if (!ConditionalXactLockTableWait(SnapshotDirty.xmax))
+                                    ereport(ERROR, /*... lock not available error ...*/);
+                                break;
+                        }
+                        continue;
+                    }
+
+                    // Check for self-modification
+                    if (TransactionIdIsCurrentTransactionId(priorXmax) &&
+                        HeapTupleHeaderGetCmin(tuple->t_data) >= cid) {
+                        tmfd->xmax = priorXmax;
+                        tmfd->cmax = HeapTupleHeaderGetCmin(tuple->t_data);
+                        ReleaseBuffer(buffer);
+                        return TM_SelfModified;
+                    }
+
+                    // Found live tuple, retry locking
+                    ReleaseBuffer(buffer);
+                    goto tuple_lock_retry;
+                }
+
+                // Handle empty slot or deleted tuple
+                if (tuple->t_data == NULL) {
+                    return TM_Deleted;
+                }
+
+                // Continue following update chain if tuple was updated
+                if (ItemPointerEquals(&tuple->t_self, &tuple->t_data->t_ctid)) {
+                    ReleaseBuffer(buffer);
+                    return TM_Deleted;
+                }
+
+                *tid = tuple->t_data->t_ctid;
+                priorXmax = HeapTupleHeaderGetUpdateXid(tuple->t_data);
+                ReleaseBuffer(buffer);
+            }
+        } else {
+            return TM_Deleted;
+        }
+    }
+
+    // Set table OID and store tuple in slot
+    slot->tts_tableOid = RelationGetRelid(relation);
+    tuple->t_tableOid = slot->tts_tableOid;
+    ExecStorePinnedBufferHeapTuple(tuple, slot, buffer);
+
+    return result;
+}
+```

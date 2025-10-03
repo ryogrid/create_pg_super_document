@@ -132,3 +132,74 @@ The expansion process involves calculating the required memory size, allocating 
 - Uses AttrMissing information from tuple descriptor constraints for default values
 - Critical for schema evolution and backward compatibility
 - Located in src/backend/access/common/heaptuple.c:828-1052
+
+## Simplified Source
+
+```c
+static void expand_tuple(HeapTuple *targetHeapTuple,
+                        MinimalTuple *targetMinimalTuple,
+                        HeapTuple sourceTuple,
+                        TupleDesc tupleDesc)
+{
+    // Extract basic tuple information
+    HeapTupleHeader sourceHeader = sourceTuple->t_data;
+    int sourceNatts = HeapTupleHeaderGetNatts(sourceHeader);
+    int targetNatts = tupleDesc->natts;
+    bool hasNulls = HeapTupleHasNulls(sourceTuple);
+
+    // Calculate space needed for missing attributes
+    Size sourceDataLen = sourceTuple->t_len - sourceHeader->t_hoff;
+    Size targetDataLen = sourceDataLen;
+
+    // Add space for missing values if they exist
+    AttrMissing *missing_attrs = NULL;
+    if (tupleDesc->constr && tupleDesc->constr->missing) {
+        missing_attrs = tupleDesc->constr->missing;
+
+        // Calculate additional space needed for missing attributes
+        for (int attnum = sourceNatts; attnum < targetNatts; attnum++) {
+            if (missing_attrs[attnum].am_present) {
+                Form_pg_attribute attr = TupleDescAttr(tupleDesc, attnum);
+                targetDataLen = att_align_datum(targetDataLen, attr->attalign,
+                                               attr->attlen, missing_attrs[attnum].am_value);
+                targetDataLen = att_addlength_pointer(targetDataLen, attr->attlen,
+                                                     missing_attrs[attnum].am_value);
+            } else {
+                hasNulls = true;
+            }
+        }
+    } else {
+        hasNulls = true; // Missing attributes will be NULL
+    }
+
+    // Allocate target tuple (HeapTuple or MinimalTuple)
+    Size totalLen = (hasNulls ? BITMAPLEN(targetNatts) : 0);
+    if (targetHeapTuple) {
+        totalLen += offsetof(HeapTupleHeaderData, t_bits);
+        totalLen = MAXALIGN(totalLen) + targetDataLen;
+        *targetHeapTuple = (HeapTuple) palloc0(HEAPTUPLESIZE + totalLen);
+        // Initialize HeapTuple fields...
+    } else {
+        totalLen += SizeofMinimalTupleHeader;
+        totalLen = MAXALIGN(totalLen) + targetDataLen;
+        *targetMinimalTuple = (MinimalTuple) palloc0(totalLen);
+        // Initialize MinimalTuple fields...
+    }
+
+    // Copy existing data from source tuple
+    char *targetData = /* calculated target data location */;
+    memcpy(targetData, ((char *) sourceTuple->t_data) + sourceHeader->t_hoff, sourceDataLen);
+
+    // Fill in missing attributes with default values or NULLs
+    for (int attnum = sourceNatts; attnum < targetNatts; attnum++) {
+        Form_pg_attribute attr = TupleDescAttr(tupleDesc, attnum);
+        if (missing_attrs && missing_attrs[attnum].am_present) {
+            // Use provided default value
+            fill_val(attr, /* null bitmap params */, missing_attrs[attnum].am_value, false);
+        } else {
+            // Set to NULL
+            fill_val(attr, /* null bitmap params */, (Datum) 0, true);
+        }
+    }
+}
+```

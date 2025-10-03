@@ -51,3 +51,45 @@ The function performs careful bounds checking against the relation's actual size
 - Could be optimized further by checking offset boundaries (e.g., advancing startBlk if lowestItem offset > MaxOffsetNumber) but such optimizations are currently considered not worth the complexity
 - Sets both the block-level scan limits via  and the exact TID range in / for precise tuple filtering
 - The TID range checking ensures that scans don't attempt to read beyond the actual size of the relation
+
+## Simplified Source
+
+```c
+void heap_set_tidrange(TableScanDesc sscan, ItemPointer mintid, ItemPointer maxtid) {
+    HeapScanDesc scan = (HeapScanDesc) sscan;
+    BlockNumber startBlk, numBlks;
+    ItemPointerData highestItem, lowestItem;
+
+    // Handle empty relations
+    if (scan->rs_nblocks == 0)
+        return;
+
+    // Set up boundary TIDs for the relation
+    ItemPointerSet(&highestItem, scan->rs_nblocks - 1, MaxOffsetNumber);
+    ItemPointerSet(&lowestItem, 0, FirstOffsetNumber);
+
+    // Clamp maximum TID to relation bounds
+    if (ItemPointerCompare(maxtid, &highestItem) < 0)
+        ItemPointerCopy(maxtid, &highestItem);
+
+    // Clamp minimum TID to relation bounds
+    if (ItemPointerCompare(mintid, &lowestItem) > 0)
+        ItemPointerCopy(mintid, &lowestItem);
+
+    // Check for empty range
+    if (ItemPointerCompare(&highestItem, &lowestItem) < 0) {
+        heap_setscanlimits(sscan, 0, 0);  // Empty scan
+        return;
+    }
+
+    // Calculate block range to scan
+    startBlk = ItemPointerGetBlockNumberNoCheck(&lowestItem);
+    numBlks = ItemPointerGetBlockNumberNoCheck(&highestItem) -
+              ItemPointerGetBlockNumberNoCheck(&lowestItem) + 1;
+
+    // Set scan limits and TID range
+    heap_setscanlimits(sscan, startBlk, numBlks);
+    ItemPointerCopy(&lowestItem, &sscan->rs_mintid);
+    ItemPointerCopy(&highestItem, &sscan->rs_maxtid);
+}
+```

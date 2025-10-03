@@ -46,3 +46,27 @@ The function follows the standard GIN insertion pattern where preparation is sep
 - The function includes an assertion to ensure the page is a valid data page before processing
 - Both leaf and internal page handlers follow the same interface contract for consistency
 - The function maintains the separation between preparation and execution phases of the insertion process
+
+## Simplified Source
+
+```c
+static GinPlaceToPageRC
+dataBeginPlaceToPage(GinBtree btree, Buffer buf, GinBtreeStack *stack,
+                    void *insertdata, BlockNumber updateblkno,
+                    void **ptp_workspace,
+                    Page *newlpage, Page *newrpage)
+{
+    Page page = BufferGetPage(buf);
+
+    Assert(GinPageIsData(page));
+
+    // Dispatch to appropriate handler based on page type
+    if (GinPageIsLeaf(page))
+        return dataBeginPlaceToPageLeaf(btree, buf, stack, insertdata,
+                                       ptp_workspace, newlpage, newrpage);
+    else
+        return dataBeginPlaceToPageInternal(btree, buf, stack,
+                                           insertdata, updateblkno,
+                                           ptp_workspace, newlpage, newrpage);
+}
+```

@@ -37,3 +37,27 @@ This function creates and initializes an index scan descriptor specifically for 
 - Caller must hold appropriate locks on the parent heap relation (though not explicitly passed)
 - Part of PostgreSQL's bitmap scan optimization for OR conditions and bulk operations
 - Located in src/backend/access/index/indexam.c:287-309
+
+## Simplified Source
+
+```c
+IndexScanDesc
+index_beginscan_bitmap(Relation indexRelation,
+                       Snapshot snapshot,
+                       int nkeys)
+{
+    IndexScanDesc scan;
+
+    // Validate snapshot
+    Assert(snapshot != InvalidSnapshot);
+
+    // Initialize scan descriptor for bitmap operations
+    // norderbys=0 because bitmap scans don't preserve order
+    scan = index_beginscan_internal(indexRelation, nkeys, 0, snapshot, NULL, false);
+
+    // Store snapshot in scan descriptor
+    scan->xs_snapshot = snapshot;
+
+    return scan;
+}
+```

@@ -57,3 +57,55 @@ An important constraint is that segment pointers must not point directly to the 
 - Final page size is validated against GinDataPageMaxDataSize limit
 - Function assumes all necessary memory allocations and segment preparations have been completed
 - Format conversion sets maxoff to InvalidOffsetNumber and enables compression flag
+
+## Simplified Source
+
+```c
+static void
+dataPlaceToPageLeafRecompress(Buffer buf, disassembledLeaf *leaf)
+{
+    Page page = BufferGetPage(buf);
+    char *data_ptr;
+    int total_size;
+    bool modified = false;
+    dlist_iter iter;
+
+    // Convert old uncompressed format to compressed format if needed
+    if (!GinPageIsCompressed(page))
+    {
+        GinPageSetCompressed(page);
+        GinPageGetOpaque(page)->maxoff = InvalidOffsetNumber;
+        modified = true;
+    }
+
+    // Build the new page content
+    data_ptr = (char *) GinDataLeafPageGetPostingList(page);
+    total_size = 0;
+
+    dlist_foreach(iter, &leaf->segments)
+    {
+        leafSegmentInfo *seginfo = dlist_container(leafSegmentInfo, node, iter.cur);
+
+        // Track if any modifications occurred
+        if (seginfo->action != GIN_SEGMENT_UNMODIFIED)
+            modified = true;
+
+        // Copy non-deleted segments to page
+        if (seginfo->action != GIN_SEGMENT_DELETE)
+        {
+            int seg_size = SizeOfGinPostingList(seginfo->seg);
+
+            // Only copy if modifications occurred
+            if (modified)
+                memcpy(data_ptr, seginfo->seg, seg_size);
+
+            data_ptr += seg_size;
+            total_size += seg_size;
+        }
+    }
+
+    // Update page size
+    Assert(total_size <= GinDataPageMaxDataSize);
+    GinDataPageSetDataSize(page, total_size);
+}
+```

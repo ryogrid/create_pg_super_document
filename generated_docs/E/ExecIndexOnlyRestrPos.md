@@ -39,3 +39,33 @@ For normal (non-EPQ) operations, the function delegates to the lower-level index
 - The function assumes a position was previously marked using ExecIndexOnlyMarkPos
 - Position restoration is essential for implementing features like scrollable cursors in SQL
 - Comments reference ExecIndexMarkPos, indicating shared logic and design patterns
+
+## Simplified Source
+
+```c
+void ExecIndexOnlyRestrPos(IndexOnlyScanState *node)
+{
+    EState *estate = node->ss.ps.state;
+    EPQState *epqstate = estate->es_epq_active;
+
+    // Handle EvalPlanQual (EPQ) recheck scenarios
+    if (estate->es_epq_active != NULL)
+    {
+        Index scanrelid = ((Scan *) node->ss.ps.plan)->scanrelid;
+
+        Assert(scanrelid > 0);
+        // Skip index access if EPQ test tuples exist
+        if (epqstate->relsubs_slot[scanrelid - 1] != NULL ||
+            epqstate->relsubs_rowmark[scanrelid - 1] != NULL)
+        {
+            // Verify EPQ state consistency
+            if (!epqstate->relsubs_done[scanrelid - 1])
+                elog(ERROR, "unexpected ExecIndexOnlyRestrPos call in EPQ recheck");
+            return;
+        }
+    }
+
+    // Restore index scan to marked position
+    index_restrpos(node->ioss_ScanDesc);
+}
+```

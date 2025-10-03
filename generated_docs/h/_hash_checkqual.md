@@ -32,8 +32,22 @@ The function's design reflects a limitation in the hash index implementation: it
   - [_hash_load_qualified_items](_hash_load_qualified_items.md) (in hashsearch.c at lines 637 and 683)
 
 ## Notes and Other Information
-- The function currently serves as a placeholder that always returns 
+- The function currently serves as a placeholder that always returns
 - The actual qualification checking is deferred to the main indexscan code via a recheck mechanism
 - The commented-out implementation shows how proper qualification checking would work if the necessary data were available
 - This design is specific to hash indexes due to their inability to directly evaluate scan conditions on stored hash values
 - The function is part of PostgreSQL's hash index access method implementation
+
+## Simplified Source
+
+```c
+bool _hash_checkqual(IndexScanDesc scan, IndexTuple itup)
+{
+    /*
+     * Hash indexes cannot check scan conditions directly because we don't
+     * have the original index entry value for the sk_func. The recheck flag
+     * is set by hashgettuple to defer qualification to the main indexscan code.
+     */
+    return true;
+}
+```

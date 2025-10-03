@@ -36,3 +36,50 @@ The function implements a state machine with the following logic:
   - If a visible tuple is found, breaks the loop and returns it
 
 The function increments the donetuples counter for each successfully returned tuple, providing a running count of tuples processed during the scan. This counter is useful for sampling methods that need to track progress or implement tuple-count-based sampling strategies.
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+tablesample_getnext(SampleScanState *scanstate)
+{
+    TableScanDesc scan = scanstate->ss.ss_currentScanDesc;
+    TupleTableSlot *slot = scanstate->ss.ss_ScanTupleSlot;
+
+    ExecClearTuple(slot);
+
+    // Return NULL if scan is already completed
+    if (scanstate->done)
+        return NULL;
+
+    // Main sampling loop
+    for (;;)
+    {
+        // Get next block if we don't have one
+        if (!scanstate->haveblock)
+        {
+            if (!table_scan_sample_next_block(scan, scanstate))
+            {
+                // No more blocks - scan complete
+                scanstate->done = true;
+                return NULL;
+            }
+            scanstate->haveblock = true;
+        }
+
+        // Try to get next tuple from current block
+        if (!table_scan_sample_next_tuple(scan, scanstate, slot))
+        {
+            // Block exhausted, move to next block
+            scanstate->haveblock = false;
+            continue;
+        }
+
+        // Found a visible tuple
+        break;
+    }
+
+    scanstate->donetuples++;
+    return slot;
+}
+```

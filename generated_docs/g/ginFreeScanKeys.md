@@ -39,3 +39,45 @@ This function is essential for proper resource management in GIN scans, ensuring
 - Clears all scan state pointers to prevent dangling references
 - Essential for proper resource cleanup in GIN index access method
 - Called during scan termination, restart, and error recovery scenarios
+
+## Simplified Source
+
+```c
+void ginFreeScanKeys(GinScanOpaque so) {
+    uint32 i;
+
+    // Early return if no keys to free
+    if (so->keys == NULL)
+        return;
+
+    // Clean up each scan entry's resources
+    for (i = 0; i < so->totalentries; i++) {
+        GinScanEntry entry = so->entries[i];
+
+        // Release buffer if held
+        if (entry->buffer != InvalidBuffer)
+            ReleaseBuffer(entry->buffer);
+
+        // Free item pointer list
+        if (entry->list)
+            pfree(entry->list);
+
+        // End TID bitmap iteration
+        if (entry->matchIterator)
+            tbm_end_iterate(entry->matchIterator);
+
+        // Free TID bitmap
+        if (entry->matchBitmap)
+            tbm_free(entry->matchBitmap);
+    }
+
+    // Reset key memory context to free all key-related allocations
+    MemoryContextReset(so->keyCtx);
+
+    // Clear scan state pointers
+    so->keys = NULL;
+    so->nkeys = 0;
+    so->entries = NULL;
+    so->totalentries = 0;
+}
+```

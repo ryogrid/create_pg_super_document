@@ -42,3 +42,42 @@ The sorting prepares the deletion array for efficient processing by ensuring ite
 - The comment warns to "think carefully before changing anything" due to performance sensitivity
 - Adaptive to presorted inputs, which are typical in this usage context
 - Located in src/backend/access/heap/heapam.c:8440-8536
+
+## Simplified Source
+
+```c
+static void index_delete_sort(TM_IndexDeleteOp *delstate)
+{
+    TM_IndexDelete *deltids = delstate->deltids;
+    int ndeltids = delstate->ndeltids;
+
+    // Optimized shellsort gap sequence from Sedgewick-Incerpi paper
+    // Efficient for arrays up to ~4500 elements (covers all BLCKSZ values)
+    const int gaps[9] = {1968, 861, 336, 112, 48, 21, 7, 3, 1};
+
+    // Ensure element size is suitable for fast swaps
+    StaticAssertDecl(sizeof(TM_IndexDelete) <= 8, "element size exceeds 8 bytes");
+
+    // Shellsort with specialized gap sequence
+    for (int g = 0; g < lengthof(gaps); g++)
+    {
+        int gap = gaps[g];
+
+        // Insertion sort with gap spacing
+        for (int i = gap; i < ndeltids; i++)
+        {
+            TM_IndexDelete temp = deltids[i];
+            int j = i;
+
+            // Move elements that are greater than temp
+            while (j >= gap && index_delete_sort_cmp(&deltids[j - gap], &temp) >= 0)
+            {
+                deltids[j] = deltids[j - gap];
+                j -= gap;
+            }
+
+            deltids[j] = temp;
+        }
+    }
+}
+```

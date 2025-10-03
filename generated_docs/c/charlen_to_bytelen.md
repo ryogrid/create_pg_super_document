@@ -38,3 +38,22 @@ It's the caller's responsibility to ensure that there are actually n characters 
 - No bounds checking is performed - this is by design for performance reasons
 - Used primarily in regular expression and substring operations where precise byte positioning is required
 - The function assumes valid character sequences and does not perform validation
+
+## Simplified Source
+
+```c
+static int charlen_to_bytelen(const char *p, int n) {
+    // Fast path: single-byte encoding optimization
+    if (pg_database_encoding_max_length() == 1) {
+        return n;  // 1 char = 1 byte
+    }
+
+    // Multibyte encoding: count bytes character by character
+    const char *current = p;
+    for (int i = 0; i < n; i++) {
+        current += pg_mblen(current);  // Advance by character's byte length
+    }
+
+    return current - p;  // Total bytes consumed
+}
+```

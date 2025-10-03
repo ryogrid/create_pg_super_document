@@ -43,3 +43,20 @@ This flexibility allows different sampling methods (like SYSTEM and BERNOULLI) t
 - Falls back to sequential scanning when sampling methods don't provide custom block selection
 - Contains the same logical decoding safety checks as other table scan functions
 - Part of PostgreSQL's TABLESAMPLE feature which enables statistical sampling for performance and analytical purposes
+
+## Simplified Source
+
+```c
+static inline bool table_scan_sample_next_block(TableScanDesc scan,
+                                               struct SampleScanState *scanstate) {
+    // Safety check: prevent calls during logical decoding for non-system tables
+    if (unlikely(TransactionIdIsValid(CheckXidAlive) && !bsysscan)) {
+        elog(ERROR, "unexpected table_scan_sample_next_block call during logical decoding");
+    }
+
+    // Delegate to table access method implementation
+    // Will use sampling method's NextSampleBlock() if available,
+    // otherwise performs sequential scan
+    return scan->rs_rd->rd_tableam->scan_sample_next_block(scan, scanstate);
+}
+```

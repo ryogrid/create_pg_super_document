@@ -35,3 +35,24 @@ The `hashfloat8` function computes hash values for double-precision floating-poi
 - Located in src/backend/access/hash/hashfunc.c at lines 193-216
 - Essential for hash indexes and hash joins involving float8 columns
 - Referenced by table sampling operations for hash-based sampling algorithms
+
+## Simplified Source
+
+```c
+Datum hashfloat8(PG_FUNCTION_ARGS) {
+    float8 key = PG_GETARG_FLOAT8(0);
+
+    // Handle zero values: normalize -0.0 and +0.0 to same hash value
+    if (key == (float8) 0) {
+        PG_RETURN_UINT32(0);
+    }
+
+    // Handle NaN values: normalize all NaN bit patterns to standard NaN
+    if (isnan(key)) {
+        key = get_float8_nan();
+    }
+
+    // Compute hash on the normalized 8-byte float representation
+    return hash_any((unsigned char *) &key, sizeof(key));
+}
+```

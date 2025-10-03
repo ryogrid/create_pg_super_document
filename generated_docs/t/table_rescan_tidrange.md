@@ -39,3 +39,21 @@ This is typically used when the same scan needs to be reused with different TID 
 - The scan_rescan call uses NULL parameters and all boolean flags set to false for a clean reset
 - Used for restarting TID range scans with potentially different range boundaries
 - Essential for reusable scan operations in the TID range scan executor node
+
+## Simplified Source
+
+```c
+static inline void
+table_rescan_tidrange(TableScanDesc sscan, ItemPointer mintid,
+                     ItemPointer maxtid)
+{
+    // Validate this is a TID range scan
+    Assert((sscan->rs_flags & SO_TYPE_TIDRANGESCAN) != 0);
+
+    // Reset the scan to beginning
+    sscan->rs_rd->rd_tableam->scan_rescan(sscan, NULL, false, false, false, false);
+
+    // Set new TID range boundaries
+    sscan->rs_rd->rd_tableam->scan_set_tidrange(sscan, mintid, maxtid);
+}
+```

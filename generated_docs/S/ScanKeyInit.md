@@ -41,3 +41,22 @@ ScanKeyInit is a streamlined function designed for common scan key initializatio
 - CurrentMemoryContext at call time should be as long-lived as the ScanKey itself
 - The C_COLLATION_OID default is correct for system catalog columns and safely ignored for non-collatable types
 - Located at src/backend/access/common/scankey.c:76-100
+
+## Simplified Source
+
+```c
+void ScanKeyInit(ScanKey entry, AttrNumber attributeNumber,
+                 StrategyNumber strategy, RegProcedure procedure,
+                 Datum argument) {
+    // Initialize scan key with sensible defaults for system catalog lookups
+    entry->sk_flags = 0;
+    entry->sk_attno = attributeNumber;
+    entry->sk_strategy = strategy;
+    entry->sk_subtype = InvalidOid;
+    entry->sk_collation = C_COLLATION_OID;  // Safe default for all system catalogs
+    entry->sk_argument = argument;
+
+    // Setup function manager info for the comparison procedure
+    fmgr_info(procedure, &entry->sk_func);
+}
+```

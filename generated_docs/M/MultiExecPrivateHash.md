@@ -46,3 +46,59 @@ Key optimizations include skew bucket handling for values that occur much more f
 - Updates both totalTuples (all processed tuples) and partialTuples (tuples in current partition) counters
 - May create temporary batch files when memory constraints require partitioning large datasets
 - Located in src/backend/executor/nodeHash.c:138-213
+
+## Simplified Source
+
+```c
+static void MultiExecPrivateHash(HashState *node)
+{
+    PlanState *outerNode;
+    List *hashkeys;
+    HashJoinTable hashtable;
+    TupleTableSlot *slot;
+    ExprContext *econtext;
+    uint32 hashvalue;
+
+    // Initialize state from node
+    outerNode = outerPlanState(node);
+    hashtable = node->hashtable;
+    hashkeys = node->hashkeys;
+    econtext = node->ps.ps_ExprContext;
+
+    // Process all input tuples
+    for (;;) {
+        slot = ExecProcNode(outerNode);
+        if (TupIsNull(slot))
+            break;
+
+        // Compute hash value for tuple
+        econtext->ecxt_outertuple = slot;
+        if (ExecHashGetHashValue(hashtable, econtext, hashkeys, false, hashtable->keepNulls, &hashvalue)) {
+            int bucketNumber;
+
+            // Check for skew bucket optimization
+            bucketNumber = ExecHashGetSkewBucket(hashtable, hashvalue);
+            if (bucketNumber != INVALID_SKEW_BUCKET_NO) {
+                // Insert into skew bucket
+                ExecHashSkewTableInsert(hashtable, slot, hashvalue, bucketNumber);
+                hashtable->skewTuples += 1;
+            } else {
+                // Insert normally
+                ExecHashTableInsert(hashtable, slot, hashvalue);
+            }
+            hashtable->totalTuples += 1;
+        }
+    }
+
+    // Resize hash table if needed
+    if (hashtable->nbuckets != hashtable->nbuckets_optimal)
+        ExecHashIncreaseNumBuckets(hashtable);
+
+    // Account for bucket space usage
+    hashtable->spaceUsed += hashtable->nbuckets * sizeof(HashJoinTuple);
+    if (hashtable->spaceUsed > hashtable->spacePeak)
+        hashtable->spacePeak = hashtable->spaceUsed;
+
+    hashtable->partialTuples = hashtable->totalTuples;
+}
+```

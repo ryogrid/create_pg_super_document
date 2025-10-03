@@ -44,3 +44,42 @@ Reading process:
 - Memory for the returned tuple is allocated using `palloc` and must be freed by the caller
 - The hash value is optional - pass NULL for `hashp` if the hash is not needed
 - Tape reading follows the exact format written by the spilling functions: hash, length, tuple data
+
+## Simplified Source
+
+```c
+static MinimalTuple hashagg_batch_read(HashAggBatch *batch, uint32 *hashp) {
+    LogicalTape *tape = batch->input_tape;
+    MinimalTuple tuple;
+    uint32 t_len, hash;
+    size_t nread;
+
+    // Read hash value from tape
+    nread = LogicalTapeRead(tape, &hash, sizeof(uint32));
+    if (nread == 0)
+        return NULL;  // EOF reached
+
+    // Validate hash read
+    if (nread != sizeof(uint32))
+        ereport(ERROR, (errmsg_internal("unexpected EOF reading hash")));
+
+    if (hashp != NULL)
+        *hashp = hash;
+
+    // Read tuple length
+    nread = LogicalTapeRead(tape, &t_len, sizeof(t_len));
+    if (nread != sizeof(uint32))
+        ereport(ERROR, (errmsg_internal("unexpected EOF reading length")));
+
+    // Allocate and read tuple data
+    tuple = (MinimalTuple) palloc(t_len);
+    tuple->t_len = t_len;
+
+    nread = LogicalTapeRead(tape, (char *) tuple + sizeof(uint32),
+                           t_len - sizeof(uint32));
+    if (nread != t_len - sizeof(uint32))
+        ereport(ERROR, (errmsg_internal("unexpected EOF reading tuple data")));
+
+    return tuple;
+}
+```

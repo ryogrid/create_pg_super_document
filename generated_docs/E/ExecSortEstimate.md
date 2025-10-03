@@ -41,3 +41,24 @@ If instrumentation is disabled or no workers are involved, the function returns 
 - Uses safe arithmetic functions (mul_size, add_size) to prevent integer overflow when calculating memory requirements
 - The estimated memory includes both the instrumentation data and the container structure overhead
 - This estimation is critical for proper shared memory allocation in parallel sort operations
+
+## Simplified Source
+
+```c
+void ExecSortEstimate(SortState *node, ParallelContext *pcxt)
+{
+    Size size;
+
+    // Skip estimation if no instrumentation or workers
+    if (!node->ss.ps.instrument || pcxt->nworkers == 0)
+        return;
+
+    // Calculate memory needed: worker count * instrumentation size + shared header
+    size = mul_size(pcxt->nworkers, sizeof(TuplesortInstrumentation));
+    size = add_size(size, offsetof(SharedSortInfo, sinstrument));
+
+    // Register memory requirements with shared memory allocator
+    shm_toc_estimate_chunk(&pcxt->estimator, size);
+    shm_toc_estimate_keys(&pcxt->estimator, 1);
+}
+```

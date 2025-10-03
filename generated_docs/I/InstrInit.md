@@ -28,3 +28,18 @@ InstrInit is a utility function that reinitializes an existing Instrumentation s
 
 ## Notes and Other Information
 Unlike InstrAlloc, this function operates on pre-allocated memory and doesn't handle async_mode configuration. It's commonly used in parallel execution scenarios where instrumentation structures need to be reinitialized for worker processes. The function ensures consistent behavior by completely zeroing the structure before setting the required flags.
+
+## Simplified Source
+
+```c
+void InstrInit(Instrumentation *instr, int instrument_options)
+{
+    // Clear all fields to ensure clean state
+    memset(instr, 0, sizeof(Instrumentation));
+
+    // Enable specific instrumentation features based on options
+    instr->need_bufusage = (instrument_options & INSTRUMENT_BUFFERS) != 0;
+    instr->need_walusage = (instrument_options & INSTRUMENT_WAL) != 0;
+    instr->need_timer = (instrument_options & INSTRUMENT_TIMER) != 0;
+}
+```

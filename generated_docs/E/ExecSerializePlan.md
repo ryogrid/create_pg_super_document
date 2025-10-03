@@ -43,3 +43,56 @@ The function ensures that worker processes receive only the information they nee
 - Parallel-unsafe subplans are explicitly excluded to prevent workers from attempting to execute non-parallel-aware operations
 - The resjunk flag modification is described as "sort of a hack" in the comments, indicating this is a workaround for the executor's automatic junk filtering behavior
 - Located in src/backend/executor/execParallel.c:145-228
+
+## Simplified Source
+
+```c
+static char *ExecSerializePlan(Plan *plan, EState *estate)
+{
+    PlannedStmt *pstmt;
+    ListCell *lc;
+
+    // Create a copy to avoid modifying the original
+    plan = copyObject(plan);
+
+    // Clear resjunk flags to preserve all columns for workers
+    foreach(lc, plan->targetlist)
+    {
+        TargetEntry *tle = lfirst_node(TargetEntry, lc);
+        tle->resjunk = false;
+    }
+
+    // Create minimal PlannedStmt for worker execution
+    pstmt = makeNode(PlannedStmt);
+    pstmt->commandType = CMD_SELECT;
+    pstmt->queryId = pgstat_get_my_query_id();
+    pstmt->planTree = plan;
+    pstmt->rtable = estate->es_range_table;
+    pstmt->permInfos = estate->es_rteperminfos;
+    pstmt->paramExecTypes = estate->es_plannedstmt->paramExecTypes;
+
+    // Initialize other required fields with defaults
+    pstmt->hasReturning = false;
+    pstmt->canSetTag = true;
+    pstmt->parallelModeNeeded = false;
+    pstmt->resultRelations = NIL;
+    pstmt->appendRelations = NIL;
+    pstmt->rowMarks = NIL;
+    pstmt->relationOids = NIL;
+    pstmt->invalItems = NIL;
+    pstmt->utilityStmt = NULL;
+
+    // Copy only parallel-safe subplans, leaving NULL for unsafe ones
+    pstmt->subplans = NIL;
+    foreach(lc, estate->es_plannedstmt->subplans)
+    {
+        Plan *subplan = (Plan *) lfirst(lc);
+        if (subplan && !subplan->parallel_safe)
+            subplan = NULL;  // Leave hole for unsafe subplans
+        pstmt->subplans = lappend(pstmt->subplans, subplan);
+    }
+
+    // Return serialized representation
+    return nodeToString(pstmt);
+}
+```

@@ -64,3 +64,57 @@ For ordered-set aggregates, the function correctly handles the distinction betwe
 - Inverse transition functions are optional - [when](../w/when.md) invtransfn_oid is InvalidOid, no inverse expression is built
 - For combine functions, inverse transition functions are not applicable (no inverse combine function exists)
 - Properly handles variadic aggregates by setting the funcvariadic flag on created FuncExpr nodes
+
+## Simplified Source
+
+```c
+void
+build_aggregate_transfn_expr(Oid *agg_input_types,
+                             int agg_num_inputs,
+                             int agg_num_direct_inputs,
+                             bool agg_variadic,
+                             Oid agg_state_type,
+                             Oid agg_input_collation,
+                             Oid transfn_oid,
+                             Oid invtransfn_oid,
+                             Expr **transfnexpr,
+                             Expr **invtransfnexpr)
+{
+    // Build argument list: state type first, then aggregated inputs
+    List *args = list_make1(make_agg_arg(agg_state_type, agg_input_collation));
+
+    // Add aggregated arguments (skip direct arguments for ordered-set aggregates)
+    for (int i = agg_num_direct_inputs; i < agg_num_inputs; i++)
+    {
+        args = lappend(args, make_agg_arg(agg_input_types[i], agg_input_collation));
+    }
+
+    // Create transition function expression
+    FuncExpr *fexpr = makeFuncExpr(transfn_oid,
+                                  agg_state_type,
+                                  args,
+                                  InvalidOid,
+                                  agg_input_collation,
+                                  COERCE_EXPLICIT_CALL);
+    fexpr->funcvariadic = agg_variadic;
+    *transfnexpr = (Expr *) fexpr;
+
+    // Build inverse transition function if requested and available
+    if (invtransfnexpr != NULL)
+    {
+        if (OidIsValid(invtransfn_oid))
+        {
+            fexpr = makeFuncExpr(invtransfn_oid,
+                                agg_state_type,
+                                args,  // Same args as transition function
+                                InvalidOid,
+                                agg_input_collation,
+                                COERCE_EXPLICIT_CALL);
+            fexpr->funcvariadic = agg_variadic;
+            *invtransfnexpr = (Expr *) fexpr;
+        }
+        else
+            *invtransfnexpr = NULL;
+    }
+}
+```

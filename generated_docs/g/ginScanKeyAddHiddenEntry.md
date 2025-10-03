@@ -39,3 +39,19 @@ This function assumes it will be called at most once per scan key, as  only allo
 - Uses dummy Datum value of 0 since no actual data value is being searched
 - Always creates non-partial-match entries (isPartialMatch = false)
 - Part of the GIN index's mechanism for handling special search categories like NULL values
+
+## Simplified Source
+
+```c
+static void ginScanKeyAddHiddenEntry(GinScanOpaque so, GinScanKey key,
+                                   GinNullCategory queryCategory) {
+    int i = key->nentries++;
+
+    // Create hidden entry for special categories (e.g., NULL values)
+    // Strategy is irrelevant for categorical entries
+    key->scanEntry[i] = ginFillScanEntry(so, key->attnum,
+                                       InvalidStrategy, key->searchMode,
+                                       (Datum) 0, queryCategory,
+                                       false, NULL);
+}
+```

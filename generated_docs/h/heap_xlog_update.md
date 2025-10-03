@@ -44,3 +44,187 @@ The function supports space optimization techniques like prefix/suffix compressi
 - **FSM Updates**: Updates the Free Space Map when the new page becomes low on free space (less than 20%), but skips this for HOT updates since space will be reclaimed after pruning
 - **Error Handling**: Contains several PANIC-level assertions for data consistency validation during recovery
 - **HOT Update Handling**: Special processing for Heap-Only Tuple updates that occur within the same page, avoiding cross-page complexity
+
+## Simplified Source
+
+```c
+static void
+heap_xlog_update(XLogReaderState *record, bool hot_update)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    xl_heap_update *xlrec = (xl_heap_update *) XLogRecGetData(record);
+    RelFileLocator rlocator;
+    BlockNumber oldblk, newblk;
+    ItemPointerData newtid;
+    Buffer obuffer, nbuffer;
+    Page page;
+    OffsetNumber offnum;
+    HeapTupleData oldtup;
+    HeapTupleHeader htup;
+    uint16 prefixlen = 0, suffixlen = 0;
+    union {
+        HeapTupleHeaderData hdr;
+        char data[MaxHeapTupleSize];
+    } tbuf;
+    xl_heap_header xlhdr;
+    uint32 newlen;
+    Size freespace = 0;
+    XLogRedoAction oldaction, newaction;
+
+    // Extract target locations
+    XLogRecGetBlockTag(record, 0, &rlocator, NULL, &newblk);
+    if (XLogRecGetBlockTagExtended(record, 1, NULL, NULL, &oldblk, NULL)) {
+        // Cross-page update
+        Assert(!hot_update);
+    } else {
+        oldblk = newblk;  // Same page update
+    }
+
+    ItemPointerSet(&newtid, newblk, xlrec->new_offnum);
+
+    // Clear old page visibility map if needed
+    if (xlrec->flags & XLH_UPDATE_OLD_ALL_VISIBLE_CLEARED) {
+        Relation reln = CreateFakeRelcacheEntry(rlocator);
+        Buffer vmbuffer = InvalidBuffer;
+        visibilitymap_pin(reln, oldblk, &vmbuffer);
+        visibilitymap_clear(reln, oldblk, vmbuffer, VISIBILITYMAP_VALID_BITS);
+        ReleaseBuffer(vmbuffer);
+        FreeFakeRelcacheEntry(reln);
+    }
+
+    // Process old tuple
+    oldaction = XLogReadBufferForRedo(record, (oldblk == newblk) ? 0 : 1, &obuffer);
+    if (oldaction == BLK_NEEDS_REDO) {
+        page = BufferGetPage(obuffer);
+        offnum = xlrec->old_offnum;
+
+        if (PageGetMaxOffsetNumber(page) >= offnum)
+            ItemId lp = PageGetItemId(page, offnum);
+
+        htup = (HeapTupleHeader) PageGetItem(page, lp);
+        oldtup.t_data = htup;
+        oldtup.t_len = ItemIdGetLength(lp);
+
+        // Update old tuple header
+        htup->t_infomask &= ~(HEAP_XMAX_BITS | HEAP_MOVED);
+        htup->t_infomask2 &= ~HEAP_KEYS_UPDATED;
+
+        if (hot_update)
+            HeapTupleHeaderSetHotUpdated(htup);
+        else
+            HeapTupleHeaderClearHotUpdated(htup);
+
+        fix_infomask_from_infobits(xlrec->old_infobits_set,
+                                 &htup->t_infomask, &htup->t_infomask2);
+        HeapTupleHeaderSetXmax(htup, xlrec->old_xmax);
+        HeapTupleHeaderSetCmax(htup, FirstCommandId, false);
+        htup->t_ctid = newtid;  // Forward chain link
+
+        PageSetPrunable(page, XLogRecGetXid(record));
+        if (xlrec->flags & XLH_UPDATE_OLD_ALL_VISIBLE_CLEARED)
+            PageClearAllVisible(page);
+
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(obuffer);
+    }
+
+    // Handle new page
+    if (oldblk == newblk) {
+        nbuffer = obuffer;
+        newaction = oldaction;
+    } else if (XLogRecGetInfo(record) & XLOG_HEAP_INIT_PAGE) {
+        nbuffer = XLogInitBufferForRedo(record, 0);
+        page = BufferGetPage(nbuffer);
+        PageInit(page, BufferGetPageSize(nbuffer), 0);
+        newaction = BLK_NEEDS_REDO;
+    } else {
+        newaction = XLogReadBufferForRedo(record, 0, &nbuffer);
+    }
+
+    // Clear new page visibility map if needed
+    if (xlrec->flags & XLH_UPDATE_NEW_ALL_VISIBLE_CLEARED) {
+        Relation reln = CreateFakeRelcacheEntry(rlocator);
+        Buffer vmbuffer = InvalidBuffer;
+        visibilitymap_pin(reln, newblk, &vmbuffer);
+        visibilitymap_clear(reln, newblk, vmbuffer, VISIBILITYMAP_VALID_BITS);
+        ReleaseBuffer(vmbuffer);
+        FreeFakeRelcacheEntry(reln);
+    }
+
+    // Reconstruct and insert new tuple
+    if (newaction == BLK_NEEDS_REDO) {
+        char *recdata;
+        Size datalen, tuplen;
+
+        recdata = XLogRecGetBlockData(record, 0, &datalen);
+        page = BufferGetPage(nbuffer);
+
+        // Handle prefix/suffix compression
+        if (xlrec->flags & XLH_UPDATE_PREFIX_FROM_OLD) {
+            memcpy(&prefixlen, recdata, sizeof(uint16));
+            recdata += sizeof(uint16);
+        }
+        if (xlrec->flags & XLH_UPDATE_SUFFIX_FROM_OLD) {
+            memcpy(&suffixlen, recdata, sizeof(uint16));
+            recdata += sizeof(uint16);
+        }
+
+        memcpy((char *) &xlhdr, recdata, SizeOfHeapHeader);
+        recdata += SizeOfHeapHeader;
+        tuplen = datalen - (recdata - XLogRecGetBlockData(record, 0, NULL));
+
+        // Reconstruct complete tuple
+        htup = &tbuf.hdr;
+        MemSet((char *) htup, 0, SizeofHeapTupleHeader);
+        char *newp = (char *) htup + SizeofHeapTupleHeader;
+
+        if (prefixlen > 0) {
+            // Copy header + prefix from old + new data
+            int len = xlhdr.t_hoff - SizeofHeapTupleHeader;
+            memcpy(newp, recdata, len);
+            newp += len; recdata += len;
+            memcpy(newp, (char *) oldtup.t_data + oldtup.t_data->t_hoff, prefixlen);
+            newp += prefixlen;
+            memcpy(newp, recdata, tuplen - len);
+            recdata += tuplen - len; newp += tuplen - len;
+        } else {
+            memcpy(newp, recdata, tuplen);
+            newp += tuplen; recdata += tuplen;
+        }
+
+        if (suffixlen > 0)
+            memcpy(newp, (char *) oldtup.t_data + oldtup.t_len - suffixlen, suffixlen);
+
+        newlen = SizeofHeapTupleHeader + tuplen + prefixlen + suffixlen;
+        htup->t_infomask2 = xlhdr.t_infomask2;
+        htup->t_infomask = xlhdr.t_infomask;
+        htup->t_hoff = xlhdr.t_hoff;
+        HeapTupleHeaderSetXmin(htup, XLogRecGetXid(record));
+        HeapTupleHeaderSetCmin(htup, FirstCommandId);
+        HeapTupleHeaderSetXmax(htup, xlrec->new_xmax);
+        htup->t_ctid = newtid;
+
+        // Insert new tuple
+        offnum = PageAddItem(page, (Item) htup, newlen, xlrec->new_offnum, true, true);
+        if (offnum == InvalidOffsetNumber)
+            elog(PANIC, "failed to add tuple");
+
+        if (xlrec->flags & XLH_UPDATE_NEW_ALL_VISIBLE_CLEARED)
+            PageClearAllVisible(page);
+
+        freespace = PageGetHeapFreeSpace(page);
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(nbuffer);
+    }
+
+    // Release buffers
+    if (BufferIsValid(nbuffer) && nbuffer != obuffer)
+        UnlockReleaseBuffer(nbuffer);
+    if (BufferIsValid(obuffer))
+        UnlockReleaseBuffer(obuffer);
+
+    // Update FSM for non-HOT updates if space is low
+    if (newaction == BLK_NEEDS_REDO && !hot_update && freespace < BLCKSZ / 5)
+        XLogRecordPageWithFreeSpace(rlocator, newblk, freespace);
+}
+```

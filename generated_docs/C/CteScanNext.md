@@ -45,3 +45,59 @@ The function carefully manages scan direction, handling special cases like rever
 - The eof_cte flag prevents redundant calls to plan nodes that are not robust about being called after returning NULL
 - Ensures tuple stability by copying CTE query output into the node's own slot to prevent corruption when other nodes advance the query
 - Located at src/backend/executor/nodeCtescan.c:31-144
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+CteScanNext(CteScanState *node)
+{
+    EState *estate = node->ss.ps.state;
+    bool forward = ScanDirectionIsForward(estate->es_direction);
+    Tuplestorestate *tuplestorestate = node->leader->cte_table;
+    TupleTableSlot *slot = node->ss.ss_ScanTupleSlot;
+
+    // Select this node's read pointer in the shared tuplestore
+    tuplestore_select_read_pointer(tuplestorestate, node->readptr);
+    bool eof_tuplestore = tuplestore_ateof(tuplestorestate);
+
+    // Handle backward scanning at EOF: need extra advance to get previous tuple
+    if (!forward && eof_tuplestore) {
+        if (!node->leader->eof_cte) {
+            if (!tuplestore_advance(tuplestorestate, forward))
+                return NULL; // tuplestore is empty
+        }
+        eof_tuplestore = false;
+    }
+
+    // Try to fetch tuple from existing tuplestore data
+    if (!eof_tuplestore) {
+        if (tuplestore_gettupleslot(tuplestorestate, forward, true, slot))
+            return slot;
+        if (forward)
+            eof_tuplestore = true;
+    }
+
+    // If tuplestore exhausted in forward direction, try executing CTE query for new data
+    if (eof_tuplestore && !node->leader->eof_cte) {
+        TupleTableSlot *cteslot = ExecProcNode(node->cteplanstate);
+
+        if (TupIsNull(cteslot)) {
+            node->leader->eof_cte = true;
+            return NULL; // CTE query finished
+        }
+
+        // Reselect read pointer (subplan might have changed it)
+        tuplestore_select_read_pointer(tuplestorestate, node->readptr);
+
+        // Store new tuple in tuplestore for future access
+        tuplestore_puttupleslot(tuplestorestate, cteslot);
+
+        // Copy tuple to our slot for stability (other nodes might advance CTE)
+        return ExecCopySlot(slot, cteslot);
+    }
+
+    // No more tuples available
+    return ExecClearTuple(slot);
+}
+```

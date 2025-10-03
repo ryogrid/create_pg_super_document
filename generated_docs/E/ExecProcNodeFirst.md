@@ -39,3 +39,32 @@ After performing these checks, the function updates the node's ExecProcNode poin
 - Stack depth checking is done only once due to performance considerations on certain architectures
 - After the first call, the function is bypassed, making subsequent executions more efficient
 - The optimization assumes consistent stack depth across executions of the same node
+
+## Simplified Source
+
+```c
+static TupleTableSlot *
+ExecProcNodeFirst(PlanState *node)
+{
+    // Perform expensive stack depth check only on first execution
+    // (This is costly on some architectures like x86)
+    check_stack_depth();
+
+    // Set up execution path for subsequent calls
+    if (node->instrument)
+        node->ExecProcNode = ExecProcNodeInstr;  // Use instrumentation wrapper
+    else
+        node->ExecProcNode = node->ExecProcNodeReal;  // Direct execution
+
+    // Execute and return result
+    return node->ExecProcNode(node);
+}
+```
+
+This function optimizes plan node execution by:
+1. **One-time Setup**: Performing expensive stack depth check only on first call
+2. **Path Selection**: Choosing instrumented vs direct execution based on node settings
+3. **Self-Removal**: Updating the function pointer to bypass itself on future calls
+4. **Execution**: Calling the selected execution function and returning its result
+
+The self-removing wrapper pattern ensures that setup overhead doesn't impact long-running queries.

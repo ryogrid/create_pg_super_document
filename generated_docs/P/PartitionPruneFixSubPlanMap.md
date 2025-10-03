@@ -37,3 +37,90 @@ This function remaps subplan indexes within PartitionPruneState structures to ac
 - Handles both regular partitions (with subplan_map entries) and sub-partitioned tables (with subpart_map entries)
 - Essential for maintaining correct subplan references when subsequent pruning operations occur after initial pruning has changed the subplan landscape
 - The function ensures that all internal data structures remain consistent with the post-pruning subplan numbering scheme
+
+## Simplified Source
+
+```c
+static void
+PartitionPruneFixSubPlanMap(PartitionPruneState *prunestate,
+                           Bitmapset *initially_valid_subplans,
+                           int n_total_subplans)
+{
+    int *new_subplan_indexes;
+    Bitmapset *new_other_subplans;
+
+    // Build mapping array from old subplan indexes to new ones
+    // Use 1-based indexing for convenience, pruned items stay 0
+    new_subplan_indexes = (int *) palloc0(sizeof(int) * n_total_subplans);
+
+    int newidx = 1;
+    int i = -1;
+    while ((i = bms_next_member(initially_valid_subplans, i)) >= 0)
+    {
+        Assert(i < n_total_subplans);
+        new_subplan_indexes[i] = newidx++;
+    }
+
+    // Update each partition hierarchy's subplan mappings
+    for (int i = 0; i < prunestate->num_partprunedata; i++)
+    {
+        PartitionPruningData *prunedata = prunestate->partprunedata[i];
+
+        // Process relations in reverse order (lowest level first)
+        // This ensures sub-partitioned tables are handled correctly
+        for (int j = prunedata->num_partrelprunedata - 1; j >= 0; j--)
+        {
+            PartitionedRelPruningData *pprune = &prunedata->partrelprunedata[j];
+            int nparts = pprune->nparts;
+
+            // Rebuild present_parts from scratch
+            bms_free(pprune->present_parts);
+            pprune->present_parts = NULL;
+
+            // Update mapping for each partition
+            for (int k = 0; k < nparts; k++)
+            {
+                int oldidx = pprune->subplan_map[k];
+
+                if (oldidx >= 0)
+                {
+                    // Regular partition with direct subplan mapping
+                    Assert(oldidx < n_total_subplans);
+                    pprune->subplan_map[k] = new_subplan_indexes[oldidx] - 1;
+
+                    // Add to present_parts if subplan survived pruning
+                    if (new_subplan_indexes[oldidx] > 0)
+                        pprune->present_parts = bms_add_member(pprune->present_parts, k);
+                }
+                else
+                {
+                    // Sub-partitioned table - check if any sub-partitions remain
+                    int subidx = pprune->subpart_map[k];
+                    if (subidx >= 0)
+                    {
+                        PartitionedRelPruningData *subprune = &prunedata->partrelprunedata[subidx];
+
+                        if (!bms_is_empty(subprune->present_parts))
+                            pprune->present_parts = bms_add_member(pprune->present_parts, k);
+                    }
+                }
+            }
+        }
+    }
+
+    // Update other_subplans bitmap with new indexes
+    new_other_subplans = NULL;
+    i = -1;
+    while ((i = bms_next_member(prunestate->other_subplans, i)) >= 0)
+    {
+        new_other_subplans = bms_add_member(new_other_subplans,
+                                           new_subplan_indexes[i] - 1);
+    }
+
+    // Replace old other_subplans with updated version
+    bms_free(prunestate->other_subplans);
+    prunestate->other_subplans = new_other_subplans;
+
+    pfree(new_subplan_indexes);
+}
+```

@@ -51,3 +51,95 @@ This function is responsible for removing processed pages from GIN's pending lis
 - Part of GIN's cleanup mechanism for maintaining pending list efficiency
 - Handles complete list deletion when newHead == InvalidBlockNumber
 - Updates bulk delete statistics when stats parameter is provided
+
+## Simplified Source
+
+```c
+// Simplified version of shiftList
+static void shiftList(Relation index, Buffer metabuffer, BlockNumber newHead,
+                     bool fill_fsm, IndexBulkDeleteResult *stats)
+{
+    Page metapage = BufferGetPage(metabuffer);
+    GinMetaPageData *metadata = GinPageGetMeta(metapage);
+    BlockNumber blknoToDelete = metadata->head;
+
+    do {
+        ginxlogDeleteListPages data;
+        Buffer buffers[GIN_NDELETE_AT_ONCE];
+        BlockNumber freespace[GIN_NDELETE_AT_ONCE];
+        int64 nDeletedHeapTuples = 0;
+        int i;
+
+        // Collect batch of pages to delete
+        data.ndeleted = 0;
+        while (data.ndeleted < GIN_NDELETE_AT_ONCE && blknoToDelete != newHead) {
+            freespace[data.ndeleted] = blknoToDelete;
+            buffers[data.ndeleted] = ReadBuffer(index, blknoToDelete);
+            LockBuffer(buffers[data.ndeleted], GIN_EXCLUSIVE);
+
+            Page page = BufferGetPage(buffers[data.ndeleted]);
+            nDeletedHeapTuples += GinPageGetOpaque(page)->maxoff;
+            blknoToDelete = GinPageGetOpaque(page)->rightlink;
+            data.ndeleted++;
+        }
+
+        if (stats)
+            stats->pages_deleted += data.ndeleted;
+
+        // Prepare for large WAL record
+        if (RelationNeedsWAL(index))
+            XLogEnsureRecordSpace(data.ndeleted, 0);
+
+        START_CRIT_SECTION();
+
+        // Update metadata
+        metadata->head = blknoToDelete;
+        metadata->nPendingPages -= data.ndeleted;
+        metadata->nPendingHeapTuples -= nDeletedHeapTuples;
+
+        if (blknoToDelete == InvalidBlockNumber) {
+            metadata->tail = InvalidBlockNumber;
+            metadata->tailFreeSize = 0;
+            metadata->nPendingPages = 0;
+            metadata->nPendingHeapTuples = 0;
+        }
+
+        // Mark pages as deleted
+        for (i = 0; i < data.ndeleted; i++) {
+            Page page = BufferGetPage(buffers[i]);
+            GinPageGetOpaque(page)->flags = GIN_DELETED;
+            MarkBufferDirty(buffers[i]);
+        }
+
+        MarkBufferDirty(metabuffer);
+
+        // WAL logging
+        if (RelationNeedsWAL(index)) {
+            memcpy(&data.metadata, metadata, sizeof(GinMetaPageData));
+            XLogBeginInsert();
+            XLogRegisterBuffer(0, metabuffer, REGBUF_WILL_INIT | REGBUF_STANDARD);
+            for (i = 0; i < data.ndeleted; i++)
+                XLogRegisterBuffer(i + 1, buffers[i], REGBUF_WILL_INIT);
+            XLogRegisterData((char *) &data, sizeof(ginxlogDeleteListPages));
+
+            XLogRecPtr recptr = XLogInsert(RM_GIN_ID, XLOG_GIN_DELETE_LISTPAGE);
+            PageSetLSN(metapage, recptr);
+            for (i = 0; i < data.ndeleted; i++)
+                PageSetLSN(BufferGetPage(buffers[i]), recptr);
+        }
+
+        // Release buffers
+        for (i = 0; i < data.ndeleted; i++)
+            UnlockReleaseBuffer(buffers[i]);
+
+        END_CRIT_SECTION();
+
+        // Record freed pages in FSM
+        if (fill_fsm) {
+            for (i = 0; i < data.ndeleted; i++)
+                RecordFreeIndexPage(index, freespace[i]);
+        }
+
+    } while (blknoToDelete != newHead);
+}
+```

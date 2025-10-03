@@ -47,3 +47,38 @@ The function is designed to work with async-capable executor nodes that can hand
 - The function handles both the initiation and immediate response processing of async requests
 - Parameter change detection ensures data consistency across async operations
 - Part of PostgreSQL's asynchronous execution framework introduced to improve performance for foreign data wrappers and similar operations
+
+## Simplified Source
+
+```c
+void
+ExecAsyncRequest(AsyncRequest *areq)
+{
+    // Handle parameter changes by rescanning if needed
+    if (areq->requestee->chgParam != NULL)
+        ExecReScan(areq->requestee);
+
+    // Start performance instrumentation
+    if (areq->requestee->instrument)
+        InstrStartNode(areq->requestee->instrument);
+
+    // Dispatch to appropriate async-capable node type
+    switch (nodeTag(areq->requestee)) {
+        case T_ForeignScanState:
+            ExecAsyncForeignScanRequest(areq);
+            break;
+        default:
+            // Only foreign scan nodes currently support async
+            elog(ERROR, "unrecognized node type: %d",
+                 (int) nodeTag(areq->requestee));
+    }
+
+    // Process the async response
+    ExecAsyncResponse(areq);
+
+    // Stop instrumentation and record stats
+    if (areq->requestee->instrument)
+        InstrStopNode(areq->requestee->instrument,
+                      TupIsNull(areq->result) ? 0.0 : 1.0);
+}
+```

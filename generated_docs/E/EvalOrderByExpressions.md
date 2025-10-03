@@ -43,3 +43,33 @@ The function provides the recalculated ORDER BY values that can be compared with
 - The function assumes that the iss_OrderByValues and iss_OrderByNulls arrays are properly allocated to match the number of ORDER BY expressions
 - Works in conjunction with cmp_orderbyvals to determine if reordering is necessary
 - The per-tuple memory context ensures that expression results are cleaned up appropriately between tuples
+
+## Simplified Source
+
+```c
+static void
+EvalOrderByExpressions(IndexScanState *node, ExprContext *econtext)
+{
+    MemoryContext oldContext;
+    int i;
+    ListCell *l;
+
+    // Switch to per-tuple memory context for expression evaluation
+    oldContext = MemoryContextSwitchTo(econtext->ecxt_per_tuple_memory);
+
+    // Evaluate each ORDER BY expression against current tuple
+    i = 0;
+    foreach(l, node->indexorderbyorig)
+    {
+        ExprState *orderby = (ExprState *) lfirst(l);
+
+        // Store evaluated value and null flag
+        node->iss_OrderByValues[i] = ExecEvalExpr(orderby, econtext,
+                                                  &node->iss_OrderByNulls[i]);
+        i++;
+    }
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldContext);
+}
+```

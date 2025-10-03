@@ -44,3 +44,29 @@ This is essential for locale data that needs to persist across multiple database
 - The function is static and only used within the pg_locale.c file
 - Critical for ensuring locale data is in the correct encoding for database operations
 - Handles the case where no conversion is needed (when ptr == src) efficiently
+
+## Simplified Source
+
+```c
+static void
+cache_single_string(char **dst, const char *src, int encoding)
+{
+    char *ptr;
+    char *olddst;
+
+    // Convert string to database encoding
+    ptr = pg_any_to_server(src, strlen(src), encoding);
+
+    // Store in long-lived memory, replacing any previous value
+    olddst = *dst;
+    *dst = MemoryContextStrdup(TopMemoryContext, ptr);
+
+    // Clean up old cached value
+    if (olddst)
+        pfree(olddst);
+
+    // Clean up temporary conversion result if needed
+    if (ptr != src)
+        pfree(ptr);
+}
+```

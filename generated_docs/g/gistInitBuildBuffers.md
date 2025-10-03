@@ -46,3 +46,53 @@ The buffer management system uses a hierarchical approach where buffers are orga
 - Initializes free block management with an initial capacity of 32 blocks, expandable as needed
 - The buffer system is essential for building large GiST indexes that exceed available memory
 - Memory context is preserved to ensure proper cleanup of persistent data structures during the build process
+
+## Simplified Source
+
+```c
+GISTBuildBuffers *
+gistInitBuildBuffers(int pagesPerBuffer, int levelStep, int maxLevel)
+{
+    GISTBuildBuffers *gfbb;
+    HASHCTL hashCtl;
+
+    // Allocate main structure
+    gfbb = palloc(sizeof(GISTBuildBuffers));
+    gfbb->pagesPerBuffer = pagesPerBuffer;
+    gfbb->levelStep = levelStep;
+
+    // Create temporary file for buffer storage
+    gfbb->pfile = BufFileCreateTemp(false);
+    gfbb->nFileBlocks = 0;
+
+    // Initialize free block management
+    gfbb->nFreeBlocks = 0;
+    gfbb->freeBlocksLen = 32;
+    gfbb->freeBlocks = (long *) palloc(gfbb->freeBlocksLen * sizeof(long));
+
+    gfbb->context = CurrentMemoryContext;
+
+    // Create hash table for block -> buffer mapping
+    hashCtl.keysize = sizeof(BlockNumber);
+    hashCtl.entrysize = sizeof(GISTNodeBuffer);
+    hashCtl.hcxt = CurrentMemoryContext;
+    gfbb->nodeBuffersTab = hash_create("gistbuildbuffers", 1024, &hashCtl,
+                                      HASH_ELEM | HASH_BLOBS | HASH_CONTEXT);
+
+    gfbb->bufferEmptyingQueue = NIL;
+
+    // Initialize per-level buffer lists
+    gfbb->buffersOnLevelsLen = 1;
+    gfbb->buffersOnLevels = (List **) palloc(sizeof(List *));
+    gfbb->buffersOnLevels[0] = NIL;
+
+    // Initialize loaded buffers tracking
+    gfbb->loadedBuffersLen = 32;
+    gfbb->loadedBuffers = (GISTNodeBuffer **) palloc(gfbb->loadedBuffersLen *
+                                                     sizeof(GISTNodeBuffer *));
+    gfbb->loadedBuffersCount = 0;
+    gfbb->rootlevel = maxLevel;
+
+    return gfbb;
+}
+```

@@ -33,3 +33,14 @@ This function is part of PostgreSQL's GiST (Generalized Search Tree) index acces
 - Only the scanCxt memory context needs to be deleted as it contains all scan-lifespan data
 - This is a cleanup function typically called at the end of GiST index operations
 - The GISTSTATE structure contains function manager information for opclass-specific support functions and tuple descriptors for the index
+
+## Simplified Source
+
+```c
+void
+freeGISTstate(GISTSTATE *giststate)
+{
+    // Delete scan context - automatically frees all contained memory
+    MemoryContextDelete(giststate->scanCxt);
+}
+```

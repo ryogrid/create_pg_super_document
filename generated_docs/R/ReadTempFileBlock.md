@@ -32,3 +32,16 @@ ReadTempFileBlock is a wrapper around BufFile operations specifically designed f
 - Error handling is automatic - the function will terminate execution with an error message if the seek operation fails
 - The function is static, meaning it's only accessible within the same compilation unit
 - Used specifically during GiST index construction for managing temporary file I/O operations
+
+## Simplified Source
+
+```c
+static void ReadTempFileBlock(BufFile *file, long blknum, void *ptr) {
+    // Seek to the specified block number
+    if (BufFileSeekBlock(file, blknum) != 0)
+        elog(ERROR, "could not seek to block %ld in temporary file", blknum);
+
+    // Read exactly one block of data
+    BufFileReadExact(file, ptr, BLCKSZ);
+}
+```

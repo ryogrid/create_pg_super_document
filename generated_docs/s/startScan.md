@@ -41,3 +41,43 @@ After handling the fuzzy search logic and obtaining final entry frequency estima
 - The reduction factor (dividing by totalentries) is a simple but effective way to scale down large result sets
 - This function bridges the gap between entry-level initialization (startScanEntry) and key-level optimization (startScanKey)
 - Essential for GIN bitmap scan operations, as called from gingetbitmap
+
+## Simplified Source
+
+```c
+static void startScan(IndexScanDesc scan)
+{
+    GinScanOpaque so = (GinScanOpaque) scan->opaque;
+    GinState *ginstate = &so->ginstate;
+    uint32 i;
+
+    // Initialize all scan entries
+    for (i = 0; i < so->totalentries; i++)
+        startScanEntry(ginstate, so->entries[i], scan->xs_snapshot);
+
+    // Apply fuzzy search optimization if configured
+    if (GinFuzzySearchLimit > 0) {
+        bool reduce = true;
+
+        // Check if all entries exceed the fuzzy search threshold
+        for (i = 0; i < so->totalentries; i++) {
+            if (so->entries[i]->predictNumberResult <= so->totalentries * GinFuzzySearchLimit) {
+                reduce = false;
+                break;
+            }
+        }
+
+        // If all entries are too frequent, reduce their predicted results
+        if (reduce) {
+            for (i = 0; i < so->totalentries; i++) {
+                so->entries[i]->predictNumberResult /= so->totalentries;
+                so->entries[i]->reduceResult = true;
+            }
+        }
+    }
+
+    // Finish initializing scan keys with entry frequency estimates
+    for (i = 0; i < so->nkeys; i++)
+        startScanKey(ginstate, so, so->keys + i);
+}
+```

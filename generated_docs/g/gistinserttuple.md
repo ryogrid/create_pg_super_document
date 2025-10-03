@@ -42,3 +42,17 @@ The caller must hold an exclusive lock on the target buffer before calling this 
 - The function passes InvalidBuffer for leftchild and rightchild parameters since single tuple insertions don't involve sibling page management
 - Return value indicates whether the target page was split during the operation
 - Exclusive locking is required for safe tuple insertion and potential page modification
+
+## Simplified Source
+
+```c
+static bool
+gistinserttuple(GISTInsertState *state, GISTInsertStack *stack,
+                GISTSTATE *giststate, IndexTuple tuple, OffsetNumber oldoffnum)
+{
+    // Simple wrapper that delegates to gistinserttuples for single tuple
+    // Converts single-tuple operation to multi-tuple format
+    return gistinserttuples(state, stack, giststate, &tuple, 1, oldoffnum,
+                           InvalidBuffer, InvalidBuffer, false, false);
+}
+```

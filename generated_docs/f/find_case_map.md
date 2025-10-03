@@ -43,3 +43,33 @@ The function returns a pointer to the  structure containing the case conversion 
 - Returns NULL for characters that don't have case conversion mappings, allowing calling code to handle such characters appropriately
 - The case mapping table is pre-sorted by codepoint to enable binary search functionality
 - The function assumes the case_map array is properly initialized and sorted, which is handled by the Unicode data generation process
+
+## Simplified Source
+
+```c
+static const pg_case_map *
+find_case_map(pg_wchar ucs)
+{
+    // Fast lookup for ASCII characters (0-127)
+    if (ucs < 0x80) {
+        return &case_map[ucs];
+    }
+
+    // Binary search for non-ASCII characters
+    int min = 0x80;
+    int max = lengthof(case_map) - 1;
+
+    while (max >= min) {
+        int mid = (min + max) / 2;
+
+        if (ucs > case_map[mid].codepoint)
+            min = mid + 1;
+        else if (ucs < case_map[mid].codepoint)
+            max = mid - 1;
+        else
+            return &case_map[mid];  // Found exact match
+    }
+
+    return NULL;  // No case mapping found
+}
+```

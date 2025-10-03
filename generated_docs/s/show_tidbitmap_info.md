@@ -37,3 +37,31 @@ For exact pages, the bitmap can identify specific tuples within the page. For lo
 - The function only outputs information if at least one exact or lossy page was processed
 - Different formatting is applied based on the explain format (structured formats like JSON use property names, while text format uses a more readable format)
 - The function is static and only used within the explain.c module
+
+## Simplified Source
+
+```c
+static void show_tidbitmap_info(BitmapHeapScanState *planstate, ExplainState *es) {
+    // Handle non-text formats (JSON, XML, YAML)
+    if (es->format != EXPLAIN_FORMAT_TEXT) {
+        ExplainPropertyInteger("Exact Heap Blocks", NULL, planstate->exact_pages, es);
+        ExplainPropertyInteger("Lossy Heap Blocks", NULL, planstate->lossy_pages, es);
+    } else {
+        // Text format: only show if there are pages to report
+        if (planstate->exact_pages > 0 || planstate->lossy_pages > 0) {
+            ExplainIndentText(es);
+            appendStringInfoString(es->str, "Heap Blocks:");
+
+            // Show exact pages if any
+            if (planstate->exact_pages > 0)
+                appendStringInfo(es->str, " exact=%ld", planstate->exact_pages);
+
+            // Show lossy pages if any
+            if (planstate->lossy_pages > 0)
+                appendStringInfo(es->str, " lossy=%ld", planstate->lossy_pages);
+
+            appendStringInfoChar(es->str, '\n');
+        }
+    }
+}
+```

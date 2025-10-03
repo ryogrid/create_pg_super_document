@@ -47,3 +47,53 @@ The function implements sophisticated parent page management, including handling
 - Critical for maintaining GiST tree consistency during complex multi-page split operations
 - The final atomic update of both original and new page downlinks prevents intermediate inconsistencies
 - Essential component of the GiST split recovery and completion mechanism
+
+## Simplified Source
+
+```c
+static void
+gistfinishsplit(GISTInsertState *state, GISTInsertStack *stack,
+                GISTSTATE *giststate, List *splitinfo, bool unlockbuf)
+{
+    GISTPageSplitInfo *right;
+    GISTPageSplitInfo *left;
+    IndexTuple tuples[2];
+
+    // Lock parent page for exclusive access
+    LockBuffer(stack->parent->buffer, GIST_EXCLUSIVE);
+
+    // Insert downlinks from right to left until only two pages remain
+    for (int pos = list_length(splitinfo) - 1; pos > 1; pos--)
+    {
+        right = (GISTPageSplitInfo *) list_nth(splitinfo, pos);
+        left = (GISTPageSplitInfo *) list_nth(splitinfo, pos - 1);
+
+        gistFindCorrectParent(state->r, stack, state->is_build);
+        if (gistinserttuples(state, stack->parent, giststate,
+                            &right->downlink, 1, InvalidOffsetNumber,
+                            left->buf, right->buf, false, false))
+        {
+            // Parent split invalidates downlink position
+            stack->downlinkoffnum = InvalidOffsetNumber;
+        }
+    }
+
+    // Get the final two pages for atomic update
+    right = (GISTPageSplitInfo *) lsecond(splitinfo);
+    left = (GISTPageSplitInfo *) linitial(splitinfo);
+
+    // Atomically insert new downlink and update original downlink
+    tuples[0] = left->downlink;
+    tuples[1] = right->downlink;
+    gistFindCorrectParent(state->r, stack, state->is_build);
+    gistinserttuples(state, stack->parent, giststate, tuples, 2,
+                    stack->downlinkoffnum, left->buf, right->buf,
+                    true, unlockbuf);
+
+    // Downlink may have moved due to update implementation
+    stack->downlinkoffnum = InvalidOffsetNumber;
+
+    // Signal that path may need re-validation
+    stack->retry_from_parent = true;
+}
+```

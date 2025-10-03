@@ -43,3 +43,72 @@ This function deserializes a BrinTuple from its on-disk storage format into a Br
 - Uses the tuple's memory context for storing copied datum values
 - Sets up column metadata including serialization pointers and context references
 - Does not require the on-disk tuple descriptor as it uses internal deconstruction routines
+
+## Simplified Source
+
+```c
+BrinMemTuple *brin_deform_tuple(BrinDesc *brdesc, BrinTuple *tuple, BrinMemTuple *dMemtuple) {
+    BrinMemTuple *dtup;
+    Datum *values;
+    bool *allnulls;
+    bool *hasnulls;
+    char *tp;
+    bits8 *nullbits;
+    int keyno, valueno;
+    MemoryContext oldcxt;
+
+    // Initialize memory tuple (reuse provided or create new)
+    dtup = dMemtuple ? brin_memtuple_initialize(dMemtuple, brdesc) :
+           brin_new_memtuple(brdesc);
+
+    // Handle special tuple types
+    if (BrinTupleIsPlaceholder(tuple))
+        dtup->bt_placeholder = true;
+    if (!BrinTupleIsEmptyRange(tuple))
+        dtup->bt_empty_range = false;
+
+    // Set block number
+    dtup->bt_blkno = tuple->bt_blkno;
+
+    // Setup working arrays
+    values = dtup->bt_values;
+    allnulls = dtup->bt_allnulls;
+    hasnulls = dtup->bt_hasnulls;
+
+    // Extract tuple data and null bits
+    tp = (char *) tuple + BrinTupleDataOffset(tuple);
+    nullbits = BrinTupleHasNulls(tuple) ?
+               (bits8 *) ((char *) tuple + SizeOfBrinTuple) : NULL;
+
+    // Deconstruct the raw tuple data
+    brin_deconstruct_tuple(brdesc, tp, nullbits, BrinTupleHasNulls(tuple),
+                          values, allnulls, hasnulls);
+
+    // Copy values to tuple's memory context
+    oldcxt = MemoryContextSwitchTo(dtup->bt_context);
+    for (valueno = 0, keyno = 0; keyno < brdesc->bd_tupdesc->natts; keyno++) {
+        if (allnulls[keyno]) {
+            valueno += brdesc->bd_info[keyno]->oi_nstored;
+            continue;
+        }
+
+        // Copy each stored value for this column
+        for (int i = 0; i < brdesc->bd_info[keyno]->oi_nstored; i++) {
+            dtup->bt_columns[keyno].bv_values[i] =
+                datumCopy(values[valueno++],
+                         brdesc->bd_info[keyno]->oi_typcache[i]->typbyval,
+                         brdesc->bd_info[keyno]->oi_typcache[i]->typlen);
+        }
+
+        // Set column metadata
+        dtup->bt_columns[keyno].bv_hasnulls = hasnulls[keyno];
+        dtup->bt_columns[keyno].bv_allnulls = false;
+        dtup->bt_columns[keyno].bv_mem_value = PointerGetDatum(NULL);
+        dtup->bt_columns[keyno].bv_serialize = NULL;
+        dtup->bt_columns[keyno].bv_context = dtup->bt_context;
+    }
+
+    MemoryContextSwitchTo(oldcxt);
+    return dtup;
+}
+```

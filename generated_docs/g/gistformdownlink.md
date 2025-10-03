@@ -68,3 +68,51 @@ The union computation is essential for maintaining the GiST tree property that p
 - The resulting tuple has its block pointer set to reference the child page and is marked as valid
 - This function is critical for maintaining the bounding property of GiST trees after page splits
 - The choice to reuse parent downlinks for empty pages prioritizes correctness over optimality
+
+## Simplified Source
+```c
+static IndexTuple
+gistformdownlink(Relation rel, Buffer buf, GISTSTATE *giststate,
+                 GISTInsertStack *stack, bool is_build) {
+    Page page = BufferGetPage(buf);
+    IndexTuple downlink = NULL;
+
+    // Compute union of all tuples on the page
+    OffsetNumber maxoff = PageGetMaxOffsetNumber(page);
+    for (OffsetNumber offset = FirstOffsetNumber; offset <= maxoff; offset++) {
+        IndexTuple ituple = (IndexTuple)
+            PageGetItem(page, PageGetItemId(page, offset));
+
+        if (downlink == NULL) {
+            // First tuple becomes base downlink
+            downlink = CopyIndexTuple(ituple);
+        } else {
+            // Compute union with existing downlink
+            IndexTuple newdownlink = gistgetadjusted(rel, downlink, ituple,
+                                                    giststate);
+            if (newdownlink)
+                downlink = newdownlink;
+        }
+    }
+
+    // Handle empty page case
+    if (!downlink) {
+        // For empty pages, copy the parent's downlink
+        // This is suboptimal but ensures correctness
+        LockBuffer(stack->parent->buffer, GIST_EXCLUSIVE);
+        gistFindCorrectParent(rel, stack, is_build);
+
+        ItemId iid = PageGetItemId(stack->parent->page, stack->downlinkoffnum);
+        downlink = (IndexTuple) PageGetItem(stack->parent->page, iid);
+        downlink = CopyIndexTuple(downlink);
+
+        LockBuffer(stack->parent->buffer, GIST_UNLOCK);
+    }
+
+    // Set downlink to point to this page
+    ItemPointerSetBlockNumber(&(downlink->t_tid), BufferGetBlockNumber(buf));
+    GistTupleSetValid(downlink);
+
+    return downlink;
+}
+```

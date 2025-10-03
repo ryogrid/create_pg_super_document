@@ -43,3 +43,57 @@ A key responsibility is ensuring that a cleanup callback (ShutdownSetExpr) is re
 - The function includes error handling for unsupported scenarios where type information cannot be determined
 - Cleanup callback registration is idempotent - it only registers the callback once per SetExprState
 - The TTSOpsMinimalTuple operations are used for the tuple table slot, optimizing for minimal memory overhead
+
+## Simplified Source
+
+```c
+static void ExecPrepareTuplestoreResult(SetExprState *sexpr,
+                                        ExprContext *econtext,
+                                        Tuplestorestate *resultStore,
+                                        TupleDesc resultDesc) {
+    // Store the tuplestore for later row extraction
+    sexpr->funcResultStore = resultStore;
+
+    // Create result slot if not already done
+    if (sexpr->funcResultSlot == NULL) {
+        TupleDesc slotDesc;
+
+        // Switch to function's memory context for persistent structures
+        MemoryContext oldcontext = MemoryContextSwitchTo(sexpr->func.fn_mcxt);
+
+        // Determine which tuple descriptor to use
+        if (sexpr->funcResultDesc) {
+            slotDesc = sexpr->funcResultDesc;
+        } else if (resultDesc) {
+            slotDesc = CreateTupleDescCopy(resultDesc);
+        } else {
+            // Error: cannot determine result type
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                           errmsg("function returning setof record called in "
+                                  "context that cannot accept type record")));
+        }
+
+        // Create the slot for reading tuplestore data
+        sexpr->funcResultSlot = MakeSingleTupleTableSlot(slotDesc, &TTSOpsMinimalTuple);
+        MemoryContextSwitchTo(oldcontext);
+    }
+
+    // Validate tuple descriptor if provided by function
+    if (resultDesc) {
+        if (sexpr->funcResultDesc) {
+            tupledesc_match(sexpr->funcResultDesc, resultDesc);
+        }
+
+        // Free dynamically-allocated descriptor to prevent leaks
+        if (resultDesc->tdrefcount == -1) {
+            FreeTupleDesc(resultDesc);
+        }
+    }
+
+    // Register cleanup callback (once per SetExprState)
+    if (!sexpr->shutdown_reg) {
+        RegisterExprContextCallback(econtext, ShutdownSetExpr, PointerGetDatum(sexpr));
+        sexpr->shutdown_reg = true;
+    }
+}
+```

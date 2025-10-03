@@ -46,3 +46,68 @@ The function uses a temporary memory context (gvs->tmpCxt) for each leaf page va
 - Traverses leaf pages using rightlinks, terminating when rightlink is InvalidBlockNumber
 - Essential for the leaf-level vacuum phase before potential page deletion operations
 - Follows standard PostgreSQL buffer management and locking protocols
+
+## Simplified Source
+
+```c
+static bool
+ginVacuumPostingTreeLeaves(GinVacuumState *gvs, BlockNumber blkno)
+{
+    Buffer buffer;
+    Page page;
+    bool hasVoidPage = false;
+    MemoryContext oldCxt;
+
+    // Navigate down to leftmost leaf page
+    while (true) {
+        PostingItem *pitem;
+
+        buffer = ReadBufferExtended(gvs->index, MAIN_FORKNUM, blkno,
+                                   RBM_NORMAL, gvs->strategy);
+        LockBuffer(buffer, GIN_SHARE);
+        page = BufferGetPage(buffer);
+
+        // If we reached a leaf page, upgrade to exclusive lock and break
+        if (GinPageIsLeaf(page)) {
+            LockBuffer(buffer, GIN_UNLOCK);
+            LockBuffer(buffer, GIN_EXCLUSIVE);
+            break;
+        }
+
+        // Follow first posting item to descend further
+        pitem = GinDataPageGetPostingItem(page, FirstOffsetNumber);
+        blkno = PostingItemGetBlockNumber(pitem);
+
+        UnlockReleaseBuffer(buffer);
+    }
+
+    // Traverse all leaf pages from left to right
+    while (true) {
+        // Switch to temporary context for vacuum operation
+        oldCxt = MemoryContextSwitchTo(gvs->tmpCxt);
+        ginVacuumPostingTreeLeaf(gvs->index, buffer, gvs);
+        MemoryContextSwitchTo(oldCxt);
+        MemoryContextReset(gvs->tmpCxt);
+
+        // Check if this page is empty
+        if (GinDataLeafPageIsEmpty(page))
+            hasVoidPage = true;
+
+        // Move to next leaf page via rightlink
+        blkno = GinPageGetOpaque(page)->rightlink;
+        UnlockReleaseBuffer(buffer);
+
+        // End of leaf chain
+        if (blkno == InvalidBlockNumber)
+            break;
+
+        // Read next leaf page
+        buffer = ReadBufferExtended(gvs->index, MAIN_FORKNUM, blkno,
+                                   RBM_NORMAL, gvs->strategy);
+        LockBuffer(buffer, GIN_EXCLUSIVE);
+        page = BufferGetPage(buffer);
+    }
+
+    return hasVoidPage;
+}
+```

@@ -41,3 +41,19 @@ The function includes commentary noting that index tuple deletion is typically h
 - The function includes a design note about index tuple cleanup being deferred to vacuum operations
 - Part of PostgreSQL's pluggable table access method architecture, providing heap-specific deletion semantics
 - The `changingPart` parameter is used for partition-wise operations where tuple deletion is part of moving data between partitions
+
+## Simplified Source
+
+```c
+static TM_Result
+heapam_tuple_delete(Relation relation, ItemPointer tid, CommandId cid,
+                    Snapshot snapshot, Snapshot crosscheck, bool wait,
+                    TM_FailureData *tmfd, bool changingPart)
+{
+    // Note: Index tuple deletion is handled during vacuum
+    // When storage automatically cleans dead tuples, index deletion
+    // should be coordinated at that time
+
+    return heap_delete(relation, tid, cid, crosscheck, wait, tmfd, changingPart);
+}
+```

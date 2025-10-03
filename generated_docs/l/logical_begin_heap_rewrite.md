@@ -39,3 +39,46 @@ When enabled, it sets up the RewriteState with logical rewrite parameters and cr
 - Creates a hash table with transaction IDs as keys and RewriteMappingFile structures as values
 - The logical rewrite system is crucial for maintaining consistency in logical replication during DDL operations that rewrite heap files
 - Part of PostgreSQL's logical replication infrastructure that ensures catalog tuple visibility information (cmin/cmax) remains correct after heap rewrites
+
+## Simplified Source
+
+```c
+static void
+logical_begin_heap_rewrite(RewriteState state)
+{
+    HASHCTL hash_ctl;
+    TransactionId logical_xmin;
+
+    // Check if logical rewrite tracking is needed for this relation
+    state->rs_logical_rewrite =
+        RelationIsAccessibleInLogicalDecoding(state->rs_old_rel);
+
+    if (!state->rs_logical_rewrite)
+        return;
+
+    // Get minimum XID from active logical replication slots
+    ProcArrayGetReplicationSlotXmin(NULL, &logical_xmin);
+
+    // If no logical slots are active, no rewrite tracking needed
+    if (logical_xmin == InvalidTransactionId) {
+        state->rs_logical_rewrite = false;
+        return;
+    }
+
+    // Initialize logical rewrite state
+    state->rs_logical_xmin = logical_xmin;
+    state->rs_begin_lsn = GetXLogInsertRecPtr();
+    state->rs_num_rewrite_mappings = 0;
+
+    // Set up hash table for tracking mappings by transaction ID
+    hash_ctl.keysize = sizeof(TransactionId);
+    hash_ctl.entrysize = sizeof(RewriteMappingFile);
+    hash_ctl.hcxt = state->rs_cxt;
+
+    state->rs_logical_mappings =
+        hash_create("Logical rewrite mapping",
+                    128,  // initial size
+                    &hash_ctl,
+                    HASH_ELEM | HASH_BLOBS | HASH_CONTEXT);
+}
+```

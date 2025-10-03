@@ -57,3 +57,49 @@ The function ensures atomic insertion with proper logging for durability and con
 - Part of the three-phase insertion pattern ensuring atomic operations in PostgreSQL indexes
 - Error reporting includes the relation name for better debugging context
 - The function handles both leaf and internal page insertions through the updateblkno parameter
+
+## Simplified Source
+
+```c
+static void
+entryExecPlaceToPage(GinBtree btree, Buffer buf, GinBtreeStack *stack,
+                     void *insertPayload, BlockNumber updateblkno,
+                     void *ptp_workspace)
+{
+    GinBtreeEntryInsertData *insertData = insertPayload;
+    Page page = BufferGetPage(buf);
+    OffsetNumber off = stack->off;
+    OffsetNumber placed;
+
+    // Prepare page (delete old tuple, update downlinks if needed)
+    entryPreparePage(btree, page, off, insertData, updateblkno);
+
+    // Insert the new tuple
+    placed = PageAddItem(page,
+                         (Item) insertData->entry,
+                         IndexTupleSize(insertData->entry),
+                         off, false, false);
+
+    // Verify insertion succeeded at expected offset
+    if (placed != off)
+        elog(ERROR, "failed to add item to index page in \"%s\"",
+             RelationGetRelationName(btree->index));
+
+    // Mark buffer as modified
+    MarkBufferDirty(buf);
+
+    // Log to WAL if needed
+    if (RelationNeedsWAL(btree->index) && !btree->isBuild) {
+        static ginxlogInsertEntry data;
+
+        data.isDelete = insertData->isDelete;
+        data.offset = off;
+
+        XLogRegisterBuffer(0, buf, REGBUF_STANDARD);
+        XLogRegisterBufData(0, (char *) &data,
+                            offsetof(ginxlogInsertEntry, tuple));
+        XLogRegisterBufData(0, (char *) insertData->entry,
+                            IndexTupleSize(insertData->entry));
+    }
+}
+```

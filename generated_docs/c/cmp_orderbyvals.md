@@ -51,3 +51,33 @@ The function provides the foundation for tuple reordering decisions in IndexNext
 - Used both for immediate ordering decisions and for maintaining the reorder queue's priority ordering
 - The function assumes that both input arrays have the same length (node->iss_NumOrderByKeys)
 - [SortSupport](../S/SortSupport.md) comparators are pre-initialized during index scan setup for optimal performance
+
+## Simplified Source
+
+```c
+static int cmp_orderbyvals(const Datum *adist, const bool *anulls,
+                          const Datum *bdist, const bool *bnulls,
+                          IndexScanState *node)
+{
+    // Compare each ORDER BY column in sequence
+    for (int i = 0; i < node->iss_NumOrderByKeys; i++)
+    {
+        SortSupport ssup = &node->iss_SortSupport[i];
+
+        // Handle NULL values (NULLS LAST semantics)
+        if (anulls[i] && !bnulls[i])
+            return 1;  // NULL > non-NULL
+        else if (!anulls[i] && bnulls[i])
+            return -1; // non-NULL < NULL
+        else if (anulls[i] && bnulls[i])
+            return 0;  // NULL == NULL
+
+        // Compare non-NULL values using SortSupport comparator
+        int result = ssup->comparator(adist[i], bdist[i], ssup);
+        if (result != 0)
+            return result;
+    }
+
+    return 0; // All ORDER BY values are equal
+}
+```

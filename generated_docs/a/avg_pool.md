@@ -31,3 +31,23 @@ This function computes the arithmetic mean of the worth values for all chromosom
 - Special overflow prevention is implemented for cases where pool contains DBL_MAX values
 - The function will throw an ERROR if the pool size is zero or negative
 - Performance and precision are deliberately traded off since this is only used for debug output
+
+## Simplified Source
+
+```c
+static double
+avg_pool(Pool *pool)
+{
+    int i;
+    double cumulative = 0.0;
+
+    if (pool->size <= 0)
+        elog(ERROR, "pool_size is zero");
+
+    // Divide by pool size before summing to prevent overflow from DBL_MAX values
+    for (i = 0; i < pool->size; i++)
+        cumulative += pool->data[i].worth / pool->size;
+
+    return cumulative;
+}
+```

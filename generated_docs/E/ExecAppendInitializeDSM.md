@@ -34,3 +34,24 @@ The function is part of PostgreSQL's parallel query execution framework, specifi
 - Uses LWTRANCHE_PARALLEL_APPEND tranche for the lightweight lock to enable proper lock monitoring and debugging
 - Sets the leader process to use `choose_next_subplan_for_leader` function for coordinating work distribution among parallel workers
 - The allocated shared memory is inserted into the TOC using the plan node ID as the key for later retrieval by worker processes
+
+## Simplified Source
+
+```c
+void ExecAppendInitializeDSM(AppendState *node, ParallelContext *pcxt)
+{
+    ParallelAppendState *pstate;
+
+    // Allocate and initialize shared parallel state
+    pstate = shm_toc_allocate(pcxt->toc, node->pstate_len);
+    memset(pstate, 0, node->pstate_len);
+
+    // Initialize synchronization primitives
+    LWLockInitialize(&pstate->pa_lock, LWTRANCHE_PARALLEL_APPEND);
+
+    // Register shared state and configure leader process
+    shm_toc_insert(pcxt->toc, node->ps.plan->plan_node_id, pstate);
+    node->as_pstate = pstate;
+    node->choose_next_subplan = choose_next_subplan_for_leader;
+}
+```

@@ -40,3 +40,36 @@ The function maintains vacuum statistics by incrementing counters for removed tu
 - Updates vacuum statistics (tuples_removed and num_index_tuples) in the GinVacuumState
 - The returned array (if not NULL) must be freed by the caller
 - Used specifically for uncompressed posting lists in GIN indexes
+
+## Simplified Source
+
+```c
+ItemPointer ginVacuumItemPointers(GinVacuumState *gvs, ItemPointerData *items,
+                                 int nitem, int *nremaining) {
+    int remaining = 0;
+    ItemPointer tmpitems = NULL;
+
+    // Iterate through all items
+    for (int i = 0; i < nitem; i++) {
+        if (gvs->callback(items + i, gvs->callback_state)) {
+            // Item should be removed
+            gvs->result->tuples_removed += 1;
+
+            // Allocate result array on first deletion
+            if (!tmpitems) {
+                tmpitems = palloc(sizeof(ItemPointerData) * nitem);
+                memcpy(tmpitems, items, sizeof(ItemPointerData) * i);
+            }
+        } else {
+            // Item should be kept
+            gvs->result->num_index_tuples += 1;
+            if (tmpitems)
+                tmpitems[remaining] = items[i];
+            remaining++;
+        }
+    }
+
+    *nremaining = remaining;
+    return tmpitems; // NULL if no deletions occurred
+}
+```

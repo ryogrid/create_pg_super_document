@@ -49,3 +49,87 @@ The function handles dynamic shared memory allocation, maintains data consistenc
 - The function handles the case where new workers join during the expansion operation
 - Memory management uses PostgreSQL's dynamic shared memory allocator (DSA)
 - The operation is interruptible during the redistribution phase via CHECK_FOR_INTERRUPTS()
+
+## Simplified Source
+
+```c
+static void
+ExecParallelHashIncreaseNumBuckets(HashJoinTable hashtable)
+{
+    ParallelHashJoinState *pstate = hashtable->parallel_state;
+    HashMemoryChunk chunk;
+    dsa_pointer chunk_s;
+
+    // Three-phase coordinated bucket expansion using barrier synchronization
+    switch (PHJ_GROW_BUCKETS_PHASE(BarrierPhase(&pstate->grow_buckets_barrier)))
+    {
+        case PHJ_GROW_BUCKETS_ELECT:
+            // Elect one worker to double bucket array size
+            if (BarrierArriveAndWait(&pstate->grow_buckets_barrier,
+                                   WAIT_EVENT_HASH_GROW_BUCKETS_ELECT))
+            {
+                // Double bucket count and reallocate shared memory
+                pstate->nbuckets *= 2;
+                size_t size = pstate->nbuckets * sizeof(dsa_pointer_atomic);
+
+                // Free old buckets and allocate new larger array
+                dsa_free(hashtable->area, hashtable->batches[0].shared->buckets);
+                hashtable->batches[0].shared->buckets = dsa_allocate(hashtable->area, size);
+
+                // Initialize all new bucket pointers to invalid
+                dsa_pointer_atomic *buckets = (dsa_pointer_atomic *)
+                    dsa_get_address(hashtable->area, hashtable->batches[0].shared->buckets);
+                for (int i = 0; i < pstate->nbuckets; ++i)
+                    dsa_pointer_atomic_init(&buckets[i], InvalidDsaPointer);
+
+                // Queue existing chunks for redistribution
+                pstate->chunk_work_queue = hashtable->batches[0].shared->chunks;
+                pstate->growth = PHJ_GROWTH_OK;
+            }
+            /* Fall through */
+
+        case PHJ_GROW_BUCKETS_REALLOCATE:
+            // Wait for bucket reallocation to complete
+            BarrierArriveAndWait(&pstate->grow_buckets_barrier,
+                               WAIT_EVENT_HASH_GROW_BUCKETS_REALLOCATE);
+            /* Fall through */
+
+        case PHJ_GROW_BUCKETS_REINSERT:
+            // All workers cooperate to redistribute tuples to new buckets
+            ExecParallelHashEnsureBatchAccessors(hashtable);
+            ExecParallelHashTableSetCurrentBatch(hashtable, 0);
+
+            // Process each chunk from the work queue
+            while ((chunk = ExecParallelHashPopChunkQueue(hashtable, &chunk_s)))
+            {
+                size_t idx = 0;
+
+                // Redistribute each tuple in the chunk
+                while (idx < chunk->used)
+                {
+                    HashJoinTuple hashTuple = (HashJoinTuple)(HASH_CHUNK_DATA(chunk) + idx);
+                    dsa_pointer shared = chunk_s + HASH_CHUNK_HEADER_SIZE + idx;
+                    int bucketno, batchno;
+
+                    // Calculate new bucket for this tuple
+                    ExecHashGetBucketAndBatch(hashtable, hashTuple->hashvalue,
+                                            &bucketno, &batchno);
+
+                    // Insert tuple into its new bucket
+                    ExecParallelHashPushTuple(&hashtable->buckets.shared[bucketno],
+                                            hashTuple, shared);
+
+                    // Move to next tuple in chunk
+                    idx += MAXALIGN(HJTUPLE_OVERHEAD +
+                                  HJTUPLE_MINTUPLE(hashTuple)->t_len);
+                }
+
+                CHECK_FOR_INTERRUPTS(); // Allow cancellation
+            }
+
+            // Wait for all workers to complete redistribution
+            BarrierArriveAndWait(&pstate->grow_buckets_barrier,
+                               WAIT_EVENT_HASH_GROW_BUCKETS_REINSERT);
+    }
+}
+```

@@ -37,3 +37,15 @@ TID scans are typically used when the exact physical location of desired tuples 
 - Commonly used for following ctid chains in tuple updates or for system-level operations
 - Does not require strategy, synchronization, or page-mode options since access is direct
 - The absence of scan keys (nkeys=0, key=NULL) reflects the direct-access nature of TID scans
+
+## Simplified Source
+```c
+static inline TableScanDesc
+table_beginscan_tid(Relation rel, Snapshot snapshot)
+{
+    uint32 flags = SO_TYPE_TIDSCAN;
+
+    // Direct delegation to table access method for TID scan initialization
+    return rel->rd_tableam->scan_begin(rel, snapshot, 0, NULL, NULL, flags);
+}
+```

@@ -53,3 +53,17 @@ During the speculative phase, other transactions can detect the existence of the
 - Speculative tuples are visible to the inserting transaction but handled specially by other transactions
 - Part of the table access method abstraction supporting pluggable storage engines
 - Enables efficient implementation of UPSERT operations in high-concurrency scenarios
+
+## Simplified Source
+
+```c
+static inline void table_tuple_insert_speculative(Relation rel, TupleTableSlot *slot,
+                                                  CommandId cid, int options,
+                                                  struct BulkInsertStateData *bistate,
+                                                  uint32 specToken)
+{
+    // Delegate to storage-specific implementation
+    rel->rd_tableam->tuple_insert_speculative(rel, slot, cid, options,
+                                             bistate, specToken);
+}
+```

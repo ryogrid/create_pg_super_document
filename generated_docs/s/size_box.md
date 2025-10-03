@@ -43,3 +43,24 @@ The function is critical for R-tree split algorithms and insertion penalty calcu
 - Part of the PostgreSQL GiST access method implementation for spatial indexing
 - Located in src/backend/access/gist/gistproc.c:68-96
 - The special case handling is crucial for maintaining numerical stability in spatial indexing algorithms
+
+## Simplified Source
+
+```c
+static float8
+size_box(const BOX *box)
+{
+    // Handle zero-width cases (including degenerate boxes)
+    if (float8_le(box->high.x, box->low.x) ||
+        float8_le(box->high.y, box->low.y))
+        return 0.0;
+
+    // Handle NaN coordinates - treat as infinite area
+    if (isnan(box->high.x) || isnan(box->high.y))
+        return get_float8_infinity();
+
+    // Calculate area: width * height
+    return float8_mul(float8_mi(box->high.x, box->low.x),
+                      float8_mi(box->high.y, box->low.y));
+}
+```

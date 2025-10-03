@@ -31,3 +31,14 @@ heapam_relation_nontransactional_truncate is a static function that serves as a 
 - The function always truncates to block 0, completely emptying the relation
 - Being nontransactional, this operation cannot be rolled back and takes effect immediately
 - This function is likely used in scenarios where transactional overhead is undesirable or inappropriate
+
+## Simplified Source
+
+```c
+static void
+heapam_relation_nontransactional_truncate(Relation rel)
+{
+    // Truncate relation to block 0, removing all data immediately
+    RelationTruncate(rel, 0);
+}
+```

@@ -46,3 +46,44 @@ The iteration continues until all combinations have been exhausted, at which poi
 - The iteration pattern ensures all possible combinations of array elements are considered
 - Handles null elements correctly by setting/clearing SK_ISNULL flags
 - Performance-optimized to advance lowest-order index columns most frequently
+
+## Simplified Source
+
+```c
+bool ExecIndexAdvanceArrayKeys(IndexArrayKeyInfo *arrayKeys, int numArrayKeys)
+{
+    bool found = false;
+    int j;
+
+    // Advance arrays right-to-left (odometer style)
+    for (j = numArrayKeys - 1; j >= 0; j--) {
+        ScanKey scan_key = arrayKeys[j].scan_key;
+        int next_elem = arrayKeys[j].next_elem;
+        int num_elems = arrayKeys[j].num_elems;
+        Datum *elem_values = arrayKeys[j].elem_values;
+        bool *elem_nulls = arrayKeys[j].elem_nulls;
+
+        // Check if current array is exhausted
+        if (next_elem >= num_elems) {
+            next_elem = 0;  // Reset to beginning
+            found = false;  // Need to advance next array
+        } else {
+            found = true;   // Successfully advanced
+        }
+
+        // Update scan key with current element
+        scan_key->sk_argument = elem_values[next_elem];
+        if (elem_nulls[next_elem])
+            scan_key->sk_flags |= SK_ISNULL;
+        else
+            scan_key->sk_flags &= ~SK_ISNULL;
+
+        arrayKeys[j].next_elem = next_elem + 1;
+
+        if (found)
+            break;  // Successfully advanced, stop here
+    }
+
+    return found;
+}
+```

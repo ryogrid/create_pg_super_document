@@ -46,3 +46,44 @@ The function ensures that the BRIN index's revmap structure is correctly reconst
 - Includes assertion checks to validate that the target block matches the expected value
 - Properly handles pd_lower setting on metapage to prevent data loss during page compression
 - Part of PostgreSQL's crash recovery mechanism for BRIN indexes
+
+## Simplified Source
+
+```c
+static void brin_xlog_revmap_extend(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    xl_brin_revmap_extend *extend_data = (xl_brin_revmap_extend *) XLogRecGetData(record);
+    Buffer metabuf, revmap_buf;
+
+    // Step 1: Update the metapage with new lastRevmapPage
+    XLogRedoAction action = XLogReadBufferForRedo(record, 0, &metabuf);
+    if (action == BLK_NEEDS_REDO) {
+        Page metapage = BufferGetPage(metabuf);
+        BrinMetaPageData *metadata = (BrinMetaPageData *) PageGetContents(metapage);
+
+        // Update the last revmap page number
+        metadata->lastRevmapPage = extend_data->targetBlk;
+
+        // Set proper page boundaries to prevent compression issues
+        ((PageHeader) metapage)->pd_lower =
+            ((char *) metadata + sizeof(BrinMetaPageData)) - (char *) metapage;
+
+        PageSetLSN(metapage, lsn);
+        MarkBufferDirty(metabuf);
+    }
+
+    // Step 2: Initialize the new revmap page
+    revmap_buf = XLogInitBufferForRedo(record, 1);
+    Page revmap_page = (Page) BufferGetPage(revmap_buf);
+
+    brin_page_init(revmap_page, BRIN_PAGETYPE_REVMAP);
+    PageSetLSN(revmap_page, lsn);
+    MarkBufferDirty(revmap_buf);
+
+    // Clean up
+    UnlockReleaseBuffer(revmap_buf);
+    if (BufferIsValid(metabuf))
+        UnlockReleaseBuffer(metabuf);
+}
+```

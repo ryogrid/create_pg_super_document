@@ -35,3 +35,31 @@ The shm_mq_create function initializes a shared memory message queue at the prov
 - Sets both sender and receiver to NULL initially - they must be set separately
 - The ring buffer size is calculated by subtracting the header size from total size
 - Located in src/backend/storage/ipc/shm_mq.c:177-205
+
+## Simplified Source
+
+```c
+shm_mq *shm_mq_create(void *address, Size size) {
+    shm_mq *mq = address;
+
+    // Calculate data area offset with proper alignment
+    Size data_offset = MAXALIGN(offsetof(shm_mq, mq_ring));
+    size = MAXALIGN_DOWN(size);
+
+    // Initialize queue header and synchronization
+    SpinLockInit(&mq->mq_mutex);
+    mq->mq_receiver = NULL;
+    mq->mq_sender = NULL;
+
+    // Initialize atomic byte counters
+    pg_atomic_init_u64(&mq->mq_bytes_read, 0);
+    pg_atomic_init_u64(&mq->mq_bytes_written, 0);
+
+    // Set ring buffer size and offset
+    mq->mq_ring_size = size - data_offset;
+    mq->mq_detached = false;
+    mq->mq_ring_offset = data_offset - offsetof(shm_mq, mq_ring);
+
+    return mq;
+}
+```

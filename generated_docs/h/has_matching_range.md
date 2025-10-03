@@ -54,3 +54,64 @@ The ranges are stored as pairs of values in the values array, where each range o
 - Supports any data type that has less-than and greater-than comparison operators
 - Critical for BRIN index performance during tuple insertion and query processing
 - The function assumes ranges are non-overlapping and sorted by minimum values
+
+## Simplified Source
+
+```c
+static bool
+has_matching_range(BrinDesc *bdesc, Oid colloid, Ranges *ranges,
+                   Datum newval, AttrNumber attno, Oid typid)
+{
+    if (ranges->nranges == 0)
+        return false;
+
+    // Get comparison functions
+    FmgrInfo *cmpLessFn = minmax_multi_get_strategy_procinfo(bdesc, attno, typid,
+                                                             BTLessStrategyNumber);
+    FmgrInfo *cmpGreaterFn = minmax_multi_get_strategy_procinfo(bdesc, attno, typid,
+                                                                BTGreaterStrategyNumber);
+
+    // Quick bounds check - is value outside all ranges?
+    Datum minvalue = ranges->values[0];
+    Datum maxvalue = ranges->values[2 * ranges->nranges - 1];
+
+    Datum compar = FunctionCall2Coll(cmpLessFn, colloid, newval, minvalue);
+    if (DatumGetBool(compar))
+        return false;  // Less than minimum
+
+    compar = FunctionCall2Coll(cmpGreaterFn, colloid, newval, maxvalue);
+    if (DatumGetBool(compar))
+        return false;  // Greater than maximum
+
+    // Binary search through ranges
+    int start = 0;
+    int end = ranges->nranges - 1;
+
+    while (start <= end) {
+        int midpoint = (start + end) / 2;
+
+        // Get min/max for current range
+        Datum rangeMin = ranges->values[2 * midpoint];
+        Datum rangeMax = ranges->values[2 * midpoint + 1];
+
+        // Check if value is less than range minimum
+        compar = FunctionCall2Coll(cmpLessFn, colloid, newval, rangeMin);
+        if (DatumGetBool(compar)) {
+            end = midpoint - 1;  // Search left half
+            continue;
+        }
+
+        // Check if value is greater than range maximum
+        compar = FunctionCall2Coll(cmpGreaterFn, colloid, newval, rangeMax);
+        if (DatumGetBool(compar)) {
+            start = midpoint + 1;  // Search right half
+            continue;
+        }
+
+        // Value is within this range
+        return true;
+    }
+
+    return false;
+}
+```

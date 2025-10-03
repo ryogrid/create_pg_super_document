@@ -50,3 +50,74 @@ The function uses binary search to efficiently check whether individual values a
 - The function assumes ranges are stored as pairs of boundary values followed by individual point values
 - Part of the comprehensive validation framework for BRIN index structures
 - Located in src/backend/access/brin/brin_minmax_multi.c:296-425
+
+## Simplified Source
+
+```c
+static void
+AssertCheckRanges(Ranges *ranges, FmgrInfo *cmpFn, Oid colloid)
+{
+#ifdef USE_ASSERT_CHECKING
+    // Basic sanity checks on range structure
+    Assert(ranges->nranges >= 0);
+    Assert(ranges->nsorted >= 0);
+    Assert(ranges->nvalues >= ranges->nsorted);
+    Assert(ranges->maxvalues >= 2 * ranges->nranges + ranges->nvalues);
+
+    // Check ordering of range boundaries (2*nranges values)
+    AssertArrayOrder(cmpFn, colloid, ranges->values, 2 * ranges->nranges);
+
+    // Check ordering of sorted single-point values
+    AssertArrayOrder(cmpFn, colloid, &ranges->values[2 * ranges->nranges],
+                     ranges->nsorted);
+
+    // Verify no values are covered by existing ranges
+    if (ranges->nranges > 0)
+    {
+        for (int i = 0; i < ranges->nvalues; i++)
+        {
+            Datum value = ranges->values[2 * ranges->nranges + i];
+            Datum minvalue = ranges->values[0];
+            Datum maxvalue = ranges->values[2 * ranges->nranges - 1];
+
+            // Skip values outside overall range bounds
+            if (DatumGetBool(FunctionCall2Coll(cmpFn, colloid, value, minvalue)) ||
+                DatumGetBool(FunctionCall2Coll(cmpFn, colloid, maxvalue, value)))
+                continue;
+
+            // Binary search to ensure value doesn't fall within any range
+            int start = 0, end = ranges->nranges - 1;
+            while (start <= end)
+            {
+                int midpoint = (start + end) / 2;
+                Datum rangemin = ranges->values[2 * midpoint];
+                Datum rangemax = ranges->values[2 * midpoint + 1];
+
+                if (DatumGetBool(FunctionCall2Coll(cmpFn, colloid, value, rangemin)))
+                    end = midpoint - 1;
+                else if (DatumGetBool(FunctionCall2Coll(cmpFn, colloid, rangemax, value)))
+                    start = midpoint + 1;
+                else
+                    Assert(false);  // Value should not be within any range
+            }
+        }
+    }
+
+    // Check unsorted values don't duplicate sorted values
+    if (ranges->nsorted > 0)
+    {
+        compare_context cxt;
+        cxt.colloid = ranges->colloid;
+        cxt.cmpFn = ranges->cmp;
+
+        for (int i = ranges->nsorted; i < ranges->nvalues; i++)
+        {
+            Datum value = ranges->values[2 * ranges->nranges + i];
+            Assert(bsearch_arg(&value, &ranges->values[2 * ranges->nranges],
+                              ranges->nsorted, sizeof(Datum),
+                              compare_values, (void *) &cxt) == NULL);
+        }
+    }
+#endif
+}
+```

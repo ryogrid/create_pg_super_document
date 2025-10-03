@@ -46,3 +46,66 @@ The function can return NULL if the attempted join is not valid, which commonly 
 - Creates dummy SpecialJoinInfo for plain inner joins when no specific join information exists
 - The resulting join relation may already contain paths from other relation pairs that form the same base relation set
 - Memory management is handled through bms_free calls for temporary bitmap sets
+
+## Simplified Source
+
+```c
+RelOptInfo *
+make_join_rel(PlannerInfo *root, RelOptInfo *rel1, RelOptInfo *rel2)
+{
+    Relids joinrelids;
+    SpecialJoinInfo *sjinfo;
+    bool reversed;
+    List *pushed_down_joins = NIL;
+    SpecialJoinInfo sjinfo_data;
+    RelOptInfo *joinrel;
+    List *restrictlist;
+
+    // Verify relations don't overlap
+    Assert(!bms_overlap(rel1->relids, rel2->relids));
+
+    // Construct basic join relids
+    joinrelids = bms_union(rel1->relids, rel2->relids);
+
+    // Check if join is legal and determine join type
+    if (!join_is_legal(root, rel1, rel2, joinrelids, &sjinfo, &reversed))
+    {
+        bms_free(joinrelids);
+        return NULL;  // Invalid join
+    }
+
+    // Add outer join dependencies to canonical relids
+    joinrelids = add_outer_joins_to_relids(root, joinrelids, sjinfo, &pushed_down_joins);
+
+    // Swap relations if needed to match join info
+    if (reversed)
+    {
+        RelOptInfo *temp = rel1;
+        rel1 = rel2;
+        rel2 = temp;
+    }
+
+    // Create dummy SpecialJoinInfo for plain inner joins
+    if (sjinfo == NULL)
+    {
+        sjinfo = &sjinfo_data;
+        init_dummy_sjinfo(sjinfo, rel1->relids, rel2->relids);
+    }
+
+    // Build the join relation and get restriction clauses
+    joinrel = build_join_rel(root, joinrelids, rel1, rel2, sjinfo, pushed_down_joins, &restrictlist);
+
+    // Skip path generation for dummy relations
+    if (is_dummy_rel(joinrel))
+    {
+        bms_free(joinrelids);
+        return joinrel;
+    }
+
+    // Generate all possible join paths
+    populate_joinrel_with_paths(root, rel1, rel2, joinrel, sjinfo, restrictlist);
+
+    bms_free(joinrelids);
+    return joinrel;
+}
+```

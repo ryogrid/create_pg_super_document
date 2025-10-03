@@ -39,3 +39,18 @@ The function automatically uses the planstate's expression context, result tuple
 - Essential for any plan node that needs to project or transform tuple data
 - The resulting ProjectionInfo structure is stored in planstate->ps_ProjInfo
 - Used extensively during executor node initialization to set up tuple projection capabilities
+
+## Simplified Source
+
+```c
+void ExecAssignProjectionInfo(PlanState *planstate, TupleDesc inputDesc) {
+    // Build projection info from targetlist to transform input tuples to output
+    planstate->ps_ProjInfo = ExecBuildProjectionInfo(
+        planstate->plan->targetlist,
+        planstate->ps_ExprContext,
+        planstate->ps_ResultTupleSlot,
+        planstate,
+        inputDesc
+    );
+}
+```

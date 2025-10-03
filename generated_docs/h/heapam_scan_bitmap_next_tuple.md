@@ -44,3 +44,45 @@ This function works in conjunction with heapam_scan_bitmap_next_block to complet
 - Updates scan statistics via pgstat_count_heap_fetch
 - Returns false when all tuples on current block have been processed
 - The populated slot acquires a buffer pin for tuple data access safety
+
+## Simplified Source
+
+```c
+static bool heapam_scan_bitmap_next_tuple(TableScanDesc scan, TBMIterateResult *tbmres,
+                                        TupleTableSlot *slot) {
+    HeapScanDesc hscan = (HeapScanDesc) scan;
+
+    // Handle empty tuples optimization - return null tuple without fetching data
+    if (hscan->rs_empty_tuples_pending > 0) {
+        ExecStoreAllNullTuple(slot);
+        hscan->rs_empty_tuples_pending--;
+        return true;
+    }
+
+    // Check if we're out of visible tuples on current block
+    if (hscan->rs_cindex < 0 || hscan->rs_cindex >= hscan->rs_ntuples)
+        return false;
+
+    // Get the next visible tuple from our prepared list
+    OffsetNumber targoffset = hscan->rs_vistuples[hscan->rs_cindex];
+    Page page = BufferGetPage(hscan->rs_cbuf);
+    ItemId lp = PageGetItemId(page, targoffset);
+
+    // Construct heap tuple structure
+    hscan->rs_ctup.t_data = (HeapTupleHeader) PageGetItem(page, lp);
+    hscan->rs_ctup.t_len = ItemIdGetLength(lp);
+    hscan->rs_ctup.t_tableOid = scan->rs_rd->rd_id;
+    ItemPointerSet(&hscan->rs_ctup.t_self, hscan->rs_cblock, targoffset);
+
+    // Update statistics
+    pgstat_count_heap_fetch(scan->rs_rd);
+
+    // Store tuple in slot (acquires buffer pin)
+    ExecStoreBufferHeapTuple(&hscan->rs_ctup, slot, hscan->rs_cbuf);
+
+    // Advance to next tuple
+    hscan->rs_cindex++;
+
+    return true;
+}
+```

@@ -49,3 +49,60 @@ The function can operate in two modes controlled by the  parameter:
 - False negatives are acceptable during range building (full=false) as deduplication occurs before serialization
 - Serialized ranges never contain unsorted values, ensuring no false negatives during querying
 - The function is static and only used within the BRIN minmax_multi implementation
+
+## Simplified Source
+
+```c
+static bool
+range_contains_value(BrinDesc *bdesc, Oid colloid,
+                     AttrNumber attno, Form_pg_attribute attr,
+                     Ranges *ranges, Datum newval, bool full)
+{
+    Oid typid = attr->atttypid;
+
+    // First check if value falls within any existing ranges
+    if (has_matching_range(bdesc, colloid, ranges, newval, attno, typid))
+        return true;
+
+    // Get equality comparison function
+    FmgrInfo *cmpEqualFn = minmax_multi_get_strategy_procinfo(bdesc, attno, typid,
+                                                              BTEqualStrategyNumber);
+
+    // Search sorted values - use binary search for 16+ values, linear for fewer
+    if (ranges->nsorted >= 16) {
+        compare_context cxt;
+        cxt.colloid = ranges->colloid;
+        cxt.cmpFn = ranges->cmp;
+
+        if (bsearch_arg(&newval, &ranges->values[2 * ranges->nranges],
+                        ranges->nsorted, sizeof(Datum),
+                        compare_values, (void *) &cxt) != NULL)
+            return true;
+    }
+    else {
+        // Linear search through sorted values
+        for (int i = 2 * ranges->nranges;
+             i < 2 * ranges->nranges + ranges->nsorted; i++) {
+            Datum compar = FunctionCall2Coll(cmpEqualFn, colloid,
+                                           newval, ranges->values[i]);
+            if (DatumGetBool(compar))
+                return true;
+        }
+    }
+
+    // If not searching unsorted values, we're done
+    if (!full)
+        return false;
+
+    // Search unsorted values (linear search only)
+    for (int i = 2 * ranges->nranges + ranges->nsorted;
+         i < 2 * ranges->nranges + ranges->nvalues; i++) {
+        Datum compar = FunctionCall2Coll(cmpEqualFn, colloid,
+                                       newval, ranges->values[i]);
+        if (DatumGetBool(compar))
+            return true;
+    }
+
+    return false;
+}
+```

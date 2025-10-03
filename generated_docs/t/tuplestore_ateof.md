@@ -37,3 +37,14 @@ The EOF state is set when:
 - Each read pointer maintains its own EOF state independently
 - Used primarily in executor nodes that need to know when to stop reading
 - The EOF state can be reset if new tuples are added after reaching EOF
+
+## Simplified Source
+
+```c
+bool
+tuplestore_ateof(Tuplestorestate *state)
+{
+    // Return EOF status of active read pointer
+    return state->readptrs[state->activeptr].eof_reached;
+}
+```

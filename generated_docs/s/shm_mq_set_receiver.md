@@ -32,3 +32,21 @@ The shm_mq_set_receiver function assigns a PGPROC structure (representing a Post
 - Automatically signals the sender process if one is already attached
 - The latch mechanism allows for efficient process synchronization
 - Located in src/backend/storage/ipc/shm_mq.c:206-223
+
+## Simplified Source
+
+```c
+void shm_mq_set_receiver(shm_mq *mq, PGPROC *proc) {
+    PGPROC *sender;
+
+    // Thread-safe assignment of receiver
+    SpinLockAcquire(&mq->mq_mutex);
+    mq->mq_receiver = proc;
+    sender = mq->mq_sender;
+    SpinLockRelease(&mq->mq_mutex);
+
+    // Signal sender if already attached
+    if (sender != NULL)
+        SetLatch(&sender->procLatch);
+}
+```

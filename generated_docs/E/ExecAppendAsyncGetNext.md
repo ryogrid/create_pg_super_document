@@ -44,3 +44,48 @@ The function returns true when a tuple is available (including end-of-scan indic
 - Part of PostgreSQL's non-blocking I/O infrastructure for improved concurrency
 - Enables efficient processing of foreign tables, parallel queries, and partitioned table scans
 - The polling loop design balances CPU usage with responsiveness to completed async operations
+
+## Simplified Source
+
+```c
+static bool
+ExecAppendAsyncGetNext(AppendState *node, TupleTableSlot **result)
+{
+    *result = NULL;
+
+    Assert(node->as_nasyncremain > 0);
+
+    // Try immediate async request - may return tuple immediately
+    if (ExecAppendAsyncRequest(node, result))
+        return true;
+
+    // Main event processing loop
+    while (node->as_nasyncremain > 0)
+    {
+        CHECK_FOR_INTERRUPTS();
+
+        // Wait or poll for async events from subplans
+        ExecAppendAsyncEventWait(node);
+
+        // Try another async request after event processing
+        if (ExecAppendAsyncRequest(node, result))
+            return true;
+
+        // Break if sync subplans need attention
+        if (!node->as_syncdone)
+            break;
+    }
+
+    // Handle completion scenarios
+    if (node->as_syncdone)
+    {
+        // All subplans (sync + async) are complete
+        Assert(node->as_nasyncremain == 0);
+        *result = ExecClearTuple(node->ps.ps_ResultTupleSlot);
+        return true;
+    }
+
+    // Sync subplans need processing - return control to main executor
+    return false;
+}
+```

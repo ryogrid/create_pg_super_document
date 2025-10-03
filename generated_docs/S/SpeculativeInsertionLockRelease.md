@@ -33,3 +33,16 @@ The function uses the current value of the global speculativeInsertionToken to c
 - Essential for completing the speculative insertion protocol and unblocking waiting transactions
 - Part of PostgreSQL's mechanism for handling INSERT ... ON CONFLICT operations efficiently
 - The lock release will wake up any transactions waiting on this speculative insertion via SpeculativeInsertionWait
+
+## Simplified Source
+
+```c
+void SpeculativeInsertionLockRelease(TransactionId xid)
+{
+    LOCKTAG tag;
+
+    // Create lock tag using current token and release the exclusive lock
+    SET_LOCKTAG_SPECULATIVE_INSERTION(tag, xid, speculativeInsertionToken);
+    LockRelease(&tag, ExclusiveLock, false);
+}
+```

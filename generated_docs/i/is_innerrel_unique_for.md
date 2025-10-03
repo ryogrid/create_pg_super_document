@@ -62,3 +62,46 @@ After filtering suitable clauses, the function passes them to `rel_is_distinct_f
 - Pushed-down clause handling is essential for outer joins where some clauses change from joinquals to otherquals
 - The filtered clause list passed to `rel_is_distinct_for()` contains only clauses that can meaningfully contribute to uniqueness proofs
 - Part of PostgreSQL's sophisticated join optimization infrastructure that enables advanced optimizations like join elimination
+
+## Simplified Source
+
+```c
+static bool
+is_innerrel_unique_for(PlannerInfo *root,
+                       Relids joinrelids,
+                       Relids outerrelids,
+                       RelOptInfo *innerrel,
+                       JoinType jointype,
+                       List *restrictlist)
+{
+    List *clause_list = NIL;
+    ListCell *lc;
+
+    // Filter restrictlist to find usable equality clauses
+    foreach(lc, restrictlist)
+    {
+        RestrictInfo *restrictinfo = (RestrictInfo *) lfirst(lc);
+
+        // Skip pushed-down clauses for outer joins
+        if (IS_OUTER_JOIN(jointype) &&
+            RINFO_IS_PUSHED_DOWN(restrictinfo, joinrelids))
+            continue;
+
+        // Only consider mergejoinable clauses (equality-like)
+        if (!restrictinfo->can_join ||
+            restrictinfo->mergeopfamilies == NIL)
+            continue;
+
+        // Verify clause matches "outer op inner" pattern
+        if (!clause_sides_match_join(restrictinfo, outerrelids,
+                                   innerrel->relids))
+            continue;
+
+        // Add suitable clause to list
+        clause_list = lappend(clause_list, restrictinfo);
+    }
+
+    // Delegate final uniqueness analysis
+    return rel_is_distinct_for(root, innerrel, clause_list);
+}
+```

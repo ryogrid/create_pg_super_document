@@ -31,5 +31,31 @@ The algorithm maintains a loop invariant where the desired position is always be
   - [_hash_pgaddmultitup](_hash_pgaddmultitup.md)
   - [_hash_readpage](_hash_readpage.md)
 
+## Simplified Source
+```c
+OffsetNumber _hash_binsearch(Page page, uint32 hash_value) {
+    // Initialize search bounds
+    OffsetNumber upper = PageGetMaxOffsetNumber(page) + 1;
+    OffsetNumber lower = FirstOffsetNumber;
+
+    // Binary search: lower <= desired position <= upper
+    while (upper > lower) {
+        OffsetNumber mid = (upper + lower) / 2;
+
+        // Get hash key from tuple at middle position
+        IndexTuple itup = (IndexTuple) PageGetItem(page, PageGetItemId(page, mid));
+        uint32 hashkey = _hash_get_indextuple_hashkey(itup);
+
+        // Adjust search bounds based on comparison
+        if (hashkey < hash_value)
+            lower = mid + 1;
+        else
+            upper = mid;
+    }
+
+    return lower;
+}
+```
+
 ## Notes and Other Information
 The function assumes that index tuples on the page are already sorted by hash key, which is a fundamental requirement for hash indexes. The binary search approach provides O(log n) time complexity for finding the correct position, making it efficient even for pages with many index tuples. The returned offset can be used directly for insertion operations or as a starting point for sequential searches.

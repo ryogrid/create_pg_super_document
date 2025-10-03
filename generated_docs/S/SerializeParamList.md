@@ -34,3 +34,59 @@ The function handles dynamic parameters by calling the paramFetch hook if presen
 - Does not include paramValuesStr in the serialization
 - Handles NULL paramLI by writing zero parameters
 - Works with both static and dynamic parameter lists by materializing dynamic parameters
+
+## Simplified Source
+
+```c
+void
+SerializeParamList(ParamListInfo paramLI, char **start_address)
+{
+    int nparams;
+    int i;
+
+    // Write number of parameters
+    if (paramLI == NULL || paramLI->numParams <= 0)
+        nparams = 0;
+    else
+        nparams = paramLI->numParams;
+    memcpy(*start_address, &nparams, sizeof(int));
+    *start_address += sizeof(int);
+
+    // Serialize each parameter
+    for (i = 0; i < nparams; i++) {
+        ParamExternData *prm;
+        ParamExternData prmdata;
+        Oid typeOid;
+        int16 typLen;
+        bool typByVal;
+
+        // Handle dynamic parameters via fetch hook
+        if (paramLI->paramFetch != NULL)
+            prm = paramLI->paramFetch(paramLI, i + 1, false, &prmdata);
+        else
+            prm = &paramLI->params[i];
+
+        typeOid = prm->ptype;
+
+        // Write type OID
+        memcpy(*start_address, &typeOid, sizeof(Oid));
+        *start_address += sizeof(Oid);
+
+        // Write flags
+        memcpy(*start_address, &prm->pflags, sizeof(uint16));
+        *start_address += sizeof(uint16);
+
+        // Get type properties for serialization
+        if (OidIsValid(typeOid))
+            get_typlenbyval(typeOid, &typLen, &typByVal);
+        else {
+            // Default for unknown types (like copyParamList)
+            typLen = sizeof(Datum);
+            typByVal = true;
+        }
+
+        // Serialize parameter value and null indicator
+        datumSerialize(prm->value, prm->isnull, typByVal, typLen, start_address);
+    }
+}
+```

@@ -40,3 +40,29 @@ Internal calculation parameters:
 
 ## Notes and Other Information
 This function addresses a specific memory management issue where operations using large amounts of working memory could potentially allocate single blocks that exceed work_mem limits. By constraining the maximum block size to 1/16 of work_mem, the function ensures more granular memory allocation patterns that are easier to track and control. The function is primarily used in scenarios involving aggregation and other memory-intensive operations where predictable memory usage is crucial. The bit-shifting operation (>>= 1) efficiently halves the maxBlockSize in each iteration until the constraint is satisfied, providing a simple but effective memory sizing algorithm.
+
+## Simplified Source
+
+```c
+ExprContext *CreateWorkExprContext(EState *estate) {
+    // Start with default AllocSet parameters
+    Size minContextSize = ALLOCSET_DEFAULT_MINSIZE;
+    Size initBlockSize = ALLOCSET_DEFAULT_INITSIZE;
+    Size maxBlockSize = ALLOCSET_DEFAULT_MAXSIZE;
+
+    // Limit maxBlockSize to no more than 1/16 of work_mem to prevent
+    // single allocations from consuming too much memory
+    while (16 * maxBlockSize > work_mem * 1024L) {
+        maxBlockSize >>= 1;  // Halve the size
+    }
+
+    // Ensure maxBlockSize doesn't get too small for performance
+    if (maxBlockSize < ALLOCSET_DEFAULT_INITSIZE) {
+        maxBlockSize = ALLOCSET_DEFAULT_INITSIZE;
+    }
+
+    // Create the expression context with calculated parameters
+    return CreateExprContextInternal(estate, minContextSize,
+                                   initBlockSize, maxBlockSize);
+}
+```

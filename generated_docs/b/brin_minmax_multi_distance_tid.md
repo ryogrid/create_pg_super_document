@@ -45,3 +45,26 @@ The function uses "NoCheck" variants of ItemPointer accessor functions because u
 - Part of the extensible operator class framework for BRIN indexes
 - The distance calculation is essential for determining when TID ranges should be merged or split in multi-range BRIN summaries
 - Linear mapping may not reflect actual physical distance on storage media but provides consistent ordering
+
+## Simplified Source
+
+```c
+Datum
+brin_minmax_multi_distance_tid(PG_FUNCTION_ARGS)
+{
+    double da1, da2;
+    ItemPointer pa1 = (ItemPointer) PG_GETARG_DATUM(0);
+    ItemPointer pa2 = (ItemPointer) PG_GETARG_DATUM(1);
+
+    // Convert TIDs to linear address space
+    // Formula: block_number * MaxHeapTuplesPerPage + offset_number
+    da1 = ItemPointerGetBlockNumberNoCheck(pa1) * MaxHeapTuplesPerPage +
+          ItemPointerGetOffsetNumberNoCheck(pa1);
+
+    da2 = ItemPointerGetBlockNumberNoCheck(pa2) * MaxHeapTuplesPerPage +
+          ItemPointerGetOffsetNumberNoCheck(pa2);
+
+    // Return distance as simple subtraction
+    PG_RETURN_FLOAT8(da2 - da1);
+}
+```

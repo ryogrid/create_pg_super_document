@@ -32,3 +32,13 @@ The function immediately throws an error if called, indicating that BitmapAnd no
 - [BitmapAnd](../B/BitmapAnd.md) nodes are part of PostgreSQL's bitmap index scan optimization
 - The error message clearly indicates the correct execution path should use MultiExecProcNode instead
 - Located in src/backend/executor/nodeBitmapAnd.c:42-54
+
+## Simplified Source
+
+```c
+static TupleTableSlot *ExecBitmapAnd(PlanState *pstate) {
+    // This function should never be called - BitmapAnd uses MultiExecProcNode
+    elog(ERROR, "BitmapAnd node does not support ExecProcNode call convention");
+    return NULL;
+}
+```

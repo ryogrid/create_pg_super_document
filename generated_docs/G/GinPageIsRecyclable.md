@@ -40,3 +40,32 @@ The function performs a multi-step check: first verifying if the page is new (un
 - Part of the GIN index page lifecycle management system
 - Enables efficient reuse of previously allocated but deleted index pages
 - Helps prevent unbounded index growth by allowing page reuse
+
+## Simplified Source
+
+```c
+bool
+GinPageIsRecyclable(Page page)
+{
+    TransactionId delete_xid;
+
+    // New pages are always recyclable
+    if (PageIsNew(page))
+        return true;
+
+    // Non-deleted pages cannot be recycled
+    if (!GinPageIsDeleted(page))
+        return false;
+
+    // Get the transaction ID that deleted this page
+    delete_xid = GinPageGetDeleteXid(page);
+
+    // Invalid transaction IDs mean page is recyclable
+    if (!TransactionIdIsValid(delete_xid))
+        return true;
+
+    // Check if delete transaction is visible to all active transactions
+    // If no backend could still see delete_xid as running, page is safe to recycle
+    return GlobalVisCheckRemovableXid(NULL, delete_xid);
+}
+```

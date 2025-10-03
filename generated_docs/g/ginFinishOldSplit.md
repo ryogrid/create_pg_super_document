@@ -44,3 +44,28 @@ This design prevents deadlocks and race conditions that could occur during concu
 
 ## Notes and Other Information
 The function includes debug logging to track incomplete split resolution. The lock upgrade mechanism is designed specifically for insert operations where VACUUM is prevented from running concurrently by holding a cleanup lock on the root. This approach would not be safe during scan operations where concurrent VACUUM could delete pages. The injection point allows testing of incomplete split handling scenarios.
+
+## Simplified Source
+
+```c
+static void ginFinishOldSplit(GinBtree btree, GinBtreeStack *stack,
+                             GinStatsData *buildStats, int access) {
+    // Log the incomplete split being handled
+    elog(DEBUG1, "finishing incomplete split of block %u in gin index \"%s\"",
+         stack->blkno, RelationGetRelationName(btree->index));
+
+    // If we only have shared lock, upgrade to exclusive
+    if (access == GIN_SHARE) {
+        LockBuffer(stack->buffer, GIN_UNLOCK);
+        LockBuffer(stack->buffer, GIN_EXCLUSIVE);
+
+        // Check if someone else completed the split while we upgraded locks
+        if (!GinPageIsIncompleteSplit(BufferGetPage(stack->buffer))) {
+            return; // Split already completed, nothing to do
+        }
+    }
+
+    // Complete the actual split operation
+    ginFinishSplit(btree, stack, false, buildStats);
+}
+```

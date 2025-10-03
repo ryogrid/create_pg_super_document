@@ -40,3 +40,62 @@ The function handles different SQL operations by mapping them to specific SPI re
 - Uses EXEC_FLAG_SKIP_TRIGGERS flag when fire_triggers is false
 - Updates _SPI_current->processed with the number of tuples processed
 - Performs consistency checks on tuple counts for SELECT and RETURNING queries
+
+## Simplified Source
+
+```c
+static int _SPI_pquery(QueryDesc *queryDesc, bool fire_triggers, uint64 tcount) {
+    int operation = queryDesc->operation;
+    int result_code;
+
+    // Determine result code based on operation type
+    switch (operation) {
+        case CMD_SELECT:
+            result_code = (queryDesc->dest->mydest == DestNone) ?
+                         SPI_OK_UTILITY : SPI_OK_SELECT;
+            break;
+        case CMD_INSERT:
+            result_code = queryDesc->plannedstmt->hasReturning ?
+                         SPI_OK_INSERT_RETURNING : SPI_OK_INSERT;
+            break;
+        case CMD_DELETE:
+            result_code = queryDesc->plannedstmt->hasReturning ?
+                         SPI_OK_DELETE_RETURNING : SPI_OK_DELETE;
+            break;
+        case CMD_UPDATE:
+            result_code = queryDesc->plannedstmt->hasReturning ?
+                         SPI_OK_UPDATE_RETURNING : SPI_OK_UPDATE;
+            break;
+        case CMD_MERGE:
+            result_code = queryDesc->plannedstmt->hasReturning ?
+                         SPI_OK_MERGE_RETURNING : SPI_OK_MERGE;
+            break;
+        default:
+            return SPI_ERROR_OPUNKNOWN;
+    }
+
+    // Set execution flags based on trigger preference
+    int exec_flags = fire_triggers ? 0 : EXEC_FLAG_SKIP_TRIGGERS;
+
+    // Execute the query
+    ExecutorStart(queryDesc, exec_flags);
+    ExecutorRun(queryDesc, ForwardScanDirection, tcount, true);
+
+    // Record processed tuple count
+    _SPI_current->processed = queryDesc->estate->es_processed;
+
+    // Verify tuple consistency for SELECT and RETURNING queries
+    if ((result_code == SPI_OK_SELECT || queryDesc->plannedstmt->hasReturning) &&
+        queryDesc->dest->mydest == DestSPI) {
+        if (_SPI_checktuples()) {
+            elog(ERROR, "consistency check on SPI tuple count failed");
+        }
+    }
+
+    // Complete execution
+    ExecutorFinish(queryDesc);
+    ExecutorEnd(queryDesc);
+
+    return result_code;
+}
+```

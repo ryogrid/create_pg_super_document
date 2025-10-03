@@ -50,3 +50,36 @@ The function may execute multiple tree scans because items might need to be inse
 - The function is essential for both regular insertions and posting tree creation
 - Build statistics are updated internally by the called functions when buildStats is provided
 - The function handles the complexity of posting tree insertion, including potential page splits and tree structure changes
+
+## Simplified Source
+
+```c
+void
+ginInsertItemPointers(Relation index, BlockNumber rootBlkno,
+                      ItemPointerData *items, uint32 nitem,
+                      GinStatsData *buildStats)
+{
+    GinBtreeData btree;
+    GinBtreeDataLeafInsertData insertdata;
+    GinBtreeStack *stack;
+
+    // Set up posting tree for insertion operations
+    ginPrepareDataScan(&btree, index, rootBlkno);
+    btree.isBuild = (buildStats != NULL);
+
+    // Initialize insertion data structure
+    insertdata.items = items;
+    insertdata.nitem = nitem;
+    insertdata.curitem = 0;
+
+    // Process all items in batches (may require multiple tree scans)
+    while (insertdata.curitem < insertdata.nitem) {
+        // Find the leaf page for the current item
+        btree.itemptr = insertdata.items[insertdata.curitem];
+        stack = ginFindLeafPage(&btree, false, true);
+
+        // Insert items starting from current position
+        ginInsertValue(&btree, stack, &insertdata, buildStats);
+    }
+}
+```

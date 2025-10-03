@@ -53,3 +53,40 @@ The function also handles null values by calling  to determine the specific type
 - The  parameter is always set, either to a specific null category or to  for regular values
 - This is a fundamental utility function used throughout GIN operations for key extraction and comparison
 - The function ensures type safety by using the correct tuple descriptor for the specific column being processed
+
+## Simplified Source
+
+```c
+// Simplified version of gintuple_get_key
+Datum
+gintuple_get_key(GinState *ginstate, IndexTuple tuple,
+                 GinNullCategory *category)
+{
+    Datum res;
+    bool isnull;
+
+    if (ginstate->oneCol)
+    {
+        // Single column: key is first attribute
+        res = index_getattr(tuple, FirstOffsetNumber, ginstate->origTupdesc,
+                           &isnull);
+    }
+    else
+    {
+        // Multi-column: get column number, then extract key from second attribute
+        OffsetNumber colN = gintuple_get_attrnum(ginstate, tuple);
+
+        res = index_getattr(tuple, OffsetNumberNext(FirstOffsetNumber),
+                           ginstate->tupdesc[colN - 1],
+                           &isnull);
+    }
+
+    // Set appropriate null category
+    if (isnull)
+        *category = GinGetNullCategory(tuple, ginstate);
+    else
+        *category = GIN_CAT_NORM_KEY;
+
+    return res;
+}
+```
