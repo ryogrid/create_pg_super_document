@@ -22,6 +22,9 @@ defaults:
   - scope:
       path: ""
 
+include:
+  - _*.md
+
 # Optional: Site metadata
 # When source is ./generated_docs, site.title and site.description are still read from this root config
 # and can be used inside layouts.
